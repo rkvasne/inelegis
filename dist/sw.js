@@ -1,35 +1,53 @@
+// Service Worker - Ineleg-App v0.0.2
+// Sistema de Consulta de Inelegibilidade Eleitoral
+
 const CACHE_NAME = 'ineleg-app-v0.0.2';
-const ASSETS = [
-  './',
-  './index.html',
-  './styles.css',
-  './script.js',
-  './data.js',
-  './js/utils.js',
-  './js/parser.js',
-  './js/search.js',
-  './js/ui.js',
-  './js/config.js',
-  './icons/apple-touch-icon.png',
-  './manifest.json'
+const urlsToCache = [
+  '/',
+  '/index.html',
+  '/consulta.html',
+  '/sobre.html',
+  '/styles-compact.css',
+  '/script.js',
+  '/data.js',
+  '/manifest.json',
+  '/icons/icon-192.png',
+  '/icons/icon-512.png'
 ];
 
-self.addEventListener('install', (event) => {
+self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS))
+    caches.open(CACHE_NAME)
+      .then(cache => {
+        console.log('Cache aberto');
+        return cache.addAll(urlsToCache);
+      })
   );
 });
 
-self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k)))
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request)
+      .then(response => {
+        if (response) {
+          return response;
+        }
+        return fetch(event.request);
+      }
     )
   );
 });
 
-self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request).then((cached) => cached || fetch(event.request))
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cacheName => {
+          if (cacheName !== CACHE_NAME) {
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    })
   );
 });

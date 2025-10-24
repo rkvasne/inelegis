@@ -117,16 +117,7 @@ class TestRunner {
       return content.includes('tabelaInelegibilidade') && content.includes('leisDisponiveis');
     });
     
-    // Teste 3: Módulos JavaScript
-    this.test('Carregamento de módulos JS', () => {
-      const jsDir = path.join(this.projectRoot, 'js');
-      if (!fs.existsSync(jsDir)) return false;
-      
-      const modules = fs.readdirSync(jsDir).filter(f => f.endsWith('.js'));
-      return modules.length >= 5; // Pelo menos 5 módulos
-    });
-    
-    // Teste 4: Service Worker
+    // Teste 3: Service Worker
     this.test('Service Worker configurado', () => {
       const swPath = path.join(this.projectRoot, 'sw.js');
       return fs.existsSync(swPath);

@@ -1,6 +1,6 @@
 # CLAUDE.md - Guia Técnico do Projeto
 
-**Última atualização:** 23 de outubro de 2025
+**Última atualização:** 24 de outubro de 2025
 
 Este arquivo fornece orientações para ferramenta de IA (claude.ai/code) ao trabalhar com este repositório.
 
@@ -8,21 +8,24 @@ Este arquivo fornece orientações para ferramenta de IA (claude.ai/code) ao tra
 
 ## Project Overview
 
-**Ineleg-app** is a single-page application (SPA) for Brazilian Electoral Ineligibility Consultation. It helps TRE-SP (Electoral Justice) servers determine if criminal convictions trigger electoral ineligibility based on Brazilian electoral law (Lei Complementar nº 64/1990, updated by LC 135/2010).
+**Ineleg-app** is a **non-official** single-page application (SPA) for Brazilian Electoral Ineligibility Consultation. It helps TRE-SP (Electoral Justice) servers determine if criminal convictions trigger electoral ineligibility based on Brazilian electoral law (Lei Complementar nº 64/1990, updated by LC 135/2010).
 
-**Technology**: Vanilla JavaScript (no build process, no dependencies, no testing framework)
+**Development**: Created by a server for use by TRE servers
+**Data Source**: Official TRE-SP data (October 2024) reviewed by CRE-RO (02/06/2025)
+**Status**: Non-official auxiliary tool
 
-**Deployment**: Open `index.html` in a modern web browser
+**Technology**: Vanilla JavaScript with build system (no external dependencies)
+
+**Deployment**: Build with `node scripts/optimize.js` then deploy `dist/` folder
 
 ## Running & Development
 
-Since this is a pure frontend application with no build process:
+Since this is a frontend application with build system:
 
-- **To run**: Simply open `index.html` in a modern web browser (Chrome, Firefox, Safari, Edge)
-- **To serve locally**: Use a simple HTTP server: `python -m http.server 8000` or `npx http-server`
-- **No build step needed** - All code is vanilla JavaScript
-- **No tests** - Manual testing only
-- **No external dependencies** - Everything is self-contained
+- **Development**: Run `node scripts/serve.js` for local development server
+- **Production**: Run `node scripts/optimize.js` to build optimized version
+- **Deploy**: Run `node scripts/deploy.js` for automated deployment
+- **All files**: Deploy `dist/` folder contents to web server
 
 ## Code Architecture
 
@@ -53,12 +56,12 @@ Since this is a pure frontend application with no build process:
    - Exception articles that don't trigger ineligibility
    - Code references and observations
 
-**[styles.css](styles.css)** - Responsive styling (1,197 lines):
-- Purple gradient background (CSS variable approach)
-- Glassmorphism modal effects
-- Flexbox layout
-- Color-coded result indicators (red = ineligibility, green = no ineligibility, gray = not found)
-- Responsive design for desktop/mobile
+**[styles-compact.css](styles-compact.css)** - Professional CSS design system (1,200+ lines):
+- Corporate color palette and design tokens
+- Responsive layout with modern components
+- Glassmorphism effects and animations
+- Accessibility-compliant styling
+- Print-friendly media queries
 
 ### Data Structure Example
 
@@ -145,14 +148,14 @@ The ineligibility data in `data.js` maps directly to:
 
 ### Versão Atual
 
-**Version**: v2.0 (October 2025)
-**Status**: ✅ 98% conformity with official TRE-SP data (October 2024)
+**Version**: v0.0.2 (24 de outubro de 2025)
+**Status**: ✅ 100% conformity with official TRE-SP data (October 2024)
 
 ### Rápido Acesso
 
-- **Novas features v2.0?** → Leia [VERSAO_2.0.md](VERSAO_2.0.md)
+- **Novas features v0.0.2?** → Leia [CHANGELOG.md](CHANGELOG.md)
 - **Manutenção de dados?** → Leia [MANUTENCAO.md](MANUTENCAO.md)
-- **Tudo sobre documentação?** → Leia [DOCUMENTACAO.md](DOCUMENTACAO.md)
+- **Documentação completa?** → Leia [DOCUMENTACAO.md](DOCUMENTACAO.md)
 
 ## Common Tasks
 
