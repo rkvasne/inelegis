@@ -1432,3 +1432,30 @@ footer p {
     opacity: 0.5;
 }
 
+/* Theme utility palette (fallback in case Tailwind config is unavailable) */
+.text-primary { color: #ef476f !important; }
+.bg-primary { background-color: #ef476f !important; }
+.border-primary { border-color: #ef476f !important; }
+.text-secondary { color: #ffd166 !important; }
+.bg-secondary { background-color: #ffd166 !important; }
+.border-secondary { border-color: #ffd166 !important; }
+.text-accent { color: #06d6a0 !important; }
+.bg-accent { background-color: #06d6a0 !important; }
+.border-accent { border-color: #06d6a0 !important; }
+.text-info { color: #3b82f6 !important; }
+.bg-info { background-color: #3b82f6 !important; }
+.border-info { border-color: #3b82f6 !important; }
+.text-success { color: #22c55e !important; }
+.bg-success { background-color: #22c55e !important; }
+.border-success { border-color: #22c55e !important; }
+.text-warning { color: #f59e0b !important; }
+.bg-warning { background-color: #f59e0b !important; }
+.border-warning { border-color: #f59e0b !important; }
+.text-danger { color: #ef4444 !important; }
+.bg-danger { background-color: #ef4444 !important; }
+.border-danger { border-color: #ef4444 !important; }
+/* Modal status bar */
+.modal-status-bar { height: 6px; border-radius: 6px; margin-bottom: 8px; }
+.modal-status-bar.inelegivel { background-color: #ef4444; }
+.modal-status-bar.elegivel { background-color: #22c55e; }
+.modal-status-bar.nao-encontrado { background-color: #f59e0b; }
