@@ -1133,7 +1133,7 @@ code {
 }
 
 .footer-link {
-  font-size: 0.875rem;
+  font-size: 13px; /* Alterado para 13px conforme solicitado */
   color: var(--text-secondary);
   text-decoration: none;
   transition: var(--transition-fast);
