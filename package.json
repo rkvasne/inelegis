@@ -1,0 +1,54 @@
+{
+  "name": "ineleg-app",
+  "version": "0.0.2",
+  "description": "Sistema de Consulta de Inelegibilidade Eleitoral",
+  "main": "index.html",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "lint": "node scripts/lint.js",
+    "lint:fix": "node scripts/lint.js --fix",
+    "test": "node scripts/test.js",
+    "validate": "node scripts/verify-data.js",
+    "backup": "node scripts/backup-data.js create",
+    "serve": "node scripts/serve.js",
+    "dev": "npm run serve",
+    "check": "npm run lint && npm run validate && npm run test",
+    "optimize": "node scripts/optimize.js",
+    "deploy": "node scripts/deploy.js",
+    "deploy:prod": "NODE_ENV=production npm run deploy",
+    "start": "npm run serve",
+    "prebuild": "npm run check",
+    "preoptimize": "npm run build",
+    "predeploy": "npm run optimize",
+    "clean": "rimraf dist dist-optimized deploy",
+    "clean:all": "npm run clean && rimraf node_modules package-lock.json",
+    "reinstall": "npm run clean:all && npm install",
+    "update-deps": "npm update && npm audit fix",
+    "size": "node -e \"const fs=require('fs'); const path=require('path'); const getSize=d=>fs.readdirSync(d).reduce((s,f)=>{const p=path.join(d,f); return s+(fs.statSync(p).isDirectory()?getSize(p):fs.statSync(p).size)},0); console.log('Tamanho do projeto:', Math.round(getSize('.')/1024)+'KB');\""
+  },
+  "keywords": [
+    "justiça-eleitoral",
+    "inelegibilidade",
+    "tre",
+    "sistema-juridico",
+    "pwa"
+  ],
+  "author": "Justiça Eleitoral",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "prettier": "^3.0.0",
+    "html-validate": "^8.0.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rkvasne/ineleg-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rkvasne/ineleg-app/issues"
+  },
+  "homepage": "https://github.com/rkvasne/ineleg-app#readme"
+}

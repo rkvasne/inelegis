@@ -1,0 +1,10 @@
+{
+  "timestamp": "2025-10-24T04:10:11.750Z",
+  "version": "0.0.2",
+  "optimization": {
+    "originalSize": 127383,
+    "optimizedSize": 85500,
+    "savings": "32.9",
+    "outputDir": "E:\\Ineleg\\ineleg-app\\dist-optimized"
+  }
+}

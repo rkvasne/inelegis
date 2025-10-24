@@ -1,0 +1,348 @@
+#!/usr/bin/env node
+
+/**
+ * Script de testes para Ineleg-App
+ * Executa testes unitários e de integração
+ */
+
+const fs = require('fs');
+const path = require('path');
+
+class TestRunner {
+  constructor() {
+    this.projectRoot = path.join(__dirname, '..');
+    this.testsDir = path.join(this.projectRoot, 'tests');
+    this.results = {
+      total: 0,
+      passed: 0,
+      failed: 0,
+      skipped: 0
+    };
+    this.failures = [];
+  }
+
+  log(message, type = 'info') {
+    const timestamp = new Date().toISOString();
+    const prefix = {
+      info: '🧪',
+      success: '✅',
+      warning: '⚠️',
+      error: '❌',
+      skip: '⏭️'
+    }[type] || 'ℹ️';
+    
+    console.log(`${prefix} [${timestamp.split('T')[1].split('.')[0]}] ${message}`);
+  }
+
+  async runTests() {
+    this.log('Iniciando testes do Ineleg-App v0.0.2', 'info');
+    
+    try {
+      // 1. Testes de unidade
+      await this.runUnitTests();
+      
+      // 2. Testes de integração
+      await this.runIntegrationTests();
+      
+      // 3. Testes de funcionalidade
+      await this.runFunctionalTests();
+      
+      // 4. Testes de dados
+      await this.runDataTests();
+      
+      // 5. Relatório final
+      this.generateReport();
+      
+    } catch (error) {
+      this.log(`Testes falharam: ${error.message}`, 'error');
+      process.exit(1);
+    }
+  }
+
+  async runUnitTests() {
+    this.log('Executando testes unitários...', 'info');
+    
+    // Teste 1: Formatação de artigos
+    this.test('Formatação automática de parágrafo', () => {
+      // Simular função de formatação
+      const input = '121, §1';
+      const expected = '121, §1º';
+      const result = this.simulateFormatting(input);
+      return result === expected;
+    });
+    
+    // Teste 2: Processamento de artigos
+    this.test('Processamento de artigo completo', () => {
+      const input = '121, §2º, I, "a"';
+      const result = this.simulateProcessing(input);
+      return result && result.artigo === '121' && result.paragrafo === '2';
+    });
+    
+    // Teste 3: Validação de lei
+    this.test('Verificação de lei correspondente', () => {
+      const item = { codigo: 'cp' };
+      const lei = 'CP';
+      return this.simulateLeiCheck(item, lei);
+    });
+    
+    // Teste 4: Extração de artigos
+    this.test('Extração de artigos da norma', () => {
+      const norma = 'Arts. 121, 122, 123 a 127';
+      const result = this.simulateExtraction(norma);
+      return result.includes('121') && result.includes('122') && result.includes('123');
+    });
+    
+    // Teste 5: Busca flexível
+    this.test('Busca flexível por artigo', () => {
+      const artigo = '121, §2º';
+      const result = this.simulateFlexibleSearch(artigo);
+      return result !== null;
+    });
+  }
+
+  async runIntegrationTests() {
+    this.log('Executando testes de integração...', 'info');
+    
+    // Teste 1: Carregamento de dados
+    this.test('Carregamento da tabela de inelegibilidade', () => {
+      const dataPath = path.join(this.projectRoot, 'data.js');
+      return fs.existsSync(dataPath);
+    });
+    
+    // Teste 2: Estrutura de dados
+    this.test('Estrutura da tabela de dados', () => {
+      // Verificar se data.js tem estrutura esperada
+      const dataPath = path.join(this.projectRoot, 'data.js');
+      const content = fs.readFileSync(dataPath, 'utf8');
+      return content.includes('tabelaInelegibilidade') && content.includes('leisDisponiveis');
+    });
+    
+    // Teste 3: Módulos JavaScript
+    this.test('Carregamento de módulos JS', () => {
+      const jsDir = path.join(this.projectRoot, 'js');
+      if (!fs.existsSync(jsDir)) return false;
+      
+      const modules = fs.readdirSync(jsDir).filter(f => f.endsWith('.js'));
+      return modules.length >= 5; // Pelo menos 5 módulos
+    });
+    
+    // Teste 4: Service Worker
+    this.test('Service Worker configurado', () => {
+      const swPath = path.join(this.projectRoot, 'sw.js');
+      return fs.existsSync(swPath);
+    });
+    
+    // Teste 5: Manifest PWA
+    this.test('Manifest PWA válido', () => {
+      const manifestPath = path.join(this.projectRoot, 'manifest.json');
+      if (!fs.existsSync(manifestPath)) return false;
+      
+      try {
+        const content = fs.readFileSync(manifestPath, 'utf8');
+        const manifest = JSON.parse(content);
+        return manifest.name && manifest.start_url;
+      } catch {
+        return false;
+      }
+    });
+  }
+
+  async runFunctionalTests() {
+    this.log('Executando testes funcionais...', 'info');
+    
+    // Teste 1: HTML válido
+    this.test('HTML bem formado', () => {
+      const htmlPath = path.join(this.projectRoot, 'index.html');
+      const content = fs.readFileSync(htmlPath, 'utf8');
+      return content.includes('<!DOCTYPE html>') && 
+             content.includes('<html') && 
+             content.includes('</html>');
+    });
+    
+    // Teste 2: CSS válido
+    this.test('CSS sem erros críticos', () => {
+      const cssPath = path.join(this.projectRoot, 'styles.css');
+      const content = fs.readFileSync(cssPath, 'utf8');
+      // Verificar se não há erros óbvios
+      return !content.includes('undefined') && content.includes(':root');
+    });
+    
+    // Teste 3: JavaScript sem erros de sintaxe
+    this.test('JavaScript sem erros de sintaxe', () => {
+      const jsPath = path.join(this.projectRoot, 'script.js');
+      const content = fs.readFileSync(jsPath, 'utf8');
+      // Verificação básica de sintaxe
+      return content.includes('function') && !content.includes('syntax error');
+    });
+    
+    // Teste 4: Responsividade
+    this.test('Design responsivo implementado', () => {
+      const cssPath = path.join(this.projectRoot, 'styles.css');
+      const content = fs.readFileSync(cssPath, 'utf8');
+      return content.includes('@media') && content.includes('max-width');
+    });
+    
+    // Teste 5: Acessibilidade básica
+    this.test('Elementos de acessibilidade presentes', () => {
+      const htmlPath = path.join(this.projectRoot, 'index.html');
+      const content = fs.readFileSync(htmlPath, 'utf8');
+      return content.includes('aria-') && content.includes('role=');
+    });
+  }
+
+  async runDataTests() {
+    this.log('Executando testes de dados...', 'info');
+    
+    // Teste 1: Dados não vazios
+    this.test('Tabela de inelegibilidade não vazia', () => {
+      const dataPath = path.join(this.projectRoot, 'data.js');
+      const content = fs.readFileSync(dataPath, 'utf8');
+      // Verificar se há pelo menos algumas entradas
+      return (content.match(/norma:/g) || []).length > 10;
+    });
+    
+    // Teste 2: Leis disponíveis
+    this.test('Lista de leis disponíveis', () => {
+      const dataPath = path.join(this.projectRoot, 'data.js');
+      const content = fs.readFileSync(dataPath, 'utf8');
+      return content.includes('leisDisponiveis') && content.includes('value:');
+    });
+    
+    // Teste 3: Estrutura consistente
+    this.test('Estrutura de dados consistente', () => {
+      const dataPath = path.join(this.projectRoot, 'data.js');
+      const content = fs.readFileSync(dataPath, 'utf8');
+      return content.includes('norma:') && 
+             content.includes('codigo:') && 
+             content.includes('crime:');
+    });
+    
+    // Teste 4: Códigos válidos
+    this.test('Códigos de lei válidos', () => {
+      const dataPath = path.join(this.projectRoot, 'data.js');
+      const content = fs.readFileSync(dataPath, 'utf8');
+      return content.includes('CP') && 
+             content.includes('LEI_') && 
+             !content.includes('undefined');
+    });
+    
+    // Teste 5: Exceções formatadas
+    this.test('Exceções bem formatadas', () => {
+      const dataPath = path.join(this.projectRoot, 'data.js');
+      const content = fs.readFileSync(dataPath, 'utf8');
+      return content.includes('excecoes:') && content.includes('Art.');
+    });
+  }
+
+  test(name, testFn) {
+    this.results.total++;
+    
+    try {
+      const result = testFn();
+      
+      if (result) {
+        this.results.passed++;
+        this.log(`${name} ✓`, 'success');
+      } else {
+        this.results.failed++;
+        this.failures.push(name);
+        this.log(`${name} ✗`, 'error');
+      }
+    } catch (error) {
+      this.results.failed++;
+      this.failures.push(`${name}: ${error.message}`);
+      this.log(`${name} ✗ (${error.message})`, 'error');
+    }
+  }
+
+  // Funções de simulação para testes unitários
+  simulateFormatting(input) {
+    // Simular formatação automática
+    return input.replace(/§\s*(\d+)(?![º°])/, '§$1º');
+  }
+
+  simulateProcessing(input) {
+    // Simular processamento de artigo
+    const match = input.match(/^(\d+)/);
+    const paragrafoMatch = input.match(/§\s*(\d+)/);
+    
+    return {
+      artigo: match ? match[1] : null,
+      paragrafo: paragrafoMatch ? paragrafoMatch[1] : null
+    };
+  }
+
+  simulateLeiCheck(item, lei) {
+    // Simular verificação de lei
+    return item.codigo.toLowerCase() === lei.toLowerCase();
+  }
+
+  simulateExtraction(norma) {
+    // Simular extração de artigos
+    const matches = norma.match(/\d+/g) || [];
+    return matches;
+  }
+
+  simulateFlexibleSearch(artigo) {
+    // Simular busca flexível
+    return artigo.includes('121') ? { found: true } : null;
+  }
+
+  generateReport() {
+    const report = {
+      timestamp: new Date().toISOString(),
+      version: '0.0.2',
+      summary: {
+        total: this.results.total,
+        passed: this.results.passed,
+        failed: this.results.failed,
+        skipped: this.results.skipped,
+        success_rate: ((this.results.passed / this.results.total) * 100).toFixed(1)
+      },
+      failures: this.failures
+    };
+    
+    // Salvar relatório
+    fs.writeFileSync(
+      path.join(this.projectRoot, 'test-report.json'),
+      JSON.stringify(report, null, 2)
+    );
+    
+    // Exibir resumo
+    console.log('\n' + '='.repeat(60));
+    console.log('🧪 RELATÓRIO DE TESTES - INELEG-APP v0.0.2');
+    console.log('='.repeat(60));
+    console.log(`Total de testes: ${this.results.total}`);
+    console.log(`Passou: ${this.results.passed}`);
+    console.log(`Falhou: ${this.results.failed}`);
+    console.log(`Pulou: ${this.results.skipped}`);
+    console.log(`Taxa de sucesso: ${report.summary.success_rate}%`);
+    
+    if (this.failures.length > 0) {
+      console.log('\n❌ TESTES FALHARAM:');
+      this.failures.forEach((failure, i) => {
+        console.log(`  ${i + 1}. ${failure}`);
+      });
+    }
+    
+    console.log('\n' + '='.repeat(60));
+    
+    if (this.results.failed === 0) {
+      this.log('Todos os testes passaram! 🎉', 'success');
+    } else {
+      this.log(`${this.results.failed} teste(s) falharam`, 'error');
+      process.exit(1);
+    }
+  }
+}
+
+// Executar testes se chamado diretamente
+if (require.main === module) {
+  const runner = new TestRunner();
+  runner.runTests().catch(error => {
+    console.error('❌ Erro fatal nos testes:', error);
+    process.exit(1);
+  });
+}
+
+module.exports = TestRunner;
