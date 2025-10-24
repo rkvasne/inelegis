@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sobre · Ineleg-App</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            background: 'hsl(var(--background))',
+            foreground: 'hsl(var(--foreground))',
+            primary: '#ef476f',
+            secondary: '#ffd166',
+            accent: '#06d6a0',
+            info: '#3b82f6',
+            success: '#22c55e',
+            warning: '#f59e0b',
+            danger: '#ef4444'
+          },
+          borderRadius: { lg: 'var(--radius)' }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-[oklch(0.9809_0.0025_228.78)]">
+  <nav role="navigation" aria-label="Barra superior" class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 md:px-8 py-3 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-accent rounded">
+        <span class="font-bold text-primary">Ineleg-App</span>
+        <span class="text-slate-400">·</span>
+        <span class="text-secondary">Justiça Eleitoral</span>
+      </a>
+      <a href="DOCUMENTACAO.md" class="text-accent underline underline-offset-4 hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-accent rounded" target="_blank" rel="noopener noreferrer" aria-label="Abrir documentação em nova aba">📘 Documentação</a>
+    </div>
+  </nav>
+
+  <main class="max-w-7xl mx-auto px-4 md:px-8 py-6">
+    <h1 class="text-2xl font-bold text-primary">Sobre o Ineleg-App</h1>
+    <p class="text-slate-700 mt-2">Sistema web para consulta de inelegibilidade com foco em acessibilidade, padronização visual e fontes oficiais.</p>
+
+    <section class="bg-white rounded-2xl shadow p-5 mt-4" role="region" aria-labelledby="s-notas">
+      <h2 id="s-notas" class="text-lg font-semibold text-secondary">Notas principais</h2>
+      <ul class="list-disc pl-6 mt-2 text-slate-700">
+        <li>Nav fixa (sticky) com breadcrumb e link de documentação.</li>
+        <li>Tema “Candyland-like” aplicado via Tailwind (cores primárias/acento/status).</li>
+        <li>Legenda e Data de Ocorrência padronizadas com cartões, badges e ícones.</li>
+        <li>Foco/hover consistentes em inputs e botões.</li>
+        <li>Acentuação normalizada e ícones institucionais (⚠️/📌/ℹ️/✅).</li>
+      </ul>
+    </section>
+
+    <section class="bg-white rounded-2xl shadow p-5 mt-4" role="region" aria-labelledby="s-atalhos">
+      <h2 id="s-atalhos" class="text-lg font-semibold text-secondary">Atalhos de teclado</h2>
+      <ul class="list-disc pl-6 mt-2 text-slate-700">
+        <li><code>Alt+D</code> — Abrir documentação</li>
+        <li><code>Ctrl+L</code> — Focar select de leis</li>
+        <li><code>Ctrl+A</code> — Focar campo de artigo</li>
+        <li><code>Ctrl+Enter</code> — Buscar (quando habilitado)</li>
+        <li><code>F1</code> — Alternar Condenação/Extinção</li>
+      </ul>
+    </section>
+
+    <section class="bg-white rounded-2xl shadow p-5 mt-4" role="region" aria-labelledby="s-versao">
+      <h2 id="s-versao" class="text-lg font-semibold text-secondary">Versão</h2>
+      <p class="text-slate-700 mt-2">0.0.1 — Primeira versão pública com UI padronizada e melhorias de acessibilidade.</p>
+      <p class="text-slate-700">Consulte o <a class="text-accent underline underline-offset-4" href="CHANGELOG.md" target="_blank" rel="noopener">CHANGELOG</a> para detalhes.</p>
+    </section>
+
+    <footer class="mt-6 text-sm text-slate-500">
+      <p>Baseado na Tabela de Inelegibilidade - TRE-SP - Outubro 2024 (corrigida pela CRE-RO 02/06/2025)</p>
+    </footer>
+  </main>
+</body>
+</html>
