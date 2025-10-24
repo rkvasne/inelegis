@@ -18,6 +18,11 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 ## [Unreleased]
 
 ### 🎨 UI/UX
+- **Footer**:
+  - Redesign completo para estilo minimalista e compacto.
+  - Altura reduzida com espaçamento otimizado entre elementos.
+  - Tipografia ajustada: Fonte 15px para copyright e 13px para descrição e links.
+  - Alinhamento visual unificado entre Landing Page e páginas internas.
 - **Legenda de Resultados**:
   - Títulos ("INELEGÍVEL", "ELEGÍVEL", "NÃO ENCONTRADO") transformados em badges.
   - Badges agora ficam em linha separada da descrição.

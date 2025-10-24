@@ -1098,7 +1098,7 @@ code {
 .footer-content {
   display: flex;
   flex-direction: column;
-  gap: 2px; /* Reduzido de 4px para 2px */
+  gap: 6px; /* Ajustado para 6px para igualar ao Dahora */
   align-items: center;
   text-align: center;
 }
@@ -1106,15 +1106,17 @@ code {
 .footer-copy {
   font-size: 15px; /* Tamanho solicitado */
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--text-secondary); /* Alterado para ficar mais suave (antes era --text-primary) */
+  opacity: 0.8; /* Adicionado opacidade para suavizar ainda mais */
   margin: 0;
   line-height: 1.4;
 }
 
 .footer-description {
   font-size: 13px; /* Reduzido para 13px */
-  color: var(--text-secondary);
-  margin: 0 0 2px 0; /* Margem inferior reduzida para aproximar links */
+  color: var(--text-tertiary); /* Alterado para text-tertiary para ficar mais apagado */
+  opacity: 0.8; /* Adicionado opacidade */
+  margin: 0; /* Margem removida, controlado pelo gap */
 }
 
 .footer-links {
@@ -1130,17 +1132,20 @@ code {
   color: var(--text-muted);
   font-size: 0.875rem;
   user-select: none;
+  opacity: 0.5; /* Separador mais discreto */
 }
 
 .footer-link {
   font-size: 13px; /* Alterado para 13px conforme solicitado */
-  color: var(--text-secondary);
+  color: var(--text-tertiary); /* Alterado para text-tertiary */
   text-decoration: none;
   transition: var(--transition-fast);
+  opacity: 0.8; /* Link com opacidade padrão */
 }
 
 .footer-link:hover {
   color: var(--primary-600);
+  opacity: 1; /* Fica totalmente visível ao passar o mouse */
 }
 
 .footer-link[target="_blank"]::after {
