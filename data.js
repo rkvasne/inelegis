@@ -167,7 +167,7 @@ const leisDisponiveis = [
     }
 ];
 
-// Dados estruturados da Tabela de Inelegibilidade - TRE-SP - Outubro 2024
+// Dados estruturados da Tabela de Inelegibilidade (fonte pública)
 const tabelaInelegibilidade = [
     // CÓDIGO PENAL (Decreto-Lei 2.848/40)
     {
@@ -264,7 +264,7 @@ const tabelaInelegibilidade = [
     },
     {
         norma: "Arts. 240 a 254, 257 a 267",
-        excecoes: ["Arts. 262, 263, 264 e 265 quando combinados com o art. 266"],
+        excecoes: ["Arts. 262, 263, 264 e 265 quando combinados com o art. 266 (crimes culposos)"],
         crime: "Crimes contra o patrimônio (1 e 2)",
         codigo: "CPM"
     },

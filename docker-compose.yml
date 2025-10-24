@@ -1,0 +1,24 @@
+# Docker Compose - Ineleg-App v0.0.2
+version: '3.8'
+
+services:
+  ineleg-app:
+    build: .
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./dist:/usr/share/nginx/html:ro
+    restart: unless-stopped
+    environment:
+      - NGINX_HOST=localhost
+      - NGINX_PORT=80
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.ineleg-app.rule=Host(`ineleg-app.tre-sp.jus.br`)"
+      - "traefik.http.routers.ineleg-app.tls=true"
+      - "traefik.http.routers.ineleg-app.tls.certresolver=letsencrypt"
+
+networks:
+  default:
+    name: ineleg-app-network

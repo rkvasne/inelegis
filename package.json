@@ -27,13 +27,11 @@
     "size": "node -e \"const fs=require('fs'); const path=require('path'); const getSize=d=>fs.readdirSync(d).reduce((s,f)=>{const p=path.join(d,f); return s+(fs.statSync(p).isDirectory()?getSize(p):fs.statSync(p).size)},0); console.log('Tamanho do projeto:', Math.round(getSize('.')/1024)+'KB');\""
   },
   "keywords": [
-    "justiça-eleitoral",
     "inelegibilidade",
-    "tre",
     "sistema-juridico",
     "pwa"
   ],
-  "author": "Justiça Eleitoral",
+  "author": "Ineleg-App",
   "license": "MIT",
   "devDependencies": {
     "eslint": "^8.0.0",

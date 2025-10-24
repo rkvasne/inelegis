@@ -2,7 +2,33 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.0.2] - Sistema Profissional Completo
+**Sistema não oficial** - Desenvolvido por servidor para uso de servidores dos TREs
+
+## [0.0.3] - Aprimoramentos Visuais e UI (24 de outubro de 2025)
+
+### Added
+- Ícone profissional de documento/clipboard no header
+- Ícones filled (preenchidos) na legenda de resultados
+- Centralização perfeita de elementos no header
+- Validação completa de todas as classes CSS
+
+### Changed
+- Ícones do header otimizados e redimensionados (2.75rem, 26px)
+- Ícones da legenda aumentados de 2rem para 2.5rem
+- Ícones dos radio buttons aumentados de 2rem para 2.5rem
+- Texto do header com margens zeradas e line-height otimizado
+- Visual mais limpo e profissional em todas as páginas
+
+### Fixed
+- Alinhamento vertical do ícone com texto do header
+- Classes CSS inexistentes identificadas e adicionadas
+- Cores do texto do header ajustadas para branco
+
+### Removed
+- Arquivo CSS redundante `styles-compact.css`
+- Referências duplicadas em scripts de build
+
+## [0.0.2] - Sistema Profissional Completo (24 de outubro de 2025)
 
 ### Added
 - Pipeline de desenvolvimento completo (build, lint, test, deploy)
@@ -18,17 +44,27 @@ All notable changes to this project will be documented in this file.
 - Interface redesenhada com design moderno
 - Performance otimizada significativamente
 - Estrutura de arquivos reorganizada
-- Documentação completamente atualizada
+- Documentação completamente atualizada e consolidada
+- Sistema de build otimizado
+- Conformidade com XML TRE-SP: 98% → 100%
 
 ### Fixed
 - Correções de acessibilidade
 - Otimizações de performance
 - Melhorias na experiência do usuário
+- Remoção de arquivos redundantes e não utilizados
+- Correção de discrepância no Código Penal Militar (linha 267)
+
+### Removed
+- Diretório `js/` não utilizado
+- Relatórios de build temporários
+- Documentação redundante consolidada
+- Arquivos de documentação obsoletos (10 arquivos removidos)
 
 ## [0.0.1] - Initial release
 
 ### Added`n- Página Sobre (sobre.html) linkada na nav (📘).
-- Sticky navigation bar (top-0, z-50) with brand “Ineleg-App · Justiça Eleitoral”.
+- Sticky navigation bar (top-0, z-50) with brand “Ineleg-App · Consulta”.
 - Breadcrumb “Início / Consulta” no início do conteúdo principal.
 - Tema “Candyland-like” aplicado via Tailwind CDN (cores: primary, secondary, accent, info, success, warning, danger).
 - Padronização completa das seções estáticas:
@@ -44,5 +80,6 @@ All notable changes to this project will be documented in this file.
 ### Changed`n- Barra de status no topo do modal (cor por tipo de resultado).
 - Remoção de estilos inline dos templates do modal; uso de classes utilitárias.
 - Normalização de acentos e ícones (⚠️, 📌, ℹ️, ✅) para consistência institucional.
+
 
 

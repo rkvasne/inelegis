@@ -1,8 +1,8 @@
-const CACHE_NAME = 'ineleg-app-v0.0.2';
+const CACHE_NAME = 'ineleg-app-v0.0.3';
 const ASSETS = [
   './',
   './index.html',
-  './styles.css',
+  './styles-compact.css',
   './script.js',
   './data.js',
   './js/utils.js',

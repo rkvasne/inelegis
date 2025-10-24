@@ -1,7 +1,7 @@
 {
-  "name": "Sistema de Consulta de Inelegibilidade",
+  "name": "Sistema Não Oficial de Consulta de Inelegibilidade",
   "short_name": "Ineleg-App",
-  "description": "Sistema para consulta de inelegibilidade baseado na legislação eleitoral brasileira",
+  "description": "Sistema não oficial desenvolvido por servidor para uso de servidores dos TREs. Consulta de inelegibilidade baseado na legislação eleitoral brasileira",
   "start_url": "./",
   "display": "standalone",
   "orientation": "portrait-primary",

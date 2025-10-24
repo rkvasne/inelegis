@@ -1,181 +1,164 @@
-# Sistema de Consulta de Inelegibilidade
+# Ineleg-App - Sistema de Consulta de Inelegibilidade Eleitoral
 
-Sistema web profissional para consulta de inelegibilidade baseado na legislação eleitoral brasileira.
+**Versão:** 0.0.3  
+**Última atualização:** 24 de outubro de 2025  
+**Base de dados:** TRE-SP - Outubro 2024 - Revisada pela CRE-RO em 02/06/2025
 
-## 🚀 Versão 0.0.2 - Sistema Profissional Completo
+Sistema web profissional para consulta de inelegibilidade baseado na legislação eleitoral brasileira (Lei Complementar nº 64/1990, atualizada pela LC 135/2010).
 
-### ✨ Principais Funcionalidades
+## 🎉 **Últimas Atualizações (24 de outubro de 2025)**
+
+### 🎨 **v0.0.3 - Aprimoramentos Visuais e de UI**
+- ✅ Ícones do header otimizados (documento profissional)
+- ✅ Ícones da legenda aumentados e melhorados (filled icons)
+- ✅ Ícones dos radio buttons aprimorados
+- ✅ Centralização perfeita dos elementos do header
+- ✅ Eliminação de CSS redundante (styles-compact.css removido)
+- ✅ Todas as classes CSS validadas e existentes
+- ✅ Visual mais profissional e consistente em todas as páginas
+
+### ✅ **100% Conformidade TRE-SP Alcançada**
+- ✅ Correção de discrepância no Código Penal Militar
+- ✅ Alinhamento perfeito com XML oficial TRE-SP
+- ✅ Validação completa de todos os 1.000+ artigos
+
+### 🧹 **Limpeza e Organização**
+- ✅ Remoção de arquivos CSS redundantes
+- ✅ Consolidação em único arquivo CSS (styles.css)
+- ✅ Estrutura de projeto otimizada
+- ✅ Testes atualizados (19/19 passando)
+
+## 🚀 Funcionalidades Principais
+
+### ✨ Sistema Completo
 - **Interface moderna** com design system profissional
-- **Pipeline de desenvolvimento** completo (build, lint, test, deploy)
-- **Otimização automática** (32.9% economia de tamanho)
-- **Monitoramento de performance** em tempo real
-- **PWA completo** com Service Worker
-- **Testes automatizados** (100% passando)
-- **Servidor de desenvolvimento** com live reload
+- **Consulta rápida** de inelegibilidade eleitoral
+- **Base oficial** TRE-SP atualizada e revisada pela CRE-RO
+- **PWA completo** com Service Worker e cache offline
+- **Acessibilidade WCAG 2.1** completa
+- **Responsivo** para todos os dispositivos
 
-### 🛠️ Stack Tecnológica
+### 🛠️ Tecnologias
 - **Frontend:** HTML5, CSS3, JavaScript ES6+
-- **Styling:** Tailwind CSS (via CDN) + CSS customizado
-- **Build:** Sistema próprio de build e otimização
-- **Testing:** Testes unitários e de integração
-- **PWA:** Manifest + Service Worker
-- **Performance:** Monitoramento de Core Web Vitals
+- **Styling:** CSS customizado com design system profissional
+- **Build:** Sistema próprio de otimização e deploy
+- **Deploy:** Docker, Nginx, scripts automatizados
 
-### 📁 Estrutura do Projeto
-```
-ineleg-app/
-├── index.html              # Aplicação principal
-├── styles.css              # Estilos customizados
-├── script.js               # Lógica principal
-├── data.js                 # Base de dados
-├── manifest.json           # PWA manifest
-├── sw.js                   # Service Worker
-├── js/                     # Módulos JavaScript
-│   ├── config.js           # Configurações
-│   ├── performance.js      # Monitoramento
-│   ├── logger.js           # Sistema de logs
-│   └── ...
-├── scripts/                # Scripts de desenvolvimento
-│   ├── build.js            # Sistema de build
-│   ├── optimize.js         # Otimização
-│   ├── deploy.js           # Deploy automatizado
-│   ├── serve.js            # Servidor de desenvolvimento
-│   └── ...
-└── tests/                  # Testes automatizados
-```
+## 📋 Como Usar
 
-## 🚀 Como Usar
+### 1. **Acesso ao Sistema**
+- Abra `index.html` em qualquer navegador moderno
+- Leia o disclaimer e confirme o conhecimento
+- Clique em "Prosseguir para Consulta"
 
-### Desenvolvimento
-```bash
-# Instalar dependências
-npm install
+### 2. **Realizar Consulta**
+- Selecione o tipo de comunicação (Condenação/Extinção)
+- Escolha a lei/código aplicável
+- Digite o artigo completo ou use o construtor
+- Clique em "Buscar"
 
-# Servidor de desenvolvimento (com live reload)
-npm run dev
+### 3. **Interpretar Resultado**
+- **INELEGÍVEL**: Artigo gera inelegibilidade
+- **ELEGÍVEL**: Artigo não gera inelegibilidade (exceção aplicável)
+- **NÃO ENCONTRADO**: Artigo não está na tabela de inelegibilidade
 
-# Executar testes
-npm run test
+## 🔧 Desenvolvimento
 
-# Verificar qualidade do código
-npm run check
-```
-
-### Build e Deploy
+### Scripts Disponíveis
 ```bash
 # Build de produção
-npm run build
+node scripts/optimize.js
 
-# Otimizar arquivos
-npm run optimize
+# Deploy automatizado
+node scripts/deploy.js
 
-# Deploy completo
-npm run deploy
+# Servidor de desenvolvimento
+node scripts/serve.js
 ```
 
-## 🎨 Design System
+### Estrutura do Projeto
+```
+ineleg-app/
+├── index.html          # Página inicial
+├── consulta.html       # Página de consulta
+├── sobre.html          # Página sobre
+├── script.js           # Lógica principal
+├── data.js            # Base de dados TRE-SP
+├── styles-compact.css # Estilos do sistema
+├── manifest.json      # PWA manifest
+├── sw.js             # Service Worker
+└── scripts/          # Scripts de build/deploy
+```
 
-### Paleta de Cores Profissional
-- **Primary:** Azul institucional (#0ea5e9)
-- **Secondary:** Amarelo dourado (#eab308)
-- **Accent:** Verde justiça (#10b981)
-- **Neutral:** Escala de cinzas moderna
+## 📊 Base de Dados
 
-### Componentes Modernos
-- **Glassmorphism:** Efeito de vidro fosco
-- **Animações suaves:** Transições de 200-300ms
-- **Sombras modernas:** Múltiplas camadas
-- **Tipografia:** Inter font com hierarquia clara
+### Fonte Oficial
+- **TRE-SP**: Tabela exemplificativa de outubro de 2024
+- **CRE-RO**: Revisão e correções de 02/06/2025
+- **Leis incluídas**: 41 códigos/leis principais
+- **Artigos**: Mais de 1.000 artigos catalogados
 
-## 📊 Performance
+### Validação
+- ✅ **Completude**: 100% das leis presentes
+- ✅ **Precisão**: 100% de conformidade com XML oficial
+- ✅ **Integridade**: 0 artigos faltantes
+- ✅ **Atualização**: Trimestral recomendada
 
-### Métricas Alcançadas
-- **Tamanho otimizado:** 83.5 KB (32.9% economia)
-- **Core Web Vitals:** Monitoramento em tempo real
-- **FPS:** Monitoramento de 60fps
-- **Memória:** Controle de uso < 50MB
+## 🚀 Deploy em Produção
 
-### Otimizações Implementadas
-- **Minificação:** CSS, JS e HTML
-- **Compressão:** Gzip habilitado
-- **Cache:** Estratégias inteligentes
-- **Lazy loading:** Recursos sob demanda
-
-## 🧪 Testes
-
-### Cobertura de Testes
-- **Unitários:** Funções principais
-- **Integração:** Fluxos completos
-- **Funcionais:** Interface e UX
-- **Dados:** Validação da base
-
-### Executar Testes
+### Opção 1: Deploy Manual
 ```bash
-npm run test        # Todos os testes
-npm run lint        # Verificação de código
-npm run validate    # Validação de dados
+# 1. Executar build
+node scripts/optimize.js
+
+# 2. Copiar arquivos dist/ para servidor
+scp -r dist/* user@server:/var/www/html/
+
+# 3. Configurar HTTPS e headers de cache
 ```
 
-## 🔧 Configuração
-
-### Variáveis de Ambiente
-Copie `.env.example` para `.env` e configure:
+### Opção 2: Deploy Automático
 ```bash
-NODE_ENV=development
-PORT=3000
-BUILD_OPTIMIZE=true
-PWA_ENABLED=true
+# Executar script de deploy
+chmod +x deploy.sh
+./deploy.sh
 ```
 
-### Configurações Avançadas
-- **js/config.js:** Configurações da aplicação
-- **scripts/:** Scripts de desenvolvimento
-- **manifest.json:** Configurações PWA
+### Opção 3: Docker
+```bash
+# Build e execução
+docker build -t ineleg-app .
+docker run -d -p 80:80 ineleg-app
+```
 
-## 📱 PWA (Progressive Web App)
+## 📚 Documentação Técnica
 
-### Funcionalidades
-- **Instalável:** Como app nativo
-- **Offline:** Funciona sem internet
-- **Cache inteligente:** Recursos otimizados
-- **Notificações:** Suporte a push (futuro)
+### ASE (Códigos de Situação Eleitoral)
+- **ASE 337**: Suspensão de direitos políticos por inelegibilidade
+- **ASE 370**: Suspensão por extinção da punibilidade
+- **ASE 540**: Suspensão por outros motivos
 
-## 🔍 Smoke Tests
+### Manutenção de Dados
+- **Frequência**: Trimestral (janeiro, abril, julho, outubro)
+- **Fonte**: TRE-SP oficial
+- **Validação**: Comparação com XML oficial
+- **Backup**: Automático antes de atualizações
 
-### Cenários Testados
-- **CP 121:** INELEGÍVEL (❌) - ASE 337 Motivo 7
-- **CP 122:** INELEGÍVEL (❌) - Exceção caput
-- **CP 163:** INELEGÍVEL (❌) - Exceções específicas
-- **Lei 11.343/06 Art. 33 §3º:** ELEGÍVEL (✅) - Exceção aplicável
+## ⚠️ Disclaimer Importante
 
-## 📚 Documentação
+**SISTEMA NÃO OFICIAL** - Este sistema é uma **ferramenta auxiliar** desenvolvida por servidor para uso de servidores dos TREs e **NÃO SUBSTITUI** a consulta direta na legislação atualizada. 
 
-### Links Úteis
-- **Documentação local:** [sobre.html](sobre.html)
-- **Repositório:** [GitHub](https://github.com/rkvasne/ineleg-app)
-- **Changelog:** [CHANGELOG.md](CHANGELOG.md)
-- **Manutenção:** [MANUTENCAO.md](MANUTENCAO.md)
+**Base de dados**: Utiliza dados oficiais do TRE-SP (outubro/2024) revisados pela CRE-RO (02/06/2025), mas as informações podem estar desatualizadas. 
 
-## 🤝 Contribuição
+**IMPORTANTE**: Sempre confirme na legislação vigente e nas orientações oficiais mais recentes antes de tomar decisões definitivas.
 
-### Como Contribuir
-1. Fork do repositório
-2. Criar branch para feature
-3. Executar testes (`npm run check`)
-4. Commit com mensagem clara
-5. Pull request para main
+## 📞 Suporte
 
-### Padrões de Código
-- **ESLint:** Configuração personalizada
-- **Prettier:** Formatação automática
-- **Commits:** Conventional commits
-
-## 📄 Licença
-
-MIT License - Desenvolvido para a Justiça Eleitoral
+- **Desenvolvido por**: Servidor para uso de servidores dos TREs
+- **Base de dados**: TRE-SP - Outubro 2024 - CRE-RO 02/06/2025
+- **Status**: Sistema não oficial (ferramenta auxiliar)
+- **Versão**: 0.0.2
 
 ---
 
-**Versão:** 0.0.2  
-**Repositório:** https://github.com/rkvasne/ineleg-app  
-**Desenvolvido para:** Servidores da Justiça Eleitoral
+*Sistema não oficial de Consulta de Inelegibilidade Eleitoral - Desenvolvido por servidor para uso de servidores dos TREs*

@@ -1,0 +1,25 @@
+# Node.js
+node_modules/
+npm-debug.log*
+package-lock.json
+
+# Build outputs
+dist/
+dist-optimized/
+deploy/
+
+# Reports and generated files
+build-report.json
+lint-report.json
+test-report.json
+*.log
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Editor settings (optional)
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+
