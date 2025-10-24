@@ -1,0 +1,9 @@
+{
+  "name": "Ineleg-App",
+  "short_name": "Ineleg",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#667eea",
+  "icons": []
+}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ineleg-App | Quick Tests</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; padding: 16px; }
+    h1 { font-size: 18px; }
+    .row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+    button { padding: 8px 12px; border-radius: 6px; border: 1px solid #ccc; cursor: pointer; }
+    pre { background: #f7f7f7; padding: 12px; border-radius: 6px; overflow: auto; }
+    .ok { color: #2e7d32; }
+    .warn { color: #e65100; }
+  </style>
+  <script src="../data.js"></script>
+  <script src="../script.js"></script>
+  <script>
+    function run(codigo, artigo) {
+      const res = buscarInelegibilidadePorLeiEArtigo(codigo, artigo);
+      const out = document.getElementById('out');
+      out.textContent = JSON.stringify(res, null, 2);
+    }
+  </script>
+  </head>
+  <body>
+    <h1>Quick Tests</h1>
+    <div class="row">
+      <button onclick="run('CP','121')">CP Art. 121 (espera-se INELEG)</button>
+      <button onclick="run('CP','121, §3º')">CP Art. 121, §3º (espera-se ELEG)</button>
+      <button onclick="run('LEI_11343','33, §3º')">Lei 11.343/06 Art. 33, §3º (exceção)</button>
+      <button onclick="run('CP','163')">CP 163 (exceções parciais)</button>
+      <button onclick="run('LEI_9605','38-A')">Lei 9.605/98 38-A (exceções)</button>
+    </div>
+    <pre id="out">Clique em um teste para ver o resultado aqui.</pre>
+    <p class="warn">Nota: esta página é um harness manual, não afeta o app.</p>
+  </body>
+  </html>
