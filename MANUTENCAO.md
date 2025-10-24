@@ -305,3 +305,8 @@ Este documento certifica que o sistema Ineleg-App está:
 **Último update:** 22 de outubro de 2025
 **Status:** ✅ Consolidado e validado
 
+
+## UI Manutenção (v0.0.1)
+- Não remover as utilities de paleta em styles.css (text-*, bg-*, border-*), usadas como fallback.
+- Evitar inserir style="" nos templates do modal; manter classes utilitárias.
+- Nav sticky e breadcrumb: manter classes sticky/top/z-index e padding uniforme (px-4 md:px-8).

@@ -235,3 +235,10 @@ Veja **VERSAO_2.0.md**, seção "Próximas Melhorias Sugeridas" para funcionalid
 **Versão:** 2.0
 **Status:** ✅ Documentação limpa, sem redundâncias, atualizada com novos recursos
 
+
+## UI e Tema – Atualização v0.0.1
+- Tailwind via CDN (sem build) e paleta inspirada em candyland.
+- Nav sticky + breadcrumb, link para sobre.html (📘 Documentação alternativa).
+- Seções estáticas padronizadas (cards, badges, ícones). 
+- Acessibilidade: role="region", aria-labelledby, foco visível.
+- Paleta utilitária CSS adicionada a styles.css.
