@@ -1,0 +1,14 @@
+{
+  "timestamp": "2025-10-24T04:10:11.403Z",
+  "version": "0.0.2",
+  "status": "SUCCESS",
+  "summary": {
+    "errors": 0,
+    "warnings": 1,
+    "buildDir": "E:\\Ineleg\\ineleg-app\\dist"
+  },
+  "errors": [],
+  "warnings": [
+    "HTML: Manifest PWA linkado - não encontrado"
+  ]
+}
