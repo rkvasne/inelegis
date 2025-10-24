@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 ## [0.0.1] - Initial release
 
-### Added
+### Added`n- Página Sobre (sobre.html) linkada na nav (📘).
 - Sticky navigation bar (top-0, z-50) with brand “Ineleg-App · Justiça Eleitoral”.
 - Breadcrumb “Início / Consulta” no início do conteúdo principal.
 - Tema “Candyland-like” aplicado via Tailwind CDN (cores: primary, secondary, accent, info, success, warning, danger).
@@ -18,6 +18,8 @@ All notable changes to this project will be documented in this file.
 - Acessibilidade reforçada (role="region", aria-labelledby em seções, foco visível).
 - Script utilitário de verificação dos dados (scripts/verify-data.js).
 
-### Changed
+### Changed`n- Barra de status no topo do modal (cor por tipo de resultado).
 - Remoção de estilos inline dos templates do modal; uso de classes utilitárias.
 - Normalização de acentos e ícones (⚠️, 📌, ℹ️, ✅) para consistência institucional.
+
+

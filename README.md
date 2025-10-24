@@ -65,3 +65,13 @@ Sistema web para consulta de inelegibilidade baseado na legislação eleitoral b
 - Inputs/selects com focus:ring primary, labels em text-accent
 - Link “📘 Sobre/Documentação (Alt+D)” com accesskey e foco acessível
 - Acentuação normalizada em index.html
+
+## UI e Tema (v0.0.1)
+- Nav sticky (top-0 z-50) com breadcrumb “Início / Consulta”.
+- Página Sobre (sobre.html) linkada na barra, alternativa para usuários sem GitHub.
+- Tema “Candyland-like” com Tailwind CDN (cores primary/secondary/accent/info/success/warning/danger).
+- Legenda e Data de Ocorrência com cartões, chips/badges com borda e ícones padronizados (⚠️/📌/ℹ️/✅).
+- Inputs/selects com foco institucional (focus:ring-2 focus:ring-primary e focus:border-primary).
+- Labels em text-accent font-medium para melhor ênfase.
+- Modal com barra de status (cor por tipo: inelegível/elegível/não encontrado).
+- Paleta utilitária CSS (text-*, bg-*, border-*) em styles.css (fallback caso Tailwind config não carregue).

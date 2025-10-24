@@ -168,3 +168,8 @@ The ineligibility data in `data.js` maps directly to:
 
 **Update ineligibility table**: Edit `tabelaInelegibilidade` array in data.js - each entry maps articles to crime categories and exceptions.
 
+
+## UI Notes (v0.0.1)
+- Tailwind (CDN) + theme palette inline; no build step.
+- sobre.html added as local documentation entry.
+- Modal status bar and chips/badges for legend; inputs with primary focus ring.
