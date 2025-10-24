@@ -493,16 +493,18 @@ code {
   padding: 0.5rem var(--space-3);
   border-radius: var(--radius-md);
   text-decoration: none;
-  color: var(--text-on-primary);
+  color: var(--header-text);
   font-weight: 500;
   font-size: 0.9375rem;
   transition: all var(--transition-fast);
   white-space: nowrap;
 }
 
-.header-nav-link:hover {
+.header-nav-link:hover,
+.header-nav-link:focus-visible {
   background: var(--nav-hover-bg);
   transform: translateY(-1px);
+  color: var(--header-text);
 }
 
 .header-nav-link.active {
@@ -524,6 +526,11 @@ code {
 
 .dark-theme .header-nav-link {
   color: var(--text-primary);
+}
+
+.dark-theme .header-nav-link:hover,
+.dark-theme .header-nav-link:focus-visible {
+  color: var(--nav-active-text);
 }
 
 /* Ações do Header */

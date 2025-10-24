@@ -117,7 +117,6 @@ inelegis-app/
 ├── 📁 src/
 │   └── 📁 js/                   # Fontes JavaScript
 │       ├── script.js           # Lógica principal (fonte)
-│       ├── normalizado.data.js # Dados normalizados (gerado a partir do XML)
 │       └── 📁 modules/         # Componentes especializados
 ├── 📁 scripts/                 # Build, deploy, validações, sync
 ├── 📁 docs/                    # Documentação completa
@@ -126,7 +125,7 @@ inelegis-app/
 └── README.md
 ```
 
-> **Nota:** os arquivos em `src/js` são sincronizados automaticamente para `public/assets/js` via `npm run sync:js` (executado por `npm run dev/build`). Sempre edite os fontes dentro de `src/`.
+> **Nota:** os arquivos em `src/js` são sincronizados automaticamente para `public/assets/js` via `npm run sync:js` (executado por `npm run dev/build`). Sempre edite os fontes dentro de `src/` e considere `public/assets/js/data-normalizado.js` e `public/assets/js/consulta-normalizado.js` como as fontes oficiais carregadas no runtime.
 
 ---
 
@@ -134,11 +133,11 @@ inelegis-app/
 
 Consulte o [CHANGELOG](CHANGELOG.md) ou as notas de release para detalhes completos:
 
-- [Release Notes v0.1.0](docs/history/RELEASE-NOTES-v0.1.0.md)
-- [Release Notes v0.0.9](docs/history/RELEASE-NOTES-v0.0.9.md)
-- [Release Notes v0.0.8](docs/history/RELEASE-NOTES-v0.0.8.md)
+- [Release Notes v0.2.0](docs/history/RELEASE-NOTES-v0.2.0.md)
+- [Release Notes v0.1.9](docs/history/RELEASE-NOTES-v0.1.9.md)
+- [Release Notes v0.1.8](docs/history/RELEASE-NOTES-v0.1.8.md)
 
-Versões anteriores ao ciclo 0.0.8 permanecem arquivadas em `docs/history/`.
+Versões anteriores permanecem arquivadas em `docs/history/`.
 
 ## 📚 Documentação
 

@@ -1,3 +1,8 @@
+---
+docStatus: historical
+docScope: release-notes
+lastReviewed: 2025-12-05
+---
 # Release Notes v0.1.9
 
 Data: 05 de dezembro de 2025  
