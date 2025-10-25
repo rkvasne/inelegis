@@ -4,6 +4,42 @@ All notable changes to this project will be documented in this file.
 
 **Sistema não oficial** - Desenvolvido por servidor para uso de servidores dos TREs
 
+## [0.0.4] - Otimizações de Layout e Funcionalidades (25 de outubro de 2025)
+
+### Added
+- Funcionalidade de exportar resultado (copiar para área de transferência)
+- Toast de confirmação animado com feedback visual
+- Controle de acesso: bloqueio do menu Consulta até aceitar termos
+- Persistência de consentimento via localStorage
+- Importação da fonte Inter via @import no CSS
+- Seta customizada no select (SVG data URI)
+- Animações slideIn/slideOut para toast
+
+### Changed
+- Layout radiobuttons: 2 colunas lado a lado
+- Guia de Uso: 3 colunas horizontais
+- Legenda de Resultados: 3 colunas horizontais
+- Modal: Crime/Delito e Norma/Incidência em 2 colunas
+- Inputs padronizados: altura uniforme 37px (padding vertical reduzido)
+- Select padronizado: mesma altura e fonte dos inputs
+- Preview + botão Montar Artigo na mesma linha
+- Ícones dos labels alinhados verticalmente (flex + gap)
+- Responsividade: layouts em coluna única em mobile
+
+### Fixed
+- Carregamento da fonte Inter garantido em todas as páginas
+- Altura inconsistente do select vs inputs
+- Alinhamento de ícones nos rótulos dos formulários
+- Espaçamento excessivo entre elementos
+
+### Improved
+- Economia de espaço vertical (~40%)
+- UX: feedback imediato ao copiar
+- Acessibilidade: labels com aria-label no botão exportar
+- Performance: layout mais compacto = menos scroll
+
+---
+
 ## [0.0.3] - Aprimoramentos Visuais e UI (24 de outubro de 2025)
 
 ### Added

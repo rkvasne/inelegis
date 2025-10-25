@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 <div class="system-info">
-                    <div class="version">v0.0.3</div>
+                    <div class="version">v0.0.4</div>
                     <div class="status" role="status" aria-live="polite">
                         <div class="status-dot" aria-hidden="true"></div>
                         Sistema Ativo
@@ -174,14 +174,57 @@
         // Controle do checkbox e botão
         const checkbox = document.getElementById('confirmacao');
         const button = document.getElementById('acessarBtn');
+        const consultaLink = document.querySelector('a[href="consulta.html"]');
+        
+        // Verificar se usuário já aceitou os termos anteriormente
+        const termosAceitos = localStorage.getItem('ineleg_termos_aceitos') === 'true';
+        
+        if (termosAceitos) {
+            // Se já aceitou, permitir acesso direto
+            checkbox.checked = true;
+            button.disabled = false;
+            if (consultaLink) {
+                consultaLink.style.pointerEvents = 'auto';
+                consultaLink.style.opacity = '1';
+            }
+        } else {
+            // Bloquear link de consulta no menu
+            if (consultaLink) {
+                consultaLink.style.pointerEvents = 'none';
+                consultaLink.style.opacity = '0.5';
+                consultaLink.style.cursor = 'not-allowed';
+                consultaLink.setAttribute('aria-disabled', 'true');
+                consultaLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    alert('Por favor, leia e concorde com os termos antes de acessar o sistema de consulta.');
+                });
+            }
+        }
         
         checkbox.addEventListener('change', function() {
             button.disabled = !this.checked;
             button.setAttribute('aria-disabled', String(!this.checked));
+            
+            // Atualizar estado do link de consulta
+            if (consultaLink) {
+                if (this.checked) {
+                    consultaLink.style.pointerEvents = 'auto';
+                    consultaLink.style.opacity = '1';
+                    consultaLink.style.cursor = 'pointer';
+                    consultaLink.setAttribute('aria-disabled', 'false');
+                } else {
+                    consultaLink.style.pointerEvents = 'none';
+                    consultaLink.style.opacity = '0.5';
+                    consultaLink.style.cursor = 'not-allowed';
+                    consultaLink.setAttribute('aria-disabled', 'true');
+                }
+            }
         });
         
         button.addEventListener('click', function() {
             if (checkbox.checked) {
+                // Salvar consentimento no localStorage
+                localStorage.setItem('ineleg_termos_aceitos', 'true');
                 window.location.href = 'consulta.html';
             }
         });
@@ -198,6 +241,7 @@
             if (e.ctrlKey && e.key === 'Enter') {
                 if (checkbox.checked) {
                     e.preventDefault();
+                    localStorage.setItem('ineleg_termos_aceitos', 'true');
                     window.location.href = 'consulta.html';
                 }
             }

@@ -52,13 +52,13 @@ function checkBuildExists() {
       process.exit(1);
     }
   
-  const requiredFiles = [
-    'index.html',
+    const requiredFiles = [
+      'index.html',
     'consulta.html',
     'sobre.html',
     'styles.css',
-    'script.js',
-    'data.js',
+      'script.js',
+      'data.js',
     'manifest.json',
     'sw.js'
   ];
