@@ -39,7 +39,7 @@
     "html-validate": "^8.0.0"
   },
   "engines": {
-    "node": "20.x"
+    "node": "22.x"
   },
   "repository": {
     "type": "git",
