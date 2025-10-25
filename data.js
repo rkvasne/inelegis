@@ -1,3 +1,5 @@
+'use strict';
+
 // Lista de leis/códigos disponíveis para o select
 const leisDisponiveis = [
     {
