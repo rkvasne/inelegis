@@ -3,6 +3,9 @@
    Design profissional e compacto
    ======================================== */
 
+/* Importação da Fonte Inter */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 /* Reset e Base */
 * {
   margin: 0;
@@ -439,22 +442,42 @@ code {
 }
 
 .form-label {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
   font-weight: 500;
   color: var(--neutral-700);
   margin-bottom: var(--space-2);
   font-size: 0.875rem;
 }
 
+.form-label svg {
+  flex-shrink: 0;
+  color: var(--neutral-500);
+}
+
 .form-input,
 .form-select {
   width: 100%;
-  padding: var(--space-3);
+  padding: var(--space-2) var(--space-3);
   border: 1px solid var(--neutral-300);
   border-radius: var(--radius-md);
   font-size: 0.875rem;
+  font-family: var(--font-sans);
   background: white;
   transition: var(--transition-fast);
+  line-height: 1.5;
+  height: auto;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.form-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--space-3) center;
+  padding-right: calc(var(--space-3) + 1.5rem);
 }
 
 .form-input:focus,
@@ -713,6 +736,28 @@ code {
   to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes slideIn {
+  from { 
+    opacity: 0; 
+    transform: translateX(100%); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateX(0); 
+  }
+}
+
+@keyframes slideOut {
+  from { 
+    opacity: 1; 
+    transform: translateX(0); 
+  }
+  to { 
+    opacity: 0; 
+    transform: translateX(100%); 
+  }
+}
+
 .animate-fade-in {
   animation: fadeIn 0.5s ease-out;
 }
@@ -740,21 +785,62 @@ code {
   background: white;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
-  max-width: 600px;
+  max-width: 800px;
   width: 100%;
-  max-height: 90vh;
+  max-height: 92vh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
 }
 
 .modal-header {
-  padding: var(--space-5);
-  border-bottom: 1px solid var(--neutral-200);
+  padding: var(--space-4);
+  border-bottom: 2px solid var(--neutral-200);
   display: flex;
   align-items: center;
   justify-content: space-between;
   background: var(--neutral-50);
+}
+
+.modal-header-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex: 1;
+}
+
+.modal-header-icon {
+  width: 2.75rem;
+  height: 2.75rem;
+  background: var(--primary-100);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-600);
+  flex-shrink: 0;
+}
+
+.modal-header-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.modal-header-text h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--neutral-900);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.modal-header-text p {
+  font-size: 0.8125rem;
+  color: var(--neutral-600);
+  margin: 0;
+  line-height: 1.4;
+  font-weight: 500;
 }
 
 .modal-title-section {
@@ -821,7 +907,7 @@ code {
 }
 
 .modal-body {
-  padding: var(--space-5);
+  padding: var(--space-4);
   overflow-y: auto;
   flex: 1;
 }
@@ -1078,9 +1164,9 @@ code {
 
 /* Radio buttons melhorados */
 .radio-group {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
 }
 
 .radio-option {
@@ -1132,7 +1218,7 @@ code {
 
 .radio-text {
   display: flex;
-  flex-direction: column;
+    flex-direction: column;
   gap: 0.125rem;
 }
 
@@ -1222,14 +1308,23 @@ code {
   color: var(--neutral-700);
 }
 
+.builder-preview-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
 .builder-preview {
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  padding: var(--space-3);
+  padding: var(--space-2) var(--space-3);
   background: white;
   border: 1px solid var(--neutral-200);
   border-radius: var(--radius-md);
+  flex: 1;
+  min-width: 250px;
 }
 
 .preview-label {
@@ -1246,21 +1341,59 @@ code {
   padding: var(--space-1) var(--space-2);
   border-radius: var(--radius-sm);
   border: 1px solid var(--primary-200);
+  line-height: 1.5;
+}
+
+.builder-preview-row .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.builder-preview-row .btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.builder-preview-row .btn-primary {
+  background: var(--primary-600);
+  color: white;
+}
+
+.builder-preview-row .btn-primary:hover:not(:disabled) {
+  background: var(--primary-700);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.builder-preview-row .btn svg {
+  flex-shrink: 0;
 }
 
 /* Guia de uso melhorado */
 .usage-guide {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--space-4);
   margin-bottom: var(--space-6);
 }
 
 .guide-step {
   display: flex;
-  align-items: flex-start;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
   gap: var(--space-3);
-  padding: var(--space-3);
+  padding: var(--space-4);
   background: var(--neutral-50);
   border-radius: var(--radius-lg);
   border: 1px solid var(--neutral-200);
@@ -1305,16 +1438,18 @@ code {
 }
 
 .legend-items {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
 }
 
 .legend-item {
   display: flex;
+  flex-direction: column;
   align-items: center;
+  text-align: center;
   gap: var(--space-3);
-  padding: var(--space-3);
+  padding: var(--space-4);
   border-radius: var(--radius-lg);
   border: 1px solid;
 }
@@ -1402,27 +1537,20 @@ code {
 
 /* Responsividade melhorada */
 @media (max-width: 768px) {
+  .radio-group {
+    grid-template-columns: 1fr;
+  }
+  
+  .usage-guide {
+    grid-template-columns: 1fr;
+  }
+  
   .builder-fields {
     grid-template-columns: repeat(2, 1fr);
   }
   
-  .guide-step {
-    flex-direction: column;
-    text-align: center;
-  }
-  
-  .step-icon {
-    align-self: center;
-  }
-  
   .legend-items {
-    gap: var(--space-2);
-  }
-  
-  .legend-item {
-    flex-direction: column;
-    text-align: center;
-    gap: var(--space-2);
+    grid-template-columns: 1fr;
   }
 }
 
@@ -1455,5 +1583,305 @@ code {
   
   .modal {
     display: none;
+  }
+}
+
+/* ===================================
+   NOVOS ESTILOS PARA MODAL REESCRITO
+   =================================== */
+
+
+/* Card de status do modal */
+.modal-status-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-4);
+  border: 2px solid;
+}
+
+.modal-status-card.inelegivel {
+  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+  border-color: #ef4444;
+}
+
+.modal-status-card.elegivel {
+  background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+  border-color: #22c55e;
+}
+
+.modal-status-card.nao-encontrado {
+  background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+  border-color: #6366f1;
+}
+
+.status-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: var(--radius-xl);
+  background: rgba(255, 255, 255, 0.9);
+  flex-shrink: 0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.modal-status-card.inelegivel .status-icon-wrapper {
+  color: #dc2626;
+}
+
+.modal-status-card.elegivel .status-icon-wrapper {
+  color: #16a34a;
+}
+
+.modal-status-card.nao-encontrado .status-icon-wrapper {
+  color: #4f46e5;
+}
+
+.status-text-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.status-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.8;
+}
+
+.modal-status-card.inelegivel .status-label {
+  color: #991b1b;
+}
+
+.modal-status-card.elegivel .status-label {
+  color: #166534;
+}
+
+.modal-status-card.nao-encontrado .status-label {
+  color: #4338ca;
+}
+
+.status-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.modal-status-card.inelegivel .status-value {
+  color: #7f1d1d;
+}
+
+.modal-status-card.elegivel .status-value {
+  color: #14532d;
+}
+
+.modal-status-card.nao-encontrado .status-value {
+  color: #312e81;
+}
+
+/* Grid de informações */
+.modal-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.modal-info-grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  padding: var(--space-3);
+  background: var(--neutral-50);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--neutral-200);
+}
+
+.info-item-ase {
+  background: var(--primary-50);
+  border-color: var(--primary-200);
+}
+
+.info-value-ase {
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: var(--neutral-700);
+}
+
+.info-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--neutral-600);
+}
+
+.info-value {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--neutral-900);
+  line-height: 1.4;
+}
+
+/* Seções do modal */
+.modal-section {
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-3);
+  border: 1px solid;
+}
+
+.modal-section.modal-warning {
+  background: #fffbeb;
+  border-color: #fbbf24;
+}
+
+.modal-section.modal-success {
+  background: #f0fdf4;
+  border-color: #86efac;
+}
+
+.modal-section.modal-info {
+  background: #eff6ff;
+  border-color: #93c5fd;
+}
+
+.modal-section.modal-note {
+  background: var(--neutral-50);
+  border-color: var(--neutral-300);
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.modal-section.modal-warning .section-header {
+  color: #92400e;
+}
+
+.modal-section.modal-success .section-header {
+  color: #166534;
+}
+
+.modal-section.modal-info .section-header {
+  color: #1e40af;
+}
+
+.modal-section.modal-note .section-header {
+  color: var(--neutral-700);
+}
+
+.section-content {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--neutral-700);
+}
+
+.section-intro {
+  margin-bottom: var(--space-2);
+  color: var(--neutral-800);
+}
+
+.exception-list {
+  margin: var(--space-2) 0;
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+
+.exception-list li {
+  margin-bottom: 0.375rem;
+  color: var(--neutral-700);
+  line-height: 1.4;
+}
+
+.section-note {
+  margin-top: var(--space-2);
+  padding: var(--space-2);
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: var(--radius-sm);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+
+/* Badges de detalhes */
+.detail-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.detail-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.375rem 0.75rem;
+  background: white;
+  border: 1px solid var(--primary-300);
+  border-radius: var(--radius-md);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--primary-700);
+}
+
+.detail-badge.badge-conc {
+  background: var(--warning-50);
+  border-color: var(--warning-300);
+  color: var(--warning-700);
+}
+
+/* Info ASE */
+.modal-ase-info {
+  padding: var(--space-3);
+  background: var(--primary-50);
+  border: 1px solid var(--primary-200);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-3);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--neutral-700);
+}
+
+.modal-ase-info strong {
+  color: var(--neutral-900);
+}
+
+/* Responsivo para modal */
+@media (max-width: 768px) {
+  .modal-status-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .status-icon-wrapper {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+  
+  .status-value {
+    font-size: 1.25rem;
+  }
+  
+  .modal-info-grid,
+  .modal-info-grid-3 {
+    grid-template-columns: 1fr;
+  }
+  
+  .detail-badges {
+    justify-content: center;
   }
 }

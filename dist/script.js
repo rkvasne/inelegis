@@ -595,14 +595,14 @@ function verificarArtigoCorresponde(artigoTabela, artigoProcessado) {
     if (!artigoTabela || !artigoProcessado || !artigoProcessado.artigo) {
         return false;
     }
-
+    
     const artigoPrincipal = artigoProcessado.artigo.toLowerCase().trim();
-
+    
     // Verificar se o artigo principal não está vazio
     if (!artigoPrincipal.trim()) {
         return false;
     }
-
+    
     // Extrair todos os artigos da tabela
     const artigos = extrairArtigosDoNorma(artigoTabela);
 
@@ -696,111 +696,149 @@ function exibirResultado(resultado) {
 
     const statusClass = resultado.inelegivel ? 'inelegivel' : 'elegivel';
     const statusTexto = resultado.inelegivel ? 'INELEGÍVEL' : 'ELEGÍVEL';
-    const statusIcon = resultado.inelegivel ? '❌' : '✅';
 
     // Usar artigo formatado se disponível
     const artigoExibicao = resultado.artigoProcessado ?
         resultado.artigoProcessado.formatado :
         resultado.artigoConsultado;
 
-    let explicacao = '';
-    let alertaExcecao = '';
-
-    if (resultado.inelegivel) {
-        explicacao = `O artigo ${artigoExibicao} do ${nomeLei} está previsto na coluna "NORMA/INCIDÊNCIA" e gera ineligibilidade.`;
-
-        // Se tem exceções (mesmo que não se apliquem), mostrar alerta
-        if (resultado.excecoes && resultado.excecoes.length > 0) {
-            alertaExcecao = `
-                <div class="alerta-excecao">
-                    <span class="alerta-icon">⚠️</span>
-                    <div class="alerta-conteudo">
-                        <strong>ATENÇÃO - EXCEÇÕES EXISTENTES:</strong>
-                        <p class="mt-2">Este artigo possui as seguintes exceções que podem NÃO gerar ineligibilidade caso o condenado se enquadre nelas:</p>
-                        <ul class="mt-2 pl-5">
+    // Construir seção de exceções
+    let secaoExcecoes = '';
+    if (resultado.inelegivel && resultado.excecoes && resultado.excecoes.length > 0) {
+        secaoExcecoes = `
+            <div class="modal-section modal-warning">
+                <div class="section-header">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span>Atenção: Exceções Existentes</span>
+                </div>
+                <div class="section-content">
+                    <p class="section-intro">Este artigo possui exceções que podem <strong>NÃO gerar inelegibilidade</strong> caso o condenado se enquadre em uma delas:</p>
+                    <ul class="exception-list">
                             ${resultado.excecoes.map(exc => `<li>${exc}</li>`).join('')}
                         </ul>
-                        <p class="mt-2 text-sm"><strong>Importante:</strong> Se o caso se enquadrar em uma exceção, o resultado seria <strong>ELEGÍVEL</strong>.</p>
+                    <div class="section-note">
+                        <strong>Importante:</strong> Se o caso se enquadrar em uma exceção, o resultado seria <strong>ELEGÍVEL</strong>.
+                    </div>
                     </div>
                 </div>
             `;
-        }
-    } else {
-        explicacao = `O artigo ${artigoExibicao} do ${nomeLei} está previsto na coluna "NORMA/INCIDÊNCIA", mas uma exceção específica se aplica a este caso, tornando-o elegível.`;
-
-        // Adicionar alerta com a mesma formatação padrão
-        if (resultado.temExcecao) {
-            alertaExcecao = `
-                <div class="alerta-excecao">
-                    <span class="alerta-icon">⚠️</span>
-                    <div class="alerta-conteudo">
-                        <strong>ATENÇÃO - EXCEÇÃO APLICÁVEL:</strong>
-                        <p class="mt-2">Este artigo possui uma exceção que se aplica a este caso específico, tornando-o elegível:</p>
-                        <ul class="mt-2 pl-5">
+    } else if (!resultado.inelegivel && resultado.temExcecao) {
+        secaoExcecoes = `
+            <div class="modal-section modal-success">
+                <div class="section-header">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span>Exceção Aplicável</span>
+                </div>
+                <div class="section-content">
+                    <p class="section-intro">Este artigo possui uma exceção que se aplica a este caso específico:</p>
+                    <ul class="exception-list">
                             <li>${resultado.temExcecao}</li>
                         </ul>
-                        <p class="mt-2 text-sm"><strong>Importante:</strong> Como o caso se enquadra nesta exceção, o resultado é <strong>ELEGÍVEL</strong>.</p>
+                    <div class="section-note">
+                        <strong>Resultado:</strong> Como o caso se enquadra nesta exceção, o resultado é <strong>ELEGÍVEL</strong>.
+                    </div>
                     </div>
                 </div>
             `;
-        }
     }
     
-    // Adicionar detalhes do artigo processado se disponível
+    // Construir detalhes do artigo
     let detalhesArtigo = '';
     if (resultado.artigoProcessado && (resultado.artigoProcessado.paragrafo || 
         resultado.artigoProcessado.inciso || resultado.artigoProcessado.alinea || 
         resultado.artigoProcessado.concomitante.length > 0)) {
         
-        detalhesArtigo = '<div class="detalhes-artigo">';
-        detalhesArtigo += '<h4>📋 Detalhes do Artigo Consultado:</h4>';
-        detalhesArtigo += '<div class="artigo-componentes">';
-        
+        const componentes = [];
         if (resultado.artigoProcessado.paragrafo) {
-            detalhesArtigo += `<span class="componente">Parágrafo: §${resultado.artigoProcessado.paragrafo}º</span>`;
+            componentes.push(`<span class="detail-badge">§${resultado.artigoProcessado.paragrafo}º</span>`);
         }
-        
         if (resultado.artigoProcessado.inciso) {
-            detalhesArtigo += `<span class="componente">Inciso: ${resultado.artigoProcessado.inciso}</span>`;
+            componentes.push(`<span class="detail-badge">Inciso ${resultado.artigoProcessado.inciso}</span>`);
         }
-        
         if (resultado.artigoProcessado.alinea) {
-            detalhesArtigo += `<span class="componente">Alínea: "${resultado.artigoProcessado.alinea}"</span>`;
+            componentes.push(`<span class="detail-badge">Alínea "${resultado.artigoProcessado.alinea}"</span>`);
         }
-        
         if (resultado.artigoProcessado.concomitante.length > 0) {
-            const concomitantes = resultado.artigoProcessado.concomitante
+            const conc = resultado.artigoProcessado.concomitante
                 .map(c => formatarParteArtigo(c))
                 .join(', ');
-            detalhesArtigo += `<span class="componente concomitante">Concomitante: ${concomitantes}</span>`;
+            componentes.push(`<span class="detail-badge badge-conc">c/c ${conc}</span>`);
         }
         
-        detalhesArtigo += '</div></div>';
+        detalhesArtigo = `
+            <div class="modal-section modal-info">
+                <div class="section-header">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path>
+                        <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span>Componentes do Artigo</span>
+                </div>
+                <div class="section-content">
+                    <div class="detail-badges">
+                        ${componentes.join('')}
+                    </div>
+                </div>
+            </div>
+        `;
     }
     
-    // Adicionar informação sobre ASE baseada no resultado e tipo de comunicação (padronizado)
+    // Informação ASE
     const tipoComunicacao = obterTipoComunicacao();
     const aseInfo = __genAsePad(tipoComunicacao, resultado.inelegivel);
 
-    // Exibir resultado no modal
-    abrirModal(statusClass, (resultado.inelegivel ? '❌' : '✅'), statusTexto, `
-        <div class="consulta-header">
-            <p class="text-center m-0 text-[0.95rem] text-gray-600"><strong>Consulta:</strong> ${nomeLei}, Artigo ${artigoExibicao}</p>
-        </div>
-        <div class="modal-resultado-card">
-            <div class="modal-resultado-header">
-                <span class="modal-resultado-icon">${statusIcon}</span>
-                <span class="modal-resultado-status ${statusClass}">${statusTexto}</span>
+    // Atualizar header do modal
+    document.getElementById('modalTitle').textContent = 'Resultado da Consulta';
+    document.getElementById('modalSubtitle').textContent = `${nomeLei} • Art. ${artigoExibicao}`;
+    
+    // Montar modal com novo design
+    abrirModal(statusClass, statusTexto, `
+        <div class="modal-status-card ${statusClass}">
+            <div class="status-icon-wrapper">
+                <svg width="28" height="28" fill="currentColor" viewBox="0 0 20 20">
+                    ${resultado.inelegivel ? 
+                        '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>' :
+                        '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>'
+                    }
+                </svg>
             </div>
-            <div class="modal-resultado-detalhes">
-                <p>🧾 <strong>Crime:</strong> ${resultado.crime}</p>
-                <p>📘 <strong>Norma/Incidência:</strong> Art. ${artigoExibicao}</p>
-                ${aseInfo}
-                ${alertaExcecao}
+            <div class="status-text-wrapper">
+                <span class="status-label">Resultado</span>
+                <span class="status-value">${statusTexto}</span>
+            </div>
+        </div>
+
+        <div class="modal-info-grid">
+            <div class="info-item">
+                <span class="info-label">Crime/Delito</span>
+                <span class="info-value">${resultado.crime}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Norma/Incidência</span>
+                <span class="info-value">Art. ${artigoExibicao}</span>
+            </div>
+        </div>
+
+        ${aseInfo ? `<div class="modal-ase-info">${aseInfo}</div>` : ''}
+        ${secaoExcecoes}
                 ${detalhesArtigo}
-                ${resultado.observacao ? `<p>📝 <strong>Observação:</strong> ${resultado.observacao}</p>` : ''}
+        ${resultado.observacao ? `
+            <div class="modal-section modal-note">
+                <div class="section-header">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span>Observação</span>
             </div>
+                <div class="section-content">
+                    <p>${resultado.observacao}</p>
         </div>
+            </div>
+        ` : ''}
     `);
 }
 
@@ -813,17 +851,56 @@ function exibirNaoEncontrado(codigoLei, artigo) {
         ? 'Como o artigo não está listado na coluna "NORMA/INCIDÊNCIA", a condenação por este artigo NÃO gera inelegibilidade conforme ASE 337, razão 7.'
         : 'Como o artigo não está listado na coluna "NORMA/INCIDÊNCIA", a extinção relacionada a este artigo NÃO gera inelegibilidade e não requer ASE 370 ou ASE 540.';
 
-    abrirModal('nao-encontrado', 'ℹ️', 'NÃO ENCONTRADO', `
-        <div class="modal-resultado-card">
-            <div class="modal-resultado-header">
-                <span class="modal-resultado-icon">ℹ️</span>
-                <span class="modal-resultado-status nao-encontrado">NÃO ENCONTRADO</span>
+    // Atualizar header do modal
+    document.getElementById('modalTitle').textContent = 'Artigo Não Encontrado';
+    document.getElementById('modalSubtitle').textContent = `${nomeLei} • Art. ${artigo}`;
+    
+    abrirModal('nao-encontrado', 'NÃO ENCONTRADO', `
+        <div class="modal-status-card nao-encontrado">
+            <div class="status-icon-wrapper">
+                <svg width="28" height="28" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                </svg>
             </div>
-            <div class="modal-resultado-detalhes">
-                <p><strong>Consulta:</strong> ${nomeLei}, Artigo ${artigo}</p>
-                <p><strong>Tipo de Comunicação:</strong> ${tipoComunicacao === 'condenacao' ? 'Condenação' : 'Extinção'}</p>
-                <p><strong>Resultado:</strong> O artigo consultado não foi encontrado na tabela de inelegibilidade.</p>
-                <p><strong>Interpretação:</strong> ${interpretacao}</p>
+            <div class="status-text-wrapper">
+                <span class="status-label">Status</span>
+                <span class="status-value">NÃO ENCONTRADO</span>
+            </div>
+        </div>
+
+        <div class="modal-section modal-info">
+            <div class="section-header">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                </svg>
+                <span>Informações da Consulta</span>
+            </div>
+            <div class="section-content">
+                <div class="modal-info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Tipo de Comunicação</span>
+                        <span class="info-value">${tipoComunicacao === 'condenacao' ? 'Condenação' : 'Extinção da Punibilidade'}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Base de Dados</span>
+                        <span class="info-value">TRE-SP (Out/2024)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-section modal-success">
+            <div class="section-header">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                </svg>
+                <span>Interpretação Jurídica</span>
+            </div>
+            <div class="section-content">
+                <p class="section-intro">${interpretacao}</p>
+                <div class="section-note">
+                    <strong>Conclusão:</strong> O artigo consultado não consta na tabela oficial de inelegibilidade, portanto <strong>não gera impedimento eleitoral</strong>.
+                </div>
             </div>
         </div>
     `);
@@ -935,8 +1012,8 @@ let conteudoModalAtual = '';
 let __modalTrapHandler = null;
 let __lastFocusedElement = null;
 
-// Função para abrir o modal
-function abrirModal(tipoResultado, icone, status, conteudo) {
+// Função para abrir o modal (reescrita completa)
+function abrirModal(tipoResultado, status, conteudo) {
     const modal = document.getElementById('modalResultado');
     const modalContent = modal.querySelector('.modal-content');
     const modalBody = document.getElementById('modalBody');
@@ -945,40 +1022,19 @@ function abrirModal(tipoResultado, icone, status, conteudo) {
     conteudoModalAtual = conteudo;
     
     // Definir classe do modal baseada no tipo de resultado
-    modalContent.className = `modal-content ${tipoResultado}`;
+    modalContent.className = `modal-content modal-modern ${tipoResultado}`;
     
-    // Inserir conteúdo no modal com design moderno
-    modalBody.innerHTML = `
-        <div class="result-card ${tipoResultado}">
-            ${conteudo}
-        </div>
-    `;
-    // Correções pós-injeção para ícones/textos legados (compat com conteúdo antigo)
-    try {
-        let html = modalBody.innerHTML;
-        html = html.replace(/\?\?\s*<strong>Crime:/g, '🧾 <strong>Crime:');
-        html = html.replace(/\?\?\s*<strong>Norma\/Incid[�ê]ncia:/g, '📘 <strong>Norma/Incidência:');
-        html = html.replace(/\?\?\s*<strong>Observa[��]o:/g, '📝 <strong>Observação:');
-        html = html.replace(/\?\?\s*Data de Ocorr[�ê]ncia para ASE 370: decis[ã�]o judicial que declarou a extin[ç��]o/g,
-                            '⚠️ Data de Ocorrência para ASE 370: decisão judicial que declarou a extinção');
-        modalBody.innerHTML = html;
-    } catch(e) {}
-    // Ajustar ícone dinamicamente (consistência)
-    const iconEl = modalBody.querySelector('.modal-resultado-icon');
-    if (iconEl) {
-        iconEl.textContent = icone;
-    }
+    // Inserir conteúdo no modal com novo design
+    modalBody.innerHTML = conteudo;
     
-    // Mostrar modal com animação moderna
+    // Mostrar modal com animação suave
     modal.classList.remove('hidden');
-    modal.classList.add('show');
-    
-    // Animar entrada do modal
-    setTimeout(() => {
+    requestAnimationFrame(() => {
+        modal.classList.add('show');
         modalContent.style.opacity = '1';
-        modalContent.style.transform = 'scale(1)';
-    }, 10);
-
+        modalContent.style.transform = 'translateY(0) scale(1)';
+    });
+    
     // Prevenir scroll do body
     document.body.style.overflow = 'hidden';
 
@@ -986,8 +1042,10 @@ function abrirModal(tipoResultado, icone, status, conteudo) {
     __lastFocusedElement = document.activeElement;
     modalContent.setAttribute('tabindex', '-1');
     modalContent.focus();
+    
     const focusableSelectors = 'a, button, input, select, textarea, [tabindex]:not([tabindex="-1"])';
     const getFocusable = () => Array.from(modalContent.querySelectorAll(focusableSelectors)).filter(el => !el.hasAttribute('disabled'));
+    
     __modalTrapHandler = (e) => {
         if (e.key !== 'Tab') return;
         const els = getFocusable();
@@ -1057,6 +1115,116 @@ function mostrarToast(msg, type = 'info') {
             }
         }, 400);
     });
+}
+
+// Função para exportar resultado (copiar para área de transferência)
+function exportarResultado() {
+    const modalBody = document.getElementById('modalBody');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalSubtitle = document.getElementById('modalSubtitle');
+    
+    if (!modalBody) return;
+    
+    // Extrair texto limpo do modal
+    let textoExportar = '';
+    
+    // Adicionar título
+    if (modalTitle) {
+        textoExportar += `${modalTitle.textContent}\n`;
+    }
+    if (modalSubtitle) {
+        textoExportar += `${modalSubtitle.textContent}\n`;
+    }
+    textoExportar += '='.repeat(50) + '\n\n';
+    
+    // Extrair texto do corpo do modal
+    const statusCard = modalBody.querySelector('.modal-status-card');
+    if (statusCard) {
+        const statusLabel = statusCard.querySelector('.status-label');
+        const statusValue = statusCard.querySelector('.status-value');
+        if (statusLabel && statusValue) {
+            textoExportar += `${statusLabel.textContent}: ${statusValue.textContent}\n\n`;
+        }
+    }
+    
+    // Extrair informações do grid
+    const infoItems = modalBody.querySelectorAll('.info-item');
+    infoItems.forEach(item => {
+        const label = item.querySelector('.info-label');
+        const value = item.querySelector('.info-value');
+        if (label && value) {
+            textoExportar += `${label.textContent}: ${value.textContent}\n`;
+        }
+    });
+    textoExportar += '\n';
+    
+    // Extrair ASE info
+    const aseInfo = modalBody.querySelector('.modal-ase-info');
+    if (aseInfo) {
+        textoExportar += `${aseInfo.textContent.trim()}\n\n`;
+    }
+    
+    // Extrair seções
+    const sections = modalBody.querySelectorAll('.modal-section');
+    sections.forEach(section => {
+        const header = section.querySelector('.section-header');
+        const content = section.querySelector('.section-content');
+        if (header) {
+            textoExportar += `${header.textContent.trim()}\n`;
+            textoExportar += '-'.repeat(30) + '\n';
+        }
+        if (content) {
+            textoExportar += `${content.textContent.trim()}\n\n`;
+        }
+    });
+    
+    // Adicionar rodapé
+    textoExportar += '='.repeat(50) + '\n';
+    textoExportar += 'Ineleg-App - Sistema de Consulta de Inelegibilidade Eleitoral\n';
+    textoExportar += 'Base de dados: TRE-SP (Out/2024) - CRE-RO (02/06/2025)\n';
+    textoExportar += `Exportado em: ${new Date().toLocaleString('pt-BR')}\n`;
+    
+    // Copiar para área de transferência
+    navigator.clipboard.writeText(textoExportar).then(() => {
+        // Mostrar feedback de sucesso
+        mostrarToast('✅ Resultado copiado para área de transferência!', 'success');
+    }).catch(err => {
+        console.error('Erro ao copiar:', err);
+        mostrarToast('❌ Erro ao copiar. Tente novamente.', 'error');
+    });
+}
+
+// Função para mostrar toast de feedback
+function mostrarToast(mensagem, tipo = 'success') {
+    // Criar elemento de toast
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${tipo}`;
+    toast.textContent = mensagem;
+    toast.style.cssText = `
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        background: ${tipo === 'success' ? '#10b981' : '#ef4444'};
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        z-index: 10000;
+        animation: slideIn 0.3s ease-out;
+        font-size: 0.875rem;
+        font-weight: 500;
+    `;
+    
+    // Adicionar ao body
+    document.body.appendChild(toast);
+    
+    // Remover após 3 segundos
+    setTimeout(() => {
+        toast.style.animation = 'slideOut 0.3s ease-out';
+        setTimeout(() => {
+            document.body.removeChild(toast);
+        }, 300);
+    }, 3000);
 }
 
 // Função para fechar o modal

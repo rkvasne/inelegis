@@ -1,21 +1,25 @@
 # Ineleg-App - Sistema de Consulta de Inelegibilidade Eleitoral
 
-**Versão:** 0.0.3  
-**Última atualização:** 24 de outubro de 2025  
+**Versão:** 0.0.4  
+**Última atualização:** 25 de outubro de 2025  
 **Base de dados:** TRE-SP - Outubro 2024 - Revisada pela CRE-RO em 02/06/2025
 
 Sistema web profissional para consulta de inelegibilidade baseado na legislação eleitoral brasileira (Lei Complementar nº 64/1990, atualizada pela LC 135/2010).
 
-## 🎉 **Últimas Atualizações (24 de outubro de 2025)**
+## 🎉 **Últimas Atualizações (25 de outubro de 2025)**
 
-### 🎨 **v0.0.3 - Aprimoramentos Visuais e de UI**
-- ✅ Ícones do header otimizados (documento profissional)
-- ✅ Ícones da legenda aumentados e melhorados (filled icons)
-- ✅ Ícones dos radio buttons aprimorados
-- ✅ Centralização perfeita dos elementos do header
-- ✅ Eliminação de CSS redundante (styles-compact.css removido)
-- ✅ Todas as classes CSS validadas e existentes
-- ✅ Visual mais profissional e consistente em todas as páginas
+### 🎨 **v0.0.4 - Otimizações de Layout e Funcionalidades**
+- ✅ Layout compacto: Radiobuttons em 2 colunas
+- ✅ Guia de Uso e Legenda em 3 colunas
+- ✅ Modal otimizado: Crime/Delito e Norma em 2 colunas
+- ✅ Inputs padronizados (altura 37px, fonte consistente)
+- ✅ Preview + botão Montar Artigo na mesma linha
+- ✅ Ícones dos labels alinhados verticalmente
+- ✅ Botão Exportar funcional (copia para área de transferência)
+- ✅ Toast de confirmação animado
+- ✅ Controle de acesso com bloqueio de menu (termos obrigatórios)
+- ✅ Fonte Inter carregada via @import CSS
+- ✅ Select padronizado com seta customizada
 
 ### ✅ **100% Conformidade TRE-SP Alcançada**
 - ✅ Correção de discrepância no Código Penal Militar
