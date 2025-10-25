@@ -1,3 +1,5 @@
+'use strict';
+
 // Elementos DOM
 const leiSelect = document.getElementById('leiSelect');
 const artigoInput = document.getElementById('artigoInput');
@@ -1430,5 +1432,49 @@ function __genAsePad(tipo, inelegivel) {
     }
 }
 
+// Navegação por teclado aprimorada
+document.addEventListener('keydown', function(e) {
+    // Ctrl/Cmd + K: Focar na busca
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        if (artigoInput) artigoInput.focus();
+    }
+    
+    // Esc: Fechar modal
+    if (e.key === 'Escape') {
+        const modal = document.getElementById('resultModal');
+        if (modal && modal.classList.contains('show')) {
+            fecharModal();
+        }
+    }
+    
+    // Enter no campo de artigo: Buscar
+    if (e.key === 'Enter' && document.activeElement === artigoInput) {
+        e.preventDefault();
+        if (buscarBtn && !buscarBtn.disabled) {
+            buscarBtn.click();
+        }
+    }
+});
 
+// Trap de foco no modal para acessibilidade
+function trapFocusInModal(modalElement) {
+    const focusableElements = modalElement.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    const firstElement = focusableElements[0];
+    const lastElement = focusableElements[focusableElements.length - 1];
+    
+    modalElement.addEventListener('keydown', function(e) {
+        if (e.key === 'Tab') {
+            if (e.shiftKey && document.activeElement === firstElement) {
+                e.preventDefault();
+                lastElement.focus();
+            } else if (!e.shiftKey && document.activeElement === lastElement) {
+                e.preventDefault();
+                firstElement.focus();
+            }
+        }
+    });
+}
 
