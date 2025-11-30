@@ -1,30 +1,34 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ineleg-App - Sistema de Consulta de Inelegibilidade Eleitoral</title>
-    
+    <title>Inelegis - Sistema de Consulta de Inelegibilidade Eleitoral</title>
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
     <!-- Icons -->
     <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
-    <link rel="manifest" href="manifest.json">
-    
+
+
     <!-- Meta -->
     <meta name="theme-color" content="#0ea5e9">
-    <meta name="description" content="Sistema não oficial para consulta de inelegibilidade eleitoral. Baseado na tabela exemplificativa da Corregedoria do TRE-SP e revisada pela CRE-RO.">
-    <meta name="keywords" content="inelegibilidade, eleitoral, consulta, TRE-SP, CRE-RO, Ineleg-App, sistema eleitoral, crimes eleitorais">
+    <meta name="description"
+        content="Sistema não oficial para consulta de inelegibilidade eleitoral. Baseado na tabela exemplificativa da Corregedoria do TRE-SP e revisada pela CRE-RO.">
+    <meta name="keywords"
+        content="inelegibilidade, eleitoral, consulta, TRE-SP, CRE-RO, Inelegis, sistema eleitoral, crimes eleitorais">
     <meta name="author" content="Sistema Não Oficial - Desenvolvido por servidor para uso de servidores dos TREs">
-    
+
     <!-- Open Graph -->
-    <meta property="og:title" content="Ineleg-App - Sistema de Consulta de Inelegibilidade Eleitoral">
+    <meta property="og:title" content="Inelegis - Sistema de Consulta de Inelegibilidade Eleitoral">
     <meta property="og:description" content="Sistema não oficial para consulta rápida de inelegibilidade eleitoral">
     <meta property="og:type" content="website">
-    
+
     <style>
         /* Reset e Base */
         * {
@@ -81,7 +85,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: 
+            background:
                 radial-gradient(circle at 20% 50%, rgba(14, 165, 233, 0.1) 0%, transparent 50%),
                 radial-gradient(circle at 80% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
             z-index: 0;
@@ -402,6 +406,7 @@
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -413,6 +418,7 @@
                 opacity: 0;
                 transform: translateY(-20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -420,8 +426,15 @@
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
         }
 
         /* Responsive */
@@ -430,7 +443,9 @@
                 padding: 3rem 1rem;
             }
 
-            .features, .stats, .cta {
+            .features,
+            .stats,
+            .cta {
                 padding: 3rem 1rem;
             }
 
@@ -491,17 +506,45 @@
         }
 
         /* Stagger animation delays */
-        .feature-card:nth-child(1) { transition-delay: 0.1s; }
-        .feature-card:nth-child(2) { transition-delay: 0.2s; }
-        .feature-card:nth-child(3) { transition-delay: 0.3s; }
-        .feature-card:nth-child(4) { transition-delay: 0.4s; }
-        .feature-card:nth-child(5) { transition-delay: 0.5s; }
-        .feature-card:nth-child(6) { transition-delay: 0.6s; }
+        .feature-card:nth-child(1) {
+            transition-delay: 0.1s;
+        }
 
-        .stat-item:nth-child(1) { transition-delay: 0.1s; }
-        .stat-item:nth-child(2) { transition-delay: 0.2s; }
-        .stat-item:nth-child(3) { transition-delay: 0.3s; }
-        .stat-item:nth-child(4) { transition-delay: 0.4s; }
+        .feature-card:nth-child(2) {
+            transition-delay: 0.2s;
+        }
+
+        .feature-card:nth-child(3) {
+            transition-delay: 0.3s;
+        }
+
+        .feature-card:nth-child(4) {
+            transition-delay: 0.4s;
+        }
+
+        .feature-card:nth-child(5) {
+            transition-delay: 0.5s;
+        }
+
+        .feature-card:nth-child(6) {
+            transition-delay: 0.6s;
+        }
+
+        .stat-item:nth-child(1) {
+            transition-delay: 0.1s;
+        }
+
+        .stat-item:nth-child(2) {
+            transition-delay: 0.2s;
+        }
+
+        .stat-item:nth-child(3) {
+            transition-delay: 0.3s;
+        }
+
+        .stat-item:nth-child(4) {
+            transition-delay: 0.4s;
+        }
 
         /* Scroll Smooth */
         html {
@@ -509,34 +552,38 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
             <div class="hero-badge">
                 <span class="dot"></span>
-                Sistema Ativo v0.0.4
+                Sistema Ativo v0.0.5
             </div>
-            
+
             <h1 class="hero-title">
-                <span class="gradient-text">Ineleg-App</span><br>
+                <span class="gradient-text">Inelegis</span><br>
                 Sistema de Consulta de<br>Inelegibilidade Eleitoral
             </h1>
-            
+
             <p class="hero-description">
-                Ferramenta auxiliar desenvolvida para servidores dos TREs. Consulte rapidamente a tabela exemplificativa de crimes que ensejam inelegibilidade.
+                Ferramenta auxiliar desenvolvida para servidores dos TREs. Consulte rapidamente a tabela exemplificativa
+                de crimes que ensejam inelegibilidade.
             </p>
-            
+
             <div class="hero-buttons">
                 <a href="index.html" class="btn btn-primary">
                     <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                     </svg>
                     Acessar Sistema
                 </a>
                 <a href="sobre.html" class="btn btn-secondary">
                     <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
                     Saiba Mais
                 </a>
@@ -549,77 +596,92 @@
         <div class="container">
             <div class="section-header">
                 <span class="section-badge">Recursos</span>
-                <h2 class="section-title">Por que usar o Ineleg-App?</h2>
+                <h2 class="section-title">Por que usar o Inelegis?</h2>
                 <p class="section-description">
                     Desenvolvido com foco em praticidade e eficiência para o trabalho diário
                 </p>
             </div>
-            
+
             <div class="features-grid">
                 <div class="feature-card scroll-animate">
                     <div class="feature-icon">
                         <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                         </svg>
                     </div>
                     <h3 class="feature-title">Busca Inteligente</h3>
                     <p class="feature-description">
-                        Sistema de busca avançado que localiza rapidamente artigos, leis e crimes específicos com suporte a múltiplos formatos de entrada.
+                        Sistema de busca avançado que localiza rapidamente artigos, leis e crimes específicos com
+                        suporte a múltiplos formatos de entrada.
                     </p>
                 </div>
 
                 <div class="feature-card scroll-animate">
                     <div class="feature-icon">
                         <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                            </path>
                         </svg>
                     </div>
                     <h3 class="feature-title">Base Oficial</h3>
                     <p class="feature-description">
-                        Dados baseados na tabela exemplificativa do TRE-SP (Out/2024), revisada pela CRE-RO em 02/06/2025.
+                        Dados baseados na tabela exemplificativa do TRE-SP (Out/2024), revisada pela CRE-RO em
+                        02/06/2025.
                     </p>
                 </div>
 
                 <div class="feature-card scroll-animate">
                     <div class="feature-icon">
                         <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4">
+                            </path>
                         </svg>
                     </div>
                     <h3 class="feature-title">Construtor de Artigos</h3>
                     <p class="feature-description">
-                        Monte artigos complexos facilmente com parágrafos, incisos e alíneas. O sistema monta automaticamente a sintaxe correta.
+                        Monte artigos complexos facilmente com parágrafos, incisos e alíneas. O sistema monta
+                        automaticamente a sintaxe correta.
                     </p>
                 </div>
 
                 <div class="feature-card scroll-animate">
                     <div class="feature-icon">
                         <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
                         </svg>
                     </div>
                     <h3 class="feature-title">Interface Moderna</h3>
                     <p class="feature-description">
-                        Design profissional e responsivo que funciona perfeitamente em desktop, tablet e celular. Experiência otimizada para uso diário.
+                        Design profissional e responsivo que funciona perfeitamente em desktop, tablet e celular.
+                        Experiência otimizada para uso diário.
                     </p>
                 </div>
 
                 <div class="feature-card scroll-animate">
                     <div class="feature-icon">
                         <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2">
+                            </path>
                         </svg>
                     </div>
                     <h3 class="feature-title">Exportação Rápida</h3>
                     <p class="feature-description">
-                        Copie resultados formatados para área de transferência com um clique. Ideal para documentação e relatórios.
+                        Copie resultados formatados para área de transferência com um clique. Ideal para documentação e
+                        relatórios.
                     </p>
                 </div>
 
                 <div class="feature-card scroll-animate">
                     <div class="feature-icon">
                         <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z">
+                            </path>
                         </svg>
                     </div>
                     <h3 class="feature-title">Alertas de Exceção</h3>
@@ -663,7 +725,8 @@
                 </p>
                 <a href="index.html" class="btn btn-primary">
                     <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                     </svg>
                     Acessar Sistema Agora
                 </a>
@@ -674,18 +737,19 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
-            <div class="footer-logo">🗂️ Ineleg-App</div>
+            <div class="footer-logo">🗂️ Inelegis</div>
             <p class="footer-description">
-                Sistema não oficial desenvolvido por servidor para uso de servidores dos TREs. Ferramenta auxiliar baseada em dados públicos.
+                Sistema não oficial desenvolvido por servidor para uso de servidores dos TREs. Ferramenta auxiliar
+                baseada em dados públicos.
             </p>
-            
+
             <div class="footer-disclaimer">
                 <strong>⚠️ AVISO IMPORTANTE:</strong><br>
-                Este sistema é uma ferramenta auxiliar e NÃO SUBSTITUI a consulta direta na legislação atualizada. 
-                As informações podem estar desatualizadas. Sempre confirme na legislação vigente e nas orientações 
+                Este sistema é uma ferramenta auxiliar e NÃO SUBSTITUI a consulta direta na legislação atualizada.
+                As informações podem estar desatualizadas. Sempre confirme na legislação vigente e nas orientações
                 oficiais mais recentes antes de tomar decisões definitivas.
             </div>
-            
+
             <div class="footer-links">
                 <a href="index.html" class="footer-link">Início</a>
                 <a href="consulta.html" class="footer-link">Consulta</a>
@@ -695,10 +759,10 @@
                 <a href="CHANGELOG.md" class="footer-link" target="_blank">Changelog</a>
                 <a href="MANUTENCAO.md" class="footer-link" target="_blank">Manutenção</a>
             </div>
-            
+
             <div class="footer-copy">
                 <p>Base de dados: TRE-SP (Out/2024) - CRE-RO (02/06/2025)</p>
-                <p>© 2025 Ineleg-App v0.0.4 - Sistema Não Oficial</p>
+                <p>© 2025 Inelegis v0.0.5 - Sistema Não Oficial</p>
             </div>
         </div>
     </footer>
@@ -741,5 +805,5 @@
         });
     </script>
 </body>
-</html>
 
+</html>

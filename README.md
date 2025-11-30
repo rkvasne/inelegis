@@ -1,19 +1,3 @@
-# Ineleg-App - Sistema de Consulta de Inelegibilidade Eleitoral
-
-**Versão:** 0.0.4  
-**Última atualização:** 25 de outubro de 2025  
-**Base de dados:** TRE-SP - Outubro 2024 - Revisada pela CRE-RO em 02/06/2025
-
-Sistema web profissional para consulta de inelegibilidade baseado na legislação eleitoral brasileira (Lei Complementar nº 64/1990, atualizada pela LC 135/2010).
-
-## 🎉 **Últimas Atualizações (25 de outubro de 2025)**
-
-### 🎨 **v0.0.4 - Otimizações de Layout e Funcionalidades**
-- ✅ Layout compacto: Radiobuttons em 2 colunas
-- ✅ Guia de Uso e Legenda em 3 colunas
-- ✅ Modal otimizado: Crime/Delito e Norma em 2 colunas
-- ✅ Inputs padronizados (altura 37px, fonte consistente)
-- ✅ Preview + botão Montar Artigo na mesma linha
 - ✅ Ícones dos labels alinhados verticalmente
 - ✅ Botão Exportar funcional (copia para área de transferência)
 - ✅ Toast de confirmação animado
@@ -38,7 +22,6 @@ Sistema web profissional para consulta de inelegibilidade baseado na legislaçã
 - **Interface moderna** com design system profissional
 - **Consulta rápida** de inelegibilidade eleitoral
 - **Base oficial** TRE-SP atualizada e revisada pela CRE-RO
-- **PWA completo** com Service Worker e cache offline
 - **Acessibilidade WCAG 2.1** completa
 - **Responsivo** para todos os dispositivos
 
@@ -82,15 +65,13 @@ node scripts/serve.js
 
 ### Estrutura do Projeto
 ```
-ineleg-app/
+inelegis/
 ├── index.html          # Página inicial
 ├── consulta.html       # Página de consulta
 ├── sobre.html          # Página sobre
 ├── script.js           # Lógica principal
 ├── data.js            # Base de dados TRE-SP
-├── styles-compact.css # Estilos do sistema
-├── manifest.json      # PWA manifest
-├── sw.js             # Service Worker
+├── styles.css         # Estilos do sistema
 └── scripts/          # Scripts de build/deploy
 ```
 
@@ -131,8 +112,8 @@ chmod +x deploy.sh
 ### Opção 3: Docker
 ```bash
 # Build e execução
-docker build -t ineleg-app .
-docker run -d -p 80:80 ineleg-app
+docker build -t inelegis .
+docker run -d -p 80:80 inelegis
 ```
 
 ## 📚 Documentação Técnica
@@ -161,7 +142,7 @@ docker run -d -p 80:80 ineleg-app
 - **Desenvolvido por**: Servidor para uso de servidores dos TREs
 - **Base de dados**: TRE-SP - Outubro 2024 - CRE-RO 02/06/2025
 - **Status**: Sistema não oficial (ferramenta auxiliar)
-- **Versão**: 0.0.2
+- **Versão**: 0.0.5
 
 ---
 

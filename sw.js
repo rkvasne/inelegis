@@ -1,35 +1,41 @@
-const CACHE_NAME = 'ineleg-app-v0.0.3';
+const CACHE_NAME = 'inelegis-v0.0.5';
 const ASSETS = [
   './',
   './index.html',
-  './styles-compact.css',
+  './consulta.html',
+  './sobre.html',
+  './faq.html',
+  './landing.html',
+  './styles.css',
   './script.js',
   './data.js',
-  './js/utils.js',
-  './js/parser.js',
-  './js/search.js',
-  './js/ui.js',
-  './js/config.js',
-  './icons/apple-touch-icon.png',
-  './manifest.json'
+  './icons/apple-touch-icon.png'
 ];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS))
-  );
-});
-
-self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k)))
-    )
+    caches.open(CACHE_NAME)
+      .then((cache) => cache.addAll(ASSETS))
   );
 });
 
 self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request).then((cached) => cached || fetch(event.request))
+    caches.match(event.request)
+      .then((response) => response || fetch(event.request))
+  );
+});
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames.map((cache) => {
+          if (cache !== CACHE_NAME) {
+            return caches.delete(cache);
+          }
+        })
+      );
+    })
   );
 });
