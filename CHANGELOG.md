@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 **Sistema não oficial** - Desenvolvido por servidor para uso de servidores dos TREs
 
+## [0.0.5] - Renomeação e Ajustes de PWA (30 de novembro de 2025)
+
+### Changed
+- Nome do projeto alterado de "Ineleg-App" para "Inelegis" em todos os arquivos.
+- PWA instalável removido (manifest.json deletado e links removidos).
+- Service Worker reescrito (`sw.js`) para focar apenas em cache de assets essenciais, sem instalação de app.
+- Documentação atualizada para refletir a nova identidade e versão.
+
 ## [0.0.4] - Otimizações de Layout e Funcionalidades (25 de outubro de 2025)
 
 ### Added
@@ -100,7 +108,7 @@ All notable changes to this project will be documented in this file.
 ## [0.0.1] - Initial release
 
 ### Added`n- Página Sobre (sobre.html) linkada na nav (📘).
-- Sticky navigation bar (top-0, z-50) with brand “Ineleg-App · Consulta”.
+- Sticky navigation bar (top-0, z-50) with brand “Inelegis · Consulta”.
 - Breadcrumb “Início / Consulta” no início do conteúdo principal.
 - Tema “Candyland-like” aplicado via Tailwind CDN (cores: primary, secondary, accent, info, success, warning, danger).
 - Padronização completa das seções estáticas:
@@ -109,7 +117,7 @@ All notable changes to this project will be documented in this file.
 - Inputs e selects com estados de foco consistentes (outline-none, focus:ring-2 focus:ring-primary, focus:border-primary).
 - Labels com destaque (text-accent, font-medium).
 - Link “📘 Sobre/Documentação (Alt+D)” com accesskey, foco e acessibilidade.
-- Ícone Apple Touch 180×180 com gradiente e marca “Ineleg-App”.
+- Ícone Apple Touch 180×180 com gradiente e marca “Inelegis”.
 - Acessibilidade reforçada (role="region", aria-labelledby em seções, foco visível).
 - Script utilitário de verificação dos dados (scripts/verify-data.js).
 

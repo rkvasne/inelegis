@@ -8,7 +8,7 @@ Este arquivo fornece orientações para ferramenta de IA (claude.ai/code) ao tra
 
 ## Project Overview
 
-**Ineleg-app** is a **non-official** single-page application (SPA) for Brazilian Electoral Ineligibility Consultation. It helps TRE-SP (Electoral Justice) servers determine if criminal convictions trigger electoral ineligibility based on Brazilian electoral law (Lei Complementar nº 64/1990, updated by LC 135/2010).
+**Inelegis** is a **non-official** single-page application (SPA) for Brazilian Electoral Ineligibility Consultation. It helps TRE-SP (Electoral Justice) servers determine if criminal convictions trigger electoral ineligibility based on Brazilian electoral law (Lei Complementar nº 64/1990, updated by LC 135/2010).
 
 **Development**: Created by a server for use by TRE servers
 **Data Source**: Official TRE-SP data (October 2024) reviewed by CRE-RO (02/06/2025)

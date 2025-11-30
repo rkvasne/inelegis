@@ -1,29 +1,32 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consulta | Ineleg-App - Sistema de Consulta de Inelegibilidade</title>
-    
+    <title>Consulta | Inelegis - Sistema de Consulta de Inelegibilidade</title>
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
+
     <!-- Styles -->
     <link rel="stylesheet" href="styles.css">
-    
+
     <!-- Icons -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
-    <link rel="manifest" href="manifest.json">
-    
+
+
     <!-- Meta -->
     <meta name="theme-color" content="#0ea5e9">
-    <meta name="description" content="Sistema não oficial desenvolvido por servidor para uso de servidores dos TREs. Baseado na tabela exemplificativa disponibilizada pelo TRE-SP - atualizada em outubro de 2024 - revisada pela CRE-RO em 02/06/2025">
-    <meta name="keywords" content="inelegibilidade, eleitoral, consulta, TRE-SP, CRE-RO, Ineleg-App">
+    <meta name="description"
+        content="Sistema não oficial desenvolvido por servidor para uso de servidores dos TREs. Baseado na tabela exemplificativa disponibilizada pelo TRE-SP - atualizada em outubro de 2024 - revisada pela CRE-RO em 02/06/2025">
+    <meta name="keywords" content="inelegibilidade, eleitoral, consulta, TRE-SP, CRE-RO, Inelegis">
     <meta name="author" content="Sistema Não Oficial - Desenvolvido por servidor para uso de servidores dos TREs">
 </head>
+
 <body>
     <!-- Header do Sistema -->
     <header class="system-header" role="banner">
@@ -33,16 +36,18 @@
                     <div class="brand-icon" aria-hidden="true">
                         <svg width="26" height="26" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path>
-                            <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"></path>
+                            <path fill-rule="evenodd"
+                                d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z"
+                                clip-rule="evenodd"></path>
                         </svg>
                     </div>
                     <div class="brand-text">
-                        <h1>Ineleg-App</h1>
+                        <h1>Inelegis</h1>
                         <p>Sistema de Consulta de Inelegibilidade Eleitoral</p>
                     </div>
                 </div>
                 <div class="system-info">
-                    <div class="version">v0.0.4</div>
+                    <div class="version">v0.0.5</div>
                     <div class="status" role="status" aria-live="polite">
                         <div class="status-dot" aria-hidden="true"></div>
                         Sistema Ativo
@@ -58,41 +63,54 @@
             <div class="nav-content">
                 <div class="nav-links">
                     <a href="index.html" class="nav-link">
-                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                            </path>
                         </svg>
                         Início
                     </a>
                     <a href="#" class="nav-link active" aria-current="page">
-                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                         </svg>
                         Consulta
                     </a>
                     <a href="sobre.html" class="nav-link">
-                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
                         Sobre
                     </a>
                     <a href="faq.html" class="nav-link">
-                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                            </path>
                         </svg>
                         FAQ
                     </a>
                 </div>
                 <div class="nav-links">
                     <a href="DOCUMENTACAO.md" class="nav-link" target="_blank" rel="noopener noreferrer">
-                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253Z"></path>
-                    </svg>
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253Z">
+                            </path>
+                        </svg>
                         Documentação
                     </a>
                 </div>
             </div>
         </div>
-            </nav>
+    </nav>
 
     <!-- Conteúdo Principal -->
     <main class="container mt-8">
@@ -101,13 +119,16 @@
             <div class="card-header">
                 <h2>Configuração da Consulta</h2>
                 <p>Selecione o tipo de comunicação e configure os parâmetros</p>
-                </div>
+            </div>
             <div class="card-body">
                 <!-- Tipo de Comunicação -->
                 <div class="form-group">
                     <label class="form-label">
-                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                            </path>
                         </svg>
                         Tipo de Comunicação
                     </label>
@@ -117,9 +138,11 @@
                             <div class="radio-content">
                                 <div class="radio-icon">
                                     <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                                        </svg>
-                                    </div>
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
                                 <div class="radio-text">
                                     <span class="radio-title">Condenação</span>
                                     <span class="radio-description">Sentença condenatória transitada em julgado</span>
@@ -131,9 +154,11 @@
                             <div class="radio-content">
                                 <div class="radio-icon warning">
                                     <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
-                                        </svg>
-                                    </div>
+                                        <path fill-rule="evenodd"
+                                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
                                 <div class="radio-text">
                                     <span class="radio-title">Extinção da Punibilidade</span>
                                     <span class="radio-description">Processo com extinção da punibilidade</span>
@@ -145,45 +170,58 @@
 
                 <!-- Campos de Busca -->
                 <div class="grid grid-cols-2 gap-4">
-                <!-- Seleção de Lei -->
+                    <!-- Seleção de Lei -->
                     <div class="form-group">
                         <label class="form-label">
-                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253Z"></path>
+                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253Z">
+                                </path>
                             </svg>
                             Lei/Código Aplicável
                         </label>
                         <select id="leiSelect" class="form-select" aria-label="Selecionar lei ou código aplicável">
                             <option value="">Selecione a lei ou código...</option>
-                    </select>
+                        </select>
                     </div>
-                    
+
                     <!-- Campo de Artigo -->
                     <div class="form-group">
                         <label class="form-label">
-                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                </path>
                             </svg>
                             Artigo Completo
                         </label>
                         <div class="flex gap-2">
-                            <input type="text" id="artigoInput" class="form-input flex-1" placeholder="Ex: Art. 155, § 1º, I, do CP" aria-describedby="ajudaArtigo">
+                            <input type="text" id="artigoInput" class="form-input flex-1"
+                                placeholder="Ex: Art. 155, § 1º, I, do CP" aria-describedby="ajudaArtigo">
                             <button id="searchBtn" class="btn btn-primary" disabled>
-                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                                 </svg>
                                 Buscar
                             </button>
                         </div>
-                        <p id="ajudaArtigo" class="text-sm text-neutral-600 mt-2">Digite o artigo completo ou use o construtor abaixo.</p>
+                        <p id="ajudaArtigo" class="text-sm text-neutral-600 mt-2">Digite o artigo completo ou use o
+                            construtor abaixo.</p>
                     </div>
                 </div>
 
                 <!-- Construtor de Artigos -->
                 <div class="form-group">
                     <label class="form-label">
-                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                            </path>
                         </svg>
                         Construtor de Artigos
                     </label>
@@ -191,23 +229,28 @@
                         <div class="builder-fields">
                             <div class="field-group">
                                 <label class="field-label">Número</label>
-                                <input type="text" id="artigoNum" class="form-input" placeholder="Ex: 155" aria-label="Número do artigo" disabled>
+                                <input type="text" id="artigoNum" class="form-input" placeholder="Ex: 155"
+                                    aria-label="Número do artigo" disabled>
                             </div>
                             <div class="field-group">
                                 <label class="field-label">Parágrafo</label>
-                                <input type="text" id="paragrafoNum" class="form-input" placeholder="Ex: 1º" aria-label="Parágrafo" disabled>
+                                <input type="text" id="paragrafoNum" class="form-input" placeholder="Ex: 1º"
+                                    aria-label="Parágrafo" disabled>
                             </div>
                             <div class="field-group">
                                 <label class="field-label">Inciso</label>
-                                <input type="text" id="incisoNum" class="form-input" placeholder="Ex: I" aria-label="Inciso" disabled>
+                                <input type="text" id="incisoNum" class="form-input" placeholder="Ex: I"
+                                    aria-label="Inciso" disabled>
                             </div>
                             <div class="field-group">
                                 <label class="field-label">Alínea</label>
-                                <input type="text" id="alineaNum" class="form-input" placeholder="Ex: a" aria-label="Alínea" disabled>
+                                <input type="text" id="alineaNum" class="form-input" placeholder="Ex: a"
+                                    aria-label="Alínea" disabled>
                             </div>
                             <div class="field-group">
                                 <label class="field-label">Conc.</label>
-                                <input type="text" id="concomitanteNum" class="form-input" placeholder="Ex: 1" aria-label="Concomitante" disabled>
+                                <input type="text" id="concomitanteNum" class="form-input" placeholder="Ex: 1"
+                                    aria-label="Concomitante" disabled>
                             </div>
                         </div>
                         <div class="builder-preview-row">
@@ -217,7 +260,8 @@
                             </div>
                             <button id="montarArtigoBtn" class="btn btn-primary" disabled>
                                 <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
                                 Montar Artigo
                             </button>
@@ -240,8 +284,11 @@
                 <div class="card-header">
                     <div class="flex items-center gap-3">
                         <div class="w-8 h-8 bg-danger-100 rounded-lg flex items-center justify-center">
-                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" class="text-danger-600">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                class="text-danger-600">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z">
+                                </path>
                             </svg>
                         </div>
                         <div>
@@ -254,24 +301,29 @@
                     <div class="alert alert-danger">
                         <div class="alert-icon" aria-hidden="true">
                             <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M10.29 3.86l-7.4 12.84A2 2 0 004.53 20h14.94a2 2 0 001.74-3.3L13.81 3.86a2 2 0 00-3.52 0z"></path>
-                                </svg>
-                            </div>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 9v2m0 4h.01M10.29 3.86l-7.4 12.84A2 2 0 004.53 20h14.94a2 2 0 001.74-3.3L13.81 3.86a2 2 0 00-3.52 0z">
+                                </path>
+                            </svg>
+                        </div>
                         <div class="alert-content">
                             <h3>ATENÇÃO</h3>
-                            <p>Este artigo está relacionado ao ASE 337 - Motivo 7. Verifique as condições específicas para este caso.</p>
-                            </div>
+                            <p>Este artigo está relacionado ao ASE 337 - Motivo 7. Verifique as condições específicas
+                                para este caso.</p>
                         </div>
                     </div>
                 </div>
+            </div>
 
             <!-- Seção ASE 370 -->
             <div id="secaoASE370" class="card mb-6 hidden">
                 <div class="card-header">
                     <div class="flex items-center gap-3">
                         <div class="w-8 h-8 bg-warning-100 rounded-lg flex items-center justify-center">
-                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" class="text-warning-600">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                class="text-warning-600">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
                         </div>
                         <div>
@@ -284,12 +336,14 @@
                     <div class="alert alert-warning">
                         <div class="alert-icon" aria-hidden="true">
                             <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
                         </div>
                         <div class="alert-content">
                             <h3>INFORMAÇÃO</h3>
-                            <p>Este artigo está relacionado ao ASE 370 - Motivo 8. Consulte as orientações específicas.</p>
+                            <p>Este artigo está relacionado ao ASE 370 - Motivo 8. Consulte as orientações específicas.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -311,9 +365,11 @@
                     <div class="guide-step">
                         <div class="step-icon">
                             <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                      </svg>
-                    </div>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                </path>
+                            </svg>
+                        </div>
                         <div class="step-content">
                             <h3>1. Selecione o Tipo</h3>
                             <p>Escolha entre "Condenação" ou "Extinção da Punibilidade" conforme o caso</p>
@@ -322,27 +378,31 @@
                     <div class="guide-step">
                         <div class="step-icon">
                             <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253Z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253Z">
+                                </path>
                             </svg>
-                  </div>
+                        </div>
                         <div class="step-content">
                             <h3>2. Escolha a Lei</h3>
                             <p>Selecione o código ou lei aplicável ao caso específico</p>
-                </div>
+                        </div>
                     </div>
                     <div class="guide-step">
                         <div class="step-icon">
                             <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z">
+                                </path>
                             </svg>
                         </div>
                         <div class="step-content">
                             <h3>3. Digite o Artigo</h3>
                             <p>Informe o artigo completo ou use o construtor para facilitar</p>
+                        </div>
                     </div>
-                  </div>
                 </div>
-                
+
                 <!-- Legenda de Resultados -->
                 <div class="results-legend">
                     <h3>Legenda de Resultados</h3>
@@ -350,18 +410,22 @@
                         <div class="legend-item ineligible">
                             <div class="legend-icon">
                                 <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
-                      </svg>
-                    </div>
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
                             <div class="legend-content">
                                 <span class="legend-title">INELEGÍVEL</span>
                                 <span class="legend-description">Enseja anotação de inelegibilidade</span>
                             </div>
-                                </div>
+                        </div>
                         <div class="legend-item eligible">
                             <div class="legend-icon">
                                 <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd"></path>
                                 </svg>
                             </div>
                             <div class="legend-content">
@@ -372,7 +436,9 @@
                         <div class="legend-item not-found">
                             <div class="legend-icon">
                                 <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                                    <path fill-rule="evenodd"
+                                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                                        clip-rule="evenodd"></path>
                                 </svg>
                             </div>
                             <div class="legend-content">
@@ -383,7 +449,7 @@
                     </div>
                 </div>
             </div>
-              </div>
+        </div>
     </main>
 
     <!-- Footer -->
@@ -399,55 +465,62 @@
                     <a href="CLAUDE.md" class="footer-link" target="_blank">Documentação Técnica</a>
                 </div>
             </div>
-          </div>
-        </footer>
+        </div>
+    </footer>
 
     <!-- Modal de Resultado -->
     <div id="modalResultado" class="modal">
         <div class="modal-content">
-        <div class="modal-header">
-          <div class="modal-header-brand">
-            <div class="modal-header-icon" id="modalHeaderIcon">
-              <svg width="26" height="26" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path>
-                <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"></path>
-              </svg>
+            <div class="modal-header">
+                <div class="modal-header-brand">
+                    <div class="modal-header-icon" id="modalHeaderIcon">
+                        <svg width="26" height="26" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path>
+                            <path fill-rule="evenodd"
+                                d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </div>
+                    <div class="modal-header-text">
+                        <h3 id="modalTitle">Resultado da Consulta</h3>
+                        <p id="modalSubtitle">Análise de inelegibilidade eleitoral</p>
+                    </div>
+                </div>
+                <button class="modal-close-btn" onclick="fecharModal()" aria-label="Fechar modal">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
+                </button>
             </div>
-            <div class="modal-header-text">
-              <h3 id="modalTitle">Resultado da Consulta</h3>
-              <p id="modalSubtitle">Análise de inelegibilidade eleitoral</p>
-            </div>
-          </div>
-          <button class="modal-close-btn" onclick="fecharModal()" aria-label="Fechar modal">
-            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-          </button>
-        </div>
             <div class="modal-body">
                 <div id="modalBody">
                     <!-- Conteúdo será inserido dinamicamente -->
                 </div>
-        </div>
-        <div class="modal-footer">
+            </div>
+            <div class="modal-footer">
                 <button class="modal-btn secondary" onclick="fecharModal()">
                     <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-            Fechar
-          </button>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
+                    Fechar
+                </button>
                 <button class="modal-btn primary" onclick="exportarResultado()">
                     <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2z">
+                        </path>
                     </svg>
                     Exportar
-          </button>
+                </button>
+            </div>
         </div>
-      </div>
     </div>
 
     <!-- Scripts -->
     <script src="data.js"></script>
     <script src="script.js"></script>
 </body>
+
 </html>

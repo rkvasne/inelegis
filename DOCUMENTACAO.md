@@ -1,7 +1,7 @@
-# 📚 ÍNDICE DE DOCUMENTAÇÃO - Ineleg-App
+# 📚 ÍNDICE DE DOCUMENTAÇÃO - Inelegis
 
-**Última atualização:** 24 de outubro de 2025
-**Versão:** 0.0.2
+**Última atualização:** 30 de novembro de 2025
+**Versão:** 0.0.5
 **Status:** ✅ 100% Conformidade TRE-SP
 **Tipo:** Sistema não oficial (ferramenta auxiliar)
 
@@ -15,13 +15,12 @@ Esta seção ajuda você a encontrar rapidamente o que precisa:
 → Leia: **[CLAUDE.md](CLAUDE.md)** (guia técnico do projeto)
 
 ### Para **usar a aplicação**
-→ Leia: **[README.md](README.md)** (funcionalidades e uso)
+→ Leia: (funcionalidades e uso)
 
 ### Para **entender as ASE (códigos)**
 → Leia: **[MANUAL-ASE.txt](MANUAL-ASE.txt)** (orientação operacional)
 
-### Para **conhecer as melhorias v2.0**
-→ Leia: **[VERSAO_2.0.md](VERSAO_2.0.md)** (todas as melhorias em um lugar)
+
 
 ### Para **manutenção de dados**
 → Leia: **[MANUTENCAO.md](MANUTENCAO.md)** (checklist e validação)
@@ -75,20 +74,7 @@ Esta seção ajuda você a encontrar rapidamente o que precisa:
 
 ---
 
-### 4. **VERSAO_2.0.md** (Novo - Consolidado)
-**O que contém:**
-- Resumo de todas as melhorias v2.0
-- Problema identificado (input, busca, exceções)
-- Solução implementada
-- Exemplos de comportamento
-- Como testar
-- Performance
-- Compatibilidade
 
-**Quando usar:**
-- Entender o que mudou na v2.0
-- Documentação das melhorias
-- Referência para usuários que atualizaram
 
 ---
 
@@ -114,8 +100,7 @@ Os seguintes arquivos redundantes foram **eliminados** para manter a documentaç
 
 | Arquivo | Razão | Consolidado em |
 |---------|-------|---|
-| MELHORIAS_BUSCA.md | Duplicado e muito longo | VERSAO_2.0.md |
-| CORRECAO_BUSCA_121.md | Detalhe específico | VERSAO_2.0.md |
+
 | RELATORIO_VALIDACAO_DADOS.md | Muito longo (300+ linhas) | MANUTENCAO.md |
 | relatorio-validacao-completo.md | Duplicado | MANUTENCAO.md |
 | relatorio-validacao-outras-leis.md | Duplicado | MANUTENCAO.md |
@@ -129,7 +114,7 @@ Os seguintes arquivos redundantes foram **eliminados** para manter a documentaç
 ## 🗂️ ESTRUTURA RECOMENDADA
 
 ```
-ineleg-app/
+inelegis/
 │
 ├── 📄 DOCUMENTACAO.md          ← VOCÊ ESTÁ AQUI (índice)
 │
@@ -137,7 +122,7 @@ ineleg-app/
 ├── 📖 README.md                ← Descrição geral
 ├── 📋 MANUAL-ASE.txt           ← Guia operacional
 │
-├── 🆕 VERSAO_2.0.md            ← Melhorias implementadas
+
 ├── 🔧 MANUTENCAO.md            ← Validação e manutenção
 │
 ├── 🧠 script.js                ← Código principal
@@ -155,21 +140,21 @@ ineleg-app/
 ### Você é **desenvolvedor** novo no projeto?
 1. Leia: **CLAUDE.md** (arquitetura)
 2. Explore: **script.js** (código)
-3. Consulte: **VERSAO_2.0.md** (melhorias recentes)
+
 4. Mantenha: **MANUTENCAO.md** (para updates)
 
 ### Você é **usuário operacional** (servidor TRE)?
 1. Leia: **README.md** (visão geral)
 2. Consulte: **MANUAL-ASE.txt** (como usar ASE)
-3. Refira-se: **VERSAO_2.0.md** (novas features)
+
 
 ### Você é **administrador** do sistema?
 1. Leia: **MANUTENCAO.md** (checklist)
 2. Consulte: **CLAUDE.md** (estrutura)
-3. Acompanhe: **VERSAO_2.0.md** (atualizações)
+
 
 ### Você quer **corrigir um bug**?
-1. Busque em: **VERSAO_2.0.md** (se recente)
+1. Busque em: **CHANGELOG.md** (se recente)
 2. Procure em: **CLAUDE.md** (estrutura do código)
 3. Teste com: Exemplos em **MANUTENCAO.md**
 
@@ -183,12 +168,12 @@ ineleg-app/
 - Validar dados.js contra XML oficial
 
 ### Anual
-- Revisar **VERSAO_2.0.md** para novas funcionalidades
+- Revisar **CHANGELOG.md** para novas funcionalidades
 - Atualizar **CLAUDE.md** se houver mudanças arquiteturais
 - Backup completo de dados e documentação
 
 ### Quando há novo release
-- Atualizar **VERSAO_2.0.md** (ou criar VERSAO_3.0.md)
+- Atualizar **CHANGELOG.md**
 - Adicionar novas entradas ao histórico
 - Notificar usuários via **README.md**
 
@@ -203,7 +188,7 @@ R: Para evitar redundância e confusão. Documentação espalhada causa inconsis
 R: Recomendo manter por 6 meses para referência histórica, depois deletar.
 
 **P: Onde fico sabendo sobre bugs/melhorias?**
-R: Consulte **VERSAO_2.0.md** para tudo que mudou na versão atual.
+R: Consulte **CHANGELOG.md** para tudo que mudou na versão atual.
 
 **P: Como atualizar os dados?**
 R: Leia **MANUTENCAO.md**, seção "Como atualizar data.js".
@@ -230,16 +215,16 @@ R: Sim, toda documentação está em português-br conforme solicitado.
 
 ## 📌 PRÓXIMAS MELHORIAS DOCUMENTADAS
 
-Veja **VERSAO_2.0.md**, seção "Próximas Melhorias Sugeridas" para funcionalidades futuras.
+Veja **CHANGELOG.md**, seção "Próximas Melhorias Sugeridas" para funcionalidades futuras.
 
 ---
 
-**Última atualização:** 24 de outubro de 2025
-**Versão:** 0.0.2
+**Última atualização:** 30 de novembro de 2025
+**Versão:** 0.0.5
 **Status:** ✅ Documentação limpa, sem redundâncias, atualizada com novos recursos
 
 
-## Sistema Profissional – v0.0.2
+## Sistema Profissional – v0.0.5
 - Tailwind via CDN (sem build) e paleta inspirada em candyland.
 - Nav sticky + breadcrumb, link para sobre.html (📘 Documentação alternativa).
 - Seções estáticas padronizadas (cards, badges, ícones). 

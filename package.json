@@ -1,6 +1,6 @@
 {
-  "name": "ineleg-app",
-  "version": "0.0.2",
+  "name": "inelegis",
+  "version": "0.0.5",
   "description": "Sistema de Consulta de Inelegibilidade Eleitoral",
   "main": "index.html",
   "scripts": {
@@ -28,10 +28,9 @@
   },
   "keywords": [
     "inelegibilidade",
-    "sistema-juridico",
-    "pwa"
+    "sistema-juridico"
   ],
-  "author": "Ineleg-App",
+  "author": "Inelegis",
   "license": "MIT",
   "devDependencies": {
     "eslint": "^9.0.0",
