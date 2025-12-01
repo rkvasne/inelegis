@@ -6,6 +6,8 @@ Bem-vindo à documentação oficial do projeto **Inelegis**.
 
 - **[Guia de Desenvolvimento](DEVELOPMENT.md)** (`docs/DEVELOPMENT.md`): Instruções para configurar o ambiente, rodar testes, linting e padrões de código.
 - **[Guia de Manutenção](MAINTENANCE.md)** (`docs/MAINTENANCE.md`): Procedimentos para atualização da base de dados (trimestral), validação de dados e deploy.
+- **[Sistema de Componentes](COMPONENTS.md)** (`docs/COMPONENTS.md`): Documentação do sistema de componentes para evitar duplicação e corrupção de código.
+- **[Guia de Proteção](PROTECTION.md)** (`docs/PROTECTION.md`): Diretrizes para edições seguras e prevenção de corrupção de HTML.
 - **[Referências Oficiais](references/)** (`docs/references/`): Documentos originais do TRE-SP e manuais ASE.
 
 ## 📂 Estrutura da Documentação

@@ -112,7 +112,11 @@ function configurarEventListeners() {
 
                 // Se o campo "Artigo Completo" tiver conteúdo, mostrar ele no preview
                 if (artigoCompleto) {
-                    document.getElementById('previewArtigo').textContent = artigoCompleto;
+                    // Adicionar "Art. " se não começar com isso
+                    const artigoFormatado = artigoCompleto.toLowerCase().startsWith('art.')
+                        ? artigoCompleto
+                        : `Art. ${artigoCompleto}`;
+                    document.getElementById('previewArtigo').textContent = `${artigoFormatado} do ${leiSelecionada}`;
                     return;
                 }
 

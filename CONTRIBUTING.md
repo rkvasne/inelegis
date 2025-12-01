@@ -1,5 +1,8 @@
 # 🤝 Guia de Contribuição
 
+**Última atualização:** 30 de novembro de 2025
+**Versão atual:** 0.0.6
+
 Obrigado pelo seu interesse em contribuir para o **Inelegis**! 🎉
 
 Este documento é um guia para ajudar você a contribuir para este projeto. Seja corrigindo bugs, adicionando novas funcionalidades, melhorando a documentação ou traduzindo, sua ajuda é muito bem-vinda.
