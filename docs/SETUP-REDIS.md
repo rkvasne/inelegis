@@ -7,6 +7,27 @@
 
 ---
 
+## 🎯 Guia Rápido
+
+### Variáveis Necessárias no Vercel
+
+Você precisa de **APENAS 2 VARIÁVEIS**:
+
+| Variável | Como Obter | Tipo |
+|----------|------------|------|
+| `REDIS_URL` | Criada automaticamente ao conectar KV Store | Automática |
+| `ANALYTICS_ADMIN_TOKEN` | Gerar com `npm run generate-token` | Manual |
+
+### Setup em 5 Passos
+
+1. **Criar KV Store** → Vercel Dashboard → Storage → Create Database → KV
+2. **Conectar ao Projeto** → Connect Project → inelegis-app → ✅ `REDIS_URL` criada!
+3. **Gerar Token** → `npm run generate-token`
+4. **Adicionar no Vercel** → Settings → Environment Variables → `ANALYTICS_ADMIN_TOKEN`
+5. **Deploy** → `git push origin main`
+
+---
+
 ## 📋 Pré-requisitos
 
 - Conta no Vercel
@@ -15,7 +36,7 @@
 
 ---
 
-## 🔧 Passo a Passo
+## 🔧 Passo a Passo Detalhado
 
 ### 1. Criar Vercel KV Store
 
@@ -32,10 +53,8 @@
 1. Na página do KV criado, clique em **Connect Project**
 2. Selecione o projeto **inelegis-app**
 3. Clique em **Connect**
-4. As variáveis de ambiente serão adicionadas automaticamente:
-   - `KV_REST_API_URL`
-   - `KV_REST_API_TOKEN`
-   - `KV_REST_API_READ_ONLY_TOKEN`
+4. A variável de ambiente será adicionada automaticamente:
+   - `REDIS_URL`
 
 ### 3. Adicionar Token do Dashboard
 
@@ -112,8 +131,8 @@ npm run dev
 brew install redis  # macOS
 apt-get install redis-tools  # Linux
 
-# Conectar
-redis-cli -u $KV_REST_API_URL --pass $KV_REST_API_TOKEN
+# Conectar usando REDIS_URL
+redis-cli -u $REDIS_URL
 
 # Comandos úteis
 > GET analytics:total
@@ -205,9 +224,8 @@ analytics:search:TIMESTAMP:ID      # Hash: Evento individual
 
 ### Tokens
 
-- ✅ `KV_REST_API_TOKEN` - Leitura e escrita (apenas backend)
-- ✅ `KV_REST_API_READ_ONLY_TOKEN` - Apenas leitura
-- ✅ `ANALYTICS_ADMIN_TOKEN` - Acesso ao dashboard
+- ✅ `REDIS_URL` - Contém URL e credenciais (gerenciada pelo Vercel)
+- ✅ `ANALYTICS_ADMIN_TOKEN` - Acesso ao dashboard (você cria)
 
 ### Boas Práticas
 
@@ -243,7 +261,7 @@ Se precisar mais:
 
 ## 🐛 Troubleshooting
 
-### Erro: "KV_REST_API_URL is not defined"
+### Erro: "REDIS_URL is not defined"
 
 **Solução:** Conectar o KV ao projeto no Vercel
 

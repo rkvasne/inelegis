@@ -1,6 +1,6 @@
 {
   "name": "inelegis",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Sistema de Consulta de Inelegibilidade Eleitoral",
   "main": "index.html",
   "scripts": {
@@ -20,6 +20,7 @@
     "deploy:prod": "NODE_ENV=production npm run deploy",
     "migrate": "node scripts/migrate.js",
     "rollback": "node scripts/rollback.js",
+    "generate-token": "node scripts/generate-admin-token.js",
     "start": "npm run serve",
     "prebuild": "npm run check",
     "preoptimize": "npm run build",

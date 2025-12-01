@@ -55,7 +55,7 @@
                         </svg>
                         Início
                     </a>
-                    <a href="consulta.html" class="nav-link">
+                    <a href="consulta" class="nav-link">
                         <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                             aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -63,7 +63,7 @@
                         </svg>
                         Consulta
                     </a>
-                    <a href="sobre.html" class="nav-link">
+                    <a href="sobre" class="nav-link">
                         <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                             aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -71,7 +71,7 @@
                         </svg>
                         Sobre
                     </a>
-                    <a href="faq.html" class="nav-link">
+                    <a href="faq" class="nav-link">
                         <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                             aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -152,9 +152,9 @@
                     <p class="text-sm text-neutral-500">Versão 0.0.6</p>
                 </div>
                 <div class="footer-links">
-                    <a href="CHANGELOG.md" class="footer-link" target="_blank">Changelog</a>
-                    <a href="docs/MAINTENANCE.md" class="footer-link" target="_blank">Manutenção</a>
-                    <a href="docs/DEVELOPMENT.md" class="footer-link" target="_blank">Documentação Técnica</a>
+                    <a href="https://github.com/rkvasne/ineleg-app/blob/main/CHANGELOG.md" class="footer-link" target="_blank">Changelog</a>
+                    <a href="https://github.com/rkvasne/ineleg-app/blob/main/docs/MAINTENANCE.md" class="footer-link" target="_blank">Manutenção</a>
+                    <a href="https://github.com/rkvasne/ineleg-app/blob/main/docs/DEVELOPMENT.md" class="footer-link" target="_blank">Documentação Técnica</a>
                 </div>
             </div>
         </div>
@@ -165,7 +165,7 @@
         // Controle do checkbox e botão
         const checkbox = document.getElementById('confirmacao');
         const button = document.getElementById('acessarBtn');
-        const consultaLink = document.querySelector('a[href="consulta.html"]');
+        const consultaLink = document.querySelector('a[href="consulta"]');
 
         // Verificar se usuário já aceitou os termos anteriormente
         const termosAceitos = localStorage.getItem('ineleg_termos_aceitos') === 'true';
@@ -216,7 +216,7 @@
             if (checkbox.checked) {
                 // Salvar consentimento no localStorage
                 localStorage.setItem('ineleg_termos_aceitos', 'true');
-                window.location.href = 'consulta.html';
+                window.location.href = 'consulta';
             }
         });
 
@@ -233,7 +233,7 @@
                 if (checkbox.checked) {
                     e.preventDefault();
                     localStorage.setItem('ineleg_termos_aceitos', 'true');
-                    window.location.href = 'consulta.html';
+                    window.location.href = 'consulta';
                 }
             }
         });

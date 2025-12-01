@@ -4,7 +4,13 @@
 
 **Última atualização:** 01 de dezembro de 2025  
 **Versão:** 0.0.6  
-**Status:** Concluído
+**Status:** ✅ Concluído
+
+---
+
+> **📌 NOTA IMPORTANTE:** Este documento descreve o plano de refatoração da v0.0.6 que foi **concluído em 01/12/2025**.  
+> Mantido como **referência histórica** e documentação de decisões técnicas.  
+> Para informações atuais sobre desenvolvimento, consulte [DEVELOPMENT.md](DEVELOPMENT.md).
 
 ---
 
