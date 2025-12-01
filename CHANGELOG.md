@@ -5,7 +5,7 @@ lastReviewed: 2026-01-10
 ---
 # Changelog
 
-**Última atualização:** 10 de janeiro de 2026
+**Última atualização:** 14 de janeiro de 2026
 **Versão atual:** 0.2.0
 
 Todas as alterações notáveis neste projeto serão documentadas neste arquivo.
@@ -16,6 +16,12 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 ---
 
 ## [Unreleased]
+
+### 📚 Documentation
+- Unificação de documentação: remoção de arquivos `release-notes-*` (conteúdo consolidado no CHANGELOG).
+- Conversão de `docs/design/landing-template.html` para `docs/design/landing-template.md`.
+- Padronização de metadados (front matter) em `README.md`, `docs/README.md`, `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md` e `SECURITY.md`.
+- Atualização de links internos e índice central em `docs/README.md`.
 
 ### 📐 Layout & Design
 - **Container**: Ajustada largura máxima para `1312px` (referência: referência visual).
