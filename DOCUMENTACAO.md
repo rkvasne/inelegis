@@ -1,7 +1,7 @@
 # 📚 ÍNDICE DE DOCUMENTAÇÃO - Inelegis
 
 **Última atualização:** 30 de novembro de 2025
-**Versão:** 0.0.5
+**Versão:** 0.0.6
 **Status:** ✅ 100% Conformidade TRE-SP
 **Tipo:** Sistema não oficial (ferramenta auxiliar)
 
@@ -220,11 +220,11 @@ Veja **CHANGELOG.md**, seção "Próximas Melhorias Sugeridas" para funcionalida
 ---
 
 **Última atualização:** 30 de novembro de 2025
-**Versão:** 0.0.5
+**Versão:** 0.0.6
 **Status:** ✅ Documentação limpa, sem redundâncias, atualizada com novos recursos
 
 
-## Sistema Profissional – v0.0.5
+## Sistema Profissional – v0.0.6
 - Tailwind via CDN (sem build) e paleta inspirada em candyland.
 - Nav sticky + breadcrumb, link para sobre.html (📘 Documentação alternativa).
 - Seções estáticas padronizadas (cards, badges, ícones). 

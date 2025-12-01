@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 **Sistema não oficial** - Desenvolvido por servidor para uso de servidores dos TREs
 
+## [0.0.6] - Correções de Cache e Estabilidade (30 de novembro de 2025)
+
+### Fixed
+- Corrigido problema onde estilos CSS eram perdidos ao navegar entre páginas.
+- Service Worker atualizado para assumir controle imediato (`skipWaiting`, `clients.claim`).
+- Estratégia de cache aprimorada para garantir carregamento de assets.
+
 ## [0.0.5] - Renomeação e Ajustes de PWA (30 de novembro de 2025)
 
 ### Changed
