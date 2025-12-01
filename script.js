@@ -244,7 +244,7 @@ function configurarEventListeners() {
 
         // Formatação automática durante a digitação (apenas se necessário)
         if (valorTrim && valorTrim.length > 0) {
-            const valorFormatado = aplicarFormatacaoAutomatica2(valorTrim);
+            const valorFormatado = ArtigoFormatter.formatar(valorTrim);
 
             // Só atualizar se realmente mudou (evitar formatação repetida)
             if (valorFormatado !== valorTrim) {
@@ -385,7 +385,7 @@ function buscarInelegibilidadePorLeiEArtigo(codigoLei, numeroArtigo) {
         return null;
     }
 
-    const artigoProcessado = processarArtigoCompleto(numeroArtigo);
+    const artigoProcessado = ArtigoFormatter.processar(numeroArtigo);
     console.log('📝 ARTIGO PROCESSADO:', artigoProcessado);
 
     let melhorResultado = null;
@@ -408,7 +408,7 @@ function buscarInelegibilidadePorLeiEArtigo(codigoLei, numeroArtigo) {
             console.log('✅ ENCONTRADO!', item);
 
             // Verificar se há exceções aplicáveis
-            const temExcecao = verificarExcecoesAplicaveis2(item, artigoProcessado);
+            const temExcecao = ExceptionValidator.verificar(item, artigoProcessado);
 
             if (temExcecao) {
                 excecoesEncontradas.push({
@@ -466,7 +466,7 @@ function buscarFlexivel(codigoLei, artigoProcessado) {
         if (artigos.includes(artigoPrincipal)) {
             console.log('🔸 ENCONTRADO COM BUSCA FLEXÍVEL:', item.norma, '- Artigos:', artigos);
 
-            const temExcecao = verificarExcecoesAplicaveis2(item, artigoProcessado);
+            const temExcecao = ExceptionValidator.verificar(item, artigoProcessado);
 
             return {
                 ...item,
@@ -513,12 +513,12 @@ function processarArtigoCompleto(artigo) {
             resultado.concomitante.push(processarParteArtigo(partesConcomitantes[i]));
         }
 
-        resultado.formatado = formatarArtigoCompleto(resultado);
+        resultado.formatado = ArtigoFormatter.formatarCompleto(resultado);
     } else {
         // Processar artigo simples
         const artProcessado = processarParteArtigo(artigoLimpo);
         Object.assign(resultado, artProcessado);
-        resultado.formatado = formatarArtigoCompleto(resultado);
+        resultado.formatado = ArtigoFormatter.formatarCompleto(resultado);
     }
 
     return resultado;
