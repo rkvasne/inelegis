@@ -12,6 +12,9 @@
 ### 🏠 [README.md](README.md)
 Visão geral da documentação, estrutura do projeto e links rápidos.
 
+### 📜 [Histórico do Projeto](HISTORICO.md)
+Evolução do projeto, decisões técnicas e lições aprendidas.
+
 ### 🛠️ [Guia de Desenvolvimento](DEVELOPMENT.md)
 Arquitetura, módulos, testes, padrões de código e fluxo de trabalho.
 
