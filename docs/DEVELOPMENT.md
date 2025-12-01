@@ -1,71 +1,65 @@
-# CLAUDE.md - Guia Técnico do Projeto
+# Guia de Desenvolvimento - Inelegis
 
-**Última atualização:** 24 de outubro de 2025
+**Última atualização:** 30 de novembro de 2025
 
-Este arquivo fornece orientações para ferramenta de IA (claude.ai/code) ao trabalhar com este repositório.
+Este arquivo fornece orientações técnicas para desenvolvedores trabalhando neste repositório.
 
-**⚠️ Nota:** Para uma visão completa da documentação, consulte [DOCUMENTACAO.md](DOCUMENTACAO.md)
+**⚠️ Nota:** Para uma visão completa da documentação, consulte [README.md](README.md).
 
-## Project Overview
+## Visão Geral do Projeto
 
-**Inelegis** is a **non-official** single-page application (SPA) for Brazilian Electoral Ineligibility Consultation. It helps TRE-SP (Electoral Justice) servers determine if criminal convictions trigger electoral ineligibility based on Brazilian electoral law (Lei Complementar nº 64/1990, updated by LC 135/2010).
+**Inelegis** é uma aplicação de página única (SPA) **não oficial** para Consulta de Inelegibilidade Eleitoral. Ela auxilia servidores da Justiça Eleitoral a determinar se condenações criminais geram inelegibilidade com base na Lei Complementar nº 64/1990 (atualizada pela LC 135/2010).
 
-**Development**: Created by a server for use by TRE servers
-**Data Source**: Official TRE-SP data (October 2024) reviewed by CRE-RO (02/06/2025)
-**Status**: Non-official auxiliary tool
+- **Desenvolvimento**: Criado por um servidor para uso por servidores.
+- **Fonte de Dados**: Dados oficiais do TRE-SP (Outubro 2024) revisados pela CRE-RO (02/06/2025).
+- **Status**: Ferramenta auxiliar não oficial.
+- **Tecnologia**: Vanilla JavaScript com sistema de build (sem dependências externas de runtime).
+- **Deploy**: Build com `node scripts/optimize.js` e deploy da pasta `dist/`.
 
-**Technology**: Vanilla JavaScript with build system (no external dependencies)
+## Execução e Desenvolvimento
 
-**Deployment**: Build with `node scripts/optimize.js` then deploy `dist/` folder
+Como esta é uma aplicação frontend com sistema de build:
 
-## Running & Development
+- **Desenvolvimento**: Execute `npm run dev` (ou `node scripts/serve.js`) para o servidor local.
+- **Produção**: Execute `npm run build` (ou `node scripts/optimize.js`) para gerar a versão otimizada.
+- **Deploy**: O conteúdo da pasta `dist/` é o que deve ser publicado.
 
-Since this is a frontend application with build system:
+## Arquitetura do Código
 
-- **Development**: Run `node scripts/serve.js` for local development server
-- **Production**: Run `node scripts/optimize.js` to build optimized version
-- **Deploy**: Run `node scripts/deploy.js` for automated deployment
-- **All files**: Deploy `dist/` folder contents to web server
+### Arquivos Principais
 
-## Code Architecture
+**[index.html](../index.html)** - Estrutura HTML contendo:
+- Formulário de busca com alternância de tipo de comunicação (Condenação/Extinção).
+- Dropdown de leis e campo de artigo.
+- Modal de exibição de resultados.
+- Painéis de informação e avisos legais.
+- Legenda explicando os tipos de resultado.
 
-### Core Files
+**[script.js](../script.js)** - Lógica da aplicação organizada em grupos funcionais:
+1. **Lógica de Busca**: `realizarBusca()`, `buscarInelegibilidadePorLeiEArtigo()` - Núcleo da consulta.
+2. **Processamento de Artigos**: `processarArtigoCompleto()`, `processarParteArtigo()` - Parse de notação complexa (ex: "121, §2º, I, 'a' c/c 312").
+3. **Formatação**: `aplicarFormatacaoAutomatica()` - Auto-correção de entrada (§1 → §1º, cc → c/c, a → "a").
+4. **Gerenciamento de UI**: `exibirResultado()`, `abrirModal()`, `fecharModal()` - Exibição de modal e resultados.
+5. **Sugestões**: `mostrarSugestoes()`, `obterSugestoesPorLei()` - Sugestões em tempo real.
+6. **Atalhos de Teclado**: Implementação de hotkeys (Ctrl+L, Ctrl+A, Ctrl+Enter, F1, Esc).
 
-**[index.html](index.html)** - HTML structure containing:
-- Search form with communication type toggle (Condenação/Extinção)
-- Law code dropdown and article input field
-- Result display modal
-- Information panels and legal disclaimers
-- Legend explaining result types
+**[data.js](../data.js)** - Configuração de dados:
+1. **leisDisponiveis** - Array com mais de 40 códigos de leis.
+2. **tabelaInelegibilidade** - Objeto mestre mapeando artigos para regras de inelegibilidade:
+   - Flag booleana: gera inelegibilidade?
+   - Categoria do crime (1-10).
+   - Exceções que não geram inelegibilidade.
+   - Referências de código e observações.
 
-**[script.js](script.js)** - Application logic (762 lines) organized into functional groups:
+**[styles.css](../styles.css)** - Sistema de design CSS profissional:
+- Paleta de cores corporativa e tokens de design.
+- Layout responsivo com componentes modernos.
+- Efeitos de glassmorphism e animações.
+- Estilização acessível e media queries para impressão.
 
-1. **Search Logic**: `realizarBusca()`, `buscarInelegibilidadePorLeiEArtigo()` - Core query handling
-2. **Article Processing**: `processarArtigoCompleto()`, `processarParteArtigo()` - Parse complex article notation (e.g., "121, §2º, I, 'a' c/c 312")
-3. **Formatting**: `aplicarFormatacaoAutomatica()` - Auto-correct user input (§1 → §1º, cc → c/c, a → "a")
-4. **UI Management**: `exibirResultado()`, `abrirModal()`, `fecharModal()` - Modal and result display
-5. **Suggestions**: `mostrarSugestoes()`, `obterSugestoesPorLei()` - Real-time article suggestions
-6. **Keyboard Shortcuts**: Implemented hotkeys (Ctrl+L, Ctrl+A, Ctrl+Enter, F1, Esc)
+### Exemplo de Estrutura de Dados
 
-**[data.js](data.js)** - Data configuration (632 lines):
-
-1. **leisDisponiveis** - Array of 40+ law codes (Código Penal, CLT, Lei Falimentar, Lei 11.343/06, etc.)
-2. **tabelaInelegibilidade** - Master object mapping articles to ineligibility rules:
-   - Boolean flag: does this article generate ineligibility?
-   - Crime classification (numbered 1-10)
-   - Exception articles that don't trigger ineligibility
-   - Code references and observations
-
-**[styles-compact.css](styles-compact.css)** - Professional CSS design system (1,200+ lines):
-- Corporate color palette and design tokens
-- Responsive layout with modern components
-- Glassmorphism effects and animations
-- Accessibility-compliant styling
-- Print-friendly media queries
-
-### Data Structure Example
-
-From `data.js`, the ineligibility table follows this pattern:
+Em `data.js`, a tabela de inelegibilidade segue este padrão:
 ```javascript
 tabelaInelegibilidade = {
   "121": {
@@ -74,105 +68,80 @@ tabelaInelegibilidade = {
     "excecoes": [],
     "codigo": "D"
   },
-  // ... more articles
+  // ... mais artigos
 }
 ```
 
-### Key Feature: Complex Article Parsing
+### Feature Chave: Parse de Artigos Complexos
 
-The application supports Brazilian legal article notation:
-- Simple: `121`
-- With paragraphs: `121, §2º`
-- With incisions: `121, §2º, I`
-- With subsections: `121, §2º, I, "a"`
-- Concurrent citations: `121 c/c 312`
-- Combined: `121, §2º, I, "a" c/c 312 c/c 213`
+A aplicação suporta notação de artigos jurídicos brasileiros:
+- Simples: `121`
+- Com parágrafos: `121, §2º`
+- Com incisos: `121, §2º, I`
+- Com alíneas: `121, §2º, I, "a"`
+- Citações concorrentes: `121 c/c 312`
+- Combinado: `121, §2º, I, "a" c/c 312 c/c 213`
 
-Regular expressions in script.js handle extraction and matching of these components.
+Expressões regulares em `script.js` lidam com a extração e correspondência desses componentes.
 
-## Important Patterns
+## Padrões Importantes
 
-### Search Result Types
+### Tipos de Resultado de Busca
 
-Three possible outcomes displayed in modal:
-1. **GERA INELEGIBILIDADE** (red) - Article triggers ineligibility, use ASE 337 notation
-2. **NÃO GERA INELEGIBILIDADE** (green) - No ineligibility triggered
-3. **NÃO ENCONTRADO** (gray) - Article not in reference table
+Três resultados possíveis exibidos no modal:
+1. **GERA INELEGIBILIDADE** (vermelho) - Artigo gera inelegibilidade, use notação ASE 337.
+2. **NÃO GERA INELEGIBILIDADE** (verde) - Não gera inelegibilidade.
+3. **NÃO ENCONTRADO** (cinza) - Artigo não consta na tabela de referência.
 
-### Communication Types
+### Tipos de Comunicação
 
-- **Condenação (ASE 337)**: Suspension of political rights due to conviction
-- **Extinção (ASE 370)**: Extinction of punishment/liability suspension
+- **Condenação (ASE 337)**: Suspensão de direitos políticos devido a condenação.
+- **Extinção (ASE 370)**: Extinção de punibilidade/suspensão.
 
-Toggle between these with radio buttons or F1 keyboard shortcut.
+Alternância entre estes com botões de rádio ou atalho F1.
 
-### Automatic Formatting
+### Formatação Automática
 
-User input is automatically formatted to match legal standards:
-- `§1` becomes `§1º`
-- `cc` becomes `c/c`
-- `a` becomes `"a"` (in subsection context)
-- Spaces and commas normalized
+A entrada do usuário é formatada automaticamente para padrões legais:
+- `§1` torna-se `§1º`
+- `cc` torna-se `c/c`
+- `a` torna-se `"a"` (em contexto de alínea)
+- Espaços e vírgulas normalizados
 
-## Data Maintenance
+## Manutenção de Dados
 
-The ineligibility data in `data.js` maps directly to:
-- Official TRE-SP ineligibility table (October 2024, corrected 02/06/2025)
-- Reference PDF and XML files in repository root
+Os dados de inelegibilidade em `data.js` mapeiam diretamente para:
+- Tabela oficial de inelegibilidade do TRE-SP.
+- Arquivos PDF e XML de referência na pasta `docs/references/`.
 
-**If electoral law changes:**
-1. Update the `tabelaInelegibilidade` object in `data.js`
-2. Add new laws to `leisDisponiveis` array if needed
-3. Test with relevant article numbers
+**Se a lei eleitoral mudar:**
+1. Atualize o objeto `tabelaInelegibilidade` em `data.js`.
+2. Adicione novas leis ao array `leisDisponiveis` se necessário.
+3. Teste com números de artigos relevantes.
 
-## Documentation References
+## Referências de Documentação
 
-- **[README.md](README.md)** - Features, keyboard shortcuts, usage examples
-- **MANUAL-ASE.txt** - Electoral system manual with ASE code explanations
-- **PDF/XML tables** - Official TRE-SP reference data
+- **[README.md](../README.md)** - Funcionalidades, atalhos, exemplos de uso.
+- **[MANUAL-ASE.txt](references/manual-ase.txt)** - Manual do sistema eleitoral com explicações de códigos ASE.
+- **Tabelas PDF/XML** - Dados oficiais de referência do TRE-SP em `docs/references/`.
 
-## Browser Compatibility
+## Compatibilidade de Navegador
 
-- Modern browsers only (Chrome, Firefox, Safari, Edge)
-- Requires ES6+ support
-- Uses Clipboard API and Flexbox CSS
-- Responsive design for desktop/mobile
+- Navegadores modernos apenas (Chrome, Firefox, Safari, Edge).
+- Requer suporte a ES6+.
+- Usa Clipboard API e Flexbox CSS.
+- Design responsivo para desktop/mobile.
 
-## Documentação Consolidada
+## Tarefas Comuns
 
-### 📚 Documentos Principais
+**Entender validação de artigos**: Veja `buscarInelegibilidadePorLeiEArtigo()` em `script.js` - faz o parse da notação e busca na tabela.
 
-1. **[DOCUMENTACAO.md](DOCUMENTACAO.md)** - Índice da documentação (COMECE AQUI!)
-2. **[VERSAO_2.0.md](VERSAO_2.0.md)** - Melhorias implementadas na v2.0
-3. **[MANUTENCAO.md](MANUTENCAO.md)** - Validação de dados e checklist de manutenção
+**Adicionar nova lei**: Adicione ao array `leisDisponiveis` em `data.js`, depois adicione entradas em `tabelaInelegibilidade`.
 
-### Versão Atual
+**Modificar exibição de resultado**: Edite `exibirResultado()` em `script.js` - controla o conteúdo e estilo do modal.
 
-**Version**: v0.0.2 (24 de outubro de 2025)
-**Status**: ✅ 100% conformity with official TRE-SP data (October 2024)
+**Alterar atalhos**: Busque por `addEventListener('keydown'` em `script.js`.
 
-### Rápido Acesso
+**Atualizar estilos**: Cores e layout estão em `styles.css`.
 
-- **Novas features v0.0.2?** → Leia [CHANGELOG.md](CHANGELOG.md)
-- **Manutenção de dados?** → Leia [MANUTENCAO.md](MANUTENCAO.md)
-- **Documentação completa?** → Leia [DOCUMENTACAO.md](DOCUMENTACAO.md)
-
-## Common Tasks
-
-**Search for how articles are validated**: Look at `buscarInelegibilidadePorLeiEArtigo()` in script.js - parses article notation and matches against the table.
-
-**Add a new law code**: Add to `leisDisponiveis` array in data.js, then add entries to `tabelaInelegibilidade` for articles under that law.
-
-**Modify result display**: Edit `exibirResultado()` in script.js - controls the modal content and styling.
-
-**Change keyboard shortcuts**: Search for `addEventListener('keydown'` in script.js - all hotkeys are defined there.
-
-**Update styling**: colors and layout are in styles.css - main color palette uses purple gradient variables.
-
-**Update ineligibility table**: Edit `tabelaInelegibilidade` array in data.js - each entry maps articles to crime categories and exceptions.
-
-
-## Sistema Profissional (v0.0.2)
-- Tailwind (CDN) + theme palette inline; no build step.
-- sobre.html added as local documentation entry.
-- Modal status bar and chips/badges for legend; inputs with primary focus ring.
+**Atualizar tabela de inelegibilidade**: Edite o array `tabelaInelegibilidade` em `data.js`.
