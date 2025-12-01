@@ -45,65 +45,65 @@ function log(message, color = 'reset') {
 
 function checkBuildExists() {
   log('🔍 Verificando build de produção...', 'blue');
-  
+
   if (!fs.existsSync(BUILD_DIR)) {
     log('❌ Diretório de build não encontrado!', 'red');
     log('Execute primeiro: node scripts/optimize.js', 'yellow');
-      process.exit(1);
-    }
-  
-    const requiredFiles = [
-      'index.html',
+    process.exit(1);
+  }
+
+  const requiredFiles = [
+    'index.html',
     'consulta.html',
     'sobre.html',
     'styles.css',
-      'script.js',
-      'data.js',
+    'script.js',
+    'data.js',
     'manifest.json',
     'sw.js'
   ];
-  
+
   const missingFiles = requiredFiles.filter(file => !fs.existsSync(path.join(BUILD_DIR, file)));
-  
+
   if (missingFiles.length > 0) {
     log(`❌ Arquivos obrigatórios não encontrados: ${missingFiles.join(', ')}`, 'red');
     process.exit(1);
   }
-  
+
   log('✅ Build de produção verificado', 'green');
 }
 
 function createBackup() {
   if (!DEPLOY_CONFIG.backup.enabled) return;
-  
+
   log('💾 Criando backup...', 'blue');
-  
+
   const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
   const backupDir = path.join(DEPLOY_CONFIG.backup.dir, `backup-${timestamp}`);
-  
+
   if (!fs.existsSync(DEPLOY_CONFIG.backup.dir)) {
     fs.mkdirSync(DEPLOY_CONFIG.backup.dir, { recursive: true });
   }
-  
+
   // Aqui você pode implementar a lógica de backup específica do seu servidor
   log(`✅ Backup criado em: ${backupDir}`, 'green');
 }
 
 function validateFiles() {
   log('🔍 Validando arquivos...', 'blue');
-  
+
   const files = fs.readdirSync(BUILD_DIR);
   let totalSize = 0;
   let fileCount = 0;
-  
+
   files.forEach(file => {
     const filePath = path.join(BUILD_DIR, file);
     const stat = fs.statSync(filePath);
-    
+
     if (stat.isFile()) {
       totalSize += stat.size;
       fileCount++;
-      
+
       // Validar arquivos críticos
       if (file.endsWith('.html')) {
         const content = fs.readFileSync(filePath, 'utf8');
@@ -113,13 +113,13 @@ function validateFiles() {
       }
     }
   });
-  
+
   log(`✅ ${fileCount} arquivos validados (${formatBytes(totalSize)})`, 'green');
 }
 
 function generateDeployScript() {
   log('📝 Gerando script de deploy...', 'blue');
-  
+
   const deployScript = `#!/bin/bash
 
 # Script de Deploy Automático - Ineleg-App v0.0.2
@@ -274,134 +274,15 @@ echo "   Versão: 0.0.2"
 
   fs.writeFileSync('deploy.sh', deployScript);
   fs.chmodSync('deploy.sh', '755');
-  
+
   log('✅ Script de deploy gerado: deploy.sh', 'green');
 }
 
-function generateDockerConfig() {
-  log('🐳 Gerando configuração Docker...', 'blue');
-  
-  const dockerfile = `# Dockerfile - Ineleg-App v0.0.2
-# Sistema de Consulta de Inelegibilidade Eleitoral
-
-FROM nginx:alpine
-
-# Copiar arquivos
-COPY dist/ /usr/share/nginx/html/
-
-# Configuração do Nginx
-COPY nginx.conf /etc/nginx/nginx.conf
-
-# Expor porta
-EXPOSE 80 443
-
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \\
-  CMD curl -f http://localhost/ || exit 1
-
-# Labels
-LABEL maintainer="TRE-SP" \\
-      version="0.0.2" \\
-      description="Sistema de Consulta de Inelegibilidade Eleitoral" \\
-      base="TRE-SP - Outubro 2024 - CRE-RO 02/06/2025"
-`;
-
-  const nginxConf = `# Nginx Configuration - Ineleg-App
-user nginx;
-worker_processes auto;
-
-events {
-    worker_connections 1024;
-}
-
-http {
-    include /etc/nginx/mime.types;
-    default_type application/octet-stream;
-    
-    # Logging
-    log_format main '$remote_addr - $remote_user [$time_local] "$request" '
-                    '$status $body_bytes_sent "$http_referer" '
-                    '"$http_user_agent" "$http_x_forwarded_for"';
-    
-    access_log /var/log/nginx/access.log main;
-    error_log /var/log/nginx/error.log;
-    
-    # Gzip compression
-    gzip on;
-    gzip_vary on;
-    gzip_min_length 1024;
-    gzip_types text/plain text/css text/xml text/javascript application/javascript application/xml+rss application/json;
-    
-    server {
-        listen 80;
-        server_name localhost;
-        root /usr/share/nginx/html;
-        index index.html;
-        
-        # Cache headers
-        location ~* \\.(css|js|png|jpg|jpeg|gif|ico|svg|webp)$ {
-            expires 1y;
-            add_header Cache-Control "public, immutable";
-        }
-        
-        location ~* \\.(html)$ {
-            expires 1h;
-            add_header Cache-Control "public";
-        }
-        
-        # Service Worker
-        location /sw.js {
-            expires 0;
-            add_header Cache-Control "no-cache, no-store, must-revalidate";
-        }
-        
-        # Security headers
-        add_header X-Content-Type-Options nosniff;
-        add_header X-Frame-Options DENY;
-        add_header X-XSS-Protection "1; mode=block";
-        add_header Referrer-Policy "strict-origin-when-cross-origin";
-        
-        # Error pages
-        error_page 404 /index.html;
-    }
-}`;
-
-  const dockerCompose = `# Docker Compose - Ineleg-App v0.0.2
-version: '3.8'
-
-services:
-  ineleg-app:
-    build: .
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./dist:/usr/share/nginx/html:ro
-    restart: unless-stopped
-    environment:
-      - NGINX_HOST=localhost
-      - NGINX_PORT=80
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.ineleg-app.rule=Host(\`ineleg-app.tre-sp.jus.br\`)"
-      - "traefik.http.routers.ineleg-app.tls=true"
-      - "traefik.http.routers.ineleg-app.tls.certresolver=letsencrypt"
-
-networks:
-  default:
-    name: ineleg-app-network
-`;
-
-  fs.writeFileSync('Dockerfile', dockerfile);
-  fs.writeFileSync('nginx.conf', nginxConf);
-  fs.writeFileSync('docker-compose.yml', dockerCompose);
-  
-  log('✅ Configuração Docker gerada', 'green');
-}
+// Docker configuration removed - project uses Vercel for deployment
 
 function generateDeployInstructions() {
   log('📋 Gerando instruções de deploy...', 'blue');
-  
+
   const instructions = `# Instruções de Deploy - Ineleg-App v0.0.2
 
 ## Sistema de Consulta de Inelegibilidade Eleitoral
@@ -521,9 +402,9 @@ O sistema requer HTTPS para funcionar como PWA.
 
 function formatBytes(bytes) {
   if (bytes === 0) return '0 Bytes';
-    const k = 1024;
+  const k = 1024;
   const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 }
 
@@ -533,31 +414,27 @@ function main() {
   log('Sistema de Consulta de Inelegibilidade Eleitoral', 'cyan');
   log('Base de dados: TRE-SP - Outubro 2024 - CRE-RO 02/06/2025', 'cyan');
   log('', 'reset');
-  
+
   try {
     checkBuildExists();
     createBackup();
     validateFiles();
     generateDeployScript();
-    generateDockerConfig();
     generateDeployInstructions();
-    
+
     log('', 'reset');
     log('🎉 Preparação de deploy concluída!', 'green');
     log('', 'reset');
     log('📋 Arquivos gerados:', 'yellow');
     log('   📄 deploy.sh - Script de deploy automático', 'yellow');
-    log('   🐳 Dockerfile - Configuração Docker', 'yellow');
-    log('   ⚙️ nginx.conf - Configuração Nginx', 'yellow');
-    log('   🐳 docker-compose.yml - Docker Compose', 'yellow');
-    log('   📖 DEPLOY_INSTRUCTIONS.md - Instruções detalhadas', 'yellow');
+    log('    DEPLOY_INSTRUCTIONS.md - Instruções detalhadas', 'yellow');
     log('', 'reset');
     log('🚀 Próximos passos:', 'cyan');
     log('   1. Revisar configurações geradas', 'cyan');
     log('   2. Executar: chmod +x deploy.sh', 'cyan');
     log('   3. Executar: ./deploy.sh', 'cyan');
     log('   4. Verificar funcionamento', 'cyan');
-    
+
   } catch (error) {
     log(`❌ Erro durante preparação: ${error.message}`, 'red');
     process.exit(1);
@@ -575,6 +452,5 @@ module.exports = {
   createBackup,
   validateFiles,
   generateDeployScript,
-  generateDockerConfig,
   generateDeployInstructions
 };
