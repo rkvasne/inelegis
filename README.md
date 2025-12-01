@@ -20,7 +20,7 @@
   [![Version](https://img.shields.io/badge/version-0.2.0-blue.svg?style=for-the-badge)](https://semver.org)
   [![License](https://img.shields.io/badge/license-MIT-green.svg?style=for-the-badge)](LICENSE)
   [![Tests](https://img.shields.io/badge/tests-suite-blue.svg?style=for-the-badge)](tests/)
-  [![Theme](https://img.shields.io/badge/theme-validated-success.svg?style=for-the-badge)](docs/design/THEME-VALIDATOR.md)
+  [![Theme](https://img.shields.io/badge/theme-validated-success.svg?style=for-the-badge)](docs/design/theme-validator.md)
 
 </div>
 
@@ -133,9 +133,9 @@ inelegis-app/
 
 Consulte o [CHANGELOG](CHANGELOG.md) ou as notas de release para detalhes completos:
 
-- [Release Notes v0.2.0](docs/history/RELEASE-NOTES-v0.2.0.md)
-- [Release Notes v0.1.9](docs/history/RELEASE-NOTES-v0.1.9.md)
-- [Release Notes v0.1.8](docs/history/RELEASE-NOTES-v0.1.8.md)
+- [Release Notes v0.2.0](docs/history/release-notes-v0.2.0.md)
+- [Release Notes v0.1.9](docs/history/release-notes-v0.1.9.md)
+- [Release Notes v0.1.8](docs/history/release-notes-v0.1.8.md)
 
 Versões anteriores permanecem arquivadas em `docs/history/`.
 

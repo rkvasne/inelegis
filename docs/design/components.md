@@ -419,7 +419,7 @@ gap: 40px;
 
 ## 📚 Referências
 
-- [DEVELOPMENT.md](../guides/DEVELOPMENT.md) - Guia técnico completo
+- [development.md](../guides/development.md) - Guia técnico completo
 - [README.md](../README.md) - Visão geral do projeto
 - [src/js/modules/components.js](../../src/js/modules/components.js) - Fonte dos componentes
 - [public/assets/js/modules/components.js](../../public/assets/js/modules/components.js) - Runtime (sincronizado)
