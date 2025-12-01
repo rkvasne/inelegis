@@ -7,6 +7,19 @@
 
 ---
 
+## 🧹 Segunda Limpeza de 01/12/2025 (Noite)
+
+### ❌ Documentos Redundantes Removidos (2)
+
+**Motivo:** Redundância com CHANGELOG-DOCS.md e conteúdo que fica obsoleto rapidamente
+
+1. **ANALISE-DOCUMENTACAO.md** - Análise muito detalhada (77 KB), snapshot temporal que fica obsoleto
+2. **ATUALIZACAO-DOCS-HISTORICOS.md** - Redundante, informação já está no CHANGELOG-DOCS.md
+
+**Resultado:** Documentação mais enxuta e fácil de manter
+
+---
+
 ## 📝 Atualização de 01/12/2025 (Tarde)
 
 ### 📚 Documentos Marcados como Históricos (2)

@@ -18,9 +18,6 @@ Evolução do projeto, decisões técnicas e lições aprendidas.
 ### 📝 [Changelog da Documentação](CHANGELOG-DOCS.md)
 Histórico de mudanças, limpezas e consolidações da documentação.
 
-### 📊 [Análise da Documentação](ANALISE-DOCUMENTACAO.md)
-Auditoria completa, métricas de qualidade e recomendações.
-
 ### 🛠️ [Guia de Desenvolvimento](DEVELOPMENT.md)
 Arquitetura, módulos, testes, padrões de código e fluxo de trabalho.
 
@@ -136,8 +133,7 @@ Documentos de referência oficial:
 | ANALYTICS.md | ✅ Atualizado | 01/12/2025 |
 | VARIAVEIS-AMBIENTE.md | ✅ Atualizado | 01/12/2025 |
 | SETUP-REDIS.md | ✅ Consolidado | 01/12/2025 |
-| CHANGELOG-DOCS.md | ✅ Novo | 01/12/2025 |
-| ANALISE-DOCUMENTACAO.md | ✅ Novo | 01/12/2025 |
+| CHANGELOG-DOCS.md | ✅ Mantido | 01/12/2025 |
 
 ---
 

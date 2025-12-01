@@ -6,7 +6,7 @@ Bem-vindo à documentação oficial do projeto **Inelegis**.
 
 ### 📖 Navegação
 - **[📚 Índice Completo](INDEX.md)** - Navegação completa e organizada de toda documentação
-- **[✅ Relatório de Padronização](PADRONIZACAO.md)** - Status da padronização dos documentos
+- **[📝 Changelog da Documentação](CHANGELOG-DOCS.md)** - Histórico de mudanças na documentação
 
 ### 🛠️ Desenvolvimento
 - **[Guia de Desenvolvimento](DEVELOPMENT.md)** - Arquitetura, módulos, testes e padrões de código
