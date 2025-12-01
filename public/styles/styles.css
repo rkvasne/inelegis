@@ -1246,10 +1246,16 @@ code {
 }
 
 .main-footer .footer-social {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  
+  .main-footer .footer-social-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
 .main-footer .link-list {
   list-style: none;
@@ -1463,7 +1469,8 @@ html:not(.dark-theme) .main-footer .footer-bottom {
     justify-content: center;
   }
 
-  .main-footer .footer-social {
+  .main-footer .footer-social,
+  .main-footer .footer-social-wrapper {
     align-items: center;
   }
 }
