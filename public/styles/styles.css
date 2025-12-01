@@ -361,7 +361,7 @@ code {
 
 /* Container para páginas de conteúdo/leitura (FAQ, Sobre) */
 .container--content {
-  max-width: 1024px; /* Aumentado de 800px para acomodar melhor os cards */
+  max-width: 1200px; /* Aumentado para 1200px para equilibrar cards e perguntas */
 }
 
 /* Cards - largura total do container */
@@ -3054,9 +3054,6 @@ html:not(.dark-theme) .main-footer .footer-bottom {
 /* Seções do FAQ */
 .faq-section {
   margin-bottom: var(--space-8);
-  max-width: 800px; /* Melhor legibilidade para texto */
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .faq-section-title {
