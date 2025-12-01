@@ -398,6 +398,7 @@ code {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%; /* Garantir que ocupe toda a largura disponível */
   gap: var(--space-6);
   max-width: var(--container-width);
   margin: 0 auto;
