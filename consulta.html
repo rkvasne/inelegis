@@ -185,6 +185,14 @@
                                 </svg>
                                 Buscar
                             </button>
+                            <button id="historyBtn" class="btn btn-secondary" title="Ver histórico de consultas">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z">
+                                    </path>
+                                </svg>
+                                Histórico
+                            </button>
                         </div>
                         <p id="ajudaArtigo" class="text-sm text-neutral-600 mt-2">Digite o
                             artigo completo ou use o
@@ -519,10 +527,19 @@
     <script src="js/exceptions.js"></script>
     <script src="js/modal-manager.js"></script>
     <script src="js/search-index.js"></script>
+    <script src="js/search-history.js"></script>
+    <script src="js/history-ui.js"></script>
 
     <!-- Scripts Principais -->
     <script src="data.js"></script>
     <script src="script.js"></script>
+    
+    <!-- Inicializar Histórico -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            HistoryUI.init();
+        });
+    </script>
 </body>
 
 </html>
