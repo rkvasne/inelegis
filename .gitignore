@@ -14,6 +14,13 @@ lint-report.json
 test-report.json
 *.log
 
+# Backups e temporários
+*.backup
+*.bak
+*~
+*.tmp
+*.temp
+
 # OS metadata
 .DS_Store
 Thumbs.db
