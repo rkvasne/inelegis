@@ -173,6 +173,8 @@ docs: atualizar README com instruções de deploy
 feat!: remover suporte para Node 14
 ```
 
+> Hotfix crítico: utilize o padrão de commit conforme acima e documente a correção no CHANGELOG. Para referência rápida, consulte este arquivo (seção “Commits e Versionamento”) a partir do índice de documentação: [docs/README.md](docs/README.md).
+
 ### Versionamento Semântico (SemVer)
 
 **Formato:** `MAJOR.MINOR.PATCH` (ex: `1.4.2`)

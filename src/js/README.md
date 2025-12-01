@@ -7,6 +7,8 @@ lastReviewed: 2026-01-10
 
 Esta pasta contém fontes de desenvolvimento e/ou referência. O runtime carrega `public/assets/js/**`.
 
+> Regras gerais de documentação, commits, lint e testes: consulte [AGENTS.md](../../AGENTS.md).
+
 ## Papel desta pasta
 
 - Espelho histórico: mantém versões anteriores e bases de referência para desenvolvimentos.

@@ -174,7 +174,7 @@ await redis.incr('analytics:total');
 await redis.zincrby('analytics:top:leis', 1, lei);
 ```
 
-**Configuração:** Ver [SETUP-REDIS.md](../guides/SETUP-REDIS.md)
+**Configuração:** Ver [setup-redis.md](../guides/setup-redis.md)
 
 ---
 
@@ -200,5 +200,5 @@ await redis.zincrby('analytics:top:leis', 1, lei);
 
 ## 📚 Referências
 
-- [SETUP-REDIS.md](../guides/SETUP-REDIS.md) - Configuração do Redis
-- [VARIAVEIS-AMBIENTE.md](../guides/VARIAVEIS-AMBIENTE.md) - Variáveis necessárias
+- [setup-redis.md](../guides/setup-redis.md) - Configuração do Redis
+- [variaveis-ambiente.md](../guides/variaveis-ambiente.md) - Variáveis necessárias

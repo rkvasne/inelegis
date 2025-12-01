@@ -6,7 +6,7 @@ lastReviewed: 2026-01-10
 # Resumo da Sessão - 02/12/2025 (v0.0.9)
 
 **Escopo:** consolidação da identidade visual, Theme Validator Pro v3.1.0, padronização do design system e reorganização completa da documentação.
-**Referência principal:** [Release Notes v0.0.9](RELEASE-NOTES-v0.0.9.md).
+**Referência principal:** [CHANGELOG – v0.1.9](../../CHANGELOG.md#019---2025-12-05).
 
 > Este resumo complementa as release notes com metricas objetivas e checklist final, evitando repetir o conteudo narrativo do historico.
 
