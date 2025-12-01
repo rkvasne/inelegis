@@ -1,7 +1,7 @@
 ---
 docStatus: active
 docScope: runtime
-lastReviewed: 2026-01-10
+lastReviewed: 14/01/2026
 ---
 # JS (runtime)
 
@@ -47,5 +47,3 @@ Esta pasta contém os scripts carregados pelas páginas em produção.
 - Fonte: `docs/references/tabela-oficial.xml`.
 
 ## Status
-
-- **Última atualização:** 10 de janeiro de 2026

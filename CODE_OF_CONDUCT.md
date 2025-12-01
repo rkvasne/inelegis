@@ -1,7 +1,7 @@
 ---
 docStatus: governance
 docScope: code-of-conduct
-lastReviewed: 2026-01-14
+lastReviewed: 14/01/2026
 ---
 # Código de Conduta
 
@@ -47,5 +47,4 @@ Este Código de Conduta é adaptado do [Contributor Covenant](https://www.contri
 
 ---
 
-**Última atualização:** 14 de janeiro de 2026  
 **Versão:** 0.2.0

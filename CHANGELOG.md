@@ -1,11 +1,10 @@
 ---
 docStatus: active
 docScope: release-history
-lastReviewed: 2026-01-10
+lastReviewed: 14/01/2026
 ---
 # Changelog
 
-**Última atualização:** 14 de janeiro de 2026
 **Versão atual:** 0.2.0
 
 Todas as alterações notáveis neste projeto serão documentadas neste arquivo.
@@ -41,8 +40,8 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
   - Altura reduzida com espaçamento otimizado entre elementos.
   - Tipografia ajustada: Fonte 15px para copyright e 13px para descrição e links.
   - Alinhamento visual unificado entre Landing Page e páginas internas.
-  - Remoção da borda/“card” ao redor da logo no rodapé.
-  - Breakpoint de altura fixa ajustado para incluir 768px (desktop).
+- Remoção da borda/“card” ao redor da logo no rodapé.
+- Breakpoint de altura fixa ajustado para incluir 768px (desktop).
 - **Favicon**:
   - Atualizado para `logo-dark.ico` em todas as páginas e modos (Claro/Escuro) para consistência.
 - **Cards**:
@@ -52,7 +51,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
   - Badges agora ficam em linha separada da descrição.
   - Cores dos badges correspondem à cor da borda do card (Vermelho, Verde, Laranja) para melhor destaque e organização.
 
-## [0.2.0] - 2025-12-05
+## [0.2.0] - 05/12/2025
 
 ### 🎨 UI/UX - Padronização Visual Completa
 - **Heroes Unificados**: Todas as páginas (Index, FAQ, Sobre, Histórico) agora possuem hero sections com visual consistente:
@@ -93,7 +92,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
 
-## [0.1.9] - 2025-12-05
+## [0.1.9] - 05/12/2025
 
 ### 🎨 UI/UX & Design
 - **Histórico de Consultas**:
@@ -137,7 +136,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 - Remoção do bloqueio por consentimento das páginas públicas `sobre` e `faq` (bloqueio permanece apenas na página `consulta`).
 - Melhoria do controle visual de desabilitação de link de consulta quando os termos não estão aceitos.
 
-## [0.1.8] - 2025-12-03
+## [0.1.8] - 03/12/2025
 
 ### 🛠 Plataforma
 - Padronização de versão de assets com `?v=0.1.8` nas páginas públicas.
@@ -154,7 +153,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 ### 📚 Documentação
 - Inclusão de `docs/history/RELEASE-NOTES-v0.1.8.md` com resumo das mudanças.
 
-## [0.1.7] - 2025-12-04
+## [0.1.7] - 04/12/2025
 
 ### Correções & UX
 - FAQ: melhorias em espaçamentos e estados de hover dos cards.
@@ -162,14 +161,14 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 - Acessibilidade: `aria-disabled` e foco consistentes em links desabilitados do header.
 - Atalhos de teclado: refinamentos para foco e navegação (busca e modal).
 
-## [0.1.6.1] - 2025-12-05
+## [0.1.6.1] - 05/12/2025
 
 Hotfix pontual na página inicial:
 - Correção de erro de redeclaração de variável `arrowIndicator` que impedia o indicador de consentimento.
 - Override de CSS para posicionamento estático do indicador junto ao checkbox.
 - Troca do SVG por emoji de mão para consistência cross-browser.
 
-## [0.1.6] - 2025-12-04
+## [0.1.6] - 04/12/2025
 
 ### Correções & UX
 - Página Inicial: confiabilidade do indicador de consentimento (exibir/ocultar).
@@ -177,7 +176,7 @@ Hotfix pontual na página inicial:
 - Tipografia: tamanhos e espaçamentos consistentes em botões e labels.
 - Toasts: textos e animações de saída ajustados.
 
-## [0.1.5] - 2025-12-04
+## [0.1.5] - 04/12/2025
 
 ### Correções & UX
 - Modal: padronização de botões do rodapé (tamanhos e espaçamentos).
@@ -185,14 +184,14 @@ Hotfix pontual na página inicial:
 - Transições: ajustes sutis para reduzir reflow.
 - Pequenos bugs: correções de alinhamento em headers e grids.
 
-## [0.1.4.1] - 2025-12-04
+## [0.1.4.1] - 04/12/2025
 
 Pequeno hotfix de UI/UX:
 - Ajuste fino da posição da barra de busca da FAQ (subida de 25px e descida de 5px) com correção de sobreposição e z-index.
 - Restauração de media query removida por engano para responsividade do modal.
 - Fallback de cor para o indicador visual usando variáveis de tema.
 
-## [0.1.4] - 2025-12-04
+## [0.1.4] - 04/12/2025
 
 ### 🎨 UI/UX & Design
 - **Modal de Resultados Compactado**: Otimização do layout para telas menores (notebooks).
@@ -210,5 +209,5 @@ Pequeno hotfix de UI/UX:
 
 ---
 
-## [0.1.3] - 2025-12-04
+## [0.1.3] - 04/12/2025
 ...

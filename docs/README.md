@@ -1,7 +1,7 @@
 ---
 docStatus: active
 docScope: docs-index
-lastReviewed: 2026-01-14
+lastReviewed: 14/01/2026
 ---
 # 📚 Documentação do Inelegis
 

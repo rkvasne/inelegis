@@ -1,11 +1,10 @@
 ---
 docStatus: historical
 docScope: history
-lastReviewed: 2026-01-10
+lastReviewed: 14/01/2026
 ---
 # 🔧 Histórico Consolidado da Refatoração v0.0.6
 
-**Última atualização:** 02 de dezembro de 2025  
 **Status:** ✅ Concluído / Referência histórica
 
 Este documento substitui os antigos `REFACTORING-PLAN.md`, `IMPLEMENTATION-GUIDE.md` e `HISTORICO.md`. Ele reúne contexto, plano, passo a passo de implementação, métricas e lições aprendidas da refatoração v0.0.6.

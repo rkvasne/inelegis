@@ -1,7 +1,7 @@
 ---
 docStatus: active
 docScope: root-readme
-lastReviewed: 2026-01-14
+lastReviewed: 14/01/2026
 ---
 <div align="center">
 
@@ -175,7 +175,6 @@ Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.
 
 ---
 
-**Última atualização:** 14 de janeiro de 2026  
 **Versão:** 0.2.0
 
 ---

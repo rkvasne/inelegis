@@ -1,7 +1,7 @@
 ---
 docStatus: reference
 docScope: design
-lastReviewed: 2026-01-11
+lastReviewed: 14/01/2026
 ---
 # 🧩 Guia de Componentes Reutilizáveis
 

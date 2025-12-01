@@ -1,7 +1,7 @@
 ---
 docStatus: active
 docScope: guide
-lastReviewed: 2026-01-10
+lastReviewed: 14/01/2026
 ---
 # Manutenção e Validação de Dados
 
@@ -237,8 +237,8 @@ Use o campo `observacao` nos itens normalizados para registrar data e origem da 
 
 | Data | Versão | Status | Notas |
 |------|--------|--------|-------|
-| 2025-10-24 | 0.0.2 | ✅ Ok | Checklist aplicado |
-| 2025-10-22 | 0.0.1 | ✅ Baseline | Implementação inicial |
+| 24/10/2025 | 0.0.2 | ✅ Ok | Checklist aplicado |
+| 22/10/2025 | 0.0.1 | ✅ Baseline | Implementação inicial |
 
 ---
 
@@ -246,7 +246,6 @@ Use o campo `observacao` nos itens normalizados para registrar data e origem da 
 
 ### Status: ✅ TODOS OS PROBLEMAS RESOLVIDOS
 
-**Última atualização:** 04 de dezembro de 2025
 
 Todos os problemas identificados anteriormente foram corrigidos:
 - ✅ Conformidade com XML TRE-SP: 100%
@@ -289,6 +288,4 @@ Todos os problemas identificados anteriormente foram corrigidos:
 
 ## Status do Documento
 
-- **Última atualização:** 10 de janeiro de 2026
-**Último update:** 01 de dezembro de 2025
 **Status:** ✅ Consolidado e validado

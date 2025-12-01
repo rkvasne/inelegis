@@ -1,7 +1,7 @@
 ---
 docStatus: reference
 docScope: operations
-lastReviewed: 2026-01-10
+lastReviewed: 14/01/2026
 ---
 # 🔒 Guia de Proteção Contra Corrupção de Código
 

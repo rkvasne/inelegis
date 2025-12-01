@@ -1,7 +1,7 @@
 ---
 docStatus: active
 docScope: source
-lastReviewed: 2026-01-11
+lastReviewed: 14/01/2026
 ---
 # Módulos JS (src/js/modules)
 
@@ -40,5 +40,4 @@ Esta pasta contém fontes de desenvolvimento e/ou espelhos históricos. O runtim
 
 ---
 
-**Última atualização:** 11 de janeiro de 2026  
 **Versão:** 0.2.0

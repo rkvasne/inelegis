@@ -1,7 +1,7 @@
 ---
 docStatus: historical
 docScope: design
-lastReviewed: 2026-01-10
+lastReviewed: 14/01/2026
 ---
 # Theme Validator Pro - Documentação Completa
 
@@ -353,14 +353,14 @@ R: Não, apenas reporta problemas. Use `--fix` para ver sugestões.
 
 ## Changelog
 
-### v3.1.0 (2025-12-02)
+### v3.1.0 (02/12/2025)
 - Adicionadas 4 novas verificações avançadas
 - Suporte a detecção de componentes críticos
 - Verificação de gradientes adaptáveis
 - Detecção de problemas de contraste
 - Identificação de variáveis não utilizadas
 
-### v3.0.0 (2025-12-02)
+### v3.0.0 (02/12/2025)
 - Reescrita completa do validador
 - Suporte a 9+ frameworks
 - 23+ categorias de problemas

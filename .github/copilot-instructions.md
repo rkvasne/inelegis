@@ -1,8 +1,12 @@
+---
+docStatus: governance
+docScope: copilot-instructions
+lastReviewed: 14/01/2026
+---
 # Regras Globais para GitHub Copilot
 
 > **Arquivo consolidado para GitHub Copilot**  
 > Mantido em: `E:\Agents\rules\regras-globais-copilot.md`  
-> Última atualização: 7 de Janeiro de 2026  
 > Versão do repositório: 0.1.0
 
 ---

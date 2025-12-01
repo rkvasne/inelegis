@@ -1,13 +1,11 @@
 # 🤝 Guia de Contribuição
-# 🤝 Guia de Contribuição
 
 ---
 docStatus: active
 docScope: contributing
-lastReviewed: 2026-01-14
+lastReviewed: 14/01/2026
 ---
 
-**Última atualização:** 14 de janeiro de 2026
 **Versão atual:** 0.2.0
 
 Obrigado pelo seu interesse em contribuir para o **Inelegis**! 🎉

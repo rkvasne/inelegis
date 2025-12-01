@@ -1,14 +1,14 @@
 ---
 docStatus: reference
 docScope: guide
-lastReviewed: 2026-01-10
+lastReviewed: 14/01/2026
 ---
 # 🚀 Setup do Redis
 
 ---
 
 **Versão:** 0.1.0  
-**Data:** 02 de dezembro de 2025
+**Data:** 02/12/2025
 
 ---
 

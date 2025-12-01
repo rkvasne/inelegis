@@ -1,7 +1,7 @@
 ---
 docStatus: reference
 docScope: references
-lastReviewed: 2026-01-14
+lastReviewed: 14/01/2026
 ---
 # 📘 Manual ASE - Sistema Eleitoral
 
@@ -274,4 +274,3 @@ Informação com indicação do documento de registro do óbito, no formato:
 
 **Documento de Referência - Uso Interno**  
 **Fonte:** Manual do Sistema Eleitoral  
-**Última atualização:** 01 de dezembro de 2025
