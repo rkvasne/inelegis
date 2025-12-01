@@ -104,6 +104,37 @@ function configurarEventListeners() {
             document.getElementById('insertAlineaBtn').disabled = false;
             document.getElementById('insertConcBtn').disabled = false;
             document.getElementById('montarArtigoBtn').disabled = false;
+
+            // Função para atualizar o preview do artigo em tempo real
+            const atualizarPreview = () => {
+                const artigo = document.getElementById('artigoNum').value.trim();
+                const paragrafo = document.getElementById('paragrafoNum').value.trim();
+                const inciso = document.getElementById('incisoNum').value.trim();
+                const alinea = document.getElementById('alineaNum').value.trim();
+                const concomitante = document.getElementById('concomitanteNum').value.trim();
+                const leiSelecionada = leiSelect.options[leiSelect.selectedIndex].text;
+
+                let preview = 'Art. ';
+                if (artigo) preview += artigo;
+                if (paragrafo) preview += `, §${paragrafo}º`;
+                if (inciso) preview += `, ${inciso}`;
+                if (alinea) preview += `, "${alinea}"`;
+                if (concomitante) preview += ` c/c ${concomitante}`;
+                preview += ` do ${leiSelecionada}`;
+
+                document.getElementById('previewArtigo').textContent = preview;
+            };
+
+            // Adicionar event listeners para atualizar o preview
+            document.getElementById('artigoNum').addEventListener('input', atualizarPreview);
+            document.getElementById('paragrafoNum').addEventListener('input', atualizarPreview);
+            document.getElementById('incisoNum').addEventListener('input', atualizarPreview);
+            document.getElementById('alineaNum').addEventListener('input', atualizarPreview);
+            document.getElementById('concomitanteNum').addEventListener('input', atualizarPreview);
+
+            // Atualizar preview inicial
+            atualizarPreview();
+
             artigoInput.focus();
         } else {
             artigoInput.disabled = true;
@@ -119,6 +150,14 @@ function configurarEventListeners() {
             document.getElementById('insertAlineaBtn').disabled = true;
             document.getElementById('insertConcBtn').disabled = true;
             document.getElementById('montarArtigoBtn').disabled = true;
+            // Limpar campos do builder
+            document.getElementById('artigoNum').value = '';
+            document.getElementById('paragrafoNum').value = '';
+            document.getElementById('incisoNum').value = '';
+            document.getElementById('alineaNum').value = '';
+            document.getElementById('concomitanteNum').value = '';
+            // Resetar preview
+            document.getElementById('previewArtigo').textContent = 'Art. , , , do';
             limparBusca();
         }
         verificarCamposPreenchidos();
