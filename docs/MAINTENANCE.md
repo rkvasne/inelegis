@@ -1,4 +1,4 @@
-# MANUTENÇÃO E VALIDAÇÃO DE DADOS
+# Manutenção e Validação de Dados
 
 **Última atualização:** 30 de novembro de 2025
 **Status de conformidade:** ✅ 100% com XML TRE-SP (outubro/2024)
@@ -7,7 +7,7 @@
 
 ---
 
-## 📊 STATUS DE VALIDAÇÃO
+## 📊 Status de Validação
 
 ### Resumo Executivo
 ```
@@ -31,7 +31,7 @@ CERTIFICAÇÃO: ✅ SISTEMA APROVADO PARA PRODUÇÃO
 
 ---
 
-## 🔍 LEIS VALIDADAS
+## 🔍 Leis Validadas
 
 ### Código Penal (CP) - Decreto-Lei 2.848/40
 ✅ 11 grupos de artigos validados
@@ -81,7 +81,7 @@ CERTIFICAÇÃO: ✅ SISTEMA APROVADO PARA PRODUÇÃO
 
 ---
 
-## ⚠️ LEIS REVOGADAS (Mantidas Historicamente)
+## ⚠️ Leis Revogadas (Mantidas Historicamente)
 
 | Lei | Revogação | Status |
 |-----|-----------|--------|
@@ -92,7 +92,7 @@ CERTIFICAÇÃO: ✅ SISTEMA APROVADO PARA PRODUÇÃO
 
 ---
 
-## 📋 CATEGORIAS DE CRIME VALIDADAS
+## 📋 Categorias de Crime Validadas
 
 Conforme Art. 1º, I, "e" da LC 64/90:
 
@@ -111,7 +111,7 @@ Conforme Art. 1º, I, "e" da LC 64/90:
 
 ---
 
-## ⚡ EXCEÇÃO GERAL (Art. 1º, § 4º, LC 64/90)
+## ⚡ Exceção Geral (Art. 1º, § 4º, LC 64/90)
 
 NÃO geram inelegibilidade:
 - ✅ Crimes culposos
@@ -122,7 +122,7 @@ NÃO geram inelegibilidade:
 
 ---
 
-## 🔧 COMO ATUALIZAR OS DADOS
+## 🔧 Como Atualizar os Dados
 
 ### Passo 1: Obter dados oficiais
 1. Acessar: https://www.tre-sp.jus.br/ (ou TRE de sua região)
@@ -161,7 +161,7 @@ NÃO geram inelegibilidade:
 
 ---
 
-## ✅ CHECKLIST DE MANUTENÇÃO TRIMESTRAL
+## ✅ Checklist de Manutenção Trimestral
 
 ### A cada 3 meses
 
@@ -194,7 +194,7 @@ NÃO geram inelegibilidade:
 
 ---
 
-## 📞 REFERÊNCIA RÁPIDA
+## 📞 Referência Rápida
 
 ### Adicionar uma Nova Lei
 1. Adicione em `leisDisponiveis` array
@@ -221,7 +221,7 @@ NÃO geram inelegibilidade:
 
 ---
 
-## 🔐 CONFORMIDADE LEGAL
+## 🔐 Conformidade Legal
 
 ### Bases Legais Implementadas
 - ✅ Lei Complementar nº 64/1990 (lei fundamental)
@@ -238,7 +238,7 @@ NÃO geram inelegibilidade:
 
 ---
 
-## 📊 HISTÓRICO DE VALIDAÇÃO
+## 📊 Histórico de Validação
 
 | Data | Versão | Status | Notas |
 |------|--------|--------|-------|
@@ -247,7 +247,7 @@ NÃO geram inelegibilidade:
 
 ---
 
-## 🚨 PROBLEMAS CONHECIDOS
+## 🚨 Problemas Conhecidos
 
 ### Status: ✅ TODOS OS PROBLEMAS RESOLVIDOS
 
@@ -263,7 +263,7 @@ Todos os problemas identificados anteriormente foram corrigidos:
 
 ---
 
-## 📝 NOTAS OPERACIONAIS
+## 📝 Notas Operacionais
 
 1. **Dados é crítico:** Qualquer erro em data.js afeta diretamente usuários
 2. **Teste sempre:** Antes de publicar mudanças, teste com casos reais
@@ -273,7 +273,7 @@ Todos os problemas identificados anteriormente foram corrigidos:
 
 ---
 
-## 🎯 CONTATOS E REFERÊNCIAS
+## 🎯 Contatos e Referências
 
 ### Fonte Oficial de Dados
 - **TRE-SP:** https://www.tre-sp.jus.br/
@@ -287,12 +287,12 @@ Todos os problemas identificados anteriormente foram corrigidos:
 
 ### Documentação Interna
 - [DEVELOPMENT.md](DEVELOPMENT.md) - Guia técnico
-- [README.md](README.md) - Índice da Documentação
+- [README.md](../README.md) - Índice da Documentação
 - [MANUAL-ASE.txt](references/manual-ase.txt) - Guia operacional
 
 ---
 
-## ✅ ASSINATURA DE VALIDAÇÃO
+## ✅ Assinatura de Validação
 
 **Validado por:** Análise automática ferramenta de IA
 **Data:** 22 de outubro de 2025

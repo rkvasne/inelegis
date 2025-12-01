@@ -1,12 +1,15 @@
-# Guia de Desenvolvimento - Inelegis
+# Guia de Desenvolvimento
 
 **Última atualização:** 30 de novembro de 2025
+**Versão atual:** 0.0.6
 
 Este arquivo fornece orientações técnicas para desenvolvedores trabalhando neste repositório.
 
-**⚠️ Nota:** Para uma visão completa da documentação, consulte [README.md](README.md).
+**⚠️ Nota:** Para uma visão completa da documentação, consulte [README.md](../README.md).
 
-## Visão Geral do Projeto
+---
+
+## 💻 Visão Geral do Projeto
 
 **Inelegis** é uma aplicação de página única (SPA) **não oficial** para Consulta de Inelegibilidade Eleitoral. Ela auxilia servidores da Justiça Eleitoral a determinar se condenações criminais geram inelegibilidade com base na Lei Complementar nº 64/1990 (atualizada pela LC 135/2010).
 
@@ -16,7 +19,9 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 - **Tecnologia**: Vanilla JavaScript com sistema de build (sem dependências externas de runtime).
 - **Deploy**: Build com `node scripts/optimize.js` e deploy da pasta `dist/`.
 
-## Execução e Desenvolvimento
+---
+
+## 🚀 Execução e Desenvolvimento
 
 Como esta é uma aplicação frontend com sistema de build:
 
@@ -24,7 +29,9 @@ Como esta é uma aplicação frontend com sistema de build:
 - **Produção**: Execute `npm run build` (ou `node scripts/optimize.js`) para gerar a versão otimizada.
 - **Deploy**: O conteúdo da pasta `dist/` é o que deve ser publicado.
 
-## Arquitetura do Código
+---
+
+## 🏗 Arquitetura do Código
 
 ### Arquivos Principais
 
@@ -84,7 +91,9 @@ A aplicação suporta notação de artigos jurídicos brasileiros:
 
 Expressões regulares em `script.js` lidam com a extração e correspondência desses componentes.
 
-## Padrões Importantes
+---
+
+## 📏 Padrões Importantes
 
 ### Tipos de Resultado de Busca
 
@@ -108,7 +117,9 @@ A entrada do usuário é formatada automaticamente para padrões legais:
 - `a` torna-se `"a"` (em contexto de alínea)
 - Espaços e vírgulas normalizados
 
-## Manutenção de Dados
+---
+
+## 🔧 Manutenção de Dados
 
 Os dados de inelegibilidade em `data.js` mapeiam diretamente para:
 - Tabela oficial de inelegibilidade do TRE-SP.
@@ -119,20 +130,26 @@ Os dados de inelegibilidade em `data.js` mapeiam diretamente para:
 2. Adicione novas leis ao array `leisDisponiveis` se necessário.
 3. Teste com números de artigos relevantes.
 
-## Referências de Documentação
+---
+
+## 📚 Referências de Documentação
 
 - **[README.md](../README.md)** - Funcionalidades, atalhos, exemplos de uso.
 - **[MANUAL-ASE.txt](references/manual-ase.txt)** - Manual do sistema eleitoral com explicações de códigos ASE.
 - **Tabelas PDF/XML** - Dados oficiais de referência do TRE-SP em `docs/references/`.
 
-## Compatibilidade de Navegador
+---
+
+## 🌐 Compatibilidade de Navegador
 
 - Navegadores modernos apenas (Chrome, Firefox, Safari, Edge).
 - Requer suporte a ES6+.
 - Usa Clipboard API e Flexbox CSS.
 - Design responsivo para desktop/mobile.
 
-## Tarefas Comuns
+---
+
+## 📝 Tarefas Comuns
 
 **Entender validação de artigos**: Veja `buscarInelegibilidadePorLeiEArtigo()` em `script.js` - faz o parse da notação e busca na tabela.
 

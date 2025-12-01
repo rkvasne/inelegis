@@ -18,20 +18,6 @@
   </p>
 
   [![Version](https://img.shields.io/badge/version-0.0.6-blue.svg?style=for-the-badge)](https://semver.org)
-  [![License](https://img.shields.io/badge/license-MIT-green.svg?style=for-the-badge)](LICENSE)
-  [![Status](https://img.shields.io/badge/status-active-success.svg?style=for-the-badge)](https://github.com/rkvasne/inelegis-app)
-  [![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)](https://inelegis.vercel.app)
-
-</div>
-
-<br />
-
-## 📋 Sobre o Projeto
-
-O **Inelegis** é uma ferramenta auxiliar de alta performance desenvolvida para facilitar a consulta rápida de crimes e infrações que ensejam inelegibilidade. Baseada na tabela exemplificativa da Corregedoria do TRE-SP e revisada pela CRE-RO, a aplicação oferece uma interface intuitiva para operadores do direito eleitoral.
-
-### ✨ Principais Funcionalidades
-
 | Recurso | Descrição |
 |---------|-----------|
 | 🔍 **Busca Inteligente** | Pesquise por número do artigo, lei, descrição ou palavras-chave com feedback instantâneo. |
