@@ -31,7 +31,7 @@ class Linter {
   }
 
   async lint() {
-    this.log('Iniciando lint do Ineleg-App v0.0.2', 'info');
+    this.log('Iniciando lint do Inelegis v0.0.6', 'info');
 
     try {
       // 1. Lint HTML

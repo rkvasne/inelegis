@@ -29,7 +29,7 @@ class Builder {
   }
 
   async build() {
-    this.log('Iniciando build do Ineleg-App v0.0.2', 'info');
+    this.log('Iniciando build do Inelegis v0.0.6', 'info');
 
     try {
       // 1. Validar estrutura do projeto
@@ -294,7 +294,7 @@ class Builder {
 
     // Criar arquivo de build info
     const buildInfo = {
-      version: '0.0.2',
+      version: '0.0.6',
       buildDate: new Date().toISOString(),
       buildNumber: Date.now(),
       environment: 'production',

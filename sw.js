@@ -1,4 +1,4 @@
-const CACHE_NAME = 'inelegis-v0.0.7';
+const CACHE_NAME = 'inelegis-v0.0.6';
 const ASSETS = [
   './',
   './index',

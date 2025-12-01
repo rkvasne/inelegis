@@ -1,6 +1,6 @@
 # 🤝 Guia de Contribuição
 
-**Última atualização:** 30 de novembro de 2025
+**Última atualização:** 01 de dezembro de 2025
 **Versão atual:** 0.0.6
 
 Obrigado pelo seu interesse em contribuir para o **Inelegis**! 🎉
@@ -82,12 +82,17 @@ Para configurar seu ambiente de desenvolvimento local:
     npm install
     ```
 
-3.  Inicie o servidor de desenvolvimento:
+3.  Execute os testes:
+    ```bash
+    npm run test:unit
+    ```
+
+4.  Inicie o servidor de desenvolvimento:
     ```bash
     npm run dev
     ```
 
-4.  Acesse `http://localhost:3000`.
+5.  Acesse `http://localhost:3000`.
 
 ---
 

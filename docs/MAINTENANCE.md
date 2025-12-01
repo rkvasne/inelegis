@@ -1,6 +1,6 @@
 # Manutenção e Validação de Dados
 
-**Última atualização:** 30 de novembro de 2025
+**Última atualização:** 01 de dezembro de 2025
 **Status de conformidade:** ✅ 100% com XML TRE-SP (outubro/2024)
 **Próxima revisão recomendada:** 24 de janeiro de 2026 (trimestral)
 **Tipo:** Sistema não oficial (ferramenta auxiliar)
@@ -251,7 +251,7 @@ NÃO geram inelegibilidade:
 
 ### Status: ✅ TODOS OS PROBLEMAS RESOLVIDOS
 
-**Última atualização:** 24 de outubro de 2025
+**Última atualização:** 01 de dezembro de 2025
 
 Todos os problemas identificados anteriormente foram corrigidos:
 - ✅ Conformidade com XML TRE-SP: 100%
@@ -309,5 +309,5 @@ Este documento certifica que o sistema Ineleg-App está:
 ---
 
 **Versão deste documento:** 1.0
-**Último update:** 30 de novembro de 2025
+**Último update:** 01 de dezembro de 2025
 **Status:** ✅ Consolidado e validado
