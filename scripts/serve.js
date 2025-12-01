@@ -42,28 +42,28 @@ class DevServer {
       error: '❌',
       reload: '🔄'
     }[type] || 'ℹ️';
-    
+
     console.log(`${prefix} [${timestamp.split('T')[1].split('.')[0]}] ${message}`);
   }
 
   async start() {
     this.log('Iniciando servidor de desenvolvimento...', 'info');
-    
+
     const server = http.createServer((req, res) => {
       this.handleRequest(req, res);
     });
-    
+
     server.listen(this.port, () => {
       this.log(`Servidor rodando em http://localhost:${this.port}`, 'success');
       this.log('Pressione Ctrl+C para parar o servidor', 'info');
-      
+
       // Abrir navegador automaticamente
       this.openBrowser();
-      
+
       // Configurar watchers para live reload
       this.setupWatchers();
     });
-    
+
     // Graceful shutdown
     process.on('SIGINT', () => {
       this.log('Parando servidor...', 'info');
@@ -74,32 +74,41 @@ class DevServer {
 
   handleRequest(req, res) {
     let filePath = req.url === '/' ? '/index.html' : req.url;
-    
+
     // Remover query parameters
     filePath = filePath.split('?')[0];
-    
+
     // Prevenir directory traversal
     if (filePath.includes('..')) {
       this.sendError(res, 403, 'Forbidden');
       return;
     }
-    
+
     const fullPath = path.join(this.projectRoot, filePath);
-    
+
     // Verificar se arquivo existe
     if (!fs.existsSync(fullPath)) {
-      // Para SPAs, redirecionar para index.html
+      // Tentar adicionar .html se não tiver extensão (Clean URLs)
+      if (path.extname(filePath) === '') {
+        const htmlPath = fullPath + '.html';
+        if (fs.existsSync(htmlPath)) {
+          this.serveFile(res, htmlPath, '.html');
+          return;
+        }
+      }
+
+      // Para SPAs, redirecionar para index.html (fallback)
       if (path.extname(filePath) === '') {
         this.serveFile(res, path.join(this.projectRoot, 'index.html'), '.html');
         return;
       }
-      
+
       this.sendError(res, 404, 'Not Found');
       return;
     }
-    
+
     const stat = fs.statSync(fullPath);
-    
+
     if (stat.isDirectory()) {
       // Servir index.html se for diretório
       const indexPath = path.join(fullPath, 'index.html');
@@ -110,7 +119,7 @@ class DevServer {
       }
       return;
     }
-    
+
     // Servir arquivo
     const ext = path.extname(filePath);
     this.serveFile(res, fullPath, ext);
@@ -120,25 +129,25 @@ class DevServer {
     try {
       let content = fs.readFileSync(filePath);
       const mimeType = this.mimeTypes[ext] || 'application/octet-stream';
-      
+
       // Injetar live reload script em HTML
       if (ext === '.html') {
         const htmlContent = content.toString();
         const liveReloadScript = this.getLiveReloadScript();
         content = htmlContent.replace('</body>', `${liveReloadScript}</body>`);
       }
-      
+
       res.writeHead(200, {
         'Content-Type': mimeType,
         'Cache-Control': 'no-cache, no-store, must-revalidate',
         'Pragma': 'no-cache',
         'Expires': '0'
       });
-      
+
       res.end(content);
-      
+
       this.log(`${this.getStatusIcon(200)} ${filePath}`, 'info');
-      
+
     } catch (error) {
       this.log(`Erro ao servir ${filePath}: ${error.message}`, 'error');
       this.sendError(res, 500, 'Internal Server Error');
@@ -208,17 +217,17 @@ class DevServer {
       </body>
       </html>
     `;
-    
+
     res.writeHead(statusCode, { 'Content-Type': 'text/html' });
     res.end(errorPage);
-    
+
     this.log(`${this.getStatusIcon(statusCode)} ${statusCode} ${message}`, 'error');
   }
 
   sendDirectoryListing(res, dirPath, urlPath) {
     try {
       const files = fs.readdirSync(dirPath);
-      
+
       const listing = `
         <!DOCTYPE html>
         <html lang="pt-BR">
@@ -267,21 +276,21 @@ class DevServer {
             <ul class="file-list">
               ${urlPath !== '/' ? '<li class="file-item"><span class="file-icon">📁</span><a href="../" class="file-link">.. (voltar)</a></li>' : ''}
               ${files.map(file => {
-                const filePath = path.join(dirPath, file);
-                const isDir = fs.statSync(filePath).isDirectory();
-                const icon = isDir ? '📁' : this.getFileIcon(file);
-                const href = path.posix.join(urlPath, file);
-                return `<li class="file-item"><span class="file-icon">${icon}</span><a href="${href}" class="file-link">${file}</a></li>`;
-              }).join('')}
+        const filePath = path.join(dirPath, file);
+        const isDir = fs.statSync(filePath).isDirectory();
+        const icon = isDir ? '📁' : this.getFileIcon(file);
+        const href = path.posix.join(urlPath, file);
+        return `<li class="file-item"><span class="file-icon">${icon}</span><a href="${href}" class="file-link">${file}</a></li>`;
+      }).join('')}
             </ul>
           </div>
         </body>
         </html>
       `;
-      
+
       res.writeHead(200, { 'Content-Type': 'text/html' });
       res.end(listing);
-      
+
     } catch (error) {
       this.sendError(res, 500, 'Erro ao listar diretório');
     }
@@ -321,16 +330,16 @@ class DevServer {
   setupWatchers() {
     const watchPaths = [
       'index.html',
-      'styles.css', 
+      'styles.css',
       'script.js',
       'data.js',
       'js/',
       'manifest.json'
     ];
-    
+
     for (const watchPath of watchPaths) {
       const fullPath = path.join(this.projectRoot, watchPath);
-      
+
       if (fs.existsSync(fullPath)) {
         const watcher = fs.watch(fullPath, { recursive: true }, (eventType, filename) => {
           if (filename) {
@@ -338,7 +347,7 @@ class DevServer {
             this.lastModified = Date.now();
           }
         });
-        
+
         this.watchers.set(watchPath, watcher);
         this.log(`Monitorando: ${watchPath}`, 'info');
       }
@@ -355,11 +364,11 @@ class DevServer {
 
   openBrowser() {
     const url = `http://localhost:${this.port}`;
-    
+
     try {
       const platform = process.platform;
       let command;
-      
+
       if (platform === 'win32') {
         command = `start ${url}`;
       } else if (platform === 'darwin') {
@@ -367,10 +376,10 @@ class DevServer {
       } else {
         command = `xdg-open ${url}`;
       }
-      
+
       execSync(command);
       this.log('Navegador aberto automaticamente', 'success');
-      
+
     } catch (error) {
       this.log(`Não foi possível abrir o navegador automaticamente. Acesse: ${url}`, 'warning');
     }
@@ -400,7 +409,7 @@ class DevServer {
       '.pdf': '📄',
       '.txt': '📄'
     };
-    
+
     return icons[ext] || '📄';
   }
 }

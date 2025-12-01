@@ -46,7 +46,7 @@
         <div class="container">
             <div class="nav-content">
                 <div class="nav-links">
-                    <a href="index.html" class="nav-link">
+                    <a href="./" class="nav-link">
                         <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                             aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -55,7 +55,7 @@
                         </svg>
                         Início
                     </a>
-                    <a href="consulta.html" class="nav-link">
+                    <a href="consulta" class="nav-link">
                         <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                             aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -63,7 +63,7 @@
                         </svg>
                         Consulta
                     </a>
-                    <a href="sobre.html" class="nav-link">
+                    <a href="sobre" class="nav-link">
                         <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                             aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -71,7 +71,7 @@
                         </svg>
                         Sobre
                     </a>
-                    <a href="faq.html" class="nav-link active" aria-current="page">
+                    <a href="faq" class="nav-link active" aria-current="page">
                         <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                             aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -704,7 +704,7 @@
                     </svg>
                     Ver Documentação
                 </a>
-                <a href="consulta.html" class="btn btn-secondary">
+                <a href="consulta" class="btn btn-secondary">
                     <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -818,7 +818,7 @@
 
         // Bloquear link de consulta se termos não aceitos
         const termosAceitos = localStorage.getItem('ineleg_termos_aceitos') === 'true';
-        const consultaLink = document.querySelector('a[href="consulta.html"]');
+        const consultaLink = document.querySelector('a[href="consulta"]');
 
         if (!termosAceitos && consultaLink) {
             consultaLink.style.pointerEvents = 'none';
