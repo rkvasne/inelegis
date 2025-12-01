@@ -1,4 +1,6 @@
-# Código de Conduta
+# 💜 Código de Conduta — INELEGIS
+
+> Navegação: [README do projeto](README.md) • [Documentação](docs/README.md)
 
 ## Nosso Compromisso
 

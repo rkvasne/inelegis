@@ -1,8 +1,3 @@
----
-docStatus: reference
-docScope: operations
-lastReviewed: 14/01/2026
----
 # 🔒 Guia de Proteção Contra Corrupção de Código
 
 Este documento explica como o projeto está protegido contra corrupção acidental de HTML e fornece diretrizes para edições seguras.

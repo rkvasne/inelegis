@@ -1,12 +1,7 @@
-# 🔒 Política de Segurança
+# 🔐 Política de Segurança — INELEGIS
 
----
-docStatus: active
-docScope: security
-lastReviewed: 15/01/2026
----
-
-**Versão atual:** 0.2.0
+**Versão:** v0.2.0  
+**Data:** 15/01/2026
 
 Este documento descreve como reportar vulnerabilidades e quais controles de segurança são aplicados no **Inelegis**.
 
