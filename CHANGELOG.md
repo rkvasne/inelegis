@@ -25,9 +25,10 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 - README.md atualizado com novidades da v0.0.7
 
 ### 🗑 Removed
-- 11 documentos redundantes/obsoletos removidos em duas limpezas:
-  - Primeira limpeza: 9 docs (LIMPEZA-FINAL.md, IMPLEMENTACAO-COMPLETA.md, STATUS-IMPLEMENTACAO.md, etc.)
-  - Segunda limpeza: 2 docs (ANALISE-DOCUMENTACAO.md, ATUALIZACAO-DOCS-HISTORICOS.md)
+- 12 documentos e 5 arquivos de código morto removidos em três limpezas:
+  - Primeira limpeza: 9 docs redundantes/obsoletos
+  - Segunda limpeza: 2 docs redundantes (ANALISE-DOCUMENTACAO.md, ATUALIZACAO-DOCS-HISTORICOS.md)
+  - Terceira limpeza: 1 doc + 5 arquivos de componentes não utilizados (pasta components/ removida)
 
 ---
 

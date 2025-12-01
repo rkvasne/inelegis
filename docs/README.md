@@ -10,7 +10,6 @@ Bem-vindo à documentação oficial do projeto **Inelegis**.
 
 ### 🛠️ Desenvolvimento
 - **[Guia de Desenvolvimento](DEVELOPMENT.md)** - Arquitetura, módulos, testes e padrões de código
-- **[Sistema de Componentes](COMPONENTS.md)** - Componentes reutilizáveis
 - **[Guia de Proteção](PROTECTION.md)** - Edições seguras e prevenção de corrupção
 
 ### 🔧 Manutenção
@@ -29,9 +28,8 @@ Bem-vindo à documentação oficial do projeto **Inelegis**.
     - `README.md`: Este índice
     - `DEVELOPMENT.md`: Guia para desenvolvedores (arquitetura, módulos, testes)
     - `MAINTENANCE.md`: Guia para mantenedores (atualização de dados, validação)
-    - `REFACTORING-PLAN.md`: Plano de refatoração v0.0.6
-    - `IMPLEMENTATION-GUIDE.md`: Guia de implementação das melhorias
-    - `COMPONENTS.md`: Sistema de componentes
+    - `REFACTORING-PLAN.md`: Plano de refatoração v0.0.6 (histórico)
+    - `IMPLEMENTATION-GUIDE.md`: Guia de implementação (histórico)
     - `PROTECTION.md`: Guia de proteção
     - `references/`: Arquivos PDF, XML e TXT de referência
         - `manual-ase.txt`: Guia operacional das ASEs
