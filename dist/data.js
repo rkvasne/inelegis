@@ -1,3 +1,5 @@
+'use strict';
+
 // Lista de leis/códigos disponíveis para o select
 const leisDisponiveis = [
     {
@@ -522,12 +524,17 @@ function extrairArtigos(texto) {
 
 // Função para buscar na tabela
 function buscarInelegibilidade(termoBusca) {
-    const termoNormalizado = normalizarTexto(termoBusca);
-    const artigosBusca = extrairArtigos(termoBusca);
-    
-    const resultados = [];
-    
-    for (const item of tabelaInelegibilidade) {
+    try {
+        if (!termoBusca || typeof termoBusca !== 'string') {
+            throw new Error('Termo de busca inválido');
+        }
+        
+        const termoNormalizado = normalizarTexto(termoBusca);
+        const artigosBusca = extrairArtigos(termoBusca);
+        
+        const resultados = [];
+        
+        for (const item of tabelaInelegibilidade) {
         let pontuacao = 0;
         let matchExato = false;
         
@@ -568,12 +575,16 @@ function buscarInelegibilidade(termoBusca) {
         }
     }
     
-    // Ordena por pontuação (maior primeiro) e depois por match exato
-    return resultados.sort((a, b) => {
-        if (a.matchExato && !b.matchExato) return -1;
-        if (!a.matchExato && b.matchExato) return 1;
-        return b.pontuacao - a.pontuacao;
-    });
+        // Ordena por pontuação (maior primeiro) e depois por match exato
+        return resultados.sort((a, b) => {
+            if (a.matchExato && !b.matchExato) return -1;
+            if (!a.matchExato && b.matchExato) return 1;
+            return b.pontuacao - a.pontuacao;
+        });
+    } catch (error) {
+        console.error('Erro ao buscar inelegibilidade:', error);
+        return [];
+    }
 }
 
 // Função para verificar se há exceções aplicáveis

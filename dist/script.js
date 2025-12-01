@@ -1,3 +1,12 @@
+// Registro do Service Worker para cache
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+            .then(registration => console.log('SW registrado:', registration.scope))
+            .catch(err => console.log('Falha no SW:', err));
+    });
+}
+
 // Elementos DOM
 const leiSelect = document.getElementById('leiSelect');
 const artigoInput = document.getElementById('artigoInput');
@@ -12,7 +21,7 @@ const dataOcorrenciaCondenacao = document.getElementById('dataOcorrenciaCondenac
 const dataOcorrenciaExtincao = document.getElementById('dataOcorrenciaExtincao');
 
 // Inicialização
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Evitar erros quando script.js é carregado fora da app principal (ex.: tests/quick-tests.html)
     if (!leiSelect || !artigoInput || !buscarBtn) {
         return;
@@ -31,14 +40,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Configurar radio buttons para alternar seções de data de ocorrência
 function configurarRadioButtons() {
-    radioCondenacao.addEventListener('change', function() {
+    radioCondenacao.addEventListener('change', function () {
         if (this.checked) {
             dataOcorrenciaCondenacao.style.display = 'block';
             dataOcorrenciaExtincao.style.display = 'none';
         }
     });
 
-    radioExtincao.addEventListener('change', function() {
+    radioExtincao.addEventListener('change', function () {
         if (this.checked) {
             dataOcorrenciaCondenacao.style.display = 'none';
             dataOcorrenciaExtincao.style.display = 'block';
@@ -55,7 +64,7 @@ function obterTipoComunicacao() {
 function popularSelectLeis() {
     // Limpar opções existentes
     leiSelect.innerHTML = '<option value="">Selecione uma lei...</option>';
-    
+
     // Adicionar opções das leis
     leisDisponiveis.forEach(lei => {
         const option = document.createElement('option');
@@ -82,7 +91,7 @@ function configurarEventListeners() {
         };
     })();
     // Evento de mudança no select de lei
-    leiSelect.addEventListener('change', function() {
+    leiSelect.addEventListener('change', function () {
         if (this.value) {
             artigoInput.disabled = false;
             // Habilitar inputs do artigo builder
@@ -116,7 +125,7 @@ function configurarEventListeners() {
     });
 
     // Botões para inserir símbolos
-    document.getElementById('insertParagrafoBtn').addEventListener('click', function(e) {
+    document.getElementById('insertParagrafoBtn').addEventListener('click', function (e) {
         e.preventDefault();
         const paraNum = document.getElementById('paragrafoNum').value;
         if (paraNum) {
@@ -127,7 +136,7 @@ function configurarEventListeners() {
         }
     });
 
-    document.getElementById('insertAlineaBtn').addEventListener('click', function(e) {
+    document.getElementById('insertAlineaBtn').addEventListener('click', function (e) {
         e.preventDefault();
         const alinea = document.getElementById('alineaNum').value;
         if (alinea) {
@@ -138,7 +147,7 @@ function configurarEventListeners() {
         }
     });
 
-    document.getElementById('insertConcBtn').addEventListener('click', function(e) {
+    document.getElementById('insertConcBtn').addEventListener('click', function (e) {
         e.preventDefault();
         const conc = document.getElementById('concomitanteNum').value;
         if (conc) {
@@ -150,7 +159,7 @@ function configurarEventListeners() {
     });
 
     // Botão para montar o artigo completo
-    document.getElementById('montarArtigoBtn').addEventListener('click', function(e) {
+    document.getElementById('montarArtigoBtn').addEventListener('click', function (e) {
         e.preventDefault();
         const artigo = document.getElementById('artigoNum').value;
         const paragrafo = document.getElementById('paragrafoNum').value;
@@ -176,7 +185,7 @@ function configurarEventListeners() {
     });
 
     // Evento de input no campo artigo
-    artigoInput.addEventListener('input', function() {
+    artigoInput.addEventListener('input', function () {
         const valorAtual = this.value;
         const valorTrim = valorAtual.trim();
 
@@ -203,20 +212,20 @@ function configurarEventListeners() {
     buscarBtn.addEventListener('click', realizarBusca);
 
     // Evento de tecla Enter nos campos
-    leiSelect.addEventListener('keydown', function(e) {
+    leiSelect.addEventListener('keydown', function (e) {
         if (e.key === 'Enter' && this.value) {
             artigoInput.focus();
         }
     });
 
-    artigoInput.addEventListener('keydown', function(e) {
+    artigoInput.addEventListener('keydown', function (e) {
         if (e.key === 'Enter' && !buscarBtn.disabled) {
             realizarBusca();
         }
     });
 
     // Atalhos de teclado para acesso rápido
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener('keydown', function (e) {
         // Ctrl+L para focar no select de leis
         if (e.ctrlKey && e.key === 'l') {
             e.preventDefault();
@@ -246,8 +255,8 @@ function configurarEventListeners() {
                 radioCondenacao.checked = true;
                 radioCondenacao.dispatchEvent(new Event('change'));
             }
-         }
-     });
+        }
+    });
 }
 
 // Aplicar formatação automática ao artigo
@@ -287,7 +296,7 @@ function aplicarFormatacaoAutomatica(valor) {
 function verificarCamposPreenchidos() {
     const leiSelecionada = leiSelect.value.trim();
     const artigoDigitado = artigoInput.value.trim();
-    
+
     buscarBtn.disabled = !(leiSelecionada && artigoDigitado);
 }
 
@@ -295,17 +304,17 @@ function verificarCamposPreenchidos() {
 function realizarBusca() {
     const leiSelecionada = leiSelect.value.trim();
     const artigoDigitado = artigoInput.value.trim();
-    
+
     if (!leiSelecionada || !artigoDigitado) {
         alert('Por favor, selecione uma lei e digite o artigo.');
         return;
     }
 
     esconderSugestoes();
-    
+
     // Buscar na tabela de inelegibilidade
     const resultado = buscarInelegibilidadePorLeiEArtigo(leiSelecionada, artigoDigitado);
-    
+
     if (resultado) {
         exibirResultado(resultado);
     } else {
@@ -426,7 +435,7 @@ function verificarExcecoesAplicaveis(item, artigoProcessado) {
 }
 function processarArtigoCompleto(artigo) {
     const artigoLimpo = artigo.trim();
-    
+
     // Extrair componentes do artigo
     const resultado = {
         original: artigoLimpo,
@@ -437,20 +446,20 @@ function processarArtigoCompleto(artigo) {
         concomitante: [],
         formatado: ''
     };
-    
+
     // Verificar se há artigos concomitantes (c/c)
     const partesConcomitantes = artigoLimpo.split(/\s+c\/c\s+/i);
-    
+
     if (partesConcomitantes.length > 1) {
         // Processar artigo principal
         const artPrincipal = processarParteArtigo(partesConcomitantes[0]);
         Object.assign(resultado, artPrincipal);
-        
+
         // Processar artigos concomitantes
         for (let i = 1; i < partesConcomitantes.length; i++) {
             resultado.concomitante.push(processarParteArtigo(partesConcomitantes[i]));
         }
-        
+
         resultado.formatado = formatarArtigoCompleto(resultado);
     } else {
         // Processar artigo simples
@@ -458,7 +467,7 @@ function processarArtigoCompleto(artigo) {
         Object.assign(resultado, artProcessado);
         resultado.formatado = formatarArtigoCompleto(resultado);
     }
-    
+
     return resultado;
 }
 
@@ -470,91 +479,91 @@ function processarParteArtigo(parte) {
         inciso: '',
         alinea: ''
     };
-    
+
     // Verificar se a parte não está vazia
     if (!parte || typeof parte !== 'string') {
         return resultado;
     }
-    
+
     // Remover espaços extras e normalizar
     let texto = parte.trim().replace(/\s+/g, ' ');
-    
+
     // Se o texto está vazio após limpeza, retornar resultado vazio
     if (!texto) {
         return resultado;
     }
-    
+
     // Extrair artigo (número inicial)
     const matchArtigo = texto.match(/^(\d+)/);
     if (matchArtigo) {
         resultado.artigo = matchArtigo[1];
         texto = texto.substring(matchArtigo[0].length).trim();
     }
-    
+
     // Extrair parágrafo (§1º, §2°, etc.)
     const matchParagrafo = texto.match(/[,\s]*§\s*(\d+)[º°]?/i);
     if (matchParagrafo) {
         resultado.paragrafo = matchParagrafo[1];
         texto = texto.replace(matchParagrafo[0], '').trim();
     }
-    
+
     // Extrair inciso (I, II, III, etc.)
     const matchInciso = texto.match(/[,\s]*(I{1,3}|IV|V|VI{0,3}|IX|X{1,3})/i);
     if (matchInciso) {
         resultado.inciso = matchInciso[1].toUpperCase();
         texto = texto.replace(matchInciso[0], '').trim();
     }
-    
+
     // Extrair alínea ('a', 'b', "c", etc.)
     const matchAlinea = texto.match(/[,\s]*['"]?([a-z])['"]?/i);
     if (matchAlinea) {
         resultado.alinea = matchAlinea[1].toLowerCase();
     }
-    
+
     return resultado;
 }
 
 // Formatar artigo completo para exibição
 function formatarArtigoCompleto(artigo) {
     let formatado = artigo.artigo;
-    
+
     if (artigo.paragrafo) {
         formatado += `, §${artigo.paragrafo}º`;
     }
-    
+
     if (artigo.inciso) {
         formatado += `, ${artigo.inciso}`;
     }
-    
+
     if (artigo.alinea) {
         formatado += `, "${artigo.alinea}"`;
     }
-    
+
     // Adicionar artigos concomitantes
     if (artigo.concomitante && artigo.concomitante.length > 0) {
         const concomitantes = artigo.concomitante.map(c => formatarParteArtigo(c)).join(' c/c ');
         formatado += ` c/c ${concomitantes}`;
     }
-    
+
     return formatado;
 }
 
 // Formatar parte do artigo
 function formatarParteArtigo(parte) {
     let formatado = parte.artigo;
-    
+
     if (parte.paragrafo) {
         formatado += `, §${parte.paragrafo}º`;
     }
-    
+
     if (parte.inciso) {
         formatado += `, ${parte.inciso}`;
     }
-    
+
     if (parte.alinea) {
         formatado += `, "${parte.alinea}"`;
     }
-    
+
     return formatado;
 }
 
@@ -595,14 +604,14 @@ function verificarArtigoCorresponde(artigoTabela, artigoProcessado) {
     if (!artigoTabela || !artigoProcessado || !artigoProcessado.artigo) {
         return false;
     }
-    
+
     const artigoPrincipal = artigoProcessado.artigo.toLowerCase().trim();
-    
+
     // Verificar se o artigo principal não está vazio
     if (!artigoPrincipal.trim()) {
         return false;
     }
-    
+
     // Extrair todos os artigos da tabela
     const artigos = extrairArtigosDoNorma(artigoTabela);
 
@@ -616,7 +625,7 @@ function verificarArtigoCorresponde(artigoTabela, artigoProcessado) {
 // Verificar se a lei corresponde ao item da tabela
 function verificarLeiCorresponde(item, codigoLei) {
     const codigoNormalizado = item.codigo.toLowerCase();
-    
+
     switch (codigoLei) {
         case 'CP':
             return codigoNormalizado === 'cp';
@@ -745,13 +754,13 @@ function exibirResultado(resultado) {
                 </div>
             `;
     }
-    
+
     // Construir detalhes do artigo
     let detalhesArtigo = '';
-    if (resultado.artigoProcessado && (resultado.artigoProcessado.paragrafo || 
-        resultado.artigoProcessado.inciso || resultado.artigoProcessado.alinea || 
+    if (resultado.artigoProcessado && (resultado.artigoProcessado.paragrafo ||
+        resultado.artigoProcessado.inciso || resultado.artigoProcessado.alinea ||
         resultado.artigoProcessado.concomitante.length > 0)) {
-        
+
         const componentes = [];
         if (resultado.artigoProcessado.paragrafo) {
             componentes.push(`<span class="detail-badge">§${resultado.artigoProcessado.paragrafo}º</span>`);
@@ -768,7 +777,7 @@ function exibirResultado(resultado) {
                 .join(', ');
             componentes.push(`<span class="detail-badge badge-conc">c/c ${conc}</span>`);
         }
-        
+
         detalhesArtigo = `
             <div class="modal-section modal-info">
                 <div class="section-header">
@@ -786,7 +795,7 @@ function exibirResultado(resultado) {
             </div>
         `;
     }
-    
+
     // Informação ASE
     const tipoComunicacao = obterTipoComunicacao();
     const aseInfo = __genAsePad(tipoComunicacao, resultado.inelegivel);
@@ -794,16 +803,16 @@ function exibirResultado(resultado) {
     // Atualizar header do modal
     document.getElementById('modalTitle').textContent = 'Resultado da Consulta';
     document.getElementById('modalSubtitle').textContent = `${nomeLei} • Art. ${artigoExibicao}`;
-    
+
     // Montar modal com novo design
     abrirModal(statusClass, statusTexto, `
         <div class="modal-status-card ${statusClass}">
             <div class="status-icon-wrapper">
                 <svg width="28" height="28" fill="currentColor" viewBox="0 0 20 20">
-                    ${resultado.inelegivel ? 
-                        '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>' :
-                        '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>'
-                    }
+                    ${resultado.inelegivel ?
+            '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>' :
+            '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>'
+        }
                 </svg>
             </div>
             <div class="status-text-wrapper">
@@ -854,7 +863,7 @@ function exibirNaoEncontrado(codigoLei, artigo) {
     // Atualizar header do modal
     document.getElementById('modalTitle').textContent = 'Artigo Não Encontrado';
     document.getElementById('modalSubtitle').textContent = `${nomeLei} • Art. ${artigo}`;
-    
+
     abrirModal('nao-encontrado', 'NÃO ENCONTRADO', `
         <div class="modal-status-card nao-encontrado">
             <div class="status-icon-wrapper">
@@ -910,11 +919,11 @@ function exibirNaoEncontrado(codigoLei, artigo) {
 function mostrarSugestoes(termo) {
     const leiSelecionada = leiSelect.value;
     if (!leiSelecionada) return;
-    
+
     const sugestoes = obterSugestoesPorLei(leiSelecionada, termo);
-    
+
     if (sugestoes.length > 0) {
-        const sugestoesHtml = sugestoes.map(sugestao => 
+        const sugestoesHtml = sugestoes.map(sugestao =>
             `<div class="sugestao-item" onclick="selecionarSugestao('${sugestao}')">
                 <div class="flex items-center gap-3">
                     <div class="w-2 h-2 bg-primary-500 rounded-full"></div>
@@ -922,7 +931,7 @@ function mostrarSugestoes(termo) {
                 </div>
             </div>`
         ).join('');
-        
+
         sugestoesDiv.innerHTML = sugestoesHtml;
         sugestoesDiv.classList.add('show');
     } else {
@@ -1017,16 +1026,16 @@ function abrirModal(tipoResultado, status, conteudo) {
     const modal = document.getElementById('modalResultado');
     const modalContent = modal.querySelector('.modal-content');
     const modalBody = document.getElementById('modalBody');
-    
+
     // Armazenar conteúdo para função de copiar
     conteudoModalAtual = conteudo;
-    
+
     // Definir classe do modal baseada no tipo de resultado
     modalContent.className = `modal-content modal-modern ${tipoResultado}`;
-    
+
     // Inserir conteúdo no modal com novo design
     modalBody.innerHTML = conteudo;
-    
+
     // Mostrar modal com animação suave
     modal.classList.remove('hidden');
     requestAnimationFrame(() => {
@@ -1034,7 +1043,7 @@ function abrirModal(tipoResultado, status, conteudo) {
         modalContent.style.opacity = '1';
         modalContent.style.transform = 'translateY(0) scale(1)';
     });
-    
+
     // Prevenir scroll do body
     document.body.style.overflow = 'hidden';
 
@@ -1042,10 +1051,10 @@ function abrirModal(tipoResultado, status, conteudo) {
     __lastFocusedElement = document.activeElement;
     modalContent.setAttribute('tabindex', '-1');
     modalContent.focus();
-    
+
     const focusableSelectors = 'a, button, input, select, textarea, [tabindex]:not([tabindex="-1"])';
     const getFocusable = () => Array.from(modalContent.querySelectorAll(focusableSelectors)).filter(el => !el.hasAttribute('disabled'));
-    
+
     __modalTrapHandler = (e) => {
         if (e.key !== 'Tab') return;
         const els = getFocusable();
@@ -1070,7 +1079,7 @@ function abrirModal(tipoResultado, status, conteudo) {
 function mostrarToast(msg, type = 'info') {
     const toast = document.createElement('div');
     toast.className = `toast ${type}`;
-    
+
     // Ícones modernos para cada tipo
     const icons = {
         success: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>',
@@ -1078,7 +1087,7 @@ function mostrarToast(msg, type = 'info') {
         warning: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"></path></svg>',
         info: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>'
     };
-    
+
     // Estrutura moderna do toast
     toast.innerHTML = `
         <div class="toast-content">
@@ -1088,14 +1097,14 @@ function mostrarToast(msg, type = 'info') {
             <div class="toast-message">${msg}</div>
         </div>
     `;
-    
+
     document.body.appendChild(toast);
-    
+
     // Animar entrada com bounce
     requestAnimationFrame(() => {
         toast.classList.add('show');
     });
-    
+
     // Auto-remover com animação suave
     setTimeout(() => {
         toast.classList.remove('show');
@@ -1105,7 +1114,7 @@ function mostrarToast(msg, type = 'info') {
             }
         }, 400);
     }, 4000);
-    
+
     // Permitir fechar clicando no toast
     toast.addEventListener('click', () => {
         toast.classList.remove('show');
@@ -1122,12 +1131,12 @@ function exportarResultado() {
     const modalBody = document.getElementById('modalBody');
     const modalTitle = document.getElementById('modalTitle');
     const modalSubtitle = document.getElementById('modalSubtitle');
-    
+
     if (!modalBody) return;
-    
+
     // Extrair texto limpo do modal
     let textoExportar = '';
-    
+
     // Adicionar título
     if (modalTitle) {
         textoExportar += `${modalTitle.textContent}\n`;
@@ -1136,7 +1145,7 @@ function exportarResultado() {
         textoExportar += `${modalSubtitle.textContent}\n`;
     }
     textoExportar += '='.repeat(50) + '\n\n';
-    
+
     // Extrair texto do corpo do modal
     const statusCard = modalBody.querySelector('.modal-status-card');
     if (statusCard) {
@@ -1146,7 +1155,7 @@ function exportarResultado() {
             textoExportar += `${statusLabel.textContent}: ${statusValue.textContent}\n\n`;
         }
     }
-    
+
     // Extrair informações do grid
     const infoItems = modalBody.querySelectorAll('.info-item');
     infoItems.forEach(item => {
@@ -1157,13 +1166,13 @@ function exportarResultado() {
         }
     });
     textoExportar += '\n';
-    
+
     // Extrair ASE info
     const aseInfo = modalBody.querySelector('.modal-ase-info');
     if (aseInfo) {
         textoExportar += `${aseInfo.textContent.trim()}\n\n`;
     }
-    
+
     // Extrair seções
     const sections = modalBody.querySelectorAll('.modal-section');
     sections.forEach(section => {
@@ -1177,13 +1186,13 @@ function exportarResultado() {
             textoExportar += `${content.textContent.trim()}\n\n`;
         }
     });
-    
+
     // Adicionar rodapé
     textoExportar += '='.repeat(50) + '\n';
     textoExportar += 'Ineleg-App - Sistema de Consulta de Inelegibilidade Eleitoral\n';
     textoExportar += 'Base de dados: TRE-SP (Out/2024) - CRE-RO (02/06/2025)\n';
     textoExportar += `Exportado em: ${new Date().toLocaleString('pt-BR')}\n`;
-    
+
     // Copiar para área de transferência
     navigator.clipboard.writeText(textoExportar).then(() => {
         // Mostrar feedback de sucesso
@@ -1214,10 +1223,10 @@ function mostrarToast(mensagem, tipo = 'success') {
         font-size: 0.875rem;
         font-weight: 500;
     `;
-    
+
     // Adicionar ao body
     document.body.appendChild(toast);
-    
+
     // Remover após 3 segundos
     setTimeout(() => {
         toast.style.animation = 'slideOut 0.3s ease-out';
@@ -1231,17 +1240,17 @@ function mostrarToast(mensagem, tipo = 'success') {
 function fecharModal() {
     const modal = document.getElementById('modalResultado');
     const modalContent = modal.querySelector('.modal-content');
-    
+
     // Animar saída
     modalContent.style.opacity = '0';
     modalContent.style.transform = 'scale(0.95)';
-    
+
     // Aguardar animação antes de esconder
     setTimeout(() => {
         modal.classList.add('hidden');
         modal.classList.remove('show');
         document.body.style.overflow = 'auto';
-        
+
         // Remover trap e restaurar foco
         if (__modalTrapHandler && modalContent) {
             modalContent.removeEventListener('keydown', __modalTrapHandler);
@@ -1260,7 +1269,7 @@ function novaConsulta() {
 }
 
 // Fechar modal ao pressionar ESC
-document.addEventListener('keydown', function(event) {
+document.addEventListener('keydown', function (event) {
     if (event.key === 'Escape') {
         const modal = document.getElementById('modalResultado');
         if (modal.classList.contains('show')) {
@@ -1362,7 +1371,7 @@ function filtrarExcecoesDoMesmoArtigo(excecoes, artigoProcessado) {
     const num = (artigoProcessado && artigoProcessado.artigo) ? String(artigoProcessado.artigo) : '';
     if (!num) return [];
     const rx = new RegExp(String.raw`\bart\.?s?\.?\s*${num}(?!-)`, 'i');
-    const norm = (s) => { try { return String(s||'').normalize('NFD').replace(/\p{Diacritic}/gu,''); } catch { return String(s||'') } };
+    const norm = (s) => { try { return String(s || '').normalize('NFD').replace(/\p{Diacritic}/gu, ''); } catch { return String(s || '') } };
     return excecoes.filter((ex) => rx.test(norm(ex)));
 }
 // Índice em memória por lei para acelerar buscas
@@ -1381,7 +1390,7 @@ function construirIndicePorLei() {
             });
             __indicePorLei[codigoLei] = itens;
         });
-    } catch {}
+    } catch { }
 }
 function getItensPorLei(codigoLei) {
     if (!__indicePorLei) construirIndicePorLei();
@@ -1430,5 +1439,49 @@ function __genAsePad(tipo, inelegivel) {
     }
 }
 
+// Navegação por teclado aprimorada
+document.addEventListener('keydown', function (e) {
+    // Ctrl/Cmd + K: Focar na busca
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        if (artigoInput) artigoInput.focus();
+    }
 
+    // Esc: Fechar modal
+    if (e.key === 'Escape') {
+        const modal = document.getElementById('resultModal');
+        if (modal && modal.classList.contains('show')) {
+            fecharModal();
+        }
+    }
+
+    // Enter no campo de artigo: Buscar
+    if (e.key === 'Enter' && document.activeElement === artigoInput) {
+        e.preventDefault();
+        if (buscarBtn && !buscarBtn.disabled) {
+            buscarBtn.click();
+        }
+    }
+});
+
+// Trap de foco no modal para acessibilidade
+function trapFocusInModal(modalElement) {
+    const focusableElements = modalElement.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    const firstElement = focusableElements[0];
+    const lastElement = focusableElements[focusableElements.length - 1];
+
+    modalElement.addEventListener('keydown', function (e) {
+        if (e.key === 'Tab') {
+            if (e.shiftKey && document.activeElement === firstElement) {
+                e.preventDefault();
+                lastElement.focus();
+            } else if (!e.shiftKey && document.activeElement === lastElement) {
+                e.preventDefault();
+                firstElement.focus();
+            }
+        }
+    });
+}
 
