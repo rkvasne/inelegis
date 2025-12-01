@@ -107,12 +107,21 @@ function configurarEventListeners() {
 
             // Função para atualizar o preview do artigo em tempo real
             const atualizarPreview = () => {
+                const artigoCompleto = artigoInput.value.trim();
+                const leiSelecionada = leiSelect.options[leiSelect.selectedIndex].text;
+
+                // Se o campo "Artigo Completo" tiver conteúdo, mostrar ele no preview
+                if (artigoCompleto) {
+                    document.getElementById('previewArtigo').textContent = artigoCompleto;
+                    return;
+                }
+
+                // Caso contrário, mostrar o preview do construtor
                 const artigo = document.getElementById('artigoNum').value.trim();
                 const paragrafo = document.getElementById('paragrafoNum').value.trim();
                 const inciso = document.getElementById('incisoNum').value.trim();
                 const alinea = document.getElementById('alineaNum').value.trim();
                 const concomitante = document.getElementById('concomitanteNum').value.trim();
-                const leiSelecionada = leiSelect.options[leiSelect.selectedIndex].text;
 
                 let preview = 'Art. ';
                 if (artigo) preview += artigo;
@@ -126,6 +135,7 @@ function configurarEventListeners() {
             };
 
             // Adicionar event listeners para atualizar o preview
+            artigoInput.addEventListener('input', atualizarPreview);
             document.getElementById('artigoNum').addEventListener('input', atualizarPreview);
             document.getElementById('paragrafoNum').addEventListener('input', atualizarPreview);
             document.getElementById('incisoNum').addEventListener('input', atualizarPreview);
