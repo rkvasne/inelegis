@@ -46,7 +46,7 @@
         <div class="container">
             <div class="nav-content">
                 <div class="nav-links">
-                    <a href="index.html" class="nav-link">
+                    <a href="./" class="nav-link">
                         <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                             aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -55,7 +55,7 @@
                         </svg>
                         Início
                     </a>
-                    <a href="consulta.html" class="nav-link">
+                    <a href="consulta" class="nav-link">
                         <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                             aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -71,7 +71,7 @@
                         </svg>
                         Sobre
                     </a>
-                    <a href="faq.html" class="nav-link">
+                    <a href="faq" class="nav-link">
                         <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                             aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -159,7 +159,7 @@
     <script>
         // Verificar se usuário aceitou os termos
         const termosAceitos = localStorage.getItem('ineleg_termos_aceitos') === 'true';
-        const consultaLink = document.querySelector('a[href="consulta.html"]');
+        const consultaLink = document.querySelector('a[href="consulta"]');
 
         if (!termosAceitos && consultaLink) {
             // Bloquear link de consulta no menu
@@ -170,7 +170,7 @@
             consultaLink.addEventListener('click', function (e) {
                 e.preventDefault();
                 alert('Por favor, acesse a página inicial e concorde com os termos antes de usar o sistema de consulta.');
-                window.location.href = 'index.html';
+                window.location.href = 'index';
             });
         }
     </script>

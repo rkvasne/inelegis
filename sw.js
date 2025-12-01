@@ -1,11 +1,11 @@
-const CACHE_NAME = 'inelegis-v0.0.6';
+const CACHE_NAME = 'inelegis-v0.0.7';
 const ASSETS = [
   './',
-  './index.html',
-  './consulta.html',
-  './sobre.html',
-  './faq.html',
-  './landing.html',
+  './index',
+  './consulta',
+  './sobre',
+  './faq',
+  './landing',
   './styles.css',
   './script.js',
   './data.js',
