@@ -34,44 +34,6 @@
 ## 📋 Como Usar
 
 ### 1. **Acesso ao Sistema**
-- Abra `index.html` em qualquer navegador moderno
-- Leia o disclaimer e confirme o conhecimento
-- Clique em "Prosseguir para Consulta"
-
-### 2. **Realizar Consulta**
-- Selecione o tipo de comunicação (Condenação/Extinção)
-- Escolha a lei/código aplicável
-- Digite o artigo completo ou use o construtor
-- Clique em "Buscar"
-
-### 3. **Interpretar Resultado**
-- **INELEGÍVEL**: Artigo gera inelegibilidade
-- **ELEGÍVEL**: Artigo não gera inelegibilidade (exceção aplicável)
-- **NÃO ENCONTRADO**: Artigo não está na tabela de inelegibilidade
-
-## 🔧 Desenvolvimento
-
-### Scripts Disponíveis
-```bash
-# Build de produção
-node scripts/optimize.js
-
-# Deploy automatizado
-node scripts/deploy.js
-
-# Servidor de desenvolvimento
-node scripts/serve.js
-```
-
-### Estrutura do Projeto
-```
-inelegis/
-├── index.html          # Página inicial
-├── consulta.html       # Página de consulta
-├── sobre.html          # Página sobre
-├── script.js           # Lógica principal
-├── data.js            # Base de dados TRE-SP
-├── styles.css         # Estilos do sistema
 - ✅ Ícones dos labels alinhados verticalmente
 - ✅ Botão Exportar funcional (copia para área de transferência)
 - ✅ Toast de confirmação animado
@@ -109,121 +71,74 @@ inelegis/
 
 ### 1. **Acesso ao Sistema**
 - Abra `index.html` em qualquer navegador moderno
-- Leia o disclaimer e confirme o conhecimento
-- Clique em "Prosseguir para Consulta"
+# ⚖️ Inelegis
 
-### 2. **Realizar Consulta**
-- Selecione o tipo de comunicação (Condenação/Extinção)
-- Escolha a lei/código aplicável
-- Digite o artigo completo ou use o construtor
-- Clique em "Buscar"
+> **Sistema de Consulta de Inelegibilidade Eleitoral**
 
-### 3. **Interpretar Resultado**
-- **INELEGÍVEL**: Artigo gera inelegibilidade
-- **ELEGÍVEL**: Artigo não gera inelegibilidade (exceção aplicável)
-- **NÃO ENCONTRADO**: Artigo não está na tabela de inelegibilidade
+![Version](https://img.shields.io/badge/version-0.0.6-blue.svg)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
+![Status](https://img.shields.io/badge/status-active-success.svg)
 
-## 🔧 Desenvolvimento
-
-### Scripts Disponíveis
-```bash
-# Build de produção
-node scripts/optimize.js
-
-# Deploy automatizado
-node scripts/deploy.js
-
-# Servidor de desenvolvimento
-node scripts/serve.js
-```
-
-### Estrutura do Projeto
-```
-inelegis/
-├── index.html          # Página inicial
-├── consulta.html       # Página de consulta
-├── sobre.html          # Página sobre
-├── script.js           # Lógica principal
-├── data.js            # Base de dados TRE-SP
-├── styles.css         # Estilos do sistema
-└── scripts/          # Scripts de build/deploy
-```
-
-## 📊 Base de Dados
-
-### Fonte Oficial
-- **TRE-SP**: Tabela## 🎉 **Últimas Atualizações (30 de novembro de 2025)**
-
-### 🛠️ **v0.0.6 - Correções de Estabilidade**
-- ✅ Correção crítica no Service Worker para evitar perda de estilos
-- ✅ Atualização imediata de cache (skipWaiting/clients.claim)
-- ✅ Melhoria na estratégia de fallback de rede
-
-### 🚀 **v0.0.5 - Renomeação e Otimização**rreções de 02/06/2025
-- **Leis incluídas**: 41 códigos/leis principais
-- **Artigos**: Mais de 1.000 artigos catalogados
-
-### Validação
-- ✅ **Completude**: 100% das leis presentes
-- ✅ **Precisão**: 100% de conformidade com XML oficial
-- ✅ **Integridade**: 0 artigos faltantes
-- ✅ **Atualização**: Trimestral recomendada
-
-## 🚀 Deploy em Produção
-
-### Opção 1: Deploy Manual
-```bash
-# 1. Executar build
-node scripts/optimize.js
-
-# 2. Copiar arquivos dist/ para servidor
-scp -r dist/* user@server:/var/www/html/
-
-# 3. Configurar HTTPS e headers de cache
-```
-
-### Opção 2: Deploy Automático
-```bash
-# Executar script de deploy
-chmod +x deploy.sh
-./deploy.sh
-```
-
-### Opção 3: Docker
-```bash
-# Build e execução
-docker build -t inelegis .
-docker run -d -p 80:80 inelegis
-```
-
-## 📚 Documentação Técnica
-
-### ASE (Códigos de Situação Eleitoral)
-- **ASE 337**: Suspensão de direitos políticos por inelegibilidade
-- **ASE 370**: Suspensão por extinção da punibilidade
-- **ASE 540**: Suspensão por outros motivos
-
-### Manutenção de Dados
-- **Frequência**: Trimestral (janeiro, abril, julho, outubro)
-- **Fonte**: TRE-SP oficial
-- **Validação**: Comparação com XML oficial
-- **Backup**: Automático antes de atualizações
-
-## ⚠️ Disclaimer Importante
-
-**SISTEMA NÃO OFICIAL** - Este sistema é uma **ferramenta auxiliar** desenvolvida por servidor para uso de servidores dos TREs e **NÃO SUBSTITUI** a consulta direta na legislação atualizada. 
-
-**Base de dados**: Utiliza dados oficiais do TRE-SP (outubro/2024) revisados pela CRE-RO (02/06/2025), mas as informações podem estar desatualizadas. 
-
-**IMPORTANTE**: Sempre confirme na legislação vigente e nas orientações oficiais mais recentes antes de tomar decisões definitivas.
-
-## 📞 Suporte
-
-- **Desenvolvido por**: Servidor para uso de servidores dos TREs
-- **Base de dados**: TRE-SP - Outubro 2024 - CRE-RO 02/06/2025
-- **Status**: Sistema não oficial (ferramenta auxiliar)
-- **Versão:** 0.0.6  6
+O **Inelegis** é uma ferramenta auxiliar desenvolvida para facilitar a consulta rápida de crimes e infrações que ensejam inelegibilidade, baseada na tabela exemplificativa da Corregedoria do TRE-SP.
 
 ---
 
-*Sistema não oficial de Consulta de Inelegibilidade Eleitoral - Desenvolvido por servidor para uso de servidores dos TREs*
+## 🚀 Funcionalidades
+
+- **Consulta Rápida:** Busque por número do artigo, lei ou descrição.
+- **Base Oficial:** Dados baseados na tabela do TRE-SP (Out/2024) revisada pela CRE-RO.
+- **Interface Moderna:** Design limpo, responsivo e acessível.
+- **Offline First:** Funciona offline graças ao Service Worker (PWA capabilities).
+- **Exportação:** Copie resultados formatados para uso em documentos oficiais.
+
+## 📚 Documentação
+
+A documentação completa do projeto foi movida para a pasta [`docs/`](docs/).
+
+- [📖 Índice da Documentação](docs/README.md)
+- [🛠️ Guia de Desenvolvimento](docs/DEVELOPMENT.md)
+- [🔧 Guia de Manutenção](docs/MAINTENANCE.md)
+- [📄 Referências Oficiais](docs/references/)
+
+## 🛠️ Instalação e Uso
+
+### Pré-requisitos
+
+- Node.js (v14 ou superior)
+- NPM
+
+### Rodando Localmente
+
+1.  Clone o repositório:
+    ```bash
+    git clone https://github.com/rkvasne/inelegis-app.git
+    cd inelegis-app
+    ```
+
+2.  Instale as dependências:
+    ```bash
+    npm install
+    ```
+
+3.  Inicie o servidor de desenvolvimento:
+    ```bash
+    npm run dev
+    ```
+
+4.  Acesse `http://localhost:3000` (ou a porta indicada).
+
+## 🤝 Como Contribuir
+
+Contribuições são bem-vindas! Por favor, leia nosso [Guia de Contribuição](CONTRIBUTING.md) para detalhes sobre nosso código de conduta e o processo de envio de pull requests.
+
+## ⚠️ Disclaimer
+
+**SISTEMA NÃO OFICIAL** - Este software é uma ferramenta auxiliar e **NÃO SUBSTITUI** a consulta direta na legislação atualizada. Sempre confirme as informações nas fontes oficiais antes de tomar decisões definitivas.
+
+## 📄 Licença
+
+Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
+
+---
+
+*Desenvolvido por servidor para uso de servidores dos TREs.*
