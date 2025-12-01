@@ -312,39 +312,6 @@ function configurarEventListeners() {
     });
 }
 
-// Aplicar formatação automática ao artigo
-function aplicarFormatacaoAutomatica(valor) {
-    // Se o valor for vazio ou falso, retornar como está
-    if (!valor || typeof valor !== 'string') {
-        return valor;
-    }
-
-    let formatado = valor.trim();
-
-    // 1. Normalizar espaços (uma única passagem)
-    formatado = formatado.replace(/\s+/g, ' ');
-
-    // 2. Formatar parágrafo: §1 -> §1º (apenas se não tiver º ou °)
-    formatado = formatado.replace(/§\s*(\d+)(?![º°])/g, '§$1º');
-
-    // 3. Formatar c/c: cc -> c/c, C/C -> c/c (sem duplicar)
-    // Só substitui se não for já c/c
-    formatado = formatado.replace(/(?<!\/)(cc|CC|C\/c|c\/C)(?!\/)/g, 'c/c');
-
-    // 4. Normalizar vírgulas e espaços
-    formatado = formatado.replace(/\s*,\s*/g, ', ');
-
-    // 5. Formatar alíneas: a -> "a" (evitar duplicação de aspas)
-    // Apenas em contextos onde realmente é uma alínea (entre virgulas, espaços ou no final)
-    formatado = formatado.replace(/(?<!["\'])([a-z])(?=\s*(?:,|$|\s))/gi, (match, letra) => {
-        // Não colocar aspas se já tem aspas
-        if (letra.match(/["']/)) return match;
-        return `"${letra.toLowerCase()}"`;
-    });
-
-    return formatado;
-}
-
 // Verificar se ambos os campos estão preenchidos
 function verificarCamposPreenchidos() {
     const leiSelecionada = leiSelect.value.trim();
@@ -482,48 +449,6 @@ function buscarFlexivel(codigoLei, artigoProcessado) {
     return null;
 }
 
-// Verificar exceções aplicáveis de forma mais inteligente
-function verificarExcecoesAplicaveis(item, artigoProcessado) {
-    return verificarExcecoesAplicaveis2(item, artigoProcessado);
-}
-function processarArtigoCompleto(artigo) {
-    const artigoLimpo = artigo.trim();
-
-    // Extrair componentes do artigo
-    const resultado = {
-        original: artigoLimpo,
-        artigo: '',
-        paragrafo: '',
-        inciso: '',
-        alinea: '',
-        concomitante: [],
-        formatado: ''
-    };
-
-    // Verificar se há artigos concomitantes (c/c)
-    const partesConcomitantes = artigoLimpo.split(/\s+c\/c\s+/i);
-
-    if (partesConcomitantes.length > 1) {
-        // Processar artigo principal
-        const artPrincipal = processarParteArtigo(partesConcomitantes[0]);
-        Object.assign(resultado, artPrincipal);
-
-        // Processar artigos concomitantes
-        for (let i = 1; i < partesConcomitantes.length; i++) {
-            resultado.concomitante.push(processarParteArtigo(partesConcomitantes[i]));
-        }
-
-        resultado.formatado = ArtigoFormatter.formatarCompleto(resultado);
-    } else {
-        // Processar artigo simples
-        const artProcessado = processarParteArtigo(artigoLimpo);
-        Object.assign(resultado, artProcessado);
-        resultado.formatado = ArtigoFormatter.formatarCompleto(resultado);
-    }
-
-    return resultado;
-}
-
 // Processar uma parte do artigo (artigo, parágrafo, inciso, alínea)
 function processarParteArtigo(parte) {
     const resultado = {
@@ -574,31 +499,6 @@ function processarParteArtigo(parte) {
     }
 
     return resultado;
-}
-
-// Formatar artigo completo para exibição
-function formatarArtigoCompleto(artigo) {
-    let formatado = artigo.artigo;
-
-    if (artigo.paragrafo) {
-        formatado += `, §${artigo.paragrafo}º`;
-    }
-
-    if (artigo.inciso) {
-        formatado += `, ${artigo.inciso}`;
-    }
-
-    if (artigo.alinea) {
-        formatado += `, "${artigo.alinea}"`;
-    }
-
-    // Adicionar artigos concomitantes
-    if (artigo.concomitante && artigo.concomitante.length > 0) {
-        const concomitantes = artigo.concomitante.map(c => formatarParteArtigo(c)).join(' c/c ');
-        formatado += ` c/c ${concomitantes}`;
-    }
-
-    return formatado;
 }
 
 // Formatar parte do artigo
@@ -1330,93 +1230,6 @@ document.addEventListener('keydown', function (event) {
         }
     }
 });
-
-// Aplicar formatação automática (versão robusta com §/º e diacríticos)
-function aplicarFormatacaoAutomatica2(valor) {
-    if (!valor || typeof valor !== 'string') return valor;
-    let formatado = valor.trim();
-    // 1. Normalizar espaços
-    formatado = formatado.replace(/\s+/g, ' ');
-    // 2. Formatar parágrafo: §1 -> §1º (evita duplicação)
-    formatado = formatado
-        .replace(/(?:§|\u00A7|\uFFFD)\s*(\d+)(?!\s*(?:º|\u00BA|\uFFFD))/g, '§$1º')
-        .replace(/\bpar[aá]grafo\s*(\d+)/i, '§$1º');
-    // 3. Normalizar c/c
-    formatado = formatado.replace(/(?<!\/)(cc|CC|C\/c|c\/C)(?!\/)/g, 'c/c');
-    // 4. Normalizar vírgulas e espaços
-    formatado = formatado.replace(/\s*,\s*/g, ', ');
-    // 5. Formatar alíneas: a -> "a"
-    formatado = formatado.replace(/(?<!["\'])([a-z])(?=\s*(?:,|$|\s))/gi, (match, letra) => {
-        if (/["']/.test(letra)) return match;
-        return `"${letra.toLowerCase()}"`;
-    });
-    return formatado;
-}
-
-// Nova verificação robusta de exceções, tolerante a diacríticos e símbolos (§/º)
-function verificarExcecoesAplicaveis2(item, artigoProcessado) {
-    if (!item.excecoes || item.excecoes.length === 0) {
-        return null;
-    }
-
-    const artigoPrincipal = (artigoProcessado.artigo || '').toLowerCase();
-    const paragrafo = artigoProcessado.paragrafo ? String(artigoProcessado.paragrafo).toLowerCase() : null;
-    const inciso = artigoProcessado.inciso ? String(artigoProcessado.inciso).toLowerCase() : null;
-    const alinea = artigoProcessado.alinea ? String(artigoProcessado.alinea).toLowerCase() : null;
-
-    const normalize = (s) => {
-        try { return String(s).normalize('NFD').replace(/\p{Diacritic}/gu, ''); } catch { return String(s); }
-    };
-
-    for (const excecao of item.excecoes) {
-        const excLower = String(excecao || '').toLowerCase();
-        const excNorm = normalize(excLower);
-
-        if (paragrafo || inciso || alinea) {
-            let tem = false;
-
-            if (paragrafo && !tem) {
-                if (new RegExp(`(§|\\u00a7|\\uFFFD)\\s*${paragrafo}`).test(excLower) ||
-                    new RegExp(`paragrafo\\s*${paragrafo}`).test(excNorm)) {
-                    tem = true;
-                }
-            }
-
-            if (inciso && !tem) {
-                if (new RegExp(`(^|[\\s,])${inciso}(?=$|[\\s,])`).test(excLower) ||
-                    new RegExp(`inciso\\s*${inciso}`).test(excNorm)) {
-                    tem = true;
-                }
-            }
-
-            if (alinea && !tem) {
-                if (new RegExp(`"${alinea}"`).test(excLower) ||
-                    new RegExp(`alinea\\s*${alinea}`).test(excNorm)) {
-                    tem = true;
-                }
-            }
-
-            if (tem) {
-                return excecao;
-            }
-        } else {
-            const temPar = /(§|\\u00a7|\\uFFFD)\\s*\\d|paragrafo/i.test(excNorm);
-            const temInc = /,\\s*[ivx]+|inciso/i.test(excNorm);
-            const temAli = /"\\w"|alinea/i.test(excNorm);
-            if (temPar || temInc || temAli) continue;
-
-            if (excLower.includes(`, ${artigoPrincipal},`) ||
-                excLower.includes(`art. ${artigoPrincipal}, caput`) ||
-                excLower.includes(`art. ${artigoPrincipal} caput`) ||
-                excLower === `art. ${artigoPrincipal}` ||
-                excLower === `arts. ${artigoPrincipal}`) {
-                return excecao;
-            }
-        }
-    }
-
-    return null;
-}
 
 // Filtra a lista de exceções para manter apenas as do MESMO artigo consultado
 function filtrarExcecoesDoMesmoArtigo(excecoes, artigoProcessado) {
