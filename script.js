@@ -968,65 +968,9 @@ function copiarResultado() {
     }
 }
 
-// Variável global para armazenar o conteúdo atual do modal
-let conteudoModalAtual = '';
-
-let __modalTrapHandler = null;
-let __lastFocusedElement = null;
-
-// Função para abrir o modal (reescrita completa)
+// Função para abrir o modal (usa ModalManager)
 function abrirModal(tipoResultado, status, conteudo) {
-    const modal = document.getElementById('modalResultado');
-    const modalContent = modal.querySelector('.modal-content');
-    const modalBody = document.getElementById('modalBody');
-
-    // Armazenar conteúdo para função de copiar
-    conteudoModalAtual = conteudo;
-
-    // Definir classe do modal baseada no tipo de resultado
-    modalContent.className = `modal-content modal-modern ${tipoResultado}`;
-
-    // Inserir conteúdo no modal com novo design
-    modalBody.innerHTML = conteudo;
-
-    // Mostrar modal com animação suave
-    modal.classList.remove('hidden');
-    requestAnimationFrame(() => {
-        modal.classList.add('show');
-        modalContent.style.opacity = '1';
-        modalContent.style.transform = 'translateY(0) scale(1)';
-    });
-
-    // Prevenir scroll do body
-    document.body.style.overflow = 'hidden';
-
-    // Foco e trap de foco para acessibilidade
-    __lastFocusedElement = document.activeElement;
-    modalContent.setAttribute('tabindex', '-1');
-    modalContent.focus();
-
-    const focusableSelectors = 'a, button, input, select, textarea, [tabindex]:not([tabindex="-1"])';
-    const getFocusable = () => Array.from(modalContent.querySelectorAll(focusableSelectors)).filter(el => !el.hasAttribute('disabled'));
-
-    __modalTrapHandler = (e) => {
-        if (e.key !== 'Tab') return;
-        const els = getFocusable();
-        if (els.length === 0) return;
-        const first = els[0];
-        const last = els[els.length - 1];
-        if (e.shiftKey) {
-            if (document.activeElement === first) {
-                e.preventDefault();
-                last.focus();
-            }
-        } else {
-            if (document.activeElement === last) {
-                e.preventDefault();
-                first.focus();
-            }
-        }
-    };
-    modalContent.addEventListener('keydown', __modalTrapHandler);
+    ModalManager.open(tipoResultado, status, conteudo);
 }
 
 function mostrarToast(msg, type = 'info') {
@@ -1079,81 +1023,17 @@ function mostrarToast(msg, type = 'info') {
     });
 }
 
-// Função para exportar resultado (copiar para área de transferência)
+// Função para exportar resultado (usa ModalManager)
 function exportarResultado() {
-    const modalBody = document.getElementById('modalBody');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalSubtitle = document.getElementById('modalSubtitle');
-
-    if (!modalBody) return;
-
-    // Extrair texto limpo do modal
-    let textoExportar = '';
-
-    // Adicionar título
-    if (modalTitle) {
-        textoExportar += `${modalTitle.textContent}\n`;
+    const texto = ModalManager.exportContent();
+    if (texto) {
+        navigator.clipboard.writeText(texto).then(() => {
+            mostrarToast('✅ Resultado copiado para área de transferência!', 'success');
+        }).catch(err => {
+            console.error('Erro ao copiar:', err);
+            mostrarToast('❌ Erro ao copiar. Tente novamente.', 'error');
+        });
     }
-    if (modalSubtitle) {
-        textoExportar += `${modalSubtitle.textContent}\n`;
-    }
-    textoExportar += '='.repeat(50) + '\n\n';
-
-    // Extrair texto do corpo do modal
-    const statusCard = modalBody.querySelector('.modal-status-card');
-    if (statusCard) {
-        const statusLabel = statusCard.querySelector('.status-label');
-        const statusValue = statusCard.querySelector('.status-value');
-        if (statusLabel && statusValue) {
-            textoExportar += `${statusLabel.textContent}: ${statusValue.textContent}\n\n`;
-        }
-    }
-
-    // Extrair informações do grid
-    const infoItems = modalBody.querySelectorAll('.info-item');
-    infoItems.forEach(item => {
-        const label = item.querySelector('.info-label');
-        const value = item.querySelector('.info-value');
-        if (label && value) {
-            textoExportar += `${label.textContent}: ${value.textContent}\n`;
-        }
-    });
-    textoExportar += '\n';
-
-    // Extrair ASE info
-    const aseInfo = modalBody.querySelector('.modal-ase-info');
-    if (aseInfo) {
-        textoExportar += `${aseInfo.textContent.trim()}\n\n`;
-    }
-
-    // Extrair seções
-    const sections = modalBody.querySelectorAll('.modal-section');
-    sections.forEach(section => {
-        const header = section.querySelector('.section-header');
-        const content = section.querySelector('.section-content');
-        if (header) {
-            textoExportar += `${header.textContent.trim()}\n`;
-            textoExportar += '-'.repeat(30) + '\n';
-        }
-        if (content) {
-            textoExportar += `${content.textContent.trim()}\n\n`;
-        }
-    });
-
-    // Adicionar rodapé
-    textoExportar += '='.repeat(50) + '\n';
-    textoExportar += 'Ineleg-App - Sistema de Consulta de Inelegibilidade Eleitoral\n';
-    textoExportar += 'Base de dados: TRE-SP (Out/2024) - CRE-RO (02/06/2025)\n';
-    textoExportar += `Exportado em: ${new Date().toLocaleString('pt-BR')}\n`;
-
-    // Copiar para área de transferência
-    navigator.clipboard.writeText(textoExportar).then(() => {
-        // Mostrar feedback de sucesso
-        mostrarToast('✅ Resultado copiado para área de transferência!', 'success');
-    }).catch(err => {
-        console.error('Erro ao copiar:', err);
-        mostrarToast('❌ Erro ao copiar. Tente novamente.', 'error');
-    });
 }
 
 // Função para mostrar toast de feedback
@@ -1189,30 +1069,9 @@ function mostrarToast(mensagem, tipo = 'success') {
     }, 3000);
 }
 
-// Função para fechar o modal
+// Função para fechar o modal (usa ModalManager)
 function fecharModal() {
-    const modal = document.getElementById('modalResultado');
-    const modalContent = modal.querySelector('.modal-content');
-
-    // Animar saída
-    modalContent.style.opacity = '0';
-    modalContent.style.transform = 'scale(0.95)';
-
-    // Aguardar animação antes de esconder
-    setTimeout(() => {
-        modal.classList.add('hidden');
-        modal.classList.remove('show');
-        document.body.style.overflow = 'auto';
-
-        // Remover trap e restaurar foco
-        if (__modalTrapHandler && modalContent) {
-            modalContent.removeEventListener('keydown', __modalTrapHandler);
-            __modalTrapHandler = null;
-        }
-        if (__lastFocusedElement && typeof __lastFocusedElement.focus === 'function') {
-            __lastFocusedElement.focus();
-        }
-    }, 300);
+    ModalManager.close();
 }
 
 // Função para nova consulta (fechar modal e limpar campos)
