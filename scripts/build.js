@@ -258,6 +258,10 @@ class Builder {
     // Copiar arquivos principais
     const filesToCopy = [
       'index.html',
+      'consulta.html',
+      'sobre.html',
+      'faq.html',
+      'landing.html',
       'styles.css',
       'script.js',
       'data.js',
@@ -275,7 +279,7 @@ class Builder {
     }
 
     // Copiar diretórios
-    const dirsToCopy = ['js', 'icons'];
+    const dirsToCopy = ['js', 'icons', 'docs'];
 
     for (const dir of dirsToCopy) {
       const srcDir = path.join(this.projectRoot, dir);

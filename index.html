@@ -8,16 +8,37 @@
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    </div>
-    <div class="system-info">
-        <div class="version">v0.0.6</div>
-        <div class="status" role="status" aria-live="polite">
-            <div class="status-dot" aria-hidden="true"></div>
-            Sistema Ativo
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header class="system-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="system-brand">
+                    <div class="brand-icon">
+                        <svg width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3">
+                            </path>
+                        </svg>
+                    </div>
+                    <div class="brand-text">
+                        <h1>Inelegis</h1>
+                        <p>Sistema de Consulta</p>
+                    </div>
+                </div>
+                <div class="system-info">
+                    <div class="version">v0.0.6</div>
+                    <div class="status" role="status" aria-live="polite">
+                        <div class="status-dot" aria-hidden="true"></div>
+                        Sistema Ativo
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    </div>
-    </div>
     </header>
 
     <!-- Navegação -->
@@ -53,165 +74,170 @@
                     <a href="faq.html" class="nav-link">
                         <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                             aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" <main
-                                class="container mt-8">
-                                <!-- Card de Informações do Sistema -->
-                                <div class="card mb-6">
-                                    <div class="card-header">
-                                        <h2>Informações do Sistema</h2>
-                                        <p>Dados oficiais e status de conformidade</p>
-                                    </div>
-                                    <div class="card-body">
-
-                                        <div class="alert alert-info" role="region" aria-labelledby="info-title">
-                                            <div class="alert-icon" aria-hidden="true">
-                                                <svg width="20" height="20" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
-                                                    </path>
-                                                </svg>
-                                            </div>
-                                            <div class="alert-content">
-                                                <h3 id="info-title">Base de Dados Oficial</h3>
-                                                <p>Tabela exemplificativa disponibilizada pelo TRE-SP - atualizada em
-                                                    outubro de 2024 - revisada
-                                                    pela CRE-RO em 02/06/2025</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Disclaimer Importante -->
-                                <!--<div class="alert alert-warning mb-6" role="alert" aria-labelledby="warning-title">
-            <div class="alert-icon" aria-hidden="true">
-                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M10.29 3.86l-7.4 12.84A2 2 0 004.53 20h14.94a2 2 0 001.74-3.3L13.81 3.86a2 2 0 00-3.52 0z"></path>
-                </svg>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                            </path>
+                        </svg>
+                        FAQ
+                    </a>
+                </div>
             </div>
-            <div class="alert-content">
-                <h3 id="warning-title">SISTEMA NÃO OFICIAL</h3>
-                <p>Este sistema é uma <strong>ferramenta auxiliar</strong> desenvolvida por servidor para uso de servidores dos TREs e <strong>NÃO SUBSTITUI</strong> a consulta direta na legislação atualizada. As informações podem estar desatualizadas. Sempre confirme na legislação vigente e nas orientações oficiais mais recentes antes de tomar decisões definitivas.</p>
+        </div>
+    </nav>
+
+    <main class="container mt-8">
+        <!-- Card de Informações do Sistema -->
+        <div class="card mb-6">
+            <div class="card-header">
+                <h2>Informações do Sistema</h2>
+                <p>Dados oficiais e status de conformidade</p>
             </div>
-        </div>-->
+            <div class="card-body">
 
-                                <!-- Card de Acesso -->
-                                <div class="card mb-6">
-                                    <div class="card-header">
-                                        <h2>Acesso ao Sistema</h2>
-                                        <p>Confirme que leu e compreendeu as informações acima</p>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="checkbox-group mb-4">
-                                            <input type="checkbox" id="confirmacao" class="checkbox-input">
-                                            <label for="confirmacao" class="checkbox-label">
-                                                Estou ciente de que este é um sistema não oficial e que devo sempre
-                                                confirmar as informações na
-                                                legislação vigente e nas orientações oficiais mais recentes antes de
-                                                tomar decisões definitivas.
-                                            </label>
-                                        </div>
+                <div class="alert alert-info" role="region" aria-labelledby="info-title">
+                    <div class="alert-icon" aria-hidden="true">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                            </path>
+                        </svg>
+                    </div>
+                    <div class="alert-content">
+                        <h3 id="info-title">Base de Dados Oficial</h3>
+                        <p>Tabela exemplificativa disponibilizada pelo TRE-SP - atualizada em
+                            outubro de 2024 - revisada
+                            pela CRE-RO em 02/06/2025</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                                        <div class="flex justify-center">
-                                            <button id="acessarBtn" class="btn btn-primary" disabled
-                                                aria-describedby="confirmacao">
-                                                <svg width="16" height="16" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24" aria-hidden="true">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-                                                </svg>
-                                                Acessar Sistema de Consulta
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
+        <!-- Card de Acesso -->
+        <div class="card mb-6">
+            <div class="card-header">
+                <h2>Acesso ao Sistema</h2>
+                <p>Confirme que leu e compreendeu as informações acima</p>
+            </div>
+            <div class="card-body">
+                <div class="checkbox-group mb-4">
+                    <input type="checkbox" id="confirmacao" class="checkbox-input">
+                    <label for="confirmacao" class="checkbox-label">
+                        Estou ciente de que este é um sistema não oficial e que devo sempre
+                        confirmar as informações na
+                        legislação vigente e nas orientações oficiais mais recentes antes de
+                        tomar decisões definitivas.
+                    </label>
+                </div>
 
+                <div class="flex justify-center">
+                    <button id="acessarBtn" class="btn btn-primary" disabled aria-describedby="confirmacao">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                        </svg>
+                        Acessar Sistema de Consulta
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
 
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <p>&copy; 2025 Inelegis. Todos os direitos reservados.</p>
+                    <p class="text-sm text-neutral-500">Versão 0.0.6</p>
+                </div>
+                <div class="footer-links">
+                    <a href="CHANGELOG.md" class="footer-link" target="_blank">Changelog</a>
+                    <a href="docs/MAINTENANCE.md" class="footer-link" target="_blank">Manutenção</a>
+                    <a href="docs/DEVELOPMENT.md" class="footer-link" target="_blank">Documentação Técnica</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-                                </main>
+    <!-- Script -->
+    <script>
+        // Controle do checkbox e botão
+        const checkbox = document.getElementById('confirmacao');
+        const button = document.getElementById('acessarBtn');
+        const consultaLink = document.querySelector('a[href="consulta.html"]');
 
-                                <!-- Footer -->
-                                <footer class="footer">
-                                    <div class="container">
-                                        <!-- Script -->
-                                        <script>
-                                            // Controle do checkbox e botão
-                                            const checkbox = document.getElementById('confirmacao');
-                                            const button = document.getElementById('acessarBtn');
-                                            const consultaLink = document.querySelector('a[href="consulta.html"]');
+        // Verificar se usuário já aceitou os termos anteriormente
+        const termosAceitos = localStorage.getItem('ineleg_termos_aceitos') === 'true';
 
-                                            // Verificar se usuário já aceitou os termos anteriormente
-                                            const termosAceitos = localStorage.getItem('ineleg_termos_aceitos') === 'true';
+        if (termosAceitos) {
+            // Se já aceitou, permitir acesso direto
+            checkbox.checked = true;
+            button.disabled = false;
+            if (consultaLink) {
+                consultaLink.style.pointerEvents = 'auto';
+                consultaLink.style.opacity = '1';
+            }
+        } else {
+            // Bloquear link de consulta no menu
+            if (consultaLink) {
+                consultaLink.style.pointerEvents = 'none';
+                consultaLink.style.opacity = '0.5';
+                consultaLink.style.cursor = 'not-allowed';
+                consultaLink.setAttribute('aria-disabled', 'true');
+                consultaLink.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    alert('Por favor, leia e concorde com os termos antes de acessar o sistema de consulta.');
+                });
+            }
+        }
 
-                                            if (termosAceitos) {
-                                                // Se já aceitou, permitir acesso direto
-                                                checkbox.checked = true;
-                                                button.disabled = false;
-                                                if (consultaLink) {
-                                                    consultaLink.style.pointerEvents = 'auto';
-                                                    consultaLink.style.opacity = '1';
-                                                }
-                                            } else {
-                                                // Bloquear link de consulta no menu
-                                                if (consultaLink) {
-                                                    consultaLink.style.pointerEvents = 'none';
-                                                    consultaLink.style.opacity = '0.5';
-                                                    consultaLink.style.cursor = 'not-allowed';
-                                                    consultaLink.setAttribute('aria-disabled', 'true');
-                                                    consultaLink.addEventListener('click', function (e) {
-                                                        e.preventDefault();
-                                                        alert('Por favor, leia e concorde com os termos antes de acessar o sistema de consulta.');
-                                                    });
-                                                }
-                                            }
+        checkbox.addEventListener('change', function () {
+            button.disabled = !this.checked;
+            button.setAttribute('aria-disabled', String(!this.checked));
 
-                                            checkbox.addEventListener('change', function () {
-                                                button.disabled = !this.checked;
-                                                button.setAttribute('aria-disabled', String(!this.checked));
+            // Atualizar estado do link de consulta
+            if (consultaLink) {
+                if (this.checked) {
+                    consultaLink.style.pointerEvents = 'auto';
+                    consultaLink.style.opacity = '1';
+                    consultaLink.style.cursor = 'pointer';
+                    consultaLink.setAttribute('aria-disabled', 'false');
+                } else {
+                    consultaLink.style.pointerEvents = 'none';
+                    consultaLink.style.opacity = '0.5';
+                    consultaLink.style.cursor = 'not-allowed';
+                    consultaLink.setAttribute('aria-disabled', 'true');
+                }
+            }
+        });
 
-                                                // Atualizar estado do link de consulta
-                                                if (consultaLink) {
-                                                    if (this.checked) {
-                                                        consultaLink.style.pointerEvents = 'auto';
-                                                        consultaLink.style.opacity = '1';
-                                                        consultaLink.style.cursor = 'pointer';
-                                                        consultaLink.setAttribute('aria-disabled', 'false');
-                                                    } else {
-                                                        consultaLink.style.pointerEvents = 'none';
-                                                        consultaLink.style.opacity = '0.5';
-                                                        consultaLink.style.cursor = 'not-allowed';
-                                                        consultaLink.setAttribute('aria-disabled', 'true');
-                                                    }
-                                                }
-                                            });
+        button.addEventListener('click', function () {
+            if (checkbox.checked) {
+                // Salvar consentimento no localStorage
+                localStorage.setItem('ineleg_termos_aceitos', 'true');
+                window.location.href = 'consulta.html';
+            }
+        });
 
-                                            button.addEventListener('click', function () {
-                                                if (checkbox.checked) {
-                                                    // Salvar consentimento no localStorage
-                                                    localStorage.setItem('ineleg_termos_aceitos', 'true');
-                                                    window.location.href = 'consulta.html';
-                                                }
-                                            });
+        // Atalhos de teclado
+        document.addEventListener('keydown', function (e) {
+            // Alt + D para documentação
+            if (e.altKey && e.key === 'd') {
+                e.preventDefault();
+                window.open('docs/README.md', '_blank');
+            }
 
-                                            // Atalhos de teclado
-                                            document.addEventListener('keydown', function (e) {
-                                                // Alt + D para documentação
-                                                if (e.altKey && e.key === 'd') {
-                                                    e.preventDefault();
-                                                    window.open('DOCUMENTACAO.md', '_blank');
-                                                }
-
-                                                // Ctrl + Enter para acessar (se checkbox marcado)
-                                                if (e.ctrlKey && e.key === 'Enter') {
-                                                    if (checkbox.checked) {
-                                                        e.preventDefault();
-                                                        localStorage.setItem('ineleg_termos_aceitos', 'true');
-                                                        window.location.href = 'consulta.html';
-                                                    }
-                                                }
-                                            });
-                                        </script>
-                                        </body>
+            // Ctrl + Enter para acessar (se checkbox marcado)
+            if (e.ctrlKey && e.key === 'Enter') {
+                if (checkbox.checked) {
+                    e.preventDefault();
+                    localStorage.setItem('ineleg_termos_aceitos', 'true');
+                    window.location.href = 'consulta.html';
+                }
+            }
+        });
+    </script>
+</body>
 
 </html>
