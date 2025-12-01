@@ -1099,27 +1099,9 @@ function filtrarExcecoesDoMesmoArtigo(excecoes, artigoProcessado) {
     const norm = (s) => { try { return String(s || '').normalize('NFD').replace(/\p{Diacritic}/gu, ''); } catch { return String(s || '') } };
     return excecoes.filter((ex) => rx.test(norm(ex)));
 }
-// Índice em memória por lei para acelerar buscas
-let __indicePorLei = null;
-function construirIndicePorLei() {
-    __indicePorLei = {};
-    try {
-        leisDisponiveis.forEach(lei => {
-            const codigoLei = lei.value;
-            const itens = [];
-            tabelaInelegibilidade.forEach(it => {
-                if (verificarLeiCorresponde(it, codigoLei)) {
-                    try { it._artigos = extrairArtigosDoNorma(it.norma); } catch { it._artigos = []; }
-                    itens.push(it);
-                }
-            });
-            __indicePorLei[codigoLei] = itens;
-        });
-    } catch { }
-}
+// Usar SearchIndex para busca otimizada
 function getItensPorLei(codigoLei) {
-    if (!__indicePorLei) construirIndicePorLei();
-    return __indicePorLei[codigoLei] || [];
+    return SearchIndex.getItensPorLei(codigoLei, leisDisponiveis, tabelaInelegibilidade);
 }
 
 
