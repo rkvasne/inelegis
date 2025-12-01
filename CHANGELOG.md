@@ -13,9 +13,8 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 ## [0.0.7] - 2025-12-01
 
 ### 📚 Documentation
-- Consolidação completa da documentação (9 documentos redundantes removidos)
+- Consolidação completa da documentação (11 documentos redundantes removidos)
 - Documentos históricos marcados com notas explicativas (REFACTORING-PLAN.md, IMPLEMENTATION-GUIDE.md)
-- Análise completa de qualidade da documentação criada (ANALISE-DOCUMENTACAO.md)
 - Changelog de documentação criado (CHANGELOG-DOCS.md)
 - Setup Redis consolidado em guia único (SETUP-REDIS.md)
 - Variáveis de ambiente atualizadas para usar REDIS_URL
@@ -26,7 +25,9 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 - README.md atualizado com novidades da v0.0.7
 
 ### 🗑 Removed
-- 9 documentos redundantes/obsoletos (LIMPEZA-FINAL.md, IMPLEMENTACAO-COMPLETA.md, STATUS-IMPLEMENTACAO.md, etc.)
+- 11 documentos redundantes/obsoletos removidos em duas limpezas:
+  - Primeira limpeza: 9 docs (LIMPEZA-FINAL.md, IMPLEMENTACAO-COMPLETA.md, STATUS-IMPLEMENTACAO.md, etc.)
+  - Segunda limpeza: 2 docs (ANALISE-DOCUMENTACAO.md, ATUALIZACAO-DOCS-HISTORICOS.md)
 
 ---
 
