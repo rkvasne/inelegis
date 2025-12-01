@@ -7,7 +7,7 @@
   <p align="center">
     Uma ferramenta moderna, rápida e precisa para análise jurídica eleitoral.
     <br />
-    <a href="https://inelegis-app.vercel.app"><strong>Ver Demo Online »</strong></a>
+    <a href="https://inelegis.vercel.app"><strong>Ver Demo Online »</strong></a>
     <br />
     <br />
     <a href="docs/README.md">Documentação</a>
@@ -20,7 +20,7 @@
   [![Version](https://img.shields.io/badge/version-0.0.6-blue.svg?style=for-the-badge)](https://semver.org)
   [![License](https://img.shields.io/badge/license-MIT-green.svg?style=for-the-badge)](LICENSE)
   [![Status](https://img.shields.io/badge/status-active-success.svg?style=for-the-badge)](https://github.com/rkvasne/inelegis-app)
-  [![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)](https://inelegis-app.vercel.app)
+  [![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)](https://inelegis.vercel.app)
 
 </div>
 
