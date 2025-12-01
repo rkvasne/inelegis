@@ -1,6 +1,6 @@
 # MANUTENÇÃO E VALIDAÇÃO DE DADOS
 
-**Última atualização:** 24 de outubro de 2025
+**Última atualização:** 30 de novembro de 2025
 **Status de conformidade:** ✅ 100% com XML TRE-SP (outubro/2024)
 **Próxima revisão recomendada:** 24 de janeiro de 2026 (trimestral)
 **Tipo:** Sistema não oficial (ferramenta auxiliar)
@@ -188,7 +188,7 @@ NÃO geram inelegibilidade:
 - [ ] Revisão de todas as 41 leis
 - [ ] Validação contra jurisprudência recente
 - [ ] Planejamento de novas features
-- [ ] Atualização de CLAUDE.md se necessário
+- [ ] Atualização de DEVELOPMENT.md se necessário
 - [ ] Renovação de certificações
 - [ ] Backup de longo prazo
 
@@ -286,10 +286,9 @@ Todos os problemas identificados anteriormente foram corrigidos:
 - **CPM:** Código Penal Militar (Decreto-Lei 1.001/69)
 
 ### Documentação Interna
-- [CLAUDE.md](CLAUDE.md) - Guia técnico
-- [VERSAO_2.0.md](VERSAO_2.0.md) - Melhorias implementadas
-- [README.md](README.md) - Descrição geral
-- [MANUAL-ASE.txt](MANUAL-ASE.txt) - Guia operacional
+- [DEVELOPMENT.md](DEVELOPMENT.md) - Guia técnico
+- [README.md](README.md) - Índice da Documentação
+- [MANUAL-ASE.txt](references/manual-ase.txt) - Guia operacional
 
 ---
 
@@ -310,11 +309,5 @@ Este documento certifica que o sistema Ineleg-App está:
 ---
 
 **Versão deste documento:** 1.0
-**Último update:** 22 de outubro de 2025
+**Último update:** 30 de novembro de 2025
 **Status:** ✅ Consolidado e validado
-
-
-## Sistema Profissional (v0.0.2)
-- Não remover as utilities de paleta em styles.css (text-*, bg-*, border-*), usadas como fallback.
-- Evitar inserir style="" nos templates do modal; manter classes utilitárias.
-- Nav sticky e breadcrumb: manter classes sticky/top/z-index e padding uniforme (px-4 md:px-8).
