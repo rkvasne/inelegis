@@ -113,9 +113,9 @@ Documentos de referência oficial:
 - [Guia de Desenvolvimento](DEVELOPMENT.md) - Estrutura de testes
 - [Plano de Refatoração](REFACTORING-PLAN.md) - Testes implementados
 
-### Componentes
-- [Sistema de Componentes](COMPONENTS.md) - Arquitetura de componentes
-- [Guia de Desenvolvimento](DEVELOPMENT.md) - Módulos JavaScript
+### Módulos JavaScript
+- [Guia de Desenvolvimento](DEVELOPMENT.md) - Arquitetura e módulos
+- [js/README.md](../js/README.md) - Documentação dos módulos
 
 ---
 
@@ -126,7 +126,6 @@ Documentos de referência oficial:
 | README.md | ✅ Atualizado | 01/12/2025 |
 | DEVELOPMENT.md | ✅ Atualizado | 01/12/2025 |
 | MAINTENANCE.md | ✅ Atualizado | 01/12/2025 |
-| COMPONENTS.md | ✅ Atualizado | 01/12/2025 |
 | PROTECTION.md | ✅ Atualizado | 01/12/2025 |
 | REFACTORING-PLAN.md | 📚 Histórico | 01/12/2025 |
 | IMPLEMENTATION-GUIDE.md | 📚 Histórico | 01/12/2025 |

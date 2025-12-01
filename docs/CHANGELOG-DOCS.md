@@ -7,6 +7,23 @@
 
 ---
 
+## 🧹 Terceira Limpeza de 01/12/2025 (Noite)
+
+### ❌ Código Morto Removido (1 doc + 5 arquivos)
+
+**Motivo:** Componentes documentados mas não utilizados no projeto
+
+1. **COMPONENTS.md** - Documentação de componentes não usados
+2. **components/header.js** - Componente não carregado em nenhum HTML
+3. **components/navigation.js** - Componente não carregado em nenhum HTML
+4. **components/footer.js** - Componente não carregado em nenhum HTML
+5. **components/results-legend.js** - Componente não carregado em nenhum HTML
+6. **components/loader.js** - Componente não carregado em nenhum HTML
+
+**Resultado:** Pasta `components/` completamente removida
+
+---
+
 ## 🧹 Segunda Limpeza de 01/12/2025 (Noite)
 
 ### ❌ Documentos Redundantes Removidos (2)
