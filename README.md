@@ -17,7 +17,7 @@
     <a href="https://github.com/rkvasne/inelegis-app/issues">Solicitar Feature</a>
   </p>
 
-  [![Version](https://img.shields.io/badge/version-0.0.6-blue.svg?style=for-the-badge)](https://semver.org)
+  [![Version](https://img.shields.io/badge/version-0.0.7-blue.svg?style=for-the-badge)](https://semver.org)
 | Recurso | Descrição |
 |---------|-----------|
 | 🔍 **Busca Inteligente** | Pesquise por número do artigo, lei, descrição ou palavras-chave com feedback instantâneo. |
@@ -106,21 +106,19 @@ inelegis-app/
 
 ---
 
-## 🆕 Novidades v0.0.6
+## 🆕 Novidades v0.0.7
 
-### Melhorias de Segurança
+### Melhorias de Documentação
+- ✅ **Documentação consolidada** - 9 documentos redundantes removidos
+- ✅ **Documentos históricos marcados** - Clareza sobre status atual vs histórico
+- ✅ **Análise completa** - Auditoria de qualidade da documentação
+- ✅ **Guias atualizados** - Setup Redis consolidado em um único documento
+
+### Novidades v0.0.6
 - ✅ **Zero vulnerabilidades XSS** - Sanitização completa de HTML
-- ✅ **CSP implementado** - Content Security Policy configurado
-- ✅ **localStorage seguro** - Validação e expiração automática
-
-### Melhorias de Performance
 - ✅ **90% mais rápido** - Busca otimizada de ~50ms para ~5ms
-- ✅ **Cache inteligente** - Índices pré-construídos por lei
-- ✅ **Código modular** - 6 módulos especializados
-
-### Qualidade de Código
 - ✅ **20 testes automatizados** - Cobertura de 60%
-- ✅ **Código consolidado** - Redução de duplicação de 15% para <5%
+- ✅ **Código modular** - 6 módulos especializados
 - ✅ **Documentação completa** - Guias técnicos atualizados
 
 ## 📚 Documentação
@@ -156,7 +154,7 @@ Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.
 ---
 
 **Última atualização:** 01 de dezembro de 2025  
-**Versão:** 0.0.6
+**Versão:** 0.0.7
 
 ---
 

@@ -38,23 +38,17 @@ O Inelegis usa variáveis de ambiente para configuração sensível e específic
 
 ### 1. Vercel KV (Redis)
 
-#### `KV_REST_API_URL`
-- **Descrição:** URL do Redis
-- **Exemplo:** `https://abc-123.kv.vercel-storage.com`
-- **Obter:** Vercel Dashboard → Storage → KV
+#### `REDIS_URL`
+- **Descrição:** URL do Redis (criada automaticamente pelo Vercel KV)
+- **Exemplo:** `redis://default:xxx@abc-123.kv.vercel-storage.com:6379`
+- **Obter:** Criada automaticamente ao conectar KV Store
 - **Obrigatório:** Sim (para analytics)
 
-#### `KV_REST_API_TOKEN`
-- **Descrição:** Token de leitura/escrita
+#### `REDIS_TOKEN`
+- **Descrição:** Token de autenticação (opcional, já incluído na URL)
 - **Exemplo:** `AYAg...xyz`
-- **Obter:** Vercel Dashboard → Storage → KV
-- **Obrigatório:** Sim (para analytics)
-
-#### `KV_REST_API_READ_ONLY_TOKEN`
-- **Descrição:** Token apenas leitura
-- **Exemplo:** `AYAg...abc`
-- **Obter:** Vercel Dashboard → Storage → KV
-- **Obrigatório:** Não (opcional)
+- **Obter:** Criada automaticamente ao conectar KV Store
+- **Obrigatório:** Não (já incluído na REDIS_URL)
 
 ### 2. Analytics Dashboard
 
@@ -92,9 +86,7 @@ cp .env.example .env.local
 
 **3. Adicionar ao .env.local:**
 ```bash
-KV_REST_API_URL=https://abc-123.kv.vercel-storage.com
-KV_REST_API_TOKEN=AYAg...xyz
-KV_REST_API_READ_ONLY_TOKEN=AYAg...abc
+REDIS_URL=redis://default:xxx@abc-123.kv.vercel-storage.com:6379
 ANALYTICS_ADMIN_TOKEN=seu_token_aqui
 NODE_ENV=development
 ```
@@ -113,8 +105,7 @@ https://vercel.com/dashboard → Projeto → Settings → Environment Variables
 
 | Name | Value | Environment |
 |------|-------|-------------|
-| `KV_REST_API_URL` | (auto) | Production, Preview, Development |
-| `KV_REST_API_TOKEN` | (auto) | Production, Preview, Development |
+| `REDIS_URL` | (auto) | Production, Preview, Development |
 | `ANALYTICS_ADMIN_TOKEN` | (gerar) | Production, Preview, Development |
 
 **3. Deploy:**
@@ -165,7 +156,7 @@ git push origin main
 
 ```bash
 # Verificar se variáveis estão carregadas
-node -e "console.log(process.env.KV_REST_API_URL ? '✅ KV configurado' : '❌ KV não configurado')"
+node -e "console.log(process.env.REDIS_URL ? '✅ Redis configurado' : '❌ Redis não configurado')"
 ```
 
 ### Teste no Vercel
@@ -179,7 +170,7 @@ vercel logs
 
 ## 🔍 Troubleshooting
 
-### Erro: "KV_REST_API_URL is not defined"
+### Erro: "REDIS_URL is not defined"
 
 **Causa:** Variáveis não configuradas
 

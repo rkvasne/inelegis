@@ -529,15 +529,22 @@
     <script src="js/search-index.js"></script>
     <script src="js/search-history.js"></script>
     <script src="js/history-ui.js"></script>
+    <script src="js/analytics.js"></script>
 
     <!-- Scripts Principais -->
     <script src="data.js"></script>
     <script src="script.js"></script>
     
-    <!-- Inicializar Histórico -->
+    <!-- Inicializar Módulos -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Inicializar histórico
             HistoryUI.init();
+            
+            // Inicializar analytics
+            Analytics.init();
+            
+            console.log('✅ Inelegis v0.0.6 inicializado');
         });
     </script>
 </body>

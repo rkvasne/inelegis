@@ -15,6 +15,12 @@ Visão geral da documentação, estrutura do projeto e links rápidos.
 ### 📜 [Histórico do Projeto](HISTORICO.md)
 Evolução do projeto, decisões técnicas e lições aprendidas.
 
+### 📝 [Changelog da Documentação](CHANGELOG-DOCS.md)
+Histórico de mudanças, limpezas e consolidações da documentação.
+
+### 📊 [Análise da Documentação](ANALISE-DOCUMENTACAO.md)
+Auditoria completa, métricas de qualidade e recomendações.
+
 ### 🛠️ [Guia de Desenvolvimento](DEVELOPMENT.md)
 Arquitetura, módulos, testes, padrões de código e fluxo de trabalho.
 
@@ -29,13 +35,26 @@ Diretrizes de segurança, edições seguras e prevenção de corrupção.
 
 ---
 
-## 🔄 Documentação de Refatoração
+## 🔄 Documentação de Refatoração (Histórico)
 
-### 📋 [Plano de Refatoração](REFACTORING-PLAN.md)
-Plano completo de refatoração v0.0.6 com módulos, testes e melhorias.
+### 📋 [Plano de Refatoração v0.0.6](REFACTORING-PLAN.md)
+✅ Concluído - Plano completo de refatoração com módulos, testes e melhorias (referência histórica).
 
-### 📘 [Guia de Implementação](IMPLEMENTATION-GUIDE.md)
-Instruções passo a passo para implementar as melhorias da refatoração.
+### 📘 [Guia de Implementação v0.0.6](IMPLEMENTATION-GUIDE.md)
+✅ Implementado - Instruções passo a passo da refatoração (referência histórica).
+
+---
+
+## 📊 Analytics e Configuração
+
+### 📈 [Sistema de Analytics](ANALYTICS.md)
+Arquitetura, implementação e uso do sistema de analytics.
+
+### 🚀 [Setup Redis](SETUP-REDIS.md)
+Guia completo: setup, configuração, troubleshooting e referências.
+
+### 🔐 [Variáveis de Ambiente](VARIAVEIS-AMBIENTE.md)
+Documentação completa de todas as variáveis de ambiente.
 
 ---
 
@@ -82,6 +101,12 @@ Documentos de referência oficial:
 - [Guia de Proteção](PROTECTION.md) - Diretrizes de segurança
 - [Plano de Refatoração](REFACTORING-PLAN.md) - Melhorias de segurança (XSS, CSP)
 - [SECURITY.md](../SECURITY.md) - Política de segurança
+- [Variáveis de Ambiente](VARIAVEIS-AMBIENTE.md) - Segurança de tokens e credenciais
+
+### Analytics
+- [Sistema de Analytics](ANALYTICS.md) - Arquitetura completa
+- [Setup Redis](SETUP-REDIS.md) - Configuração e guia completo
+- [Variáveis de Ambiente](VARIAVEIS-AMBIENTE.md) - Documentação de variáveis
 
 ### Performance
 - [Plano de Refatoração](REFACTORING-PLAN.md) - Otimizações implementadas
@@ -106,8 +131,13 @@ Documentos de referência oficial:
 | MAINTENANCE.md | ✅ Atualizado | 01/12/2025 |
 | COMPONENTS.md | ✅ Atualizado | 01/12/2025 |
 | PROTECTION.md | ✅ Atualizado | 01/12/2025 |
-| REFACTORING-PLAN.md | ✅ Concluído | 01/12/2025 |
-| IMPLEMENTATION-GUIDE.md | ✅ Implementado | 01/12/2025 |
+| REFACTORING-PLAN.md | 📚 Histórico | 01/12/2025 |
+| IMPLEMENTATION-GUIDE.md | 📚 Histórico | 01/12/2025 |
+| ANALYTICS.md | ✅ Atualizado | 01/12/2025 |
+| VARIAVEIS-AMBIENTE.md | ✅ Atualizado | 01/12/2025 |
+| SETUP-REDIS.md | ✅ Consolidado | 01/12/2025 |
+| CHANGELOG-DOCS.md | ✅ Novo | 01/12/2025 |
+| ANALISE-DOCUMENTACAO.md | ✅ Novo | 01/12/2025 |
 
 ---
 

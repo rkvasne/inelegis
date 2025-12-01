@@ -256,7 +256,13 @@ Authorization: Bearer YOUR_ADMIN_TOKEN
 **Implementado e funcionando!**
 
 ```javascript
-import { kv } from '@vercel/kv';
+import { createClient } from '@vercel/kv';
+
+// Conectar usando REDIS_URL
+const kv = createClient({
+    url: process.env.REDIS_URL,
+    token: process.env.REDIS_TOKEN
+});
 
 // Salvar evento
 await kv.set(`analytics:search:${timestamp}`, event);
@@ -341,14 +347,14 @@ const ADMIN_TOKEN = process.env.ANALYTICS_ADMIN_TOKEN;
 
 **`.env.local`:**
 ```bash
-# Analytics
+# Analytics Dashboard Token
 ANALYTICS_ADMIN_TOKEN=your_secure_token_here
 
-# Banco de Dados (escolher um)
-VERCEL_KV_URL=redis://...
-SUPABASE_URL=https://...
-SUPABASE_KEY=...
-MONGODB_URI=mongodb+srv://...
+# Vercel KV (Redis) - Criada automaticamente
+REDIS_URL=redis://default:xxx@abc-123.kv.vercel-storage.com:6379
+
+# Environment
+NODE_ENV=development
 ```
 
 ### Vercel

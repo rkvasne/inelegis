@@ -58,16 +58,21 @@ Bem-vindo à documentação oficial do projeto **Inelegis**.
 - [Changelog](../CHANGELOG.md)
 - [Voltar para a Raiz](../README.md)
 
-## 🆕 Novidades v0.0.6
+## 🆕 Novidades v0.0.7
 
+- ✅ Documentação consolidada (9 documentos redundantes removidos)
+- ✅ Documentos históricos marcados com notas explicativas
+- ✅ Análise completa de qualidade da documentação
+- ✅ Setup Redis consolidado em guia único
+- ✅ Changelog de documentação criado
+
+### Novidades v0.0.6
 - ✅ 6 módulos JavaScript para segurança e performance
 - ✅ 20 testes unitários automatizados
-- ✅ Scripts de migração e rollback
-- ✅ CSP implementado
 - ✅ Busca 90% mais rápida
 - ✅ Zero vulnerabilidades XSS
 
 ---
 
 **Última atualização:** 01 de dezembro de 2025  
-**Versão:** 0.0.6
+**Versão:** 0.0.7

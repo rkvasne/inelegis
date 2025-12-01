@@ -6,7 +6,13 @@
  * Database: Vercel KV (Redis)
  */
 
-import { kv } from '@vercel/kv';
+import { createClient } from '@vercel/kv';
+
+// Conectar ao Redis usando REDIS_URL
+const kv = createClient({
+    url: process.env.REDIS_URL || process.env.KV_REST_API_URL,
+    token: process.env.REDIS_TOKEN || process.env.KV_REST_API_TOKEN
+});
 
 // Configuração
 const ALLOWED_ORIGINS = [

@@ -76,6 +76,14 @@ function popularSelectLeis() {
 
 // Configurar event listeners
 function configurarEventListeners() {
+    // Botão de histórico
+    const historyBtn = document.getElementById('historyBtn');
+    if (historyBtn) {
+        historyBtn.addEventListener('click', function() {
+            HistoryUI.open();
+        });
+    }
+
     // Debounce de sugestões para evitar excesso de renderização
     const debouncedSugestoes = (function () {
         let t;
@@ -104,6 +112,51 @@ function configurarEventListeners() {
             document.getElementById('insertAlineaBtn').disabled = false;
             document.getElementById('insertConcBtn').disabled = false;
             document.getElementById('montarArtigoBtn').disabled = false;
+
+            // Função para atualizar o preview do artigo em tempo real
+            const atualizarPreview = () => {
+                const artigoCompleto = artigoInput.value.trim();
+                const leiSelecionada = leiSelect.options[leiSelect.selectedIndex].text;
+
+                // Se o campo "Artigo Completo" tiver conteúdo, mostrar ele no preview
+                if (artigoCompleto) {
+                    // Adicionar "Art. " se não começar com isso
+                    const artigoFormatado = artigoCompleto.toLowerCase().startsWith('art.')
+                        ? artigoCompleto
+                        : `Art. ${artigoCompleto}`;
+                    document.getElementById('previewArtigo').textContent = `${artigoFormatado} do ${leiSelecionada}`;
+                    return;
+                }
+
+                // Caso contrário, mostrar o preview do construtor
+                const artigo = document.getElementById('artigoNum').value.trim();
+                const paragrafo = document.getElementById('paragrafoNum').value.trim();
+                const inciso = document.getElementById('incisoNum').value.trim();
+                const alinea = document.getElementById('alineaNum').value.trim();
+                const concomitante = document.getElementById('concomitanteNum').value.trim();
+
+                let preview = 'Art. ';
+                if (artigo) preview += artigo;
+                if (paragrafo) preview += `, §${paragrafo}º`;
+                if (inciso) preview += `, ${inciso}`;
+                if (alinea) preview += `, "${alinea}"`;
+                if (concomitante) preview += ` c/c ${concomitante}`;
+                preview += ` do ${leiSelecionada}`;
+
+                document.getElementById('previewArtigo').textContent = preview;
+            };
+
+            // Adicionar event listeners para atualizar o preview
+            artigoInput.addEventListener('input', atualizarPreview);
+            document.getElementById('artigoNum').addEventListener('input', atualizarPreview);
+            document.getElementById('paragrafoNum').addEventListener('input', atualizarPreview);
+            document.getElementById('incisoNum').addEventListener('input', atualizarPreview);
+            document.getElementById('alineaNum').addEventListener('input', atualizarPreview);
+            document.getElementById('concomitanteNum').addEventListener('input', atualizarPreview);
+
+            // Atualizar preview inicial
+            atualizarPreview();
+
             artigoInput.focus();
         } else {
             artigoInput.disabled = true;
@@ -119,6 +172,14 @@ function configurarEventListeners() {
             document.getElementById('insertAlineaBtn').disabled = true;
             document.getElementById('insertConcBtn').disabled = true;
             document.getElementById('montarArtigoBtn').disabled = true;
+            // Limpar campos do builder
+            document.getElementById('artigoNum').value = '';
+            document.getElementById('paragrafoNum').value = '';
+            document.getElementById('incisoNum').value = '';
+            document.getElementById('alineaNum').value = '';
+            document.getElementById('concomitanteNum').value = '';
+            // Resetar preview
+            document.getElementById('previewArtigo').textContent = 'Art. , , , do';
             limparBusca();
         }
         verificarCamposPreenchidos();
@@ -191,7 +252,7 @@ function configurarEventListeners() {
 
         // Formatação automática durante a digitação (apenas se necessário)
         if (valorTrim && valorTrim.length > 0) {
-            const valorFormatado = aplicarFormatacaoAutomatica2(valorTrim);
+            const valorFormatado = ArtigoFormatter.formatar(valorTrim);
 
             // Só atualizar se realmente mudou (evitar formatação repetida)
             if (valorFormatado !== valorTrim) {
@@ -259,39 +320,6 @@ function configurarEventListeners() {
     });
 }
 
-// Aplicar formatação automática ao artigo
-function aplicarFormatacaoAutomatica(valor) {
-    // Se o valor for vazio ou falso, retornar como está
-    if (!valor || typeof valor !== 'string') {
-        return valor;
-    }
-
-    let formatado = valor.trim();
-
-    // 1. Normalizar espaços (uma única passagem)
-    formatado = formatado.replace(/\s+/g, ' ');
-
-    // 2. Formatar parágrafo: §1 -> §1º (apenas se não tiver º ou °)
-    formatado = formatado.replace(/§\s*(\d+)(?![º°])/g, '§$1º');
-
-    // 3. Formatar c/c: cc -> c/c, C/C -> c/c (sem duplicar)
-    // Só substitui se não for já c/c
-    formatado = formatado.replace(/(?<!\/)(cc|CC|C\/c|c\/C)(?!\/)/g, 'c/c');
-
-    // 4. Normalizar vírgulas e espaços
-    formatado = formatado.replace(/\s*,\s*/g, ', ');
-
-    // 5. Formatar alíneas: a -> "a" (evitar duplicação de aspas)
-    // Apenas em contextos onde realmente é uma alínea (entre virgulas, espaços ou no final)
-    formatado = formatado.replace(/(?<!["\'])([a-z])(?=\s*(?:,|$|\s))/gi, (match, letra) => {
-        // Não colocar aspas se já tem aspas
-        if (letra.match(/["']/)) return match;
-        return `"${letra.toLowerCase()}"`;
-    });
-
-    return formatado;
-}
-
 // Verificar se ambos os campos estão preenchidos
 function verificarCamposPreenchidos() {
     const leiSelecionada = leiSelect.value.trim();
@@ -332,7 +360,7 @@ function buscarInelegibilidadePorLeiEArtigo(codigoLei, numeroArtigo) {
         return null;
     }
 
-    const artigoProcessado = processarArtigoCompleto(numeroArtigo);
+    const artigoProcessado = ArtigoFormatter.processar(numeroArtigo);
     console.log('📝 ARTIGO PROCESSADO:', artigoProcessado);
 
     let melhorResultado = null;
@@ -355,7 +383,7 @@ function buscarInelegibilidadePorLeiEArtigo(codigoLei, numeroArtigo) {
             console.log('✅ ENCONTRADO!', item);
 
             // Verificar se há exceções aplicáveis
-            const temExcecao = verificarExcecoesAplicaveis2(item, artigoProcessado);
+            const temExcecao = ExceptionValidator.verificar(item, artigoProcessado);
 
             if (temExcecao) {
                 excecoesEncontradas.push({
@@ -413,7 +441,7 @@ function buscarFlexivel(codigoLei, artigoProcessado) {
         if (artigos.includes(artigoPrincipal)) {
             console.log('🔸 ENCONTRADO COM BUSCA FLEXÍVEL:', item.norma, '- Artigos:', artigos);
 
-            const temExcecao = verificarExcecoesAplicaveis2(item, artigoProcessado);
+            const temExcecao = ExceptionValidator.verificar(item, artigoProcessado);
 
             return {
                 ...item,
@@ -427,48 +455,6 @@ function buscarFlexivel(codigoLei, artigoProcessado) {
     }
 
     return null;
-}
-
-// Verificar exceções aplicáveis de forma mais inteligente
-function verificarExcecoesAplicaveis(item, artigoProcessado) {
-    return verificarExcecoesAplicaveis2(item, artigoProcessado);
-}
-function processarArtigoCompleto(artigo) {
-    const artigoLimpo = artigo.trim();
-
-    // Extrair componentes do artigo
-    const resultado = {
-        original: artigoLimpo,
-        artigo: '',
-        paragrafo: '',
-        inciso: '',
-        alinea: '',
-        concomitante: [],
-        formatado: ''
-    };
-
-    // Verificar se há artigos concomitantes (c/c)
-    const partesConcomitantes = artigoLimpo.split(/\s+c\/c\s+/i);
-
-    if (partesConcomitantes.length > 1) {
-        // Processar artigo principal
-        const artPrincipal = processarParteArtigo(partesConcomitantes[0]);
-        Object.assign(resultado, artPrincipal);
-
-        // Processar artigos concomitantes
-        for (let i = 1; i < partesConcomitantes.length; i++) {
-            resultado.concomitante.push(processarParteArtigo(partesConcomitantes[i]));
-        }
-
-        resultado.formatado = formatarArtigoCompleto(resultado);
-    } else {
-        // Processar artigo simples
-        const artProcessado = processarParteArtigo(artigoLimpo);
-        Object.assign(resultado, artProcessado);
-        resultado.formatado = formatarArtigoCompleto(resultado);
-    }
-
-    return resultado;
 }
 
 // Processar uma parte do artigo (artigo, parágrafo, inciso, alínea)
@@ -521,31 +507,6 @@ function processarParteArtigo(parte) {
     }
 
     return resultado;
-}
-
-// Formatar artigo completo para exibição
-function formatarArtigoCompleto(artigo) {
-    let formatado = artigo.artigo;
-
-    if (artigo.paragrafo) {
-        formatado += `, §${artigo.paragrafo}º`;
-    }
-
-    if (artigo.inciso) {
-        formatado += `, ${artigo.inciso}`;
-    }
-
-    if (artigo.alinea) {
-        formatado += `, "${artigo.alinea}"`;
-    }
-
-    // Adicionar artigos concomitantes
-    if (artigo.concomitante && artigo.concomitante.length > 0) {
-        const concomitantes = artigo.concomitante.map(c => formatarParteArtigo(c)).join(' c/c ');
-        formatado += ` c/c ${concomitantes}`;
-    }
-
-    return formatado;
 }
 
 // Formatar parte do artigo
@@ -705,6 +666,27 @@ function exibirResultado(resultado) {
 
     const statusClass = resultado.inelegivel ? 'inelegivel' : 'elegivel';
     const statusTexto = resultado.inelegivel ? 'INELEGÍVEL' : 'ELEGÍVEL';
+
+    // Salvar no histórico local
+    if (typeof HistoryUI !== 'undefined') {
+        HistoryUI.addSearch({
+            lei: resultado.codigo,
+            artigo: resultado.artigoConsultado,
+            resultado: resultado.inelegivel ? 'inelegivel' : 'elegivel',
+            timestamp: new Date().toISOString()
+        });
+    }
+
+    // Enviar analytics (anônimo)
+    if (typeof Analytics !== 'undefined' && Analytics.isEnabled()) {
+        Analytics.trackSearch({
+            lei: resultado.codigo,
+            artigo: resultado.artigoConsultado,
+            resultado: resultado.inelegivel ? 'inelegivel' : 'elegivel',
+            temExcecao: resultado.excecoes && resultado.excecoes.length > 0,
+            tempoResposta: null // Pode adicionar medição de tempo
+        });
+    }
 
     // Usar artigo formatado se disponível
     const artigoExibicao = resultado.artigoProcessado ?
@@ -1015,65 +997,9 @@ function copiarResultado() {
     }
 }
 
-// Variável global para armazenar o conteúdo atual do modal
-let conteudoModalAtual = '';
-
-let __modalTrapHandler = null;
-let __lastFocusedElement = null;
-
-// Função para abrir o modal (reescrita completa)
+// Função para abrir o modal (usa ModalManager)
 function abrirModal(tipoResultado, status, conteudo) {
-    const modal = document.getElementById('modalResultado');
-    const modalContent = modal.querySelector('.modal-content');
-    const modalBody = document.getElementById('modalBody');
-
-    // Armazenar conteúdo para função de copiar
-    conteudoModalAtual = conteudo;
-
-    // Definir classe do modal baseada no tipo de resultado
-    modalContent.className = `modal-content modal-modern ${tipoResultado}`;
-
-    // Inserir conteúdo no modal com novo design
-    modalBody.innerHTML = conteudo;
-
-    // Mostrar modal com animação suave
-    modal.classList.remove('hidden');
-    requestAnimationFrame(() => {
-        modal.classList.add('show');
-        modalContent.style.opacity = '1';
-        modalContent.style.transform = 'translateY(0) scale(1)';
-    });
-
-    // Prevenir scroll do body
-    document.body.style.overflow = 'hidden';
-
-    // Foco e trap de foco para acessibilidade
-    __lastFocusedElement = document.activeElement;
-    modalContent.setAttribute('tabindex', '-1');
-    modalContent.focus();
-
-    const focusableSelectors = 'a, button, input, select, textarea, [tabindex]:not([tabindex="-1"])';
-    const getFocusable = () => Array.from(modalContent.querySelectorAll(focusableSelectors)).filter(el => !el.hasAttribute('disabled'));
-
-    __modalTrapHandler = (e) => {
-        if (e.key !== 'Tab') return;
-        const els = getFocusable();
-        if (els.length === 0) return;
-        const first = els[0];
-        const last = els[els.length - 1];
-        if (e.shiftKey) {
-            if (document.activeElement === first) {
-                e.preventDefault();
-                last.focus();
-            }
-        } else {
-            if (document.activeElement === last) {
-                e.preventDefault();
-                first.focus();
-            }
-        }
-    };
-    modalContent.addEventListener('keydown', __modalTrapHandler);
+    ModalManager.open(tipoResultado, status, conteudo);
 }
 
 function mostrarToast(msg, type = 'info') {
@@ -1126,81 +1052,17 @@ function mostrarToast(msg, type = 'info') {
     });
 }
 
-// Função para exportar resultado (copiar para área de transferência)
+// Função para exportar resultado (usa ModalManager)
 function exportarResultado() {
-    const modalBody = document.getElementById('modalBody');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalSubtitle = document.getElementById('modalSubtitle');
-
-    if (!modalBody) return;
-
-    // Extrair texto limpo do modal
-    let textoExportar = '';
-
-    // Adicionar título
-    if (modalTitle) {
-        textoExportar += `${modalTitle.textContent}\n`;
+    const texto = ModalManager.exportContent();
+    if (texto) {
+        navigator.clipboard.writeText(texto).then(() => {
+            mostrarToast('✅ Resultado copiado para área de transferência!', 'success');
+        }).catch(err => {
+            console.error('Erro ao copiar:', err);
+            mostrarToast('❌ Erro ao copiar. Tente novamente.', 'error');
+        });
     }
-    if (modalSubtitle) {
-        textoExportar += `${modalSubtitle.textContent}\n`;
-    }
-    textoExportar += '='.repeat(50) + '\n\n';
-
-    // Extrair texto do corpo do modal
-    const statusCard = modalBody.querySelector('.modal-status-card');
-    if (statusCard) {
-        const statusLabel = statusCard.querySelector('.status-label');
-        const statusValue = statusCard.querySelector('.status-value');
-        if (statusLabel && statusValue) {
-            textoExportar += `${statusLabel.textContent}: ${statusValue.textContent}\n\n`;
-        }
-    }
-
-    // Extrair informações do grid
-    const infoItems = modalBody.querySelectorAll('.info-item');
-    infoItems.forEach(item => {
-        const label = item.querySelector('.info-label');
-        const value = item.querySelector('.info-value');
-        if (label && value) {
-            textoExportar += `${label.textContent}: ${value.textContent}\n`;
-        }
-    });
-    textoExportar += '\n';
-
-    // Extrair ASE info
-    const aseInfo = modalBody.querySelector('.modal-ase-info');
-    if (aseInfo) {
-        textoExportar += `${aseInfo.textContent.trim()}\n\n`;
-    }
-
-    // Extrair seções
-    const sections = modalBody.querySelectorAll('.modal-section');
-    sections.forEach(section => {
-        const header = section.querySelector('.section-header');
-        const content = section.querySelector('.section-content');
-        if (header) {
-            textoExportar += `${header.textContent.trim()}\n`;
-            textoExportar += '-'.repeat(30) + '\n';
-        }
-        if (content) {
-            textoExportar += `${content.textContent.trim()}\n\n`;
-        }
-    });
-
-    // Adicionar rodapé
-    textoExportar += '='.repeat(50) + '\n';
-    textoExportar += 'Ineleg-App - Sistema de Consulta de Inelegibilidade Eleitoral\n';
-    textoExportar += 'Base de dados: TRE-SP (Out/2024) - CRE-RO (02/06/2025)\n';
-    textoExportar += `Exportado em: ${new Date().toLocaleString('pt-BR')}\n`;
-
-    // Copiar para área de transferência
-    navigator.clipboard.writeText(textoExportar).then(() => {
-        // Mostrar feedback de sucesso
-        mostrarToast('✅ Resultado copiado para área de transferência!', 'success');
-    }).catch(err => {
-        console.error('Erro ao copiar:', err);
-        mostrarToast('❌ Erro ao copiar. Tente novamente.', 'error');
-    });
 }
 
 // Função para mostrar toast de feedback
@@ -1236,30 +1098,9 @@ function mostrarToast(mensagem, tipo = 'success') {
     }, 3000);
 }
 
-// Função para fechar o modal
+// Função para fechar o modal (usa ModalManager)
 function fecharModal() {
-    const modal = document.getElementById('modalResultado');
-    const modalContent = modal.querySelector('.modal-content');
-
-    // Animar saída
-    modalContent.style.opacity = '0';
-    modalContent.style.transform = 'scale(0.95)';
-
-    // Aguardar animação antes de esconder
-    setTimeout(() => {
-        modal.classList.add('hidden');
-        modal.classList.remove('show');
-        document.body.style.overflow = 'auto';
-
-        // Remover trap e restaurar foco
-        if (__modalTrapHandler && modalContent) {
-            modalContent.removeEventListener('keydown', __modalTrapHandler);
-            __modalTrapHandler = null;
-        }
-        if (__lastFocusedElement && typeof __lastFocusedElement.focus === 'function') {
-            __lastFocusedElement.focus();
-        }
-    }, 300);
+    ModalManager.close();
 }
 
 // Função para nova consulta (fechar modal e limpar campos)
@@ -1278,93 +1119,6 @@ document.addEventListener('keydown', function (event) {
     }
 });
 
-// Aplicar formatação automática (versão robusta com §/º e diacríticos)
-function aplicarFormatacaoAutomatica2(valor) {
-    if (!valor || typeof valor !== 'string') return valor;
-    let formatado = valor.trim();
-    // 1. Normalizar espaços
-    formatado = formatado.replace(/\s+/g, ' ');
-    // 2. Formatar parágrafo: §1 -> §1º (evita duplicação)
-    formatado = formatado
-        .replace(/(?:§|\u00A7|\uFFFD)\s*(\d+)(?!\s*(?:º|\u00BA|\uFFFD))/g, '§$1º')
-        .replace(/\bpar[aá]grafo\s*(\d+)/i, '§$1º');
-    // 3. Normalizar c/c
-    formatado = formatado.replace(/(?<!\/)(cc|CC|C\/c|c\/C)(?!\/)/g, 'c/c');
-    // 4. Normalizar vírgulas e espaços
-    formatado = formatado.replace(/\s*,\s*/g, ', ');
-    // 5. Formatar alíneas: a -> "a"
-    formatado = formatado.replace(/(?<!["\'])([a-z])(?=\s*(?:,|$|\s))/gi, (match, letra) => {
-        if (/["']/.test(letra)) return match;
-        return `"${letra.toLowerCase()}"`;
-    });
-    return formatado;
-}
-
-// Nova verificação robusta de exceções, tolerante a diacríticos e símbolos (§/º)
-function verificarExcecoesAplicaveis2(item, artigoProcessado) {
-    if (!item.excecoes || item.excecoes.length === 0) {
-        return null;
-    }
-
-    const artigoPrincipal = (artigoProcessado.artigo || '').toLowerCase();
-    const paragrafo = artigoProcessado.paragrafo ? String(artigoProcessado.paragrafo).toLowerCase() : null;
-    const inciso = artigoProcessado.inciso ? String(artigoProcessado.inciso).toLowerCase() : null;
-    const alinea = artigoProcessado.alinea ? String(artigoProcessado.alinea).toLowerCase() : null;
-
-    const normalize = (s) => {
-        try { return String(s).normalize('NFD').replace(/\p{Diacritic}/gu, ''); } catch { return String(s); }
-    };
-
-    for (const excecao of item.excecoes) {
-        const excLower = String(excecao || '').toLowerCase();
-        const excNorm = normalize(excLower);
-
-        if (paragrafo || inciso || alinea) {
-            let tem = false;
-
-            if (paragrafo && !tem) {
-                if (new RegExp(`(§|\\u00a7|\\uFFFD)\\s*${paragrafo}`).test(excLower) ||
-                    new RegExp(`paragrafo\\s*${paragrafo}`).test(excNorm)) {
-                    tem = true;
-                }
-            }
-
-            if (inciso && !tem) {
-                if (new RegExp(`(^|[\\s,])${inciso}(?=$|[\\s,])`).test(excLower) ||
-                    new RegExp(`inciso\\s*${inciso}`).test(excNorm)) {
-                    tem = true;
-                }
-            }
-
-            if (alinea && !tem) {
-                if (new RegExp(`"${alinea}"`).test(excLower) ||
-                    new RegExp(`alinea\\s*${alinea}`).test(excNorm)) {
-                    tem = true;
-                }
-            }
-
-            if (tem) {
-                return excecao;
-            }
-        } else {
-            const temPar = /(§|\\u00a7|\\uFFFD)\\s*\\d|paragrafo/i.test(excNorm);
-            const temInc = /,\\s*[ivx]+|inciso/i.test(excNorm);
-            const temAli = /"\\w"|alinea/i.test(excNorm);
-            if (temPar || temInc || temAli) continue;
-
-            if (excLower.includes(`, ${artigoPrincipal},`) ||
-                excLower.includes(`art. ${artigoPrincipal}, caput`) ||
-                excLower.includes(`art. ${artigoPrincipal} caput`) ||
-                excLower === `art. ${artigoPrincipal}` ||
-                excLower === `arts. ${artigoPrincipal}`) {
-                return excecao;
-            }
-        }
-    }
-
-    return null;
-}
-
 // Filtra a lista de exceções para manter apenas as do MESMO artigo consultado
 function filtrarExcecoesDoMesmoArtigo(excecoes, artigoProcessado) {
     if (!Array.isArray(excecoes)) return [];
@@ -1374,27 +1128,9 @@ function filtrarExcecoesDoMesmoArtigo(excecoes, artigoProcessado) {
     const norm = (s) => { try { return String(s || '').normalize('NFD').replace(/\p{Diacritic}/gu, ''); } catch { return String(s || '') } };
     return excecoes.filter((ex) => rx.test(norm(ex)));
 }
-// Índice em memória por lei para acelerar buscas
-let __indicePorLei = null;
-function construirIndicePorLei() {
-    __indicePorLei = {};
-    try {
-        leisDisponiveis.forEach(lei => {
-            const codigoLei = lei.value;
-            const itens = [];
-            tabelaInelegibilidade.forEach(it => {
-                if (verificarLeiCorresponde(it, codigoLei)) {
-                    try { it._artigos = extrairArtigosDoNorma(it.norma); } catch { it._artigos = []; }
-                    itens.push(it);
-                }
-            });
-            __indicePorLei[codigoLei] = itens;
-        });
-    } catch { }
-}
+// Usar SearchIndex para busca otimizada
 function getItensPorLei(codigoLei) {
-    if (!__indicePorLei) construirIndicePorLei();
-    return __indicePorLei[codigoLei] || [];
+    return SearchIndex.getItensPorLei(codigoLei, leisDisponiveis, tabelaInelegibilidade);
 }
 
 

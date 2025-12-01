@@ -667,13 +667,24 @@ function exibirResultado(resultado) {
     const statusClass = resultado.inelegivel ? 'inelegivel' : 'elegivel';
     const statusTexto = resultado.inelegivel ? 'INELEGÍVEL' : 'ELEGÍVEL';
 
-    // Salvar no histórico
+    // Salvar no histórico local
     if (typeof HistoryUI !== 'undefined') {
         HistoryUI.addSearch({
             lei: resultado.codigo,
             artigo: resultado.artigoConsultado,
             resultado: resultado.inelegivel ? 'inelegivel' : 'elegivel',
             timestamp: new Date().toISOString()
+        });
+    }
+
+    // Enviar analytics (anônimo)
+    if (typeof Analytics !== 'undefined' && Analytics.isEnabled()) {
+        Analytics.trackSearch({
+            lei: resultado.codigo,
+            artigo: resultado.artigoConsultado,
+            resultado: resultado.inelegivel ? 'inelegivel' : 'elegivel',
+            temExcecao: resultado.excecoes && resultado.excecoes.length > 0,
+            tempoResposta: null // Pode adicionar medição de tempo
         });
     }
 
