@@ -76,6 +76,14 @@ function popularSelectLeis() {
 
 // Configurar event listeners
 function configurarEventListeners() {
+    // Botão de histórico
+    const historyBtn = document.getElementById('historyBtn');
+    if (historyBtn) {
+        historyBtn.addEventListener('click', function() {
+            HistoryUI.open();
+        });
+    }
+
     // Debounce de sugestões para evitar excesso de renderização
     const debouncedSugestoes = (function () {
         let t;
@@ -658,6 +666,16 @@ function exibirResultado(resultado) {
 
     const statusClass = resultado.inelegivel ? 'inelegivel' : 'elegivel';
     const statusTexto = resultado.inelegivel ? 'INELEGÍVEL' : 'ELEGÍVEL';
+
+    // Salvar no histórico
+    if (typeof HistoryUI !== 'undefined') {
+        HistoryUI.addSearch({
+            lei: resultado.codigo,
+            artigo: resultado.artigoConsultado,
+            resultado: resultado.inelegivel ? 'inelegivel' : 'elegivel',
+            timestamp: new Date().toISOString()
+        });
+    }
 
     // Usar artigo formatado se disponível
     const artigoExibicao = resultado.artigoProcessado ?
