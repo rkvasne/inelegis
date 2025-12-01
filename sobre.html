@@ -52,115 +52,82 @@
                     <a href="faq.html" class="nav-link">
                         <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                             aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
-                            </path>
-                        </svg>
-                        FAQ
-                    </a>
-                </div>
-                <div class="nav-links">
-                    <a href="DOCUMENTACAO.md" class="nav-link" target="_blank" rel="noopener noreferrer">
-                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253Z">
-                            </path>
-                        </svg>
-                        Documentação
-                    </a>
-                </div>
-            </div>
-        </div>
-    </nav>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" <main
+                                class="container mt-8">
+                                <!-- Card de Notas Principais -->
+                                <div class="card mb-6">
+                                    <div class="card-header">
+                                        <h2>Notas Principais</h2>
+                                        <p>Diretrizes do design e usabilidade</p>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="list-disc">
+                                            <li>Navegação fixa com link de documentação.</li>
+                                            <li>Tema institucional padronizado (cores primária/acento/status).</li>
+                                            <li>Componentes consistentes: cartões, badges e ícones.</li>
+                                            <li>Estados de foco/hover consistentes em inputs e botões.</li>
+                                            <li>Tipografia e acentuação normalizadas.</li>
+                                        </ul>
+                                    </div>
+                                </div>
 
-    <!-- Conteúdo Principal -->
-    <main class="container mt-8">
-        <!-- Card de Notas Principais -->
-        <div class="card mb-6">
-            <div class="card-header">
-                <h2>Notas Principais</h2>
-                <p>Diretrizes do design e usabilidade</p>
-            </div>
-            <div class="card-body">
-                <ul class="list-disc">
-                    <li>Navegação fixa com link de documentação.</li>
-                    <li>Tema institucional padronizado (cores primária/acento/status).</li>
-                    <li>Componentes consistentes: cartões, badges e ícones.</li>
-                    <li>Estados de foco/hover consistentes em inputs e botões.</li>
-                    <li>Tipografia e acentuação normalizadas.</li>
-                </ul>
-            </div>
-        </div>
+                                <!-- Card de Atalhos de Teclado -->
+                                <div class="card mb-6">
+                                    <div class="card-header">
+                                        <h2>Atalhos de Teclado</h2>
+                                        <p>Produtividade durante a consulta</p>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="list-disc">
+                                            <li><code>Alt+D</code> — Abrir documentação</li>
+                                            <li><code>Ctrl+L</code> — Focar select de leis</li>
+                                            <li><code>Ctrl+A</code> — Focar campo de artigo</li>
+                                            <li><code>Ctrl+Enter</code> — Buscar (quando habilitado)</li>
+                                            <li><code>F1</code> — Alternar Condenação/Extinção</li>
+                                        </ul>
+                                    </div>
+                                </div>
 
-        <!-- Card de Atalhos de Teclado -->
-        <div class="card mb-6">
-            <div class="card-header">
-                <h2>Atalhos de Teclado</h2>
-                <p>Produtividade durante a consulta</p>
-            </div>
-            <div class="card-body">
-                <ul class="list-disc">
-                    <li><code>Alt+D</code> — Abrir documentação</li>
-                    <li><code>Ctrl+L</code> — Focar select de leis</li>
-                    <li><code>Ctrl+A</code> — Focar campo de artigo</li>
-                    <li><code>Ctrl+Enter</code> — Buscar (quando habilitado)</li>
-                    <li><code>F1</code> — Alternar Condenação/Extinção</li>
-                </ul>
-            </div>
-        </div>
+                                <!-- Card de Versão -->
+                                <div class="card mb-6">
+                                    <div class="card-header">
+                                        <h2>Versão</h2>
+                                        <p>Histórico e mudanças</p>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>0.0.6 — Correção de cache e estabilidade de estilos.</p>
+                                        <p>0.0.5 — Renomeação para Inelegis e otimização de cache offline.</p>
+                                        <p>0.0.4 — Layout otimizado, funcionalidade de exportar, controle de acesso e
+                                            melhorias de UX.</p>
+                                        <p>Consulte o <a href="CHANGELOG.md" target="_blank"
+                                                rel="noopener noreferrer">CHANGELOG</a> para
+                                            detalhes completos.</p>
+                                    </div>
+                                </div>
+                                </main>
 
-        <!-- Card de Versão -->
-        <div class="card mb-6">
-            <div class="card-header">
-                <h2>Versão</h2>
-                <p>Histórico e mudanças</p>
-            </div>
-            <div class="card-body">
-                <p>0.0.6 — Correção de cache e estabilidade de estilos.</p>
-                <p>0.0.5 — Renomeação para Inelegis e otimização de cache offline.</p>
-                <p>0.0.4 — Layout otimizado, funcionalidade de exportar, controle de acesso e melhorias de UX.</p>
-                <p>Consulte o <a href="CHANGELOG.md" target="_blank" rel="noopener noreferrer">CHANGELOG</a> para
-                    detalhes completos.</p>
-            </div>
-        </div>
-    </main>
+                                <!-- Footer -->
+                                <footer class="footer">
+                                    <div class="container">
+                                        <!-- Script -->
+                                        <script>
+                                            // Verificar se usuário aceitou os termos
+                                            const termosAceitos = localStorage.getItem('ineleg_termos_aceitos') === 'true';
+                                            const consultaLink = document.querySelector('a[href="consulta.html"]');
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-text">
-                    Tabela exemplificativa do TRE-SP atualizada em outubro de 2024 e revisada pela CRE-RO em 02/06/2025
-                </div>
-                <div class="footer-links">
-                    <a href="CHANGELOG.md" class="footer-link" target="_blank">Changelog</a>
-                    <a href="MANUTENCAO.md" class="footer-link" target="_blank">Manutenção</a>
-                    <a href="CLAUDE.md" class="footer-link" target="_blank">Documentação Técnica</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Script -->
-    <script>
-        // Verificar se usuário aceitou os termos
-        const termosAceitos = localStorage.getItem('ineleg_termos_aceitos') === 'true';
-        const consultaLink = document.querySelector('a[href="consulta.html"]');
-
-        if (!termosAceitos && consultaLink) {
-            // Bloquear link de consulta no menu
-            consultaLink.style.pointerEvents = 'none';
-            consultaLink.style.opacity = '0.5';
-            consultaLink.style.cursor = 'not-allowed';
-            consultaLink.setAttribute('aria-disabled', 'true');
-            consultaLink.addEventListener('click', function (e) {
-                e.preventDefault();
-                alert('Por favor, acesse a página inicial e concorde com os termos antes de usar o sistema de consulta.');
-                window.location.href = 'index.html';
-            });
-        }
-    </script>
-    </body>
+                                            if (!termosAceitos && consultaLink) {
+                                                // Bloquear link de consulta no menu
+                                                consultaLink.style.pointerEvents = 'none';
+                                                consultaLink.style.opacity = '0.5';
+                                                consultaLink.style.cursor = 'not-allowed';
+                                                consultaLink.setAttribute('aria-disabled', 'true');
+                                                consultaLink.addEventListener('click', function (e) {
+                                                    e.preventDefault();
+                                                    alert('Por favor, acesse a página inicial e concorde com os termos antes de usar o sistema de consulta.');
+                                                    window.location.href = 'index.html';
+                                                });
+                                            }
+                                        </script>
+                                        </body>
 
 </html>

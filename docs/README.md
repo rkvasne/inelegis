@@ -144,14 +144,181 @@ inelegis/
 4. Mantenha: **MANUTENCAO.md** (para updates)
 
 ### Você é **usuário operacional** (servidor TRE)?
+# 📚 ÍNDICE DE DOCUMENTAÇÃO - Inelegis
+
+**Última atualização:** 30 de novembro de 2025
+**Versão:** 0.0.6
+**Status:** ✅ 100% Conformidade TRE-SP
+**Tipo:** Sistema não oficial (ferramenta auxiliar)
+
+---
+
+## 🎯 GUIA RÁPIDO
+
+Esta seção ajuda você a encontrar rapidamente o que precisa:
+
+### Para **entender o projeto**
+→ Leia: **[CLAUDE.md](CLAUDE.md)** (guia técnico do projeto)
+
+### Para **usar a aplicação**
+→ Leia: (funcionalidades e uso)
+
+### Para **entender as ASE (códigos)**
+→ Leia: **[MANUAL-ASE.txt](MANUAL-ASE.txt)** (orientação operacional)
+
+
+
+### Para **manutenção de dados**
+→ Leia: **[MANUTENCAO.md](MANUTENCAO.md)** (checklist e validação)
+
+---
+
+## 📖 DOCUMENTAÇÃO COMPLETA
+
+### 1. **CLAUDE.md** (Essencial para desenvolvedores)
+**O que contém:**
+- Visão geral do projeto
+- Arquitetura e estrutura do código
+- Como executar a aplicação
+- Comandos úteis
+- Tarefas comuns
+- Data validation & maintenance
+
+**Quando usar:**
+- Primeira coisa a ler para entender o projeto
+- Referência para desenvolvimento futuro
+- Guia de manutenção de dados
+
+---
+
+### 2. **README.md** (Original - Para usuários finais)
+**O que contém:**
+- Descrição da aplicação
+- Funcionalidades
+- Uso básico
+- Compatibilidade
+
+**Quando usar:**
+- Entender o que a aplicação faz
+- Como usar (não técnico)
+
+---
+
+### 3. **MANUAL-ASE.txt** (Original - Guia operacional)
+**O que contém:**
+- Explicação detalhada das ASE (códigos de comunicação)
+- ASE 337 (Suspensão de Direitos Políticos)
+- ASE 370 (Extinção de Impedimento)
+- ASE 540 (Ocorrência a Examinar em Inscrição)
+- Tabelas de datas
+- Exemplos práticos
+
+**Quando usar:**
+- Usuários operacionais (servidores TRE)
+- Entender quando usar cada ASE
+- Referência de datas e procedimentos
+
+---
+
+
+
+---
+
+### 5. **MANUTENCAO.md** (Novo - Consolidado)
+**O que contém:**
+- Validação de dados (100% conformidade TRE-SP)
+- Checklist trimestral de manutenção
+- Como atualizar dados
+- Leis e artigos suportados
+- Leis revogadas (histórico)
+- Próximos passos recomendados
+
+**Quando usar:**
+- Manutenção periódica
+- Validação de dados
+- Atualização de legislação
+
+---
+
+## ✅ CONSOLIDAÇÃO DE ARQUIVOS (23 de outubro de 2025)
+
+Os seguintes arquivos redundantes foram **eliminados** para manter a documentação limpa e organizada:
+
+| Arquivo | Razão | Consolidado em |
+|---------|-------|---|
+
+| RELATORIO_VALIDACAO_DADOS.md | Muito longo (300+ linhas) | MANUTENCAO.md |
+| relatorio-validacao-completo.md | Duplicado | MANUTENCAO.md |
+| relatorio-validacao-outras-leis.md | Duplicado | MANUTENCAO.md |
+| resumo-validacao.md | Duplicado | MANUTENCAO.md |
+| checklist-manutencao.md | Integrado | MANUTENCAO.md |
+
+**Resultado:** Documentação mais limpa e sem redundâncias. Acesso mais fácil aos documentos relevantes.
+
+---
+
+## 🗂️ ESTRUTURA RECOMENDADA
+
+```
+inelegis/
+│
+├── 📄 DOCUMENTACAO.md          ← VOCÊ ESTÁ AQUI (índice)
+│
+├── 🚀 CLAUDE.md                ← Guia técnico (leia primeiro)
+├── 📖 README.md                ← Descrição geral
+├── 📋 MANUAL-ASE.txt           ← Guia operacional
+│
+
+├── 🔧 MANUTENCAO.md            ← Validação e manutenção
+│
+├── 🧠 script.js                ← Código principal
+├── 📊 data.js                  ← Dados de inelegibilidade
+├── 🎨 styles.css               ← Estilos
+├── 📱 index.html               ← HTML
+│
+└── 📊 XML e PDFs (referência original TRE-SP)
+```
+
+---
+
+## 📚 COMO USAR ESTA DOCUMENTAÇÃO
+
+### Você é **desenvolvedor** novo no projeto?
+1. Leia: **CLAUDE.md** (arquitetura)
+2. Explore: **script.js** (código)
+
+4. Mantenha: **MANUTENCAO.md** (para updates)
+
+### Você é **usuario operacional** (servidor TRE)?
 1. Leia: **README.md** (visão geral)
 2. Consulte: **MANUAL-ASE.txt** (como usar ASE)
 
 
-### Você é **administrador** do sistema?
-1. Leia: **MANUTENCAO.md** (checklist)
-2. Consulte: **CLAUDE.md** (estrutura)
+# 📚 Documentação do Inelegis
 
+Bem-vindo à documentação oficial do projeto **Inelegis**.
+
+## 🚀 Guias Principais
+
+- **[Guia de Desenvolvimento](DEVELOPMENT.md)** (`docs/DEVELOPMENT.md`): Instruções para configurar o ambiente, rodar testes, linting e padrões de código.
+- **[Guia de Manutenção](MAINTENANCE.md)** (`docs/MAINTENANCE.md`): Procedimentos para atualização da base de dados (trimestral), validação de dados e deploy.
+- **[Referências Oficiais](references/)** (`docs/references/`): Documentos originais do TRE-SP e manuais ASE.
+
+## 📂 Estrutura da Documentação
+
+- `docs/`
+    - `DEVELOPMENT.md`: Guia para desenvolvedores (antigo CLAUDE.md).
+    - `MAINTENANCE.md`: Guia para mantenedores (antigo MANUTENCAO.md).
+    - `references/`: Arquivos PDF, XML e TXT de referência.
+    - `legacy/`: Documentos de versões anteriores ou relatórios de migração.
+
+## 🔗 Links Úteis
+
+- [Repositório GitHub](https://github.com/rkvasne/inelegis-app)
+- [Changelog](../CHANGELOG.md)
+
+---
+*Documentação atualizada em 30/11/2025 - v0.0.6*
 
 ### Você quer **corrigir um bug**?
 1. Busque em: **CHANGELOG.md** (se recente)
