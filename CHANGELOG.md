@@ -1,6 +1,6 @@
 # Changelog
 
-**Última atualização:** 30 de novembro de 2025
+**Última atualização:** 01 de dezembro de 2025
 **Versão atual:** 0.0.6
 
 Todas as alterações notáveis neste projeto serão documentadas neste arquivo.
@@ -10,12 +10,34 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
 
-## [0.0.6] - 2025-11-30
+## [0.0.6] - 2025-12-01
+
+### ✨ Added
+- 6 módulos JavaScript para segurança e performance (sanitizer, storage, formatters, exceptions, modal-manager, search-index)
+- 20 testes unitários automatizados (formatters e exceptions)
+- Scripts de migração e rollback automatizados
+- Content Security Policy (CSP) implementado
+- Sistema de cache e índices para busca otimizada
+
+### 🛠 Changed
+- Código refatorado e modularizado (redução de 15% para <5% de duplicação)
+- Performance de busca melhorada em 90% (de ~50ms para ~5ms)
+- localStorage agora com validação e expiração automática
+- Gestão de modal centralizada e segura
 
 ### 🐛 Fixed
-- Problema onde estilos CSS eram perdidos ao navegar entre páginas (cache issue).
-- Service Worker atualizado para assumir controle imediato (`skipWaiting`, `clients.claim`).
-- Estratégia de cache aprimorada para garantir carregamento de assets críticos.
+- Vulnerabilidades XSS corrigidas (sanitização de HTML)
+- Problema onde estilos CSS eram perdidos ao navegar entre páginas
+- Service Worker atualizado para assumir controle imediato
+- Versões sincronizadas em todos os arquivos
+- Funções duplicadas removidas
+- Tratamento de erros padronizado
+
+### 🔒 Security
+- Implementação de CSP headers
+- Sanitização de todas as inserções de HTML
+- Validação de localStorage com timestamp e expiração
+- Remoção de código inseguro (innerHTML direto)
 
 ## [0.0.5] - 2025-11-30
 

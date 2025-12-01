@@ -35,7 +35,7 @@ class TestRunner {
   }
 
   async runTests() {
-    this.log('Iniciando testes do Ineleg-App v0.0.2', 'info');
+    this.log('Iniciando testes do Inelegis v0.0.6', 'info');
 
     try {
       // 1. Testes de unidade

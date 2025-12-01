@@ -1,7 +1,7 @@
 # 🧩 Sistema de Componentes
 
 **Última atualização:** 01 de dezembro de 2025  
-**Versão:** 1.0
+**Versão:** 0.0.6
 
 Este documento explica o sistema de componentes implementado para evitar duplicação e corrupção de código HTML.
 
