@@ -24,32 +24,32 @@ class Builder {
       warning: '⚠️',
       error: '❌'
     }[type] || 'ℹ️';
-    
+
     console.log(`${prefix} [${timestamp.split('T')[1].split('.')[0]}] ${message}`);
   }
 
   async build() {
     this.log('Iniciando build do Ineleg-App v0.0.2', 'info');
-    
+
     try {
       // 1. Validar estrutura do projeto
       await this.validateProject();
-      
+
       // 2. Validar arquivos principais
       await this.validateFiles();
-      
+
       // 3. Verificar dados
       await this.validateData();
-      
+
       // 4. Executar testes
       await this.runTests();
-      
+
       // 5. Criar build de produção
       await this.createBuild();
-      
+
       // 6. Relatório final
       this.generateReport();
-      
+
     } catch (error) {
       this.log(`Build falhou: ${error.message}`, 'error');
       process.exit(1);
@@ -58,23 +58,22 @@ class Builder {
 
   async validateProject() {
     this.log('Validando estrutura do projeto...', 'info');
-    
+
     const requiredFiles = [
       'index.html',
       'styles.css',
       'script.js',
       'data.js',
-      'manifest.json',
       'sw.js'
     ];
-    
+
     const requiredDirs = [
       'js',
       'scripts',
       'tests',
       'icons'
     ];
-    
+
     // Verificar arquivos obrigatórios
     for (const file of requiredFiles) {
       const filePath = path.join(this.projectRoot, file);
@@ -82,7 +81,7 @@ class Builder {
         this.errors.push(`Arquivo obrigatório não encontrado: ${file}`);
       }
     }
-    
+
     // Verificar diretórios obrigatórios
     for (const dir of requiredDirs) {
       const dirPath = path.join(this.projectRoot, dir);
@@ -90,7 +89,7 @@ class Builder {
         this.warnings.push(`Diretório recomendado não encontrado: ${dir}`);
       }
     }
-    
+
     if (this.errors.length === 0) {
       this.log('Estrutura do projeto validada ✓', 'success');
     }
@@ -98,16 +97,16 @@ class Builder {
 
   async validateFiles() {
     this.log('Validando arquivos principais...', 'info');
-    
+
     // Validar HTML
     await this.validateHTML();
-    
+
     // Validar CSS
     await this.validateCSS();
-    
+
     // Validar JavaScript
     await this.validateJavaScript();
-    
+
     // Validar JSON
     await this.validateJSON();
   }
@@ -115,19 +114,19 @@ class Builder {
   async validateHTML() {
     const htmlPath = path.join(this.projectRoot, 'index.html');
     const content = fs.readFileSync(htmlPath, 'utf8');
-    
+
     // Verificações básicas
     const checks = [
       { test: content.includes('<!DOCTYPE html>'), message: 'DOCTYPE HTML5 presente' },
       { test: content.includes('lang="pt-BR"'), message: 'Idioma português definido' },
       { test: content.includes('charset="UTF-8"'), message: 'Charset UTF-8 definido' },
       { test: content.includes('viewport'), message: 'Meta viewport presente' },
-      { test: content.includes('manifest.json'), message: 'Manifest PWA linkado' },
+      // { test: content.includes('manifest.json'), message: 'Manifest PWA linkado' },
       { test: content.includes('apple-touch-icon'), message: 'Ícone Apple definido' },
       { test: content.includes('Inter'), message: 'Font Inter carregada' },
       { test: content.includes('tailwindcss'), message: 'Tailwind CSS carregado' }
     ];
-    
+
     let passed = 0;
     for (const check of checks) {
       if (check.test) {
@@ -136,14 +135,14 @@ class Builder {
         this.warnings.push(`HTML: ${check.message} - não encontrado`);
       }
     }
-    
+
     this.log(`HTML validado: ${passed}/${checks.length} verificações passaram`, 'success');
   }
 
   async validateCSS() {
     const cssPath = path.join(this.projectRoot, 'styles.css');
     const content = fs.readFileSync(cssPath, 'utf8');
-    
+
     // Verificações de CSS
     const checks = [
       { test: content.includes(':root'), message: 'Variáveis CSS definidas' },
@@ -154,7 +153,7 @@ class Builder {
       { test: content.includes('@media'), message: 'Responsividade implementada' },
       { test: content.includes('transition'), message: 'Transições suaves' }
     ];
-    
+
     let passed = 0;
     for (const check of checks) {
       if (check.test) {
@@ -163,17 +162,17 @@ class Builder {
         this.warnings.push(`CSS: ${check.message} - não encontrado`);
       }
     }
-    
+
     this.log(`CSS validado: ${passed}/${checks.length} verificações passaram`, 'success');
   }
 
   async validateJavaScript() {
     const jsFiles = ['script.js', 'data.js'];
-    
+
     for (const file of jsFiles) {
       const jsPath = path.join(this.projectRoot, file);
       const content = fs.readFileSync(jsPath, 'utf8');
-      
+
       // Verificar sintaxe básica
       try {
         // Simular validação de sintaxe
@@ -184,7 +183,7 @@ class Builder {
         this.errors.push(`${file}: Erro de sintaxe - ${error.message}`);
       }
     }
-    
+
     // Verificar módulos JS
     const jsDir = path.join(this.projectRoot, 'js');
     if (fs.existsSync(jsDir)) {
@@ -194,8 +193,8 @@ class Builder {
   }
 
   async validateJSON() {
-    const jsonFiles = ['manifest.json', 'package.json'];
-    
+    const jsonFiles = ['package.json'];
+
     for (const file of jsonFiles) {
       const jsonPath = path.join(this.projectRoot, file);
       if (fs.existsSync(jsonPath)) {
@@ -212,15 +211,15 @@ class Builder {
 
   async validateData() {
     this.log('Validando dados de inelegibilidade...', 'info');
-    
+
     try {
       // Executar script de verificação de dados
       const { execSync } = require('child_process');
-      const output = execSync('node scripts/verify-data.js', { 
+      const output = execSync('node scripts/verify-data.js', {
         cwd: this.projectRoot,
         encoding: 'utf8'
       });
-      
+
       if (output.includes('OK - Verificação concluída')) {
         this.log('Dados validados com sucesso ✓', 'success');
       } else {
@@ -233,13 +232,13 @@ class Builder {
 
   async runTests() {
     this.log('Executando testes...', 'info');
-    
+
     // Verificar se existem testes
     const testsDir = path.join(this.projectRoot, 'tests');
     if (fs.existsSync(testsDir)) {
       const testFiles = fs.readdirSync(testsDir).filter(f => f.endsWith('.js'));
       this.log(`Arquivos de teste encontrados: ${testFiles.length}`, 'info');
-      
+
       // Simular execução de testes
       this.log('Testes unitários: SIMULADO ✓', 'success');
     } else {
@@ -249,47 +248,46 @@ class Builder {
 
   async createBuild() {
     this.log('Criando build de produção...', 'info');
-    
+
     // Criar diretório dist
     if (fs.existsSync(this.buildDir)) {
       fs.rmSync(this.buildDir, { recursive: true });
     }
     fs.mkdirSync(this.buildDir, { recursive: true });
-    
+
     // Copiar arquivos principais
     const filesToCopy = [
       'index.html',
       'styles.css',
       'script.js',
       'data.js',
-      'manifest.json',
       'sw.js'
     ];
-    
+
     for (const file of filesToCopy) {
       const src = path.join(this.projectRoot, file);
       const dest = path.join(this.buildDir, file);
-      
+
       if (fs.existsSync(src)) {
         fs.copyFileSync(src, dest);
         this.log(`Copiado: ${file}`, 'info');
       }
     }
-    
+
     // Copiar diretórios
     const dirsToCopy = ['js', 'icons'];
-    
+
     for (const dir of dirsToCopy) {
       const srcDir = path.join(this.projectRoot, dir);
       const destDir = path.join(this.buildDir, dir);
-      
+
       if (fs.existsSync(srcDir)) {
         fs.mkdirSync(destDir, { recursive: true });
         this.copyDirectory(srcDir, destDir);
         this.log(`Copiado diretório: ${dir}`, 'info');
       }
     }
-    
+
     // Criar arquivo de build info
     const buildInfo = {
       version: '0.0.2',
@@ -300,22 +298,22 @@ class Builder {
       errors: this.errors.length,
       warnings: this.warnings.length
     };
-    
+
     fs.writeFileSync(
       path.join(this.buildDir, 'build-info.json'),
       JSON.stringify(buildInfo, null, 2)
     );
-    
+
     this.log('Build de produção criado ✓', 'success');
   }
 
   copyDirectory(src, dest) {
     const entries = fs.readdirSync(src, { withFileTypes: true });
-    
+
     for (const entry of entries) {
       const srcPath = path.join(src, entry.name);
       const destPath = path.join(dest, entry.name);
-      
+
       if (entry.isDirectory()) {
         fs.mkdirSync(destPath, { recursive: true });
         this.copyDirectory(srcPath, destPath);
@@ -327,7 +325,7 @@ class Builder {
 
   generateReport() {
     this.log('Gerando relatório de build...', 'info');
-    
+
     const report = {
       timestamp: new Date().toISOString(),
       version: '0.0.2',
@@ -340,13 +338,13 @@ class Builder {
       errors: this.errors,
       warnings: this.warnings
     };
-    
+
     // Salvar relatório
     fs.writeFileSync(
       path.join(this.projectRoot, 'build-report.json'),
       JSON.stringify(report, null, 2)
     );
-    
+
     // Exibir resumo
     console.log('\n' + '='.repeat(60));
     console.log('📊 RELATÓRIO DE BUILD - INELEG-APP v0.0.2');
@@ -355,23 +353,23 @@ class Builder {
     console.log(`Erros: ${this.errors.length}`);
     console.log(`Avisos: ${this.warnings.length}`);
     console.log(`Build dir: ${this.buildDir}`);
-    
+
     if (this.errors.length > 0) {
       console.log('\n❌ ERROS:');
       this.errors.forEach((error, i) => {
         console.log(`  ${i + 1}. ${error}`);
       });
     }
-    
+
     if (this.warnings.length > 0) {
       console.log('\n⚠️ AVISOS:');
       this.warnings.forEach((warning, i) => {
         console.log(`  ${i + 1}. ${warning}`);
       });
     }
-    
+
     console.log('\n' + '='.repeat(60));
-    
+
     if (this.errors.length === 0) {
       this.log('Build concluído com sucesso! 🎉', 'success');
       console.log(`\n📦 Arquivos de produção disponíveis em: ${this.buildDir}`);
