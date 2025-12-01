@@ -1197,6 +1197,7 @@ code {
 }
 
 .main-footer .footer-content {
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   display: grid;
