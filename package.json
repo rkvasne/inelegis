@@ -8,7 +8,7 @@
     "lint": "node scripts/lint.js",
     "test:coverage": "node scripts/test.js --coverage",
     "data:refresh": "node scripts/data-refresh.js",
-    "etl": "npm run data:refresh && node scripts/build-search-index.js",
+    "etl": "npm run data:refresh",
     "load:redis": "node scripts/redis-loader.js",
     "lint:fix": "node scripts/lint.js --fix",
     "test": "node scripts/test.js",
