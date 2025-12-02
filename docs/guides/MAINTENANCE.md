@@ -194,6 +194,16 @@ NÃO geram inelegibilidade:
 
 ---
 
+## 🧹 Rotina automática do Redis
+
+- **Objetivo:** manter o histórico de buscas dentro do limite de 30 dias e monitorar o consumo do plano gratuito (30 MB) da Vercel KV.
+- **Script local:** `npm run redis:maintain` (usa `scripts/redis-maintenance.js`). Exige `REDIS_URL` configurada e remove entradas com mais de 30 dias, limitando cada usuário a 100 itens.
+- **Endpoint serverless:** `GET/POST /api/redis-maintenance?token=SEU_CRON_SECRET`. Requer cabeçalho ou query `token` igual a `CRON_SECRET`. Ideal para ser acionado via **Vercel Cron** semanalmente (ex.: toda segunda 03:00 UTC).
+- **Métricas:** cada execução grava o snapshot em `history:metrics:weekly` no Redis (`weekId`, memória utilizada, chaves podadas e itens removidos). TTL padrão: 120 dias.
+- **Alertas sugeridos:** configurar notificação quando `usedMemoryBytes` ≥ 70% da cota ou quando `entriesRemoved` > 20% em duas semanas consecutivas (indicando crescimento acelerado).
+
+---
+
 ## 📞 Referência Rápida
 
 ### Adicionar uma Nova Lei

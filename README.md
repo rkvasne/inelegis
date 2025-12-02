@@ -17,10 +17,10 @@
     <a href="https://github.com/rkvasne/inelegis-app/issues">Solicitar Feature</a>
   </p>
 
-  [![Version](https://img.shields.io/badge/version-0.0.8-blue.svg?style=for-the-badge)](https://semver.org)
+  [![Version](https://img.shields.io/badge/version-0.0.9-blue.svg?style=for-the-badge)](https://semver.org)
   [![License](https://img.shields.io/badge/license-MIT-green.svg?style=for-the-badge)](LICENSE)
   [![Tests](https://img.shields.io/badge/tests-100%25-success.svg?style=for-the-badge)](tests/)
-  [![Theme](https://img.shields.io/badge/theme-validated-success.svg?style=for-the-badge)](docs/THEME-VALIDATOR.md)
+  [![Theme](https://img.shields.io/badge/theme-validated-success.svg?style=for-the-badge)](docs/design/THEME-VALIDATOR.md)
 
 </div>
 
@@ -96,31 +96,42 @@ Siga estes passos para rodar o projeto localmente.
 
 ```
 inelegis-app/
-├── 📁 js/              # Módulos JavaScript (v0.0.8)
-│   ├── sanitizer.js    # Prevenção XSS
-│   ├── storage.js      # localStorage seguro
-│   ├── formatters.js   # Formatação de artigos
-│   ├── exceptions.js   # Validação de exceções
-│   ├── modal-manager.js # Gestão de modal
-│   └── search-index.js # Busca otimizada
-├── 📁 tests/           # Testes automatizados
-│   ├── formatters.test.js
-│   └── exceptions.test.js
-├── 📁 docs/            # Documentação detalhada
-├── 📁 icons/           # Assets e ícones
-├── 📁 scripts/         # Scripts de build, deploy e automação
-├── 📄 index.html       # Página inicial (Dashboard)
-├── 📄 consulta.html    # Ferramenta de consulta principal
-├── 📄 sobre.html       # Informações sobre o projeto
-├── 📄 faq.html         # Perguntas frequentes
-├── 📄 script.js        # Lógica principal da aplicação
-├── 📄 styles.css       # Estilos globais e temas
-└── 📄 data.js          # Base de dados legislativa
+├── 📁 public/                  # Arquivos servidos e páginas HTML
+│   ├── 📁 assets/
+│   │   ├── 📁 images/          # Logos e ilustrações
+│   │   └── 📁 js/              # Saída sincronizada de src/js
+│   ├── 📁 styles/
+│   │   └── styles.css          # Estilos globais e tokens de tema
+│   ├── index.html              # Portal inicial / termos
+│   ├── consulta.html           # Ferramenta principal de pesquisa
+│   ├── faq.html
+│   ├── sobre.html
+│   ├── landing.html
+│   └── test-theme.html         # Playground do Theme Validator
+├── 📁 src/
+│   └── 📁 js/                   # Fontes JavaScript
+│       ├── script.js           # Lógica principal (fonte)
+│       ├── data.js             # Base legislativa em memória
+│       └── 📁 modules/         # Componentes especializados
+├── 📁 scripts/                 # Build, deploy, validações, sync
+├── 📁 docs/                    # Documentação completa
+├── 📁 tests/                   # Testes automatizados
+├── package.json
+└── README.md
 ```
+
+> **Nota:** os arquivos em `src/js` são sincronizados automaticamente para `public/assets/js` via `npm run sync:js` (executado por `npm run dev/build`). Sempre edite os fontes dentro de `src/`.
 
 ---
 
-## 🆕 Novidades v0.0.8
+## 🆕 Novidades v0.0.9
+
+- ✅ **Documentação reestruturada** – `docs/` agora possui as pastas `design/`, `guides/`, `operations/` e `history/` para navegação direta.
+- ✅ **Histórico unificado** – `history/refatoracao-v0.0.6.md` concentra plano, execução e lições; `RELEASE-NOTES-v0.0.9.md` descreve este patch.
+- ✅ **Referências atualizadas** – scripts, README e `.env.example` passam a apontar para os novos caminhos.
+- ✅ **Patch release** – `package.json` e os badges refletem a versão `0.0.9`.
+
+## Histórico de versões anteriores
 
 ### Identidade Visual e Design
 - ✅ **Favicon e Logo** - Identidade visual completa implementada
@@ -157,10 +168,10 @@ inelegis-app/
 A documentação completa está disponível na pasta [`docs/`](docs/).
 
 *   [📖 Índice da Documentação](docs/README.md)
-*   [🛠️ Guia de Desenvolvimento](docs/DEVELOPMENT.md)
-*   [🔧 Guia de Manutenção](docs/MAINTENANCE.md)
-*   [🔄 Plano de Refatoração](docs/REFACTORING-PLAN.md)
-*   [📘 Guia de Implementação](docs/IMPLEMENTATION-GUIDE.md)
+*   [🛠️ Guia de Desenvolvimento](docs/guides/DEVELOPMENT.md)
+*   [🔧 Guia de Manutenção](docs/guides/MAINTENANCE.md)
+*   [📝 Release Notes v0.0.9](docs/history/RELEASE-NOTES-v0.0.9.md)
+*   [📘 Histórico da Refatoração](docs/history/refatoracao-v0.0.6.md)
 
 ---
 
@@ -185,7 +196,7 @@ Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.
 ---
 
 **Última atualização:** 02 de dezembro de 2025  
-**Versão:** 0.0.8
+**Versão:** 0.0.9
 
 ---
 

@@ -2,64 +2,70 @@
 
 Bem-vindo à documentação oficial do projeto **Inelegis**.
 
-## 🚀 Guias Principais
+## 🚀 Navegação Rápida
 
-### 📖 Navegação
-- **[📚 Índice Completo](INDEX.md)** - Navegação completa e organizada de toda documentação
-- **[📝 Changelog da Documentação](CHANGELOG-DOCS.md)** - Histórico de mudanças na documentação
+### 📖 Índice e Histórico
+- **[📚 Índice Completo](INDEX.md)** – atalho direto para este README
+- **[📝 Changelog da Documentação](CHANGELOG-DOCS.md)** – histórico de edições
 
-### 🛠️ Desenvolvimento
-- **[Guia de Desenvolvimento](DEVELOPMENT.md)** - Arquitetura, módulos, testes e padrões de código
-- **[Guia de Proteção](PROTECTION.md)** - Edições seguras e prevenção de corrupção
+### 🛠️ Guias
+- **[Guia de Desenvolvimento](guides/DEVELOPMENT.md)** – arquitetura, módulos, testes e padrões
+- **[Guia de Manutenção](guides/MAINTENANCE.md)** – atualização de dados, validação e deploy
+- **[Variáveis de Ambiente](guides/VARIAVEIS-AMBIENTE.md)** – configuração completa
+- **[Setup Redis](guides/SETUP-REDIS.md)** – configuração consolidada do Redis
 
-### 🔧 Manutenção
-- **[Guia de Manutenção](MAINTENANCE.md)** - Atualização de dados, validação e deploy
+### ⚙️ Operações e Segurança
+- **[Analytics](operations/ANALYTICS.md)** – coleta, estrutura e monitoramento
+- **[Proteção](operations/PROTECTION.md)** – estratégias de edição segura e hardening
 
-### 🎨 Design e Temas
-- **[Theme Validator](THEME-VALIDATOR.md)** - Documentação completa do validador de temas
-- **[Componentes](COMPONENTS.md)** - Sistema de componentes reutilizáveis
-- **[Decisões de Design](DESIGN-DECISIONS.md)** - Arquitetura e padrões de design
+### 🎨 Design System
+- **[Componentes](design/COMPONENTS.md)** – catálogo dos componentes reutilizáveis
+- **[Decisões de Design](design/DESIGN-DECISIONS.md)** – porquês de cada escolha
+- **[Theme Validator](design/THEME-VALIDATOR.md)** – uso do validador de temas
 
-### 📊 Analytics e APIs
-- **[Analytics](ANALYTICS.md)** - Sistema de analytics e histórico
-- **[Setup Redis](SETUP-REDIS.md)** - Configuração do banco de dados
-- **[Variáveis de Ambiente](VARIAVEIS-AMBIENTE.md)** - Configuração de ambiente
-- **[API Endpoints](../api/README.md)** - Documentação das APIs
-
-### 🔄 Refatoração (Histórico)
-- **[Plano de Refatoração](REFACTORING-PLAN.md)** - Detalhes da refatoração v0.0.6
-- **[Guia de Implementação](IMPLEMENTATION-GUIDE.md)** - Como implementar as melhorias
+### 🗂️ Histórico e Release Notes
+- **[Refatoração v0.0.6](history/refatoracao-v0.0.6.md)** – contexto, plano e implementação
+- **[Release Notes v0.0.9](history/RELEASE-NOTES-v0.0.9.md)** – reorganização de documentação e atualização de paths
+- **[Release Notes v0.0.8](history/RELEASE-NOTES-v0.0.8.md)** – padronização completa de design
 
 ### 📁 Referências
-- **[Referências Oficiais](references/)** - Documentos originais do TRE-SP e manuais ASE
+- **[`references/`](references/)** – manual ASE, tabelas oficiais e anexos de domínio
+- **[Documentação das APIs](../api/README.md)** – endpoints disponíveis
+
+---
 
 ## 📂 Estrutura da Documentação
 
-- `docs/`
-    - `README.md`: Este índice
-    - `DEVELOPMENT.md`: Guia para desenvolvedores (arquitetura, módulos, testes)
-    - `MAINTENANCE.md`: Guia para mantenedores (atualização de dados, validação)
-    - `REFACTORING-PLAN.md`: Plano de refatoração v0.0.6 (histórico)
-    - `IMPLEMENTATION-GUIDE.md`: Guia de implementação (histórico)
-    - `PROTECTION.md`: Guia de proteção
-    - `references/`: Arquivos PDF, XML e Markdown de referência
-        - `manual-ase.md`: Manual formatado das ASEs
-        - `tabela-oficial.pdf`: Tabela original do TRE-SP
-        - `tabela-oficial.xml`: Dados originais em XML
-    - `legacy/`: Documentos de versões anteriores
-
-- `js/`: Módulos JavaScript (v0.0.6+)
-    - `README.md`: Documentação dos módulos
-    - `sanitizer.js`: Prevenção XSS
-    - `storage.js`: localStorage seguro
-    - `formatters.js`: Formatação de artigos
-    - `exceptions.js`: Validação de exceções
-    - `modal-manager.js`: Gestão de modal
-    - `search-index.js`: Busca otimizada
-
-- `tests/`: Testes automatizados
-    - `formatters.test.js`: Testes de formatação
-    - `exceptions.test.js`: Testes de exceções
+```
+docs/
+├── README.md                # Este índice
+├── INDEX.md                 # Alias apontando para o README
+├── CHANGELOG-DOCS.md        # Histórico de edições
+│
+├── design/                  # Sistema de design e temas
+│   ├── COMPONENTS.md
+│   ├── DESIGN-DECISIONS.md
+│   └── THEME-VALIDATOR.md
+│
+├── guides/                  # Guias de desenvolvimento e manutenção
+│   ├── DEVELOPMENT.md
+│   ├── MAINTENANCE.md
+│   ├── SETUP-REDIS.md
+│   └── VARIAVEIS-AMBIENTE.md
+│
+├── operations/              # Operações, segurança e analytics
+│   ├── ANALYTICS.md
+│   └── PROTECTION.md
+│
+├── history/                 # Releases e marcos do projeto
+│   ├── refatoracao-v0.0.6.md
+│   ├── RELEASE-NOTES-v0.0.9.md
+│   └── RELEASE-NOTES-v0.0.8.md
+│
+└── references/              # Materiais oficiais e anexos
+    ├── manual-ase.md
+    └── tabela-oficial.xml
+```
 
 ## 🔗 Links Úteis
 
@@ -67,14 +73,14 @@ Bem-vindo à documentação oficial do projeto **Inelegis**.
 - [Changelog](../CHANGELOG.md)
 - [Voltar para a Raiz](../README.md)
 
-## 🆕 Novidades v0.0.8
+## 🆕 Novidades v0.0.9
 
-- ✅ Sistema de Analytics com Redis (ioredis)
-- ✅ Histórico de buscas sincronizado com Redis
-- ✅ APIs: `/api/analytics`, `/api/dashboard`, `/api/search-history`
-- ✅ Documentação de APIs atualizada
+- ✅ Documentação reestruturada por domínio (`design/`, `guides/`, `operations/`, `history/`).
+- ✅ Histórico consolidado em `history/refatoracao-v0.0.6.md` e novas release notes para 0.0.9.
+- ✅ Referências internas e scripts atualizados para os novos caminhos.
+- ✅ Versão do projeto elevada para 0.0.9.
 
 ---
 
 **Última atualização:** 02 de dezembro de 2025  
-**Versão:** 0.0.8
+**Versão:** 0.0.9

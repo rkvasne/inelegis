@@ -11,13 +11,13 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 
 ## 💻 Visão Geral do Projeto
 
-**Inelegis** é uma aplicação de página única (SPA) **não oficial** para Consulta de Inelegibilidade Eleitoral. Ela auxilia servidores da Justiça Eleitoral a determinar se condenações criminais geram inelegibilidade com base na Lei Complementar nº 64/1990 (atualizada pela LC 135/2010).
+**Inelegis** é um conjunto de páginas estáticas integradas (index, consulta, sobre, faq, landing) **não oficial** para Consulta de Inelegibilidade Eleitoral. Ela auxilia servidores da Justiça Eleitoral a determinar se condenações criminais geram inelegibilidade com base na Lei Complementar nº 64/1990 (atualizada pela LC 135/2010).
 
 - **Desenvolvimento**: Criado por um servidor para uso por servidores.
 - **Fonte de Dados**: Dados oficiais do TRE-SP (Outubro 2024) revisados pela CRE-RO (02/06/2025).
 - **Status**: Ferramenta auxiliar não oficial.
 - **Tecnologia**: Vanilla JavaScript com sistema de build (sem dependências externas de runtime).
-- **Deploy**: Build com `node scripts/optimize.js` e deploy da pasta `dist/`.
+- **Deploy**: Build com `npm run build` (scripts/build.js) e deploy da pasta `dist/`.
 
 ---
 
@@ -26,7 +26,7 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 Como esta é uma aplicação frontend com sistema de build:
 
 - **Desenvolvimento**: Execute `npm run dev` (ou `node scripts/serve.js`) para o servidor local.
-- **Produção**: Execute `npm run build` (ou `node scripts/optimize.js`) para gerar a versão otimizada.
+- **Produção**: Execute `npm run build` (ou `node scripts/build.js`) para gerar a versão otimizada.
 - **Deploy**: O conteúdo da pasta `dist/` é o que deve ser publicado.
 
 ---
@@ -35,70 +35,71 @@ Como esta é uma aplicação frontend com sistema de build:
 
 ### Arquivos Principais
 
-**[index.html](../index.html)** - Estrutura HTML contendo:
+**[index.html](../public/index.html)** - Estrutura HTML contendo:
 - Formulário de busca com alternância de tipo de comunicação (Condenação/Extinção).
 - Dropdown de leis e campo de artigo.
 - Modal de exibição de resultados.
 - Painéis de informação e avisos legais.
 - Legenda explicando os tipos de resultado.
 
-**[script.js](../script.js)** - Lógica da aplicação organizada em grupos funcionais:
+**[script.js](../src/js/script.js)** - Lógica da aplicação organizada em grupos funcionais:
 1. **Lógica de Busca**: `realizarBusca()` - Núcleo da consulta (usa SearchIndex).
 2. **Gerenciamento de UI**: `exibirResultado()` - Exibição de resultados (usa ModalManager).
 3. **Sugestões**: `mostrarSugestoes()`, `obterSugestoesPorLei()` - Sugestões em tempo real.
 
 ### Módulos JavaScript (v0.0.7+)
 
-**[js/sanitizer.js](../js/sanitizer.js)** - Segurança:
+**[modules/sanitizer.js](../src/js/modules/sanitizer.js)** - Segurança:
 - `escapeHtml()` - Previne XSS
 - `safeInnerHTML()` - Inserção segura de HTML
 - `sanitizeAttributes()` - Remove atributos perigosos
 
-**[js/storage.js](../js/storage.js)** - Armazenamento:
+**[modules/storage.js](../src/js/modules/storage.js)** - Armazenamento:
 - `setItem()` - Salva com validação e expiração
 - `getItem()` - Recupera com validação
 - `cleanExpired()` - Limpeza automática
 
-**[js/formatters.js](../js/formatters.js)** - Formatação:
+**[modules/formatters.js](../src/js/modules/formatters.js)** - Formatação:
 - `formatar()` - Auto-correção (§1 → §1º, cc → c/c)
 - `processar()` - Parse de notação complexa
 - `extrairArtigos()` - Extração de números
 
-**[js/exceptions.js](../js/exceptions.js)** - Validação:
+**[modules/exceptions.js](../src/js/modules/exceptions.js)** - Validação:
 - `verificar()` - Verifica exceções aplicáveis
 - `filtrarPorArtigo()` - Filtra exceções relevantes
 
-**[js/modal-manager.js](../js/modal-manager.js)** - Interface:
+**[modules/modal-manager.js](../src/js/modules/modal-manager.js)** - Interface:
 - `open()` - Abre modal com conteúdo
 - `close()` - Fecha modal
 - `exportContent()` - Exporta resultado
 
-**[js/search-index.js](../js/search-index.js)** - Performance:
+**[modules/search-index.js](../src/js/modules/search-index.js)** - Performance:
 - `buscar()` - Busca otimizada com cache
 - `buildLeiIndex()` - Constrói índices
 - `clearCache()` - Limpa cache
 
-**[js/search-history.js](../js/search-history.js)** - Histórico (v0.0.7):
+**[modules/search-history.js](../src/js/modules/search-history.js)** - Histórico (v0.0.8):
 - `add()` - Adiciona consulta (com detecção de duplicatas)
 - `getRecent()` - Obtém consultas recentes
 - `getFrequent()` - Obtém consultas frequentes
 - `getStats()` - Estatísticas de uso
-- `clear()` - Limpa histórico
+- `clear()` / `remove()` - Intencionalmente desabilitados (logam um aviso e retornam `false`)
+- Persistência: histórico fica somente no Redis via `/api/search-history`; o front guarda apenas um `userId` em cookie (`inelegis_uid`) para correlacionar sessões, sem gravar dados de histórico no `localStorage`.
 
-**[js/history-ui.js](../js/history-ui.js)** - Interface do Histórico (v0.0.7):
+**[modules/history-ui.js](../src/js/modules/history-ui.js)** - Interface do Histórico (v0.0.7):
 - `init()` - Inicializa painel de histórico
 - `open()` - Abre painel lateral
 - `renderRecent()` - Renderiza consultas recentes
 - `renderStats()` - Renderiza estatísticas
 - `exportHistory()` - Exporta histórico
 
-**[js/theme-manager.js](../js/theme-manager.js)** - Gerenciamento de Tema (v0.0.7):
+**[modules/theme-manager.js](../src/js/modules/theme-manager.js)** - Gerenciamento de Tema (v0.0.7):
 - `init()` - Inicializa tema (detecta preferência do sistema)
 - `toggle()` - Alterna entre claro/escuro
 - `apply()` - Aplica tema específico
 - `getCurrent()` - Obtém tema atual
 
-**[js/components.js](../js/components.js)** - Componentes Reutilizáveis (v0.0.7):
+**[modules/components.js](../src/js/modules/components.js)** - Componentes Reutilizáveis (v0.0.7):
 - `init()` - Inicializa componentes na página
 - `renderHeader()` - Renderiza header com tema toggle
 - `renderNav()` - Renderiza navegação
@@ -108,15 +109,16 @@ Como esta é uma aplicação frontend com sistema de build:
 - `renderAlert()` - Renderiza alertas
 6. **Atalhos de Teclado**: Implementação de hotkeys (Ctrl+L, Ctrl+A, Ctrl+Enter, F1, Esc).
 
-**[data.js](../data.js)** - Configuração de dados:
+**[data.js](../src/js/data.js)** - Configuração de dados:
 1. **leisDisponiveis** - Array com mais de 40 códigos de leis.
-2. **tabelaInelegibilidade** - Objeto mestre mapeando artigos para regras de inelegibilidade:
-   - Flag booleana: gera inelegibilidade?
-   - Categoria do crime (1-10).
-   - Exceções que não geram inelegibilidade.
-   - Referências de código e observações.
+2. **tabelaInelegibilidade** - Array de objetos descrevendo cada ocorrência documentada na planilha do TRE-SP:
+  - `norma`: string com a referência textual (“Art. 121, § 2º…”)
+  - `excecoes`: lista de exceções em texto livre
+  - `crime`: categoria/observação exibida no modal
+  - `codigo`: identificador da lei usada para filtro
+  - `observacao` (opcional)
 
-**[styles.css](../styles.css)** - Sistema de design CSS profissional:
+**[styles.css](../public/styles/styles.css)** - Sistema de design CSS profissional:
 - Paleta de cores corporativa e tokens de design.
 - Layout responsivo com componentes modernos.
 - Efeitos de glassmorphism e animações.
@@ -124,16 +126,14 @@ Como esta é uma aplicação frontend com sistema de build:
 
 ### Exemplo de Estrutura de Dados
 
-Em `data.js`, a tabela de inelegibilidade segue este padrão:
+Em `data.js`, cada item de `tabelaInelegibilidade` segue este padrão:
 ```javascript
-tabelaInelegibilidade = {
-  "121": {
-    "gera_inelegibilidade": true,
-    "crime_categoria": 1,
-    "excecoes": [],
-    "codigo": "D"
-  },
-  // ... mais artigos
+{
+  norma: "Arts. 121, 121-A, 122, §1º a § 7º, 123 a 127",
+  excecoes: ["Art. 121, § 3º", "Art. 122, caput"],
+  crime: "Crimes contra a vida (9)",
+  codigo: "CP",
+  observacao: "campo opcional"
 }
 ```
 
@@ -147,7 +147,7 @@ A aplicação suporta notação de artigos jurídicos brasileiros:
 - Citações concorrentes: `121 c/c 312`
 - Combinado: `121, §2º, I, "a" c/c 312 c/c 213`
 
-Expressões regulares em `script.js` lidam com a extração e correspondência desses componentes.
+Expressões regulares em `src/js/script.js` lidam com a extração e correspondência desses componentes.
 
 ---
 
@@ -179,7 +179,7 @@ A entrada do usuário é formatada automaticamente para padrões legais:
 
 ## 🔧 Manutenção de Dados
 
-Os dados de inelegibilidade em `data.js` mapeiam diretamente para:
+Os dados de inelegibilidade em `src/js/data.js` mapeiam diretamente para:
 - Tabela oficial de inelegibilidade do TRE-SP.
 - Arquivos PDF e XML de referência na pasta `docs/references/`.
 
@@ -209,17 +209,17 @@ Os dados de inelegibilidade em `data.js` mapeiam diretamente para:
 
 ## 📝 Tarefas Comuns
 
-**Entender validação de artigos**: Veja `buscarInelegibilidadePorLeiEArtigo()` em `script.js` - faz o parse da notação e busca na tabela.
+**Entender validação de artigos**: Veja `buscarInelegibilidadePorLeiEArtigo()` em `src/js/script.js` - faz o parse da notação e busca na tabela (a migração completa para `SearchIndex.buscar()` ainda está em andamento).
 
-**Adicionar nova lei**: Adicione ao array `leisDisponiveis` em `data.js`, depois adicione entradas em `tabelaInelegibilidade`.
+**Adicionar nova lei**: Adicione ao array `leisDisponiveis` em `src/js/data.js`, depois adicione entradas em `tabelaInelegibilidade`.
 
-**Modificar exibição de resultado**: Edite `exibirResultado()` em `script.js` - controla o conteúdo e estilo do modal.
+**Modificar exibição de resultado**: Edite `exibirResultado()` em `src/js/script.js` - controla o conteúdo e estilo do modal.
 
-**Alterar atalhos**: Busque por `addEventListener('keydown'` em `script.js`.
+**Alterar atalhos**: Busque por `addEventListener('keydown'` em `src/js/script.js`.
 
-**Atualizar estilos**: Cores e layout estão em `styles.css`.
+**Atualizar estilos**: Cores e layout estão em `public/styles/styles.css`.
 
-**Atualizar tabela de inelegibilidade**: Edite o array `tabelaInelegibilidade` em `data.js`.
+**Atualizar tabela de inelegibilidade**: Edite o array `tabelaInelegibilidade` em `src/js/data.js`.
 
 
 ---
@@ -249,6 +249,8 @@ node scripts/validate-theme.js --only "**/*.css"
 # Modo verbose com detalhes
 node scripts/validate-theme.js --verbose --fix
 ```
+
+> ⚠️ **Observação**: O Theme Validator pode exibir o aviso "Arquivo principal CSS sem suporte a dark mode" para `public/styles/styles.css`. A aplicação trata o modo escuro via classe `dark-theme` aplicada pelo JavaScript, portanto a mensagem é apenas informativa e não exige alteração imediata.
 
 ### Categorias de Problemas Detectados
 

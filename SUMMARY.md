@@ -84,13 +84,13 @@ Taxa de sucesso: 100%
    - 4 novas verificações avançadas
    - Suporte a múltiplos frameworks
 
-2. **styles.css** (3.130 linhas)
+2. **public/styles/styles.css** (3.130 linhas)
    - 40+ novas variáveis CSS
    - Animações globais
    - Footer simplificado
    - 100% validado
 
-3. **js/components.js** (300 linhas)
+3. **src/js/modules/components.js** (300 linhas)
    - Footer redesenhado
    - Componentes reutilizáveis
    - Suporte a temas
@@ -99,13 +99,13 @@ Taxa de sucesso: 100%
    - Versão 0.0.8 documentada
    - Histórico completo
 
-5. **docs/DEVELOPMENT.md**
+5. **docs/guides/DEVELOPMENT.md**
    - Seção Theme Validator
    - Guias atualizados
 
 ### Arquivos Criados
 
-1. **docs/RELEASE-NOTES-v0.0.8.md**
+1. **docs/history/RELEASE-NOTES-v0.0.8.md**
    - Release notes completas
    - Guia de migração
 

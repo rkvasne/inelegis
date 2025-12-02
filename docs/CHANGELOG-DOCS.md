@@ -2,8 +2,50 @@
 
 ---
 
-**Última atualização:** 01 de dezembro de 2025  
-**Versão:** 0.0.6
+**Última atualização:** 02 de dezembro de 2025  
+**Versão:** 0.0.8
+
+---
+
+## 🗂️ Reorganização de 02/12/2025 (Noite)
+
+### 📁 Estrutura modular em `docs/`
+
+- ✅ Criadas as pastas `design/`, `guides/`, `operations/` e `history/` para separar contextos.
+- ✅ `docs/README.md` e `INDEX.md` atualizados com a nova navegação.
+- ✅ `history/RELEASE-NOTES-v0.0.9.md` criado e referenciado em todos os índices.
+- ✅ Referências relativas atualizadas (root README, scripts, módulos, etc.).
+
+### 📘 Histórico consolidado
+
+- ✅ `history/refatoracao-v0.0.6.md` passou a reunir plano, implementação e narrativas da refatoração.
+- ✅ `HISTORICO.md`, `REFACTORING-PLAN.md` e `IMPLEMENTATION-GUIDE.md` removidos (conteúdo absorvido).
+- ✅ `RELEASE-NOTES-v0.0.8.md` movido para `docs/history/` junto do novo arquivo canônico.
+
+### 🧭 Índices sincronizados
+
+- ✅ README raiz e `docs/README.md` apontam para os novos caminhos.
+- ✅ `CHANGELOG-DOCS.md` atualizado com esta entrada.
+
+---
+
+## 🔁 Consolidação de 02/12/2025
+
+### 📚 Refatoração dos Arquivos Históricos
+
+- ✅ **refatoracao-v0.0.6.md** (antigo REFATORACAO-HISTORICO.md) criado reunindo o plano, o guia de implementação e o histórico narrativo.
+- ✅ `REFACTORING-PLAN.md`, `IMPLEMENTATION-GUIDE.md` e `HISTORICO.md` removidos (conteúdo migrado).
+- ✅ Todos os links no repositório atualizados para o novo documento único.
+
+### 🧭 Índice Simplificado
+
+- ✅ `docs/INDEX.md` agora aponta diretamente para `docs/README.md`, evitando manutenção duplicada.
+- ✅ Referências à pasta `docs/legacy/` removidas (a pasta já não existe desde 01/12).
+
+### 📄 Ajustes Complementares
+
+- ✅ `docs/guides/DEVELOPMENT.md`, `design/COMPONENTS.md`, `operations/PROTECTION.md` e `docs/README.md` atualizados para refletir o estado real do código.
+- ✅ `CHANGELOG-DOCS.md` revisado com esta entrada e versão 0.0.8.
 
 ---
 
@@ -21,8 +63,8 @@
 - ✅ Todas as referências atualizadas em:
   - `docs/README.md`
   - `docs/INDEX.md`
-  - `docs/DEVELOPMENT.md`
-  - `docs/MAINTENANCE.md`
+  - `docs/guides/DEVELOPMENT.md`
+  - `docs/guides/MAINTENANCE.md`
 
 ---
 
@@ -36,7 +78,7 @@
 2. **resumo-validacao.txt** (7.5 KB) - Validação já documentada no MAINTENANCE.md
 3. **docs/legacy/** (pasta removida) - Vazia após remoção dos arquivos
 
-**Resultado:** Informação preservada em CHANGELOG.md, HISTORICO.md e MAINTENANCE.md
+**Resultado:** Informação preservada em CHANGELOG.md, history/refatoracao-v0.0.6.md e MAINTENANCE.md
 
 ---
 
@@ -105,7 +147,7 @@
 
 1. **README.md** - Visão geral da documentação
 2. **INDEX.md** - Índice centralizado
-3. **HISTORICO.md** - Evolução do projeto
+3. **history/refatoracao-v0.0.6.md** - Evolução do projeto
 4. **DEVELOPMENT.md** - Guia de desenvolvimento
 5. **MAINTENANCE.md** - Guia de manutenção
 6. **COMPONENTS.md** - Sistema de componentes
@@ -175,26 +217,32 @@ Antes eram 3 documentos separados:
 
 ```
 docs/
-├── README.md                    # Visão geral
-├── INDEX.md                     # Índice centralizado
-├── CHANGELOG-DOCS.md           # Este arquivo
+├── README.md                 # Índice principal
+├── INDEX.md                  # Alias apontando para o README
+├── CHANGELOG-DOCS.md         # Este arquivo
 │
-├── HISTORICO.md                # Evolução do projeto
+├── design/
+│   ├── COMPONENTS.md
+│   ├── DESIGN-DECISIONS.md
+│   └── THEME-VALIDATOR.md
 │
-├── DEVELOPMENT.md              # Desenvolvimento
-├── MAINTENANCE.md              # Manutenção
-├── COMPONENTS.md               # Componentes
-├── PROTECTION.md               # Segurança
+├── guides/
+│   ├── DEVELOPMENT.md
+│   ├── MAINTENANCE.md
+│   ├── SETUP-REDIS.md
+│   └── VARIAVEIS-AMBIENTE.md
 │
-├── REFACTORING-PLAN.md        # Refatoração
-├── IMPLEMENTATION-GUIDE.md    # Implementação
+├── operations/
+│   ├── ANALYTICS.md
+│   └── PROTECTION.md
 │
-├── ANALYTICS.md                # Analytics
-├── SETUP-REDIS.md             # Redis (consolidado)
-├── VARIAVEIS-AMBIENTE.md      # Variáveis
+├── history/
+│   ├── refatoracao-v0.0.6.md
+│   └── RELEASE-NOTES-v0.0.8.md
 │
-├── legacy/                     # Histórico
-└── references/                 # Referências oficiais
+└── references/
+  ├── manual-ase.md
+  └── tabela-oficial.xml
 ```
 
 ---
@@ -227,7 +275,7 @@ docs/
 → **MAINTENANCE.md** + **PROTECTION.md**
 
 ### Histórico e Contexto
-→ **HISTORICO.md** + **REFACTORING-PLAN.md**
+→ **history/refatoracao-v0.0.6.md**
 
 ### Analytics
 → **ANALYTICS.md** + **SETUP-REDIS.md**

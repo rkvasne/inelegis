@@ -1,6 +1,6 @@
 {
   "name": "inelegis",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Sistema de Consulta de Inelegibilidade Eleitoral",
   "main": "index.html",
   "scripts": {
@@ -14,7 +14,8 @@
     "test:all": "npm run test:unit && npm run test:theme && npm run test:components && npm run test",
     "validate": "node scripts/verify-data.js",
     "backup": "node scripts/backup-data.js create",
-    "serve": "node scripts/serve.js",
+    "sync:js": "node scripts/sync-js.js",
+    "serve": "npm run sync:js && node scripts/serve.js",
     "dev": "npm run serve",
     "check": "npm run lint && npm run validate && npm run test",
     "optimize": "node scripts/optimize.js",
@@ -36,7 +37,8 @@
     "size": "node -e \"const fs=require('fs'); const path=require('path'); const getSize=d=>fs.readdirSync(d).reduce((s,f)=>{const p=path.join(d,f); return s+(fs.statSync(p).isDirectory()?getSize(p):fs.statSync(p).size)},0); console.log('Tamanho do projeto:', Math.round(getSize('.')/1024)+'KB');\"",
     "validate:theme": "node scripts/validate-theme.js",
     "validate:theme:fix": "node scripts/validate-theme.js --fix",
-    "validate:theme:strict": "node scripts/validate-theme.js --strict"
+    "validate:theme:strict": "node scripts/validate-theme.js --strict",
+    "redis:maintain": "node scripts/redis-maintenance.js"
   },
   "keywords": [
     "inelegibilidade",

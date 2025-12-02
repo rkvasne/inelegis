@@ -2,7 +2,7 @@
 
 ---
 
-**Versão:** 0.0.7  
+**Versão:** 0.0.9  
 **Data:** 02 de dezembro de 2025
 
 ---
@@ -44,6 +44,54 @@ Ambiente de execução.
 
 ```bash
 NODE_ENV=development  # ou production
+```
+
+### CRON_SECRET (recomendado em produção)
+
+Protege o endpoint `/api/redis-maintenance`. Obrigatório se a rotina for exposta publicamente.
+
+```bash
+CRON_SECRET="token_super_secreto"
+```
+
+### REDIS_RETENTION_DAYS (opcional)
+
+Número de dias mantidos em cada lista `history:*`. Usado pela rotina automática (`scripts/redis-maintenance.js`).
+
+```bash
+REDIS_RETENTION_DAYS=30
+```
+
+### REDIS_MAX_HISTORY (opcional)
+
+Limite de entradas por usuário tanto na API quanto no job de limpeza.
+
+```bash
+REDIS_MAX_HISTORY=100
+```
+
+### REDIS_HISTORY_TTL (opcional)
+
+TTL aplicado às listas (segundos). Padrão: 31.536.000s (~365 dias).
+
+```bash
+REDIS_HISTORY_TTL=31536000
+```
+
+### REDIS_METRICS_TTL_DAYS (opcional)
+
+Tempo (em dias) que o hash `history:metrics:weekly` permanece no Redis.
+
+```bash
+REDIS_METRICS_TTL_DAYS=120
+```
+
+### REDIS_WEEKLY_METRICS_KEY (opcional)
+
+Nome do hash onde os snapshots semanais são registrados.
+
+```bash
+REDIS_WEEKLY_METRICS_KEY="history:metrics:weekly"
 ```
 
 ---

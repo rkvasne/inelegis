@@ -310,9 +310,9 @@ Taxa de sucesso: 100%
 
 ## 📚 Documentação Atualizada
 
-- `docs/DEVELOPMENT.md` - Seção completa sobre Theme Validator
-- `docs/COMPONENTS.md` - Documentação de componentes
-- `docs/DESIGN-DECISIONS.md` - Decisões de design
+- `docs/guides/DEVELOPMENT.md` - Seção completa sobre Theme Validator
+- `docs/design/COMPONENTS.md` - Documentação de componentes
+- `docs/design/DESIGN-DECISIONS.md` - Decisões de design
 - `CHANGELOG.md` - Histórico completo de mudanças
 
 ---

@@ -29,9 +29,6 @@ O sistema de componentes foi criado para:
     <!-- Header será renderizado aqui -->
     <div id="header-placeholder"></div>
 
-    <!-- Navegação será renderizada aqui -->
-    <div id="nav-placeholder"></div>
-
     <!-- Seu conteúdo aqui -->
     <main>...</main>
 
@@ -54,6 +51,8 @@ O sistema de componentes foi criado para:
 // Opções: 'index', 'consulta', 'sobre', 'faq'
 Components.init('consulta');
 ```
+
+> **Nota:** A navegação principal é renderizada dentro do próprio header.
 
 ---
 
@@ -88,35 +87,7 @@ const header = Components.renderHeader('consulta');
 
 ---
 
-### 2. Navegação
-
-Renderiza a barra de navegação com links para todas as páginas.
-
-**Uso:**
-```javascript
-const nav = Components.renderNav(currentPage);
-```
-
-**Parâmetros:**
-- `currentPage` (string, opcional): ID da página atual para destacar
-
-**Retorna:** String HTML
-
-**Exemplo:**
-```javascript
-const nav = Components.renderNav('sobre');
-// Renderiza navegação com "Sobre" destacado
-```
-
-**Páginas disponíveis:**
-- `index` - Página inicial
-- `consulta` - Sistema de consulta
-- `sobre` - Informações sobre o sistema
-- `faq` - Perguntas frequentes
-
----
-
-### 3. Footer
+### 2. Footer
 
 Renderiza o rodapé com informações de copyright e links úteis.
 
@@ -142,7 +113,7 @@ const footer = Components.renderFooter();
 
 ---
 
-### 4. Card
+### 3. Card
 
 Renderiza um card customizável com título, subtítulo e conteúdo.
 
@@ -172,7 +143,7 @@ const card = Components.renderCard({
 
 ---
 
-### 5. Button
+### 4. Button
 
 Renderiza um botão customizável com diferentes tipos e estados.
 
@@ -209,7 +180,7 @@ const button = Components.renderButton({
 
 ---
 
-### 6. Alert
+### 5. Alert
 
 Renderiza um alerta com diferentes tipos e mensagens.
 
@@ -323,6 +294,8 @@ Todos os componentes possuem testes automatizados que verificam:
 
 ## 📝 Exemplos Práticos
 
+> 💡 Carregue `js/theme-bootstrap.js` no `<head>` para aplicar o tema antes do primeiro paint. Se a página exigir confirmação dos termos, também inclua `js/terms-gate.js` logo após o bootstrap.
+
 ### Página Completa
 
 ```html
@@ -331,19 +304,10 @@ Todos os componentes possuem testes automatizados que verificam:
 <head>
     <meta charset="UTF-8">
     <title>Minha Página | Inelegis</title>
-    <link rel="stylesheet" href="styles.css">
-    
-    <!-- Inicializar tema -->
-    <script>
-        (function() {
-            const savedTheme = localStorage.getItem('inelegis_theme');
-            const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-            const theme = savedTheme || systemTheme;
-            if (theme === 'dark') {
-                document.documentElement.classList.add('dark-theme');
-            }
-        })();
-    </script>
+    <link rel="stylesheet" href="/styles/styles.css">
+    <script src="js/theme-bootstrap.js"></script>
+    <!-- Opcional: restringe acesso caso os termos não tenham sido aceitos -->
+    <script src="js/terms-gate.js"></script>
 </head>
 <body>
     <div id="header-placeholder"></div>
