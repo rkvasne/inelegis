@@ -2388,6 +2388,9 @@ code {
   font-weight: 600;
   color: var(--text-primary);
   margin-bottom: var(--space-6);
+  max-width: 768px; /* Mesma largura dos cards */
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .faq-section-icon {
@@ -2411,6 +2414,7 @@ code {
   overflow: hidden;
   background: var(--bg-primary);
   max-width: 768px; /* Cards mantêm largura menor para leitura */
+  margin: 0 auto; /* Centraliza os cards */
 }
 
 .faq-item {
