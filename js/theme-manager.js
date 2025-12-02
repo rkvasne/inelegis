@@ -86,6 +86,9 @@ const ThemeManager = (() => {
         
         // Atualizar logo conforme tema
         updateLogo(theme);
+        
+        // Atualizar favicon conforme tema
+        updateFavicon(theme);
     }
 
     /**
@@ -131,6 +134,22 @@ const ThemeManager = (() => {
         // logo-claro.png = escudo claro (para fundo escuro)
         const logoSrc = theme === THEME_DARK ? 'logo-claro.png' : 'logo-dark.png';
         logo.src = logoSrc;
+    }
+
+    /**
+     * Atualiza o favicon conforme o tema
+     * @param {string} theme - Tema atual
+     */
+    function updateFavicon(theme) {
+        const favicon = document.querySelector('link[rel="icon"]');
+        const shortcutIcon = document.querySelector('link[rel="shortcut icon"]');
+        
+        // logo-dark.ico = escudo escuro (para tema claro)
+        // logo-claro.ico = escudo claro (para tema escuro)
+        const faviconSrc = theme === THEME_DARK ? 'logo-claro.ico' : 'logo-dark.ico';
+        
+        if (favicon) favicon.href = faviconSrc;
+        if (shortcutIcon) shortcutIcon.href = faviconSrc;
     }
 
     /**
