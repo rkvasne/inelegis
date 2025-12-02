@@ -1,61 +1,18 @@
-feat: v0.0.8 - Padronização completa de design e Theme Validator Pro
+feat: Adicionar favicon e logo ao projeto
 
-🎨 Theme Validator Pro v3.1.0
-- Script completo de validação de temas (900 linhas)
-- Detecta 23+ categorias de problemas
-- Suporte a 9+ frameworks CSS (Tailwind, Material, Bootstrap, etc.)
-- Novas verificações: componentes críticos, gradientes, contraste, variáveis não usadas
-- Saída JSON para CI/CD
-- 100% funcional e testado
+- Adicionar referências ao favicon.ico em todos os HTMLs (index, landing, consulta, sobre, faq)
+- Substituir ícone SVG do header por logo.png no components.js
+- Garantir consistência visual em todas as páginas
+- Melhorar identidade visual do sistema
 
-🎨 Padronização Completa de Design
-- Corrigidas 109 cores hardcoded
-- 40+ novas variáveis CSS semânticas
-- Header adapta ao tema (não é mais sempre azul)
-- Footer adapta ao tema (melhor contraste)
-- Nav-link ativo com contraste adequado no dark mode
-- Sistema de cores totalmente padronizado
+Arquivos modificados:
+- index.html: Adicionar tags de favicon
+- landing.html: Adicionar tags de favicon
+- consulta.html: Adicionar tags de favicon
+- sobre.html: Adicionar tags de favicon
+- faq.html: Adicionar tags de favicon
+- js/components.js: Substituir SVG por logo.png no header
+- favicon.ico: Arquivo de ícone do site
+- logo.png: Logo do sistema
 
-📦 Footer Simplificado
-- Redução de 50% na altura
-- Layout horizontal compacto
-- Apenas 4 links essenciais
-- Versão exibida como badge
-- Melhor UX em mobile
-
-🎬 Animações Globais
-- 10+ classes de animação (fadeIn, slideIn, scaleIn)
-- Scroll animations com Intersection Observer
-- Hover effects padronizados (lift, scale, glow)
-- Performance otimizada com GPU
-
-🐛 Correções
-- Corrigida cor RGB em hover-glow
-- Corrigida opacidade hardcoded em footer-link
-- Adicionados comentários em variáveis reservadas
-- Removida redundância de footers
-
-📚 Documentação
-- docs/RELEASE-NOTES-v0.0.8.md criado
-- docs/DEVELOPMENT.md atualizado com Theme Validator
-- SUMMARY.md com resumo executivo
-- CHANGELOG.md completo
-
-✅ Validação
-- 0 erros
-- 0 warnings
-- 1 info (variáveis reservadas - OK)
-- 100% dos testes passando (55 testes)
-- 100% compatível com modo escuro
-
-📊 Estatísticas
-- 41 arquivos verificados
-- 13.938 linhas analisadas
-- Tempo de validação: ~1.7s
-- Taxa de sucesso: 100%
-
-BREAKING CHANGES: Nenhuma
-
-Closes #padronizacao-design
-Closes #theme-validator
-Closes #footer-simplificado
+Versão: 0.0.8
