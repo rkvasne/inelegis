@@ -2251,6 +2251,10 @@ code {
 .faq-categories {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 var(--space-4);
   gap: var(--space-4);
   margin-bottom: var(--space-10);
 }
@@ -2302,6 +2306,10 @@ code {
 .faq-section {
   margin-bottom: var(--space-10);
   scroll-margin-top: 100px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 var(--space-4);
 }
 
 .faq-section-title {
@@ -2344,7 +2352,7 @@ code {
 }
 
 .faq-question {
-  padding: var(--space-4);
+  padding: var(--space-5) var(--space-6);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -2386,7 +2394,7 @@ code {
 }
 
 .faq-answer-content {
-  padding: var(--space-4);
+  padding: var(--space-5) var(--space-6);
   color: var(--text-secondary);
   line-height: 1.6;
 }
@@ -2418,7 +2426,10 @@ code {
 /* CTA Final */
 .faq-cta {
   text-align: center;
-  padding: var(--space-10) var(--space-4);
+  padding: var(--space-10) var(--space-6);
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
   background: var(--bg-secondary);
   border-radius: var(--radius-xl);
   margin-top: var(--space-12);
