@@ -22,6 +22,11 @@
             const savedTheme = localStorage.getItem('inelegis_theme');
             const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
             const theme = savedTheme || systemTheme;
+            
+            // Sempre remover primeiro para garantir estado limpo
+            document.documentElement.classList.remove('dark-theme');
+            
+            // Adicionar apenas se for dark
             if (theme === 'dark') {
                 document.documentElement.classList.add('dark-theme');
             }
