@@ -326,19 +326,18 @@ code {
    LAYOUT SYSTEM - Inspirado em Kiro/Cursor/Windsurf
    ======================================== */
 
-/* Container Principal */
+/* Container Principal - Largura padrão 960px para todas as páginas */
 .container {
-  max-width: 1200px;
+  max-width: 960px;
   margin: 0 auto;
   padding: 0 var(--space-4);
 }
 
-/* Container para Conteúdo de Leitura (Sobre, FAQ, Index) */
+/* Modificadores de largura (mantidos para compatibilidade) */
 .container--narrow {
   max-width: 960px;
 }
 
-/* Container para Ferramentas (Consulta) */
 .container--wide {
   max-width: 960px;
 }
