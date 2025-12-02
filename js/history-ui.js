@@ -64,12 +64,6 @@ const HistoryUI = (() => {
                     </svg>
                     Exportar
                 </button>
-                <button id="clearHistory" class="btn-danger">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
-                    Limpar
-                </button>
             </div>
         `;
 
@@ -93,9 +87,6 @@ const HistoryUI = (() => {
 
         // Exportar
         document.getElementById('exportHistory')?.addEventListener('click', exportHistory);
-
-        // Limpar
-        document.getElementById('clearHistory')?.addEventListener('click', clearHistory);
 
         // Fechar com ESC
         document.addEventListener('keydown', (e) => {
@@ -213,22 +204,12 @@ const HistoryUI = (() => {
                         <span class="history-resultado">${search.resultado.toUpperCase()}</span>
                         <span class="history-date">${date.toLocaleString('pt-BR')}</span>
                     </div>
-                    <button class="history-remove" data-index="${index}" aria-label="Remover">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M6 18L18 6M6 6l12 12" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                    </button>
+
                 </div>
             `;
         }).join('');
 
-        // Adicionar listeners para remover
-        container.querySelectorAll('.history-remove').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const index = parseInt(e.currentTarget.dataset.index);
-                removeItem(index);
-            });
-        });
+
     }
 
     /**
@@ -311,17 +292,6 @@ const HistoryUI = (() => {
     }
 
     /**
-     * Remove um item do histórico
-     * @param {number} index - Índice do item
-     */
-    function removeItem(index) {
-        if (confirm('Deseja remover esta consulta do histórico?')) {
-            SearchHistory.remove(index);
-            renderView(currentView);
-        }
-    }
-
-    /**
      * Exporta o histórico
      */
     function exportHistory() {
@@ -333,16 +303,6 @@ const HistoryUI = (() => {
             console.error('Erro ao copiar:', err);
             alert('Erro ao copiar histórico.');
         });
-    }
-
-    /**
-     * Limpa todo o histórico
-     */
-    function clearHistory() {
-        if (confirm('Deseja limpar todo o histórico? Esta ação não pode ser desfeita.')) {
-            SearchHistory.clear();
-            renderView(currentView);
-        }
     }
 
     /**
