@@ -310,25 +310,37 @@ code {
   border: 1px solid var(--border-color);
 }
 
-/* Layout Principal */
+/* ========================================
+   LAYOUT SYSTEM - Inspirado em Kiro/Cursor/Windsurf
+   ======================================== */
+
+/* Container Principal */
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 var(--space-4);
 }
 
-/* Container de Conteúdo - Padrão Stripe/Linear */
-.content-container {
+/* Container para Conteúdo de Leitura (Sobre, FAQ, Index) */
+.container--narrow {
   max-width: 768px;
-  margin: 0 auto;
-  padding: 0 var(--space-6);
 }
 
-/* Cards com largura limitada */
-.container .card {
+/* Container para Ferramentas (Consulta) */
+.container--wide {
+  max-width: 960px;
+}
+
+/* Cards com largura limitada em páginas de leitura */
+.container:not(.container--wide) .card {
   max-width: 768px;
   margin-left: auto;
   margin-right: auto;
+}
+
+/* Cards em páginas de ferramenta - largura total */
+.container--wide .card {
+  max-width: 100%;
 }
 
 /* Header Corporativo */
@@ -341,16 +353,7 @@ code {
   overflow: hidden;
 }
 
-.system-header::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-  opacity: var(--opacity-subtle);
-}
+/* Removido pattern de grid para visual mais limpo */
 
 .header-content {
   position: relative;
@@ -484,55 +487,61 @@ code {
   50% { opacity: 0.5; }
 }
 
-/* Navegação */
+/* Navegação - Estilo Kiro/Cursor */
 .nav {
   background: var(--bg-primary);
   border-bottom: 1px solid var(--border-color);
-  padding: var(--space-3) 0;
-  transition: background-color var(--transition-normal);
+  padding: var(--space-2) 0;
   position: sticky;
   top: 0;
   z-index: 100;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .nav-content {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .nav-links {
   display: flex;
   align-items: center;
-  gap: var(--space-4);
+  gap: var(--space-1);
 }
 
 .nav-link {
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  padding: var(--space-2) var(--space-3);
-  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-lg);
   text-decoration: none;
   color: var(--text-secondary);
   font-weight: 500;
   font-size: 0.875rem;
-  transition: var(--transition-fast);
-  border: 1px solid transparent;
+  transition: all 0.15s ease;
 }
 
 .nav-link:hover {
   background: var(--bg-secondary);
   color: var(--text-primary);
-  border-color: var(--border-color);
 }
 
 .nav-link.active {
   background: var(--nav-active-bg);
   color: var(--nav-active-text);
-  border-color: var(--primary-200);
   font-weight: 600;
+}
+
+.nav-link svg {
+  opacity: 0.7;
+}
+
+.nav-link:hover svg,
+.nav-link.active svg {
+  opacity: 1;
 }
 
 /* Cards - Estilo Limpo e Moderno */
