@@ -40,7 +40,7 @@ const Components = (() => {
                             <img src="logo.png" alt="Inelegis Logo" width="32" height="32" style="border-radius: 4px;">
                         </div>
                         <div class="brand-text">
-                            <h1>Inelegis</h1>
+                            <h1>Inelegis <span class="version-badge">v0.0.7</span></h1>
                             <p>Consulta de Inelegibilidade Eleitoral</p>
                         </div>
                     </div>
@@ -60,13 +60,6 @@ const Components = (() => {
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
                             </svg>
                         </button>
-                        <div class="header-status">
-                            <div class="version">v0.0.7</div>
-                            <div class="status" role="status" aria-live="polite">
-                                <div class="status-dot" aria-hidden="true"></div>
-                                <span>Ativo</span>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </header>
