@@ -4,17 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teste de Tema</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: var(--font-sans);
             padding: 2rem;
-            background: white;
-            color: black;
-        }
-        
-        .dark-theme body {
-            background: #0f172a;
-            color: white;
+            background: var(--bg-primary);
+            color: var(--text-primary);
         }
         
         button {
@@ -27,12 +23,8 @@
         .info {
             margin-top: 2rem;
             padding: 1rem;
-            background: #f0f0f0;
+            background: var(--bg-tertiary);
             border-radius: 8px;
-        }
-        
-        .dark-theme .info {
-            background: #1e293b;
         }
     </style>
 </head>
