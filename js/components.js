@@ -6,49 +6,10 @@
 
 const Components = (() => {
     /**
-     * Renderiza o header do sistema
+     * Renderiza o header do sistema com menu integrado
      * @param {string} currentPage - Página atual para destacar no menu
      */
     function renderHeader(currentPage = '') {
-        return `
-            <header class="system-header">
-                <div class="container">
-                    <div class="header-content">
-                        <div class="system-brand">
-                            <div class="brand-icon">
-                                <img src="logo.png" alt="Inelegis Logo" width="32" height="32" style="border-radius: 4px;">
-                            </div>
-                            <div class="brand-text">
-                                <h1>Inelegis</h1>
-                                <p>Consulta de Inelegibilidade Eleitoral</p>
-                            </div>
-                        </div>
-                        <div class="system-info">
-                            <button id="themeToggle" class="theme-toggle" aria-label="Alternar tema">
-                                <svg class="sun-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                                </svg>
-                                <svg class="moon-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
-                                </svg>
-                            </button>
-                            <div class="version">v0.0.7</div>
-                            <div class="status" role="status" aria-live="polite">
-                                <div class="status-dot" aria-hidden="true"></div>
-                                Sistema Ativo
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </header>
-        `;
-    }
-
-    /**
-     * Renderiza a navegação
-     * @param {string} currentPage - Página atual para destacar
-     */
-    function renderNav(currentPage = '') {
         const pages = [
             { id: 'index', href: './', label: 'Início', icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
             { id: 'consulta', href: 'consulta', label: 'Consulta', icon: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z' },
@@ -62,27 +23,57 @@ const Components = (() => {
             const ariaCurrent = isActive ? ' aria-current="page"' : '';
             
             return `
-                <a href="${page.href}" class="nav-link${activeClass}"${ariaCurrent}>
+                <a href="${page.href}" class="header-nav-link${activeClass}"${ariaCurrent}>
                     <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${page.icon}"></path>
                     </svg>
-                    ${page.label}
+                    <span>${page.label}</span>
                 </a>
             `;
         }).join('');
 
         return `
-            <nav class="nav" role="navigation" aria-label="Navegação principal">
-                <div class="container">
-                    <div class="nav-content">
-                        <div class="nav-links">
+            <header class="system-header">
+                <div class="header-wrapper">
+                    <div class="system-brand">
+                        <div class="brand-icon">
+                            <img src="logo.png" alt="Inelegis Logo" width="32" height="32" style="border-radius: 4px;">
+                        </div>
+                        <div class="brand-text">
+                            <h1>Inelegis</h1>
+                            <p>Consulta de Inelegibilidade Eleitoral</p>
+                        </div>
+                    </div>
+                    
+                    <nav class="header-nav" role="navigation" aria-label="Navegação principal">
+                        <div class="header-nav-links">
                             ${navLinks}
+                        </div>
+                    </nav>
+                    
+                    <div class="header-actions">
+                        <button id="themeToggle" class="theme-toggle" aria-label="Alternar tema">
+                            <svg class="sun-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                            </svg>
+                            <svg class="moon-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                            </svg>
+                        </button>
+                        <div class="header-status">
+                            <div class="version">v0.0.7</div>
+                            <div class="status" role="status" aria-live="polite">
+                                <div class="status-dot" aria-hidden="true"></div>
+                                <span>Ativo</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </nav>
+            </header>
         `;
     }
+
+
 
     /**
      * Renderiza o footer
@@ -209,12 +200,6 @@ const Components = (() => {
             headerPlaceholder.outerHTML = renderHeader(currentPage);
         }
 
-        // Renderizar nav se houver placeholder
-        const navPlaceholder = document.getElementById('nav-placeholder');
-        if (navPlaceholder) {
-            navPlaceholder.outerHTML = renderNav(currentPage);
-        }
-
         // Renderizar footer se houver placeholder
         const footerPlaceholder = document.getElementById('footer-placeholder');
         if (footerPlaceholder) {
@@ -231,7 +216,6 @@ const Components = (() => {
     return {
         init,
         renderHeader,
-        renderNav,
         renderFooter,
         renderCard,
         renderButton,

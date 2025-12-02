@@ -348,14 +348,15 @@ code {
   max-width: 100%;
 }
 
-/* Header - Verde Fresh */
+/* Header - Verde Fresh com Menu Integrado */
 .system-header {
   background: linear-gradient(135deg, var(--primary-500) 0%, var(--primary-600) 50%, var(--primary-700) 100%);
   color: var(--text-on-primary);
-  padding: var(--space-4) 0;
+  padding: var(--space-4) var(--space-6);
   box-shadow: 0 4px 20px var(--primary-200);
-  position: relative;
-  overflow: hidden;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .dark-theme .system-header {
@@ -375,12 +376,15 @@ code {
   pointer-events: none;
 }
 
-.header-content {
+.header-wrapper {
   position: relative;
   z-index: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: var(--space-6);
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .system-brand {
@@ -428,10 +432,68 @@ code {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-.system-info {
+/* Menu de Navegação no Header */
+.header-nav {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.header-nav-links {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: var(--space-2);
+}
+
+.header-nav-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.5rem var(--space-3);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  color: var(--text-on-primary);
+  font-weight: 500;
+  font-size: 0.9375rem;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.header-nav-link:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+.header-nav-link.active {
+  background: rgba(255, 255, 255, 0.25);
+  font-weight: 600;
+}
+
+.dark-theme .header-nav-link {
+  color: var(--text-primary);
+}
+
+.dark-theme .header-nav-link:hover {
+  background: var(--bg-tertiary);
+}
+
+.dark-theme .header-nav-link.active {
+  background: var(--primary-500);
+  color: var(--text-on-primary);
+}
+
+/* Ações do Header */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-shrink: 0;
+}
+
+.header-status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
   text-align: right;
   font-size: 0.75rem;
   opacity: var(--opacity-hover);
@@ -507,66 +569,12 @@ code {
   50% { opacity: 0.5; }
 }
 
-/* Navegação - Estilo Windsurf com Glass */
+/* Navegação - Removida (integrada no header) */
 .nav {
-  background: var(--glass-bg-light);
-  border-bottom: 1px solid var(--border-color);
-  padding: var(--space-2) 0;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  display: none;
 }
 
-.dark-theme .nav {
-  background: var(--glass-bg-light);
-}
 
-.nav-content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: var(--space-1);
-}
-
-.nav-link {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding: 0.375rem var(--space-3);
-  border-radius: var(--radius-md);
-  text-decoration: none;
-  color: var(--text-secondary);
-  font-weight: 500;
-  font-size: 0.9375rem; /* 15px */
-  transition: all 0.15s ease;
-}
-
-.nav-link:hover {
-  background: var(--bg-secondary);
-  color: var(--text-primary);
-}
-
-.nav-link.active {
-  background: var(--nav-active-bg);
-  color: var(--nav-active-text);
-  font-weight: 600;
-}
-
-.nav-link svg {
-  opacity: 0.7;
-}
-
-.nav-link:hover svg,
-.nav-link.active svg {
-  opacity: 1;
-}
 
 /* Cards - Estilo Windsurf com Glass sutil */
 .card {
@@ -1021,23 +1029,42 @@ code {
     padding: 0 var(--space-3);
   }
   
-  .header-content {
-    flex-direction: column;
-    gap: var(--space-3);
-    text-align: center;
-  }
-  
-  .system-info {
-    text-align: center;
-  }
-  
-  .nav-content {
-    flex-direction: column;
+  .header-wrapper {
+    flex-wrap: wrap;
     gap: var(--space-3);
   }
   
-  .nav-links {
+  .system-brand {
+    flex: 1;
+    min-width: 200px;
+  }
+  
+  .header-nav {
+    flex: 1 100%;
+    order: 3;
+  }
+  
+  .header-nav-links {
+    flex-wrap: wrap;
     justify-content: center;
+    gap: var(--space-1);
+  }
+  
+  .header-nav-link {
+    padding: 0.375rem var(--space-2);
+    font-size: 0.875rem;
+  }
+  
+  .header-nav-link span {
+    display: none;
+  }
+  
+  .header-actions {
+    gap: var(--space-2);
+  }
+  
+  .header-status {
+    display: none;
   }
   
   .grid-cols-2,
@@ -2265,7 +2292,7 @@ code {
 /* Search Box */
 .faq-search {
   max-width: 600px;
-  margin: -2.89rem auto var(--space-8); /* Subiu 5px */
+  margin: -3.015rem auto var(--space-8); /* Ajustado */
   padding: 0 var(--space-4);
   position: relative;
   z-index: 10;
@@ -2954,18 +2981,7 @@ code {
    AJUSTES ADICIONAIS TEMA ESCURO
    ======================================== */
 
-.dark-theme .nav-link {
-    color: var(--text-secondary);
-}
 
-.dark-theme .nav-link:hover {
-    color: var(--text-primary);
-}
-
-.dark-theme .nav-link.active {
-    background: var(--nav-active-bg);
-    color: var(--nav-active-text);
-}
 
 .dark-theme .card-header p,
 .dark-theme .form-label,
