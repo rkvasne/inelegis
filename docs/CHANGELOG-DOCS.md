@@ -7,6 +7,19 @@
 
 ---
 
+## ✨ Conversão de 01/12/2025 (Noite)
+
+### 📝 Manual ASE Convertido para Markdown
+
+**Ação:** Conversão de manual-ase.txt para MANUAL-ASE.md
+
+- **MANUAL-ASE.md** criado com formatação Markdown completa
+- Índice navegável adicionado
+- Formatação melhorada para legibilidade
+- Mantém manual-ase.txt como backup/referência
+
+---
+
 ## 🧹 Quarta Limpeza de 01/12/2025 (Noite)
 
 ### ❌ Arquivos Legacy Obsoletos Removidos (2 arquivos + pasta)
