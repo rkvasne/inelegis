@@ -94,7 +94,7 @@ const Components = (() => {
             <footer class="footer">
                 <div class="container">
                     <div class="footer-content">
-                        <div class="footer-main">
+                        <div class="footer-left">
                             <div class="footer-brand">
                                 <strong>⚖️ Inelegis</strong>
                                 <span class="footer-version">v0.0.8</span>
@@ -102,17 +102,28 @@ const Components = (() => {
                             <p class="footer-description">
                                 Sistema de Consulta de Inelegibilidade Eleitoral
                             </p>
-                        </div>
-                        
-                        <div class="footer-links">
-                            <a href="sobre" class="footer-link">Sobre</a>
-                            <a href="faq" class="footer-link">FAQ</a>
-                            <a href="https://github.com/rkvasne/ineleg-app/blob/main/CHANGELOG.md" class="footer-link" target="_blank" rel="noopener noreferrer">Changelog</a>
-                            <a href="https://github.com/rkvasne/ineleg-app" class="footer-link" target="_blank" rel="noopener noreferrer">GitHub</a>
-                        </div>
-                        
-                        <div class="footer-bottom">
                             <p class="footer-copy">© ${currentYear} Inelegis • Ferramenta auxiliar não oficial</p>
+                        </div>
+                        
+                        <div class="footer-right">
+                            <div class="footer-section">
+                                <h4 class="footer-section-title">Navegação</h4>
+                                <div class="footer-links">
+                                    <a href="./" class="footer-link">Início</a>
+                                    <a href="consulta" class="footer-link">Consulta</a>
+                                    <a href="sobre" class="footer-link">Sobre</a>
+                                    <a href="faq" class="footer-link">FAQ</a>
+                                </div>
+                            </div>
+                            
+                            <div class="footer-section">
+                                <h4 class="footer-section-title">Recursos</h4>
+                                <div class="footer-links">
+                                    <a href="https://github.com/rkvasne/ineleg-app/blob/main/CHANGELOG.md" class="footer-link" target="_blank" rel="noopener noreferrer">Changelog</a>
+                                    <a href="https://github.com/rkvasne/ineleg-app" class="footer-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+                                    <a href="docs/README.md" class="footer-link" target="_blank" rel="noopener noreferrer">Documentação</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
