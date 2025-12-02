@@ -84,14 +84,14 @@ Como esta é uma aplicação frontend com sistema de build:
 - `getFrequent()` - Obtém consultas frequentes
 - `getStats()` - Estatísticas de uso
 - `clear()` / `remove()` - Intencionalmente desabilitados (logam um aviso e retornam `false`)
-- Persistência: histórico fica somente no Redis via `/api/search-history`; o front guarda apenas um `userId` em cookie (`inelegis_uid`) para correlacionar sessões, sem gravar dados de histórico no `localStorage`.
+- Persistência: cada consulta é enviada ao Redis via `/api/search-history` **e** replicada localmente em `localStorage` (`inelegis_history`, máx. 50 entradas) para que a tela administrativa funcione mesmo offline. O cookie `inelegis_uid` continua identificando o usuário.
 
-**[modules/history-ui.js](../src/js/modules/history-ui.js)** - Interface do Histórico (v0.0.7):
-- `init()` - Inicializa painel de histórico
-- `open()` - Abre painel lateral
-- `renderRecent()` - Renderiza consultas recentes
-- `renderStats()` - Renderiza estatísticas
-- `exportHistory()` - Exporta histórico
+**[modules/history-page.js](../src/js/modules/history-page.js)** - Tela de Histórico/Admin (v0.0.9):
+- `init()` - Inicializa página dedicada (`historico.html`).
+- `loadData()` - Sincroniza registros e estatísticas via `SearchHistory`/Redis.
+- `renderSummary()` / `renderTable()` - Exibe cards, listas (recentes/frequentes) e tabela com filtro.
+- `exportHistory()` - Copia para clipboard ou baixa `.txt` com todos os registros.
+> 📎 A tela não aparece na navegação: acesse diretamente `/historico.html` (link interno restrito).
 
 **[modules/theme-manager.js](../src/js/modules/theme-manager.js)** - Gerenciamento de Tema (v0.0.7):
 - `init()` - Inicializa tema (detecta preferência do sistema)

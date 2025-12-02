@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histórico | Inelegis - Ferramentas Administrativas</title>
+
+    <link rel="icon" type="image/x-icon" href="/assets/images/logo-dark.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/logo-dark.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/styles.css?v=0.0.9">
+    <script src="/assets/js/modules/theme-bootstrap.js?v=0.0.9"></script>
+    <script src="/assets/js/modules/terms-gate.js?v=0.0.9"></script>
+</head>
+
+<body>
+    <div id="header-placeholder"></div>
+
+    <main class="container container--wide history-page mt-8" aria-labelledby="history-title">
+        <section class="card history-hero">
+            <div class="card-header">
+                <div class="history-hero-copy">
+                    <p class="admin-badge">Ferramenta Administrativa</p>
+                    <h1 id="history-title">Histórico de Consultas</h1>
+                    <p>Centralize auditorias, exporte registros e acompanhe estatísticas sem acessar a tela principal de consulta.</p>
+                </div>
+                <div class="history-hero-actions">
+                    <button id="historyRefreshBtn" class="btn btn-secondary" type="button">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9M20 20v-5h-.581m-15.357-2a8.003 8.003 0 0015.938 2" />
+                        </svg>
+                        Sincronizar
+                    </button>
+                    <button id="historyExportBtn" class="btn btn-primary" type="button">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M12 12v9m0 0l-3-3m3 3l3-3M12 3v9m0 0l3-3m-3 3L9 9" />
+                        </svg>
+                        Exportar TXT
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div id="historyLoading" class="history-loading hidden" role="status">
+                    <span class="history-spinner" aria-hidden="true"></span>
+                    <span>Sincronizando histórico...</span>
+                </div>
+                <p id="historyStatusMessage" class="history-status">Aguardando sincronização.</p>
+            </div>
+        </section>
+
+        <section aria-label="Resumo analítico" class="history-summary" id="historySummary"></section>
+
+        <div class="history-panels">
+            <section class="card">
+                <div class="card-header">
+                    <h2>Consultas Recentes</h2>
+                    <p class="text-sm text-neutral-600">Últimas entradas sincronizadas</p>
+                </div>
+                <div class="card-body">
+                    <div id="historyRecentList" class="history-list"></div>
+                </div>
+            </section>
+            <section class="card">
+                <div class="card-header">
+                    <h2>Consultas Frequentes</h2>
+                    <p class="text-sm text-neutral-600">Combinações mais pesquisadas</p>
+                </div>
+                <div class="card-body">
+                    <div id="historyFrequentList" class="history-list"></div>
+                </div>
+            </section>
+        </div>
+
+        <section class="card">
+            <div class="card-header">
+                <h2>Estatísticas</h2>
+                <p class="text-sm text-neutral-600">Totais consolidados, leis e artigos em destaque.</p>
+            </div>
+            <div class="card-body" id="historyStats"></div>
+        </section>
+
+        <section class="card">
+            <div class="card-header history-table-header">
+                <div>
+                    <h2>Registros Detalhados</h2>
+                    <p class="text-sm text-neutral-600">Pesquise por lei, artigo ou resultado. Dados ordenados por data mais recente.</p>
+                </div>
+                <div class="history-table-actions">
+                    <label for="historyFilterInput" class="sr-only">Filtrar histórico</label>
+                    <input id="historyFilterInput" type="search" class="form-input" placeholder="Filtrar por lei, artigo ou resultado..." autocomplete="off">
+                </div>
+            </div>
+            <div class="card-body">
+                <div id="historyTableEmpty" class="empty-state hidden">Nenhum registro disponível.</div>
+                <div class="history-table-wrapper" role="region" aria-live="polite">
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Data</th>
+                                <th scope="col">Lei</th>
+                                <th scope="col">Artigo</th>
+                                <th scope="col">Resultado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="/assets/js/modules/components.js?v=0.0.9" defer></script>
+    <script src="/assets/js/modules/theme-manager.js?v=0.0.9" defer></script>
+    <script src="/assets/js/modules/search-history.js?v=0.0.9" defer></script>
+    <script src="/assets/js/modules/history-page.js?v=0.0.9" defer></script>
+    <script src="/assets/js/modules/analytics.js?v=0.0.9" defer></script>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            if (window.Components) {
+                Components.init('historico');
+            }
+            if (window.HistoryPage) {
+                HistoryPage.init();
+            }
+            if (window.Analytics) {
+                Analytics.init();
+            }
+        });
+    </script>
+</body>
+
+</html>
