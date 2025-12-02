@@ -85,11 +85,11 @@ const header = `/**
  * Última atualização: 04 de dezembro de 2025
  * 
  * Este arquivo utiliza os seguintes módulos:
- * - src/js/modules/sanitizer.js: Prevenção XSS
- * - src/js/modules/storage.js: localStorage seguro
- * - src/js/modules/formatters.js: Formatação de artigos
- * - src/js/modules/exceptions.js: Validação de exceções
- * - src/js/modules/modal-manager.js: Gerenciamento de modal
+ * - src/js/utils/sanitizer.js: Prevenção XSS
+ * - src/js/services/storage.js: localStorage seguro
+ * - src/js/utils/formatters.js: Formatação de artigos
+ * - src/js/utils/exceptions.js: Validação de exceções
+ * - src/js/components/modal-manager.js: Gerenciamento de modal
  * - public/assets/js/data-normalizado.js: Fonte única de dados normalizados
  */
 

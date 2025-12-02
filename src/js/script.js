@@ -1,11 +1,11 @@
 'use strict';
 
-import { LEIS_DISPONIVEIS } from './modules/constants.js';
-import { debugLog } from './modules/core-utils.js';
-import { buscarInelegibilidadePorLeiEArtigo } from './modules/search-logic.js';
-import { mostrarToast, abrirModal, esconderSugestoes, fecharModal } from './modules/dom-manipulation.js'; // fecharModal imported to be used in UI events
-import { setupRadioButtons, setupShortcuts } from './modules/ui-events.js';
-import { ArticleBuilder } from './modules/article-builder.js';
+import { LEIS_DISPONIVEIS } from './utils/constants.js';
+import { debugLog } from './utils/core-utils.js';
+import { buscarInelegibilidadePorLeiEArtigo } from './services/search-logic.js';
+import { mostrarToast, abrirModal, esconderSugestoes, fecharModal } from './ui/dom-manipulation.js'; // fecharModal imported to be used in UI events
+import { setupRadioButtons, setupShortcuts } from './ui/ui-events.js';
+import { ArticleBuilder } from './components/article-builder.js';
 
 // Global State
 const state = {
