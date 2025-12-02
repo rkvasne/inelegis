@@ -220,7 +220,7 @@
 
 body {
   font-family: var(--font-sans);
-  font-size: 0.8125rem; /* 13px - Padrão Kiro/Cursor */
+  font-size: 0.9375rem; /* 15px - Tamanho mais legível */
   line-height: 1.6;
   color: var(--text-primary);
   background: var(--bg-secondary);
@@ -242,44 +242,44 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: 1.5rem; /* 24px */
+  font-size: 1.75rem; /* 28px */
   font-weight: 700;
   margin-bottom: var(--space-3);
 }
 
 h2 {
-  font-size: 1.125rem; /* 18px */
+  font-size: 1.375rem; /* 22px */
   font-weight: 600;
   margin-bottom: var(--space-2);
 }
 
 h3 {
-  font-size: 1rem; /* 16px */
+  font-size: 1.125rem; /* 18px */
   font-weight: 600;
   margin-bottom: var(--space-2);
 }
 
 h4 {
-  font-size: 0.9375rem; /* 15px */
+  font-size: 1rem; /* 16px */
   font-weight: 600;
   margin-bottom: var(--space-1);
 }
 
 h5 {
-  font-size: 0.875rem; /* 14px */
+  font-size: 0.9375rem; /* 15px */
   font-weight: 600;
   margin-bottom: var(--space-1);
 }
 
 h6 {
-  font-size: 0.8125rem; /* 13px */
+  font-size: 0.875rem; /* 14px */
   font-weight: 600;
   margin-bottom: var(--space-1);
 }
 
 /* Parágrafos padronizados */
 p {
-  font-size: 0.8125rem; /* 13px */
+  font-size: 0.9375rem; /* 15px */
   line-height: 1.6;
   color: var(--text-secondary);
   margin-bottom: var(--space-3);
@@ -335,7 +335,7 @@ code {
 
 /* Container para Conteúdo de Leitura (Sobre, FAQ, Index) */
 .container--narrow {
-  max-width: 768px;
+  max-width: 960px;
 }
 
 /* Container para Ferramentas (Consulta) */
@@ -343,15 +343,8 @@ code {
   max-width: 960px;
 }
 
-/* Cards com largura limitada em páginas de leitura */
-.container:not(.container--wide) .card {
-  max-width: 768px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* Cards em páginas de ferramenta - largura total */
-.container--wide .card {
+/* Cards - largura total do container */
+.card {
   max-width: 100%;
 }
 
@@ -551,7 +544,7 @@ code {
   text-decoration: none;
   color: var(--text-secondary);
   font-weight: 500;
-  font-size: 0.8125rem; /* 13px */
+  font-size: 0.9375rem; /* 15px */
   transition: all 0.15s ease;
 }
 
@@ -662,7 +655,7 @@ code {
 }
 
 .feature-description {
-  font-size: 0.8125rem;
+  font-size: 0.9375rem;
   color: var(--text-secondary);
   margin: 0;
   line-height: 1.5;
@@ -683,7 +676,7 @@ code {
   padding: 0.5rem 0.875rem;
   border-radius: var(--radius-md);
   font-weight: 500;
-  font-size: 0.8125rem; /* 13px */
+  font-size: 0.9375rem; /* 15px */
   text-decoration: none;
   border: 1px solid transparent;
   cursor: pointer;
@@ -960,7 +953,7 @@ code {
 }
 
 .footer-description {
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   color: var(--text-secondary);
   margin: 0;
 }
@@ -975,12 +968,12 @@ code {
 
 .footer-separator {
   color: var(--text-muted);
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   user-select: none;
 }
 
 .footer-link {
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   color: var(--text-secondary);
   text-decoration: none;
   transition: var(--transition-fast);
@@ -2272,7 +2265,7 @@ code {
 /* Search Box */
 .faq-search {
   max-width: 600px;
-  margin: -2rem auto var(--space-8);
+  margin: -2.3rem auto var(--space-8); /* Subiu 5px (-0.3rem) */
   padding: 0 var(--space-4);
   position: relative;
   z-index: 10;
