@@ -26,6 +26,24 @@ const SearchHistory = (() => {
                 search.timestamp = new Date().toISOString();
             }
 
+            // Verificar duplicatas recentes (mesma consulta nos últimos 5 segundos)
+            const now = new Date(search.timestamp).getTime();
+            const isDuplicate = history.some(item => {
+                const itemTime = new Date(item.timestamp).getTime();
+                const timeDiff = Math.abs(now - itemTime);
+                
+                return item.lei === search.lei &&
+                       item.artigo === search.artigo &&
+                       item.resultado === search.resultado &&
+                       timeDiff < 5000; // 5 segundos
+            });
+
+            // Não adicionar se for duplicata
+            if (isDuplicate) {
+                console.log('Histórico: Duplicata detectada, não adicionando');
+                return false;
+            }
+
             // Adicionar ao início do array
             history.unshift(search);
 

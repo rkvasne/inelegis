@@ -1,7 +1,7 @@
 # Guia de Desenvolvimento
 
 **Última atualização:** 01 de dezembro de 2025
-**Versão atual:** 0.0.6
+**Versão atual:** 0.0.7
 
 Este arquivo fornece orientações técnicas para desenvolvedores trabalhando neste repositório.
 
@@ -47,7 +47,7 @@ Como esta é uma aplicação frontend com sistema de build:
 2. **Gerenciamento de UI**: `exibirResultado()` - Exibição de resultados (usa ModalManager).
 3. **Sugestões**: `mostrarSugestoes()`, `obterSugestoesPorLei()` - Sugestões em tempo real.
 
-### Módulos JavaScript (v0.0.6+)
+### Módulos JavaScript (v0.0.7+)
 
 **[js/sanitizer.js](../js/sanitizer.js)** - Segurança:
 - `escapeHtml()` - Previne XSS
@@ -77,6 +77,35 @@ Como esta é uma aplicação frontend com sistema de build:
 - `buscar()` - Busca otimizada com cache
 - `buildLeiIndex()` - Constrói índices
 - `clearCache()` - Limpa cache
+
+**[js/search-history.js](../js/search-history.js)** - Histórico (v0.0.7):
+- `add()` - Adiciona consulta (com detecção de duplicatas)
+- `getRecent()` - Obtém consultas recentes
+- `getFrequent()` - Obtém consultas frequentes
+- `getStats()` - Estatísticas de uso
+- `clear()` - Limpa histórico
+
+**[js/history-ui.js](../js/history-ui.js)** - Interface do Histórico (v0.0.7):
+- `init()` - Inicializa painel de histórico
+- `open()` - Abre painel lateral
+- `renderRecent()` - Renderiza consultas recentes
+- `renderStats()` - Renderiza estatísticas
+- `exportHistory()` - Exporta histórico
+
+**[js/theme-manager.js](../js/theme-manager.js)** - Gerenciamento de Tema (v0.0.7):
+- `init()` - Inicializa tema (detecta preferência do sistema)
+- `toggle()` - Alterna entre claro/escuro
+- `apply()` - Aplica tema específico
+- `getCurrent()` - Obtém tema atual
+
+**[js/components.js](../js/components.js)** - Componentes Reutilizáveis (v0.0.7):
+- `init()` - Inicializa componentes na página
+- `renderHeader()` - Renderiza header com tema toggle
+- `renderNav()` - Renderiza navegação
+- `renderFooter()` - Renderiza footer
+- `renderCard()` - Renderiza cards customizáveis
+- `renderButton()` - Renderiza botões
+- `renderAlert()` - Renderiza alertas
 6. **Atalhos de Teclado**: Implementação de hotkeys (Ctrl+L, Ctrl+A, Ctrl+Enter, F1, Esc).
 
 **[data.js](../data.js)** - Configuração de dados:
@@ -164,7 +193,7 @@ Os dados de inelegibilidade em `data.js` mapeiam diretamente para:
 ## 📚 Referências de Documentação
 
 - **[README.md](../README.md)** - Funcionalidades, atalhos, exemplos de uso.
-- **[MANUAL-ASE.txt](references/manual-ase.txt)** - Manual do sistema eleitoral com explicações de códigos ASE.
+- **[manual-ase.md](references/manual-ase.md)** - Manual do sistema eleitoral com explicações de códigos ASE.
 - **Tabelas PDF/XML** - Dados oficiais de referência do TRE-SP em `docs/references/`.
 
 ---

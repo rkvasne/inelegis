@@ -20,6 +20,13 @@ const HistoryUI = (() => {
      * Cria o painel de histórico no DOM
      */
     function createPanel() {
+        // Criar overlay
+        const overlay = document.createElement('div');
+        overlay.id = 'historyOverlay';
+        overlay.className = 'history-overlay';
+        document.body.appendChild(overlay);
+
+        // Criar painel
         const panel = document.createElement('div');
         panel.id = 'historyPanel';
         panel.className = 'history-panel';
@@ -96,6 +103,12 @@ const HistoryUI = (() => {
                 close();
             }
         });
+
+        // Fechar ao clicar no overlay
+        const overlay = document.getElementById('historyOverlay');
+        if (overlay) {
+            overlay.addEventListener('click', close);
+        }
     }
 
     /**
@@ -103,11 +116,15 @@ const HistoryUI = (() => {
      */
     function open() {
         const panel = document.getElementById('historyPanel');
+        const overlay = document.getElementById('historyOverlay');
         if (!panel) return;
 
         panel.style.display = 'block';
         requestAnimationFrame(() => {
             panel.classList.add('show');
+            if (overlay) {
+                overlay.classList.add('show');
+            }
         });
 
         isOpen = true;
@@ -119,9 +136,14 @@ const HistoryUI = (() => {
      */
     function close() {
         const panel = document.getElementById('historyPanel');
+        const overlay = document.getElementById('historyOverlay');
         if (!panel) return;
 
         panel.classList.remove('show');
+        if (overlay) {
+            overlay.classList.remove('show');
+        }
+        
         setTimeout(() => {
             panel.style.display = 'none';
         }, 300);

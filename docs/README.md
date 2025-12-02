@@ -31,8 +31,8 @@ Bem-vindo à documentação oficial do projeto **Inelegis**.
     - `REFACTORING-PLAN.md`: Plano de refatoração v0.0.6 (histórico)
     - `IMPLEMENTATION-GUIDE.md`: Guia de implementação (histórico)
     - `PROTECTION.md`: Guia de proteção
-    - `references/`: Arquivos PDF, XML e TXT de referência
-        - `manual-ase.txt`: Guia operacional das ASEs
+    - `references/`: Arquivos PDF, XML e Markdown de referência
+        - `manual-ase.md`: Manual formatado das ASEs
         - `tabela-oficial.pdf`: Tabela original do TRE-SP
         - `tabela-oficial.xml`: Dados originais em XML
     - `legacy/`: Documentos de versões anteriores
