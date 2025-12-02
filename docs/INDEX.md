@@ -27,6 +27,9 @@ Procedimentos de atualização de dados, validação, backup e deploy.
 ### 🧩 [Sistema de Componentes](COMPONENTS.md)
 Estrutura de componentes reutilizáveis e prevenção de duplicação.
 
+### 🎨 [Decisões de Design](DESIGN-DECISIONS.md)
+Por que Vanilla JS? Análise de frameworks e princípios de design.
+
 ### 🛡️ [Guia de Proteção](PROTECTION.md)
 Diretrizes de segurança, edições seguras e prevenção de corrupção.
 
