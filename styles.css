@@ -2264,7 +2264,7 @@ code {
 /* Search Box */
 .faq-search {
   max-width: 600px;
-  margin: -2.3rem auto var(--space-8); /* Subiu 5px (-0.3rem) */
+  margin: -2.6rem auto var(--space-8); /* Subiu mais 5px */
   padding: 0 var(--space-4);
   position: relative;
   z-index: 10;
@@ -2373,7 +2373,7 @@ code {
 
 /* Seções de FAQ */
 .faq-section {
-  max-width: 768px;
+  max-width: 960px;
   margin: 0 auto var(--space-12) auto;
   padding: 0 var(--space-6);
   scroll-margin-top: 100px;
@@ -2409,6 +2409,7 @@ code {
   border-radius: var(--radius-xl);
   overflow: hidden;
   background: var(--bg-primary);
+  max-width: 768px; /* Cards mantêm largura menor para leitura */
 }
 
 .faq-item {
