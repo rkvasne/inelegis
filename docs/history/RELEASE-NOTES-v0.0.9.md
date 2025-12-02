@@ -28,7 +28,7 @@
 
 - `docs/README.md` e `README.md` agora apresentam navegação direta para as novas pastas.
 - `CHANGELOG-DOCS.md` registra a consolidação e substituição dos arquivos legados (`HISTORICO.md`, `REFACTORING-PLAN.md`, `IMPLEMENTATION-GUIDE.md`).
-- `SUMMARY.md` e referências internas atualizados para refletir o novo caminho dos documentos.
+- `history/SESSION-SUMMARY-2025-12-02.md` substitui o antigo `SUMMARY.md` e mantém o resumo executivo fora da raiz.
 
 ---
 

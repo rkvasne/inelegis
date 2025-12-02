@@ -20,7 +20,10 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 ### 📚 Documentation
 - `history/RELEASE-NOTES-v0.0.9.md` criado com os destaques da reorganização.
 - `history/refatoracao-v0.0.6.md` passa a centralizar plano, execução e lições aprendidas.
-- `CHANGELOG-DOCS.md`, `SUMMARY.md` e guias operacionais atualizados com a nova estrutura.
+- `CHANGELOG-DOCS.md`, `history/SESSION-SUMMARY-2025-12-02.md` e guias operacionais atualizados com a nova estrutura.
+
+### 🗑 Removed
+- `SUMMARY.md`, `COMMIT-MESSAGE.txt` e os relatórios gerados (`build-report.json`, `lint-report.json`, `test-report.json`) foram removidos da raiz; os scripts continuam produzindo esses artefatos localmente.
 
 ---
 
