@@ -635,8 +635,9 @@ code {
 }
 
 .btn-secondary:hover:not(:disabled) {
-  background: var(--bg-secondary);
-  border-color: var(--border-muted);
+  background: var(--primary-50);
+  border-color: var(--primary-500);
+  color: var(--primary-700);
 }
 
 .btn-success {
@@ -2436,13 +2437,15 @@ code {
   align-items: center;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 480px) {
   .faq-cta-buttons {
     flex-direction: column;
+    width: 100%;
   }
   
   .faq-cta-buttons .btn {
     width: 100%;
+    max-width: 320px;
     justify-content: center;
   }
 }
@@ -2686,8 +2689,8 @@ code {
     border-top: 1px solid var(--border-color);
 }
 
-.btn-secondary,
-.btn-danger {
+.history-footer .btn-secondary,
+.history-footer .btn-danger {
     flex: 1;
     display: flex;
     align-items: center;
@@ -2702,12 +2705,12 @@ code {
     transition: all 0.2s;
 }
 
-.btn-secondary {
+.history-footer .btn-secondary {
     background: var(--bg-tertiary);
     color: var(--text-primary);
 }
 
-.btn-secondary:hover {
+.history-footer .btn-secondary:hover {
     background: var(--bg-secondary);
 }
 
@@ -2847,7 +2850,9 @@ code {
 }
 
 .dark-theme .btn-secondary:hover {
-    background: var(--bg-secondary);
+    background: var(--primary-900);
+    border-color: var(--primary-600);
+    color: var(--primary-200);
 }
 
 .dark-theme .modal-close-btn {
