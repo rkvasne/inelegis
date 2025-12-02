@@ -37,54 +37,214 @@
     <div id="nav-placeholder"></div>
 
     <main class="container mt-8">
-        <!-- Card de Notas Principais -->
-        <div class="card mb-6">
-            <div class="card-header">
-                <h2>Notas Principais</h2>
-                <p>Diretrizes do design e usabilidade</p>
-            </div>
-            <div class="card-body">
-                <ul class="list-disc">
-                    <li>Navegação fixa com link de documentação.</li>
-                    <li>Tema institucional padronizado (cores primária/acento/status).</li>
-                    <li>Componentes consistentes: cartões, badges e ícones.</li>
-                    <li>Estados de foco/hover consistentes em inputs e botões.</li>
-                    <li>Tipografia e acentuação normalizadas.</li>
-                </ul>
+        <!-- Hero Section -->
+        <div class="card mb-6" style="background: linear-gradient(135deg, var(--primary-50) 0%, var(--primary-100) 100%); border: none;">
+            <div class="card-body" style="text-align: center; padding: var(--space-10) var(--space-6);">
+                <div style="font-size: 3rem; margin-bottom: var(--space-4);">⚖️</div>
+                <h1 style="font-size: 2rem; margin-bottom: var(--space-3); color: var(--text-primary);">Sobre o Inelegis</h1>
+                <p style="font-size: 1.125rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto;">
+                    Sistema auxiliar de consulta de inelegibilidade eleitoral desenvolvido para facilitar o trabalho dos servidores da Justiça Eleitoral
+                </p>
             </div>
         </div>
 
-        <!-- Card de Atalhos de Teclado -->
+        <!-- Grid de Informações -->
+        <div class="grid grid-cols-2 gap-6 mb-6">
+            <!-- O que é -->
+            <div class="card">
+                <div class="card-header">
+                    <div style="display: flex; align-items: center; gap: var(--space-3);">
+                        <div style="width: 40px; height: 40px; background: var(--primary-100); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; color: var(--primary-600);">
+                            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h2>O que é?</h2>
+                            <p>Propósito do sistema</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p>O Inelegis é uma <strong>ferramenta auxiliar não oficial</strong> que permite consultar rapidamente se determinados crimes ensejam inelegibilidade eleitoral.</p>
+                    <p style="margin-top: var(--space-3);">Baseado na tabela exemplificativa do <strong>TRE-SP</strong> (outubro/2024) e revisada pela <strong>CRE-RO</strong> em 02/06/2025.</p>
+                </div>
+            </div>
+
+            <!-- Para quem -->
+            <div class="card">
+                <div class="card-header">
+                    <div style="display: flex; align-items: center; gap: var(--space-3);">
+                        <div style="width: 40px; height: 40px; background: var(--success-100); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; color: var(--success-600);">
+                            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h2>Para quem?</h2>
+                            <p>Público-alvo</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <ul class="list-disc">
+                        <li>Servidores da Justiça Eleitoral</li>
+                        <li>Advogados eleitorais</li>
+                        <li>Estudantes de Direito</li>
+                        <li>Pesquisadores</li>
+                        <li>Cidadãos interessados</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recursos -->
+        <div class="card mb-6">
+            <div class="card-header">
+                <h2>Recursos Principais</h2>
+                <p>Funcionalidades do sistema</p>
+            </div>
+            <div class="card-body">
+                <div class="grid grid-cols-2 gap-4">
+                    <div style="display: flex; gap: var(--space-3);">
+                        <div style="color: var(--primary-600);">✓</div>
+                        <div>
+                            <strong>Busca Inteligente</strong>
+                            <p style="font-size: 0.875rem; color: var(--text-secondary); margin: 0;">Localiza artigos, leis e crimes rapidamente</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: var(--space-3);">
+                        <div style="color: var(--primary-600);">✓</div>
+                        <div>
+                            <strong>Construtor de Artigos</strong>
+                            <p style="font-size: 0.875rem; color: var(--text-secondary); margin: 0;">Monte artigos complexos facilmente</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: var(--space-3);">
+                        <div style="color: var(--primary-600);">✓</div>
+                        <div>
+                            <strong>Exportação Rápida</strong>
+                            <p style="font-size: 0.875rem; color: var(--text-secondary); margin: 0;">Copie resultados formatados</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: var(--space-3);">
+                        <div style="color: var(--primary-600);">✓</div>
+                        <div>
+                            <strong>Modo Escuro</strong>
+                            <p style="font-size: 0.875rem; color: var(--text-secondary); margin: 0;">Interface adaptável ao tema</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: var(--space-3);">
+                        <div style="color: var(--primary-600);">✓</div>
+                        <div>
+                            <strong>Histórico de Consultas</strong>
+                            <p style="font-size: 0.875rem; color: var(--text-secondary); margin: 0;">Acesse consultas anteriores</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: var(--space-3);">
+                        <div style="color: var(--primary-600);">✓</div>
+                        <div>
+                            <strong>100% Gratuito</strong>
+                            <p style="font-size: 0.875rem; color: var(--text-secondary); margin: 0;">Open source e sem custos</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Atalhos de Teclado -->
         <div class="card mb-6">
             <div class="card-header">
                 <h2>Atalhos de Teclado</h2>
                 <p>Produtividade durante a consulta</p>
             </div>
             <div class="card-body">
-                <ul class="list-disc">
-                    <li><code>Alt+D</code> — Abrir documentação</li>
-                    <li><code>Ctrl+L</code> — Focar select de leis</li>
-                    <li><code>Ctrl+A</code> — Focar campo de artigo</li>
-                    <li><code>Ctrl+Enter</code> — Buscar (quando habilitado)</li>
-                    <li><code>F1</code> — Alternar Condenação/Extinção</li>
-                </ul>
+                <div class="grid grid-cols-2 gap-3">
+                    <div style="display: flex; align-items: center; gap: var(--space-3); padding: var(--space-2); background: var(--bg-secondary); border-radius: var(--radius-md);">
+                        <code style="background: var(--bg-primary); padding: 0.25rem 0.5rem; border-radius: var(--radius-sm); font-weight: 600;">Alt+D</code>
+                        <span style="font-size: 0.875rem;">Abrir documentação</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: var(--space-3); padding: var(--space-2); background: var(--bg-secondary); border-radius: var(--radius-md);">
+                        <code style="background: var(--bg-primary); padding: 0.25rem 0.5rem; border-radius: var(--radius-sm); font-weight: 600;">Ctrl+L</code>
+                        <span style="font-size: 0.875rem;">Focar select de leis</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: var(--space-3); padding: var(--space-2); background: var(--bg-secondary); border-radius: var(--radius-md);">
+                        <code style="background: var(--bg-primary); padding: 0.25rem 0.5rem; border-radius: var(--radius-sm); font-weight: 600;">Ctrl+A</code>
+                        <span style="font-size: 0.875rem;">Focar campo de artigo</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: var(--space-3); padding: var(--space-2); background: var(--bg-secondary); border-radius: var(--radius-md);">
+                        <code style="background: var(--bg-primary); padding: 0.25rem 0.5rem; border-radius: var(--radius-sm); font-weight: 600;">Ctrl+Enter</code>
+                        <span style="font-size: 0.875rem;">Buscar</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: var(--space-3); padding: var(--space-2); background: var(--bg-secondary); border-radius: var(--radius-md);">
+                        <code style="background: var(--bg-primary); padding: 0.25rem 0.5rem; border-radius: var(--radius-sm); font-weight: 600;">F1</code>
+                        <span style="font-size: 0.875rem;">Alternar tipo de comunicação</span>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- Card de Versão -->
+        <!-- Tecnologias -->
         <div class="card mb-6">
             <div class="card-header">
-                <h2>Versão</h2>
-                <p>Histórico e mudanças</p>
+                <h2>Tecnologias Utilizadas</h2>
+                <p>Stack técnico do projeto</p>
             </div>
             <div class="card-body">
-                <p>0.0.6 — Correção de cache e estabilidade de estilos.</p>
-                <p>0.0.5 — Renomeação para Inelegis e otimização de cache offline.</p>
-                <p>0.0.4 — Layout otimizado, funcionalidade de exportar, controle de acesso e
-                    melhorias de UX.</p>
-                <p>Consulte o <a href="https://github.com/rkvasne/ineleg-app/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">CHANGELOG</a>
-                    para
-                    detalhes completos.</p>
+                <div style="display: flex; flex-wrap: wrap; gap: var(--space-2);">
+                    <span style="padding: 0.5rem 1rem; background: var(--bg-secondary); border-radius: var(--radius-md); font-size: 0.875rem; font-weight: 500;">HTML5</span>
+                    <span style="padding: 0.5rem 1rem; background: var(--bg-secondary); border-radius: var(--radius-md); font-size: 0.875rem; font-weight: 500;">CSS3</span>
+                    <span style="padding: 0.5rem 1rem; background: var(--bg-secondary); border-radius: var(--radius-md); font-size: 0.875rem; font-weight: 500;">JavaScript</span>
+                    <span style="padding: 0.5rem 1rem; background: var(--bg-secondary); border-radius: var(--radius-md); font-size: 0.875rem; font-weight: 500;">Vercel</span>
+                    <span style="padding: 0.5rem 1rem; background: var(--bg-secondary); border-radius: var(--radius-md); font-size: 0.875rem; font-weight: 500;">Git</span>
+                    <span style="padding: 0.5rem 1rem; background: var(--bg-secondary); border-radius: var(--radius-md); font-size: 0.875rem; font-weight: 500;">GitHub</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Versão Atual -->
+        <div class="card mb-6">
+            <div class="card-header">
+                <h2>Versão Atual</h2>
+                <p>Informações de release</p>
+            </div>
+            <div class="card-body">
+                <div style="display: flex; align-items: center; gap: var(--space-4); margin-bottom: var(--space-4);">
+                    <div style="font-size: 2rem; font-weight: 700; color: var(--primary-600);">v0.0.8</div>
+                    <div>
+                        <div style="font-weight: 600; margin-bottom: 0.25rem;">Padronização Completa de Design</div>
+                        <div style="font-size: 0.875rem; color: var(--text-secondary);">Lançado em 02 de dezembro de 2025</div>
+                    </div>
+                </div>
+                <p style="margin-bottom: var(--space-3);"><strong>Destaques desta versão:</strong></p>
+                <ul class="list-disc">
+                    <li>Identidade visual completa (favicon e logo)</li>
+                    <li>Theme Validator Pro v3.1.0</li>
+                    <li>Sistema de variáveis CSS semânticas</li>
+                    <li>Footer simplificado e responsivo</li>
+                    <li>Animações globais padronizadas</li>
+                </ul>
+                <div style="margin-top: var(--space-4);">
+                    <a href="https://github.com/rkvasne/ineleg-app/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        Ver Changelog Completo
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Aviso Importante -->
+        <div class="alert alert-warning" role="alert">
+            <div class="alert-icon">
+                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-1.964-1.333-2.732 0L3.732 16c-.77 1.333.192 3 1.732 3z"></path>
+                </svg>
+            </div>
+            <div class="alert-content">
+                <h3>Aviso Importante</h3>
+                <p>Este é um sistema <strong>NÃO OFICIAL</strong>. Sempre confirme as informações na legislação vigente e nas orientações oficiais mais recentes antes de tomar decisões definitivas.</p>
             </div>
         </div>
     </main>
