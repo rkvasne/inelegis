@@ -475,11 +475,11 @@
     <!-- Inicializar Módulos -->
     <script>
         // Verificar se termos foram aceitos
+        // TEMPORARIAMENTE DESABILITADO PARA DEBUG
+        /*
         (function() {
             const termosValue = localStorage.getItem('ineleg_termos_aceitos');
             console.log('🔍 Verificando termos:', termosValue);
-            console.log('🔍 Tipo:', typeof termosValue);
-            console.log('🔍 É true?:', termosValue === 'true');
             
             const termosAceitos = termosValue === 'true';
             
@@ -492,6 +492,7 @@
             
             console.log('✅ Termos aceitos, continuando...');
         })();
+        */
         
         // Inicializar componentes
         Components.init('consulta');
