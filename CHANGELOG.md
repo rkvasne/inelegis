@@ -25,10 +25,11 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 - README.md atualizado com novidades da v0.0.7
 
 ### 🗑 Removed
-- 12 documentos e 5 arquivos de código morto removidos em três limpezas:
+- 14 documentos e 5 arquivos de código morto removidos em quatro limpezas:
   - Primeira limpeza: 9 docs redundantes/obsoletos
   - Segunda limpeza: 2 docs redundantes (ANALISE-DOCUMENTACAO.md, ATUALIZACAO-DOCS-HISTORICOS.md)
   - Terceira limpeza: 1 doc + 5 arquivos de componentes não utilizados (pasta components/ removida)
+  - Quarta limpeza: 2 arquivos legacy obsoletos (pasta docs/legacy/ removida)
 
 ---
 

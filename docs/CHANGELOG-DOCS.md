@@ -7,6 +7,20 @@
 
 ---
 
+## 🧹 Quarta Limpeza de 01/12/2025 (Noite)
+
+### ❌ Arquivos Legacy Obsoletos Removidos (2 arquivos + pasta)
+
+**Motivo:** Snapshots temporais com informação já documentada em outros lugares
+
+1. **resumo-melhorias.txt** (13.2 KB) - Melhorias v2.0 já documentadas no CHANGELOG.md
+2. **resumo-validacao.txt** (7.5 KB) - Validação já documentada no MAINTENANCE.md
+3. **docs/legacy/** (pasta removida) - Vazia após remoção dos arquivos
+
+**Resultado:** Informação preservada em CHANGELOG.md, HISTORICO.md e MAINTENANCE.md
+
+---
+
 ## 🧹 Terceira Limpeza de 01/12/2025 (Noite)
 
 ### ❌ Código Morto Removido (1 doc + 5 arquivos)
