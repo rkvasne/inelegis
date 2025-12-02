@@ -464,10 +464,7 @@ const SearchHistory = (() => {
         remove,
         getStats,
         getStatsAsync,
-        exportToText,
-        // Manter compatibilidade (alias)
-        syncToRedis: syncToSupabase,
-        fetchFromRedis: fetchFromSupabase
+        exportToText
     };
 })();
 
