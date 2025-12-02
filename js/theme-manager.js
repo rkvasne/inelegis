@@ -13,10 +13,16 @@ const ThemeManager = (() => {
      * Inicializa o gerenciador de tema
      */
     function init() {
+        console.log('🚀 ThemeManager.init() called');
+        
         // Carregar tema salvo ou detectar preferência do sistema
         const savedTheme = getSavedTheme();
         const systemTheme = getSystemTheme();
         const theme = savedTheme || systemTheme;
+
+        console.log('📋 Saved theme:', savedTheme);
+        console.log('🖥️ System theme:', systemTheme);
+        console.log('✅ Selected theme:', theme);
 
         applyTheme(theme);
         attachEventListeners();
@@ -54,6 +60,8 @@ const ThemeManager = (() => {
     function applyTheme(theme) {
         const html = document.documentElement;
         
+        console.log('🎨 Applying theme:', theme);
+        
         if (theme === THEME_DARK) {
             html.classList.add('dark-theme');
         } else {
@@ -63,6 +71,7 @@ const ThemeManager = (() => {
         // Salvar no localStorage
         try {
             localStorage.setItem(STORAGE_KEY, theme);
+            console.log('💾 Theme saved to localStorage:', theme);
         } catch (error) {
             console.error('Erro ao salvar tema:', error);
         }

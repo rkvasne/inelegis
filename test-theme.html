@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Tema</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 2rem;
+            background: white;
+            color: black;
+        }
+        
+        .dark-theme body {
+            background: #0f172a;
+            color: white;
+        }
+        
+        button {
+            padding: 1rem 2rem;
+            margin: 0.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        
+        .info {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: #f0f0f0;
+            border-radius: 8px;
+        }
+        
+        .dark-theme .info {
+            background: #1e293b;
+        }
+    </style>
+</head>
+<body>
+    <h1>Teste de Tema - Inelegis</h1>
+    
+    <div>
+        <button onclick="clearTheme()">Limpar localStorage</button>
+        <button onclick="setLight()">Forçar Tema Claro</button>
+        <button onclick="setDark()">Forçar Tema Escuro</button>
+        <button onclick="checkTheme()">Verificar Tema Atual</button>
+    </div>
+    
+    <div class="info">
+        <h2>Informações:</h2>
+        <p id="info">Clique em "Verificar Tema Atual" para ver as informações</p>
+    </div>
+    
+    <script>
+        function clearTheme() {
+            localStorage.removeItem('inelegis_theme');
+            alert('localStorage limpo! Recarregue a página.');
+            location.reload();
+        }
+        
+        function setLight() {
+            localStorage.setItem('inelegis_theme', 'light');
+            document.documentElement.classList.remove('dark-theme');
+            alert('Tema claro aplicado!');
+            checkTheme();
+        }
+        
+        function setDark() {
+            localStorage.setItem('inelegis_theme', 'dark');
+            document.documentElement.classList.add('dark-theme');
+            alert('Tema escuro aplicado!');
+            checkTheme();
+        }
+        
+        function checkTheme() {
+            const saved = localStorage.getItem('inelegis_theme');
+            const hasDarkClass = document.documentElement.classList.contains('dark-theme');
+            const systemPrefers = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            
+            const info = `
+                <strong>Tema salvo no localStorage:</strong> ${saved || 'Nenhum'}<br>
+                <strong>Classe dark-theme no HTML:</strong> ${hasDarkClass ? 'Sim' : 'Não'}<br>
+                <strong>Preferência do sistema:</strong> ${systemPrefers}<br>
+                <strong>Tema atual:</strong> ${hasDarkClass ? 'Escuro' : 'Claro'}
+            `;
+            
+            document.getElementById('info').innerHTML = info;
+        }
+        
+        // Verificar ao carregar
+        window.addEventListener('load', checkTheme);
+    </script>
+</body>
+</html>
