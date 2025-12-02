@@ -9,10 +9,36 @@
 ## 🎉 Destaques da Versão
 
 Esta versão representa uma **refatoração completa do sistema de design**, com foco em:
+- ✅ Identidade visual completa (favicon e logo)
 - ✅ Padronização total de cores e temas
 - ✅ Validação automatizada de temas
 - ✅ Footer simplificado e compacto
 - ✅ 100% de compatibilidade com modo escuro
+
+---
+
+## 🖼️ Identidade Visual
+
+### Favicon e Logo Implementados
+
+**Favicon:**
+- Adicionado `favicon.ico` em todos os HTMLs
+- Suporte completo para navegadores modernos
+- Ícone visível em abas e favoritos
+
+**Logo:**
+- `logo.png` integrado no header do sistema
+- Substituição do ícone SVG genérico
+- Consistência visual em todas as páginas
+- Dimensões otimizadas (32x32px no header)
+
+**Arquivos Afetados:**
+- `index.html` - Página inicial
+- `landing.html` - Landing page
+- `consulta.html` - Sistema de consulta
+- `sobre.html` - Página sobre
+- `faq.html` - Perguntas frequentes
+- `js/components.js` - Componente de header
 
 ---
 
