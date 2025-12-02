@@ -54,6 +54,11 @@ filesToCheck.forEach(file => {
             return;
         }
 
+        // Ignorar data URLs (SVGs inline não suportam variáveis CSS)
+        if (line.includes('data:image') || line.includes('url(\'data:')) {
+            return;
+        }
+
         // Verificar cores hex
         const hexMatches = line.match(patterns.hexColor);
         if (hexMatches) {
