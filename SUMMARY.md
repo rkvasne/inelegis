@@ -1,7 +1,7 @@
 # 📊 Resumo Executivo - Sessão de Desenvolvimento
 
 **Data:** 02 de dezembro de 2025  
-**Versão Final:** 0.0.8  
+**Versão Final:** 0.0.9  
 **Duração:** Sessão completa  
 **Status:** ✅ CONCLUÍDO COM SUCESSO
 
@@ -96,7 +96,7 @@ Taxa de sucesso: 100%
    - Suporte a temas
 
 4. **CHANGELOG.md**
-   - Versão 0.0.8 documentada
+   - Versão 0.0.9 documentada
    - Histórico completo
 
 5. **docs/guides/DEVELOPMENT.md**
@@ -105,7 +105,7 @@ Taxa de sucesso: 100%
 
 ### Arquivos Criados
 
-1. **docs/history/RELEASE-NOTES-v0.0.8.md**
+1. **docs/history/RELEASE-NOTES-v0.0.9.md**
    - Release notes completas
    - Guia de migração
 
@@ -282,4 +282,4 @@ Todas as metas foram alcançadas com sucesso. O sistema agora possui:
 
 **Desenvolvido por:** Kiro AI Assistant  
 **Data:** 02/12/2025  
-**Versão:** 0.0.8
+**Versão:** 0.0.9

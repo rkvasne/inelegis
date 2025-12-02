@@ -220,9 +220,8 @@ Todos os módulos seguem práticas de segurança:
 
 ## 📚 Documentação Adicional
 
-- [Plano de Refatoração](../docs/REFACTORING-PLAN.md)
-- [Guia de Implementação](../docs/IMPLEMENTATION-GUIDE.md)
-- [Plano Completo](../PLANO-COMPLETO.md)
+- [Histórico da Refatoração](../../../docs/history/refatoracao-v0.0.6.md)
+- [Release Notes v0.0.9](../../../docs/history/RELEASE-NOTES-v0.0.9.md)
 
 ---
 
@@ -239,6 +238,11 @@ Ao adicionar novos módulos:
 ---
 
 ## 📝 Changelog
+
+### v0.0.9 (02/12/2025)
+- ✅ Versão dos módulos, badges e metadados atualizados para 0.0.9
+- ✅ Ajustes de paths para `public/` + `src/` com novo pipeline `sync-js`
+- ✅ Docs sincronizados com release notes mais recentes
 
 ### v0.0.8 (02/12/2025)
 - ✅ Sistema de toast e modal para UX
@@ -258,4 +262,4 @@ Ao adicionar novos módulos:
 ---
 
 **Última atualização:** 02 de dezembro de 2025  
-**Versão:** 0.0.8
+**Versão:** 0.0.9

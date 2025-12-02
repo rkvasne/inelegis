@@ -1,12 +1,120 @@
 /**
  * History UI Component
  * Interface para exibição e interação com histórico de consultas
- * @version 0.0.8
+ * @version 0.0.9
  */
 
 const HistoryUI = (() => {
     let isOpen = false;
     let currentView = 'recent'; // recent, frequent, stats
+
+    function showEmptyState(container, message) {
+        container.innerHTML = '';
+        const empty = document.createElement('div');
+        empty.className = 'empty-state';
+        empty.textContent = message;
+        container.appendChild(empty);
+    }
+
+    function createHistoryItem(search, metaNode) {
+        const item = document.createElement('div');
+        const resultClass = search.resultado === 'inelegivel' ? 'inelegivel' : 'elegivel';
+        item.className = `history-item ${resultClass}`;
+
+        const header = document.createElement('div');
+        header.className = 'history-item-header';
+
+        const lei = document.createElement('span');
+        lei.className = 'history-lei';
+        lei.textContent = search.lei || 'N/A';
+
+        const artigo = document.createElement('span');
+        artigo.className = 'history-artigo';
+        artigo.textContent = `Art. ${search.artigo || 'N/A'}`;
+
+        header.appendChild(lei);
+        header.appendChild(artigo);
+
+        const body = document.createElement('div');
+        body.className = 'history-item-body';
+
+        const resultado = document.createElement('span');
+        resultado.className = 'history-resultado';
+        resultado.textContent = (search.resultado || '').toUpperCase();
+
+        body.appendChild(resultado);
+        if (metaNode) {
+            body.appendChild(metaNode);
+        }
+
+        item.appendChild(header);
+        item.appendChild(body);
+
+        return item;
+    }
+
+    function createMetaSpan(className, text) {
+        const span = document.createElement('span');
+        span.className = className;
+        span.textContent = text;
+        return span;
+    }
+
+    function createStatCard(className, value, label) {
+        const card = document.createElement('div');
+        card.className = className ? `stat-card ${className}` : 'stat-card';
+
+        const statValue = document.createElement('div');
+        statValue.className = 'stat-value';
+        statValue.textContent = value;
+
+        const statLabel = document.createElement('div');
+        statLabel.className = 'stat-label';
+        statLabel.textContent = label;
+
+        card.appendChild(statValue);
+        card.appendChild(statLabel);
+        return card;
+    }
+
+    function createStatsSection(title, data) {
+        const section = document.createElement('div');
+        section.className = 'stats-section';
+
+        const heading = document.createElement('h4');
+        heading.textContent = title;
+        section.appendChild(heading);
+
+        const list = document.createElement('div');
+        list.className = 'stats-list';
+
+        const entries = Object.entries(data || {});
+        if (entries.length === 0) {
+            const emptyItem = document.createElement('div');
+            emptyItem.className = 'stats-item';
+            emptyItem.textContent = 'Sem dados suficientes';
+            list.appendChild(emptyItem);
+        } else {
+            entries.forEach(([key, value]) => {
+                const item = document.createElement('div');
+                item.className = 'stats-item';
+
+                const label = document.createElement('span');
+                label.textContent = key;
+
+                const count = document.createElement('span');
+                count.className = 'stats-count';
+                count.textContent = `${value}x`;
+
+                item.appendChild(label);
+                item.appendChild(count);
+                list.appendChild(item);
+            });
+        }
+
+        section.appendChild(list);
+        return section;
+    }
 
     /**
      * Inicializa o componente de histórico
@@ -184,32 +292,17 @@ const HistoryUI = (() => {
      */
     function renderRecent(container) {
         const recent = SearchHistory.getRecent();
-
         if (recent.length === 0) {
-            container.innerHTML = '<div class="empty-state">Nenhuma consulta recente</div>';
+            showEmptyState(container, 'Nenhuma consulta recente');
             return;
         }
 
-        container.innerHTML = recent.map((search, index) => {
+        container.innerHTML = '';
+        recent.forEach(search => {
             const date = new Date(search.timestamp);
-            const resultClass = search.resultado === 'inelegivel' ? 'inelegivel' : 'elegivel';
-            
-            return `
-                <div class="history-item ${resultClass}">
-                    <div class="history-item-header">
-                        <span class="history-lei">${search.lei}</span>
-                        <span class="history-artigo">Art. ${search.artigo}</span>
-                    </div>
-                    <div class="history-item-body">
-                        <span class="history-resultado">${search.resultado.toUpperCase()}</span>
-                        <span class="history-date">${date.toLocaleString('pt-BR')}</span>
-                    </div>
-
-                </div>
-            `;
-        }).join('');
-
-
+            const meta = createMetaSpan('history-date', date.toLocaleString('pt-BR'));
+            container.appendChild(createHistoryItem(search, meta));
+        });
     }
 
     /**
@@ -220,26 +313,15 @@ const HistoryUI = (() => {
         const frequent = SearchHistory.getFrequent();
 
         if (frequent.length === 0) {
-            container.innerHTML = '<div class="empty-state">Nenhuma consulta frequente</div>';
+            showEmptyState(container, 'Nenhuma consulta frequente');
             return;
         }
 
-        container.innerHTML = frequent.map(search => {
-            const resultClass = search.resultado === 'inelegivel' ? 'inelegivel' : 'elegivel';
-            
-            return `
-                <div class="history-item ${resultClass}">
-                    <div class="history-item-header">
-                        <span class="history-lei">${search.lei}</span>
-                        <span class="history-artigo">Art. ${search.artigo}</span>
-                    </div>
-                    <div class="history-item-body">
-                        <span class="history-resultado">${search.resultado.toUpperCase()}</span>
-                        <span class="history-count">${search.count}x consultado</span>
-                    </div>
-                </div>
-            `;
-        }).join('');
+        container.innerHTML = '';
+        frequent.forEach(search => {
+            const meta = createMetaSpan('history-count', `${search.count}x consultado`);
+            container.appendChild(createHistoryItem(search, meta));
+        });
     }
 
     /**
@@ -249,46 +331,17 @@ const HistoryUI = (() => {
     function renderStats(container) {
         const stats = SearchHistory.getStats();
 
-        container.innerHTML = `
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-value">${stats.total}</div>
-                    <div class="stat-label">Total de Consultas</div>
-                </div>
-                <div class="stat-card inelegivel">
-                    <div class="stat-value">${stats.inelegiveis}</div>
-                    <div class="stat-label">Inelegíveis</div>
-                </div>
-                <div class="stat-card elegivel">
-                    <div class="stat-value">${stats.elegiveis}</div>
-                    <div class="stat-label">Elegíveis</div>
-                </div>
-            </div>
+        container.innerHTML = '';
 
-            <div class="stats-section">
-                <h4>Leis Mais Consultadas</h4>
-                <div class="stats-list">
-                    ${Object.entries(stats.leisMaisConsultadas).map(([lei, count]) => `
-                        <div class="stats-item">
-                            <span>${lei}</span>
-                            <span class="stats-count">${count}x</span>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
+        const grid = document.createElement('div');
+        grid.className = 'stats-grid';
+        grid.appendChild(createStatCard('', stats.total, 'Total de Consultas'));
+        grid.appendChild(createStatCard('inelegivel', stats.inelegiveis, 'Inelegíveis'));
+        grid.appendChild(createStatCard('elegivel', stats.elegiveis, 'Elegíveis'));
+        container.appendChild(grid);
 
-            <div class="stats-section">
-                <h4>Artigos Mais Consultados</h4>
-                <div class="stats-list">
-                    ${Object.entries(stats.artigosMaisConsultados).map(([artigo, count]) => `
-                        <div class="stats-item">
-                            <span>${artigo}</span>
-                            <span class="stats-count">${count}x</span>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
-        `;
+        container.appendChild(createStatsSection('Leis Mais Consultadas', stats.leisMaisConsultadas));
+        container.appendChild(createStatsSection('Artigos Mais Consultados', stats.artigosMaisConsultados));
     }
 
     /**
@@ -298,11 +351,19 @@ const HistoryUI = (() => {
         const text = SearchHistory.exportToText();
         
         navigator.clipboard.writeText(text).then(() => {
-            alert('Histórico copiado para área de transferência!');
+            notifyHistory('Histórico copiado para área de transferência!', 'success');
         }).catch(err => {
             console.error('Erro ao copiar:', err);
-            alert('Erro ao copiar histórico.');
+            notifyHistory('Erro ao copiar histórico.', 'error');
         });
+    }
+
+    function notifyHistory(message, type = 'info') {
+        if (typeof window !== 'undefined' && typeof window.mostrarToast === 'function') {
+            window.mostrarToast(message, type);
+        } else {
+            alert(message);
+        }
     }
 
     /**

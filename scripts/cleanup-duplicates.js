@@ -10,17 +10,18 @@
 
 const fs = require('fs');
 const path = require('path');
+const paths = require('./project-paths');
 
 console.log('🧹 Iniciando limpeza de código duplicado...\n');
 
 // Ler script.js
-const scriptPath = path.join(__dirname, '..', 'script.js');
+const scriptPath = paths.js.main;
 let scriptContent = fs.readFileSync(scriptPath, 'utf8');
 
 // Backup
-const backupPath = path.join(__dirname, '..', 'script.js.cleanup-backup');
+const backupPath = `${scriptPath}.cleanup-backup`;
 fs.writeFileSync(backupPath, scriptContent, 'utf8');
-console.log('✅ Backup criado: script.js.cleanup-backup\n');
+console.log(`✅ Backup criado: ${path.basename(backupPath)}\n`);
 
 // Funções a remover (com seus blocos completos)
 const functionsToRemove = [
@@ -73,8 +74,8 @@ fs.writeFileSync(scriptPath, scriptContent, 'utf8');
 console.log(`\n✅ Limpeza concluída!\n`);
 console.log('📊 Resumo:');
 console.log(`   - ${totalRemoved} funções removidas`);
-console.log(`   - Backup salvo em: script.js.cleanup-backup`);
-console.log(`   - Arquivo atualizado: script.js\n`);
+console.log(`   - Backup salvo em: ${path.basename(backupPath)}`);
+console.log(`   - Arquivo atualizado: ${path.relative(paths.root, scriptPath)}\n`);
 
 console.log('⚠️  Próximos passos:');
 console.log('   1. Executar testes: npm test');

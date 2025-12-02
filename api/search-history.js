@@ -23,8 +23,8 @@ function getRedis() {
 }
 
 // Configuração
-const MAX_HISTORY_PER_USER = 100;
-const HISTORY_TTL = 60 * 60 * 24 * 365; // 1 ano
+const MAX_HISTORY_PER_USER = parseInt(process.env.REDIS_MAX_HISTORY || '100', 10);
+const HISTORY_TTL = parseInt(process.env.REDIS_HISTORY_TTL || String(60 * 60 * 24 * 365), 10);
 
 const ALLOWED_ORIGINS = [
     'https://inelegis.vercel.app',

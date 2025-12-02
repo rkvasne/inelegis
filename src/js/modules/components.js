@@ -1,10 +1,11 @@
 /**
  * Reusable Components
  * Componentes reutilizáveis para todas as páginas
- * @version 0.0.8
+ * @version 0.0.9
  */
 
 const Components = (() => {
+    const IMAGE_BASE_PATH = '/assets/images/';
     /**
      * Renderiza o header do sistema com menu integrado
      * @param {string} currentPage - Página atual para destacar no menu
@@ -43,17 +44,17 @@ const Components = (() => {
         // logo-dark.png = escudo escuro (para fundo claro)
         // logo-claro.png = escudo claro (para fundo escuro)
         const isDarkTheme = document.documentElement.classList.contains('dark-theme');
-        const logoSrc = isDarkTheme ? 'logo-claro.png' : 'logo-dark.png';
+        const logoSrc = `${IMAGE_BASE_PATH}${isDarkTheme ? 'logo-claro.png' : 'logo-dark.png'}`;
 
         return `
             <header class="system-header">
                 <div class="header-wrapper">
                     <div class="system-brand">
                         <div class="brand-icon">
-                            <img id="header-logo" src="${logoSrc}" alt="Inelegis Logo" width="32" height="32" style="border-radius: 4px;">
+                            <img id="header-logo" src="${logoSrc}" alt="Inelegis Logo" width="32" height="32" loading="lazy" style="border-radius: 4px;">
                         </div>
                         <div class="brand-text">
-                            <h1>Inelegis <span class="version-badge">v0.0.8</span></h1>
+                            <h1>Inelegis <span class="version-badge">v0.0.9</span></h1>
                             <p>Consulta de Inelegibilidade Eleitoral</p>
                         </div>
                     </div>

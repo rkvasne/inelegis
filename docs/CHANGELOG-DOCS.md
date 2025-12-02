@@ -3,7 +3,7 @@
 ---
 
 **Última atualização:** 02 de dezembro de 2025  
-**Versão:** 0.0.8
+**Versão:** 0.0.9
 
 ---
 
@@ -45,7 +45,7 @@
 ### 📄 Ajustes Complementares
 
 - ✅ `docs/guides/DEVELOPMENT.md`, `design/COMPONENTS.md`, `operations/PROTECTION.md` e `docs/README.md` atualizados para refletir o estado real do código.
-- ✅ `CHANGELOG-DOCS.md` revisado com esta entrada e versão 0.0.8.
+- ✅ `CHANGELOG-DOCS.md` revisado com esta entrada e versão 0.0.9.
 
 ---
 
@@ -238,6 +238,7 @@ docs/
 │
 ├── history/
 │   ├── refatoracao-v0.0.6.md
+│   ├── RELEASE-NOTES-v0.0.9.md
 │   └── RELEASE-NOTES-v0.0.8.md
 │
 └── references/

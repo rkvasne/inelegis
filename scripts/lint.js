@@ -7,10 +7,11 @@
 
 const fs = require('fs');
 const path = require('path');
+const paths = require('./project-paths');
 
 class Linter {
   constructor() {
-    this.projectRoot = path.join(__dirname, '..');
+    this.projectRoot = paths.root;
     this.errors = [];
     this.warnings = [];
     this.suggestions = [];
@@ -31,7 +32,7 @@ class Linter {
   }
 
   async lint() {
-    this.log('Iniciando lint do Inelegis v0.0.8', 'info');
+    this.log('Iniciando lint do Inelegis v0.0.9', 'info');
 
     try {
       // 1. Lint HTML
@@ -67,8 +68,7 @@ class Linter {
   async lintHTML() {
     this.log('Verificando HTML...', 'info');
 
-    const htmlPath = path.join(this.projectRoot, 'index.html');
-    const content = fs.readFileSync(htmlPath, 'utf8');
+    const content = fs.readFileSync(paths.pages.index, 'utf8');
 
     // Verificações de estrutura HTML
     const htmlChecks = [
@@ -133,8 +133,7 @@ class Linter {
   async lintCSS() {
     this.log('Verificando CSS...', 'info');
 
-    const cssPath = path.join(this.projectRoot, 'styles.css');
-    const content = fs.readFileSync(cssPath, 'utf8');
+    const content = fs.readFileSync(paths.styles.main, 'utf8');
 
     const cssChecks = [
       {
@@ -198,53 +197,55 @@ class Linter {
   async lintJavaScript() {
     this.log('Verificando JavaScript...', 'info');
 
-    const jsFiles = ['script.js', 'data.js'];
+    const jsFiles = [
+      { label: 'script.js', filePath: paths.js.main },
+      { label: 'data.js', filePath: paths.js.data }
+    ];
 
-    for (const file of jsFiles) {
-      const jsPath = path.join(this.projectRoot, file);
-      if (!fs.existsSync(jsPath)) continue;
+    for (const { label, filePath } of jsFiles) {
+      if (!fs.existsSync(filePath)) continue;
 
-      const content = fs.readFileSync(jsPath, 'utf8');
+      const content = fs.readFileSync(filePath, 'utf8');
 
       const jsChecks = [
         {
           test: () => content.includes('use strict') || content.includes("'use strict'"),
-          message: `${file}: Modo strict habilitado`,
+          message: `${label}: Modo strict habilitado`,
           type: 'suggestion'
         },
         {
-          test: () => !content.includes('var '),
-          message: `${file}: Usar let/const em vez de var`,
+          test: () => !/\bvar\s/.test(content),
+          message: `${label}: Usar let/const em vez de var`,
           type: 'warning'
         },
         {
           test: () => content.includes('const ') || content.includes('let '),
-          message: `${file}: Declarações modernas (let/const)`,
+          message: `${label}: Declarações modernas (let/const)`,
           type: 'suggestion'
         },
         {
           test: () => content.includes('=>'),
-          message: `${file}: Arrow functions utilizadas`,
+          message: `${label}: Arrow functions utilizadas`,
           type: 'suggestion'
         },
         {
           test: () => !content.includes('eval('),
-          message: `${file}: Evitar eval() (segurança)`,
+          message: `${label}: Evitar eval() (segurança)`,
           type: 'error'
         },
         {
           test: () => content.includes('addEventListener'),
-          message: `${file}: Event listeners modernos`,
+          message: `${label}: Event listeners modernos`,
           type: 'suggestion'
         },
         {
           test: () => content.includes('try {') && content.includes('catch'),
-          message: `${file}: Tratamento de erros implementado`,
+          message: `${label}: Tratamento de erros implementado`,
           type: 'suggestion'
         },
         {
           test: () => content.includes('//') || content.includes('/*'),
-          message: `${file}: Código comentado`,
+          message: `${label}: Código comentado`,
           type: 'suggestion'
         }
       ];
@@ -254,19 +255,18 @@ class Linter {
       // Verificar tamanho do arquivo JS
       const sizeKB = Buffer.byteLength(content, 'utf8') / 1024;
       if (sizeKB > 200) {
-        this.warnings.push(`${file}: Arquivo grande (${sizeKB.toFixed(1)}KB) - considere modularização`);
+        this.warnings.push(`${label}: Arquivo grande (${sizeKB.toFixed(1)}KB) - considere modularização`);
       }
     }
 
     // Verificar módulos JS
-    const jsDir = path.join(this.projectRoot, 'js');
-    if (fs.existsSync(jsDir)) {
-      const modules = fs.readdirSync(jsDir).filter(f => f.endsWith('.js'));
+    if (fs.existsSync(paths.js.modules)) {
+      const modules = fs.readdirSync(paths.js.modules).filter(f => f.endsWith('.js'));
       this.log(`Módulos JS encontrados: ${modules.length}`, 'success');
 
       // Verificar cada módulo
       for (const module of modules) {
-        const modulePath = path.join(jsDir, module);
+        const modulePath = path.join(paths.js.modules, module);
         const content = fs.readFileSync(modulePath, 'utf8');
 
         if (content.includes('window.App')) {
@@ -381,35 +381,33 @@ class Linter {
   async lintFileStructure() {
     this.log('Verificando estrutura de arquivos...', 'info');
 
-    const expectedStructure = {
-      'index.html': 'error',
-      'styles.css': 'error',
-      'script.js': 'error',
-      'data.js': 'error',
-      // 'manifest.json': 'warning',
-      // 'sw.js': 'warning', // Removido - cache desabilitado
-      'README.md': 'suggestion',
-      'js/': 'suggestion',
-      'scripts/': 'suggestion',
-      'tests/': 'suggestion',
-      'icons/': 'warning'
-    };
+    const expectedStructure = [
+      { label: 'public/index.html', path: paths.pages.index, level: 'error' },
+      { label: 'public/styles/styles.css', path: paths.styles.main, level: 'error' },
+      { label: 'src/js/script.js', path: paths.js.main, level: 'error' },
+      { label: 'src/js/data.js', path: paths.js.data, level: 'error' },
+      { label: 'public/assets/js/', path: paths.js.public, level: 'warning' },
+      { label: 'src/js/modules/', path: paths.js.modules, level: 'suggestion' },
+      { label: 'README.md', path: path.join(this.projectRoot, 'README.md'), level: 'suggestion' },
+      { label: 'scripts/', path: path.join(this.projectRoot, 'scripts'), level: 'suggestion' },
+      { label: 'tests/', path: path.join(this.projectRoot, 'tests'), level: 'suggestion' },
+      { label: 'public/assets/icons/', path: path.join(paths.publicDir, 'assets', 'icons'), level: 'warning' }
+    ];
 
-    for (const [item, level] of Object.entries(expectedStructure)) {
-      const itemPath = path.join(this.projectRoot, item);
-      const exists = fs.existsSync(itemPath);
+    for (const item of expectedStructure) {
+      const exists = fs.existsSync(item.path);
 
       if (!exists) {
-        const message = `Estrutura: ${item} não encontrado`;
-        if (level === 'error') {
+        const message = `Estrutura: ${item.label} não encontrado`;
+        if (item.level === 'error') {
           this.errors.push(message);
-        } else if (level === 'warning') {
+        } else if (item.level === 'warning') {
           this.warnings.push(message);
         } else {
           this.suggestions.push(message);
         }
       } else {
-        this.log(`Estrutura: ${item} ✓`, 'success');
+        this.log(`Estrutura: ${item.label} ✓`, 'success');
       }
     }
   }
@@ -417,8 +415,7 @@ class Linter {
   async lintAccessibility() {
     this.log('Verificando acessibilidade...', 'info');
 
-    const htmlPath = path.join(this.projectRoot, 'index.html');
-    const content = fs.readFileSync(htmlPath, 'utf8');
+    const content = fs.readFileSync(paths.pages.index, 'utf8');
 
     const a11yChecks = [
       {
@@ -459,8 +456,7 @@ class Linter {
   async lintPerformance() {
     this.log('Verificando performance...', 'info');
 
-    const htmlPath = path.join(this.projectRoot, 'index.html');
-    const content = fs.readFileSync(htmlPath, 'utf8');
+    const content = fs.readFileSync(paths.pages.index, 'utf8');
 
     const perfChecks = [
       {
@@ -488,18 +484,21 @@ class Linter {
     this.runChecks('Performance', perfChecks);
 
     // Verificar tamanhos de arquivos
-    const files = ['styles.css', 'script.js', 'data.js'];
+    const files = [
+      { label: 'styles.css', filePath: paths.styles.main },
+      { label: 'script.js', filePath: paths.js.main },
+      { label: 'data.js', filePath: paths.js.data }
+    ];
     let totalSize = 0;
 
-    for (const file of files) {
-      const filePath = path.join(this.projectRoot, file);
+    for (const { label, filePath } of files) {
       if (fs.existsSync(filePath)) {
         const stats = fs.statSync(filePath);
         const sizeKB = stats.size / 1024;
         totalSize += sizeKB;
 
         if (sizeKB > 100) {
-          this.warnings.push(`Performance: ${file} é grande (${sizeKB.toFixed(1)}KB)`);
+          this.warnings.push(`Performance: ${label} é grande (${sizeKB.toFixed(1)}KB)`);
         }
       }
     }
@@ -539,7 +538,7 @@ class Linter {
   generateReport() {
     const report = {
       timestamp: new Date().toISOString(),
-      version: '0.0.8',
+      version: '0.0.9',
       summary: {
         errors: this.errors.length,
         warnings: this.warnings.length,
@@ -561,7 +560,7 @@ class Linter {
 
     // Exibir resumo
     console.log('\n' + '='.repeat(60));
-    console.log('🔍 RELATÓRIO DE LINT - INELEG-APP v0.0.8');
+    console.log('🔍 RELATÓRIO DE LINT - INELEG-APP v0.0.9');
     console.log('='.repeat(60));
     console.log(`Status: ${report.summary.status}`);
     console.log(`Erros: ${this.errors.length}`);

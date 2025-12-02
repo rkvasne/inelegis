@@ -7,10 +7,11 @@
 
 const fs = require('fs');
 const path = require('path');
+const paths = require('./project-paths');
 
 class TestRunner {
   constructor() {
-    this.projectRoot = path.join(__dirname, '..');
+    this.projectRoot = paths.root;
     this.testsDir = path.join(this.projectRoot, 'tests');
     this.results = {
       total: 0,
@@ -35,7 +36,7 @@ class TestRunner {
   }
 
   async runTests() {
-    this.log('Iniciando testes do Inelegis v0.0.8', 'info');
+    this.log('Iniciando testes do Inelegis v0.0.9', 'info');
 
     try {
       // 1. Testes de unidade
@@ -105,15 +106,13 @@ class TestRunner {
 
     // Teste 1: Carregamento de dados
     this.test('Carregamento da tabela de inelegibilidade', () => {
-      const dataPath = path.join(this.projectRoot, 'data.js');
-      return fs.existsSync(dataPath);
+      return fs.existsSync(paths.js.data);
     });
 
     // Teste 2: Estrutura de dados
     this.test('Estrutura da tabela de dados', () => {
       // Verificar se data.js tem estrutura esperada
-      const dataPath = path.join(this.projectRoot, 'data.js');
-      const content = fs.readFileSync(dataPath, 'utf8');
+      const content = fs.readFileSync(paths.js.data, 'utf8');
       return content.includes('tabelaInelegibilidade') && content.includes('leisDisponiveis');
     });
 
@@ -145,8 +144,7 @@ class TestRunner {
 
     // Teste 1: HTML válido
     this.test('HTML bem formado', () => {
-      const htmlPath = path.join(this.projectRoot, 'index.html');
-      const content = fs.readFileSync(htmlPath, 'utf8');
+      const content = fs.readFileSync(paths.pages.index, 'utf8');
       return content.includes('<!DOCTYPE html>') &&
         content.includes('<html') &&
         content.includes('</html>');
@@ -154,31 +152,27 @@ class TestRunner {
 
     // Teste 2: CSS válido
     this.test('CSS sem erros críticos', () => {
-      const cssPath = path.join(this.projectRoot, 'styles.css');
-      const content = fs.readFileSync(cssPath, 'utf8');
+      const content = fs.readFileSync(paths.styles.main, 'utf8');
       // Verificar se não há erros óbvios
       return !content.includes('undefined') && content.includes(':root');
     });
 
     // Teste 3: JavaScript sem erros de sintaxe
     this.test('JavaScript sem erros de sintaxe', () => {
-      const jsPath = path.join(this.projectRoot, 'script.js');
-      const content = fs.readFileSync(jsPath, 'utf8');
+      const content = fs.readFileSync(paths.js.main, 'utf8');
       // Verificação básica de sintaxe
       return content.includes('function') && !content.includes('syntax error');
     });
 
     // Teste 4: Responsividade
     this.test('Design responsivo implementado', () => {
-      const cssPath = path.join(this.projectRoot, 'styles.css');
-      const content = fs.readFileSync(cssPath, 'utf8');
+      const content = fs.readFileSync(paths.styles.main, 'utf8');
       return content.includes('@media') && content.includes('max-width');
     });
 
     // Teste 5: Acessibilidade básica
     this.test('Elementos de acessibilidade presentes', () => {
-      const htmlPath = path.join(this.projectRoot, 'index.html');
-      const content = fs.readFileSync(htmlPath, 'utf8');
+      const content = fs.readFileSync(paths.pages.index, 'utf8');
       return content.includes('aria-') && content.includes('role=');
     });
   }
@@ -188,41 +182,36 @@ class TestRunner {
 
     // Teste 1: Dados não vazios
     this.test('Tabela de inelegibilidade não vazia', () => {
-      const dataPath = path.join(this.projectRoot, 'data.js');
-      const content = fs.readFileSync(dataPath, 'utf8');
+      const content = fs.readFileSync(paths.js.data, 'utf8');
       // Verificar se há pelo menos algumas entradas
       return (content.match(/norma:/g) || []).length > 10;
     });
 
     // Teste 2: Leis disponíveis
-    this.test('Lista de leis disponíveis', () => {
-      const dataPath = path.join(this.projectRoot, 'data.js');
-      const content = fs.readFileSync(dataPath, 'utf8');
+      this.test('Lista de leis disponíveis', () => {
+        const content = fs.readFileSync(paths.js.data, 'utf8');
       return content.includes('leisDisponiveis') && content.includes('value:');
     });
 
     // Teste 3: Estrutura consistente
-    this.test('Estrutura de dados consistente', () => {
-      const dataPath = path.join(this.projectRoot, 'data.js');
-      const content = fs.readFileSync(dataPath, 'utf8');
+      this.test('Estrutura de dados consistente', () => {
+        const content = fs.readFileSync(paths.js.data, 'utf8');
       return content.includes('norma:') &&
         content.includes('codigo:') &&
         content.includes('crime:');
     });
 
     // Teste 4: Códigos válidos
-    this.test('Códigos de lei válidos', () => {
-      const dataPath = path.join(this.projectRoot, 'data.js');
-      const content = fs.readFileSync(dataPath, 'utf8');
+      this.test('Códigos de lei válidos', () => {
+        const content = fs.readFileSync(paths.js.data, 'utf8');
       return content.includes('CP') &&
         content.includes('LEI_') &&
         !content.includes('undefined');
     });
 
     // Teste 5: Exceções formatadas
-    this.test('Exceções bem formatadas', () => {
-      const dataPath = path.join(this.projectRoot, 'data.js');
-      const content = fs.readFileSync(dataPath, 'utf8');
+      this.test('Exceções bem formatadas', () => {
+        const content = fs.readFileSync(paths.js.data, 'utf8');
       return content.includes('excecoes:') && content.includes('Art.');
     });
   }
@@ -284,7 +273,7 @@ class TestRunner {
   generateReport() {
     const report = {
       timestamp: new Date().toISOString(),
-      version: '0.0.8',
+      version: '0.0.9',
       summary: {
         total: this.results.total,
         passed: this.results.passed,
@@ -303,7 +292,7 @@ class TestRunner {
 
     // Exibir resumo
     console.log('\n' + '='.repeat(60));
-    console.log('🧪 RELATÓRIO DE TESTES - INELEG-APP v0.0.8');
+    console.log('🧪 RELATÓRIO DE TESTES - INELEG-APP v0.0.9');
     console.log('='.repeat(60));
     console.log(`Total de testes: ${this.results.total}`);
     console.log(`Passou: ${this.results.passed}`);

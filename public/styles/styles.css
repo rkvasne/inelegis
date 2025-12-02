@@ -92,6 +92,9 @@
   --footer-bg: var(--bg-secondary);
   --footer-text: var(--text-secondary);
   --nav-active-bg: rgba(255, 255, 255, 0.25);
+  --nav-hover-bg: rgba(255, 255, 255, 0.15);
+  --badge-overlay-bg: rgba(255, 255, 255, 0.2);
+  --header-shadow: 0 4px 20px rgba(3, 105, 161, 0.25);
   --nav-active-text: #ffffff;
 
   /* Cores de Status - Tema Claro */
@@ -194,11 +197,16 @@
   --info-bg: rgba(56, 189, 248, 0.15);
   --info-border: #38bdf8;
   --info-text: #7dd3fc;
+  --nav-active-bg: var(--primary-500);
+  --nav-active-text: var(--text-on-primary);
   
   /* Header e Footer - Tema Escuro */
   --header-bg: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
   --header-text: var(--text-primary);
   --footer-bg: var(--bg-primary);
+  --badge-overlay-bg: rgba(15, 23, 42, 0.45);
+  --nav-hover-bg: rgba(30, 41, 59, 0.8);
+  --header-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   --footer-text: var(--text-secondary);
   --nav-active-bg: #334155;
   --nav-active-text: #38bdf8;
@@ -353,18 +361,13 @@ code {
 
 /* Header - Verde Fresh com Menu Integrado */
 .system-header {
-  background: linear-gradient(135deg, var(--primary-500) 0%, var(--primary-600) 50%, var(--primary-700) 100%);
-  color: var(--text-on-primary);
+  background: var(--header-bg);
+  color: var(--header-text);
   padding: var(--space-4) var(--space-6);
-  box-shadow: 0 4px 20px var(--primary-200);
+  box-shadow: var(--header-shadow);
   position: sticky;
   top: 0;
-  z-index: 100;
-}
-
-.dark-theme .system-header {
-  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  z-index: var(--z-sticky);
 }
 
 /* Efeito de brilho sutil - Estilo Windsurf */
@@ -434,10 +437,10 @@ code {
 .version-badge {
   font-size: 0.625rem;
   font-weight: 500;
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--badge-overlay-bg);
   padding: 0.25rem 0.5rem;
   border-radius: var(--radius-sm);
-  opacity: 0.8;
+  opacity: var(--opacity-muted);
 }
 
 .brand-text p {
@@ -477,12 +480,13 @@ code {
 }
 
 .header-nav-link:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: var(--nav-hover-bg);
   transform: translateY(-1px);
 }
 
 .header-nav-link.active {
-  background: rgba(255, 255, 255, 0.25);
+  background: var(--nav-active-bg);
+  color: var(--nav-active-text);
   font-weight: 600;
 }
 
@@ -499,15 +503,6 @@ code {
 
 .dark-theme .header-nav-link {
   color: var(--text-primary);
-}
-
-.dark-theme .header-nav-link:hover {
-  background: var(--bg-tertiary);
-}
-
-.dark-theme .header-nav-link.active {
-  background: var(--primary-500);
-  color: var(--text-on-primary);
 }
 
 /* Ações do Header */

@@ -1298,55 +1298,6 @@ function checkLightColorsInDarkTheme(content, file) {
 }
 
 /**
- * Verifica se inputs/textareas/selects têm background e color definidos
- * Inputs sem essas propriedades usam valores padrão do navegador (geralmente branco)
- * causando problemas no tema escuro
- */
-function checkInputsThemeProperties(content, file) {
-    // Padrões de seletores de input
-    const inputSelectors = [
-        /\.([\w-]*input[\w-]*)\s*\{([^}]+)\}/gi,
-        /\.([\w-]*search[\w-]*)\s*\{([^}]+)\}/gi,
-        /\.([\w-]*textarea[\w-]*)\s*\{([^}]+)\}/gi,
-        /\.([\w-]*select[\w-]*)\s*\{([^}]+)\}/gi,
-        /input\[type=["']?(?:text|email|password|search|tel|url|number)["']?\]\s*\{([^}]+)\}/gi,
-        /textarea\s*\{([^}]+)\}/gi,
-        /select\s*\{([^}]+)\}/gi
-    ];
-    
-    for (const pattern of inputSelectors) {
-        let match;
-        while ((match = pattern.exec(content)) !== null) {
-            const selectorName = match[1] || match[0].split('{')[0].trim();
-            const rules = match[match.length - 1]; // Último grupo de captura
-            
-            // Ignorar pseudo-elementos e estados
-            if (/::|:hover|:focus|:active|:disabled/.test(selectorName)) continue;
-            
-            // Verificar se tem background definido
-            const hasBackground = /background\s*:/i.test(rules);
-            const hasColor = /(?:^|\s)color\s*:/i.test(rules);
-            
-            if (!hasBackground || !hasColor) {
-                const missing = [];
-                if (!hasBackground) missing.push('background');
-                if (!hasColor) missing.push('color');
-                
-                addIssue(
-                    'input-missing-theme-props',
-                    'warning',
-                    file, 0, 0,
-                    `Input/Select "${selectorName}" sem ${missing.join(' e ')} definido(s)`,
-                    match[0].substring(0, 100),
-                    `Adicione ${missing.map(p => `${p}: var(--${p === 'background' ? 'bg' : 'text'}-primary)`).join(' e ')} para compatibilidade com tema escuro`,
-                    true
-                );
-            }
-        }
-    }
-}
-
-/**
  * Verifica se inputs/selects/textareas usam variáveis de tema para background e color
  */
 function checkInputsThemeProperties(content, file) {
