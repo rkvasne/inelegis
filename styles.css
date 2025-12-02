@@ -88,8 +88,8 @@
   --header-text: var(--text-on-primary);
   --footer-bg: var(--bg-secondary);
   --footer-text: var(--text-secondary);
-  --nav-active-bg: rgba(255, 255, 255, 0.15);
-  --nav-active-text: var(--text-on-primary);
+  --nav-active-bg: var(--primary-100);
+  --nav-active-text: var(--primary-700);
 
   /* Cores de Status - Tema Claro */
   --success-bg: rgba(16, 185, 129, 0.1);
