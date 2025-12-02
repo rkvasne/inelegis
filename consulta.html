@@ -475,8 +475,6 @@
     <!-- Inicializar Módulos -->
     <script>
         // Verificar se termos foram aceitos
-        // TEMPORARIAMENTE DESABILITADO PARA DEBUG
-        /*
         (function() {
             const termosValue = localStorage.getItem('ineleg_termos_aceitos');
             console.log('🔍 Verificando termos:', termosValue);
@@ -486,13 +484,12 @@
             if (!termosAceitos) {
                 console.log('❌ Termos não aceitos, redirecionando...');
                 sessionStorage.setItem('ineleg_redirect_reason', 'terms_not_accepted');
-                window.location.href = 'index.html';
+                window.location.href = './';
                 return;
             }
             
             console.log('✅ Termos aceitos, continuando...');
         })();
-        */
         
         // Inicializar componentes
         Components.init('consulta');
