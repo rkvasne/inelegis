@@ -2244,7 +2244,7 @@ code {
 /* Hero Section */
 .faq-hero {
   text-align: center;
-  padding: var(--space-8) 0 var(--space-6);
+  padding: var(--space-8) 0 calc(var(--space-6) + 1.25rem); /* +20px na altura */
   background: linear-gradient(to bottom, var(--primary-50), var(--bg-primary));
   margin-bottom: var(--space-6);
 }
@@ -2265,7 +2265,7 @@ code {
 /* Search Box */
 .faq-search {
   max-width: 600px;
-  margin: -3.2rem auto var(--space-8); /* Subiu 10px */
+  margin: -1.95rem auto var(--space-8); /* Desceu 20px */
   padding: 0 var(--space-4);
   position: relative;
   z-index: 10;
