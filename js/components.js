@@ -40,8 +40,10 @@ const Components = (() => {
         }).join('');
 
         // Detectar tema atual para escolher logo
+        // logo-dark.png = escudo escuro (para fundo claro)
+        // logo-claro.png = escudo claro (para fundo escuro)
         const isDarkTheme = document.documentElement.classList.contains('dark-theme');
-        const logoSrc = isDarkTheme ? 'logo-dark.png' : 'logo-claro.png';
+        const logoSrc = isDarkTheme ? 'logo-claro.png' : 'logo-dark.png';
 
         return `
             <header class="system-header">

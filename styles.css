@@ -14,17 +14,17 @@
 }
 
 :root {
-  /* Cores Primárias - Verde Fresh */
-  --primary-50: #d1fae5;
-  --primary-100: #d1fae5;
-  --primary-200: #a7f3d0;
-  --primary-300: #6ee7b7;
-  --primary-400: #34d399;
-  --primary-500: #22c55e;  /* Verde Principal */
-  --primary-600: #10b981;
-  --primary-700: #059669;
-  --primary-800: #047857;
-  --primary-900: #065f46;
+  /* Cores Primárias - Azul Corporativo */
+  --primary-50: #f0f9ff;
+  --primary-100: #e0f2fe;
+  --primary-200: #bae6fd;
+  --primary-300: #7dd3fc;
+  --primary-400: #38bdf8;
+  --primary-500: #0ea5e9;  /* Azul Principal */
+  --primary-600: #0284c7;
+  --primary-700: #0369a1;
+  --primary-800: #075985;
+  --primary-900: #0c4a6e;
   
   --neutral-50: #f3f4f6;
   --neutral-100: #f3f4f6;

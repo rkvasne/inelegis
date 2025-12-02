@@ -127,7 +127,9 @@ const ThemeManager = (() => {
         const logo = document.getElementById('header-logo');
         if (!logo) return;
         
-        const logoSrc = theme === THEME_DARK ? 'logo-dark.png' : 'logo-claro.png';
+        // logo-dark.png = escudo escuro (para fundo claro)
+        // logo-claro.png = escudo claro (para fundo escuro)
+        const logoSrc = theme === THEME_DARK ? 'logo-claro.png' : 'logo-dark.png';
         logo.src = logoSrc;
     }
 
