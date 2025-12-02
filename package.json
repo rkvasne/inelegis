@@ -33,7 +33,8 @@
     "clean:all": "npm run clean && rimraf node_modules package-lock.json",
     "reinstall": "npm run clean:all && npm install",
     "update-deps": "npm update && npm audit fix",
-    "size": "node -e \"const fs=require('fs'); const path=require('path'); const getSize=d=>fs.readdirSync(d).reduce((s,f)=>{const p=path.join(d,f); return s+(fs.statSync(p).isDirectory()?getSize(p):fs.statSync(p).size)},0); console.log('Tamanho do projeto:', Math.round(getSize('.')/1024)+'KB');\""
+    "size": "node -e \"const fs=require('fs'); const path=require('path'); const getSize=d=>fs.readdirSync(d).reduce((s,f)=>{const p=path.join(d,f); return s+(fs.statSync(p).isDirectory()?getSize(p):fs.statSync(p).size)},0); console.log('Tamanho do projeto:', Math.round(getSize('.')/1024)+'KB');\"",
+    "validate:theme": "node scripts/validate-theme.js"
   },
   "keywords": [
     "inelegibilidade",
