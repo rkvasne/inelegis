@@ -4,6 +4,39 @@
  * @version 0.0.6
  */
 
+// SecureStorage - Wrapper para localStorage
+const SecureStorage = (() => {
+    return {
+        getItem: (key) => {
+            try {
+                const item = localStorage.getItem(key);
+                return item ? JSON.parse(item) : null;
+            } catch (e) {
+                console.error('Erro ao obter do localStorage:', e);
+                return null;
+            }
+        },
+        setItem: (key, value) => {
+            try {
+                localStorage.setItem(key, JSON.stringify(value));
+                return true;
+            } catch (e) {
+                console.error('Erro ao salvar no localStorage:', e);
+                return false;
+            }
+        },
+        removeItem: (key) => {
+            try {
+                localStorage.removeItem(key);
+                return true;
+            } catch (e) {
+                console.error('Erro ao remover do localStorage:', e);
+                return false;
+            }
+        }
+    };
+})();
+
 const SearchHistory = (() => {
     const STORAGE_KEY = 'inelegis_search_history';
     const MAX_HISTORY = 50;
@@ -136,39 +169,22 @@ const SearchHistory = (() => {
     }
 
     /**
-     * Limpa todo o histórico
-     * @returns {boolean} Sucesso da operação
+     * Limpa todo o histórico - DESABILITADO
+     * @returns {boolean} Sempre retorna false
      */
     function clear() {
-        try {
-            SecureStorage.removeItem(STORAGE_KEY);
-            return true;
-        } catch (error) {
-            console.error('Erro ao limpar histórico:', error);
-            return false;
-        }
+        console.warn('Operação não permitida: Limpeza de histórico desabilitada');
+        return false;
     }
 
     /**
-     * Remove uma consulta específica
+     * Remove uma consulta específica - DESABILITADO
      * @param {number} index - Índice da consulta
-     * @returns {boolean} Sucesso da operação
+     * @returns {boolean} Sempre retorna false
      */
     function remove(index) {
-        try {
-            const history = getHistory();
-            
-            if (index >= 0 && index < history.length) {
-                history.splice(index, 1);
-                SecureStorage.setItem(STORAGE_KEY, history);
-                return true;
-            }
-            
-            return false;
-        } catch (error) {
-            console.error('Erro ao remover do histórico:', error);
-            return false;
-        }
+        console.warn('Operação não permitida: Remoção de histórico desabilitada');
+        return false;
     }
 
     /**
