@@ -1,7 +1,7 @@
 /**
  * History UI Component
  * Interface para exibição e interação com histórico de consultas
- * @version 0.0.6
+ * @version 0.0.8
  */
 
 const HistoryUI = (() => {

@@ -96,7 +96,7 @@ Siga estes passos para rodar o projeto localmente.
 
 ```
 inelegis-app/
-├── 📁 js/              # Módulos JavaScript (v0.0.6+)
+├── 📁 js/              # Módulos JavaScript (v0.0.8)
 │   ├── sanitizer.js    # Prevenção XSS
 │   ├── storage.js      # localStorage seguro
 │   ├── formatters.js   # Formatação de artigos
@@ -133,10 +133,17 @@ inelegis-app/
 - ✅ **23+ Categorias** - Detecção abrangente de problemas
 - ✅ **Suporte a 9+ Frameworks** - Tailwind, Material, Bootstrap, etc.
 
+### Novidades v0.0.8
+- ✅ **Analytics com Redis** - Sistema de analytics usando ioredis
+- ✅ **Histórico sincronizado** - Buscas salvas no Redis
+- ✅ **Toast e Modal** - UX melhorada sem alert() nativo
+- ✅ **Verificação de termos** - Menu Consulta bloqueado sem aceitar termos
+- ✅ **Cache desabilitado** - Sem Service Worker, sempre versão atual
+- ✅ **Header azul** - Design consistente com landing page
+
 ### Novidades v0.0.7
-- ✅ **Documentação consolidada** - 9 documentos redundantes removidos
-- ✅ **Documentos históricos marcados** - Clareza sobre status atual vs histórico
-- ✅ **Análise completa** - Auditoria de qualidade da documentação
+- ✅ **Tema escuro completo** - Alternância automática
+- ✅ **Componentes reutilizáveis** - Header, Nav, Footer modulares
 
 ### Novidades v0.0.6
 - ✅ **Zero vulnerabilidades XSS** - Sanitização completa de HTML

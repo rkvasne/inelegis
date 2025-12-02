@@ -31,7 +31,7 @@ class Linter {
   }
 
   async lint() {
-    this.log('Iniciando lint do Inelegis v0.0.6', 'info');
+    this.log('Iniciando lint do Inelegis v0.0.8', 'info');
 
     try {
       // 1. Lint HTML
@@ -387,7 +387,7 @@ class Linter {
       'script.js': 'error',
       'data.js': 'error',
       // 'manifest.json': 'warning',
-      'sw.js': 'warning',
+      // 'sw.js': 'warning', // Removido - cache desabilitado
       'README.md': 'suggestion',
       'js/': 'suggestion',
       'scripts/': 'suggestion',
@@ -539,7 +539,7 @@ class Linter {
   generateReport() {
     const report = {
       timestamp: new Date().toISOString(),
-      version: '0.0.2',
+      version: '0.0.8',
       summary: {
         errors: this.errors.length,
         warnings: this.warnings.length,
@@ -561,7 +561,7 @@ class Linter {
 
     // Exibir resumo
     console.log('\n' + '='.repeat(60));
-    console.log('🔍 RELATÓRIO DE LINT - INELEG-APP v0.0.2');
+    console.log('🔍 RELATÓRIO DE LINT - INELEG-APP v0.0.8');
     console.log('='.repeat(60));
     console.log(`Status: ${report.summary.status}`);
     console.log(`Erros: ${this.errors.length}`);

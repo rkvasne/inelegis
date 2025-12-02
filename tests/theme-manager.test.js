@@ -1,6 +1,6 @@
 /**
  * Testes para Theme Manager
- * @version 0.0.7
+ * @version 0.0.8
  */
 
 // Mock do localStorage

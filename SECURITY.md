@@ -6,9 +6,9 @@ Atualmente, oferecemos suporte de segurança para as seguintes versões:
 
 | Versão | Suportada          |
 | ------ | ------------------ |
-| 0.0.6  | ✅ Sim             |
-| 0.0.5  | ❌ Não             |
-| < 0.0.5| ❌ Não             |
+| 0.0.8  | ✅ Sim             |
+| 0.0.7  | ❌ Não             |
+| < 0.0.7| ❌ Não             |
 
 ## Relatando uma Vulnerabilidade
 
@@ -44,7 +44,7 @@ Incluir no relatório:
 
 ## Medidas de Segurança Implementadas
 
-### ✅ v0.0.6 (Atual)
+### ✅ v0.0.8 (Atual)
 
 - **XSS Prevention:** Sanitização completa de HTML
 - **CSP:** Content Security Policy implementado
@@ -132,5 +132,5 @@ Para questões de segurança:
 
 ---
 
-**Última atualização:** 01 de dezembro de 2025  
-**Versão:** 0.0.6
+**Última atualização:** 02 de dezembro de 2025  
+**Versão:** 0.0.8
