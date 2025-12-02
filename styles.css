@@ -14,15 +14,17 @@
 }
 
 :root {
-  /* Cores Corporativas - Tema Claro */
-  --primary-50: #f0f9ff;
-  --primary-100: #e0f2fe;
-  --primary-200: #bae6fd;
-  --primary-500: #0ea5e9;
-  --primary-600: #0284c7;
-  --primary-700: #0369a1;
-  --primary-800: #075985;
-  --primary-900: #0c4a6e;
+  /* Cores Primárias - Estilo Windsurf (Verde/Teal) */
+  --primary-50: #f0fdfa;
+  --primary-100: #ccfbf1;
+  --primary-200: #99f6e4;
+  --primary-300: #5eead4;
+  --primary-400: #2dd4bf;
+  --primary-500: #14b8a6;
+  --primary-600: #0d9488;
+  --primary-700: #0f766e;
+  --primary-800: #115e59;
+  --primary-900: #134e4a;
   
   --neutral-50: #fafafa;
   --neutral-100: #f5f5f5;
@@ -120,11 +122,16 @@
   --space-10: 2.5rem;   /* 40px */
   --space-12: 3rem;     /* 48px */
   
-  /* Bordas */
-  --radius-sm: 0.25rem;
-  --radius-md: 0.375rem;
-  --radius-lg: 0.5rem;
-  --radius-xl: 0.75rem;
+  /* Bordas - Estilo Windsurf (mais arredondadas) */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+  
+  /* Efeitos Glass - Windsurf */
+  --glass-blur: 12px;
+  --glass-saturate: 180%;
 }
 
 /* ========================================
@@ -132,15 +139,15 @@
    ======================================== */
 
 .dark-theme {
-  /* Cores Semânticas - Tema Escuro */
-  --bg-primary: #0f172a;
-  --bg-secondary: #1e293b;
-  --bg-tertiary: #334155;
-  --bg-muted: #404040;
-  --text-primary: #f1f5f9;
-  --text-secondary: #cbd5e1;
-  --text-tertiary: #94a3b8;
-  --text-muted: #737373;
+  /* Cores Semânticas - Tema Escuro Windsurf */
+  --bg-primary: #0d1117;
+  --bg-secondary: #161b22;
+  --bg-tertiary: #21262d;
+  --bg-muted: #30363d;
+  --text-primary: #f0f6fc;
+  --text-secondary: #c9d1d9;
+  --text-tertiary: #8b949e;
+  --text-muted: #6e7681;
   --text-on-primary: #ffffff;
   --text-on-dark: #ffffff; /* Alias semântico de --text-on-primary */
   --border-color: #334155;
@@ -156,12 +163,14 @@
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
 
-  /* Ajustes de cores primárias para melhor contraste no dark */
-  --primary-50: rgba(56, 189, 248, 0.1);
-  --primary-100: rgba(56, 189, 248, 0.15);
-  --primary-200: rgba(56, 189, 248, 0.25);
-  --primary-500: #38bdf8;
-  --primary-600: #0ea5e9;
+  /* Ajustes de cores primárias Windsurf para dark mode */
+  --primary-50: rgba(45, 212, 191, 0.1);
+  --primary-100: rgba(45, 212, 191, 0.15);
+  --primary-200: rgba(45, 212, 191, 0.25);
+  --primary-300: #5eead4;
+  --primary-400: #2dd4bf;
+  --primary-500: #14b8a6;
+  --primary-600: #0d9488;
   
   /* Ajustes de cores de status */
   --success-500: #34d399;
@@ -346,17 +355,32 @@ code {
   max-width: 100%;
 }
 
-/* Header Corporativo */
+/* Header - Estilo Windsurf */
 .system-header {
-  background: var(--header-bg, linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%));
-  color: var(--header-text, var(--text-on-primary));
+  background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 50%, var(--primary-800) 100%);
+  color: var(--text-on-primary);
   padding: var(--space-4) 0;
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 4px 20px rgba(13, 148, 136, 0.15);
   position: relative;
   overflow: hidden;
 }
 
-/* Removido pattern de grid para visual mais limpo */
+.dark-theme .system-header {
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Efeito de brilho sutil - Estilo Windsurf */
+.system-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at 30% 0%, rgba(255, 255, 255, 0.15) 0%, transparent 50%);
+  pointer-events: none;
+}
 
 .header-content {
   position: relative;
@@ -490,16 +514,20 @@ code {
   50% { opacity: 0.5; }
 }
 
-/* Navegação - Estilo Kiro/Cursor */
+/* Navegação - Estilo Windsurf com Glass */
 .nav {
-  background: var(--bg-primary);
+  background: rgba(255, 255, 255, 0.8);
   border-bottom: 1px solid var(--border-color);
   padding: var(--space-2) 0;
   position: sticky;
   top: 0;
   z-index: 100;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+}
+
+.dark-theme .nav {
+  background: rgba(13, 17, 23, 0.85);
 }
 
 .nav-content {
@@ -547,17 +575,20 @@ code {
   opacity: 1;
 }
 
-/* Cards - Estilo Limpo e Moderno */
+/* Cards - Estilo Windsurf com Glass sutil */
 .card {
   background: var(--bg-primary);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-xl);
   overflow: hidden;
   transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
 }
 
 .card:hover {
-  border-color: var(--border-color);
+  border-color: var(--primary-200);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
 }
 
 .card-header {
@@ -666,14 +697,17 @@ code {
 }
 
 .btn-primary {
-  background: var(--primary-600);
+  background: linear-gradient(135deg, var(--primary-500) 0%, var(--primary-600) 100%);
   color: var(--text-on-primary);
   border-color: var(--primary-600);
+  box-shadow: 0 1px 2px rgba(13, 148, 136, 0.2);
 }
 
 .btn-primary:hover:not(:disabled) {
-  background: var(--primary-700);
+  background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
   border-color: var(--primary-700);
+  box-shadow: 0 2px 4px rgba(13, 148, 136, 0.3);
+  transform: translateY(-1px);
 }
 
 .btn-secondary {
@@ -770,7 +804,12 @@ code {
 .form-select:focus {
   outline: none;
   border-color: var(--primary-500);
-  box-shadow: 0 0 0 3px var(--info-bg);
+  box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.15);
+}
+
+.dark-theme .form-input:focus,
+.dark-theme .form-select:focus {
+  box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.2);
 }
 
 .form-input::placeholder {
@@ -1115,15 +1154,20 @@ code {
 
 .modal-content {
   background: var(--bg-primary);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
-  transition: background-color var(--transition-normal);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  transition: background-color var(--transition-normal), transform 0.3s ease;
   max-width: 800px;
   width: 100%;
   max-height: 92vh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  border: 1px solid var(--border-color);
+}
+
+.dark-theme .modal-content {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 }
 
 .modal-header {
