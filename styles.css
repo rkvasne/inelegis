@@ -376,10 +376,10 @@ code {
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
-  background: rgba(16, 185, 129, 0.2);
+  background: var(--success-bg);
   padding: 0.125rem 0.5rem;
   border-radius: var(--radius-sm);
-  border: 1px solid rgba(16, 185, 129, 0.3);
+  border: 1px solid var(--success-border);
 }
 
 .status-dot {
@@ -610,7 +610,7 @@ code {
 .form-select:focus {
   outline: none;
   border-color: var(--primary-500);
-  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+  box-shadow: 0 0 0 3px var(--info-bg);
 }
 
 .form-input::placeholder {
@@ -1371,10 +1371,10 @@ code {
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
-  background: rgba(16, 185, 129, 0.2);
+  background: var(--success-bg);
   padding: 0.125rem 0.5rem;
   border-radius: var(--radius-sm);
-  border: 1px solid rgba(16, 185, 129, 0.3);
+  border: 1px solid var(--success-border);
   font-size: 0.75rem;
   color: rgba(255, 255, 255, 0.9);
 }
@@ -2668,11 +2668,11 @@ code {
 }
 
 .dark-theme .stat-card.inelegivel {
-    background: rgba(239, 68, 68, 0.1);
+    background: var(--danger-bg);
 }
 
 .dark-theme .stat-card.elegivel {
-    background: rgba(16, 185, 129, 0.1);
+    background: var(--success-bg);
 }
 
 .dark-theme .empty-state {
@@ -2701,7 +2701,7 @@ code {
 
 .dark-theme .radio-option input[type="radio"]:checked + .radio-content {
     border-color: var(--primary-500);
-    background: rgba(56, 189, 248, 0.1);
+    background: var(--info-bg);
 }
 
 .dark-theme .faq-item {
@@ -2714,12 +2714,12 @@ code {
 }
 
 .dark-theme .highlight-box {
-    background: rgba(251, 191, 36, 0.1);
+    background: var(--warning-bg);
     border-color: var(--warning-500);
 }
 
 .dark-theme .modal-section.modal-warning {
-    background: rgba(251, 191, 36, 0.1);
+    background: var(--warning-bg);
     border-color: var(--warning-500);
 }
 
