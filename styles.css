@@ -2428,6 +2428,25 @@ code {
   margin-bottom: var(--space-6);
 }
 
+.faq-cta-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 640px) {
+  .faq-cta-buttons {
+    flex-direction: column;
+  }
+  
+  .faq-cta-buttons .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 /* Animações de Scroll */
 .scroll-animate,
 .scroll-animate-left,
