@@ -1,135 +1,257 @@
 /**
- * Validator Service
+ * Validator Service - Supabase Edition
  * Serviço responsável por alimentar os dropdowns de validação estruturada.
- * Substitui a lógica de busca livre por seleção hierárquica.
+ * Consulta dados diretamente do Supabase.
+ * @version 2.0.0
  */
+
+import { supabaseClient } from './supabase-client.js';
 
 export class ValidatorService {
     constructor() {
-        this.dataNormalizer = null;
+        this.initialized = false;
+        this.normasCache = null;
     }
 
     /**
-     * Inicializa com a instância global de dados (window.__INELEG_NORMALIZADO__ ou window.DataNormalizer)
+     * Inicializa o serviço verificando a conexão com Supabase
      * @returns {boolean} True se inicializado com sucesso
      */
-    init() {
-        if (typeof window !== 'undefined') {
-            // Caso 1: Array Direto (ETL Novo) - PRIORIDADE MÁXIMA
-            if (window.__INELEG_NORMALIZADO__ && Array.isArray(window.__INELEG_NORMALIZADO__)) {
-                console.log('[ValidatorService] Usando window.__INELEG_NORMALIZADO__ (', window.__INELEG_NORMALIZADO__.length, 'registros)');
-                this.dataNormalizer = {
-                    getAll: () => window.__INELEG_NORMALIZADO__
-                };
+    async init() {
+        if (!supabaseClient.isConfigured()) {
+            console.error('[ValidatorService] Supabase não configurado. Verifique as variáveis de ambiente.');
+
+            // Fallback para dados estáticos se existirem
+            if (typeof window !== 'undefined' && window.__INELEG_NORMALIZADO__) {
+                console.warn('[ValidatorService] Usando fallback de dados estáticos');
+                this.initialized = true;
+                this.useStaticData = true;
                 return true;
             }
-            // Caso 2: Interface Legada (Wrapper) - apenas se tiver getAll
-            if (window.DataNormalizer && typeof window.DataNormalizer.getAll === 'function') {
-                console.log('[ValidatorService] Usando window.DataNormalizer (legado)');
-                this.dataNormalizer = window.DataNormalizer;
-                return true;
-            }
+            return false;
         }
-        console.error('[ValidatorService] ERRO: Nenhuma fonte de dados encontrada!');
-        return false;
+
+        this.initialized = true;
+        this.useStaticData = false;
+        console.log('[ValidatorService] Inicializado com Supabase');
+        return true;
     }
 
     /**
-     * Retorna a lista de todas as leis/códigos disponíveis na base
-     * @returns {Array<{codigo: string, nome: string}>} Lista ordenada alfabeticamente
+     * Retorna a lista de todas as leis/códigos disponíveis
+     * @returns {Promise<Array<{codigo: string, nome: string}>>}
      */
-    getLaws() {
-        if (!this.dataNormalizer) return [];
+    async getLaws() {
+        if (!this.initialized) {
+            console.error('[ValidatorService] Serviço não inicializado');
+            return [];
+        }
 
+        // Fallback para dados estáticos
+        if (this.useStaticData) {
+            return this._getLawsFromStatic();
+        }
+
+        try {
+            // Usar cache se disponível
+            if (this.normasCache) {
+                return this.normasCache;
+            }
+
+            const normas = await supabaseClient.from('normas', {
+                select: 'codigo,nome_curto,nome_completo',
+                order: 'nome_curto.asc'
+            });
+
+            this.normasCache = normas.map(n => ({
+                codigo: n.codigo,
+                nome: n.nome_curto || n.nome_completo
+            }));
+
+            console.log('[ValidatorService] Carregadas', this.normasCache.length, 'normas do Supabase');
+            return this.normasCache;
+
+        } catch (error) {
+            console.error('[ValidatorService] Erro ao buscar normas:', error);
+            // Tentar fallback
+            if (typeof window !== 'undefined' && window.__INELEG_NORMALIZADO__) {
+                console.warn('[ValidatorService] Usando fallback estático');
+                return this._getLawsFromStatic();
+            }
+            return [];
+        }
+    }
+
+    /**
+     * Fallback: Extrai leis dos dados estáticos
+     * @private
+     */
+    _getLawsFromStatic() {
+        const data = window.__INELEG_NORMALIZADO__ || [];
         const lawsMap = new Map();
 
-        // Iterar sobre todos os registros para coletar leis únicas
-        this.dataNormalizer.getAll().forEach(item => {
+        data.forEach(item => {
             if (item.codigo && !lawsMap.has(item.codigo)) {
-                // Tenta extrair um nome amigável
-                let nome = item.codigo;
-                if (item.codigo === 'CP') nome = 'Código Penal (Decreto-Lei 2.848/40)';
-                else if (item.codigo === 'CPM') nome = 'Código Penal Militar';
-                else if (item.codigo === 'CE' || item.codigo === 'CODIGO_ELEITORAL') nome = 'Código Eleitoral (Lei 4.737/65)';
-                else if (item.lei_nome) nome = item.lei_nome;
-
+                let nome = item.lei_nome || item.codigo;
                 lawsMap.set(item.codigo, nome);
             }
         });
 
-        // Converter para array e ordenar
         return Array.from(lawsMap.entries())
             .map(([codigo, nome]) => ({ codigo, nome }))
             .sort((a, b) => a.nome.localeCompare(b.nome));
     }
 
     /**
-     * Retorna todos os artigos disponíveis para uma determinada lei
-     * @param {string} lawCode Código da lei (ex: 'CP')
-     * @returns {Array<string>} Lista de números de artigos ordenados (ex: ['121', '121-A', '155'])
+     * Retorna os artigos de uma lei específica
+     * @param {string} lawCode Código da norma
+     * @returns {Promise<string[]>} Lista de artigos
      */
-    getArticlesByLaw(lawCode) {
-        if (!this.dataNormalizer) return [];
+    async getArticlesByLaw(lawCode) {
+        if (!this.initialized || !lawCode) return [];
 
+        // Fallback para dados estáticos
+        if (this.useStaticData) {
+            return this._getArticlesFromStatic(lawCode);
+        }
+
+        try {
+            // Primeiro buscar o ID da norma
+            const normas = await supabaseClient.from('normas', {
+                select: 'id',
+                filter: { codigo: lawCode }
+            });
+
+            if (!normas.length) return [];
+
+            const normaId = normas[0].id;
+
+            // Buscar artigos inelegíveis dessa norma
+            const artigos = await supabaseClient.from('artigos_inelegiveis', {
+                select: 'artigo',
+                filter: { norma_id: normaId },
+                order: 'artigo.asc'
+            });
+
+            // Remover duplicatas e ordenar numericamente
+            const uniqueArtigos = [...new Set(artigos.map(a => a.artigo))];
+            return uniqueArtigos.sort((a, b) => parseInt(a) - parseInt(b));
+
+        } catch (error) {
+            console.error('[ValidatorService] Erro ao buscar artigos:', error);
+            return this._getArticlesFromStatic(lawCode);
+        }
+    }
+
+    /**
+     * Fallback: Extrai artigos dos dados estáticos
+     * @private
+     */
+    _getArticlesFromStatic(lawCode) {
+        const data = window.__INELEG_NORMALIZADO__ || [];
         const articles = new Set();
 
-        // Filtrar registros da lei
-        const records = this.dataNormalizer.getAll().filter(item => item.codigo === lawCode);
-
-        records.forEach(item => {
-            if (item.estruturado && item.estruturado.artigos) {
+        data.filter(item => item.codigo === lawCode).forEach(item => {
+            if (item.estruturado?.artigos) {
                 item.estruturado.artigos.forEach(art => articles.add(art));
             }
         });
 
-        // Ordenar logicamente (Numéricamente, tratando sufixos como 121-A)
-        return Array.from(articles).sort((a, b) => {
-            // Extrair número base e sufixo
-            const parse = (s) => {
-                const match = s.match(/(\d+)(-?[A-Za-z]*)?/);
-                return match ? { num: parseInt(match[1]), suffix: match[2] || '' } : { num: 0, suffix: '' };
-            };
-
-            const pA = parse(a);
-            const pB = parse(b);
-
-            if (pA.num !== pB.num) return pA.num - pB.num;
-            return pA.suffix.localeCompare(pB.suffix);
-        });
+        return Array.from(articles).sort((a, b) => parseInt(a) - parseInt(b));
     }
 
     /**
-     * Recupera os detalhes de um artigo específico
-     * @param {string} lawCode 
-     * @param {string} articleNum 
+     * Verifica elegibilidade usando a função RPC do Supabase
+     * @param {string} lawCode Código da norma
+     * @param {string} article Número do artigo
+     * @param {string} [paragraph] Parágrafo (opcional)
+     * @returns {Promise<object>} Resultado da verificação
      */
-    getArticleDetails(lawCode, articleNum) {
-        if (!this.dataNormalizer) return null;
+    async verifyEligibility(lawCode, article, paragraph = null) {
+        if (!this.initialized) {
+            return { resultado: 'ERRO', motivo: 'Serviço não inicializado' };
+        }
 
-        // Busca exata usando a lógica existente do DataNormalizer ou filtro direto
-        // O DataNormalizer.query espera estrutura { lei, artigo... }
-        // Vamos filtrar manualmente para garantir precisão nesta nova UI
+        // Fallback para dados estáticos
+        if (this.useStaticData) {
+            return this._verifyFromStatic(lawCode, article);
+        }
 
-        const records = this.dataNormalizer.getAll().filter(item =>
+        try {
+            const result = await supabaseClient.rpc('verificar_elegibilidade', {
+                p_codigo_norma: lawCode,
+                p_artigo: article,
+                p_paragrafo: paragraph
+            });
+
+            if (result && result.length > 0) {
+                return result[0];
+            }
+
+            return {
+                resultado: 'NAO_CONSTA',
+                motivo: 'Artigo não encontrado na base'
+            };
+
+        } catch (error) {
+            console.error('[ValidatorService] Erro na verificação:', error);
+            return this._verifyFromStatic(lawCode, article);
+        }
+    }
+
+    /**
+     * Fallback: Verifica usando dados estáticos
+     * @private
+     */
+    _verifyFromStatic(lawCode, article) {
+        const data = window.__INELEG_NORMALIZADO__ || [];
+
+        const match = data.find(item =>
             item.codigo === lawCode &&
-            item.estruturado &&
-            item.estruturado.artigos.includes(articleNum)
+            item.estruturado?.artigos?.includes(article)
         );
 
-        if (records.length === 0) return null;
+        if (match) {
+            return {
+                resultado: 'INELEGIVEL',
+                tipo_crime: match.crime,
+                observacoes: match.observacao,
+                motivo: `Artigo consta na lista de inelegibilidade`
+            };
+        }
 
-        // Pode haver múltiplos registros para o mesmo artigo (ex: exceções ou contextos diferentes?)
-        // Geralmente é um registro principal. Se houver mais, retornamos todos para análise.
-        // No contexto atual, retornamos o primeiro match ou combinamos.
+        return {
+            resultado: 'NAO_CONSTA',
+            motivo: 'Artigo não encontrado na base estática'
+        };
+    }
 
-        return records.map(r => ({
-            crime: r.crime,
-            observacao: r.observacao,
-            excecoes: r.excecoes || [],
-            norma_completa: r.norma
-        }));
+    /**
+     * Obtém detalhes completos de um artigo (compatibilidade com código antigo)
+     * @param {string} lawCode 
+     * @param {string} article 
+     * @returns {Promise<Array>}
+     */
+    async getArticleDetails(lawCode, article) {
+        const result = await this.verifyEligibility(lawCode, article);
+
+        if (result.resultado === 'INELEGIVEL') {
+            return [{
+                crime: result.tipo_crime || 'Crime previsto na tabela',
+                norma_completa: `${lawCode}, Art. ${article}`,
+                observacao: result.observacoes,
+                excecoes: []
+            }];
+        }
+
+        return [];
     }
 }
 
-// Singleton para uso global se necessário
+// Instância singleton
 export const validatorService = new ValidatorService();
+
+// Exportar para uso global
+if (typeof window !== 'undefined') {
+    window.validatorService = validatorService;
+}
