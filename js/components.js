@@ -39,12 +39,16 @@ const Components = (() => {
             `;
         }).join('');
 
+        // Detectar tema atual para escolher logo
+        const isDarkTheme = document.documentElement.classList.contains('dark-theme');
+        const logoSrc = isDarkTheme ? 'logo-dark.png' : 'logo-claro.png';
+
         return `
             <header class="system-header">
                 <div class="header-wrapper">
                     <div class="system-brand">
                         <div class="brand-icon">
-                            <img src="logo.png" alt="Inelegis Logo" width="32" height="32" style="border-radius: 4px;">
+                            <img id="header-logo" src="${logoSrc}" alt="Inelegis Logo" width="32" height="32" style="border-radius: 4px;">
                         </div>
                         <div class="brand-text">
                             <h1>Inelegis <span class="version-badge">v0.0.8</span></h1>
