@@ -478,7 +478,8 @@
         (function() {
             const termosAceitos = localStorage.getItem('ineleg_termos_aceitos') === 'true';
             if (!termosAceitos) {
-                alert('Você precisa aceitar os termos de uso antes de acessar o sistema de consulta.');
+                // Redirecionar sem alert - a página index mostrará o modal
+                sessionStorage.setItem('ineleg_redirect_reason', 'terms_not_accepted');
                 window.location.href = 'index.html';
                 return;
             }
