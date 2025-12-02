@@ -20,7 +20,13 @@ Bem-vindo à documentação oficial do projeto **Inelegis**.
 - **[Componentes](COMPONENTS.md)** - Sistema de componentes reutilizáveis
 - **[Decisões de Design](DESIGN-DECISIONS.md)** - Arquitetura e padrões de design
 
-### 🔄 Refatoração
+### 📊 Analytics e APIs
+- **[Analytics](ANALYTICS.md)** - Sistema de analytics e histórico
+- **[Setup Redis](SETUP-REDIS.md)** - Configuração do banco de dados
+- **[Variáveis de Ambiente](VARIAVEIS-AMBIENTE.md)** - Configuração de ambiente
+- **[API Endpoints](../api/README.md)** - Documentação das APIs
+
+### 🔄 Refatoração (Histórico)
 - **[Plano de Refatoração](REFACTORING-PLAN.md)** - Detalhes da refatoração v0.0.6
 - **[Guia de Implementação](IMPLEMENTATION-GUIDE.md)** - Como implementar as melhorias
 
@@ -61,21 +67,14 @@ Bem-vindo à documentação oficial do projeto **Inelegis**.
 - [Changelog](../CHANGELOG.md)
 - [Voltar para a Raiz](../README.md)
 
-## 🆕 Novidades v0.0.7
+## 🆕 Novidades v0.0.8
 
-- ✅ Documentação consolidada (9 documentos redundantes removidos)
-- ✅ Documentos históricos marcados com notas explicativas
-- ✅ Análise completa de qualidade da documentação
-- ✅ Setup Redis consolidado em guia único
-- ✅ Changelog de documentação criado
-
-### Novidades v0.0.6
-- ✅ 6 módulos JavaScript para segurança e performance
-- ✅ 20 testes unitários automatizados
-- ✅ Busca 90% mais rápida
-- ✅ Zero vulnerabilidades XSS
+- ✅ Sistema de Analytics com Redis (ioredis)
+- ✅ Histórico de buscas sincronizado com Redis
+- ✅ APIs: `/api/analytics`, `/api/dashboard`, `/api/search-history`
+- ✅ Documentação de APIs atualizada
 
 ---
 
-**Última atualização:** 01 de dezembro de 2025  
-**Versão:** 0.0.7
+**Última atualização:** 02 de dezembro de 2025  
+**Versão:** 0.0.8

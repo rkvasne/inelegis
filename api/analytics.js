@@ -3,16 +3,24 @@
  * Recebe e armazena dados de uso do Inelegis
  * 
  * Deploy: Vercel Serverless Function
- * Database: Vercel KV (Redis)
+ * Database: Redis (via ioredis)
  */
 
-import { createClient } from '@vercel/kv';
+import Redis from 'ioredis';
 
-// Conectar ao Redis usando REDIS_URL
-const kv = createClient({
-    url: process.env.REDIS_URL || process.env.KV_REST_API_URL,
-    token: process.env.REDIS_TOKEN || process.env.KV_REST_API_TOKEN
-});
+// Conectar ao Redis
+let redis = null;
+
+function getRedis() {
+    if (!redis) {
+        const redisUrl = process.env.REDIS_URL;
+        if (!redisUrl) {
+            throw new Error('REDIS_URL não configurada');
+        }
+        redis = new Redis(redisUrl);
+    }
+    return redis;
+}
 
 // Configuração
 const ALLOWED_ORIGINS = [
@@ -72,7 +80,7 @@ function processErrorEvent(event) {
         userId: event.userId,
         timestamp: event.timestamp,
         message: event.data.message,
-        stack: event.data.stack?.substring(0, 500), // Limitar tamanho
+        stack: event.data.stack?.substring(0, 500),
         lei: event.data.lei,
         artigo: event.data.artigo,
         browser: event.browser?.userAgent || 'unknown',
@@ -96,54 +104,46 @@ function processActionEvent(event) {
 }
 
 /**
- * Salva eventos no Redis (Vercel KV)
+ * Salva eventos no Redis
  */
 async function saveEvents(events) {
-    try {
-        const timestamp = Date.now();
-        let saved = 0;
+    const client = getRedis();
+    const timestamp = Date.now();
+    let saved = 0;
+    
+    for (const event of events) {
+        const key = `analytics:${event.type}:${timestamp}:${saved}`;
         
-        for (const event of events) {
-            const key = `analytics:${event.type}:${timestamp}:${saved}`;
-            
-            // Salvar evento individual
-            await kv.set(key, event, { ex: 60 * 60 * 24 * 90 }); // 90 dias
-            
-            // Adicionar à lista por tipo
-            await kv.lpush(`analytics:list:${event.type}`, key);
-            
-            // Limitar tamanho da lista (manter últimos 10000)
-            await kv.ltrim(`analytics:list:${event.type}`, 0, 9999);
-            
-            // Incrementar contadores
-            await kv.incr('analytics:total');
-            await kv.incr(`analytics:count:${event.type}`);
-            
-            // Contadores por lei (para buscas)
-            if (event.type === 'search') {
-                await kv.zincrby('analytics:top:leis', 1, event.lei);
-                await kv.zincrby('analytics:top:artigos', 1, `${event.lei}:${event.artigo}`);
-                await kv.incr(`analytics:resultado:${event.resultado}`);
-            }
-            
-            // Adicionar à timeline (por dia)
-            const date = new Date(event.timestamp).toISOString().split('T')[0];
-            await kv.hincrby('analytics:timeline', date, 1);
-            
-            saved++;
+        // Salvar evento individual (90 dias TTL)
+        await client.setex(key, 60 * 60 * 24 * 90, JSON.stringify(event));
+        
+        // Adicionar à lista por tipo
+        await client.lpush(`analytics:list:${event.type}`, key);
+        
+        // Limitar tamanho da lista
+        await client.ltrim(`analytics:list:${event.type}`, 0, 9999);
+        
+        // Incrementar contadores
+        await client.incr('analytics:total');
+        await client.incr(`analytics:count:${event.type}`);
+        
+        // Contadores por lei (para buscas)
+        if (event.type === 'search') {
+            await client.zincrby('analytics:top:leis', 1, event.lei);
+            await client.zincrby('analytics:top:artigos', 1, `${event.lei}:${event.artigo}`);
+            await client.incr(`analytics:resultado:${event.resultado}`);
         }
         
-        console.log(`✅ Salvos ${saved} eventos no Redis`);
+        // Timeline por dia
+        const date = new Date(event.timestamp).toISOString().split('T')[0];
+        await client.hincrby('analytics:timeline', date, 1);
         
-        return {
-            success: true,
-            saved
-        };
-        
-    } catch (error) {
-        console.error('❌ Erro ao salvar no Redis:', error);
-        throw error;
+        saved++;
     }
+    
+    console.log(`✅ Salvos ${saved} eventos no Redis`);
+    
+    return { success: true, saved };
 }
 
 /**
@@ -209,7 +209,6 @@ export default async function handler(req, res) {
         // Salvar
         const result = await saveEvents(processedEvents);
         
-        // Responder
         return res.status(200).json({
             success: true,
             received: events.length,

@@ -45,12 +45,13 @@
   "author": "Inelegis",
   "license": "MIT",
   "dependencies": {
-    "@vercel/kv": "^1.0.1"
+    "ioredis": "^5.8.2"
   },
   "devDependencies": {
+    "dotenv": "^17.2.3",
     "eslint": "^9.0.0",
-    "prettier": "^3.0.0",
-    "html-validate": "^8.0.0"
+    "html-validate": "^8.0.0",
+    "prettier": "^3.0.0"
   },
   "engines": {
     "node": "22.x"

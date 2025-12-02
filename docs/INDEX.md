@@ -2,8 +2,8 @@
 
 ---
 
-**Última atualização:** 01 de dezembro de 2025  
-**Versão:** 0.0.7
+**Última atualização:** 02 de dezembro de 2025  
+**Versão:** 0.0.8
 
 ---
 
@@ -132,9 +132,9 @@ Documentos de referência oficial:
 | PROTECTION.md | ✅ Atualizado | 01/12/2025 |
 | REFACTORING-PLAN.md | 📚 Histórico | 01/12/2025 |
 | IMPLEMENTATION-GUIDE.md | 📚 Histórico | 01/12/2025 |
-| ANALYTICS.md | ✅ Atualizado | 01/12/2025 |
-| VARIAVEIS-AMBIENTE.md | ✅ Atualizado | 01/12/2025 |
-| SETUP-REDIS.md | ✅ Consolidado | 01/12/2025 |
+| ANALYTICS.md | ✅ Atualizado | 02/12/2025 |
+| VARIAVEIS-AMBIENTE.md | ✅ Atualizado | 02/12/2025 |
+| SETUP-REDIS.md | ✅ Atualizado | 02/12/2025 |
 | CHANGELOG-DOCS.md | ✅ Mantido | 01/12/2025 |
 
 ---
@@ -163,5 +163,5 @@ Documentos de referência oficial:
 
 ---
 
-**Última atualização:** 01 de dezembro de 2025  
-**Versão:** 0.0.6
+**Última atualização:** 02 de dezembro de 2025  
+**Versão:** 0.0.8

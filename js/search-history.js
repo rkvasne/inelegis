@@ -1,10 +1,11 @@
 /**
  * Search History Manager
  * Gerencia histórico de consultas do usuário
- * @version 0.0.6
+ * Sincroniza com Redis via API
+ * @version 0.0.7
  */
 
-// SecureStorage - Wrapper para localStorage
+// SecureStorage - Wrapper para localStorage (fallback local)
 const SecureStorage = (() => {
     return {
         getItem: (key) => {
@@ -41,25 +42,105 @@ const SearchHistory = (() => {
     const STORAGE_KEY = 'inelegis_search_history';
     const MAX_HISTORY = 50;
     const MAX_RECENT = 10;
+    const API_URL = '/api/search-history';
+    
+    // Obter userId do Analytics ou gerar um novo
+    function getUserId() {
+        if (typeof window !== 'undefined' && window.Analytics?.getUserId) {
+            return window.Analytics.getUserId();
+        }
+        // Fallback: usar ID do localStorage
+        let userId = localStorage.getItem('inelegis_user_id');
+        if (!userId) {
+            userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            localStorage.setItem('inelegis_user_id', userId);
+        }
+        return userId;
+    }
+
+    /**
+     * Sincroniza busca com Redis via API
+     */
+    async function syncToRedis(search) {
+        try {
+            const userId = getUserId();
+            
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userId, search })
+            });
+            
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+            
+            const result = await response.json();
+            console.log('✅ Histórico sincronizado com Redis');
+            return result;
+            
+        } catch (error) {
+            console.warn('⚠️ Falha ao sincronizar com Redis:', error.message);
+            return null;
+        }
+    }
+
+    /**
+     * Busca histórico do Redis
+     */
+    async function fetchFromRedis(limit = MAX_HISTORY) {
+        try {
+            const userId = getUserId();
+            
+            const response = await fetch(`${API_URL}?userId=${userId}&limit=${limit}`);
+            
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+            
+            const data = await response.json();
+            return data.history || [];
+            
+        } catch (error) {
+            console.warn('⚠️ Falha ao buscar do Redis:', error.message);
+            return null;
+        }
+    }
+
+    /**
+     * Busca estatísticas do Redis
+     */
+    async function fetchStatsFromRedis() {
+        try {
+            const userId = getUserId();
+            
+            const response = await fetch(`${API_URL}?userId=${userId}&stats=true`);
+            
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+            
+            const data = await response.json();
+            return data.stats || null;
+            
+        } catch (error) {
+            console.warn('⚠️ Falha ao buscar stats do Redis:', error.message);
+            return null;
+        }
+    }
 
     /**
      * Adiciona uma consulta ao histórico
-     * @param {Object} search - Dados da consulta
-     * @param {string} search.lei - Código da lei
-     * @param {string} search.artigo - Número do artigo
-     * @param {string} search.resultado - Resultado (inelegivel/elegivel)
-     * @param {string} search.timestamp - Data/hora da consulta
      */
     function addSearch(search) {
         try {
             const history = getHistory();
             
-            // Adicionar timestamp se não existir
             if (!search.timestamp) {
                 search.timestamp = new Date().toISOString();
             }
 
-            // Verificar duplicatas recentes (mesma consulta nos últimos 5 segundos)
+            // Verificar duplicatas recentes
             const now = new Date(search.timestamp).getTime();
             const isDuplicate = history.some(item => {
                 const itemTime = new Date(item.timestamp).getTime();
@@ -68,16 +149,15 @@ const SearchHistory = (() => {
                 return item.lei === search.lei &&
                        item.artigo === search.artigo &&
                        item.resultado === search.resultado &&
-                       timeDiff < 5000; // 5 segundos
+                       timeDiff < 5000;
             });
 
-            // Não adicionar se for duplicata
             if (isDuplicate) {
                 console.log('Histórico: Duplicata detectada, não adicionando');
                 return false;
             }
 
-            // Adicionar ao início do array
+            // Adicionar ao início
             history.unshift(search);
 
             // Limitar tamanho
@@ -85,8 +165,13 @@ const SearchHistory = (() => {
                 history.splice(MAX_HISTORY);
             }
 
-            // Salvar
+            // Salvar localmente
             SecureStorage.setItem(STORAGE_KEY, history);
+            
+            // Sincronizar com Redis (async, não bloqueia)
+            syncToRedis(search).catch(err => {
+                console.warn('Sync Redis falhou:', err);
+            });
             
             return true;
         } catch (error) {
@@ -96,8 +181,7 @@ const SearchHistory = (() => {
     }
 
     /**
-     * Obtém todo o histórico
-     * @returns {Array} Array de consultas
+     * Obtém todo o histórico (local)
      */
     function getHistory() {
         try {
@@ -110,9 +194,24 @@ const SearchHistory = (() => {
     }
 
     /**
+     * Obtém histórico com fallback para Redis
+     */
+    async function getHistoryAsync() {
+        // Tentar Redis primeiro
+        const redisHistory = await fetchFromRedis();
+        
+        if (redisHistory && redisHistory.length > 0) {
+            // Atualizar cache local
+            SecureStorage.setItem(STORAGE_KEY, redisHistory);
+            return redisHistory;
+        }
+        
+        // Fallback para local
+        return getHistory();
+    }
+
+    /**
      * Obtém consultas recentes
-     * @param {number} limit - Número máximo de resultados
-     * @returns {Array} Array de consultas recentes
      */
     function getRecent(limit = MAX_RECENT) {
         const history = getHistory();
@@ -121,38 +220,26 @@ const SearchHistory = (() => {
 
     /**
      * Obtém consultas mais frequentes
-     * @param {number} limit - Número máximo de resultados
-     * @returns {Array} Array de consultas frequentes
      */
     function getFrequent(limit = 10) {
         const history = getHistory();
-        
-        // Contar frequência de cada combinação lei+artigo
         const frequency = {};
         
         history.forEach(search => {
             const key = `${search.lei}|${search.artigo}`;
             if (!frequency[key]) {
-                frequency[key] = {
-                    ...search,
-                    count: 0
-                };
+                frequency[key] = { ...search, count: 0 };
             }
             frequency[key].count++;
         });
 
-        // Ordenar por frequência
-        const sorted = Object.values(frequency)
+        return Object.values(frequency)
             .sort((a, b) => b.count - a.count)
             .slice(0, limit);
-
-        return sorted;
     }
 
     /**
      * Busca no histórico
-     * @param {string} query - Termo de busca
-     * @returns {Array} Array de consultas que correspondem
      */
     function search(query) {
         if (!query || typeof query !== 'string') {
@@ -170,7 +257,6 @@ const SearchHistory = (() => {
 
     /**
      * Limpa todo o histórico - DESABILITADO
-     * @returns {boolean} Sempre retorna false
      */
     function clear() {
         console.warn('Operação não permitida: Limpeza de histórico desabilitada');
@@ -179,8 +265,6 @@ const SearchHistory = (() => {
 
     /**
      * Remove uma consulta específica - DESABILITADO
-     * @param {number} index - Índice da consulta
-     * @returns {boolean} Sempre retorna false
      */
     function remove(index) {
         console.warn('Operação não permitida: Remoção de histórico desabilitada');
@@ -189,7 +273,6 @@ const SearchHistory = (() => {
 
     /**
      * Obtém estatísticas do histórico
-     * @returns {Object} Estatísticas
      */
     function getStats() {
         const history = getHistory();
@@ -203,47 +286,48 @@ const SearchHistory = (() => {
         };
 
         history.forEach(search => {
-            // Contar resultados
             if (search.resultado === 'inelegivel') {
                 stats.inelegiveis++;
             } else if (search.resultado === 'elegivel') {
                 stats.elegiveis++;
             }
 
-            // Contar leis
             stats.leisMaisConsultadas[search.lei] = 
                 (stats.leisMaisConsultadas[search.lei] || 0) + 1;
 
-            // Contar artigos
             const key = `${search.lei} - Art. ${search.artigo}`;
             stats.artigosMaisConsultados[key] = 
                 (stats.artigosMaisConsultados[key] || 0) + 1;
         });
 
-        // Ordenar leis mais consultadas
         stats.leisMaisConsultadas = Object.entries(stats.leisMaisConsultadas)
             .sort((a, b) => b[1] - a[1])
             .slice(0, 5)
-            .reduce((obj, [key, value]) => {
-                obj[key] = value;
-                return obj;
-            }, {});
+            .reduce((obj, [key, value]) => ({ ...obj, [key]: value }), {});
 
-        // Ordenar artigos mais consultados
         stats.artigosMaisConsultados = Object.entries(stats.artigosMaisConsultados)
             .sort((a, b) => b[1] - a[1])
             .slice(0, 10)
-            .reduce((obj, [key, value]) => {
-                obj[key] = value;
-                return obj;
-            }, {});
+            .reduce((obj, [key, value]) => ({ ...obj, [key]: value }), {});
 
         return stats;
     }
 
     /**
+     * Obtém estatísticas com fallback para Redis
+     */
+    async function getStatsAsync() {
+        const redisStats = await fetchStatsFromRedis();
+        
+        if (redisStats) {
+            return redisStats;
+        }
+        
+        return getStats();
+    }
+
+    /**
      * Exporta histórico para texto
-     * @returns {string} Histórico formatado
      */
     function exportToText() {
         const history = getHistory();
@@ -269,13 +353,17 @@ const SearchHistory = (() => {
     return {
         add: addSearch,
         getAll: getHistory,
+        getAllAsync: getHistoryAsync,
         getRecent,
         getFrequent,
         search,
         clear,
         remove,
         getStats,
-        exportToText
+        getStatsAsync,
+        exportToText,
+        syncToRedis,
+        fetchFromRedis
     };
 })();
 
