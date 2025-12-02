@@ -18,6 +18,8 @@
     "optimize": "node scripts/optimize.js",
     "deploy": "node scripts/deploy.js",
     "deploy:prod": "NODE_ENV=production npm run deploy",
+    "doc:check": "node scripts/doc-agent.js analyze",
+    "doc:audit": "node scripts/doc-agent.js analyze --export",
     "migrate": "node scripts/migrate.js",
     "rollback": "node scripts/rollback.js",
     "generate-token": "node scripts/generate-admin-token.js",
