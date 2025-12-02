@@ -8,15 +8,18 @@ Este documento explica como o projeto está protegido contra corrupção acident
 
 ## 🛡️ Componentes Protegidos
 
-### Footer Component (`js/components.js`)
+### Footer Component (`src/js/modules/components.js`)
 
 O footer faz parte do módulo `Components`. **NUNCA edite o HTML do footer diretamente nos arquivos `.html`**.
 
+> **Importante:** o código-fonte mora em `src/js/modules/components.js` e é enviado para `public/assets/js/modules/components.js` via `npm run sync:js` (executado automaticamente pelo `npm run dev/build`). Sempre altere o arquivo em `src/` e sincronize antes de commitar.
+
 **Como atualizar o footer:**
 
-1. Edite apenas a função `renderFooter()` em `js/components.js`
-2. O footer será automaticamente injetado em todas as páginas
-3. Teste em todas as páginas antes de commitar
+1. Edite apenas a função `renderFooter()` em `src/js/modules/components.js`
+2. Execute `npm run sync:js` (ou `npm run dev`) para atualizar `public/assets/js/modules/components.js`
+3. O footer será automaticamente injetado em todas as páginas
+4. Teste em todas as páginas antes de commitar
 
 **Vantagens:**
 - ✅ Uma única fonte de verdade
