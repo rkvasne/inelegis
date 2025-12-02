@@ -171,8 +171,7 @@ const CONFIG = {
    - components/*.js (arquivos não carregados)
 
 4. **Marcar Históricos**
-   - REFACTORING-PLAN.md (plano concluído)
-   - IMPLEMENTATION-GUIDE.md (implementação concluída)
+   - history/refatoracao-v0.0.6.md (plano + execução + lições)
 
 ---
 

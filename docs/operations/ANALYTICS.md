@@ -29,6 +29,7 @@ Coleta dados anônimos de uso para:
 - Nome, email, IP
 - Localização precisa
 - Dados pessoais
+- Identificadores persistentes sensíveis. Usamos apenas o cookie anônimo `inelegis_uid` (expira em 12 meses) para correlacionar eventos/histórico sem gravar nada no `localStorage`.
 
 ---
 
@@ -135,7 +136,7 @@ Analytics.enable();
 ### Histórico de Buscas
 
 ```javascript
-// Adicionar (salva local + Redis)
+// Adicionar (cache em memória + Redis)
 SearchHistory.add({ lei: 'CP', artigo: '155', resultado: 'inelegivel' });
 
 // Obter local

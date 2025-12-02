@@ -100,6 +100,6 @@ vercel dev
 
 ## 📚 Documentação
 
-- [ANALYTICS.md](../docs/ANALYTICS.md)
-- [SETUP-REDIS.md](../docs/SETUP-REDIS.md)
-- [VARIAVEIS-AMBIENTE.md](../docs/VARIAVEIS-AMBIENTE.md)
+- [ANALYTICS.md](../docs/operations/ANALYTICS.md)
+- [SETUP-REDIS.md](../docs/guides/SETUP-REDIS.md)
+- [VARIAVEIS-AMBIENTE.md](../docs/guides/VARIAVEIS-AMBIENTE.md)

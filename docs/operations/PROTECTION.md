@@ -8,13 +8,13 @@ Este documento explica como o projeto está protegido contra corrupção acident
 
 ## 🛡️ Componentes Protegidos
 
-### Footer Component (`components/footer.js`)
+### Footer Component (`js/components.js`)
 
-O footer foi componentizado para evitar duplicação e corrupção. **NUNCA edite o HTML do footer diretamente nos arquivos `.html`**.
+O footer faz parte do módulo `Components`. **NUNCA edite o HTML do footer diretamente nos arquivos `.html`**.
 
 **Como atualizar o footer:**
 
-1. Edite apenas o arquivo `components/footer.js`
+1. Edite apenas a função `renderFooter()` em `js/components.js`
 2. O footer será automaticamente injetado em todas as páginas
 3. Teste em todas as páginas antes de commitar
 
