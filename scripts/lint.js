@@ -574,7 +574,7 @@ class Linter {
 
     // Exibir resumo
     console.log('\n' + '='.repeat(60));
-    console.log('🔍 RELATÓRIO DE LINT - INELEG-APP v0.2.0');
+    console.log('🔍 RELATÓRIO DE LINT - INELEG-APP v0.3.0');
     console.log('='.repeat(60));
     console.log(`Status: ${report.summary.status}`);
     console.log(`Erros: ${this.errors.length}`);

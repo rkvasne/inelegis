@@ -40,4 +40,4 @@ Este Código de Conduta é adaptado do [Contributor Covenant](https://www.contri
 
 ---
 
-**Versão:** 0.2.0
+**Versão:** 0.3.0

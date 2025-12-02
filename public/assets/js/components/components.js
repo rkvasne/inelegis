@@ -55,7 +55,7 @@ const Components = (() => {
                             <img id="header-logo"${logoLockAttr} src="${logoSrc}" alt="Inelegis Logo" class="theme-aware-logo" width="32" height="32" loading="lazy" style="border-radius: 4px;">
                         </div>
                         <div class="brand-text">
-                            <h1>Inelegis <span class="version-badge">v0.2.0</span></h1>
+                            <h1>Inelegis <span class="version-badge">v0.3.0</span></h1>
                             <p>Consulta de Inelegibilidade Eleitoral</p>
                         </div>
                     </div>

@@ -562,7 +562,7 @@ class TestRunner {
 
     // Exibir resumo
     console.log('\n' + '='.repeat(60));
-      console.log('📊 RELATÓRIO DE TESTES - INELEG-APP v0.2.0');
+      console.log('📊 RELATÓRIO DE TESTES - INELEG-APP v0.3.0');
       console.log('='.repeat(60));
     console.log(`Total de testes: ${this.results.total}`);
     console.log(`Passou: ${this.results.passed}`);
