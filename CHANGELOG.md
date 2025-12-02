@@ -20,6 +20,20 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ## [Unreleased]
 
+### 🏗️ Arquitetura & Código
+- **Refatoração Modular do Core**:
+  - Migração de `script.js` (monólito) para arquitetura de Módulos ES6.
+  - Criação de módulos especializados:
+    - `search-logic.js` (Lógica de busca e regras de negócio).
+    - `ui-events.js` (Gerenciamento de eventos de UI).
+    - `dom-manipulation.js` (Manipulação de interface e modais).
+    - `article-builder.js` (Construtor interativo de artigos).
+    - `core-utils.js` (Utilitários transversais).
+  - Atualização de `consulta.html` para suporte nativo a `type="module"`.
+- **Testes**:
+  - Implementação de testes unitários para a nova arquitetura modular.
+  - Validação de 100% de sucesso nos testes de lógica de busca.
+
 ### ⚙️ CI/CD & DevOps
 - **Pipeline GitHub Actions**: Implementado workflow completo de CI/CD (`.github/workflows/ci-cd.yml`) com Quality Gate (Audit, Lint, Testes, Validação de Tema) e Build Verification.
 - **Scripts**:
