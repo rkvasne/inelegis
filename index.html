@@ -348,6 +348,28 @@
             button.disabled = !this.checked;
             button.setAttribute('aria-disabled', String(!this.checked));
 
+            // Salvar no localStorage imediatamente
+            if (this.checked) {
+                localStorage.setItem('ineleg_termos_aceitos', 'true');
+                console.log('✅ Termos aceitos e salvos');
+            } else {
+                localStorage.removeItem('ineleg_termos_aceitos');
+                console.log('❌ Termos removidos');
+            }
+
+            // Atualizar link do menu no header
+            const headerConsultaLink = document.querySelector('.header-nav-link[href="consulta"]');
+            if (headerConsultaLink) {
+                if (this.checked) {
+                    headerConsultaLink.classList.remove('disabled');
+                    headerConsultaLink.removeAttribute('aria-disabled');
+                    headerConsultaLink.onclick = null;
+                } else {
+                    headerConsultaLink.classList.add('disabled');
+                    headerConsultaLink.setAttribute('aria-disabled', 'true');
+                }
+            }
+
             if (consultaLink) {
                 if (this.checked) {
                     consultaLink.style.pointerEvents = 'auto';
