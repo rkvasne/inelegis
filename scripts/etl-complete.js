@@ -73,14 +73,35 @@ try {
             rowData.push(cellText.trim());
         });
 
-        if (rowData.length >= 4 && rowData.some(t => t)) {
+        // Aceitar linhas com 3 ou 4 colunas (algumas leis não têm exceções)
+        if (rowData.length >= 3 && rowData.some(t => t)) {
             // Ignora cabeçalhos visuais
-            if (!rowData[0].includes('NORMA') && !rowData[1]?.includes('EXCEÇÕES')) {
+            const isHeader = rowData[0].includes('NORMA') ||
+                rowData[0].includes('EXCEÇÕES') ||
+                rowData[1]?.includes('EXCEÇÕES') ||
+                rowData[0].includes('CRIMES');
+
+            if (!isHeader) {
+                // Estrutura: Lei | Artigos | Exceções (opcional) | Crime
+                // Se só tem 3 colunas, assume que Exceções está vazia
+                const lei_raw = rowData[0];
+                const artigos_raw = rowData[1];
+                let excecoes_raw = '';
+                let crime_raw = '';
+
+                if (rowData.length >= 4) {
+                    excecoes_raw = rowData[2];
+                    crime_raw = rowData[3];
+                } else if (rowData.length === 3) {
+                    // Sem coluna de exceções
+                    crime_raw = rowData[2];
+                }
+
                 rawData.push({
-                    lei_raw: rowData[0],
-                    artigos_raw: rowData[1],
-                    excecoes_raw: rowData[2],
-                    crime_raw: rowData[3]
+                    lei_raw,
+                    artigos_raw,
+                    excecoes_raw,
+                    crime_raw
                 });
             }
         }

@@ -1,7 +1,7 @@
 {
   "meta": {
     "version": "2.1.0",
-    "date": "2026-02-02T04:33:11.190Z",
+    "date": "2026-02-02T11:49:15.901Z",
     "generator": "etl-complete.js",
     "source": "DOCX Oficial"
   },
@@ -530,6 +530,400 @@
           "407",
           "408"
         ]
+      }
+    },
+    {
+      "id": 20,
+      "codigo": "CLT",
+      "lei_nome": "Decreto-Lei 5.452/43 - art. 49(CLT)",
+      "norma": "",
+      "excecoes": [],
+      "crime": "Crimes contra a fé pública (1)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "id": 21,
+      "codigo": "LEI_7661",
+      "lei_nome": "Decreto-Lei 7.661/45 - arts. 186 a 189(Lei Falimentar)",
+      "norma": "",
+      "excecoes": [],
+      "crime": "Crimes previstos na lei que regula a falência (2)",
+      "observacao": "Lei revogada pela Lei 11.101, de 09/02/2005",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "id": 22,
+      "codigo": "LEI_201",
+      "lei_nome": "Decreto-Lei 201/67 – art. 1º(Crimes de responsabilidade dos Prefeitos)",
+      "norma": "",
+      "excecoes": [],
+      "crime": "Crimes contra a administração pública (1)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "id": 23,
+      "codigo": "LEI_105",
+      "lei_nome": "Lei Complementar 105/01 – art. 10",
+      "norma": "",
+      "excecoes": [],
+      "crime": "Crimes contra o sistema financeiro (2)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "id": 24,
+      "codigo": "LEI_1521",
+      "lei_nome": "Lei 1.521/51 - art. 3º",
+      "norma": "",
+      "excecoes": [],
+      "crime": "Crimes contra a economia popular (1)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "id": 25,
+      "codigo": "LEI_2889",
+      "lei_nome": "Lei 2.889/56 - arts. 1º, 2º e 3º(Define crimes de genocídio)",
+      "norma": "Art. 2º, caput, quando se referir ao art. 1º, alínea “e”Art. 3º, caput, quando se referirao art. 1º, alínea “e”",
+      "excecoes": [],
+      "crime": "Crimes hediondos (7)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": [
+          "1",
+          "2",
+          "3"
+        ]
+      }
+    },
+    {
+      "id": 26,
+      "codigo": "LEI_4591",
+      "lei_nome": "Lei 4.591/64 - art. 65(Condomínios e incorporações)",
+      "norma": "",
+      "excecoes": [],
+      "crime": "Crimes contra a economia popular (1)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "id": 27,
+      "codigo": "LEI_4595",
+      "lei_nome": "Lei 4.595/64 – art. 34",
+      "norma": "",
+      "excecoes": [],
+      "crime": "Crimes contra o sistema financeiro (2)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "id": 28,
+      "codigo": "LEI_4728",
+      "lei_nome": "Lei 4.728/65 – arts. 66-B, 73 e 74",
+      "norma": "",
+      "excecoes": [],
+      "crime": "Crimes contra o mercado de capitais (2)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "id": 29,
+      "codigo": "CE",
+      "lei_nome": "Lei 4.737/65 – arts. 289, 291, 298, 299, 301, 302,307 a 309, 315 a 317, 339, 340, 348 a 350, 352 a354-A(Código Eleitoral)",
+      "norma": "",
+      "excecoes": [],
+      "crime": "Crimes eleitorais (4)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "id": 30,
+      "codigo": "LEI_4898",
+      "lei_nome": "Lei 4.898/65 – art. 6º, §º 3º, “c”",
+      "norma": "",
+      "excecoes": [],
+      "crime": "Crimes de abuso de autoridade (5)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "id": 31,
+      "codigo": "CE",
+      "lei_nome": "Lei 6.091/74 – art. 11, incisos III e IV(Lei Eleitoral – Transporte de eleitores)",
+      "norma": "",
+      "excecoes": [],
+      "crime": "Crimes eleitorais (4)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "id": 32,
+      "codigo": "LEI_6368",
+      "lei_nome": "Lei 6.368/76 – arts. 12, 13 e 14(Lei de Drogas)",
+      "norma": "",
+      "excecoes": [],
+      "crime": "Crimes de tráfico de entorpecentes (7)",
+      "observacao": "Lei revogada pela Lei 11.343, de 23/08/2006",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "id": 33,
+      "codigo": "LEI_6385",
+      "lei_nome": "Lei 6.385/76 – arts. 27-C e 27-D(Criação da CVM)",
+      "norma": "",
+      "excecoes": [],
+      "crime": "Crimes contra o mercado de capitais (2)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "id": 34,
+      "codigo": "LEI_6766",
+      "lei_nome": "Lei 6.766/79 – arts. 50 e 51(Parcelamento do solo urbano)",
+      "norma": "",
+      "excecoes": [],
+      "crime": "Crimes contra a administração pública (1)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "id": 35,
+      "codigo": "CE",
+      "lei_nome": "Lei 6.996/82 – art. 15(Lei Eleitoral – Processamento eletrônico nos serv.eleitorais)",
+      "norma": "",
+      "excecoes": [],
+      "crime": "Crimes eleitorais (4)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "id": 36,
+      "codigo": "LEI_7492",
+      "lei_nome": "Lei 7.492/86 – arts. 2º a 23(Lei do Colarinho Branco)",
+      "norma": "",
+      "excecoes": [],
+      "crime": "Crimes contra o sistema financeiro (2)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "id": 37,
+      "codigo": "LEI_7716",
+      "lei_nome": "Lei 7.716/89 – arts. 2°-A, 3º a 14 e 20",
+      "norma": "",
+      "excecoes": [],
+      "crime": "Crimes de racismo (7)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "id": 38,
+      "codigo": "LEI_8069",
+      "lei_nome": "Lei 8.069/90 - arts. 240 a 241-D e 244-A(Estatuto da Criança e do Adolescente)",
+      "norma": "",
+      "excecoes": [],
+      "crime": "Crimes contra a dignidade sexual (9)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "id": 39,
+      "codigo": "LEI_8137",
+      "lei_nome": "Lei 8.137/90 - arts. 1º, 3º a 7º(Define crimes contra a ordem tributária)",
+      "norma": "Art. 7º, parágrafo único",
+      "excecoes": [],
+      "crime": "Crimes contra a economia popular (1)",
+      "observacao": "arts. 5º e 6º revogados pelas Lei 12.529, de 30/11/2011",
+      "estruturado": {
+        "artigos": [
+          "7"
+        ]
+      }
+    },
+    {
+      "id": 40,
+      "codigo": "LEI_8176",
+      "lei_nome": "Lei 8.176/91 – arts. 1º e 2º(Ordem econômica)",
+      "norma": "",
+      "excecoes": [],
+      "crime": "Crimes contra a economia popular e contra o patrimônio (1)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "id": 41,
+      "codigo": "LEI_8666",
+      "lei_nome": "Lei 8.666/93 – arts. 89, 90, 92, 94, 95 e 96(Licitações e Contratos)",
+      "norma": "",
+      "excecoes": [],
+      "crime": "Crimes contra a administração pública (1)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "id": 42,
+      "codigo": "LEI_9455",
+      "lei_nome": "Lei 9.455/97 – art. 1º",
+      "norma": "",
+      "excecoes": [],
+      "crime": "Crimes de tortura (7)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "id": 43,
+      "codigo": "CE",
+      "lei_nome": "Lei 9.504/97 – arts. 57-H, § 1º e 72(Lei Eleitoral)",
+      "norma": "",
+      "excecoes": [],
+      "crime": "Crimes eleitorais (4)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "id": 44,
+      "codigo": "LEI_9605",
+      "lei_nome": "Lei 9.605/98 – arts. 30, 33, 34, 35, 38, 38-A, 39,40, 41, 42, 50-A ,54, 56, 61, 62, 63, 66, 67, 68,69, 69-A(Lei Ambiental)",
+      "norma": "Art. 38, parágrafo único Art. 38-A, parágrafo único Art. 40, § 3ºArt. 41, parágrafo único Art. 54, § 1ºArt. 56, § 3ºArt. 62, parágrafo único Art. 67, parágrafo único Art. 68, parágrafo únicoArt. 69-A, § 1º",
+      "excecoes": [],
+      "crime": "Crimes contra o meio ambiente (3)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": [
+          "1",
+          "3",
+          "38",
+          "38-A",
+          "40",
+          "41",
+          "54",
+          "56",
+          "62",
+          "67",
+          "68",
+          "69-A"
+        ]
+      }
+    },
+    {
+      "id": 45,
+      "codigo": "LEI_9613",
+      "lei_nome": "Lei 9.613/98 – art. 1º",
+      "norma": "",
+      "excecoes": [],
+      "crime": "Crimes de lavagem ou ocultação de bens, direitos e valores (6)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "id": 46,
+      "codigo": "LEI_10826",
+      "lei_nome": "Lei 10.826/03 – art. 16, caput c.c. §2º,Art. 16, § 1º c.c. § 2º e arts. 17 e 18(Armas de Fogo) - alterações promovidas pela Lei nº 13964/2019 - de 24/12/2019.",
+      "norma": "",
+      "excecoes": [],
+      "crime": "Crime hediondo (7)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "id": 47,
+      "codigo": "LEI_11101",
+      "lei_nome": "Lei 11.101/05 – arts. 168 a 177(Lei Falimentar)",
+      "norma": "",
+      "excecoes": [],
+      "crime": "Crimes previstos na lei que regula a falência (2)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "id": 48,
+      "codigo": "LEI_11343",
+      "lei_nome": "Lei 11.343/06 – arts. 33 a 37(Lei de Drogas)",
+      "norma": "Art. 33, § 3º",
+      "excecoes": [],
+      "crime": "Crimes de tráfico de entorpecentes (7)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": [
+          "3",
+          "33"
+        ]
+      }
+    },
+    {
+      "id": 49,
+      "codigo": "LEI_12850",
+      "lei_nome": "Lei 12.850/13",
+      "norma": "",
+      "excecoes": [],
+      "crime": "Crimes Praticados por OrganizaçãoCriminosa (10)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "id": 50,
+      "codigo": "LEI_13260",
+      "lei_nome": "Lei 13.260/16 – arts. 2º a 6º",
+      "norma": "",
+      "excecoes": [],
+      "crime": "Crimes de terrorismo",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
       }
     }
   ]
