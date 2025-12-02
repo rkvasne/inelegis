@@ -87,12 +87,12 @@
   --opacity-overlay: 0.95;
   
   /* Header e Footer */
-  --header-bg: linear-gradient(135deg, #22c55e 0%, #10b981 50%, #059669 100%);
+  --header-bg: linear-gradient(135deg, #0284c7 0%, #0369a1 50%, #075985 100%);
   --header-text: var(--text-on-primary);
   --footer-bg: var(--bg-secondary);
   --footer-text: var(--text-secondary);
-  --nav-active-bg: #d1fae5;
-  --nav-active-text: #059669;
+  --nav-active-bg: rgba(255, 255, 255, 0.25);
+  --nav-active-text: #ffffff;
 
   /* Cores de Status - Tema Claro */
   --success-bg: rgba(34, 197, 94, 0.12);
