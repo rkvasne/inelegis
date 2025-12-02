@@ -64,7 +64,7 @@ Documentos históricos e resumos de versões anteriores:
 
 ### 📁 Referências (`references/`)
 Documentos de referência oficial:
-- `manual-ase.txt` - Manual do sistema ASE
+- `manual-ase.md` - Manual do sistema ASE
 - `tabela-oficial.pdf` - Tabela oficial do TRE-SP
 - `tabela-oficial.xml` - Dados estruturados da tabela
 

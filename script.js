@@ -669,9 +669,12 @@ function exibirResultado(resultado) {
 
     // Salvar no histórico local
     if (typeof HistoryUI !== 'undefined') {
+        const artigoParaHistorico = resultado.artigoProcessado?.formatado || 
+                                    resultado.artigoOriginal || 
+                                    'N/A';
         HistoryUI.addSearch({
             lei: resultado.codigo,
-            artigo: resultado.artigoConsultado,
+            artigo: artigoParaHistorico,
             resultado: resultado.inelegivel ? 'inelegivel' : 'elegivel',
             timestamp: new Date().toISOString()
         });
@@ -679,9 +682,12 @@ function exibirResultado(resultado) {
 
     // Enviar analytics (anônimo)
     if (typeof Analytics !== 'undefined' && Analytics.isEnabled()) {
+        const artigoParaAnalytics = resultado.artigoProcessado?.formatado || 
+                                     resultado.artigoOriginal || 
+                                     'N/A';
         Analytics.trackSearch({
             lei: resultado.codigo,
-            artigo: resultado.artigoConsultado,
+            artigo: artigoParaAnalytics,
             resultado: resultado.inelegivel ? 'inelegivel' : 'elegivel',
             temExcecao: resultado.excecoes && resultado.excecoes.length > 0,
             tempoResposta: null // Pode adicionar medição de tempo

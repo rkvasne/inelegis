@@ -288,7 +288,7 @@ Todos os problemas identificados anteriormente foram corrigidos:
 ### Documentação Interna
 - [DEVELOPMENT.md](DEVELOPMENT.md) - Guia técnico
 - [README.md](../README.md) - Índice da Documentação
-- [MANUAL-ASE.txt](references/manual-ase.txt) - Guia operacional
+- [manual-ase.md](references/manual-ase.md) - Guia operacional
 
 ---
 

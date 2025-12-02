@@ -18,6 +18,7 @@
   </p>
 
   [![Version](https://img.shields.io/badge/version-0.0.7-blue.svg?style=for-the-badge)](https://semver.org)
+  [![License](https://img.shields.io/badge/license-MIT-green.svg?style=for-the-badge)](LICENSE)
 | Recurso | Descrição |
 |---------|-----------|
 | 🔍 **Busca Inteligente** | Pesquise por número do artigo, lei, descrição ou palavras-chave com feedback instantâneo. |
@@ -25,7 +26,9 @@
 | 📱 **Design Responsivo** | Interface moderna que se adapta perfeitamente a desktops, tablets e smartphones. |
 | ⚡ **Alta Performance** | Carregamento instantâneo, sem dependências pesadas de frameworks, utilizando Vanilla JS otimizado. |
 | 📋 **Cópia Rápida** | Exporte resultados formatados prontos para colar em pareceres e documentos oficiais. |
-| 🌙 **Tema Escuro** | Suporte nativo a modo escuro para conforto visual durante longas sessões de trabalho. |
+| 🌙 **Tema Escuro** | Suporte nativo a modo escuro com alternância automática e persistência de preferência. |
+| 🧩 **Componentes Reutilizáveis** | Sistema modular de componentes para fácil manutenção e consistência visual. |
+| 📊 **Histórico de Consultas** | Rastreie suas pesquisas com estatísticas e exportação de dados. |
 
 ---
 

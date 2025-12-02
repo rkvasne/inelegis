@@ -12,22 +12,39 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ## [0.0.7] - 2025-12-01
 
-### 📚 Documentation
-- Consolidação completa da documentação (11 documentos redundantes removidos)
-- Documentos históricos marcados com notas explicativas (REFACTORING-PLAN.md, IMPLEMENTATION-GUIDE.md)
-- Changelog de documentação criado (CHANGELOG-DOCS.md)
-- Setup Redis consolidado em guia único (SETUP-REDIS.md)
-- Variáveis de ambiente atualizadas para usar REDIS_URL
+### ✨ Added
+- 🌙 **Tema Escuro Completo**: Sistema de temas com alternância automática e persistência
+- 🧩 **Sistema de Componentes Reutilizáveis**: Header, Nav, Footer e componentes modulares
+- 📊 **Histórico de Consultas**: Rastreamento com estatísticas, exportação e detecção de duplicatas
+- 🎨 **Variáveis CSS Semânticas**: Sistema de cores adaptável para temas claro e escuro
+- 🔄 **Sincronização de Tema**: Preferência compartilhada entre todas as páginas
 
 ### 🛠 Changed
 - Código adaptado para usar REDIS_URL ao invés de KV_REST_API_URL
+- Todas as páginas HTML migradas para usar componentes reutilizáveis
+- Cores hardcoded substituídas por variáveis CSS semânticas
 - Documentação do INDEX.md reorganizada e atualizada
 - README.md atualizado com novidades da v0.0.7
+- Versão atualizada para 0.0.7 em todos os componentes
+
+### 🐛 Fixed
+- Corrigido problema de registros duplicados no histórico
+- Corrigido campo `artigoConsultado` undefined no histórico
+- Removidos 7 warnings CSS de rulesets vazios
+- Modal de histórico agora fecha ao clicar fora (overlay)
+
+### 📚 Documentation
+- Consolidação completa da documentação (11 documentos redundantes removidos)
+- Documentos históricos marcados com notas explicativas
+- Changelog de documentação criado (CHANGELOG-DOCS.md)
+- Setup Redis consolidado em guia único (SETUP-REDIS.md)
+- Manual ASE convertido para Markdown (manual-ase.md)
+- Nomenclatura de arquivos padronizada (kebab-case)
 
 ### 🗑 Removed
-- 14 documentos e 5 arquivos de código morto removidos em quatro limpezas:
-  - Primeira limpeza: 9 docs redundantes/obsoletos
-  - Segunda limpeza: 2 docs redundantes (ANALISE-DOCUMENTACAO.md, ATUALIZACAO-DOCS-HISTORICOS.md)
+- 14 documentos e 5 arquivos de código morto removidos
+- Arquivo manual-ase.txt (migrado para .md)
+- Cores hardcoded em CSS e HTML
   - Terceira limpeza: 1 doc + 5 arquivos de componentes não utilizados (pasta components/ removida)
   - Quarta limpeza: 2 arquivos legacy obsoletos (pasta docs/legacy/ removida)
 
