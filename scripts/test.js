@@ -117,11 +117,11 @@ class TestRunner {
       return content.includes('tabelaInelegibilidade') && content.includes('leisDisponiveis');
     });
 
-    // Teste 3: Service Worker
-    this.test('Service Worker configurado', () => {
-      const swPath = path.join(this.projectRoot, 'sw.js');
-      return fs.existsSync(swPath);
-    });
+    // Teste 3: Service Worker (Removido - cache desabilitado)
+    // this.test('Service Worker configurado', () => {
+    //   const swPath = path.join(this.projectRoot, 'sw.js');
+    //   return fs.existsSync(swPath);
+    // });
 
     // Teste 5: Manifest PWA (Removido - PWA desativado)
     /*
