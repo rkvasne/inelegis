@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Script de Deploy Automático - Ineleg-App v0.2.0
+# Script de Deploy Automático - Ineleg-App v0.3.0
 # Sistema de Consulta de Inelegibilidade Eleitoral
 # Gerado em: 24/10/2025, 14:30:29
 

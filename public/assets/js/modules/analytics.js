@@ -1,7 +1,7 @@
 /**
  * Analytics Module
  * Envia dados anônimos de uso para análise
- * @version 0.2.0
+ * @version 0.3.0
  */
 
 const ANALYTICS_DEBUG_ENABLED = (() => {
@@ -177,7 +177,7 @@ const Analytics = (() => {
                 tempoResposta: search.tempoResposta || null
             },
             browser: getBrowserInfo(),
-            version: '0.2.0'
+            version: '0.3.0'
         };
 
         addToQueue(event);
@@ -201,7 +201,7 @@ const Analytics = (() => {
                 artigo: error.artigo || null
             },
             browser: getBrowserInfo(),
-            version: '0.2.0'
+            version: '0.3.0'
         };
 
         addToQueue(event);
@@ -224,7 +224,7 @@ const Analytics = (() => {
                 ...data
             },
             browser: getBrowserInfo(),
-            version: '0.2.0'
+            version: '0.3.0'
         };
 
         addToQueue(event);

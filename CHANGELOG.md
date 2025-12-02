@@ -9,7 +9,7 @@ lastReviewed: 21/01/2026
 
 ---
 
-**Versão atual:** 0.2.0
+**Versão atual:** 0.3.0
 
 Todas as alterações notáveis neste projeto serão documentadas neste arquivo.
 
