@@ -1,12 +1,29 @@
-// Desregistrar Service Worker antigo (se existir)
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.getRegistrations().then(registrations => {
-        registrations.forEach(registration => {
-            registration.unregister();
-            console.log('SW desregistrado');
+// LIMPEZA AGRESSIVA DE CACHE - v0.0.8
+(function() {
+    // 1. Desregistrar TODOS os Service Workers
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(registrations => {
+            registrations.forEach(registration => {
+                registration.unregister().then(() => {
+                    console.log('✅ SW desregistrado:', registration.scope);
+                });
+            });
         });
-    });
-}
+    }
+    
+    // 2. Limpar TODOS os caches
+    if ('caches' in window) {
+        caches.keys().then(cacheNames => {
+            cacheNames.forEach(cacheName => {
+                caches.delete(cacheName).then(() => {
+                    console.log('✅ Cache deletado:', cacheName);
+                });
+            });
+        });
+    }
+    
+    console.log('🧹 Limpeza de cache executada - v0.0.8');
+})();
 
 // Elementos DOM
 const leiSelect = document.getElementById('leiSelect');
