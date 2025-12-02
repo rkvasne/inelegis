@@ -1298,6 +1298,151 @@ function checkLightColorsInDarkTheme(content, file) {
 }
 
 /**
+ * Verifica se inputs/textareas/selects têm background e color definidos
+ * Inputs sem essas propriedades usam valores padrão do navegador (geralmente branco)
+ * causando problemas no tema escuro
+ */
+function checkInputsThemeProperties(content, file) {
+    // Padrões de seletores de input
+    const inputSelectors = [
+        /\.([\w-]*input[\w-]*)\s*\{([^}]+)\}/gi,
+        /\.([\w-]*search[\w-]*)\s*\{([^}]+)\}/gi,
+        /\.([\w-]*textarea[\w-]*)\s*\{([^}]+)\}/gi,
+        /\.([\w-]*select[\w-]*)\s*\{([^}]+)\}/gi,
+        /input\[type=["']?(?:text|email|password|search|tel|url|number)["']?\]\s*\{([^}]+)\}/gi,
+        /textarea\s*\{([^}]+)\}/gi,
+        /select\s*\{([^}]+)\}/gi
+    ];
+    
+    for (const pattern of inputSelectors) {
+        let match;
+        while ((match = pattern.exec(content)) !== null) {
+            const selectorName = match[1] || match[0].split('{')[0].trim();
+            const rules = match[match.length - 1]; // Último grupo de captura
+            
+            // Ignorar pseudo-elementos e estados
+            if (/::|:hover|:focus|:active|:disabled/.test(selectorName)) continue;
+            
+            // Verificar se tem background definido
+            const hasBackground = /background\s*:/i.test(rules);
+            const hasColor = /(?:^|\s)color\s*:/i.test(rules);
+            
+            if (!hasBackground || !hasColor) {
+                const missing = [];
+                if (!hasBackground) missing.push('background');
+                if (!hasColor) missing.push('color');
+                
+                addIssue(
+                    'input-missing-theme-props',
+                    'warning',
+                    file, 0, 0,
+                    `Input/Select "${selectorName}" sem ${missing.join(' e ')} definido(s)`,
+                    match[0].substring(0, 100),
+                    `Adicione ${missing.map(p => `${p}: var(--${p === 'background' ? 'bg' : 'text'}-primary)`).join(' e ')} para compatibilidade com tema escuro`,
+                    true
+                );
+            }
+        }
+    }
+}
+
+/**
+ * Verifica se inputs/selects/textareas usam variáveis de tema para background e color
+ */
+function checkInputsThemeProperties(content, file) {
+    const inputSelectors = [
+        { pattern: /\.form-input(?:\s*,\s*\.form-select)?\s*\{[^}]*\}/gi, names: ['form-input', 'form-select'] },
+        { pattern: /\.form-textarea\s*\{[^}]*\}/gi, names: ['form-textarea'] },
+        { pattern: /input\[type=["']?(?:text|email|password|search|tel|url)["']?\]\s*\{[^}]*\}/gi, names: ['input'] },
+        { pattern: /(?:^|\n)select\s*\{[^}]*\}/gi, names: ['select'] },
+        { pattern: /(?:^|\n)textarea\s*\{[^}]*\}/gi, names: ['textarea'] }
+    ];
+
+    const themeVarPatterns = [
+        /var\(--(?:input|form|bg|text|border|primary|secondary|neutral)-/,
+        /var\(--[a-z]+-(?:bg|text|border|color|input)/
+    ];
+
+    // Rastrear seletores que já foram verificados com propriedades de tema
+    const selectorsWithTheme = new Set();
+
+    for (const { pattern, names } of inputSelectors) {
+        const matches = content.match(pattern);
+        if (matches) {
+            for (const match of matches) {
+                // Verificar se tem propriedades de tema definidas
+                const hasBackground = /background\s*:/i.test(match);
+                const hasColor = /(?:^|[^-])color\s*:/i.test(match); // Evitar background-color
+                const hasBorder = /border(?:-color)?\s*:/i.test(match);
+
+                // Verificar se usa variáveis de tema
+                const usesThemeVars = themeVarPatterns.some(pattern => pattern.test(match));
+
+                // Se usa variáveis de tema, marcar todos os nomes como verificados
+                if (usesThemeVars && (hasBackground || hasColor || hasBorder)) {
+                    names.forEach(name => selectorsWithTheme.add(name));
+                }
+
+                // Verificar se tem cores hardcoded (exceto em background-image)
+                const matchWithoutBgImage = match.replace(/background-image\s*:[^;]+;?/gi, '');
+                const hasHardcodedColor = /#[0-9a-fA-F]{3,8}/.test(matchWithoutBgImage) || 
+                                         /rgba?\s*\([^)]+\)/.test(matchWithoutBgImage) ||
+                                         /hsla?\s*\([^)]+\)/.test(matchWithoutBgImage) ||
+                                         /\b(?:white|black|red|blue|green|yellow|gray|grey)\b/i.test(matchWithoutBgImage);
+
+                // Se tem cores hardcoded, reportar erro
+                if (hasHardcodedColor && (hasBackground || hasColor || hasBorder)) {
+                    const name = names[0];
+                    addIssue(
+                        'input-hardcoded-color',
+                        'error',
+                        file, 0, 0,
+                        `${name} usa cores hardcoded em vez de variáveis de tema`,
+                        match.substring(0, 100),
+                        `Use variáveis CSS como var(--input-bg), var(--input-text), var(--input-border)`,
+                        false
+                    );
+                }
+
+                // Se não usa variáveis de tema e tem propriedades de cor, reportar warning
+                if ((hasBackground || hasColor || hasBorder) && !usesThemeVars && !hasHardcodedColor) {
+                    const name = names[0];
+                    // Só reportar se não foi verificado anteriormente
+                    if (!selectorsWithTheme.has(name)) {
+                        addIssue(
+                            'input-missing-theme-vars',
+                            'warning',
+                            file, 0, 0,
+                            `${name} não usa variáveis de tema apropriadas`,
+                            match.substring(0, 100),
+                            `Use variáveis CSS como var(--input-bg), var(--input-text), var(--input-border) para garantir compatibilidade com temas`,
+                            false
+                        );
+                    }
+                }
+
+                // Se não tem propriedades de tema definidas E não foi verificado anteriormente, reportar info
+                if (!hasBackground && !hasColor && !hasBorder) {
+                    const name = names[0];
+                    // Só reportar se não foi verificado anteriormente
+                    if (!selectorsWithTheme.has(name)) {
+                        addIssue(
+                            'input-no-theme-properties',
+                            'info',
+                            file, 0, 0,
+                            `${name} não define propriedades de tema (background, color, border)`,
+                            match.substring(0, 100),
+                            `Considere adicionar background, color e border usando variáveis de tema`,
+                            false
+                        );
+                    }
+                }
+            }
+        }
+    }
+}
+
+/**
  * Verifica se componentes críticos usam variáveis de tema apropriadas
  */
 function checkCriticalComponentsTheme(content, file) {
@@ -1322,6 +1467,9 @@ function checkCriticalComponentsTheme(content, file) {
             property: 'background/color'
         }
     ];
+    
+    // Verificar inputs sem background/color definidos
+    checkInputsThemeProperties(content, file);
     
     for (const component of criticalComponents) {
         const matches = content.match(component.selector);
