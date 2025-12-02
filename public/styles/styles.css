@@ -588,7 +588,7 @@ code {
 }
 
 .card-header h2 {
-  font-size: 0.9375rem; /* 15px */
+  font-size: 1.25rem; /* Alinha com títulos principais (ex: Perguntas Gerais) */
   font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 0.125rem;
@@ -818,7 +818,8 @@ code {
 .checkbox-input {
   width: 1rem;
   height: 1rem;
-  margin-top: 0.125rem;
+  margin-top: 0;
+  flex-shrink: 0;
   accent-color: var(--primary-600);
 }
 
@@ -1069,7 +1070,7 @@ code {
 }
 
 /* Utilitários */
-.hidden { display: none; }
+.hidden { display: none !important; }
 .sr-only {
   position: absolute;
   width: 1px;
@@ -2640,12 +2641,215 @@ code {
   .faq-search {
     margin-top: -1rem;
   }
+
+  .history-hero .card-header {
+    flex-direction: column;
+  }
+
+  .history-hero-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
 }
 
 
 /* ========================================
    HISTÓRICO DE CONSULTAS
    ======================================== */
+
+.history-page {
+  padding-bottom: 4rem;
+}
+
+.history-hero .card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.history-hero-copy {
+  flex: 1 1 320px;
+}
+
+.history-hero h1 {
+  font-size: 1.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.admin-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-on-primary);
+  background: rgba(14, 165, 233, 0.9);
+  padding: 0.25rem 0.5rem;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.history-hero-actions {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  margin-left: auto;
+}
+
+.history-hero-actions .btn {
+  min-width: 150px;
+}
+
+.history-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-3);
+  margin: 2rem 0;
+}
+
+.history-summary-card {
+  background: var(--bg-secondary);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.history-summary-card .summary-label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.history-summary-card .summary-value {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.history-summary-card .summary-value.summary-value--text {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.history-status {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.history-status.error {
+  color: var(--danger-text);
+}
+
+.history-loading {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.history-spinner {
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(14, 165, 233, 0.3);
+  border-top-color: var(--primary-500);
+  border-radius: 50%;
+  animation: history-spin 0.8s linear infinite;
+}
+
+@keyframes history-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.history-panels {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  margin-bottom: 2rem;
+}
+
+.history-table-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.history-table-actions {
+  min-width: 240px;
+  flex: 1;
+  max-width: 320px;
+}
+
+.history-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.history-table th,
+.history-table td {
+  text-align: left;
+  padding: 0.85rem;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.95rem;
+}
+
+.history-table th {
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--bg-tertiary);
+}
+
+.history-table tr:hover {
+  background: var(--bg-secondary);
+}
+
+.history-table-time {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.history-table-sub {
+  color: var(--text-muted);
+}
+
+.history-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 96px;
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.history-badge.badge-danger {
+  background: var(--danger-bg);
+  color: var(--danger-text);
+}
+
+.history-badge.badge-success {
+  background: var(--success-bg);
+  color: var(--success-text);
+}
 
 .history-overlay {
     position: fixed;

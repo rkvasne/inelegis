@@ -47,6 +47,10 @@
             --bg-tertiary: #f3f4f6;
             --text-primary: #111827;
             --text-secondary: #6b7280;
+            --page-bg-start: var(--primary-50);
+            --page-bg-end: var(--primary-100);
+            --cta-bg-start: var(--primary-100);
+            --cta-bg-end: var(--primary-200);
             
             /* Cores de Status */
             --info-bg: rgba(59, 130, 246, 0.1);
@@ -84,13 +88,18 @@
             --glass-bg: rgba(255, 255, 255, 0.1);
             --primary-500: #38bdf8;
             --primary-600: #0ea5e9;
+            --page-bg-start: #0b1120;
+            --page-bg-end: #0f172a;
+            --info-bg: rgba(56, 189, 248, 0.18);
+            --cta-bg-start: #1e293b;
+            --cta-bg-end: #0f172a;
         }
 
         body {
             font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
             line-height: 1.6;
             color: var(--text-primary);
-            background: linear-gradient(135deg, var(--primary-50) 0%, var(--primary-100) 100%);
+            background: linear-gradient(135deg, var(--page-bg-start) 0%, var(--page-bg-end) 100%);
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
@@ -348,7 +357,7 @@
             margin: 0 auto;
             text-align: center;
             padding: 4rem 2rem;
-            background: linear-gradient(135deg, var(--primary-100) 0%, var(--primary-200) 100%);
+            background: linear-gradient(135deg, var(--cta-bg-start) 0%, var(--cta-bg-end) 100%);
             border-radius: var(--radius-2xl);
             box-shadow: var(--shadow-xl);
         }
