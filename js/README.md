@@ -240,6 +240,12 @@ Ao adicionar novos módulos:
 
 ## 📝 Changelog
 
+### v0.0.8 (02/12/2025)
+- ✅ Sistema de toast e modal para UX
+- ✅ Verificação de termos no menu
+- ✅ Cache desabilitado (sem Service Worker)
+- ✅ Header com tons de azul
+
 ### v0.0.7 (02/12/2025)
 - ✅ `search-history.js` - Sincronização com Redis
 - ✅ `analytics.js` - Envio de eventos para API
@@ -252,4 +258,4 @@ Ao adicionar novos módulos:
 ---
 
 **Última atualização:** 02 de dezembro de 2025  
-**Versão:** 0.0.7
+**Versão:** 0.0.8

@@ -2,7 +2,7 @@
  * Search History Manager
  * Gerencia histórico de consultas do usuário
  * Sincroniza com Redis via API
- * @version 0.0.7
+ * @version 0.0.8
  */
 
 // SecureStorage - Wrapper para localStorage (fallback local)
