@@ -37,8 +37,9 @@
   --neutral-800: #1f2937;
   --neutral-900: #111827;
   
-  --success-500: #10b981;
-  --success-600: #059669;
+  --success-500: #22c55e;
+  --success-600: #16a34a;
+  --success-700: #15803d;
   --warning-500: #f59e0b;
   --warning-600: #d97706;
   --danger-500: #ef4444;
@@ -94,9 +95,9 @@
   --nav-active-text: #059669;
 
   /* Cores de Status - Tema Claro */
-  --success-bg: rgba(16, 185, 129, 0.1);
-  --success-border: #10b981;
-  --success-text: #166534;
+  --success-bg: rgba(34, 197, 94, 0.12);
+  --success-border: #22c55e;
+  --success-text: #15803d;
   --warning-bg: rgba(251, 191, 36, 0.1);
   --warning-border: #f59e0b;
   --warning-text: #92400e;
@@ -174,14 +175,16 @@
   --primary-700: #10b981;
   
   /* Cores de status */
-  --success-500: #34d399;
+  --success-500: #4ade80;
+  --success-600: #22c55e;
+  --success-700: #16a34a;
   --warning-500: #fbbf24;
   --danger-500: #ef4444;
 
   /* Cores de Status - Tema Escuro */
-  --success-bg: rgba(52, 211, 153, 0.15);
-  --success-border: #34d399;
-  --success-text: #6ee7b7;
+  --success-bg: rgba(74, 222, 128, 0.15);
+  --success-border: #4ade80;
+  --success-text: #86efac;
   --warning-bg: rgba(251, 191, 36, 0.15);
   --warning-border: #fbbf24;
   --warning-text: #fcd34d;
@@ -481,6 +484,17 @@ code {
 .header-nav-link.active {
   background: rgba(255, 255, 255, 0.25);
   font-weight: 600;
+}
+
+.header-nav-link.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: auto;
+}
+
+.header-nav-link.disabled:hover {
+  background: transparent;
+  transform: none;
 }
 
 .dark-theme .header-nav-link {
