@@ -2,443 +2,196 @@
 
 ---
 
-**Versão:** 0.0.6  
-**Data:** 01 de dezembro de 2025
+**Versão:** 0.0.7  
+**Data:** 02 de dezembro de 2025
 
 ---
 
 ## 🎯 Objetivo
 
-O sistema de analytics coleta dados **anônimos** de uso do Inelegis para:
-- ✅ Validar se as buscas retornam resultados corretos
-- ✅ Identificar artigos mais consultados
-- ✅ Detectar erros e problemas
-- ✅ Melhorar a experiência do usuário
-- ✅ Planejar futuras funcionalidades
+Coleta dados anônimos de uso para:
+- Validar resultados de buscas
+- Identificar artigos mais consultados
+- Detectar erros
+- Melhorar a experiência
 
 ---
 
 ## 🔒 Privacidade
 
 ### Dados Coletados (Anônimos)
-- ✅ Lei consultada (ex: "CP")
-- ✅ Artigo consultado (ex: "155, §1º")
-- ✅ Resultado (inelegível/elegível)
-- ✅ Presença de exceções
-- ✅ Tempo de resposta
-- ✅ Navegador (user agent)
-- ✅ Idioma e timezone
-- ✅ Resolução de tela
+- Lei e artigo consultados
+- Resultado (inelegível/elegível)
+- Tempo de resposta
+- Navegador e idioma
 
 ### Dados NÃO Coletados
-- ❌ Nome do usuário
-- ❌ Email
-- ❌ IP (não armazenado)
-- ❌ Localização precisa
-- ❌ Dados pessoais
-
-### ID Anônimo
-- Gerado automaticamente no primeiro uso
-- Formato: `user_1733097600000_abc123xyz`
-- Não identifica o usuário
-- Permite análise de padrões de uso
+- Nome, email, IP
+- Localização precisa
+- Dados pessoais
 
 ---
 
 ## 🏗️ Arquitetura
 
-### Frontend (js/analytics.js)
 ```
-Usuário faz busca
+Frontend (js/analytics.js)
     ↓
-Analytics.trackSearch()
-    ↓
-Adiciona à fila local
-    ↓
-Envia em batch (10 eventos ou 30s)
+Coleta eventos em batch
     ↓
 POST /api/analytics
-```
-
-### Backend (api/analytics.js)
-```
-Recebe eventos
     ↓
-Valida estrutura
+Backend salva no Redis (ioredis)
     ↓
-Processa dados
-    ↓
-Salva no banco
-    ↓
-Retorna confirmação
-```
-
-### Dashboard (api/dashboard.js)
-```
-Admin acessa com token
-    ↓
-GET /api/dashboard?type=all
-    ↓
-Retorna estatísticas
-    ↓
-Visualização de dados
+Dashboard consulta via API
 ```
 
 ---
 
-## 📡 API
+## 📡 APIs
 
-### Eventos Rastreados
+### POST /api/analytics
 
-#### 1. Busca (search)
-```javascript
-Analytics.trackSearch({
-    lei: 'CP',
-    artigo: '155, §1º, I',
-    resultado: 'inelegivel',
-    temExcecao: true,
-    tempoResposta: 45
-});
+Recebe eventos do frontend.
+
+```json
+{
+  "events": [{
+    "type": "search",
+    "userId": "user_123",
+    "timestamp": "2025-12-02T10:00:00Z",
+    "data": {
+      "lei": "CP",
+      "artigo": "155",
+      "resultado": "inelegivel"
+    }
+  }]
+}
 ```
 
-#### 2. Erro (error)
-```javascript
-Analytics.trackError({
-    message: 'Artigo não encontrado',
-    stack: '...',
-    lei: 'CP',
-    artigo: '999'
-});
+### GET /api/dashboard
+
+Retorna estatísticas (requer token).
+
+```bash
+curl -H "Authorization: Bearer TOKEN" \
+  https://inelegis.vercel.app/api/dashboard?type=all
 ```
 
-#### 3. Ação (action)
-```javascript
-Analytics.trackAction('export_history', {
-    count: 25
-});
+**Tipos:** `general`, `top-searches`, `distribution`, `errors`, `timeline`, `all`
+
+### POST /api/search-history
+
+Salva histórico de busca do usuário.
+
+```json
+{
+  "userId": "user_123",
+  "search": {
+    "lei": "CP",
+    "artigo": "155",
+    "resultado": "inelegivel"
+  }
+}
 ```
 
-### Métodos Públicos
+### GET /api/search-history
+
+Obtém histórico do usuário.
+
+```
+/api/search-history?userId=user_123&limit=50
+/api/search-history?userId=user_123&stats=true
+```
+
+---
+
+## 💻 Frontend
+
+### Métodos Disponíveis
 
 ```javascript
 // Inicializar
 Analytics.init();
 
 // Rastrear busca
-Analytics.trackSearch(data);
+Analytics.trackSearch({
+  lei: 'CP',
+  artigo: '155',
+  resultado: 'inelegivel'
+});
 
 // Rastrear erro
-Analytics.trackError(error);
+Analytics.trackError({ message: 'Erro', stack: '...' });
 
 // Rastrear ação
-Analytics.trackAction(action, data);
+Analytics.trackAction('export_history', { count: 25 });
 
-// Desabilitar (LGPD/GDPR)
+// Desabilitar/Habilitar (LGPD)
 Analytics.disable();
-
-// Habilitar
 Analytics.enable();
+```
 
-// Verificar status
-Analytics.isEnabled(); // true/false
+### Histórico de Buscas
 
-// Forçar envio
-Analytics.flush();
+```javascript
+// Adicionar (salva local + Redis)
+SearchHistory.add({ lei: 'CP', artigo: '155', resultado: 'inelegivel' });
+
+// Obter local
+SearchHistory.getAll();
+SearchHistory.getRecent(10);
+
+// Obter do Redis (async)
+await SearchHistory.getAllAsync();
+await SearchHistory.getStatsAsync();
 ```
 
 ---
 
-## 🚀 Implementação
+## 💾 Banco de Dados
 
-### 1. Frontend
-
-**Arquivo:** `js/analytics.js`
-
-**Carregamento:**
-```html
-<script src="js/analytics.js"></script>
-```
-
-**Inicialização:**
-```javascript
-document.addEventListener('DOMContentLoaded', function() {
-    Analytics.init();
-});
-```
-
-**Uso:**
-```javascript
-// Após uma busca bem-sucedida
-Analytics.trackSearch({
-    lei: resultado.codigo,
-    artigo: resultado.artigoConsultado,
-    resultado: resultado.inelegivel ? 'inelegivel' : 'elegivel',
-    temExcecao: resultado.excecoes?.length > 0
-});
-```
-
-### 2. Backend
-
-**Arquivo:** `api/analytics.js`
-
-**Endpoint:** `POST /api/analytics`
-
-**Request:**
-```json
-{
-    "events": [
-        {
-            "type": "search",
-            "userId": "user_123_abc",
-            "timestamp": "2025-12-01T19:00:00Z",
-            "data": {
-                "lei": "CP",
-                "artigo": "155",
-                "resultado": "inelegivel",
-                "temExcecao": false
-            },
-            "browser": {...},
-            "version": "0.0.6"
-        }
-    ],
-    "timestamp": "2025-12-01T19:00:00Z"
-}
-```
-
-**Response:**
-```json
-{
-    "success": true,
-    "received": 10,
-    "processed": 10,
-    "saved": 10,
-    "timestamp": "2025-12-01T19:00:01Z"
-}
-```
-
-### 3. Dashboard
-
-**Arquivo:** `api/dashboard.js`
-
-**Endpoint:** `GET /api/dashboard?type=all`
-
-**Headers:**
-```
-Authorization: Bearer YOUR_ADMIN_TOKEN
-```
-
-**Response:**
-```json
-{
-    "success": true,
-    "data": {
-        "general": {
-            "totalSearches": 1250,
-            "totalUsers": 87,
-            "totalErrors": 12,
-            "avgResponseTime": 45
-        },
-        "topSearches": [...],
-        "distribution": {...},
-        "errors": [...],
-        "timeline": [...]
-    },
-    "timestamp": "2025-12-01T19:00:00Z"
-}
-```
-
----
-
-## 💾 Armazenamento
-
-### Banco de Dados: Vercel KV (Redis) ✅
-
-**Implementado e funcionando!**
+### Redis (via ioredis)
 
 ```javascript
-import { createClient } from '@vercel/kv';
+import Redis from 'ioredis';
 
-// Conectar usando REDIS_URL
-const kv = createClient({
-    url: process.env.REDIS_URL,
-    token: process.env.REDIS_TOKEN
-});
+const redis = new Redis(process.env.REDIS_URL);
 
 // Salvar evento
-await kv.set(`analytics:search:${timestamp}`, event);
+await redis.setex(key, TTL, JSON.stringify(event));
 
-// Incrementar contadores
-await kv.incr('analytics:total');
-await kv.zincrby('analytics:top:leis', 1, lei);
+// Incrementar contador
+await redis.incr('analytics:total');
 
-// Adicionar à lista
-await kv.lpush('analytics:list:search', key);
+// Top leis
+await redis.zincrby('analytics:top:leis', 1, lei);
 ```
-
-**Estrutura de dados:**
-- Counters: Total de eventos, buscas, erros
-- Sorted Sets: Top leis e artigos
-- Lists: Últimos eventos
-- Hashes: Timeline por dia
-- Keys individuais: Eventos completos
 
 **Configuração:** Ver [SETUP-REDIS.md](SETUP-REDIS.md)
 
 ---
 
-## 📈 Métricas Disponíveis
+## 📈 Métricas
 
-### Estatísticas Gerais
-- Total de buscas
-- Total de usuários únicos
-- Total de erros
-- Tempo médio de resposta
-
-### Buscas Mais Frequentes
-- Top 10 leis consultadas
-- Top 10 artigos consultados
-- Distribuição de resultados (inelegível/elegível)
-
-### Análise Temporal
-- Buscas por dia/semana/mês
-- Horários de pico
-- Tendências de uso
-
-### Qualidade
-- Taxa de erro
-- Buscas sem resultado
-- Exceções mais comuns
+- Total de buscas e usuários
+- Top leis e artigos consultados
+- Distribuição inelegível/elegível
+- Timeline por dia
+- Erros recentes
 
 ---
 
 ## 🔐 Segurança
 
-### CORS
-```javascript
-const ALLOWED_ORIGINS = [
-    'https://inelegis.vercel.app',
-    'http://localhost:3000'
-];
-```
-
-### Autenticação (Dashboard)
-```javascript
-const ADMIN_TOKEN = process.env.ANALYTICS_ADMIN_TOKEN;
-```
-
-### Rate Limiting
-```javascript
-// Implementar rate limiting no Vercel
-// Limite: 100 requests/minuto por IP
-```
-
-### Validação
-```javascript
-// Validar estrutura de eventos
-// Sanitizar dados de entrada
-// Limitar tamanho de payloads
-```
-
----
-
-## 🎛️ Configuração
-
-### Variáveis de Ambiente
-
-**`.env.local`:**
-```bash
-# Analytics Dashboard Token
-ANALYTICS_ADMIN_TOKEN=your_secure_token_here
-
-# Vercel KV (Redis) - Criada automaticamente
-REDIS_URL=redis://default:xxx@abc-123.kv.vercel-storage.com:6379
-
-# Environment
-NODE_ENV=development
-```
-
-### Vercel
-
-**`vercel.json`:**
-```json
-{
-    "env": {
-        "ANALYTICS_ADMIN_TOKEN": "@analytics-token"
-    }
-}
-```
-
----
-
-## 📊 Dashboard (Futuro)
-
-### Página de Visualização
-- Gráficos interativos
-- Filtros por período
-- Exportação de relatórios
-- Alertas de erros
-
-### Tecnologias Sugeridas
-- Next.js + Chart.js
-- React + Recharts
-- Vue + ApexCharts
-
----
-
-## 🔄 Fluxo Completo
-
-```
-1. Usuário faz busca
-   ↓
-2. Resultado exibido
-   ↓
-3. Analytics.trackSearch() chamado
-   ↓
-4. Evento adicionado à fila local
-   ↓
-5. Após 10 eventos ou 30s:
-   ↓
-6. POST /api/analytics
-   ↓
-7. Backend valida e processa
-   ↓
-8. Salva no banco de dados
-   ↓
-9. Retorna confirmação
-   ↓
-10. Admin acessa dashboard
-    ↓
-11. GET /api/dashboard
-    ↓
-12. Visualiza estatísticas
-```
-
----
-
-## ✅ Próximos Passos
-
-### Implementação Imediata
-1. [ ] Escolher banco de dados
-2. [ ] Configurar variáveis de ambiente
-3. [ ] Implementar salvamento real
-4. [ ] Testar em produção
-
-### Melhorias Futuras
-1. [ ] Dashboard visual
-2. [ ] Alertas automáticos
-3. [ ] Exportação de relatórios
-4. [ ] Análise de ML
-5. [ ] Recomendações personalizadas
+- CORS restrito a origens permitidas
+- Dashboard protegido por token
+- Dados anônimos (sem PII)
+- TTL de 90 dias nos eventos
 
 ---
 
 ## 📚 Referências
 
-- [Vercel Serverless Functions](https://vercel.com/docs/functions)
-- [Vercel KV](https://vercel.com/docs/storage/vercel-kv)
-- [LGPD - Lei Geral de Proteção de Dados](https://www.gov.br/cidadania/pt-br/acesso-a-informacao/lgpd)
-- [GDPR](https://gdpr.eu/)
-
----
-
-**Sistema de Analytics implementado e pronto para uso!** 📊✨
+- [SETUP-REDIS.md](SETUP-REDIS.md) - Configuração do Redis
+- [VARIAVEIS-AMBIENTE.md](VARIAVEIS-AMBIENTE.md) - Variáveis necessárias

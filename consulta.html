@@ -474,6 +474,16 @@
     
     <!-- Inicializar Módulos -->
     <script>
+        // Verificar se termos foram aceitos
+        (function() {
+            const termosAceitos = localStorage.getItem('ineleg_termos_aceitos') === 'true';
+            if (!termosAceitos) {
+                alert('Você precisa aceitar os termos de uso antes de acessar o sistema de consulta.');
+                window.location.href = 'index.html';
+                return;
+            }
+        })();
+        
         // Inicializar componentes
         Components.init('consulta');
         
@@ -484,7 +494,7 @@
             // Inicializar analytics
             Analytics.init();
             
-            console.log('✅ Inelegis v0.0.6 inicializado');
+            console.log('✅ Inelegis v0.0.8 inicializado');
         });
     </script>
 </body>

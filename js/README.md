@@ -240,6 +240,10 @@ Ao adicionar novos módulos:
 
 ## 📝 Changelog
 
+### v0.0.7 (02/12/2025)
+- ✅ `search-history.js` - Sincronização com Redis
+- ✅ `analytics.js` - Envio de eventos para API
+
 ### v0.0.6 (01/12/2025)
 - ✅ Criação inicial dos 6 módulos
 - ✅ Implementação de testes
@@ -247,5 +251,5 @@ Ao adicionar novos módulos:
 
 ---
 
-**Última atualização:** 01 de dezembro de 2025  
-**Versão:** 0.0.6
+**Última atualização:** 02 de dezembro de 2025  
+**Versão:** 0.0.7

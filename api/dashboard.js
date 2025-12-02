@@ -3,19 +3,27 @@
  * Retorna estatísticas de uso do Inelegis
  * 
  * Deploy: Vercel Serverless Function
- * Database: Vercel KV (Redis)
+ * Database: Redis (via ioredis)
  * Acesso: Protegido por token
  */
 
-import { createClient } from '@vercel/kv';
+import Redis from 'ioredis';
 
-// Conectar ao Redis usando REDIS_URL
-const kv = createClient({
-    url: process.env.REDIS_URL || process.env.KV_REST_API_URL,
-    token: process.env.REDIS_TOKEN || process.env.KV_REST_API_TOKEN
-});
+// Conectar ao Redis
+let redis = null;
 
-// Token de acesso (em produção, usar variável de ambiente)
+function getRedis() {
+    if (!redis) {
+        const redisUrl = process.env.REDIS_URL;
+        if (!redisUrl) {
+            throw new Error('REDIS_URL não configurada');
+        }
+        redis = new Redis(redisUrl);
+    }
+    return redis;
+}
+
+// Token de acesso
 const ADMIN_TOKEN = process.env.ANALYTICS_ADMIN_TOKEN || 'dev_token_change_me';
 
 /**
@@ -27,149 +35,131 @@ function validateToken(req) {
 }
 
 /**
- * Obtém estatísticas gerais do Redis
+ * Obtém estatísticas gerais
  */
 async function getGeneralStats() {
-    try {
-        const total = await kv.get('analytics:total') || 0;
-        const searches = await kv.get('analytics:count:search') || 0;
-        const errors = await kv.get('analytics:count:error') || 0;
-        const actions = await kv.get('analytics:count:action') || 0;
-        
-        // Contar usuários únicos (aproximado)
-        const searchKeys = await kv.lrange('analytics:list:search', 0, 999);
-        const uniqueUsers = new Set();
-        
-        for (const key of searchKeys.slice(0, 100)) {
-            const event = await kv.get(key);
-            if (event?.userId) {
-                uniqueUsers.add(event.userId);
-            }
+    const client = getRedis();
+    
+    const total = await client.get('analytics:total') || 0;
+    const searches = await client.get('analytics:count:search') || 0;
+    const errors = await client.get('analytics:count:error') || 0;
+    const actions = await client.get('analytics:count:action') || 0;
+    
+    // Contar usuários únicos (aproximado)
+    const searchKeys = await client.lrange('analytics:list:search', 0, 99);
+    const uniqueUsers = new Set();
+    
+    for (const key of searchKeys) {
+        const eventStr = await client.get(key);
+        if (eventStr) {
+            try {
+                const event = JSON.parse(eventStr);
+                if (event?.userId) {
+                    uniqueUsers.add(event.userId);
+                }
+            } catch {}
         }
-        
-        return {
-            totalSearches: searches,
-            totalUsers: uniqueUsers.size,
-            totalErrors: errors,
-            totalActions: actions,
-            total,
-            period: 'all_time'
-        };
-    } catch (error) {
-        console.error('Erro ao buscar stats gerais:', error);
-        return {
-            totalSearches: 0,
-            totalUsers: 0,
-            totalErrors: 0,
-            total: 0
-        };
     }
+    
+    return {
+        totalSearches: parseInt(searches) || 0,
+        totalUsers: uniqueUsers.size,
+        totalErrors: parseInt(errors) || 0,
+        totalActions: parseInt(actions) || 0,
+        total: parseInt(total) || 0,
+        period: 'all_time'
+    };
 }
 
 /**
- * Obtém buscas mais frequentes do Redis
+ * Obtém buscas mais frequentes
  */
 async function getTopSearches() {
-    try {
-        // Top artigos (sorted set com scores)
-        const topArtigos = await kv.zrange('analytics:top:artigos', 0, 9, {
-            rev: true,
-            withScores: true
+    const client = getRedis();
+    
+    // Top artigos (sorted set com scores)
+    const topArtigos = await client.zrevrange('analytics:top:artigos', 0, 9, 'WITHSCORES');
+    
+    const results = [];
+    
+    for (let i = 0; i < topArtigos.length; i += 2) {
+        const [lei, artigo] = topArtigos[i].split(':');
+        const count = topArtigos[i + 1];
+        
+        results.push({
+            lei,
+            artigo,
+            count: parseInt(count) || 0
         });
-        
-        const results = [];
-        
-        for (let i = 0; i < topArtigos.length; i += 2) {
-            const [lei, artigo] = topArtigos[i].split(':');
-            const count = topArtigos[i + 1];
-            
-            results.push({
-                lei,
-                artigo,
-                count: Math.round(count)
-            });
-        }
-        
-        return results;
-    } catch (error) {
-        console.error('Erro ao buscar top searches:', error);
-        return [];
     }
+    
+    return results;
 }
 
 /**
- * Obtém distribuição de resultados do Redis
+ * Obtém distribuição de resultados
  */
 async function getResultDistribution() {
-    try {
-        const inelegivel = await kv.get('analytics:resultado:inelegivel') || 0;
-        const elegivel = await kv.get('analytics:resultado:elegivel') || 0;
-        
-        return {
-            inelegivel,
-            elegivel
-        };
-    } catch (error) {
-        console.error('Erro ao buscar distribuição:', error);
-        return {
-            inelegivel: 0,
-            elegivel: 0
-        };
-    }
+    const client = getRedis();
+    
+    const inelegivel = await client.get('analytics:resultado:inelegivel') || 0;
+    const elegivel = await client.get('analytics:resultado:elegivel') || 0;
+    
+    return {
+        inelegivel: parseInt(inelegivel) || 0,
+        elegivel: parseInt(elegivel) || 0
+    };
 }
 
 /**
- * Obtém erros recentes do Redis
+ * Obtém erros recentes
  */
 async function getRecentErrors() {
-    try {
-        const errorKeys = await kv.lrange('analytics:list:error', 0, 9);
-        const errors = [];
-        
-        for (const key of errorKeys) {
-            const event = await kv.get(key);
-            if (event) {
+    const client = getRedis();
+    
+    const errorKeys = await client.lrange('analytics:list:error', 0, 9);
+    const errors = [];
+    
+    for (const key of errorKeys) {
+        const eventStr = await client.get(key);
+        if (eventStr) {
+            try {
+                const event = JSON.parse(eventStr);
                 errors.push({
                     timestamp: event.timestamp,
                     message: event.message,
                     lei: event.lei,
                     artigo: event.artigo
                 });
-            }
+            } catch {}
         }
-        
-        return errors;
-    } catch (error) {
-        console.error('Erro ao buscar erros recentes:', error);
-        return [];
     }
+    
+    return errors;
 }
 
 /**
- * Obtém buscas por período do Redis
+ * Obtém buscas por período
  */
 async function getSearchesByPeriod(days = 7) {
-    try {
-        const timeline = await kv.hgetall('analytics:timeline') || {};
-        const data = [];
-        const now = new Date();
+    const client = getRedis();
+    
+    const timeline = await client.hgetall('analytics:timeline') || {};
+    const data = [];
+    const now = new Date();
+    
+    for (let i = days - 1; i >= 0; i--) {
+        const date = new Date(now);
+        date.setDate(date.getDate() - i);
+        const dateStr = date.toISOString().split('T')[0];
         
-        for (let i = days - 1; i >= 0; i--) {
-            const date = new Date(now);
-            date.setDate(date.getDate() - i);
-            const dateStr = date.toISOString().split('T')[0];
-            
-            data.push({
-                date: dateStr,
-                searches: timeline[dateStr] || 0
-            });
-        }
-        
-        return data;
-    } catch (error) {
-        console.error('Erro ao buscar timeline:', error);
-        return [];
+        data.push({
+            date: dateStr,
+            searches: parseInt(timeline[dateStr]) || 0
+        });
     }
+    
+    return data;
 }
 
 /**

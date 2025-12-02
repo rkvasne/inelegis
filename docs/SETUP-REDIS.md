@@ -1,89 +1,63 @@
-# 🚀 Setup do Redis (Vercel KV)
+# 🚀 Setup do Redis
 
 ---
 
-**Versão:** 0.0.6  
-**Data:** 01 de dezembro de 2025
+**Versão:** 0.0.7  
+**Data:** 02 de dezembro de 2025
 
 ---
 
 ## 🎯 Guia Rápido
 
-### Variáveis Necessárias no Vercel
+### Variáveis Necessárias
 
-Você precisa de **APENAS 2 VARIÁVEIS**:
+| Variável | Descrição | Obrigatório |
+|----------|-----------|-------------|
+| `REDIS_URL` | URL de conexão Redis | Sim |
+| `ANALYTICS_ADMIN_TOKEN` | Token para acessar dashboard | Sim |
 
-| Variável | Como Obter | Tipo |
-|----------|------------|------|
-| `REDIS_URL` | Criada automaticamente ao conectar KV Store | Automática |
-| `ANALYTICS_ADMIN_TOKEN` | Gerar com `npm run generate-token` | Manual |
+### Setup em 4 Passos
 
-### Setup em 5 Passos
-
-1. **Criar KV Store** → Vercel Dashboard → Storage → Create Database → KV
-2. **Conectar ao Projeto** → Connect Project → inelegis-app → ✅ `REDIS_URL` criada!
-3. **Gerar Token** → `npm run generate-token`
+1. **Criar Redis** → Vercel Dashboard → Storage → Create Database → KV
+2. **Conectar ao Projeto** → Connect Project → `REDIS_URL` criada automaticamente
+3. **Gerar Token** → `openssl rand -hex 32`
 4. **Adicionar no Vercel** → Settings → Environment Variables → `ANALYTICS_ADMIN_TOKEN`
-5. **Deploy** → `git push origin main`
 
 ---
 
-## 📋 Pré-requisitos
+## 🔧 Passo a Passo
 
-- Conta no Vercel
-- Projeto Inelegis deployado no Vercel
-- Acesso ao dashboard do Vercel
-
----
-
-## 🔧 Passo a Passo Detalhado
-
-### 1. Criar Vercel KV Store
+### 1. Criar Redis no Vercel
 
 1. Acesse: https://vercel.com/dashboard
-2. Selecione seu projeto **inelegis-app**
-3. Vá em **Storage** → **Create Database**
-4. Escolha **KV (Redis)**
-5. Dê um nome: `inelegis-analytics`
-6. Selecione a região: **Washington, D.C., USA (iad1)** (mais próxima)
-7. Clique em **Create**
+2. Selecione seu projeto
+3. Vá em **Storage** → **Create Database** → **KV**
+4. Nome: `inelegis-analytics`
+5. Clique em **Create**
 
 ### 2. Conectar ao Projeto
 
-1. Na página do KV criado, clique em **Connect Project**
-2. Selecione o projeto **inelegis-app**
-3. Clique em **Connect**
-4. A variável de ambiente será adicionada automaticamente:
-   - `REDIS_URL`
+1. Na página do KV, clique em **Connect Project**
+2. Selecione o projeto
+3. A variável `REDIS_URL` será criada automaticamente
 
 ### 3. Adicionar Token do Dashboard
 
-1. No dashboard do Vercel, vá em **Settings** → **Environment Variables**
-2. Adicione uma nova variável:
+1. Vá em **Settings** → **Environment Variables**
+2. Adicione:
    - **Name:** `ANALYTICS_ADMIN_TOKEN`
-   - **Value:** Gere um token seguro (ex: `inelegis_admin_2025_abc123xyz`)
-   - **Environment:** Production, Preview, Development
+   - **Value:** Token gerado com `openssl rand -hex 32`
 3. Clique em **Save**
 
-### 4. Instalar Dependência
+### 4. Deploy
 
 ```bash
-npm install @vercel/kv
-```
-
-### 5. Deploy
-
-```bash
-git add .
-git commit -m "feat: integra Vercel KV (Redis) para analytics"
 git push origin main
 ```
 
-O Vercel fará deploy automático!
-
 ---
 
-## 🧪 Testar Localmente
+## 🧪 Desenvolvimento Local
 
 ### 1. Criar .env.local
 
@@ -91,203 +65,90 @@ O Vercel fará deploy automático!
 cp .env.example .env.local
 ```
 
-### 2. Copiar Variáveis do Vercel
+### 2. Copiar REDIS_URL do Vercel
 
-1. No dashboard do Vercel, vá em **Storage** → **inelegis-analytics**
-2. Clique em **.env.local** tab
-3. Copie todas as variáveis
-4. Cole no seu arquivo `.env.local`
+1. Vercel Dashboard → Storage → seu database
+2. Clique em **Show secret** para ver a URL
+3. Copie para `.env.local`
 
-### 3. Executar Localmente
+### 3. Executar
 
 ```bash
 npm run dev
 ```
 
-### 4. Testar Analytics
-
-1. Abra: http://localhost:3000/consulta.html
-2. Faça uma busca
-3. Verifique no console: `✅ Analytics: X eventos enviados`
-
 ---
 
-## 📊 Verificar Dados no Redis
+## 📊 Visualizar Dados
 
-### Opção 1: Vercel Dashboard
+### Via Vercel Dashboard
 
-1. Vá em **Storage** → **inelegis-analytics**
-2. Clique em **Data Browser**
-3. Veja as keys criadas:
-   - `analytics:total` - Total de eventos
-   - `analytics:count:search` - Total de buscas
-   - `analytics:top:leis` - Leis mais consultadas
-   - `analytics:top:artigos` - Artigos mais consultados
+1. Storage → seu database → **Open in Redis**
+2. Clique em **Launch** no card "Redis Insight"
 
-### Opção 2: Redis CLI
+### Via Redis CLI
 
 ```bash
-# Instalar redis-cli
-brew install redis  # macOS
-apt-get install redis-tools  # Linux
-
-# Conectar usando REDIS_URL
-redis-cli -u $REDIS_URL
+redis-cli -u "$REDIS_URL"
 
 # Comandos úteis
-> GET analytics:total
-> ZRANGE analytics:top:leis 0 -1 WITHSCORES
-> LRANGE analytics:list:search 0 9
-> HGETALL analytics:timeline
+KEYS *
+GET analytics:total
+ZRANGE analytics:top:leis 0 -1 WITHSCORES
+LRANGE analytics:list:search 0 9
+HGETALL analytics:timeline
 ```
 
 ---
 
-## 🔍 Acessar Dashboard
+## 📈 Estrutura de Dados
 
-### 1. Obter Token
+### Keys do Analytics
 
-O token está em: **Vercel** → **Settings** → **Environment Variables** → `ANALYTICS_ADMIN_TOKEN`
+```
+analytics:total                    # Counter: Total de eventos
+analytics:count:search             # Counter: Total de buscas
+analytics:count:error              # Counter: Total de erros
+analytics:resultado:inelegivel     # Counter: Buscas inelegíveis
+analytics:resultado:elegivel       # Counter: Buscas elegíveis
+analytics:top:leis                 # Sorted Set: Leis mais consultadas
+analytics:top:artigos              # Sorted Set: Artigos mais consultados
+analytics:timeline                 # Hash: Buscas por dia
+analytics:list:search              # List: Últimas 10000 buscas
+```
 
-### 2. Fazer Request
+### Keys do Histórico
+
+```
+history:{userId}                   # List: Histórico do usuário
+history:total                      # Counter: Total de históricos
+history:stats:leis                 # Hash: Contagem por lei
+history:stats:resultados           # Hash: Contagem por resultado
+```
+
+---
+
+## 🔍 Acessar Dashboard API
 
 ```bash
 curl -H "Authorization: Bearer YOUR_TOKEN" \
   https://inelegis.vercel.app/api/dashboard?type=all
 ```
 
-### 3. Resposta
-
-```json
-{
-  "success": true,
-  "data": {
-    "general": {
-      "totalSearches": 150,
-      "totalUsers": 25,
-      "totalErrors": 2
-    },
-    "topSearches": [...],
-    "distribution": {...},
-    "errors": [...],
-    "timeline": [...]
-  }
-}
-```
-
----
-
-## 📈 Estrutura de Dados no Redis
-
-### Keys Principais
-
-```
-analytics:total                    # Counter: Total de eventos
-analytics:count:search             # Counter: Total de buscas
-analytics:count:error              # Counter: Total de erros
-analytics:count:action             # Counter: Total de ações
-
-analytics:resultado:inelegivel     # Counter: Buscas inelegíveis
-analytics:resultado:elegivel       # Counter: Buscas elegíveis
-
-analytics:top:leis                 # Sorted Set: Leis mais consultadas
-analytics:top:artigos              # Sorted Set: Artigos mais consultados
-
-analytics:timeline                 # Hash: Buscas por dia
-
-analytics:list:search              # List: Últimas 10000 buscas
-analytics:list:error               # List: Últimos 10000 erros
-analytics:list:action              # List: Últimas 10000 ações
-
-analytics:search:TIMESTAMP:ID      # Hash: Evento individual
-```
-
-### Exemplo de Evento
-
-```json
-{
-  "type": "search",
-  "userId": "user_1733097600000_abc123",
-  "timestamp": "2025-12-01T19:00:00Z",
-  "lei": "CP",
-  "artigo": "155, §1º, I",
-  "resultado": "inelegivel",
-  "temExcecao": false,
-  "browser": "Mozilla/5.0...",
-  "version": "0.0.6"
-}
-```
-
----
-
-## 🔒 Segurança
-
-### Tokens
-
-- ✅ `REDIS_URL` - Contém URL e credenciais (gerenciada pelo Vercel)
-- ✅ `ANALYTICS_ADMIN_TOKEN` - Acesso ao dashboard (você cria)
-
-### Boas Práticas
-
-1. **Nunca commitar** tokens no git
-2. **Usar .env.local** para desenvolvimento
-3. **Rotacionar tokens** periodicamente
-4. **Limitar acesso** ao dashboard
-
----
-
-## 💰 Custos
-
-### Plano Gratuito (Hobby)
-
-- ✅ 256 MB de armazenamento
-- ✅ 100.000 comandos/dia
-- ✅ Suficiente para ~50.000 buscas/mês
-
-### Estimativa
-
-- 1 busca = ~5 comandos Redis
-- 100.000 comandos = ~20.000 buscas/dia
-- Armazenamento: ~1KB por evento
-- 256 MB = ~250.000 eventos
-
-### Upgrade
-
-Se precisar mais:
-- **Pro:** $20/mês - 1GB, 1M comandos/dia
-- **Enterprise:** Custom pricing
-
 ---
 
 ## 🐛 Troubleshooting
 
-### Erro: "REDIS_URL is not defined"
-
-**Solução:** Conectar o KV ao projeto no Vercel
-
-### Erro: "Unauthorized"
-
-**Solução:** Verificar se o token está correto
-
-### Erro: "Too many requests"
-
-**Solução:** Você atingiu o limite do plano gratuito. Considere upgrade.
-
-### Dados não aparecem
-
-**Solução:** 
-1. Verificar se analytics está habilitado
-2. Verificar console do navegador
-3. Verificar logs do Vercel
+| Erro | Solução |
+|------|---------|
+| `REDIS_URL is not defined` | Conectar KV ao projeto no Vercel |
+| `Unauthorized` | Verificar token do dashboard |
+| Dados não aparecem | Verificar console do navegador por erros |
 
 ---
 
 ## 📚 Referências
 
-- [Vercel KV Docs](https://vercel.com/docs/storage/vercel-kv)
+- [Vercel Storage](https://vercel.com/docs/storage)
 - [Redis Commands](https://redis.io/commands/)
-- [@vercel/kv Package](https://www.npmjs.com/package/@vercel/kv)
-
----
-
-**Redis configurado e pronto para uso!** 🚀✨
+- [ioredis](https://github.com/redis/ioredis)

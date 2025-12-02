@@ -2,69 +2,49 @@
 
 ---
 
-**Versão:** 0.0.6  
-**Data:** 01 de dezembro de 2025
-
----
-
-## 📋 Visão Geral
-
-O Inelegis usa variáveis de ambiente para configuração sensível e específica de cada ambiente.
+**Versão:** 0.0.7  
+**Data:** 02 de dezembro de 2025
 
 ---
 
 ## 🗂️ Arquivos
 
-### `.env.example` ✅
-- **Propósito:** Template e documentação
-- **Conteúdo:** Nomes de variáveis (sem valores reais)
-- **Git:** ✅ Commitado
-- **Uso:** Referência para desenvolvedores
-
-### `.env.local` ⚠️
-- **Propósito:** Desenvolvimento local
-- **Conteúdo:** Valores reais para desenvolvimento
-- **Git:** ❌ Ignorado (.gitignore)
-- **Uso:** Apenas na sua máquina
-
-### `.env` ❌
-- **Status:** NÃO USAR
-- **Motivo:** Pode ser commitado acidentalmente
-- **Alternativa:** Use `.env.local`
+| Arquivo | Propósito | Git |
+|---------|-----------|-----|
+| `.env.example` | Template | ✅ Commitado |
+| `.env.local` | Desenvolvimento | ❌ Ignorado |
 
 ---
 
-## 🔑 Variáveis Necessárias
+## 🔑 Variáveis
 
-### 1. Vercel KV (Redis)
+### REDIS_URL (obrigatório)
 
-#### `REDIS_URL`
-- **Descrição:** URL do Redis (criada automaticamente pelo Vercel KV)
-- **Exemplo:** `redis://default:xxx@abc-123.kv.vercel-storage.com:6379`
-- **Obter:** Criada automaticamente ao conectar KV Store
-- **Obrigatório:** Sim (para analytics)
+URL de conexão com o Redis.
 
-#### `REDIS_TOKEN`
-- **Descrição:** Token de autenticação (opcional, já incluído na URL)
-- **Exemplo:** `AYAg...xyz`
-- **Obter:** Criada automaticamente ao conectar KV Store
-- **Obrigatório:** Não (já incluído na REDIS_URL)
+```bash
+REDIS_URL="redis://default:senha@host:porta"
+```
 
-### 2. Analytics Dashboard
+**Obter:** Vercel Dashboard → Storage → seu database → Show secret
 
-#### `ANALYTICS_ADMIN_TOKEN`
-- **Descrição:** Token para acessar dashboard
-- **Exemplo:** `inelegis_admin_2025_abc123xyz`
-- **Gerar:** `openssl rand -hex 32`
-- **Obrigatório:** Sim (para dashboard)
+### ANALYTICS_ADMIN_TOKEN (obrigatório)
 
-### 3. Environment
+Token para acessar a API de dashboard.
 
-#### `NODE_ENV`
-- **Descrição:** Ambiente de execução
-- **Valores:** `development`, `production`, `test`
-- **Padrão:** `production`
-- **Obrigatório:** Não
+```bash
+ANALYTICS_ADMIN_TOKEN="seu_token_aqui"
+```
+
+**Gerar:** `openssl rand -hex 32`
+
+### NODE_ENV (opcional)
+
+Ambiente de execução.
+
+```bash
+NODE_ENV=development  # ou production
+```
 
 ---
 
@@ -72,157 +52,46 @@ O Inelegis usa variáveis de ambiente para configuração sensível e específic
 
 ### Desenvolvimento Local
 
-**1. Copiar template:**
 ```bash
+# 1. Copiar template
 cp .env.example .env.local
-```
 
-**2. Obter valores do Vercel:**
-1. Acesse: https://vercel.com/dashboard
-2. Selecione o projeto
-3. Vá em **Storage** → **inelegis-analytics**
-4. Clique na aba **.env.local**
-5. Copie todas as variáveis
+# 2. Editar com seus valores
+# REDIS_URL=...
+# ANALYTICS_ADMIN_TOKEN=...
 
-**3. Adicionar ao .env.local:**
-```bash
-REDIS_URL=redis://default:xxx@abc-123.kv.vercel-storage.com:6379
-ANALYTICS_ADMIN_TOKEN=seu_token_aqui
-NODE_ENV=development
-```
-
-**4. Testar:**
-```bash
+# 3. Executar
 npm run dev
 ```
 
 ### Produção (Vercel)
 
-**1. Acessar Dashboard:**
-https://vercel.com/dashboard → Projeto → Settings → Environment Variables
-
-**2. Adicionar variáveis:**
-
-| Name | Value | Environment |
-|------|-------|-------------|
-| `REDIS_URL` | (auto) | Production, Preview, Development |
-| `ANALYTICS_ADMIN_TOKEN` | (gerar) | Production, Preview, Development |
-
-**3. Deploy:**
-```bash
-git push origin main
-```
+1. Vercel Dashboard → Settings → Environment Variables
+2. Adicionar `REDIS_URL` (do Storage)
+3. Adicionar `ANALYTICS_ADMIN_TOKEN`
 
 ---
 
 ## 🔒 Segurança
 
-### ✅ Boas Práticas
+### ✅ Fazer
 
-1. **Nunca commitar** `.env` ou `.env.local`
-2. **Usar .env.example** apenas como template
-3. **Rotacionar tokens** periodicamente
-4. **Limitar acesso** ao Vercel Dashboard
-5. **Usar tokens diferentes** para dev/prod
+- Usar `.env.local` para desenvolvimento
+- Rotacionar tokens periodicamente
+- Manter `.env.local` no `.gitignore`
 
 ### ❌ Evitar
 
-1. ❌ Commitar valores reais
-2. ❌ Compartilhar tokens por email/chat
-3. ❌ Usar mesmos tokens em múltiplos projetos
-4. ❌ Deixar tokens em logs
-5. ❌ Hardcoded tokens no código
-
-### 🚨 Se Token Vazar
-
-**1. Revogar imediatamente:**
-- Vercel Dashboard → Storage → Regenerate Token
-
-**2. Atualizar em todos os lugares:**
-- Vercel Environment Variables
-- `.env.local` local
-- CI/CD (se houver)
-
-**3. Investigar:**
-- Verificar commits recentes
-- Verificar logs de acesso
-- Verificar uso anormal
+- Commitar valores reais
+- Compartilhar tokens
+- Hardcoded tokens no código
 
 ---
 
-## 🧪 Verificar Configuração
+## 🐛 Troubleshooting
 
-### Teste Local
-
-```bash
-# Verificar se variáveis estão carregadas
-node -e "console.log(process.env.REDIS_URL ? '✅ Redis configurado' : '❌ Redis não configurado')"
-```
-
-### Teste no Vercel
-
-```bash
-# Fazer deploy e verificar logs
-vercel logs
-```
-
----
-
-## 🔍 Troubleshooting
-
-### Erro: "REDIS_URL is not defined"
-
-**Causa:** Variáveis não configuradas
-
-**Solução:**
-1. Verificar `.env.local` existe
-2. Verificar valores estão corretos
-3. Reiniciar servidor de desenvolvimento
-
-### Erro: "Unauthorized"
-
-**Causa:** Token inválido ou expirado
-
-**Solução:**
-1. Regenerar token no Vercel
-2. Atualizar `.env.local`
-3. Atualizar Vercel Environment Variables
-
-### Variáveis não carregam
-
-**Causa:** Arquivo não está sendo lido
-
-**Solução:**
-1. Verificar nome do arquivo: `.env.local` (não `.env`)
-2. Verificar localização: raiz do projeto
-3. Reiniciar servidor
-
----
-
-## 📚 Referências
-
-- [Vercel Environment Variables](https://vercel.com/docs/environment-variables)
-- [Vercel KV](https://vercel.com/docs/storage/vercel-kv)
-- [dotenv](https://www.npmjs.com/package/dotenv)
-
----
-
-## 📝 Checklist
-
-### Desenvolvimento Local
-- [ ] Copiei `.env.example` para `.env.local`
-- [ ] Obtive tokens do Vercel Dashboard
-- [ ] Adicionei todos os valores
-- [ ] Testei localmente
-- [ ] `.env.local` está no `.gitignore`
-
-### Produção
-- [ ] Configurei variáveis no Vercel
-- [ ] Testei deploy
-- [ ] Verifiquei logs
-- [ ] Analytics funcionando
-- [ ] Dashboard acessível
-
----
-
-**Variáveis de ambiente configuradas corretamente!** 🔐✨
+| Erro | Solução |
+|------|---------|
+| `REDIS_URL is not defined` | Verificar `.env.local` existe |
+| `Unauthorized` | Verificar token está correto |
+| Variáveis não carregam | Reiniciar servidor |
