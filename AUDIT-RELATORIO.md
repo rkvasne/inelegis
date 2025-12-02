@@ -1,104 +1,80 @@
-# 📊 Relatório de Auditoria Deep-Dive
+# 🩺 Relatório de Auditoria Técnica (Deep Dive)
 
-> **Projeto:** Inelegis v0.3.0
-> **Data:** 02/02/2026
-> **Auditor:** Antigravity (Gemini 2.5 Pro)
-> **Padrão de Referência:** Solo Dev Hub v0.4.7
-
----
-
-## ✅ Pontos Fortes
-
-### 1. Estrutura & Padrões
-
-| Item | Status | Notas |
-|------|--------|-------|
-| **SSoT Link** | ✅ OK | `AGENTS.md` declara corretamente a conexão com o Hub (`E:\Agents`) e a zona de READ-ONLY. |
-| **Arquitetura Modular** | ✅ OK | Refatoração para ES Modules completa. Camadas bem definidas (`services/`, `ui/`, `utils/`). |
-| **Clean Code** | ✅ OK | JSDoc presente nos módulos core. Lógica de negócio separada da UI. |
-| **ETL Unificado** | ✅ OK | Pipeline `DOCX -> JSON -> JS` é atômico e robusto (via `etl-complete.js`). |
-
-### 2. Qualidade & Segurança
-
-| Item | Status | Notas |
-|------|--------|-------|
-| **Secrets Hardcoded** | ✅ OK | Nenhum segredo encontrado em `src/`. Arquivo `.env.example` presente. |
-| **Lint** | ✅ OK | 0 erros. Output: "Código perfeito!". |
-| **Testes** | ✅ OK | `npm test` passa. Cobertura de layout e componentes. |
-
-### 3. DevOps
-
-| Item | Status | Notas |
-|------|--------|-------|
-| **CI/CD** | ✅ OK | Pipeline GitHub Actions (`ci-cd.yml`) funcional com 2 jobs: `quality-gate` e `build-verification`. Inclui audit de segurança, lint, testes e build Docker. |
-| **Build de Produção** | ✅ OK | `npm run build` finaliza sem erros. |
-| **Dockerfile** | ✅ OK | Presente e integrado ao CI. |
+**Data:** 02/02/2026  
+**Status:** ✅ Aprovado com Ressalvas  
+**Versão Auditada:** 0.3.0  
+**Responsável:** Orchestrator Agent (Mode: Architect + Quality + DevOps)
 
 ---
 
-## ⚠️ Pontos de Atenção (Dívida Técnica / Médio Prazo)
+## 🧭 Resumo Executivo
 
-### 1. Feature Histórico Desconectada
+O projeto INELEGIS realizou uma migração bem-sucedida de Redis para Supabase, elevando significativamente a robustez e escalabilidade da arquitetura de dados. A estrutura de código segue padrões modernos de desenvolvimento web (Vanilla JS modular + Serverless Functions), e a documentação está acima da média.
 
-**O que é:** Os arquivos `src/js/services/search-history.js` e `src/js/ui/history-page.js` existem, mas não são importados ou usados pela nova interface de Validação Estruturada (`ValidatorUI`).
-
-**Impacto:** A funcionalidade de "Histórico de Consultas" mencionada no `README.md` está efetivamente **offline** para o usuário final.
-
-**Por que importa (Hub Rule):** Segundo `mode-architect.md`, funcionalidades devem ser "implementadas ou removidas". Código dormant é um risco de manutenção e confusão.
-
-**Recomendação:** Decidir se o histórico será reintegrado ao novo fluxo ou se os arquivos devem ser removidos e o `README.md` atualizado.
+No entanto, foram identificados resquícios da arquitetura antiga (scripts mortos no `package.json`) que precisam ser limpos para evitar confusão e erros em pipelines de CI/CD.
 
 ---
 
-### 2. Scripts Órfãos Potenciais
+## 🔍 Fase 1: Estrutura & Padrões
 
-**O que é:** Foram identificados 26 scripts em `/scripts`. Alguns podem não estar mais em uso após a refatoração do ETL. Exemplos:
-- `sync-js.js`: Ainda é usado pelo `npm run serve`.
-- `redis-loader.js`: Pode não ser necessário para ambiente de desenvolvimento local.
+### ✅ Pontos Fortes
+- **Organização Modular:** A pasta `src/js` está bem segmentada em `services`, `utils`, `components` e `ui`, facilitando a manutenção.
+- **Arquitetura Serverless:** O uso de Vercel Functions em `api/` desacopla o backend e escala automaticamente.
+- **SSoT (Single Source of Truth):** O arquivo `AGENTS.md` está presente, definindo as regras de inteligência do projeto com clareza.
+- **Padrão de Migrations:** A pasta `supabase/migrations` mantém um histórico versionado do schema do banco.
 
-**Impacto:** Baixo, mas aumenta a carga cognitiva de manutenção.
-
-**Recomendação:** Realizar auditoria horizontal de uso de scripts (`grep` por chamadas em `package.json` e outros scripts) em uma sessão futura.
-
----
-
-### 3. Cobertura de Testes de Integração
-
-**O que é:** Os testes atuais são majoritariamente de layout e componentes visuais (`test.js`). Não há testes de integração automatizados que cubram o fluxo completo `ETL -> UI`.
-
-**Impacto:** Regressões no pipeline de dados podem passar despercebidas em mudanças futuras.
-
-**Recomendação:** Criar um teste de integração que rode `npm run data:refresh` e valide a estrutura do `data-normalizado.js` resultante.
+### ⚠️ Pontos de Atenção
+- **Limpeza de Scripts:** O arquivo `package.json` contém scripts que apontam para arquivos deletados (`redis-loader.js`, `redis-maintenance.js`). Isso gera "dívida técnica fantasma".
 
 ---
 
-## 🔴 Ações Críticas (Resolvidas Durante a Auditoria)
+## 🛡️ Fase 2: Qualidade & Segurança
 
-| Item | Status | Ação |
-|------|--------|------|
-| **Script `etl` Quebrado** | ✅ CORRIGIDO | O `package.json` referenciava `build-search-index.js` que foi deletado. Atualizado para `"etl": "npm run data:refresh"`. |
-| **Scripts ETL Obsoletos** | ✅ CORRIGIDO | Arquivos `etl-docx.js` e `etl-docx-to-app.js` foram removidos. Substituídos pelo `etl-complete.js`. |
+### ✅ Pontos Fortes
+- **Segurança de Segredos:** Variáveis sensíveis estão corretamente isoladas em `.env.local` (ignorado pelo git) e `SECURITY.md` foi atualizado com diretrizes claras sobre Supply Chain e RLS.
+- **Validação de Dados:** Implementação de `ValidatorService` e RPCs no Supabase centralizam a lógica de validação, prevenindo injeção e inconsistência.
+- **Dependency Hygiene:** Remoção da dependência `ioredis` reduz a superfície de ataque e o tamanho do bundle.
 
----
-
-## 📝 Plano de Ação Sugerido
-
-| Prioridade | Tarefa | Responsável Sugerido |
-|------------|--------|----------------------|
-| **P0** | Testar fluxo completo no navegador após as correções | Humano |
-| **P1** | Decidir destino da feature "Histórico" (reintegrar ou remover) | Product Owner / Humano |
-| **P2** | Criar teste de integração para o pipeline ETL | @mode-quality.md |
-| **P3** | Auditoria de scripts `/scripts` para identificar órfãos | @mode-backend.md |
+### 🔴 Ações Críticas
+- **Scripts Quebrados:** Os comandos `npm run load:redis` e `npm run redis:maintain` irão falhar se executados. Devem ser removidos ou atualizados imediatamente.
 
 ---
 
-## Resumo Executivo
+## 📝 Fase 3: Documentação & Interface
 
-O projeto **Inelegis** está em um estado técnico **saudável**. A refatoração recente para a arquitetura de "Validação Estruturada" foi bem executada.
+### ✅ Pontos Fortes
+- **Documentação Viva:** `CHANGELOG.md` e `docs/` refletem o estado atual (v0.3.0) com precisão.
+- **Guia de Setup:** O novo guia `docs/guides/setup-supabase.md` facilita o onboarding de novos desenvolvedores.
 
-- **Principais riscos mitigados:** Código morto do ETL antigo, script de build quebrado.
-- **Próximos passos:** Decidir sobre a feature de Histórico e melhorar a cobertura de testes de integração.
+### ⚠️ Pontos de Atenção
+- **Referências Legadas (Menor):** Verificar se algum comentário de código antigo (`// TODO: Redis`) ainda persiste em arquivos profundos (embora a auditoria automatizada tenha limpado a maior parte).
 
 ---
 
-*Gerado por Antigravity | Solo Dev Hub Audit Protocol*
+## ⚙️ Fase 4: Resiliência & DevOps
+
+### ✅ Pontos Fortes
+- **Data Pipeline:** O script `data-refresh.js` foi adaptado corretamente para remover a dependência do Redis.
+- **Monitoramento:** Os endpoints de Analytics agora persistem no Postgres, garantindo maior durabilidade dos dados em comparação ao cache volátil do Redis.
+
+---
+
+## 🚀 Plano de Ação
+
+Recomendo a execução imediata das seguintes tarefas para atingir 100% de conformidade com as Regras do Hub:
+
+1. **[IMEDIATO] Limpeza do Package.json:**
+   - Remover scripts `load:redis` e `redis:maintain`.
+   - Verificar se `etl` ainda depende de `data:refresh` (OK, mas validar se data-refresh não chama mais nada antigo).
+
+2. **[CURTO PRAZO] Teste de Regressão:**
+   - Executar `npm run test` completo para garantir que a refatoração dos imports em `update-imports.js` não quebrou os testes unitários (especialmente aqueles que mockam serviços).
+
+3. **[MÉDIO PRAZO] Otimização de Queries:**
+   - Monitorar a performance das RPCs `verificar_elegibilidade` no Supabase Dashboard para garantir que os índices criados nas migrations estão sendo usados efetivamente.
+
+---
+
+**Conclusão:** O projeto está saudável e pronto para escalar, pendente apenas dessa limpeza final de metadados.
+
+**Assinado:** *Inelegis Architect Team*
