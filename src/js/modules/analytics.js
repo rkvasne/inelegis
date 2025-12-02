@@ -1,8 +1,27 @@
 /**
  * Analytics Module
  * Envia dados anônimos de uso para análise
- * @version 0.0.8
+ * @version 0.0.9
  */
+
+const ANALYTICS_DEBUG_ENABLED = (() => {
+    if (typeof globalThis === 'undefined') {
+        return false;
+    }
+    if (globalThis.INelegisDebug === true) {
+        return true;
+    }
+    if (globalThis.process && globalThis.process.env && globalThis.process.env.INELEGIS_DEBUG === 'true') {
+        return true;
+    }
+    return false;
+})();
+
+function analyticsDebugLog(...args) {
+    if (ANALYTICS_DEBUG_ENABLED) {
+        console.debug('[Analytics]', ...args);
+    }
+}
 
 const Analytics = (() => {
     // Configuração
@@ -17,20 +36,111 @@ const Analytics = (() => {
     // Fila de eventos
     let eventQueue = [];
     let flushTimer = null;
+    const USER_ID_COOKIE = 'inelegis_uid';
+    const COOKIE_MAX_AGE = 60 * 60 * 24 * 365; // 1 ano
+    const FAILED_SESSION_KEY = 'analytics_failed_events';
+
+    function readCookie(name) {
+        if (typeof document === 'undefined') {
+            return null;
+        }
+        const match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+        return match ? decodeURIComponent(match[1]) : null;
+    }
+
+    function writeCookie(name, value, maxAgeSeconds) {
+        if (typeof document === 'undefined') {
+            return false;
+        }
+        const parts = [
+            `${name}=${encodeURIComponent(value)}`,
+            'path=/'
+        ];
+        if (typeof maxAgeSeconds === 'number') {
+            parts.push(`max-age=${maxAgeSeconds}`);
+        }
+        document.cookie = parts.join('; ');
+        return true;
+    }
+
+    function readFailedEvents() {
+        let events = [];
+
+        if (typeof sessionStorage !== 'undefined') {
+            try {
+                const raw = sessionStorage.getItem(FAILED_SESSION_KEY);
+                if (raw) {
+                    events = JSON.parse(raw);
+                }
+            } catch (error) {
+                console.warn('Analytics: falha ao ler eventos salvos na sessão:', error);
+                sessionStorage.removeItem(FAILED_SESSION_KEY);
+            }
+        }
+
+        if ((!events || events.length === 0) && typeof window !== 'undefined' && window.SecureStorage) {
+            try {
+                const legacy = window.SecureStorage.getItem('analytics_failed');
+                if (Array.isArray(legacy) && legacy.length > 0) {
+                    events = legacy;
+                    window.SecureStorage.removeItem('analytics_failed');
+                }
+            } catch (error) {
+                console.warn('Analytics: falha ao migrar eventos legados:', error);
+            }
+        }
+
+        return Array.isArray(events) ? events : [];
+    }
+
+    function writeFailedEvents(events) {
+        if (typeof sessionStorage === 'undefined') {
+            return;
+        }
+        try {
+            sessionStorage.setItem(FAILED_SESSION_KEY, JSON.stringify(events));
+        } catch (error) {
+            console.error('Analytics: falha ao salvar eventos na sessão:', error);
+        }
+    }
+
+    function clearFailedEvents() {
+        if (typeof sessionStorage === 'undefined') {
+            return;
+        }
+        try {
+            sessionStorage.removeItem(FAILED_SESSION_KEY);
+        } catch (error) {
+            console.error('Analytics: falha ao limpar eventos na sessão:', error);
+        }
+    }
 
     /**
      * Gera ID único anônimo do usuário
      * @returns {string} ID anônimo
      */
     function getUserId() {
-        let userId = SecureStorage.getItem('analytics_user_id');
-        
-        if (!userId) {
-            // Gerar ID anônimo (não identifica o usuário)
-            userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-            SecureStorage.setItem('analytics_user_id', userId);
+        let userId = readCookie(USER_ID_COOKIE);
+
+        if (!userId && typeof window !== 'undefined' && window.SecureStorage) {
+            try {
+                const legacyId = window.SecureStorage.getItem('analytics_user_id');
+                if (legacyId) {
+                    userId = legacyId;
+                    window.SecureStorage.removeItem('analytics_user_id');
+                }
+            } catch (error) {
+                console.warn('Analytics: falha ao migrar userId legado:', error);
+            }
         }
-        
+
+        if (!userId) {
+            const randomPart = Math.random().toString(36).substring(2, 11);
+            const timePart = Date.now().toString(36);
+            userId = `user_${timePart}_${randomPart}`;
+        }
+
+        writeCookie(USER_ID_COOKIE, userId, COOKIE_MAX_AGE);
         return userId;
     }
 
@@ -67,7 +177,7 @@ const Analytics = (() => {
                 tempoResposta: search.tempoResposta || null
             },
             browser: getBrowserInfo(),
-            version: '0.0.8'
+            version: '0.0.9'
         };
 
         addToQueue(event);
@@ -91,7 +201,7 @@ const Analytics = (() => {
                 artigo: error.artigo || null
             },
             browser: getBrowserInfo(),
-            version: '0.0.8'
+            version: '0.0.9'
         };
 
         addToQueue(event);
@@ -114,7 +224,7 @@ const Analytics = (() => {
                 ...data
             },
             browser: getBrowserInfo(),
-            version: '0.0.6'
+            version: '0.0.9'
         };
 
         addToQueue(event);
@@ -174,7 +284,7 @@ const Analytics = (() => {
                 throw new Error(`HTTP ${response.status}`);
             }
 
-            console.log(`✅ Analytics: ${events.length} eventos enviados`);
+            analyticsDebugLog(`Eventos enviados (${events.length})`);
         } catch (error) {
             console.warn('⚠️ Analytics: Erro ao enviar eventos', error);
 
@@ -200,7 +310,7 @@ const Analytics = (() => {
      */
     function saveFailedEvents(events) {
         try {
-            const failed = SecureStorage.getItem('analytics_failed') || [];
+            const failed = readFailedEvents();
             failed.push(...events);
             
             // Limitar a 100 eventos
@@ -208,7 +318,7 @@ const Analytics = (() => {
                 failed.splice(0, failed.length - 100);
             }
             
-            SecureStorage.setItem('analytics_failed', failed);
+            writeFailedEvents(failed);
         } catch (error) {
             console.error('Erro ao salvar eventos falhados:', error);
         }
@@ -219,14 +329,14 @@ const Analytics = (() => {
      */
     async function retryFailedEvents() {
         try {
-            const failed = SecureStorage.getItem('analytics_failed');
+            const failed = readFailedEvents();
             
             if (!failed || failed.length === 0) return;
 
-            console.log(`🔄 Analytics: Reenviando ${failed.length} eventos falhados`);
+            analyticsDebugLog(`Reenviando eventos falhados (${failed.length})`);
             
             eventQueue.push(...failed);
-            SecureStorage.removeItem('analytics_failed');
+            clearFailedEvents();
             
             await flush();
         } catch (error) {
@@ -258,7 +368,7 @@ const Analytics = (() => {
         setupBeforeUnload();
         retryFailedEvents();
         
-        console.log('📊 Analytics inicializado');
+        analyticsDebugLog('Analytics inicializado');
     }
 
     /**
@@ -271,7 +381,7 @@ const Analytics = (() => {
             clearTimeout(flushTimer);
             flushTimer = null;
         }
-        console.log('🚫 Analytics desabilitado');
+        analyticsDebugLog('Analytics desabilitado');
     }
 
     /**
@@ -279,7 +389,7 @@ const Analytics = (() => {
      */
     function enable() {
         CONFIG.enabled = true;
-        console.log('✅ Analytics habilitado');
+        analyticsDebugLog('Analytics habilitado');
     }
 
     /**
@@ -299,7 +409,8 @@ const Analytics = (() => {
         disable,
         enable,
         isEnabled,
-        flush
+        flush,
+        getUserId
     };
 })();
 

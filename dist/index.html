@@ -6,84 +6,159 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Início | Inelegis - Sistema de Consulta de Inelegibilidade</title>
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/assets/images/logo-dark.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/logo-dark.ico">
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/styles/styles.css?v=0.0.9">
+    <script src="/assets/js/modules/theme-bootstrap.js?v=0.0.9"></script>
+    
+    <style>
+        /* Toast Styles */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: var(--z-toast);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .toast {
+            padding: 12px 20px;
+            border-radius: var(--radius-lg, 8px);
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: slideIn 0.3s ease;
+            max-width: 350px;
+        }
+        .toast.success { border-left: 4px solid var(--success-500); }
+        .toast.error { border-left: 4px solid var(--danger-500); }
+        .toast.warning { border-left: 4px solid var(--warning-500); }
+        .toast.info { border-left: 4px solid var(--primary-500); }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+        
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--overlay-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: var(--z-modal-backdrop);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background: var(--bg-primary);
+            border-radius: var(--radius-xl, 12px);
+            padding: 24px;
+            max-width: 450px;
+            width: 90%;
+            box-shadow: var(--shadow-xl);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+            z-index: var(--z-modal);
+        }
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+        .modal-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .modal-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-icon.warning { background: var(--warning-bg); color: var(--warning-500); }
+        .modal-icon.info { background: var(--info-bg); color: var(--primary-500); }
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .modal-body {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+        .modal-footer {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+        
+        /* Landing Link */
+        .landing-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--primary-600);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .landing-link:hover {
+            color: var(--primary-700);
+            text-decoration: underline;
+        }
+        
+        /* Seta piscando */
+        .arrow-indicator {
+            display: none;
+            color: var(--warning-500);
+            font-size: 1.5rem;
+            margin-right: 8px;
+            animation: blink 0.5s ease-in-out infinite;
+        }
+        .arrow-indicator.show {
+            display: inline-block;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: var(--opacity-subtle); }
+        }
+        .checkbox-wrapper {
+            display: flex;
+            align-items: flex-start;
+        }
+    </style>
 </head>
 
 <body>
-    <header class="system-header">
-        <div class="container">
-            <div class="header-content">
-                <div class="system-brand">
-                    <div class="brand-icon">
-                        <svg width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3">
-                            </path>
-                        </svg>
-                    </div>
-                    <div class="brand-text">
-                        <h1>Inelegis</h1>
-                        <p>Sistema de Consulta</p>
-                    </div>
-                </div>
-                <div class="system-info">
-                    <div class="version">v0.0.6</div>
-                    <div class="status" role="status" aria-live="polite">
-                        <div class="status-dot" aria-hidden="true"></div>
-                        Sistema Ativo
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Navegação -->
-    <nav class="nav" role="navigation" aria-label="Navegação principal">
-        <div class="container">
-            <div class="nav-content">
-                <div class="nav-links">
-                    <a href="#" class="nav-link active" aria-current="page">
-                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
-                            </path>
-                        </svg>
-                        Início
-                    </a>
-                    <a href="consulta" class="nav-link">
-                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                        </svg>
-                        Consulta
-                    </a>
-                    <a href="sobre" class="nav-link">
-                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                        Sobre
-                    </a>
-                    <a href="faq" class="nav-link">
-                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
-                            </path>
-                        </svg>
-                        FAQ
-                    </a>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <!-- Header será renderizado aqui -->
+    <div id="header-placeholder"></div>
 
     <main class="container mt-8">
         <!-- Card de Informações do Sistema -->
@@ -93,21 +168,26 @@
                 <p>Dados oficiais e status de conformidade</p>
             </div>
             <div class="card-body">
-
                 <div class="alert alert-info" role="region" aria-labelledby="info-title">
                     <div class="alert-icon" aria-hidden="true">
                         <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
-                            </path>
+                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
                     </div>
                     <div class="alert-content">
                         <h3 id="info-title">Base de Dados Oficial</h3>
-                        <p>Tabela exemplificativa disponibilizada pelo TRE-SP - atualizada em
-                            outubro de 2024 - revisada
-                            pela CRE-RO em 02/06/2025</p>
+                        <p>Tabela exemplificativa disponibilizada pelo TRE-SP - atualizada em outubro de 2024 - revisada pela CRE-RO em 02/06/2025</p>
                     </div>
+                </div>
+                
+                <div class="mt-4" style="text-align: center;">
+                    <a href="landing.html" class="landing-link">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        Conheça mais sobre o Inelegis
+                    </a>
                 </div>
             </div>
         </div>
@@ -120,21 +200,21 @@
             </div>
             <div class="card-body">
                 <div class="checkbox-group mb-4">
-                    <input type="checkbox" id="confirmacao" class="checkbox-input">
-                    <label for="confirmacao" class="checkbox-label">
-                        Estou ciente de que este é um sistema não oficial e que devo sempre
-                        confirmar as informações na
-                        legislação vigente e nas orientações oficiais mais recentes antes de
-                        tomar decisões definitivas.
-                    </label>
+                    <div class="checkbox-wrapper">
+                        <span id="arrow-indicator" class="arrow-indicator">👉</span>
+                        <input type="checkbox" id="confirmacao" class="checkbox-input">
+                        <label for="confirmacao" class="checkbox-label">
+                            Estou ciente de que este é um sistema não oficial e que devo sempre
+                            confirmar as informações na legislação vigente e nas orientações oficiais 
+                            mais recentes antes de tomar decisões definitivas.
+                        </label>
+                    </div>
                 </div>
 
                 <div class="flex justify-center">
                     <button id="acessarBtn" class="btn btn-primary" disabled aria-describedby="confirmacao">
-                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                         </svg>
                         Acessar Sistema de Consulta
                     </button>
@@ -143,25 +223,81 @@
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-info">
-                    <p>&copy; 2025 Inelegis. Todos os direitos reservados.</p>
-                    <p class="text-sm text-neutral-500">Versão 0.0.6</p>
+    <!-- Footer será renderizado aqui -->
+    <div id="footer-placeholder"></div>
+    
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+    
+    <!-- Modal de Aviso -->
+    <div id="modal-overlay" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-icon warning">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                    </svg>
                 </div>
-                <div class="footer-links">
-                    <a href="https://github.com/rkvasne/ineleg-app/blob/main/CHANGELOG.md" class="footer-link" target="_blank">Changelog</a>
-                    <a href="https://github.com/rkvasne/ineleg-app/blob/main/docs/MAINTENANCE.md" class="footer-link" target="_blank">Manutenção</a>
-                    <a href="https://github.com/rkvasne/ineleg-app/blob/main/docs/DEVELOPMENT.md" class="footer-link" target="_blank">Documentação Técnica</a>
-                </div>
+                <h3 class="modal-title" id="modal-title">Atenção</h3>
+            </div>
+            <div class="modal-body" id="modal-body">
+                Mensagem do modal
+            </div>
+            <div class="modal-footer">
+                <button id="modal-cancel" class="btn btn-secondary">Cancelar</button>
+                <button id="modal-confirm" class="btn btn-primary">Confirmar</button>
             </div>
         </div>
-    </footer>
+    </div>
 
     <!-- Script -->
     <script>
+        // Toast function
+        function showToast(message, type = 'info', duration = 3000) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    ${type === 'success' ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>' :
+                      type === 'error' ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>' :
+                      type === 'warning' ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>' :
+                      '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>'}
+                </svg>
+                <span>${message}</span>
+            `;
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'slideOut 0.3s ease forwards';
+                setTimeout(() => toast.remove(), 300);
+            }, duration);
+        }
+        
+        // Modal functions
+        const modalOverlay = document.getElementById('modal-overlay');
+        const modalTitle = document.getElementById('modal-title');
+        const modalBody = document.getElementById('modal-body');
+        const modalCancel = document.getElementById('modal-cancel');
+        const modalConfirm = document.getElementById('modal-confirm');
+        
+        function showModal(title, message, onConfirm, showCancel = true) {
+            modalTitle.textContent = title;
+            modalBody.textContent = message;
+            modalCancel.style.display = showCancel ? 'block' : 'none';
+            modalOverlay.classList.add('active');
+            
+            modalConfirm.onclick = () => {
+                modalOverlay.classList.remove('active');
+                if (onConfirm) onConfirm();
+            };
+        }
+        
+        modalCancel.onclick = () => modalOverlay.classList.remove('active');
+        modalOverlay.onclick = (e) => {
+            if (e.target === modalOverlay) modalOverlay.classList.remove('active');
+        };
+
         // Controle do checkbox e botão
         const checkbox = document.getElementById('confirmacao');
         const button = document.getElementById('acessarBtn');
@@ -171,15 +307,15 @@
         const termosAceitos = localStorage.getItem('ineleg_termos_aceitos') === 'true';
 
         if (termosAceitos) {
-            // Se já aceitou, permitir acesso direto
             checkbox.checked = true;
             button.disabled = false;
             if (consultaLink) {
                 consultaLink.style.pointerEvents = 'auto';
                 consultaLink.style.opacity = '1';
             }
+            // Mostrar toast de boas-vindas
+            setTimeout(() => showToast('Bem-vindo de volta! Termos já aceitos.', 'success'), 500);
         } else {
-            // Bloquear link de consulta no menu
             if (consultaLink) {
                 consultaLink.style.pointerEvents = 'none';
                 consultaLink.style.opacity = '0.5';
@@ -187,7 +323,12 @@
                 consultaLink.setAttribute('aria-disabled', 'true');
                 consultaLink.addEventListener('click', function (e) {
                     e.preventDefault();
-                    alert('Por favor, leia e concorde com os termos antes de acessar o sistema de consulta.');
+                    showModal(
+                        'Termos não aceitos',
+                        'Por favor, leia e concorde com os termos de uso antes de acessar o sistema de consulta.',
+                        null,
+                        false
+                    );
                 });
             }
         }
@@ -196,13 +337,33 @@
             button.disabled = !this.checked;
             button.setAttribute('aria-disabled', String(!this.checked));
 
-            // Atualizar estado do link de consulta
+            // Salvar no localStorage imediatamente
+            if (this.checked) {
+                localStorage.setItem('ineleg_termos_aceitos', 'true');
+            } else {
+                localStorage.removeItem('ineleg_termos_aceitos');
+            }
+
+            // Atualizar link do menu no header
+            const headerConsultaLink = document.querySelector('.header-nav-link[href="consulta"]');
+            if (headerConsultaLink) {
+                if (this.checked) {
+                    headerConsultaLink.classList.remove('disabled');
+                    headerConsultaLink.removeAttribute('aria-disabled');
+                    headerConsultaLink.onclick = null;
+                } else {
+                    headerConsultaLink.classList.add('disabled');
+                    headerConsultaLink.setAttribute('aria-disabled', 'true');
+                }
+            }
+
             if (consultaLink) {
                 if (this.checked) {
                     consultaLink.style.pointerEvents = 'auto';
                     consultaLink.style.opacity = '1';
                     consultaLink.style.cursor = 'pointer';
                     consultaLink.setAttribute('aria-disabled', 'false');
+                    showToast('Termos aceitos! Você pode acessar o sistema.', 'success');
                 } else {
                     consultaLink.style.pointerEvents = 'none';
                     consultaLink.style.opacity = '0.5';
@@ -214,21 +375,53 @@
 
         button.addEventListener('click', function () {
             if (checkbox.checked) {
-                // Salvar consentimento no localStorage
-                localStorage.setItem('ineleg_termos_aceitos', 'true');
-                window.location.href = 'consulta';
+                try {
+                    localStorage.setItem('ineleg_termos_aceitos', 'true');
+                } catch (e) {
+                    console.error('Erro ao salvar termos:', e);
+                }
+                showToast('Redirecionando para o sistema...', 'info');
+                setTimeout(() => {
+                    window.location.href = 'consulta';
+                }, 500);
             }
         });
 
+        // Função para mostrar seta piscando
+        const arrowIndicator = document.getElementById('arrow-indicator');
+        function showArrow() {
+            arrowIndicator.classList.add('show');
+            // Scroll para o checkbox
+            checkbox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // Remover após 5 segundos
+            setTimeout(() => {
+                arrowIndicator.classList.remove('show');
+            }, 5000);
+        }
+
+        // Verificar se foi redirecionado da consulta
+        const redirectReason = sessionStorage.getItem('ineleg_redirect_reason');
+        if (redirectReason === 'terms_not_accepted') {
+            sessionStorage.removeItem('ineleg_redirect_reason');
+            setTimeout(() => {
+                showModal(
+                    'Acesso Negado',
+                    'Você precisa aceitar os termos de uso antes de acessar o sistema de consulta. Por favor, marque a caixa de confirmação abaixo.',
+                    () => showArrow(),
+                    false
+                );
+            }, 300);
+        }
+        
+        // Expor função para o components.js
+        window.showCheckboxArrow = showArrow;
+
         // Atalhos de teclado
         document.addEventListener('keydown', function (e) {
-            // Alt + D para documentação
             if (e.altKey && e.key === 'd') {
                 e.preventDefault();
                 window.open('docs/README.md', '_blank');
             }
-
-            // Ctrl + Enter para acessar (se checkbox marcado)
             if (e.ctrlKey && e.key === 'Enter') {
                 if (checkbox.checked) {
                     e.preventDefault();
@@ -236,7 +429,17 @@
                     window.location.href = 'consulta';
                 }
             }
+            if (e.key === 'Escape') {
+                modalOverlay.classList.remove('active');
+            }
         });
+    </script>
+
+    <!-- Components & Theme Manager -->
+    <script src="/assets/js/modules/components.js?v=0.0.9"></script>
+    <script src="/assets/js/modules/theme-manager.js?v=0.0.9"></script>
+    <script>
+        Components.init('index');
     </script>
 </body>
 

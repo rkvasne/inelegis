@@ -7,11 +7,17 @@
 
 const fs = require('fs');
 const path = require('path');
+const paths = require('./project-paths');
+const { copyDirectory } = require('./sync-js');
 
 class Builder {
   constructor() {
-    this.projectRoot = path.join(__dirname, '..');
+    this.projectRoot = paths.root;
     this.buildDir = path.join(this.projectRoot, 'dist');
+    this.publicDir = paths.publicDir;
+    this.stylesPath = paths.styles.main;
+    this.jsSrcDir = paths.js.src;
+    this.jsPublicDir = paths.js.public;
     this.errors = [];
     this.warnings = [];
   }
@@ -29,7 +35,7 @@ class Builder {
   }
 
   async build() {
-    this.log('Iniciando build do Inelegis v0.0.8', 'info');
+    this.log('Iniciando build do Inelegis v0.0.9', 'info');
 
     try {
       // 1. Validar estrutura do projeto
@@ -60,32 +66,30 @@ class Builder {
     this.log('Validando estrutura do projeto...', 'info');
 
     const requiredFiles = [
-      'index.html',
-      'styles.css',
-      'script.js',
-      'data.js'
+      paths.pages.index,
+      paths.styles.main,
+      paths.js.main,
+      paths.js.data
     ];
 
     const requiredDirs = [
-      'js',
-      'scripts',
-      'tests',
-      'icons'
+      this.publicDir,
+      this.jsSrcDir,
+      path.join(this.projectRoot, 'scripts'),
+      path.join(this.projectRoot, 'tests')
     ];
 
     // Verificar arquivos obrigatórios
     for (const file of requiredFiles) {
-      const filePath = path.join(this.projectRoot, file);
-      if (!fs.existsSync(filePath)) {
-        this.errors.push(`Arquivo obrigatório não encontrado: ${file}`);
+      if (!fs.existsSync(file)) {
+        this.errors.push(`Arquivo obrigatório não encontrado: ${path.relative(this.projectRoot, file)}`);
       }
     }
 
     // Verificar diretórios obrigatórios
     for (const dir of requiredDirs) {
-      const dirPath = path.join(this.projectRoot, dir);
-      if (!fs.existsSync(dirPath)) {
-        this.warnings.push(`Diretório recomendado não encontrado: ${dir}`);
+      if (!fs.existsSync(dir)) {
+        this.warnings.push(`Diretório recomendado não encontrado: ${path.relative(this.projectRoot, dir)}`);
       }
     }
 
@@ -111,7 +115,7 @@ class Builder {
   }
 
   async validateHTML() {
-    const htmlPath = path.join(this.projectRoot, 'index.html');
+    const htmlPath = paths.pages.index;
     const content = fs.readFileSync(htmlPath, 'utf8');
 
     // Verificações básicas
@@ -139,7 +143,7 @@ class Builder {
   }
 
   async validateCSS() {
-    const cssPath = path.join(this.projectRoot, 'styles.css');
+    const cssPath = this.stylesPath;
     const content = fs.readFileSync(cssPath, 'utf8');
 
     // Verificações de CSS
@@ -166,27 +170,26 @@ class Builder {
   }
 
   async validateJavaScript() {
-    const jsFiles = ['script.js', 'data.js'];
+    const jsFiles = [paths.js.main, paths.js.data];
 
-    for (const file of jsFiles) {
-      const jsPath = path.join(this.projectRoot, file);
+    for (const jsPath of jsFiles) {
       const content = fs.readFileSync(jsPath, 'utf8');
+      const label = path.relative(this.projectRoot, jsPath);
 
       // Verificar sintaxe básica
       try {
         // Simular validação de sintaxe
         if (content.includes('function') || content.includes('=>')) {
-          this.log(`${file}: Sintaxe JavaScript válida ✓`, 'success');
+          this.log(`${label}: Sintaxe JavaScript válida ✓`, 'success');
         }
       } catch (error) {
-        this.errors.push(`${file}: Erro de sintaxe - ${error.message}`);
+        this.errors.push(`${label}: Erro de sintaxe - ${error.message}`);
       }
     }
 
     // Verificar módulos JS
-    const jsDir = path.join(this.projectRoot, 'js');
-    if (fs.existsSync(jsDir)) {
-      const jsModules = fs.readdirSync(jsDir).filter(f => f.endsWith('.js'));
+    if (fs.existsSync(this.jsSrcDir)) {
+      const jsModules = fs.readdirSync(this.jsSrcDir).filter(f => f.endsWith('.js'));
       this.log(`Módulos JS encontrados: ${jsModules.length}`, 'info');
     }
   }
@@ -255,52 +258,28 @@ class Builder {
     fs.mkdirSync(this.buildDir, { recursive: true });
 
     // Copiar arquivos principais
-    const filesToCopy = [
-      'index.html',
-      'consulta.html',
-      'sobre.html',
-      'faq.html',
-      'landing.html',
-      'styles.css',
-      'script.js',
-      'data.js',
-      'logo.png',
-      'logo-claro.png',
-      'logo-dark.png',
-      'favicon.ico'
-    ];
+    // Garantir que os assets JS estejam atualizados em public antes de copiar
+    copyDirectory(this.jsSrcDir, this.jsPublicDir);
 
-    for (const file of filesToCopy) {
-      const src = path.join(this.projectRoot, file);
-      const dest = path.join(this.buildDir, file);
+    // Copiar todo o diretório public para dist
+    copyDirectory(this.publicDir, this.buildDir);
+    this.log('Copiado diretório: public → dist', 'info');
 
-      if (fs.existsSync(src)) {
-        fs.copyFileSync(src, dest);
-        this.log(`Copiado: ${file}`, 'info');
-      }
-    }
-
-    // Copiar diretórios
-    const dirsToCopy = ['js', 'icons', 'docs'];
-
-    for (const dir of dirsToCopy) {
-      const srcDir = path.join(this.projectRoot, dir);
-      const destDir = path.join(this.buildDir, dir);
-
-      if (fs.existsSync(srcDir)) {
-        fs.mkdirSync(destDir, { recursive: true });
-        this.copyDirectory(srcDir, destDir);
-        this.log(`Copiado diretório: ${dir}`, 'info');
-      }
+    // Copiar documentação
+    const docsSrc = path.join(this.projectRoot, 'docs');
+    if (fs.existsSync(docsSrc)) {
+      const docsDest = path.join(this.buildDir, 'docs');
+      copyDirectory(docsSrc, docsDest);
+      this.log('Copiado diretório: docs', 'info');
     }
 
     // Criar arquivo de build info
     const buildInfo = {
-      version: '0.0.8',
+      version: '0.0.9',
       buildDate: new Date().toISOString(),
       buildNumber: Date.now(),
       environment: 'production',
-      files: filesToCopy.length,
+      files: 0,
       errors: this.errors.length,
       warnings: this.warnings.length
     };
@@ -313,28 +292,12 @@ class Builder {
     this.log('Build de produção criado ✓', 'success');
   }
 
-  copyDirectory(src, dest) {
-    const entries = fs.readdirSync(src, { withFileTypes: true });
-
-    for (const entry of entries) {
-      const srcPath = path.join(src, entry.name);
-      const destPath = path.join(dest, entry.name);
-
-      if (entry.isDirectory()) {
-        fs.mkdirSync(destPath, { recursive: true });
-        this.copyDirectory(srcPath, destPath);
-      } else {
-        fs.copyFileSync(srcPath, destPath);
-      }
-    }
-  }
-
   generateReport() {
     this.log('Gerando relatório de build...', 'info');
 
     const report = {
       timestamp: new Date().toISOString(),
-      version: '0.0.2',
+      version: '0.0.9',
       status: this.errors.length === 0 ? 'SUCCESS' : 'FAILED',
       summary: {
         errors: this.errors.length,
@@ -353,7 +316,7 @@ class Builder {
 
     // Exibir resumo
     console.log('\n' + '='.repeat(60));
-    console.log('📊 RELATÓRIO DE BUILD - INELEG-APP v0.0.8');
+    console.log('📊 RELATÓRIO DE BUILD - INELEG-APP v0.0.9');
     console.log('='.repeat(60));
     console.log(`Status: ${report.status}`);
     console.log(`Erros: ${this.errors.length}`);

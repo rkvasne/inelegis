@@ -1,28 +1,48 @@
 /**
  * Theme Manager
  * Gerencia tema claro/escuro com persistência
- * @version 0.0.8
+ * @version 0.0.9
  */
+
+const THEME_DEBUG_ENABLED = (() => {
+    if (typeof globalThis === 'undefined') {
+        return false;
+    }
+    if (globalThis.INelegisDebug === true) {
+        return true;
+    }
+    if (globalThis.process && globalThis.process.env && globalThis.process.env.INELEGIS_DEBUG === 'true') {
+        return true;
+    }
+    return false;
+})();
+
+function themeDebugLog(...args) {
+    if (THEME_DEBUG_ENABLED) {
+        console.debug('[ThemeManager]', ...args);
+    }
+}
 
 const ThemeManager = (() => {
     const STORAGE_KEY = 'inelegis_theme';
     const THEME_DARK = 'dark';
     const THEME_LIGHT = 'light';
+    const IMAGE_BASE_PATH = '/assets/images/';
 
     /**
      * Inicializa o gerenciador de tema
      */
     function init() {
-        console.log('🚀 ThemeManager.init() called');
+        themeDebugLog('init');
         
         // Carregar tema salvo ou detectar preferência do sistema
         const savedTheme = getSavedTheme();
         const systemTheme = getSystemTheme();
         const theme = savedTheme || systemTheme;
 
-        console.log('📋 Saved theme:', savedTheme);
-        console.log('🖥️ System theme:', systemTheme);
-        console.log('✅ Selected theme:', theme);
+        themeDebugLog('Saved theme', savedTheme);
+        themeDebugLog('System theme', systemTheme);
+        themeDebugLog('Selected theme', theme);
 
         applyTheme(theme);
         attachEventListeners();
@@ -60,8 +80,8 @@ const ThemeManager = (() => {
     function applyTheme(theme) {
         const html = document.documentElement;
         
-        console.log('🎨 Applying theme:', theme);
-        console.log('📋 Current classes before:', html.className);
+        themeDebugLog('Applying theme', theme);
+        themeDebugLog('Classes before', html.className);
         
         // IMPORTANTE: Sempre remover a classe primeiro
         html.classList.remove('dark-theme');
@@ -71,12 +91,12 @@ const ThemeManager = (() => {
             html.classList.add('dark-theme');
         }
         
-        console.log('✅ Current classes after:', html.className);
+        themeDebugLog('Classes after', html.className);
 
         // Salvar no localStorage
         try {
             localStorage.setItem(STORAGE_KEY, theme);
-            console.log('💾 Theme saved to localStorage:', theme);
+            themeDebugLog('Theme saved to localStorage', theme);
         } catch (error) {
             console.error('Erro ao salvar tema:', error);
         }
@@ -132,7 +152,7 @@ const ThemeManager = (() => {
         
         // logo-dark.png = escudo escuro (para fundo claro)
         // logo-claro.png = escudo claro (para fundo escuro)
-        const logoSrc = theme === THEME_DARK ? 'logo-claro.png' : 'logo-dark.png';
+        const logoSrc = `${IMAGE_BASE_PATH}${theme === THEME_DARK ? 'logo-claro.png' : 'logo-dark.png'}`;
         logo.src = logoSrc;
     }
 
@@ -143,7 +163,8 @@ const ThemeManager = (() => {
     function updateFavicon(theme) {
         // logo-dark.ico = escudo escuro (para tema claro)
         // logo-claro.ico = escudo claro (para tema escuro)
-        const faviconSrc = theme === THEME_DARK ? 'logo-claro.ico' : 'logo-dark.ico';
+        const faviconFilename = theme === THEME_DARK ? 'logo-claro.ico' : 'logo-dark.ico';
+        const faviconSrc = `${IMAGE_BASE_PATH}${faviconFilename}`;
         
         // Atualizar favicon existente
         let favicon = document.querySelector('link[rel="icon"]');
@@ -169,7 +190,7 @@ const ThemeManager = (() => {
         favicon.href = faviconSrc + cacheBuster;
         shortcutIcon.href = faviconSrc + cacheBuster;
         
-        console.log('🎨 Favicon updated to:', faviconSrc);
+        themeDebugLog('Favicon updated', faviconSrc);
     }
 
     /**
@@ -181,7 +202,7 @@ const ThemeManager = (() => {
             const button = document.getElementById('themeToggle');
             if (button) {
                 button.addEventListener('click', toggleTheme);
-                console.log('✅ Theme toggle button attached');
+                themeDebugLog('Theme toggle button attached');
             } else {
                 console.warn('⚠️ Theme toggle button not found');
             }

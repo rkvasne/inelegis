@@ -7,36 +7,24 @@
     <title>Consulta | Inelegis - Sistema de Consulta de Inelegibilidade</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="logo-dark.ico">
-    <link rel="shortcut icon" type="image/x-icon" href="logo-dark.ico">
+    <link rel="icon" type="image/x-icon" href="/assets/images/logo-dark.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/logo-dark.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=0.0.9">
-    
-    <!-- Inicializar tema antes do carregamento (evitar flash) -->
-    <script>
-        (function() {
-            const savedTheme = localStorage.getItem('inelegis_theme');
-            const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-            const theme = savedTheme || systemTheme;
-            
-            // Sempre remover primeiro para garantir estado limpo
-            document.documentElement.classList.remove('dark-theme');
-            
-            // Adicionar apenas se for dark
-            if (theme === 'dark') {
-                document.documentElement.classList.add('dark-theme');
-            }
-        })();
-    </script>
+    <link rel="stylesheet" href="/styles/styles.css?v=0.0.9">
+    <script src="/assets/js/modules/theme-bootstrap.js?v=0.0.9"></script>
+    <script src="/assets/js/modules/terms-gate.js?v=0.0.9"></script>
 </head>
 
 <body>
     <!-- Header será renderizado aqui -->
     <div id="header-placeholder"></div>
+
+    <img src="/assets/images/logo-dark.png" alt="Logomarca oficial do Inelegis" loading="lazy" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);clip-path:inset(50%);border:0;" />
 
     <!-- Conteúdo Principal -->
     <main class="container container--wide mt-8">
@@ -456,52 +444,47 @@
     </div>
 
     <!-- Módulos de Segurança e Utilidades -->
-    <script src="js/sanitizer.js?v=0.0.9"></script>
-    <script src="js/storage.js?v=0.0.9"></script>
-    <script src="js/formatters.js?v=0.0.9"></script>
-    <script src="js/exceptions.js?v=0.0.9"></script>
-    <script src="js/modal-manager.js?v=0.0.9"></script>
-    <script src="js/search-index.js?v=0.0.9"></script>
-    <script src="js/search-history.js?v=0.0.9"></script>
-    <script src="js/history-ui.js?v=0.0.9"></script>
-    <script src="js/components.js?v=0.0.9"></script>
-    <script src="js/theme-manager.js?v=0.0.9"></script>
-    <script src="js/analytics.js?v=0.0.9"></script>
+    <script src="/assets/js/modules/sanitizer.js?v=0.0.9" defer></script>
+    <script src="/assets/js/modules/storage.js?v=0.0.9" defer></script>
+    <script src="/assets/js/modules/formatters.js?v=0.0.9" defer></script>
+    <script src="/assets/js/modules/exceptions.js?v=0.0.9" defer></script>
+    <script src="/assets/js/modules/modal-manager.js?v=0.0.9" defer></script>
+    <script src="/assets/js/modules/search-index.js?v=0.0.9" defer></script>
+    <script src="/assets/js/modules/search-history.js?v=0.0.9" defer></script>
+    <script src="/assets/js/modules/history-ui.js?v=0.0.9" defer></script>
+    <script src="/assets/js/modules/components.js?v=0.0.9" defer></script>
+    <script src="/assets/js/modules/theme-manager.js?v=0.0.9" defer></script>
+    <script src="/assets/js/modules/analytics.js?v=0.0.9" defer></script>
 
     <!-- Scripts Principais -->
-    <script src="data.js"></script>
-    <script src="script.js"></script>
+    <script src="/assets/js/data.js" defer></script>
+    <script src="/assets/js/script.js" defer></script>
     
     <!-- Inicializar Módulos -->
     <script>
         // Verificar se termos foram aceitos
         (function() {
             const termosValue = localStorage.getItem('ineleg_termos_aceitos');
-            console.log('🔍 Verificando termos:', termosValue);
             
             const termosAceitos = termosValue === 'true';
             
             if (!termosAceitos) {
-                console.log('❌ Termos não aceitos, redirecionando...');
                 sessionStorage.setItem('ineleg_redirect_reason', 'terms_not_accepted');
                 window.location.href = './';
                 return;
             }
-            
-            console.log('✅ Termos aceitos, continuando...');
         })();
         
-        // Inicializar componentes
-        Components.init('consulta');
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            // Inicializar histórico
-            HistoryUI.init();
-            
-            // Inicializar analytics
-            Analytics.init();
-            
-            console.log('✅ Inelegis v0.0.8 inicializado');
+        window.addEventListener('DOMContentLoaded', () => {
+            if (window.Components) {
+                Components.init('consulta');
+            }
+            if (window.HistoryUI) {
+                HistoryUI.init();
+            }
+            if (window.Analytics) {
+                Analytics.init();
+            }
         });
     </script>
 </body>

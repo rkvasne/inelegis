@@ -11,17 +11,18 @@
 
 const fs = require('fs');
 const path = require('path');
+const paths = require('./project-paths');
 
 console.log('🔄 Iniciando integração dos módulos...\n');
 
 // Ler script.js
-const scriptPath = path.join(__dirname, '..', 'script.js');
+const scriptPath = paths.js.main;
 let scriptContent = fs.readFileSync(scriptPath, 'utf8');
 
 // Backup
-const backupPath = path.join(__dirname, '..', 'script.js.backup');
+const backupPath = `${scriptPath}.backup`;
 fs.writeFileSync(backupPath, scriptContent, 'utf8');
-console.log('✅ Backup criado: script.js.backup\n');
+console.log(`✅ Backup criado: ${path.basename(backupPath)}\n`);
 
 // Lista de substituições
 const replacements = [
@@ -80,16 +81,16 @@ replacements.forEach(replacement => {
 const header = `/**
  * INELEGIS - Sistema de Consulta de Inelegibilidade Eleitoral
  * 
- * Versão: 0.0.8
+ * Versão: 0.0.9
  * Última atualização: 01 de dezembro de 2025
  * 
  * Este arquivo utiliza os seguintes módulos:
- * - js/sanitizer.js: Prevenção XSS
- * - js/storage.js: localStorage seguro
- * - js/formatters.js: Formatação de artigos
- * - js/exceptions.js: Validação de exceções
- * - js/modal-manager.js: Gerenciamento de modal
- * - js/search-index.js: Busca otimizada
+ * - src/js/modules/sanitizer.js: Prevenção XSS
+ * - src/js/modules/storage.js: localStorage seguro
+ * - src/js/modules/formatters.js: Formatação de artigos
+ * - src/js/modules/exceptions.js: Validação de exceções
+ * - src/js/modules/modal-manager.js: Gerenciamento de modal
+ * - src/js/modules/search-index.js: Busca otimizada
  */
 
 `;
@@ -103,11 +104,11 @@ console.log('\n✅ Integração concluída!\n');
 console.log('📊 Resumo:');
 const totalReplacements = replacements.reduce((sum, r) => sum + r.count, 0);
 console.log(`   - ${totalReplacements} substituições realizadas`);
-console.log(`   - Backup salvo em: script.js.backup`);
-console.log(`   - Arquivo atualizado: script.js\n`);
+console.log(`   - Backup salvo em: ${path.basename(backupPath)}`);
+console.log(`   - Arquivo atualizado: ${path.relative(paths.root, scriptPath)}\n`);
 
 console.log('⚠️  Próximos passos:');
-console.log('   1. Revisar script.js para verificar mudanças');
+console.log(`   1. Revisar ${path.relative(paths.root, scriptPath)} para verificar mudanças`);
 console.log('   2. Executar testes: npm test');
 console.log('   3. Testar manualmente no navegador');
 console.log('   4. Se tudo OK, remover funções duplicadas antigas\n');

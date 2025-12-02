@@ -1,11 +1,50 @@
-// Registro do Service Worker para cache
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js')
-            .then(registration => console.log('SW registrado:', registration.scope))
-            .catch(err => console.log('Falha no SW:', err));
-    });
+'use strict';
+
+const DEBUG_LOG_ENABLED = (() => {
+    if (typeof globalThis === 'undefined') {
+        return false;
+    }
+    if (globalThis.INelegisDebug === true) {
+        return true;
+    }
+    if (globalThis.process && globalThis.process.env && globalThis.process.env.INELEGIS_DEBUG === 'true') {
+        return true;
+    }
+    return false;
+})();
+
+function debugLog(...args) {
+    if (DEBUG_LOG_ENABLED) {
+        console.debug('[Inelegis]', ...args);
+    }
 }
+
+// LIMPEZA AGRESSIVA DE CACHE - v0.0.9
+(function() {
+    // 1. Desregistrar TODOS os Service Workers
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(registrations => {
+            registrations.forEach(registration => {
+                registration.unregister().then(() => {
+                    debugLog('SW desregistrado', registration.scope);
+                });
+            });
+        });
+    }
+    
+    // 2. Limpar TODOS os caches
+    if ('caches' in window) {
+        caches.keys().then(cacheNames => {
+            cacheNames.forEach(cacheName => {
+                caches.delete(cacheName).then(() => {
+                    debugLog('Cache deletado', cacheName);
+                });
+            });
+        });
+    }
+    
+    debugLog('Limpeza de cache executada - v0.0.9');
+})();
 
 // Elementos DOM
 const leiSelect = document.getElementById('leiSelect');
@@ -20,8 +59,25 @@ const radioExtincao = document.getElementById('extincao');
 const dataOcorrenciaCondenacao = document.getElementById('dataOcorrenciaCondenacao');
 const dataOcorrenciaExtincao = document.getElementById('dataOcorrenciaExtincao');
 
+// Verificar se está na página Consulta e se checkbox foi marcado
+function verificarAcessoConsulta() {
+    if (window.location.pathname.includes('consulta') || window.location.href.includes('consulta')) {
+        const termosAceitos = localStorage.getItem('ineleg_termos_aceitos') === 'true';
+        if (!termosAceitos) {
+            window.location.href = './';
+            return false;
+        }
+    }
+    return true;
+}
+
 // Inicialização
 document.addEventListener('DOMContentLoaded', function () {
+    // Verificar acesso à página Consulta
+    if (!verificarAcessoConsulta()) {
+        return;
+    }
+    
     // Evitar erros quando script.js é carregado fora da app principal (ex.: tests/quick-tests.html)
     if (!leiSelect || !artigoInput || !buscarBtn) {
         return;
@@ -352,16 +408,16 @@ function realizarBusca() {
 
 // Buscar inelegibilidade por lei e artigo específicos
 function buscarInelegibilidadePorLeiEArtigo(codigoLei, numeroArtigo) {
-    console.log('🔍 INICIANDO BUSCA:', { codigoLei, numeroArtigo });
+    debugLog('INICIANDO BUSCA', { codigoLei, numeroArtigo });
 
     // Rejeitar números de artigo muito curtos (menos de 2 dígitos)
     if (numeroArtigo.trim().length < 2) {
-        console.log('❌ Artigo muito curto:', numeroArtigo);
+        debugLog('Artigo muito curto', numeroArtigo);
         return null;
     }
 
     const artigoProcessado = ArtigoFormatter.processar(numeroArtigo);
-    console.log('📝 ARTIGO PROCESSADO:', artigoProcessado);
+    debugLog('ARTIGO PROCESSADO', artigoProcessado);
 
     let melhorResultado = null;
     let excecoesEncontradas = [];
@@ -380,7 +436,7 @@ function buscarInelegibilidadePorLeiEArtigo(codigoLei, numeroArtigo) {
         const artigoCorresponde = verificarArtigoCorresponde(item.norma, artigoProcessado);
 
         if (artigoCorresponde) {
-            console.log('✅ ENCONTRADO!', item);
+            debugLog('Entrada encontrada', item);
 
             // Verificar se há exceções aplicáveis
             const temExcecao = ExceptionValidator.verificar(item, artigoProcessado);
@@ -392,7 +448,7 @@ function buscarInelegibilidadePorLeiEArtigo(codigoLei, numeroArtigo) {
                     crime: item.crime,
                     observacao: item.observacao
                 });
-                console.log('⚠️ EXCEÇÃO ENCONTRADA:', temExcecao);
+                debugLog('Exceção encontrada', temExcecao);
             }
 
             // Retornar o resultado com informações de exceção
@@ -421,13 +477,13 @@ function buscarInelegibilidadePorLeiEArtigo(codigoLei, numeroArtigo) {
 
 // Busca flexível - procura por correspondências parciais
 function buscarFlexivel(codigoLei, artigoProcessado) {
-    console.log('🔎 INICIANDO BUSCA FLEXÍVEL...');
+    debugLog('INICIANDO BUSCA FLEXÍVEL');
 
     const artigoPrincipal = artigoProcessado.artigo;
 
     // Rejeitar artigos muito curtos (menos de 2 dígitos) para evitar falsos positivos
     if (artigoPrincipal.length < 2) {
-        console.log('❌ Artigo muito curto para busca flexível:', artigoPrincipal);
+        debugLog('Artigo curto demais para busca flexível', artigoPrincipal);
         return null;
     }
 
@@ -439,7 +495,7 @@ function buscarFlexivel(codigoLei, artigoProcessado) {
         // Buscar apenas pelo artigo principal usando extração estruturada
         const artigos = extrairArtigosDoNorma(item.norma);
         if (artigos.includes(artigoPrincipal)) {
-            console.log('🔸 ENCONTRADO COM BUSCA FLEXÍVEL:', item.norma, '- Artigos:', artigos);
+            debugLog('Resultado via busca flexível', item.norma, artigos);
 
             const temExcecao = ExceptionValidator.verificar(item, artigoProcessado);
 
@@ -576,8 +632,8 @@ function verificarArtigoCorresponde(artigoTabela, artigoProcessado) {
     // Extrair todos os artigos da tabela
     const artigos = extrairArtigosDoNorma(artigoTabela);
 
-    console.log(`Artigos extraídos de "${artigoTabela}": ${artigos.join(', ')}`);
-    console.log(`Procurando por: "${artigoPrincipal}"`);
+    debugLog(`Artigos extraídos de "${artigoTabela}": ${artigos.join(', ')}`);
+    debugLog(`Procurando por: "${artigoPrincipal}"`);
 
     // Verificar se o artigo principal está na lista
     return artigos.includes(artigoPrincipal);
@@ -669,9 +725,12 @@ function exibirResultado(resultado) {
 
     // Salvar no histórico local
     if (typeof HistoryUI !== 'undefined') {
+        const artigoParaHistorico = resultado.artigoProcessado?.formatado || 
+                                    resultado.artigoOriginal || 
+                                    'N/A';
         HistoryUI.addSearch({
             lei: resultado.codigo,
-            artigo: resultado.artigoConsultado,
+            artigo: artigoParaHistorico,
             resultado: resultado.inelegivel ? 'inelegivel' : 'elegivel',
             timestamp: new Date().toISOString()
         });
@@ -679,9 +738,12 @@ function exibirResultado(resultado) {
 
     // Enviar analytics (anônimo)
     if (typeof Analytics !== 'undefined' && Analytics.isEnabled()) {
+        const artigoParaAnalytics = resultado.artigoProcessado?.formatado || 
+                                     resultado.artigoOriginal || 
+                                     'N/A';
         Analytics.trackSearch({
             lei: resultado.codigo,
-            artigo: resultado.artigoConsultado,
+            artigo: artigoParaAnalytics,
             resultado: resultado.inelegivel ? 'inelegivel' : 'elegivel',
             temExcecao: resultado.excecoes && resultado.excecoes.length > 0,
             tempoResposta: null // Pode adicionar medição de tempo
@@ -1073,13 +1135,13 @@ function mostrarToast(mensagem, tipo = 'success') {
     toast.textContent = mensagem;
     toast.style.cssText = `
         position: fixed;
-        bottom: 2rem;
+        top: 2rem;
         right: 2rem;
-        background: ${tipo === 'success' ? '#10b981' : '#ef4444'};
-        color: white;
+        background: ${tipo === 'success' ? 'var(--success-500)' : 'var(--danger-500)'};
+        color: var(--text-on-primary, #fff);
         padding: 1rem 1.5rem;
         border-radius: 0.5rem;
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        box-shadow: var(--shadow-lg, 0 10px 15px -3px rgba(0, 0, 0, 0.1));
         z-index: 10000;
         animation: slideIn 0.3s ease-out;
         font-size: 0.875rem;

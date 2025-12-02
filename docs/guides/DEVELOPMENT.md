@@ -1,7 +1,7 @@
 # Guia de Desenvolvimento
 
 **Última atualização:** 02 de dezembro de 2025
-**Versão atual:** 0.0.8
+**Versão atual:** 0.0.9
 
 Este arquivo fornece orientações técnicas para desenvolvedores trabalhando neste repositório.
 
@@ -78,7 +78,7 @@ Como esta é uma aplicação frontend com sistema de build:
 - `buildLeiIndex()` - Constrói índices
 - `clearCache()` - Limpa cache
 
-**[modules/search-history.js](../src/js/modules/search-history.js)** - Histórico (v0.0.8):
+**[modules/search-history.js](../src/js/modules/search-history.js)** - Histórico (v0.0.9):
 - `add()` - Adiciona consulta (com detecção de duplicatas)
 - `getRecent()` - Obtém consultas recentes
 - `getFrequent()` - Obtém consultas frequentes

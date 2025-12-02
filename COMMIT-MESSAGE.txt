@@ -39,5 +39,5 @@ NOTA:
 - Se quiser reativar modo automático no futuro, código está comentado
 - Usar classe .light-theme para forçar tema claro se reativar
 
-Versão: 0.0.8
+Versão: 0.0.9
 PRIORIDADE: CRÍTICA

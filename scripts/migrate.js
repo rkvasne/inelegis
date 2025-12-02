@@ -7,13 +7,20 @@
 
 const fs = require('fs');
 const path = require('path');
+const paths = require('./project-paths');
 
 class Migrator {
   constructor() {
-    this.projectRoot = path.join(__dirname, '..');
+    this.projectRoot = paths.root;
     this.backupDir = path.join(this.projectRoot, '.backup-' + Date.now());
     this.changes = [];
     this.errors = [];
+    this.htmlTargets = [
+      { label: 'consulta.html', filePath: paths.pages.consulta },
+      { label: 'index.html', filePath: paths.pages.index },
+      { label: 'sobre.html', filePath: paths.pages.sobre },
+      { label: 'faq.html', filePath: paths.pages.faq }
+    ];
   }
 
   log(message, type = 'info') {
@@ -60,20 +67,19 @@ class Migrator {
       fs.mkdirSync(this.backupDir, { recursive: true });
 
       const filesToBackup = [
-        'consulta.html',
-        'index.html',
-        'script.js',
-        'package.json'
+        ...this.htmlTargets.map(target => target.filePath),
+        paths.js.main,
+        paths.js.data,
+        path.join(this.projectRoot, 'package.json')
       ];
 
       for (const file of filesToBackup) {
-        const src = path.join(this.projectRoot, file);
-        const dest = path.join(this.backupDir, file);
-
-        if (fs.existsSync(src)) {
-          fs.copyFileSync(src, dest);
-          this.log(`Backup: ${file}`, 'success');
-        }
+        if (!fs.existsSync(file)) continue;
+        const relative = path.relative(this.projectRoot, file);
+        const dest = path.join(this.backupDir, relative);
+        fs.mkdirSync(path.dirname(dest), { recursive: true });
+        fs.copyFileSync(file, dest);
+        this.log(`Backup: ${relative}`, 'success');
       }
 
       this.log(`Backup criado em: ${this.backupDir}`, 'success');
@@ -85,42 +91,44 @@ class Migrator {
   async updateHTML() {
     this.log('Atualizando arquivos HTML...', 'info');
 
-    const htmlFiles = ['consulta.html', 'index.html', 'sobre.html', 'faq.html'];
+    for (const target of this.htmlTargets) {
+      if (!fs.existsSync(target.filePath)) continue;
 
-    for (const file of htmlFiles) {
-      const filePath = path.join(this.projectRoot, file);
-      
-      if (!fs.existsSync(filePath)) continue;
-
-      let content = fs.readFileSync(filePath, 'utf8');
+      let content = fs.readFileSync(target.filePath, 'utf8');
 
       // Verificar se já tem os novos scripts
-      if (content.includes('js/sanitizer.js')) {
-        this.log(`${file} já atualizado`, 'info');
+      if (content.includes('/assets/js/modules/sanitizer.js')) {
+        this.log(`${target.label} já atualizado`, 'info');
         continue;
       }
 
       // Adicionar scripts antes de data.js
       const scriptInsert = `    <!-- Módulos de Segurança e Utilidades -->
-    <script src="js/sanitizer.js"></script>
-    <script src="js/storage.js"></script>
-    <script src="js/formatters.js"></script>
-    <script src="js/exceptions.js"></script>
-    <script src="js/modal-manager.js"></script>
-    <script src="js/search-index.js"></script>
+    <script src="/assets/js/modules/sanitizer.js"></script>
+    <script src="/assets/js/modules/storage.js"></script>
+    <script src="/assets/js/modules/formatters.js"></script>
+    <script src="/assets/js/modules/exceptions.js"></script>
+    <script src="/assets/js/modules/modal-manager.js"></script>
+    <script src="/assets/js/modules/search-index.js"></script>
 
     <!-- Scripts Principais -->
 `;
 
-      // Substituir linha do data.js
+      const dataScriptPattern = /<script\s+src="[^"]*data\.js[^"]*"><\/script>/i;
+
+      if (!dataScriptPattern.test(content)) {
+        this.log(`Data.js não encontrado em ${target.label}`, 'warning');
+        continue;
+      }
+
       content = content.replace(
-        /<script src="data\.js"><\/script>/,
-        scriptInsert + '<script src="data.js"></script>'
+        dataScriptPattern,
+        scriptInsert + '    <script src="/assets/js/data.js"></script>'
       );
 
-      fs.writeFileSync(filePath, content, 'utf8');
-      this.changes.push(`Atualizado: ${file}`);
-      this.log(`Atualizado: ${file}`, 'success');
+      fs.writeFileSync(target.filePath, content, 'utf8');
+      this.changes.push(`Atualizado: ${target.label}`);
+      this.log(`Atualizado: ${target.label}`, 'success');
     }
   }
 
@@ -153,7 +161,7 @@ class Migrator {
     this.log('Criando arquivo de configuração...', 'info');
 
     const config = {
-      version: '0.0.8',
+      version: '0.0.9',
       modules: {
         sanitizer: true,
         storage: true,

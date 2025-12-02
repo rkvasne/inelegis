@@ -1,12 +1,26 @@
 # Changelog
 
 **Última atualização:** 02 de dezembro de 2025
-**Versão atual:** 0.0.8
+**Versão atual:** 0.0.9
 
 Todas as alterações notáveis neste projeto serão documentadas neste arquivo.
 
 O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/),
 e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
+
+---
+
+## [0.0.9] - 2025-12-02
+
+### 🛠 Changed
+- Reorganização completa da pasta `docs/` em domínios (`design/`, `guides/`, `operations/`, `history/`).
+- README principal, `docs/README.md`, scripts utilitários e `.env.example` apontam para os novos caminhos.
+- Badge de versão, `package.json` e módulos JavaScript sincronizados para 0.0.9.
+
+### 📚 Documentation
+- `history/RELEASE-NOTES-v0.0.9.md` criado com os destaques da reorganização.
+- `history/refatoracao-v0.0.6.md` passa a centralizar plano, execução e lições aprendidas.
+- `CHANGELOG-DOCS.md`, `SUMMARY.md` e guias operacionais atualizados com a nova estrutura.
 
 ---
 

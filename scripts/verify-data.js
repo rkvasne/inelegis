@@ -5,11 +5,10 @@
 */
 
 const fs = require('fs');
-const path = require('path');
 const vm = require('vm');
 
-const ROOT = path.resolve(__dirname, '..');
-const dataPath = path.join(ROOT, 'data.js');
+const paths = require('./project-paths');
+const dataPath = paths.js.data;
 
 function loadDataJs(file) {
   const code = fs.readFileSync(file, 'utf8');

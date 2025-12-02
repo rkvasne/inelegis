@@ -9,11 +9,16 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
+const paths = require('./project-paths');
+const { copyDirectory } = require('./sync-js');
 
 class DevServer {
   constructor() {
     this.port = process.env.PORT || 3000;
-    this.projectRoot = path.join(__dirname, '..');
+    this.projectRoot = paths.root;
+    this.publicRoot = paths.publicDir;
+    this.jsSrcDir = paths.js.src;
+    this.jsPublicDir = paths.js.public;
     this.mimeTypes = {
       '.html': 'text/html',
       '.css': 'text/css',
@@ -31,6 +36,7 @@ class DevServer {
       '.eot': 'application/vnd.ms-fontobject'
     };
     this.watchers = new Map();
+    this.lastModified = Date.now();
   }
 
   log(message, type = 'info') {
@@ -48,6 +54,9 @@ class DevServer {
 
   async start() {
     this.log('Iniciando servidor de desenvolvimento...', 'info');
+
+    // Garantir que os arquivos JS estão sincronizados antes de subir o servidor
+    this.syncJsAssets();
 
     const server = http.createServer((req, res) => {
       this.handleRequest(req, res);
@@ -84,7 +93,8 @@ class DevServer {
       return;
     }
 
-    const fullPath = path.join(this.projectRoot, filePath);
+    const normalized = filePath.replace(/^\/+/, '');
+    const fullPath = path.join(this.publicRoot, normalized);
 
     // Verificar se arquivo existe
     if (!fs.existsSync(fullPath)) {
@@ -99,7 +109,7 @@ class DevServer {
 
       // Para SPAs, redirecionar para index.html (fallback)
       if (path.extname(filePath) === '') {
-        this.serveFile(res, path.join(this.projectRoot, 'index.html'), '.html');
+        this.serveFile(res, paths.pages.index, '.html');
         return;
       }
 
@@ -328,30 +338,33 @@ class DevServer {
   }
 
   setupWatchers() {
-    const watchPaths = [
-      'index.html',
-      'styles.css',
-      'script.js',
-      'data.js',
-      'js/',
-      'manifest.json'
-    ];
-
-    for (const watchPath of watchPaths) {
-      const fullPath = path.join(this.projectRoot, watchPath);
-
-      if (fs.existsSync(fullPath)) {
-        const watcher = fs.watch(fullPath, { recursive: true }, (eventType, filename) => {
-          if (filename) {
-            this.log(`Arquivo modificado: ${filename}`, 'reload');
-            this.lastModified = Date.now();
-          }
-        });
-
-        this.watchers.set(watchPath, watcher);
-        this.log(`Monitorando: ${watchPath}`, 'info');
+    const publicWatcher = fs.watch(this.publicRoot, { recursive: true }, (_, filename) => {
+      if (filename) {
+        this.log(`Arquivo modificado (public): ${filename}`, 'reload');
+        this.lastModified = Date.now();
       }
-    }
+    });
+    this.watchers.set('public', publicWatcher);
+    this.log(`Monitorando: ${path.relative(this.projectRoot, this.publicRoot)}`, 'info');
+
+    const jsWatcher = fs.watch(this.jsSrcDir, { recursive: true }, (_, filename) => {
+      if (filename) {
+        this.log(`Atualizando assets JS: ${filename}`, 'reload');
+        try {
+          this.syncJsAssets();
+        } catch (error) {
+          this.log(`Falha ao sincronizar JS: ${error.message}`, 'error');
+        }
+        this.lastModified = Date.now();
+      }
+    });
+    this.watchers.set('src/js', jsWatcher);
+    this.log(`Monitorando: ${path.relative(this.projectRoot, this.jsSrcDir)}`, 'info');
+  }
+
+  syncJsAssets() {
+    copyDirectory(this.jsSrcDir, this.jsPublicDir);
+    this.log('JS sincronizado com public/assets/js', 'success');
   }
 
   cleanup() {

@@ -1,11 +1,32 @@
-// LIMPEZA AGRESSIVA DE CACHE - v0.0.8
+'use strict';
+
+const DEBUG_LOG_ENABLED = (() => {
+    if (typeof globalThis === 'undefined') {
+        return false;
+    }
+    if (globalThis.INelegisDebug === true) {
+        return true;
+    }
+    if (globalThis.process && globalThis.process.env && globalThis.process.env.INELEGIS_DEBUG === 'true') {
+        return true;
+    }
+    return false;
+})();
+
+function debugLog(...args) {
+    if (DEBUG_LOG_ENABLED) {
+        console.debug('[Inelegis]', ...args);
+    }
+}
+
+// LIMPEZA AGRESSIVA DE CACHE - v0.0.9
 (function() {
     // 1. Desregistrar TODOS os Service Workers
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.getRegistrations().then(registrations => {
             registrations.forEach(registration => {
                 registration.unregister().then(() => {
-                    console.log('✅ SW desregistrado:', registration.scope);
+                    debugLog('SW desregistrado', registration.scope);
                 });
             });
         });
@@ -16,13 +37,13 @@
         caches.keys().then(cacheNames => {
             cacheNames.forEach(cacheName => {
                 caches.delete(cacheName).then(() => {
-                    console.log('✅ Cache deletado:', cacheName);
+                    debugLog('Cache deletado', cacheName);
                 });
             });
         });
     }
     
-    console.log('🧹 Limpeza de cache executada - v0.0.8');
+    debugLog('Limpeza de cache executada - v0.0.9');
 })();
 
 // Elementos DOM
@@ -41,8 +62,8 @@ const dataOcorrenciaExtincao = document.getElementById('dataOcorrenciaExtincao')
 // Verificar se está na página Consulta e se checkbox foi marcado
 function verificarAcessoConsulta() {
     if (window.location.pathname.includes('consulta') || window.location.href.includes('consulta')) {
-        const confirmacaoCheckbox = localStorage.getItem('inelegis_confirmacao');
-        if (!confirmacaoCheckbox) {
+        const termosAceitos = localStorage.getItem('ineleg_termos_aceitos') === 'true';
+        if (!termosAceitos) {
             window.location.href = './';
             return false;
         }
@@ -387,16 +408,16 @@ function realizarBusca() {
 
 // Buscar inelegibilidade por lei e artigo específicos
 function buscarInelegibilidadePorLeiEArtigo(codigoLei, numeroArtigo) {
-    console.log('🔍 INICIANDO BUSCA:', { codigoLei, numeroArtigo });
+    debugLog('INICIANDO BUSCA', { codigoLei, numeroArtigo });
 
     // Rejeitar números de artigo muito curtos (menos de 2 dígitos)
     if (numeroArtigo.trim().length < 2) {
-        console.log('❌ Artigo muito curto:', numeroArtigo);
+        debugLog('Artigo muito curto', numeroArtigo);
         return null;
     }
 
     const artigoProcessado = ArtigoFormatter.processar(numeroArtigo);
-    console.log('📝 ARTIGO PROCESSADO:', artigoProcessado);
+    debugLog('ARTIGO PROCESSADO', artigoProcessado);
 
     let melhorResultado = null;
     let excecoesEncontradas = [];
@@ -415,7 +436,7 @@ function buscarInelegibilidadePorLeiEArtigo(codigoLei, numeroArtigo) {
         const artigoCorresponde = verificarArtigoCorresponde(item.norma, artigoProcessado);
 
         if (artigoCorresponde) {
-            console.log('✅ ENCONTRADO!', item);
+            debugLog('Entrada encontrada', item);
 
             // Verificar se há exceções aplicáveis
             const temExcecao = ExceptionValidator.verificar(item, artigoProcessado);
@@ -427,7 +448,7 @@ function buscarInelegibilidadePorLeiEArtigo(codigoLei, numeroArtigo) {
                     crime: item.crime,
                     observacao: item.observacao
                 });
-                console.log('⚠️ EXCEÇÃO ENCONTRADA:', temExcecao);
+                debugLog('Exceção encontrada', temExcecao);
             }
 
             // Retornar o resultado com informações de exceção
@@ -456,13 +477,13 @@ function buscarInelegibilidadePorLeiEArtigo(codigoLei, numeroArtigo) {
 
 // Busca flexível - procura por correspondências parciais
 function buscarFlexivel(codigoLei, artigoProcessado) {
-    console.log('🔎 INICIANDO BUSCA FLEXÍVEL...');
+    debugLog('INICIANDO BUSCA FLEXÍVEL');
 
     const artigoPrincipal = artigoProcessado.artigo;
 
     // Rejeitar artigos muito curtos (menos de 2 dígitos) para evitar falsos positivos
     if (artigoPrincipal.length < 2) {
-        console.log('❌ Artigo muito curto para busca flexível:', artigoPrincipal);
+        debugLog('Artigo curto demais para busca flexível', artigoPrincipal);
         return null;
     }
 
@@ -474,7 +495,7 @@ function buscarFlexivel(codigoLei, artigoProcessado) {
         // Buscar apenas pelo artigo principal usando extração estruturada
         const artigos = extrairArtigosDoNorma(item.norma);
         if (artigos.includes(artigoPrincipal)) {
-            console.log('🔸 ENCONTRADO COM BUSCA FLEXÍVEL:', item.norma, '- Artigos:', artigos);
+            debugLog('Resultado via busca flexível', item.norma, artigos);
 
             const temExcecao = ExceptionValidator.verificar(item, artigoProcessado);
 
@@ -611,8 +632,8 @@ function verificarArtigoCorresponde(artigoTabela, artigoProcessado) {
     // Extrair todos os artigos da tabela
     const artigos = extrairArtigosDoNorma(artigoTabela);
 
-    console.log(`Artigos extraídos de "${artigoTabela}": ${artigos.join(', ')}`);
-    console.log(`Procurando por: "${artigoPrincipal}"`);
+    debugLog(`Artigos extraídos de "${artigoTabela}": ${artigos.join(', ')}`);
+    debugLog(`Procurando por: "${artigoPrincipal}"`);
 
     // Verificar se o artigo principal está na lista
     return artigos.includes(artigoPrincipal);
@@ -1114,7 +1135,7 @@ function mostrarToast(mensagem, tipo = 'success') {
     toast.textContent = mensagem;
     toast.style.cssText = `
         position: fixed;
-        bottom: 2rem;
+        top: 2rem;
         right: 2rem;
         background: ${tipo === 'success' ? 'var(--success-500)' : 'var(--danger-500)'};
         color: var(--text-on-primary, #fff);

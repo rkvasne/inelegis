@@ -2,59 +2,100 @@
  * Search History Manager
  * Gerencia histórico de consultas do usuário
  * Sincroniza com Redis via API
- * @version 0.0.8
+ * @version 0.0.9
  */
 
-// SecureStorage - Wrapper para localStorage (fallback local)
-const SecureStorage = (() => {
-    return {
-        getItem: (key) => {
-            try {
-                const item = localStorage.getItem(key);
-                return item ? JSON.parse(item) : null;
-            } catch (e) {
-                console.error('Erro ao obter do localStorage:', e);
-                return null;
-            }
-        },
-        setItem: (key, value) => {
-            try {
-                localStorage.setItem(key, JSON.stringify(value));
-                return true;
-            } catch (e) {
-                console.error('Erro ao salvar no localStorage:', e);
-                return false;
-            }
-        },
-        removeItem: (key) => {
-            try {
-                localStorage.removeItem(key);
-                return true;
-            } catch (e) {
-                console.error('Erro ao remover do localStorage:', e);
-                return false;
-            }
-        }
-    };
+const SEARCH_HISTORY_DEBUG_ENABLED = (() => {
+    if (typeof globalThis === 'undefined') {
+        return false;
+    }
+    if (globalThis.INelegisDebug === true) {
+        return true;
+    }
+    if (globalThis.process && globalThis.process.env && globalThis.process.env.INELEGIS_DEBUG === 'true') {
+        return true;
+    }
+    return false;
 })();
 
+function historyDebugLog(...args) {
+    if (SEARCH_HISTORY_DEBUG_ENABLED) {
+        console.debug('[SearchHistory]', ...args);
+    }
+}
+
 const SearchHistory = (() => {
-    const STORAGE_KEY = 'inelegis_search_history';
+    const USER_ID_COOKIE = 'inelegis_uid';
+    const LEGACY_USER_ID_KEY = 'inelegis_user_id';
+    const COOKIE_MAX_AGE = 60 * 60 * 24 * 365; // 1 ano
+    let cachedHistory = [];
+
     const MAX_HISTORY = 50;
     const MAX_RECENT = 10;
     const API_URL = '/api/search-history';
     
-    // Obter userId do Analytics ou gerar um novo
+    function getCachedHistory() {
+        return cachedHistory.slice();
+    }
+
+    function setCachedHistory(entries) {
+        cachedHistory = Array.isArray(entries) ? [...entries] : [];
+    }
+
+    function readCookie(name) {
+        if (typeof document === 'undefined') {
+            return null;
+        }
+
+        const match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+        return match ? decodeURIComponent(match[1]) : null;
+    }
+
+    function writeCookie(name, value, maxAgeSeconds) {
+        if (typeof document === 'undefined') {
+            return false;
+        }
+
+        const parts = [
+            `${name}=${encodeURIComponent(value)}`,
+            'path=/'
+        ];
+
+        if (typeof maxAgeSeconds === 'number') {
+            parts.push(`max-age=${maxAgeSeconds}`);
+        }
+
+        document.cookie = parts.join('; ');
+        return true;
+    }
+    
+    // Obter userId do Analytics ou gerar um novo persistido em cookie
     function getUserId() {
         if (typeof window !== 'undefined' && window.Analytics?.getUserId) {
             return window.Analytics.getUserId();
         }
-        // Fallback: usar ID do localStorage
-        let userId = localStorage.getItem('inelegis_user_id');
-        if (!userId) {
-            userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-            localStorage.setItem('inelegis_user_id', userId);
+
+        let userId = readCookie(USER_ID_COOKIE);
+
+        if (!userId && typeof localStorage !== 'undefined') {
+            try {
+                const legacyId = localStorage.getItem(LEGACY_USER_ID_KEY);
+                if (legacyId) {
+                    userId = legacyId;
+                    localStorage.removeItem(LEGACY_USER_ID_KEY);
+                }
+            } catch (error) {
+                console.warn('Histórico: não foi possível migrar userId legado:', error);
+            }
         }
+
+        if (!userId) {
+            const randomPart = Math.random().toString(36).substring(2, 11);
+            const timePart = Date.now().toString(36);
+            userId = `user_${timePart}_${randomPart}`;
+        }
+
+        writeCookie(USER_ID_COOKIE, userId, COOKIE_MAX_AGE);
         return userId;
     }
 
@@ -76,7 +117,7 @@ const SearchHistory = (() => {
             }
             
             const result = await response.json();
-            console.log('✅ Histórico sincronizado com Redis');
+            historyDebugLog('Histórico sincronizado com Redis');
             return result;
             
         } catch (error) {
@@ -134,7 +175,7 @@ const SearchHistory = (() => {
      */
     function addSearch(search) {
         try {
-            const history = getHistory();
+            const history = getCachedHistory();
             
             if (!search.timestamp) {
                 search.timestamp = new Date().toISOString();
@@ -153,7 +194,7 @@ const SearchHistory = (() => {
             });
 
             if (isDuplicate) {
-                console.log('Histórico: Duplicata detectada, não adicionando');
+                historyDebugLog('Duplicata detectada, ignorando entrada');
                 return false;
             }
 
@@ -165,8 +206,8 @@ const SearchHistory = (() => {
                 history.splice(MAX_HISTORY);
             }
 
-            // Salvar localmente
-            SecureStorage.setItem(STORAGE_KEY, history);
+            // Atualizar cache em memória
+            setCachedHistory(history);
             
             // Sincronizar com Redis (async, não bloqueia)
             syncToRedis(search).catch(err => {
@@ -184,13 +225,7 @@ const SearchHistory = (() => {
      * Obtém todo o histórico (local)
      */
     function getHistory() {
-        try {
-            const history = SecureStorage.getItem(STORAGE_KEY);
-            return Array.isArray(history) ? history : [];
-        } catch (error) {
-            console.error('Erro ao obter histórico:', error);
-            return [];
-        }
+        return getCachedHistory();
     }
 
     /**
@@ -200,14 +235,12 @@ const SearchHistory = (() => {
         // Tentar Redis primeiro
         const redisHistory = await fetchFromRedis();
         
-        if (redisHistory && redisHistory.length > 0) {
-            // Atualizar cache local
-            SecureStorage.setItem(STORAGE_KEY, redisHistory);
+        if (Array.isArray(redisHistory) && redisHistory.length > 0) {
+            setCachedHistory(redisHistory);
             return redisHistory;
         }
         
-        // Fallback para local
-        return getHistory();
+        return getCachedHistory();
     }
 
     /**

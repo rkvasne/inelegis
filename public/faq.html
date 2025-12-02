@@ -7,36 +7,24 @@
     <title>FAQ | Inelegis - Sistema de Consulta de Inelegibilidade</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="logo-dark.ico">
-    <link rel="shortcut icon" type="image/x-icon" href="logo-dark.ico">
+    <link rel="icon" type="image/x-icon" href="/assets/images/logo-dark.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/logo-dark.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=0.0.9">
-    
-    <!-- Inicializar tema antes do carregamento (evitar flash) -->
-    <script>
-        (function() {
-            const savedTheme = localStorage.getItem('inelegis_theme');
-            const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-            const theme = savedTheme || systemTheme;
-            
-            // Sempre remover primeiro para garantir estado limpo
-            document.documentElement.classList.remove('dark-theme');
-            
-            // Adicionar apenas se for dark
-            if (theme === 'dark') {
-                document.documentElement.classList.add('dark-theme');
-            }
-        })();
-    </script>
+    <link rel="stylesheet" href="/styles/styles.css?v=0.0.9">
+    <script src="/assets/js/modules/theme-bootstrap.js?v=0.0.9"></script>
+    <script src="/assets/js/modules/terms-gate.js?v=0.0.9"></script>
 </head>
 
 <body>
     <!-- Header será renderizado aqui -->
     <div id="header-placeholder"></div>
+
+    <img src="/assets/images/logo-dark.png" alt="Logomarca oficial do Inelegis" loading="lazy" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);clip-path:inset(50%);border:0;" />
 
     <!-- FAQ Hero -->
     <div class="faq-hero">
@@ -670,8 +658,9 @@
 
     <!-- Scripts -->
     <script>
-        // FAQ Accordion
-        document.querySelectorAll('.faq-item').forEach(item => {
+        window.addEventListener('DOMContentLoaded', () => {
+            // FAQ Accordion
+            document.querySelectorAll('.faq-item').forEach(item => {
             const question = item.querySelector('.faq-question');
             question.addEventListener('click', () => {
                 const isActive = item.classList.contains('active');
@@ -686,11 +675,11 @@
                     item.classList.add('active');
                 }
             });
-        });
+            });
 
-        // Busca de FAQ
-        const searchInput = document.getElementById('faqSearch');
-        searchInput.addEventListener('input', (e) => {
+            // Busca de FAQ
+            const searchInput = document.getElementById('faqSearch');
+            searchInput.addEventListener('input', (e) => {
             const searchTerm = e.target.value.toLowerCase();
 
             document.querySelectorAll('.faq-item').forEach(item => {
@@ -714,10 +703,10 @@
                 const visibleItems = section.querySelectorAll('.faq-item[style="display: block;"]');
                 section.style.display = visibleItems.length > 0 ? 'block' : 'none';
             });
-        });
+            });
 
-        // Smooth scroll para âncoras
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            // Smooth scroll para âncoras
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
@@ -728,10 +717,10 @@
                     });
                 }
             });
-        });
+            });
 
-        // Intersection Observer para animações de scroll
-        const observerOptions = {
+            // Intersection Observer para animações de scroll
+            const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
         };
@@ -744,37 +733,42 @@
                     // observer.unobserve(entry.target);
                 }
             });
-        }, observerOptions);
+            }, observerOptions);
 
-        // Observa todos os elementos com classes de animação
-        document.querySelectorAll('.scroll-animate, .scroll-animate-left, .scroll-animate-right, .scroll-animate-scale').forEach(el => {
+            // Observa todos os elementos com classes de animação
+            document.querySelectorAll('.scroll-animate, .scroll-animate-left, .scroll-animate-right, .scroll-animate-scale').forEach(el => {
             observer.observe(el);
         });
+            
+            // Bloquear link de consulta se termos não aceitos
+            const termosAceitos = localStorage.getItem('ineleg_termos_aceitos') === 'true';
+            const consultaLink = document.querySelector('a[href="consulta"]');
 
-        // Bloquear link de consulta se termos não aceitos
-        const termosAceitos = localStorage.getItem('ineleg_termos_aceitos') === 'true';
-        const consultaLink = document.querySelector('a[href="consulta"]');
-
-        if (!termosAceitos && consultaLink) {
-            consultaLink.style.pointerEvents = 'none';
-            consultaLink.style.opacity = '0.5';
-            consultaLink.style.cursor = 'not-allowed';
-            consultaLink.setAttribute('aria-disabled', 'true');
-            consultaLink.addEventListener('click', function (e) {
-                e.preventDefault();
-                alert('Por favor, leia e concorde com os termos na página inicial antes de acessar o sistema de consulta.');
-            });
-        }
+            if (!termosAceitos && consultaLink) {
+                consultaLink.style.pointerEvents = 'none';
+                consultaLink.style.opacity = '0.5';
+                consultaLink.style.cursor = 'not-allowed';
+                consultaLink.setAttribute('aria-disabled', 'true');
+                consultaLink.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    alert('Por favor, leia e concorde com os termos na página inicial antes de acessar o sistema de consulta.');
+                });
+            }
+        });
     </script>
 
     <!-- Footer será renderizado aqui -->
     <div id="footer-placeholder"></div>
 
     <!-- Components & Theme Manager -->
-    <script src="js/components.js?v=0.0.9"></script>
-    <script src="js/theme-manager.js?v=0.0.9"></script>
+    <script src="/assets/js/modules/components.js?v=0.0.9" defer></script>
+    <script src="/assets/js/modules/theme-manager.js?v=0.0.9" defer></script>
     <script>
-        Components.init('faq');
+        window.addEventListener('DOMContentLoaded', () => {
+            if (window.Components) {
+                Components.init('faq');
+            }
+        });
     </script>
 </body>
 
