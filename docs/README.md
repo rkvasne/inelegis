@@ -27,6 +27,7 @@ Bem-vindo à documentação oficial do projeto **Inelegis**.
 - **[Refatoração v0.0.6](history/refatoracao-v0.0.6.md)** – contexto, plano e implementação
 - **[Release Notes v0.0.9](history/RELEASE-NOTES-v0.0.9.md)** – reorganização de documentação e atualização de paths
 - **[Release Notes v0.0.8](history/RELEASE-NOTES-v0.0.8.md)** – padronização completa de design
+- **[Resumo da sessão 02/12/2025](history/SESSION-SUMMARY-2025-12-02.md)** – métricas objetivas da virada para 0.0.9
 - **[Template de Hotfix Crítico](history/templates/critical-hotfix-template.md)** – mensagem de commit para correções urgentes
 
 ### 📁 Referências
