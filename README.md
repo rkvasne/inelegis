@@ -21,6 +21,13 @@
   [![License](https://img.shields.io/badge/license-MIT-green.svg?style=for-the-badge)](LICENSE)
   [![Tests](https://img.shields.io/badge/tests-100%25-success.svg?style=for-the-badge)](tests/)
   [![Theme](https://img.shields.io/badge/theme-validated-success.svg?style=for-the-badge)](docs/THEME-VALIDATOR.md)
+
+</div>
+
+---
+
+## ✨ Recursos Principais
+
 | Recurso | Descrição |
 |---------|-----------|
 | 🔍 **Busca Inteligente** | Pesquise por número do artigo, lei, descrição ou palavras-chave com feedback instantâneo. |
@@ -113,13 +120,23 @@ inelegis-app/
 
 ---
 
-## 🆕 Novidades v0.0.7
+## 🆕 Novidades v0.0.8
 
-### Melhorias de Documentação
+### Identidade Visual e Design
+- ✅ **Favicon e Logo** - Identidade visual completa implementada
+- ✅ **Footer Ultra-Compacto** - Layout minimalista de 3 linhas
+- ✅ **Página Sobre Redesenhada** - Features grid com hover effects
+- ✅ **Botões CTA Melhorados** - Layout responsivo e limpo
+
+### Theme Validator Pro v3.1.0
+- ✅ **Validação de Inputs** - Detecta inputs sem variáveis de tema
+- ✅ **23+ Categorias** - Detecção abrangente de problemas
+- ✅ **Suporte a 9+ Frameworks** - Tailwind, Material, Bootstrap, etc.
+
+### Novidades v0.0.7
 - ✅ **Documentação consolidada** - 9 documentos redundantes removidos
 - ✅ **Documentos históricos marcados** - Clareza sobre status atual vs histórico
 - ✅ **Análise completa** - Auditoria de qualidade da documentação
-- ✅ **Guias atualizados** - Setup Redis consolidado em um único documento
 
 ### Novidades v0.0.6
 - ✅ **Zero vulnerabilidades XSS** - Sanitização completa de HTML
@@ -160,8 +177,8 @@ Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.
 
 ---
 
-**Última atualização:** 01 de dezembro de 2025  
-**Versão:** 0.0.7
+**Última atualização:** 02 de dezembro de 2025  
+**Versão:** 0.0.8
 
 ---
 
