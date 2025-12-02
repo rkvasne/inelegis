@@ -20,7 +20,7 @@ const Components = (() => {
                             </div>
                             <div class="brand-text">
                                 <h1>Inelegis</h1>
-                                <p>Sistema de Consulta</p>
+                                <p>Consulta de Inelegibilidade Eleitoral</p>
                             </div>
                         </div>
                         <div class="system-info">
@@ -95,7 +95,7 @@ const Components = (() => {
                 <div class="container">
                     <div class="footer-content">
                         <p class="footer-copy">© ${currentYear} Inelegis</p>
-                        <p class="footer-description">Sistema de Consulta de Inelegibilidade Eleitoral</p>
+                        <p class="footer-description">Consulta de Inelegibilidade Eleitoral</p>
                         <div class="footer-links">
                             <a href="sobre" class="footer-link">Sobre</a>
                             <span class="footer-separator">|</span>
