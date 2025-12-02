@@ -1,25 +1,29 @@
 /**
- * Analytics API Endpoint
+ * Analytics API Endpoint - Supabase Edition
  * Recebe e armazena dados de uso do Inelegis
  * 
  * Deploy: Vercel Serverless Function
- * Database: Redis (via ioredis)
+ * Database: Supabase (PostgreSQL)
+ * @version 2.0.0
  */
 
-import Redis from 'ioredis';
+import { createClient } from '@supabase/supabase-js';
 
-// Conectar ao Redis
-let redis = null;
+// Conectar ao Supabase
+let supabase = null;
 
-function getRedis() {
-    if (!redis) {
-        const redisUrl = process.env.REDIS_URL;
-        if (!redisUrl) {
-            throw new Error('REDIS_URL não configurada');
+function getSupabase() {
+    if (!supabase) {
+        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+        const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+        if (!supabaseUrl || !supabaseKey) {
+            throw new Error('Variáveis do Supabase não configuradas');
         }
-        redis = new Redis(redisUrl);
+
+        supabase = createClient(supabaseUrl, supabaseKey);
     }
-    return redis;
+    return supabase;
 }
 
 // Configuração
@@ -43,11 +47,11 @@ function validateEvent(event) {
     if (!event.type || !event.userId || !event.timestamp) {
         return false;
     }
-    
+
     if (!['search', 'error', 'action'].includes(event.type)) {
         return false;
     }
-    
+
     if (event.type === 'search') {
         if (!event.data || !event.data.lei || !event.data.artigo || !event.data.resultado) {
             return false;
@@ -63,7 +67,7 @@ function validateEvent(event) {
             return false;
         }
     }
-    
+
     return true;
 }
 
@@ -73,13 +77,12 @@ function validateEvent(event) {
 function processSearchEvent(event) {
     return {
         type: 'search',
-        userId: event.userId,
-        timestamp: event.timestamp,
+        user_id: event.userId,
         lei: event.data.lei,
         artigo: event.data.artigo,
         resultado: event.data.resultado,
-        temExcecao: event.data.temExcecao,
-        tempoResposta: event.data.tempoResposta,
+        tem_excecao: event.data.temExcecao || false,
+        tempo_resposta: event.data.tempoResposta,
         browser: event.browser?.userAgent || 'unknown',
         version: event.version
     };
@@ -91,14 +94,15 @@ function processSearchEvent(event) {
 function processErrorEvent(event) {
     return {
         type: 'error',
-        userId: event.userId,
-        timestamp: event.timestamp,
-        message: event.data.message,
-        stack: event.data.stack?.substring(0, 500),
+        user_id: event.userId,
         lei: event.data.lei,
         artigo: event.data.artigo,
         browser: event.browser?.userAgent || 'unknown',
-        version: event.version
+        version: event.version,
+        data: {
+            message: event.data.message,
+            stack: event.data.stack?.substring(0, 500)
+        }
     };
 }
 
@@ -108,55 +112,34 @@ function processErrorEvent(event) {
 function processActionEvent(event) {
     return {
         type: 'action',
-        userId: event.userId,
-        timestamp: event.timestamp,
-        action: event.data.action,
-        data: event.data,
+        user_id: event.userId,
         browser: event.browser?.userAgent || 'unknown',
-        version: event.version
+        version: event.version,
+        data: event.data
     };
 }
 
 /**
- * Salva eventos no Redis
+ * Salva eventos no Supabase
  */
 async function saveEvents(events) {
-    const client = getRedis();
-    const timestamp = Date.now();
+    const client = getSupabase();
     let saved = 0;
-    
-    for (const event of events) {
-        const key = `analytics:${event.type}:${timestamp}:${saved}`;
-        
-        // Salvar evento individual (90 dias TTL)
-        await client.setex(key, 60 * 60 * 24 * 90, JSON.stringify(event));
-        
-        // Adicionar à lista por tipo
-        await client.lpush(`analytics:list:${event.type}`, key);
-        
-        // Limitar tamanho da lista
-        await client.ltrim(`analytics:list:${event.type}`, 0, 9999);
-        
-        // Incrementar contadores
-        await client.incr('analytics:total');
-        await client.incr(`analytics:count:${event.type}`);
-        
-        // Contadores por lei (para buscas)
-        if (event.type === 'search') {
-            await client.zincrby('analytics:top:leis', 1, event.lei);
-            await client.zincrby('analytics:top:artigos', 1, `${event.lei}:${event.artigo}`);
-            await client.incr(`analytics:resultado:${event.resultado}`);
-        }
-        
-        // Timeline por dia
-        const date = new Date(event.timestamp).toISOString().split('T')[0];
-        await client.hincrby('analytics:timeline', date, 1);
-        
-        saved++;
+
+    // Inserir em batch
+    const { data, error } = await client
+        .from('analytics_events')
+        .insert(events)
+        .select();
+
+    if (error) {
+        console.error('Erro ao salvar analytics:', error);
+        throw new Error(`Supabase error: ${error.message}`);
     }
-    
-    console.log(`✅ Salvos ${saved} eventos no Redis`);
-    
+
+    saved = data?.length || 0;
+    console.log(`✅ Salvos ${saved} eventos no Supabase`);
+
     return { success: true, saved };
 }
 
@@ -166,43 +149,43 @@ async function saveEvents(events) {
 export default async function handler(req, res) {
     // CORS
     const origin = req.headers.origin;
-    
+
     if (validateOrigin(origin)) {
         res.setHeader('Access-Control-Allow-Origin', origin);
     }
-    
+
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-    
+
     // Preflight
     if (req.method === 'OPTIONS') {
         return res.status(200).end();
     }
-    
+
     // Apenas POST
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method not allowed' });
     }
-    
+
     try {
         const { events, timestamp } = req.body;
-        
+
         // Validar
         if (!Array.isArray(events) || events.length === 0) {
             return res.status(400).json({ error: 'Invalid events array' });
         }
-        
+
         // Processar eventos
         const processedEvents = [];
-        
+
         for (const event of events) {
             if (!validateEvent(event)) {
                 console.warn('⚠️ Evento inválido:', event);
                 continue;
             }
-            
+
             let processed;
-            
+
             switch (event.type) {
                 case 'search':
                     processed = processSearchEvent(event);
@@ -216,13 +199,13 @@ export default async function handler(req, res) {
                 default:
                     continue;
             }
-            
+
             processedEvents.push(processed);
         }
-        
+
         // Salvar
         const result = await saveEvents(processedEvents);
-        
+
         return res.status(200).json({
             success: true,
             received: events.length,
@@ -230,10 +213,10 @@ export default async function handler(req, res) {
             saved: result.saved,
             timestamp: new Date().toISOString()
         });
-        
+
     } catch (error) {
         console.error('❌ Erro ao processar analytics:', error);
-        
+
         return res.status(500).json({
             error: 'Internal server error',
             message: error.message
