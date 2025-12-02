@@ -144,6 +144,26 @@
             color: var(--primary-700);
             text-decoration: underline;
         }
+        
+        /* Seta piscando */
+        .arrow-indicator {
+            display: none;
+            color: var(--warning-500);
+            font-size: 1.5rem;
+            margin-right: 8px;
+            animation: blink 0.5s ease-in-out infinite;
+        }
+        .arrow-indicator.show {
+            display: inline-block;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        .checkbox-wrapper {
+            display: flex;
+            align-items: flex-start;
+        }
     </style>
 </head>
 
@@ -191,12 +211,15 @@
             </div>
             <div class="card-body">
                 <div class="checkbox-group mb-4">
-                    <input type="checkbox" id="confirmacao" class="checkbox-input">
-                    <label for="confirmacao" class="checkbox-label">
-                        Estou ciente de que este é um sistema não oficial e que devo sempre
-                        confirmar as informações na legislação vigente e nas orientações oficiais 
-                        mais recentes antes de tomar decisões definitivas.
-                    </label>
+                    <div class="checkbox-wrapper">
+                        <span id="arrow-indicator" class="arrow-indicator">👉</span>
+                        <input type="checkbox" id="confirmacao" class="checkbox-input">
+                        <label for="confirmacao" class="checkbox-label">
+                            Estou ciente de que este é um sistema não oficial e que devo sempre
+                            confirmar as informações na legislação vigente e nas orientações oficiais 
+                            mais recentes antes de tomar decisões definitivas.
+                        </label>
+                    </div>
                 </div>
 
                 <div class="flex justify-center">
@@ -343,13 +366,30 @@
 
         button.addEventListener('click', function () {
             if (checkbox.checked) {
-                localStorage.setItem('ineleg_termos_aceitos', 'true');
+                try {
+                    localStorage.setItem('ineleg_termos_aceitos', 'true');
+                    console.log('✅ Termos salvos no localStorage');
+                } catch (e) {
+                    console.error('Erro ao salvar termos:', e);
+                }
                 showToast('Redirecionando para o sistema...', 'info');
                 setTimeout(() => {
-                    window.location.href = 'consulta';
+                    window.location.href = 'consulta.html';
                 }, 500);
             }
         });
+
+        // Função para mostrar seta piscando
+        const arrowIndicator = document.getElementById('arrow-indicator');
+        function showArrow() {
+            arrowIndicator.classList.add('show');
+            // Scroll para o checkbox
+            checkbox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // Remover após 5 segundos
+            setTimeout(() => {
+                arrowIndicator.classList.remove('show');
+            }, 5000);
+        }
 
         // Verificar se foi redirecionado da consulta
         const redirectReason = sessionStorage.getItem('ineleg_redirect_reason');
@@ -359,11 +399,14 @@
                 showModal(
                     'Acesso Negado',
                     'Você precisa aceitar os termos de uso antes de acessar o sistema de consulta. Por favor, marque a caixa de confirmação abaixo.',
-                    null,
+                    () => showArrow(),
                     false
                 );
             }, 300);
         }
+        
+        // Expor função para o components.js
+        window.showCheckboxArrow = showArrow;
 
         // Atalhos de teclado
         document.addEventListener('keydown', function (e) {
@@ -375,7 +418,7 @@
                 if (checkbox.checked) {
                     e.preventDefault();
                     localStorage.setItem('ineleg_termos_aceitos', 'true');
-                    window.location.href = 'consulta';
+                    window.location.href = 'consulta.html';
                 }
             }
             if (e.key === 'Escape') {
