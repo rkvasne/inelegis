@@ -1,106 +1,43 @@
-📊 RESUMO DA SESSÃO - Melhorias no Inelegis v0.0.8
+fix: CRÍTICO - Remover media query que forçava tema escuro automaticamente
 
-═══════════════════════════════════════════════════════════════
+PROBLEMA RAIZ ENCONTRADO:
+- Media query @media (prefers-color-scheme: dark) estava ativa
+- Aplicava tema escuro automaticamente quando sistema estava em dark mode
+- Usava :root:not(.light-theme) mas sistema usa .dark-theme
+- Conflito entre CSS automático e JavaScript manual
 
-✅ IMPLEMENTAÇÕES CONCLUÍDAS
+CÓDIGO REMOVIDO:
+```css
+@media (prefers-color-scheme: dark) {
+  :root:not(.light-theme) {
+    --bg-primary: #0f172a;
+    /* ... todas as variáveis do tema escuro ... */
+  }
+}
+```
 
-1. Favicon e Logo
-   - Favicon.ico em todos os HTMLs
-   - Logo.png no header
-   - Identidade visual completa
+MOTIVO:
+- Sistema de temas é controlado por JavaScript
+- Classe .dark-theme no <html> define o tema
+- Media query causava conflito e sobrescrevia preferência do usuário
+- Usuário não conseguia mudar para tema claro
 
-2. Validação de Inputs (Theme Validator)
-   - Nova função checkInputsThemeProperties()
-   - Detecta inputs sem variáveis de tema
-   - 3 categorias de problemas
+SOLUÇÃO:
+- Removida media query prefers-color-scheme
+- Tema agora é 100% controlado por JavaScript
+- Classe .dark-theme é a única forma de ativar tema escuro
+- Usuário tem controle total sobre o tema
 
-3. Botões CTA da FAQ
-   - Layout limpo sem estilos inline
-   - Classe .faq-cta-buttons
-   - Responsivo para mobile
+IMPACTO:
+- ✅ Tema claro funciona corretamente
+- ✅ Tema escuro funciona corretamente
+- ✅ Botão de alternância funcional
+- ✅ Preferência do usuário respeitada
+- ✅ Sem conflitos CSS/JS
 
-4. Hover do Botão Secundário
-   - Cores visíveis (primary-50, primary-500)
-   - Dark theme com primary-900
-   - Sem conflitos de CSS
-
-5. Footer Ultra-Compacto
-   - 3 linhas centralizadas
-   - © 2025 Inelegis
-   - Sistema de Consulta...
-   - Sobre | FAQ | Changelog | GitHub
-
-6. Página Sobre Redesenhada
-   - Layout similar à FAQ
-   - Features grid com 6 recursos
-   - Aviso no final da página
-   - Cards com hover effects
-
-7. Botão de Tema
-   - setTimeout para garantir DOM pronto
-   - Logs de debug adicionados
-   - Página de teste criada
-
-═══════════════════════════════════════════════════════════════
-
-📁 ARQUIVOS MODIFICADOS
-
-HTML (5 arquivos):
-- index.html
-- landing.html
-- consulta.html
-- sobre.html
-- faq.html
-
-JavaScript (2 arquivos):
-- js/components.js
-- js/theme-manager.js
-
-CSS (1 arquivo):
-- styles.css
-
-Documentação (3 arquivos):
-- CHANGELOG.md
-- docs/RELEASE-NOTES-v0.0.8.md
-- SUMMARY.md
-
-Novos arquivos:
-- test-theme.html
-- INSTRUCOES-TEMA.md
-
-═══════════════════════════════════════════════════════════════
-
-🔧 PROBLEMAS CORRIGIDOS
-
-1. ✅ Favicon e logo ausentes
-2. ✅ Botão CTA com estilo inline
-3. ✅ Hover invisível do botão secundário
-4. ✅ Footer muito complexo
-5. ✅ Página Sobre desorganizada
-6. ✅ Botão de tema não funcionando
-7. ✅ Tema claro não aplicado (em diagnóstico)
-
-═══════════════════════════════════════════════════════════════
-
-📊 ESTATÍSTICAS
-
-Commits realizados: 8
-Linhas adicionadas: ~600
-Linhas removidas: ~300
-Arquivos criados: 2
-Tempo de sessão: Completo
-
-═══════════════════════════════════════════════════════════════
-
-🎯 PRÓXIMOS PASSOS SUGERIDOS
-
-1. Testar tema claro/escuro em produção
-2. Verificar logs do console
-3. Usar test-theme.html para diagnóstico
-4. Considerar adicionar toggle de tema no footer
-5. Adicionar mais testes automatizados
-
-═══════════════════════════════════════════════════════════════
+NOTA:
+- Se quiser reativar modo automático no futuro, código está comentado
+- Usar classe .light-theme para forçar tema claro se reativar
 
 Versão: 0.0.8
-Status: ✅ SESSÃO CONCLUÍDA COM SUCESSO
+PRIORIDADE: CRÍTICA
