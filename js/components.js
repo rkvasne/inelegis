@@ -27,7 +27,7 @@ const Components = (() => {
             const ariaCurrent = isActive ? ' aria-current="page"' : '';
             const isDisabled = page.requiresTerms && !termosAceitos;
             const disabledClass = isDisabled ? ' disabled' : '';
-            const disabledAttr = isDisabled ? ' aria-disabled="true" onclick="event.preventDefault(); sessionStorage.setItem(\'ineleg_redirect_reason\', \'terms_not_accepted\'); window.location.href=\'index.html\';"' : '';
+            const disabledAttr = isDisabled ? ' aria-disabled="true" onclick="event.preventDefault(); if(window.showCheckboxArrow) { window.showCheckboxArrow(); } else { sessionStorage.setItem(\'ineleg_redirect_reason\', \'terms_not_accepted\'); window.location.href=\'index.html\'; }"' : '';
             
             return `
                 <a href="${page.href}" class="header-nav-link${activeClass}${disabledClass}"${ariaCurrent}${disabledAttr}>
