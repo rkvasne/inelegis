@@ -20,8 +20,25 @@ const radioExtincao = document.getElementById('extincao');
 const dataOcorrenciaCondenacao = document.getElementById('dataOcorrenciaCondenacao');
 const dataOcorrenciaExtincao = document.getElementById('dataOcorrenciaExtincao');
 
+// Verificar se está na página Consulta e se checkbox foi marcado
+function verificarAcessoConsulta() {
+    if (window.location.pathname.includes('consulta') || window.location.href.includes('consulta')) {
+        const confirmacaoCheckbox = localStorage.getItem('inelegis_confirmacao');
+        if (!confirmacaoCheckbox) {
+            window.location.href = './';
+            return false;
+        }
+    }
+    return true;
+}
+
 // Inicialização
 document.addEventListener('DOMContentLoaded', function () {
+    // Verificar acesso à página Consulta
+    if (!verificarAcessoConsulta()) {
+        return;
+    }
+    
     // Evitar erros quando script.js é carregado fora da app principal (ex.: tests/quick-tests.html)
     if (!leiSelect || !artigoInput || !buscarBtn) {
         return;

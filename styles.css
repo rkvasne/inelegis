@@ -381,16 +381,18 @@ code {
   z-index: 1;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: var(--space-6);
-  max-width: 1400px;
+  max-width: 100%;
   margin: 0 auto;
+  padding: 0 var(--space-4);
 }
 
 .system-brand {
   display: flex;
   align-items: center;
   gap: var(--space-3);
+  flex-shrink: 0;
 }
 
 .brand-icon {
@@ -2393,7 +2395,7 @@ code {
   font-size: 1.25rem;
   font-weight: 600;
   color: var(--text-primary);
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-3);
   max-width: 768px; /* Mesma largura dos cards */
   margin-left: auto;
   margin-right: auto;
