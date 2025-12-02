@@ -2217,7 +2217,13 @@ code {
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
   font-size: 1rem;
+  background: var(--bg-primary);
+  color: var(--text-primary);
   transition: var(--transition-fast);
+}
+
+.search-input::placeholder {
+  color: var(--text-muted);
 }
 
 .search-input:focus {
