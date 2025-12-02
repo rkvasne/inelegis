@@ -1081,11 +1081,11 @@ function mostrarToast(mensagem, tipo = 'success') {
         position: fixed;
         bottom: 2rem;
         right: 2rem;
-        background: ${tipo === 'success' ? '#10b981' : '#ef4444'};
-        color: white;
+        background: ${tipo === 'success' ? 'var(--success-500)' : 'var(--danger-500)'};
+        color: var(--text-on-primary, #fff);
         padding: 1rem 1.5rem;
         border-radius: 0.5rem;
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        box-shadow: var(--shadow-lg, 0 10px 15px -3px rgba(0, 0, 0, 0.1));
         z-index: 10000;
         animation: slideIn 0.3s ease-out;
         font-size: 0.875rem;

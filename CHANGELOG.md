@@ -1,12 +1,71 @@
 # Changelog
 
-**Última atualização:** 01 de dezembro de 2025
-**Versão atual:** 0.0.7
+**Última atualização:** 02 de dezembro de 2025
+**Versão atual:** 0.0.8
 
 Todas as alterações notáveis neste projeto serão documentadas neste arquivo.
 
 O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/),
 e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
+
+---
+
+## [0.0.8] - 2025-12-02
+
+### ✨ Added
+- 🎨 **Theme Validator Pro v3.1.0**: Script de validação de temas completamente reescrito
+  - Detecção de 19+ categorias de problemas de tema
+  - Suporte a múltiplos frameworks (Tailwind, Material, Bootstrap, Chakra, Radix, etc.)
+  - Lista completa de 147+ cores CSS nomeadas
+  - Verificação de variáveis não-semânticas de design systems
+  - Detecção de CSS-in-JS, estilos inline JS, Canvas colors
+  - Saída em JSON para integração com CI/CD
+  - Opções avançadas: --fix, --strict, --json, --only, --ignore
+  - Sugestões de correção automática para cada problema
+  - Relatório detalhado com estatísticas por categoria e arquivo
+- **Novas verificações avançadas (v3.1.0):**
+  - Componentes críticos sem variáveis de tema (header, footer, nav)
+  - Gradientes não adaptáveis ao tema escuro
+  - Problemas de contraste em estados ativos/hover
+  - Variáveis de tema definidas mas não utilizadas
+
+### 🛠 Changed
+- Script validate-theme.js expandido de ~500 para ~900 linhas
+- Configuração modular e extensível via arquivo JSON
+- Melhor detecção de contextos onde cores hardcoded são aceitáveis
+- Padronizados footers em todas as páginas para usar componente reutilizável
+- Removidos footers hardcoded duplicados de sobre.html, landing.html e consulta.html
+- **Footer simplificado e compacto:**
+  - Layout horizontal em uma única linha
+  - Apenas links essenciais (Sobre, FAQ, Changelog, GitHub)
+  - Versão exibida como badge
+  - Melhor uso do espaço vertical
+- **Padronização completa de design:**
+  - Header agora usa variáveis --header-bg e --header-text (adapta ao tema)
+  - Footer usa --footer-bg e --footer-text (melhor contraste)
+  - Nav-link ativo usa --nav-active-bg e --nav-active-text (contraste corrigido no dark)
+  - Adicionadas animações globais padronizadas (fadeIn, slideIn, scaleIn, scroll-animate)
+  - Classes de hover effects (hover-lift, hover-scale, hover-glow)
+
+### 🐛 Fixed
+- Corrigidas 109 cores hardcoded em styles.css, script.js, landing.html e outros arquivos
+- Corrigida cor RGB em hover-glow (agora usa var(--primary-500))
+- Corrigida opacidade hardcoded em footer-link (agora usa var(--opacity-muted))
+- Adicionados comentários em variáveis reservadas para uso futuro
+- Substituídas cores nomeadas (white) por variáveis semânticas (--text-on-primary)
+- Substituídas cores rgba() por variáveis (--glass-bg, --glass-border, --glass-text)
+- Substituídas variáveis --neutral-* por variáveis semânticas (--text-muted, --border-muted, etc.)
+- Adicionadas novas variáveis CSS:
+  - Cores: --text-on-primary, --text-on-dark, --text-muted, --bg-muted
+  - Bordas: --border-muted, --border-light
+  - Glass: --glass-bg, --glass-bg-light, --glass-bg-subtle, --glass-border, --glass-text
+  - Overlay: --overlay-bg
+  - Z-index: --z-dropdown, --z-modal, --z-modal-backdrop, --z-tooltip, --z-toast, etc.
+  - Opacidade: --opacity-disabled, --opacity-muted, --opacity-subtle, --opacity-hover, --opacity-overlay
+- Adicionado suporte a @media (prefers-color-scheme: dark) para dark mode automático
+- Corrigido gradiente em .faq-hero para usar var(--bg-primary)
+- Corrigido toast em script.js para usar variáveis CSS
+- Corrigidos z-index hardcoded para usar variáveis (--z-modal, --z-modal-backdrop)
 
 ---
 

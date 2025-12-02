@@ -74,6 +74,9 @@
             --bg-tertiary: #334155;
             --text-primary: #f1f5f9;
             --text-secondary: #cbd5e1;
+            --text-on-primary: #ffffff;
+            --text-on-dark: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.1);
             --primary-500: #38bdf8;
             --primary-600: #0ea5e9;
         }
@@ -81,7 +84,7 @@
         body {
             font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
             line-height: 1.6;
-            color: var(--neutral-800);
+            color: var(--text-primary);
             background: linear-gradient(135deg, var(--primary-50) 0%, var(--primary-100) 100%);
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
@@ -124,7 +127,7 @@
             align-items: center;
             gap: 0.5rem;
             padding: 0.5rem 1rem;
-            background: rgba(255, 255, 255, 0.9);
+            background: var(--bg-primary, rgba(255, 255, 255, 0.9));
             border-radius: 9999px;
             font-size: 0.875rem;
             font-weight: 600;
@@ -146,7 +149,7 @@
             font-size: clamp(2.5rem, 5vw, 4rem);
             font-weight: 900;
             line-height: 1.1;
-            color: var(--neutral-900);
+            color: var(--text-primary);
             margin-bottom: 1.5rem;
             animation: fadeInUp 0.8s ease-out 0.2s both;
         }
@@ -160,7 +163,7 @@
 
         .hero-description {
             font-size: clamp(1.125rem, 2vw, 1.5rem);
-            color: var(--neutral-600);
+            color: var(--text-secondary);
             max-width: 800px;
             margin: 0 auto 3rem;
             animation: fadeInUp 0.8s ease-out 0.4s both;
@@ -191,7 +194,7 @@
 
         .btn-primary {
             background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
-            color: white;
+            color: var(--text-on-primary, #fff);
         }
 
         .btn-primary:hover {
@@ -200,20 +203,20 @@
         }
 
         .btn-secondary {
-            background: white;
+            background: var(--bg-primary, #fff);
             color: var(--primary-700);
             border: 2px solid var(--primary-600);
         }
 
         .btn-secondary:hover {
             background: var(--primary-600);
-            color: white;
+            color: var(--text-on-primary, #fff);
         }
 
         /* Features Section */
         .features {
             padding: 5rem 1rem;
-            background: white;
+            background: var(--bg-primary, #fff);
         }
 
         .container {
@@ -240,13 +243,13 @@
         .section-title {
             font-size: clamp(2rem, 4vw, 3rem);
             font-weight: 800;
-            color: var(--neutral-900);
+            color: var(--text-primary);
             margin-bottom: 1rem;
         }
 
         .section-description {
             font-size: 1.25rem;
-            color: var(--neutral-600);
+            color: var(--text-secondary);
             max-width: 700px;
             margin: 0 auto;
         }
@@ -261,7 +264,7 @@
             padding: 2rem;
             background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
             border-radius: var(--radius-xl);
-            border: 1px solid var(--neutral-200);
+            border: 1px solid var(--border-color, #e5e7eb);
             transition: all 0.3s ease;
         }
 
@@ -278,19 +281,19 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
+            color: var(--text-on-primary, #fff);
             margin-bottom: 1.5rem;
         }
 
         .feature-title {
             font-size: 1.5rem;
             font-weight: 700;
-            color: var(--neutral-900);
+            color: var(--text-primary);
             margin-bottom: 0.75rem;
         }
 
         .feature-description {
-            color: var(--neutral-600);
+            color: var(--text-secondary);
             line-height: 1.7;
         }
 
@@ -298,7 +301,7 @@
         .stats {
             padding: 5rem 1rem;
             background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-800) 100%);
-            color: white;
+            color: var(--text-on-primary, #fff);
         }
 
         .stats-grid {
@@ -317,7 +320,7 @@
             font-size: 3.5rem;
             font-weight: 900;
             margin-bottom: 0.5rem;
-            background: rgba(255, 255, 255, 0.2);
+            background: var(--glass-bg, rgba(255, 255, 255, 0.2));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -325,14 +328,14 @@
 
         .stat-label {
             font-size: 1.125rem;
-            opacity: 0.95;
+            opacity: var(--opacity-overlay, 0.95);
             font-weight: 500;
         }
 
         /* CTA Section */
         .cta {
             padding: 5rem 1rem;
-            background: white;
+            background: var(--bg-primary, #fff);
         }
 
         .cta-content {
@@ -348,20 +351,20 @@
         .cta-title {
             font-size: clamp(2rem, 4vw, 3rem);
             font-weight: 800;
-            color: var(--neutral-900);
+            color: var(--text-primary);
             margin-bottom: 1rem;
         }
 
         .cta-description {
             font-size: 1.25rem;
-            color: var(--neutral-700);
+            color: var(--text-secondary);
             margin-bottom: 2rem;
         }
 
         /* Footer */
         .footer {
-            background: var(--neutral-900);
-            color: white;
+            background: var(--bg-tertiary, #1e293b);
+            color: var(--text-on-dark, #fff);
             padding: 3rem 1rem 2rem;
         }
 
@@ -378,7 +381,7 @@
         }
 
         .footer-description {
-            color: var(--neutral-300);
+            color: var(--text-secondary);
             margin-bottom: 2rem;
             max-width: 600px;
             margin-left: auto;
@@ -387,7 +390,7 @@
 
         .footer-disclaimer {
             padding: 1.5rem;
-            background: rgba(255, 255, 255, 0.05);
+            background: var(--glass-bg, rgba(255, 255, 255, 0.05));
             border-radius: var(--radius-lg);
             margin-bottom: 2rem;
             color: var(--warning-500);
@@ -404,19 +407,19 @@
         }
 
         .footer-link {
-            color: var(--neutral-300);
+            color: var(--text-secondary);
             text-decoration: none;
             transition: color 0.3s ease;
         }
 
         .footer-link:hover {
-            color: white;
+            color: var(--text-on-dark, #fff);
         }
 
         .footer-copy {
             padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--neutral-400);
+            border-top: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
+            color: var(--text-tertiary);
             font-size: 0.875rem;
         }
 
@@ -740,33 +743,15 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-logo">⚖️ Inelegis</div>
-            <p class="footer-description">
-                Sistema não oficial desenvolvido por servidor para uso de servidores dos TREs. Ferramenta auxiliar
-                baseada em dados públicos.
-            </p>
+    <!-- Footer será renderizado aqui -->
+    <div id="footer-placeholder"></div>
 
-            <div class="footer-disclaimer">
-                <strong>⚠️ AVISO IMPORTANTE:</strong><br>
-                Este sistema é uma ferramenta auxiliar e NÃO SUBSTITUI a consulta direta na legislação atualizada.
-                As informações podem estar desatualizadas. Sempre confirme na legislação vigente e nas orientações
-                oficiais mais recentes antes de tomar decisões definitivas.
-            </div>
-
-            <div class="footer-links">
-                <a href="https://github.com/rkvasne/ineleg-app/blob/main/CHANGELOG.md" class="footer-link" target="_blank">Changelog</a>
-                <a href="https://github.com/rkvasne/ineleg-app/blob/main/docs/MAINTENANCE.md" class="footer-link" target="_blank">Manutenção</a>
-                <a href="https://github.com/rkvasne/inelegis-app" class="footer-link" target="_blank">GitHub</a>
-            </div>
-
-            <div class="footer-copy">
-                &copy; 2025 Inelegis. Todos os direitos reservados.
-            </div>
-        </div>
-    </footer>
+    <!-- Components & Theme Manager -->
+    <script src="js/components.js?v=0.0.8"></script>
+    <script src="js/theme-manager.js?v=0.0.8"></script>
+    <script>
+        Components.init('landing');
+    </script>
 
     <!-- Intersection Observer Script -->
     <script>
