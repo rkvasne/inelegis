@@ -7,6 +7,9 @@
 
 import { debugLog } from '../utils/core-utils.js';
 
+import { ArtigoFormatter } from '../utils/formatters.js';
+import { ExceptionValidator } from '../utils/exceptions.js';
+
 // Dependencies (assuming global or passed) - In a full module system these would be imports
 // For now, we wrap access to them
 const getDataNormalizer = () => {
@@ -14,15 +17,8 @@ const getDataNormalizer = () => {
     return null;
 };
 
-const getArtigoFormatter = () => {
-    if (typeof window !== 'undefined' && window.ArtigoFormatter) return window.ArtigoFormatter;
-    return null; // Should ideally throw or mock
-};
+// Removed getArtigoFormatter/getExceptionValidator shims as we now import them
 
-const getExceptionValidator = () => {
-    if (typeof window !== 'undefined' && window.ExceptionValidator) return window.ExceptionValidator;
-    return null;
-};
 
 /**
  * Filtra a lista de exceções para manter apenas as do MESMO artigo consultado
@@ -60,9 +56,7 @@ export function buscarInelegibilidadePorLeiEArtigo(codigoLei, numeroArtigo) {
         return null;
     }
 
-    const ArtigoFormatter = getArtigoFormatter();
     const DataNormalizer = getDataNormalizer();
-    const ExceptionValidator = getExceptionValidator();
 
     if (!DataNormalizer) {
         console.error('DataNormalizer não disponível');

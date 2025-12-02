@@ -28,25 +28,25 @@ const ArtigoFormatter = {
    */
   formatar(valor) {
     if (!valor || typeof valor !== 'string') return valor;
-    
+
     let formatado = valor.trim();
-    
+
     // 1. Normalizar espaços
     formatado = formatado.replace(/\s+/g, ' ');
-    
+
     // 2. Formatar parágrafo: §1 -> §1º
     formatado = formatado.replace(
       /(?:§|\u00A7|\uFFFD)\s*(\d+)(?!\s*(?:º|\u00BA|\uFFFD))/g,
       '§$1º'
     );
     formatado = formatado.replace(/\bpar[aá]grafo\s*(\d+)/gi, '§$1º');
-    
+
     // 3. Normalizar c/c
     formatado = formatado.replace(/(?<!\/)(cc|CC|C\/c|c\/C)(?!\/)/g, 'c/c');
-    
+
     // 4. Normalizar vírgulas
     formatado = formatado.replace(/\s*,\s*/g, ', ');
-    
+
     // 5. Formatar alíneas: a -> "a"
     formatado = formatado.replace(
       /(?<!["\'])([a-z])(?=\s*(?:,|$|\s))/gi,
@@ -55,7 +55,7 @@ const ArtigoFormatter = {
         return `"${letra.toLowerCase()}"`;
       }
     );
-    
+
     return formatado;
   },
 
@@ -64,7 +64,7 @@ const ArtigoFormatter = {
    */
   processar(artigo) {
     const artigoLimpo = String(artigo || '').trim();
-    
+
     const resultado = {
       original: artigoLimpo,
       artigo: '',
@@ -228,3 +228,5 @@ const ArtigoFormatter = {
 if (typeof window !== 'undefined') {
   window.ArtigoFormatter = ArtigoFormatter;
 }
+
+export { ArtigoFormatter };

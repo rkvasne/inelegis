@@ -6,6 +6,9 @@
   "scripts": {
     "build": "node scripts/build.js",
     "lint": "node scripts/lint.js",
+    "test:coverage": "node scripts/test.js --coverage",
+    "etl": "node scripts/etl-generate-json.js && node scripts/build-search-index.js",
+    "load:redis": "node scripts/redis-loader.js",
     "lint:fix": "node scripts/lint.js --fix",
     "test": "node scripts/test.js",
     "test:unit": "node tests/formatters.test.js && node tests/exceptions.test.js",

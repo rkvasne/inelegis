@@ -7,6 +7,14 @@
 
 ## Log de Sessão / Últimas Atualizações
 
+### 01/02/2026 - Recuperação de Dados Legais (Data Recovery)
+- **Feito:**
+  - Recuperação integral da base de dados a partir do `tabela-oficial.docx` (restaurando "Código Penal").
+  - Criação de novo pipeline ETL (`etl-docx.js`) autossuficiente (extração XML automática).
+  - Eliminação da dependência de conversão PDF->XML instável.
+  - Atualização do `redis-loader.js` para suportar nova estrutura JSON.
+  - Limpeza de scripts legados e arquivos temporários.
+
 ### 01/02/2026 - Refatoração do Core JS (Modularização)
 - **Feito:**
   - Decomposição do `script.js` em módulos ES6 (`search-logic`, `ui-events`, `dom-manipulation`, `article-builder`).

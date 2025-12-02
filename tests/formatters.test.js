@@ -29,10 +29,12 @@ const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
 
-const formatterCode = fs.readFileSync(
+let formatterCode = fs.readFileSync(
   path.join(__dirname, '../src/js/utils/formatters.js'),
   'utf8'
 );
+// Remove ES6 export for VM execution
+formatterCode = formatterCode.replace(/export\s+\{.*?\};?/g, '');
 
 const sandbox = { window: {}, console };
 vm.createContext(sandbox);

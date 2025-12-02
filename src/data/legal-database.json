@@ -1,0 +1,890 @@
+{
+  "meta": {
+    "version": "2.0.0",
+    "date": "2026-02-02T03:09:36.627Z",
+    "source": "DOCX Oficial (Recuperado)",
+    "total_entries": 51
+  },
+  "data": [
+    {
+      "codigo": "CP",
+      "norma": "Arts. 121, 121-A, 122, §1º a § 7º,123 a 127",
+      "excecoes": [
+        "Art. 121, § 3º",
+        "Art. 122, caput"
+      ],
+      "crime": "Crimes contra a vida (9)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": [
+          "1",
+          "7",
+          "121",
+          "121-A",
+          "122",
+          "123",
+          "124",
+          "125",
+          "126",
+          "127"
+        ]
+      }
+    },
+    {
+      "codigo": "CP",
+      "norma": "Art.129, § 2º c.c. § 12 eArt.129, § 3º c.c. § 12 Art.148, § 1º, IV",
+      "excecoes": [],
+      "crime": "Crime hediondo (7)",
+      "observacao": "crime definido como hediondo pelaLei 13.142, de 06/07/2015 e pela Lei 14.811/2024, de 12/01/24",
+      "estruturado": {
+        "artigos": [
+          "1",
+          "2",
+          "3",
+          "12",
+          "129",
+          "148"
+        ]
+      }
+    },
+    {
+      "codigo": "CP",
+      "norma": "193547133739Art.149",
+      "excecoes": [],
+      "crime": "Crime de redução à condição análoga à de escravo e contra dignidade sexual (8 e 9)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": [
+          "193547133739149"
+        ]
+      }
+    },
+    {
+      "codigo": "CP",
+      "norma": "Art. 149-A, caput, I a V, c.c. § 1º, II",
+      "excecoes": [],
+      "crime": "Crime hediondo (7)",
+      "observacao": "crime definido como hediondo pela Lei 14.811/2024, de 12/01/24",
+      "estruturado": {
+        "artigos": [
+          "1",
+          "149-A"
+        ]
+      }
+    },
+    {
+      "codigo": "CP",
+      "norma": "Arts. 155, 157, 158, 159, 160, 162,163, 168, 168-A, 171, 172, 173, 174,175, 177, 178, 180, 180-A e 184",
+      "excecoes": [
+        "Art. 163, caput",
+        "Art. 163, parágrafo único, IV",
+        "Art. 175, caput, e 175, I e II",
+        "Art. 177, § 2º",
+        "Art. 180, § 3º",
+        "Art. 184, §4º"
+      ],
+      "crime": "Crimes contra o patrimônio (1 e 2)",
+      "observacao": "entendimento firmado pelo TSE no Recurso Especial Eleitoral nº 145-94.2016.6.24.0074/SC.",
+      "estruturado": {
+        "artigos": [
+          "155",
+          "157",
+          "158",
+          "159",
+          "160",
+          "162",
+          "163",
+          "168",
+          "168-A",
+          "171",
+          "172",
+          "173",
+          "174",
+          "175",
+          "177",
+          "178",
+          "180",
+          "180-A",
+          "184"
+        ]
+      }
+    },
+    {
+      "codigo": "CP",
+      "norma": "Arts. 213 a 220, 223, 227 a 231-A",
+      "excecoes": [
+        "Art. 216-A",
+        "Art. 216-B"
+      ],
+      "crime": "Crimes contra a dignidade sexual (9)",
+      "observacao": "Arts. 214, 216, 217, 219, 220, 223, 231 e231-A revogados pela Lei 11.106, de 28/03/2005, Lei 12.015, de 07/08/2009, Lei 13.344/16, de 06/10/2016.",
+      "estruturado": {
+        "artigos": [
+          "213",
+          "214",
+          "215",
+          "216",
+          "217",
+          "218",
+          "219",
+          "220",
+          "223",
+          "227",
+          "228",
+          "229",
+          "230",
+          "231"
+        ]
+      }
+    },
+    {
+      "codigo": "CP",
+      "norma": "Arts. 267, 270, 271, 272, 273,274, 275, 276, 277, 278 e 280",
+      "excecoes": [
+        "Art. 267, § 2º",
+        "Art. 270, § 2º",
+        "Art. 271, parágrafo único",
+        "Art. 272, § 2º",
+        "Art. 273, § 2º",
+        "Art. 278, parágrafo único",
+        "Art. 280, parágrafo único"
+      ],
+      "crime": "Crimes contra a saúde pública (3)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": [
+          "267",
+          "270",
+          "271",
+          "272",
+          "273",
+          "274",
+          "275",
+          "276",
+          "277",
+          "278",
+          "280"
+        ]
+      }
+    },
+    {
+      "codigo": "CP",
+      "norma": "Art. 288 e 288-A",
+      "excecoes": [],
+      "crime": "Crimes praticados por quadrilha ou bando(10)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": [
+          "288",
+          "288-A"
+        ]
+      }
+    },
+    {
+      "codigo": "CP",
+      "norma": "Arts. 289, 290, 291, 293, 294, 296 a300, 303, 304, 305, 306, 309, 310,311 e 311-A",
+      "excecoes": [
+        "Art. 289, § 2º",
+        "Art. 293, § 4º",
+        "Art. 304, nas figuras dos arts. 301 e302"
+      ],
+      "crime": "Crimes contra a fé pública (1)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": [
+          "289",
+          "290",
+          "291",
+          "293",
+          "294",
+          "296",
+          "300",
+          "303",
+          "304",
+          "305",
+          "306",
+          "309",
+          "310",
+          "311",
+          "311-A"
+        ]
+      }
+    },
+    {
+      "codigo": "CP",
+      "norma": "Arts. 312, 313, 313-A, 314, 316, 317,318, 322, 323, 325, 328, 332, 333,334, 334-A, 337, 337-A,  337-B,337-C, 338, 339, 342, 343, 344,347, parágrafo único, 351, 353, 355,356, 357, 359-C, 359-D, 359-G e359-H",
+      "excecoes": [
+        "Art. 312, § 2º",
+        "Art. 317, § 2º",
+        "Art. 323, caput e § 1º",
+        "Art. 325, caput e § 1º",
+        "Art. 328, caput",
+        "Art. 347, caput",
+        "Art. 351, caput e § 4º"
+      ],
+      "crime": "Crimes contra a administração pública (1)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": [
+          "312",
+          "313",
+          "313-A",
+          "314",
+          "316",
+          "317",
+          "318",
+          "322",
+          "323",
+          "325",
+          "328",
+          "332",
+          "333",
+          "334",
+          "334-A",
+          "337",
+          "337-A",
+          "337-B",
+          "337-C",
+          "338",
+          "339",
+          "342",
+          "343",
+          "344",
+          "347",
+          "351",
+          "353",
+          "355",
+          "356",
+          "357",
+          "359-C",
+          "359-D",
+          "359-G",
+          "359-H"
+        ]
+      }
+    },
+    {
+      "codigo": "CPM",
+      "norma": "Arts. 205 e 207",
+      "excecoes": [],
+      "crime": "Crimes contra a vida (9)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": [
+          "205",
+          "207"
+        ]
+      }
+    },
+    {
+      "codigo": "CPM",
+      "norma": "Art. 208",
+      "excecoes": [],
+      "crime": "Crimes hediondos (7)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": [
+          "208"
+        ]
+      }
+    },
+    {
+      "codigo": "CPM",
+      "norma": "Arts. 232 a 235, 238 e 239",
+      "excecoes": [],
+      "crime": "Crimes contra a dignidade sexual (9)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": [
+          "232",
+          "233",
+          "234",
+          "235",
+          "238",
+          "239"
+        ]
+      }
+    },
+    {
+      "codigo": "CPM",
+      "norma": "Arts. 240 a 254, 257 a 267",
+      "excecoes": [
+        "Arts. 262, 263, 264 e 265 quandocombinados com o art. 266 (crimes culposos)"
+      ],
+      "crime": "Crimes contra o patrimônio (1 e 2)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": [
+          "240",
+          "241",
+          "242",
+          "243",
+          "244",
+          "245",
+          "246",
+          "247",
+          "248",
+          "249",
+          "250",
+          "251",
+          "252",
+          "253",
+          "254",
+          "257",
+          "258",
+          "259",
+          "260",
+          "261",
+          "262",
+          "263",
+          "264",
+          "265",
+          "266",
+          "267"
+        ]
+      }
+    },
+    {
+      "codigo": "CPM",
+      "norma": "Arts. 290 a 297",
+      "excecoes": [
+        "Art. 292, § 2º",
+        "Art. 293, § 3º",
+        "Art. 294, parágrafo único",
+        "Art. 295, parágrafo único",
+        "Art. 296, parágrafo único"
+      ],
+      "crime": "Crimes contra o meio ambiente e a saúde pública (3)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": [
+          "290",
+          "291",
+          "292",
+          "293",
+          "294",
+          "295",
+          "296",
+          "297"
+        ]
+      }
+    },
+    {
+      "codigo": "CPM",
+      "norma": "Arts. 298 a 322 e 324 a 354",
+      "excecoes": [
+        "Art. 303, § 3º",
+        "Art. 332, § 2º",
+        "Art. 352, parágrafo único"
+      ],
+      "crime": "Crimes contra a administração pública e a fé pública (1)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": [
+          "298",
+          "299",
+          "300",
+          "301",
+          "302",
+          "303",
+          "304",
+          "305",
+          "306",
+          "307",
+          "308",
+          "309",
+          "310",
+          "311",
+          "312",
+          "313",
+          "314",
+          "315",
+          "316",
+          "317",
+          "318",
+          "319",
+          "320",
+          "321",
+          "322",
+          "324",
+          "325",
+          "326",
+          "327",
+          "328",
+          "329",
+          "330",
+          "331",
+          "332",
+          "333",
+          "334",
+          "335",
+          "336",
+          "337",
+          "338",
+          "339",
+          "340",
+          "341",
+          "342",
+          "343",
+          "344",
+          "345",
+          "346",
+          "347",
+          "348",
+          "349",
+          "350",
+          "351",
+          "352",
+          "353",
+          "354"
+        ]
+      }
+    },
+    {
+      "codigo": "CPM",
+      "norma": "Art. 400",
+      "excecoes": [],
+      "crime": "Crimes contra a vida (9)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": [
+          "400"
+        ]
+      }
+    },
+    {
+      "codigo": "CPM",
+      "norma": "Arts. 401 e 402",
+      "excecoes": [],
+      "crime": "Crimes hediondos (7)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": [
+          "401",
+          "402"
+        ]
+      }
+    },
+    {
+      "codigo": "CPM",
+      "norma": "Arts. 404 a 406",
+      "excecoes": [],
+      "crime": "Crimes contra o patrimônio (1 e 2)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": [
+          "404",
+          "405",
+          "406"
+        ]
+      }
+    },
+    {
+      "codigo": "CPM",
+      "norma": "Arts. 407 e 408",
+      "excecoes": [],
+      "crime": "Crimes contra a dignidade sexual (9)",
+      "observacao": "",
+      "estruturado": {
+        "artigos": [
+          "407",
+          "408"
+        ]
+      }
+    },
+    {
+      "codigo": "CLT",
+      "norma": "",
+      "excecoes": [
+        "Crimes contra a fé pública (1)"
+      ],
+      "crime": "",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "codigo": "LEI_7661",
+      "norma": "",
+      "excecoes": [
+        "Crimes previstos na lei que regula a falência (2)Obs.: Lei revogada pela Lei 11.101, de 09/02/2005"
+      ],
+      "crime": "",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "codigo": "LEI_201",
+      "norma": "",
+      "excecoes": [
+        "Crimes contra a administração pública (1)"
+      ],
+      "crime": "",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "codigo": "LEI_105",
+      "norma": "",
+      "excecoes": [
+        "Crimes contra o sistema financeiro (2)"
+      ],
+      "crime": "",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "codigo": "LEI_1521",
+      "norma": "",
+      "excecoes": [
+        "Crimes contra a economia popular (1)"
+      ],
+      "crime": "",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "codigo": "LEI_2889",
+      "norma": "Art. 2º, caput, quando se referir ao art. 1º, alínea “e”Art. 3º, caput, quando se referirao art. 1º, alínea “e”",
+      "excecoes": [
+        "Crimes hediondos (7)"
+      ],
+      "crime": "",
+      "observacao": "",
+      "estruturado": {
+        "artigos": [
+          "1",
+          "2",
+          "3"
+        ]
+      }
+    },
+    {
+      "codigo": "LEI_4591",
+      "norma": "",
+      "excecoes": [
+        "Crimes contra a economia popular (1)"
+      ],
+      "crime": "",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "codigo": "LEI_4595",
+      "norma": "",
+      "excecoes": [
+        "Crimes contra o sistema financeiro (2)"
+      ],
+      "crime": "",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "codigo": "LEI_4728",
+      "norma": "",
+      "excecoes": [
+        "Crimes contra o mercado de capitais (2)"
+      ],
+      "crime": "",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "codigo": "CE",
+      "norma": "",
+      "excecoes": [
+        "Crimes eleitorais (4)"
+      ],
+      "crime": "",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "codigo": "LEI_4898",
+      "norma": "",
+      "excecoes": [
+        "Crimes de abuso de autoridade (5)"
+      ],
+      "crime": "",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "codigo": "CE",
+      "norma": "",
+      "excecoes": [
+        "Crimes eleitorais (4)"
+      ],
+      "crime": "",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "codigo": "LEI_6368",
+      "norma": "",
+      "excecoes": [
+        "Crimes de tráfico de entorpecentes (7)Obs.: Lei revogada pela Lei 11.343, de 23/08/2006"
+      ],
+      "crime": "",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "codigo": "LEI_6385",
+      "norma": "",
+      "excecoes": [
+        "Crimes contra o mercado de capitais (2)"
+      ],
+      "crime": "",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "codigo": "LEI_6766",
+      "norma": "",
+      "excecoes": [
+        "Crimes contra a administração pública (1)"
+      ],
+      "crime": "",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "codigo": "CE",
+      "norma": "",
+      "excecoes": [
+        "Crimes eleitorais (4)"
+      ],
+      "crime": "",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "codigo": "LEI_7492",
+      "norma": "",
+      "excecoes": [
+        "Crimes contra o sistema financeiro (2)"
+      ],
+      "crime": "",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "codigo": "LEI_7716",
+      "norma": "",
+      "excecoes": [
+        "Crimes de racismo (7)"
+      ],
+      "crime": "",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "codigo": "LEI_8069",
+      "norma": "",
+      "excecoes": [
+        "Crimes contra a dignidade sexual (9)"
+      ],
+      "crime": "",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "codigo": "LEI_8137",
+      "norma": "Art. 7º, parágrafo único",
+      "excecoes": [
+        "Crimes contra a economia popular (1)Obs.: arts. 5º e 6º revogados pelas Lei 12.529, de 30/11/2011"
+      ],
+      "crime": "",
+      "observacao": "",
+      "estruturado": {
+        "artigos": [
+          "7"
+        ]
+      }
+    },
+    {
+      "codigo": "LEI_8176",
+      "norma": "",
+      "excecoes": [
+        "Crimes contra a economia popular e contra o patrimônio (1)"
+      ],
+      "crime": "",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "codigo": "LEI_8666",
+      "norma": "",
+      "excecoes": [
+        "Crimes contra a administração pública (1)"
+      ],
+      "crime": "",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "codigo": "LEI_9455",
+      "norma": "",
+      "excecoes": [
+        "Crimes de tortura (7)"
+      ],
+      "crime": "",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "codigo": "CE",
+      "norma": "",
+      "excecoes": [
+        "Crimes eleitorais (4)"
+      ],
+      "crime": "",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "codigo": "LEI_9605",
+      "norma": "Art. 38, parágrafo único Art. 38-A, parágrafo único Art. 40, § 3ºArt. 41, parágrafo único Art. 54, § 1ºArt. 56, § 3ºArt. 62, parágrafo único Art. 67, parágrafo único Art. 68, parágrafo únicoArt. 69-A, § 1º",
+      "excecoes": [
+        "Crimes contra o meio ambiente (3)"
+      ],
+      "crime": "",
+      "observacao": "",
+      "estruturado": {
+        "artigos": [
+          "1",
+          "3",
+          "38",
+          "38-A",
+          "40",
+          "41",
+          "54",
+          "56",
+          "62",
+          "67",
+          "68",
+          "69-A"
+        ]
+      }
+    },
+    {
+      "codigo": "LEI_9613",
+      "norma": "",
+      "excecoes": [
+        "Crimes de lavagem ou ocultação de bens, direitos e valores (6)"
+      ],
+      "crime": "",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "codigo": "LEI_10826",
+      "norma": "",
+      "excecoes": [
+        "Crime hediondo (7)"
+      ],
+      "crime": "",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "codigo": "LEI_11101",
+      "norma": "",
+      "excecoes": [
+        "Crimes previstos na lei que regula a falência (2)"
+      ],
+      "crime": "",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "codigo": "LEI_11343",
+      "norma": "Art. 33, § 3º",
+      "excecoes": [
+        "Crimes de tráfico de entorpecentes (7)"
+      ],
+      "crime": "",
+      "observacao": "",
+      "estruturado": {
+        "artigos": [
+          "3",
+          "33"
+        ]
+      }
+    },
+    {
+      "codigo": "LEI_12850",
+      "norma": "",
+      "excecoes": [
+        "Crimes Praticados por OrganizaçãoCriminosa (10)"
+      ],
+      "crime": "",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    },
+    {
+      "codigo": "LEI_13260",
+      "norma": "",
+      "excecoes": [
+        "Crimes de terrorismo"
+      ],
+      "crime": "",
+      "observacao": "",
+      "estruturado": {
+        "artigos": []
+      }
+    }
+  ]
+}
