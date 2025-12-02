@@ -148,7 +148,7 @@
   --text-secondary: #a1a1aa;
   --text-tertiary: #6b7280;
   --text-muted: #4b5563;
-  --text-on-primary: #0f172a;
+  --text-on-primary: #ffffff;  /* Branco para texto sobre fundos coloridos */
   --text-on-dark: #ffffff;
   --border-color: #4b5563;
   --border-muted: #374151;
