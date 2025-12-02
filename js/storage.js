@@ -49,7 +49,15 @@ const SecureStorage = {
         return null;
       }
 
-      const data = JSON.parse(item);
+      // Tentar fazer parse do JSON
+      let data;
+      try {
+        data = JSON.parse(item);
+      } catch (parseError) {
+        // Se não for JSON válido, pode ser um valor legado (string simples)
+        // Ignorar silenciosamente e retornar null
+        return null;
+      }
       
       // Validar estrutura
       if (!data.timestamp || !data.expiry || !data.value) {
@@ -118,7 +126,12 @@ const SecureStorage = {
       keys.forEach(key => {
         if (key.startsWith(this.PREFIX)) {
           const shortKey = key.replace(this.PREFIX, '');
-          this.getItem(shortKey); // Isso remove automaticamente se expirado
+          try {
+            this.getItem(shortKey); // Isso remove automaticamente se expirado
+          } catch (itemError) {
+            // Ignorar erros individuais de itens
+            // Pode ser um item legado ou corrompido
+          }
         }
       });
     } catch (error) {
