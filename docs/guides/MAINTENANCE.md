@@ -129,13 +129,13 @@ NÃO geram inelegibilidade:
 2. Baixar: Tabela de Inelegibilidade mais recente (PDF/XML)
 3. Documentar: Data de publicação e versão
 
-### Passo 2: Comparar com data.js
-1. Abrir arquivo: `data.js`
+### Passo 2: Comparar com `src/js/data.js`
+1. Abrir arquivo: `src/js/data.js`
 2. Comparar `tabelaInelegibilidade` com tabela oficial
 3. Verificar `leisDisponiveis` por novas leis
 4. Documentar todas as mudanças
 
-### Passo 3: Atualizar data.js
+### Passo 3: Atualizar `src/js/data.js`
 ```javascript
 // Estrutura que deve ser mantida:
 {
@@ -153,7 +153,11 @@ NÃO geram inelegibilidade:
 3. Garantir que nenhum artigo foi duplicado
 4. Revisar formatação
 
-### Passo 5: Documentar
+### Passo 5: Sincronizar bundle
+1. Execute `npm run sync:js` (ou `npm run dev`) para espelhar `src/js/data.js` em `public/assets/js/data.js`
+2. Confirme que o bundle gerado foi versionado corretamente
+
+### Passo 6: Documentar
 1. Adicionar nota de data de atualização em `observacao`
 2. Atualizar este arquivo (MANUTENCAO.md)
 3. Criar versão de release se houver mudanças significativas
@@ -166,7 +170,7 @@ NÃO geram inelegibilidade:
 ### A cada 3 meses
 
 - [ ] Acessar site TRE-SP para verificar atualizações
-- [ ] Comparar data.js com tabela oficial
+- [ ] Comparar `src/js/data.js` com tabela oficial
 - [ ] Validar 10% dos artigos aleatoriamente
 - [ ] Executar testes de busca com artigos atualizados
 - [ ] Revisar logs para erros de validação
@@ -275,7 +279,7 @@ Todos os problemas identificados anteriormente foram corrigidos:
 
 ## 📝 Notas Operacionais
 
-1. **Dados é crítico:** Qualquer erro em data.js afeta diretamente usuários
+1. **Dados é crítico:** Qualquer erro em `src/js/data.js` afeta diretamente usuários
 2. **Teste sempre:** Antes de publicar mudanças, teste com casos reais
 3. **Documente bem:** Observações ajudam futuros mantenedores
 4. **Backup regular:** Faça backup antes de qualquer grande atualização

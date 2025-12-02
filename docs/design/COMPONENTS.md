@@ -1,7 +1,7 @@
 # 🧩 Guia de Componentes Reutilizáveis
 
-**Última atualização:** 01 de dezembro de 2025  
-**Versão:** 0.0.7
+**Última atualização:** 02 de dezembro de 2025  
+**Versão:** 0.0.9
 
 Este documento descreve o sistema de componentes reutilizáveis do Inelegis.
 
@@ -36,10 +36,12 @@ O sistema de componentes foi criado para:
     <div id="footer-placeholder"></div>
 
     <!-- Scripts -->
-    <script src="js/components.js"></script>
-    <script src="js/theme-manager.js"></script>
+    <script src="/assets/js/modules/components.js" defer></script>
+    <script src="/assets/js/modules/theme-manager.js" defer></script>
     <script>
-        Components.init('nome-da-pagina');
+        window.addEventListener('DOMContentLoaded', () => {
+            Components.init('nome-da-pagina');
+        });
     </script>
 </body>
 ```
@@ -53,6 +55,8 @@ Components.init('consulta');
 ```
 
 > **Nota:** A navegação principal é renderizada dentro do próprio header.
+
+> **Fluxo pós-migração:** Sempre edite `src/js/modules/components.js` (fonte) e execute `npm run sync:js` ou `npm run dev` para sincronizar o bundle público (`public/assets/js/modules/components.js`) antes de testar/commitar.
 
 ---
 

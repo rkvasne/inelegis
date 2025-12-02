@@ -74,6 +74,10 @@ docs/
 - [Changelog](../CHANGELOG.md)
 - [Voltar para a Raiz](../README.md)
 
+## ✏️ Fluxo de Edição
+
+Sempre edite os arquivos-fonte dentro de `src/` (ex.: `src/js/modules/*`, `src/js/data.js`). Os bundles em `public/` e `assets/` são gerados automaticamente; rode `npm run sync:js` ou `npm run dev` para refletir suas mudanças antes de validar ou abrir PR.
+
 ## 🆕 Novidades v0.0.9
 
 - ✅ Documentação reestruturada por domínio (`design/`, `guides/`, `operations/`, `history/`).
