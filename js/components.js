@@ -98,15 +98,25 @@ const Components = (() => {
             <footer class="footer">
                 <div class="container">
                     <div class="footer-content">
-                        <div class="footer-text">
-                            © ${currentYear} Inelegis. Sistema de Consulta de Inelegibilidade.
+                        <div class="footer-main">
+                            <div class="footer-brand">
+                                <strong>⚖️ Inelegis</strong>
+                                <span class="footer-version">v0.0.8</span>
+                            </div>
+                            <p class="footer-description">
+                                Sistema de Consulta de Inelegibilidade Eleitoral
+                            </p>
                         </div>
+                        
                         <div class="footer-links">
                             <a href="sobre" class="footer-link">Sobre</a>
                             <a href="faq" class="footer-link">FAQ</a>
-                            <a href="https://github.com" class="footer-link" target="_blank" rel="noopener noreferrer">
-                                GitHub
-                            </a>
+                            <a href="https://github.com/rkvasne/ineleg-app/blob/main/CHANGELOG.md" class="footer-link" target="_blank" rel="noopener noreferrer">Changelog</a>
+                            <a href="https://github.com/rkvasne/ineleg-app" class="footer-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+                        </div>
+                        
+                        <div class="footer-bottom">
+                            <p class="footer-copy">© ${currentYear} Inelegis • Ferramenta auxiliar não oficial</p>
                         </div>
                     </div>
                 </div>

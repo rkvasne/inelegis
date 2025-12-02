@@ -1,7 +1,7 @@
 # Guia de Desenvolvimento
 
-**Última atualização:** 01 de dezembro de 2025
-**Versão atual:** 0.0.7
+**Última atualização:** 02 de dezembro de 2025
+**Versão atual:** 0.0.8
 
 Este arquivo fornece orientações técnicas para desenvolvedores trabalhando neste repositório.
 
@@ -224,6 +224,87 @@ Os dados de inelegibilidade em `data.js` mapeiam diretamente para:
 
 ---
 
+## 🎨 Validação de Temas
+
+### Theme Validator Pro v3.0.0
+
+Script avançado para detectar problemas de aplicação de temas CSS em qualquer projeto.
+
+```bash
+# Validação básica
+npm run validate:theme
+
+# Com sugestões de correção
+node scripts/validate-theme.js --fix
+
+# Apenas erros (ignorar warnings)
+node scripts/validate-theme.js --min-severity error
+
+# Saída JSON para CI/CD
+node scripts/validate-theme.js --json
+
+# Verificar apenas arquivos CSS
+node scripts/validate-theme.js --only "**/*.css"
+
+# Modo verbose com detalhes
+node scripts/validate-theme.js --verbose --fix
+```
+
+### Categorias de Problemas Detectados
+
+**Erros (devem ser corrigidos):**
+- Cores hexadecimais hardcoded (`#fff`, `#000000`)
+- Cores nomeadas básicas (`white`, `black`, `red`, `blue`)
+- Estilos inline com cores
+- JavaScript inline styles com cores
+- Tailwind classes com cores hardcoded (`bg-[#fff]`)
+- Dark mode sem variáveis CSS
+
+**Warnings (recomendado corrigir):**
+- Cores RGB/RGBA hardcoded
+- Cores HSL/HSLA hardcoded
+- Cores nomeadas estendidas (`coral`, `salmon`, etc.)
+- Variáveis não-semânticas (`--neutral-500`, `--gray-200`)
+- Gradientes com cores hardcoded
+- `!important` em propriedades de cor
+- CSS-in-JS com cores hardcoded
+- SVG com cores inline
+
+**Info (considerar):**
+- Opacidade hardcoded
+- Canvas/WebGL colors
+- Z-index hardcoded
+
+### Frameworks Suportados
+
+O script detecta variáveis não-semânticas de:
+- Tailwind CSS (`--slate-500`, `--gray-200`)
+- Material Design (`--md-blue-500`)
+- Bootstrap (`--bs-gray-500`)
+- Chakra UI (`--chakra-colors-gray-500`)
+- Ant Design (`--ant-blue-5`)
+- Radix UI (`--gray-9`, `--blue-a9`)
+- Shadcn/ui
+- IBM Carbon
+- Open Props
+
+### Configuração Customizada
+
+Crie `.themevalidator.json` na raiz do projeto:
+
+```json
+{
+  "ignoreDirs": ["legacy", "vendor"],
+  "ignoreFiles": ["*.generated.css"],
+  "severityDefaults": {
+    "hex-color": "warning",
+    "named-color-basic": "error"
+  }
+}
+```
+
+---
+
 ## 🧪 Testes
 
 ### Testes Unitários
@@ -243,7 +324,9 @@ node tests/exceptions.test.js
 
 - **formatters.test.js**: 10 testes para formatação de artigos
 - **exceptions.test.js**: 10 testes para validação de exceções
-- **Cobertura total**: ~60% dos módulos críticos
+- **theme-manager.test.js**: 10 testes para gerenciamento de tema
+- **components.test.js**: 25 testes para componentes reutilizáveis
+- **Cobertura total**: ~80% dos módulos críticos
 
 ### Adicionar Novos Testes
 
@@ -289,4 +372,4 @@ node tests/exceptions.test.js
 
 ---
 
-**Última atualização:** 01/12/2024
+**Última atualização:** 02/12/2025

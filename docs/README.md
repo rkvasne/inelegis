@@ -15,6 +15,11 @@ Bem-vindo à documentação oficial do projeto **Inelegis**.
 ### 🔧 Manutenção
 - **[Guia de Manutenção](MAINTENANCE.md)** - Atualização de dados, validação e deploy
 
+### 🎨 Design e Temas
+- **[Theme Validator](THEME-VALIDATOR.md)** - Documentação completa do validador de temas
+- **[Componentes](COMPONENTS.md)** - Sistema de componentes reutilizáveis
+- **[Decisões de Design](DESIGN-DECISIONS.md)** - Arquitetura e padrões de design
+
 ### 🔄 Refatoração
 - **[Plano de Refatoração](REFACTORING-PLAN.md)** - Detalhes da refatoração v0.0.6
 - **[Guia de Implementação](IMPLEMENTATION-GUIDE.md)** - Como implementar as melhorias

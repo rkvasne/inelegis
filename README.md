@@ -17,8 +17,10 @@
     <a href="https://github.com/rkvasne/inelegis-app/issues">Solicitar Feature</a>
   </p>
 
-  [![Version](https://img.shields.io/badge/version-0.0.7-blue.svg?style=for-the-badge)](https://semver.org)
+  [![Version](https://img.shields.io/badge/version-0.0.8-blue.svg?style=for-the-badge)](https://semver.org)
   [![License](https://img.shields.io/badge/license-MIT-green.svg?style=for-the-badge)](LICENSE)
+  [![Tests](https://img.shields.io/badge/tests-100%25-success.svg?style=for-the-badge)](tests/)
+  [![Theme](https://img.shields.io/badge/theme-validated-success.svg?style=for-the-badge)](docs/THEME-VALIDATOR.md)
 | Recurso | Descrição |
 |---------|-----------|
 | 🔍 **Busca Inteligente** | Pesquise por número do artigo, lei, descrição ou palavras-chave com feedback instantâneo. |
@@ -29,6 +31,8 @@
 | 🌙 **Tema Escuro** | Suporte nativo a modo escuro com alternância automática e persistência de preferência. |
 | 🧩 **Componentes Reutilizáveis** | Sistema modular de componentes para fácil manutenção e consistência visual. |
 | 📊 **Histórico de Consultas** | Rastreie suas pesquisas com estatísticas e exportação de dados. |
+| 🎨 **Theme Validator** | Validação automatizada de temas com 23+ categorias de problemas detectados. |
+| ✨ **Animações Globais** | Sistema completo de animações padronizadas e hover effects. |
 
 ---
 
