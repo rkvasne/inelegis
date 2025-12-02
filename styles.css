@@ -2265,7 +2265,7 @@ code {
 /* Search Box */
 .faq-search {
   max-width: 600px;
-  margin: -1.95rem auto var(--space-8); /* Desceu 20px */
+  margin: -2.575rem auto var(--space-8); /* Subiu 10px */
   padding: 0 var(--space-4);
   position: relative;
   z-index: 10;
