@@ -1,9 +1,10 @@
-// Registro do Service Worker para cache
+// Desregistrar Service Worker antigo (se existir)
 if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js')
-            .then(registration => console.log('SW registrado:', registration.scope))
-            .catch(err => console.log('Falha no SW:', err));
+    navigator.serviceWorker.getRegistrations().then(registrations => {
+        registrations.forEach(registration => {
+            registration.unregister();
+            console.log('SW desregistrado');
+        });
     });
 }
 
