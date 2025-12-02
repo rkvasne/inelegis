@@ -61,12 +61,17 @@ const ThemeManager = (() => {
         const html = document.documentElement;
         
         console.log('🎨 Applying theme:', theme);
+        console.log('📋 Current classes before:', html.className);
         
+        // IMPORTANTE: Sempre remover a classe primeiro
+        html.classList.remove('dark-theme');
+        
+        // Adicionar apenas se for dark
         if (theme === THEME_DARK) {
             html.classList.add('dark-theme');
-        } else {
-            html.classList.remove('dark-theme');
         }
+        
+        console.log('✅ Current classes after:', html.className);
 
         // Salvar no localStorage
         try {
