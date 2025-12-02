@@ -3,7 +3,7 @@
 ---
 
 **Última atualização:** 01 de dezembro de 2025  
-**Versão:** 0.0.6
+**Versão:** 0.0.7
 
 ---
 
