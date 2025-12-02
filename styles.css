@@ -197,52 +197,17 @@
 
 /* ========================================
    DARK MODE AUTOMÁTICO (prefers-color-scheme)
+   DESATIVADO - Tema controlado apenas por JavaScript
    ======================================== */
 
-@media (prefers-color-scheme: dark) {
-  :root:not(.light-theme) {
-    --bg-primary: #0f172a;
-    --bg-secondary: #1e293b;
-    --bg-tertiary: #334155;
-    --bg-muted: #404040;
-    --text-primary: #f1f5f9;
-    --text-secondary: #cbd5e1;
-    --text-tertiary: #94a3b8;
-    --text-muted: #737373;
-    --border-color: #334155;
-    --border-muted: #525252;
-    --border-light: #262626;
-    --overlay-bg: rgba(0, 0, 0, 0.7);
-    --glass-bg: rgba(255, 255, 255, 0.1);
-    --glass-bg-light: rgba(30, 41, 59, 0.95);
-    --glass-bg-subtle: rgba(30, 41, 59, 0.8);
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
-    --primary-50: rgba(56, 189, 248, 0.1);
-    --primary-100: rgba(56, 189, 248, 0.15);
-    --primary-200: rgba(56, 189, 248, 0.25);
-    --primary-500: #38bdf8;
-    --primary-600: #0ea5e9;
-    --success-500: #34d399;
-    --warning-500: #fbbf24;
-    --danger-500: #f87171;
-    --success-bg: rgba(52, 211, 153, 0.15);
-    --success-text: #6ee7b7;
-    --warning-bg: rgba(251, 191, 36, 0.15);
-    --warning-text: #fcd34d;
-    --danger-bg: rgba(248, 113, 113, 0.15);
-    --danger-text: #fca5a5;
-    --info-bg: rgba(96, 165, 250, 0.15);
-    --info-text: #93c5fd;
-    --header-bg: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-    --header-text: var(--text-primary);
-    --footer-bg: var(--bg-primary);
-    --footer-text: var(--text-secondary);
-    --nav-active-bg: rgba(56, 189, 248, 0.15);
-    --nav-active-text: var(--primary-500);
-  }
-}
+/* 
+   NOTA: A media query prefers-color-scheme foi removida para evitar
+   conflitos com o sistema de temas controlado por JavaScript.
+   O tema é gerenciado exclusivamente pela classe .dark-theme no <html>.
+   
+   Se quiser reativar o modo automático, descomente o código abaixo
+   e use a classe .light-theme para forçar tema claro.
+*/
 
 body {
   font-family: var(--font-sans);
