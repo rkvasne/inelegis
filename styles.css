@@ -145,34 +145,34 @@
   --bg-secondary: #1e293b;
   --bg-tertiary: #2d3748;
   --bg-muted: #19212e;
-  --text-primary: #d1d5db;
-  --text-secondary: #a1a1aa;
-  --text-tertiary: #6b7280;
-  --text-muted: #4b5563;
-  --text-on-primary: #ffffff;  /* Branco para texto sobre fundos coloridos */
+  --text-primary: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --text-tertiary: #64748b;
+  --text-muted: #475569;
+  --text-on-primary: #ffffff;
   --text-on-dark: #ffffff;
-  --border-color: #4b5563;
-  --border-muted: #374151;
+  --border-color: #334155;
+  --border-muted: #1e293b;
   --border-light: #2d3748;
   --overlay-bg: rgba(0, 0, 0, 0.7);
   --glass-bg: rgba(255, 255, 255, 0.1);
   --glass-bg-light: rgba(30, 41, 59, 0.95);
   --glass-bg-subtle: rgba(30, 41, 59, 0.8);
-  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-border: rgba(255, 255, 255, 0.15);
   --glass-text: rgba(255, 255, 255, 0.95);
-  --shadow-sm: 0px 4px 8px -1px hsl(0 0% 0% / 0.10);
-  --shadow-md: 0px 4px 8px -1px hsl(0 0% 0% / 0.10), 0px 2px 4px -2px hsl(0 0% 0% / 0.10);
-  --shadow-lg: 0px 4px 8px -1px hsl(0 0% 0% / 0.10), 0px 4px 6px -2px hsl(0 0% 0% / 0.10);
+  --shadow-sm: 0px 4px 8px -1px hsl(0 0% 0% / 0.15);
+  --shadow-md: 0px 4px 8px -1px hsl(0 0% 0% / 0.15), 0px 2px 4px -2px hsl(0 0% 0% / 0.15);
+  --shadow-lg: 0px 4px 8px -1px hsl(0 0% 0% / 0.15), 0px 4px 6px -2px hsl(0 0% 0% / 0.15);
 
-  /* Cores primárias para dark mode */
-  --primary-50: rgba(52, 211, 153, 0.1);
-  --primary-100: rgba(52, 211, 153, 0.15);
-  --primary-200: rgba(52, 211, 153, 0.25);
-  --primary-300: #6ee7b7;
-  --primary-400: #34d399;
-  --primary-500: #34d399;  /* Verde claro para dark */
-  --primary-600: #22c55e;
-  --primary-700: #10b981;
+  /* Cores primárias para dark mode - Azul Corporativo */
+  --primary-50: rgba(56, 189, 248, 0.1);
+  --primary-100: rgba(56, 189, 248, 0.15);
+  --primary-200: rgba(56, 189, 248, 0.25);
+  --primary-300: #7dd3fc;
+  --primary-400: #38bdf8;
+  --primary-500: #38bdf8;  /* Azul claro para dark */
+  --primary-600: #0ea5e9;
+  --primary-700: #0284c7;
   
   /* Cores de status */
   --success-500: #4ade80;
@@ -191,17 +191,17 @@
   --danger-bg: rgba(239, 68, 68, 0.15);
   --danger-border: #ef4444;
   --danger-text: #fca5a5;
-  --info-bg: rgba(96, 165, 250, 0.15);
-  --info-border: #60a5fa;
-  --info-text: #93c5fd;
+  --info-bg: rgba(56, 189, 248, 0.15);
+  --info-border: #38bdf8;
+  --info-text: #7dd3fc;
   
   /* Header e Footer - Tema Escuro */
   --header-bg: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
   --header-text: var(--text-primary);
   --footer-bg: var(--bg-primary);
   --footer-text: var(--text-secondary);
-  --nav-active-bg: #374151;
-  --nav-active-text: #34d399;
+  --nav-active-bg: #334155;
+  --nav-active-text: #38bdf8;
   
   /* Transições */
   --transition-fast: 150ms ease-in-out;

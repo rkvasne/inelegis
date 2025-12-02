@@ -141,15 +141,35 @@ const ThemeManager = (() => {
      * @param {string} theme - Tema atual
      */
     function updateFavicon(theme) {
-        const favicon = document.querySelector('link[rel="icon"]');
-        const shortcutIcon = document.querySelector('link[rel="shortcut icon"]');
-        
         // logo-dark.ico = escudo escuro (para tema claro)
         // logo-claro.ico = escudo claro (para tema escuro)
         const faviconSrc = theme === THEME_DARK ? 'logo-claro.ico' : 'logo-dark.ico';
         
-        if (favicon) favicon.href = faviconSrc;
-        if (shortcutIcon) shortcutIcon.href = faviconSrc;
+        // Atualizar favicon existente
+        let favicon = document.querySelector('link[rel="icon"]');
+        let shortcutIcon = document.querySelector('link[rel="shortcut icon"]');
+        
+        // Se não existir, criar
+        if (!favicon) {
+            favicon = document.createElement('link');
+            favicon.rel = 'icon';
+            favicon.type = 'image/x-icon';
+            document.head.appendChild(favicon);
+        }
+        
+        if (!shortcutIcon) {
+            shortcutIcon = document.createElement('link');
+            shortcutIcon.rel = 'shortcut icon';
+            shortcutIcon.type = 'image/x-icon';
+            document.head.appendChild(shortcutIcon);
+        }
+        
+        // Forçar atualização adicionando timestamp para evitar cache
+        const cacheBuster = '?v=' + Date.now();
+        favicon.href = faviconSrc + cacheBuster;
+        shortcutIcon.href = faviconSrc + cacheBuster;
+        
+        console.log('🎨 Favicon updated to:', faviconSrc);
     }
 
     /**
