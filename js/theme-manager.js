@@ -83,6 +83,9 @@ const ThemeManager = (() => {
 
         // Atualizar ícone do botão
         updateToggleButton(theme);
+        
+        // Atualizar logo conforme tema
+        updateLogo(theme);
     }
 
     /**
@@ -114,6 +117,18 @@ const ThemeManager = (() => {
             sunIcon?.classList.remove('active');
             moonIcon?.classList.add('active');
         }
+    }
+
+    /**
+     * Atualiza o logo conforme o tema
+     * @param {string} theme - Tema atual
+     */
+    function updateLogo(theme) {
+        const logo = document.getElementById('header-logo');
+        if (!logo) return;
+        
+        const logoSrc = theme === THEME_DARK ? 'logo-dark.png' : 'logo-claro.png';
+        logo.src = logoSrc;
     }
 
     /**

@@ -263,7 +263,11 @@ class Builder {
       'landing.html',
       'styles.css',
       'script.js',
-      'data.js'
+      'data.js',
+      'logo.png',
+      'logo-claro.png',
+      'logo-dark.png',
+      'favicon.ico'
     ];
 
     for (const file of filesToCopy) {
