@@ -16,22 +16,135 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css?v=0.0.8">
     
-    <!-- Inicializar tema antes do carregamento (evitar flash) -->
+    <!-- Inicializar tema antes do carregamento -->
     <script>
         (function() {
             const savedTheme = localStorage.getItem('inelegis_theme');
             const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
             const theme = savedTheme || systemTheme;
-            
-            // Sempre remover primeiro para garantir estado limpo
             document.documentElement.classList.remove('dark-theme');
-            
-            // Adicionar apenas se for dark
             if (theme === 'dark') {
                 document.documentElement.classList.add('dark-theme');
             }
         })();
     </script>
+    
+    <style>
+        /* Toast Styles */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .toast {
+            padding: 12px 20px;
+            border-radius: var(--radius-lg, 8px);
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: slideIn 0.3s ease;
+            max-width: 350px;
+        }
+        .toast.success { border-left: 4px solid var(--success-500); }
+        .toast.error { border-left: 4px solid var(--danger-500); }
+        .toast.warning { border-left: 4px solid var(--warning-500); }
+        .toast.info { border-left: 4px solid var(--primary-500); }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+        
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9998;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background: var(--bg-primary);
+            border-radius: var(--radius-xl, 12px);
+            padding: 24px;
+            max-width: 450px;
+            width: 90%;
+            box-shadow: var(--shadow-xl);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+        .modal-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .modal-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-icon.warning { background: rgba(251, 191, 36, 0.1); color: var(--warning-500); }
+        .modal-icon.info { background: rgba(14, 165, 233, 0.1); color: var(--primary-500); }
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .modal-body {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+        .modal-footer {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+        
+        /* Landing Link */
+        .landing-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--primary-600);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .landing-link:hover {
+            color: var(--primary-700);
+            text-decoration: underline;
+        }
+    </style>
 </head>
 
 <body>
@@ -46,21 +159,26 @@
                 <p>Dados oficiais e status de conformidade</p>
             </div>
             <div class="card-body">
-
                 <div class="alert alert-info" role="region" aria-labelledby="info-title">
                     <div class="alert-icon" aria-hidden="true">
                         <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
-                            </path>
+                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
                     </div>
                     <div class="alert-content">
                         <h3 id="info-title">Base de Dados Oficial</h3>
-                        <p>Tabela exemplificativa disponibilizada pelo TRE-SP - atualizada em
-                            outubro de 2024 - revisada
-                            pela CRE-RO em 02/06/2025</p>
+                        <p>Tabela exemplificativa disponibilizada pelo TRE-SP - atualizada em outubro de 2024 - revisada pela CRE-RO em 02/06/2025</p>
                     </div>
+                </div>
+                
+                <div class="mt-4" style="text-align: center;">
+                    <a href="landing.html" class="landing-link">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        Conheça mais sobre o Inelegis
+                    </a>
                 </div>
             </div>
         </div>
@@ -76,18 +194,15 @@
                     <input type="checkbox" id="confirmacao" class="checkbox-input">
                     <label for="confirmacao" class="checkbox-label">
                         Estou ciente de que este é um sistema não oficial e que devo sempre
-                        confirmar as informações na
-                        legislação vigente e nas orientações oficiais mais recentes antes de
-                        tomar decisões definitivas.
+                        confirmar as informações na legislação vigente e nas orientações oficiais 
+                        mais recentes antes de tomar decisões definitivas.
                     </label>
                 </div>
 
                 <div class="flex justify-center">
                     <button id="acessarBtn" class="btn btn-primary" disabled aria-describedby="confirmacao">
-                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                         </svg>
                         Acessar Sistema de Consulta
                     </button>
@@ -98,9 +213,79 @@
 
     <!-- Footer será renderizado aqui -->
     <div id="footer-placeholder"></div>
+    
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+    
+    <!-- Modal de Aviso -->
+    <div id="modal-overlay" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-icon warning">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                    </svg>
+                </div>
+                <h3 class="modal-title" id="modal-title">Atenção</h3>
+            </div>
+            <div class="modal-body" id="modal-body">
+                Mensagem do modal
+            </div>
+            <div class="modal-footer">
+                <button id="modal-cancel" class="btn btn-secondary">Cancelar</button>
+                <button id="modal-confirm" class="btn btn-primary">Confirmar</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Script -->
     <script>
+        // Toast function
+        function showToast(message, type = 'info', duration = 3000) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    ${type === 'success' ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>' :
+                      type === 'error' ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>' :
+                      type === 'warning' ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>' :
+                      '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>'}
+                </svg>
+                <span>${message}</span>
+            `;
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'slideOut 0.3s ease forwards';
+                setTimeout(() => toast.remove(), 300);
+            }, duration);
+        }
+        
+        // Modal functions
+        const modalOverlay = document.getElementById('modal-overlay');
+        const modalTitle = document.getElementById('modal-title');
+        const modalBody = document.getElementById('modal-body');
+        const modalCancel = document.getElementById('modal-cancel');
+        const modalConfirm = document.getElementById('modal-confirm');
+        
+        function showModal(title, message, onConfirm, showCancel = true) {
+            modalTitle.textContent = title;
+            modalBody.textContent = message;
+            modalCancel.style.display = showCancel ? 'block' : 'none';
+            modalOverlay.classList.add('active');
+            
+            modalConfirm.onclick = () => {
+                modalOverlay.classList.remove('active');
+                if (onConfirm) onConfirm();
+            };
+        }
+        
+        modalCancel.onclick = () => modalOverlay.classList.remove('active');
+        modalOverlay.onclick = (e) => {
+            if (e.target === modalOverlay) modalOverlay.classList.remove('active');
+        };
+
         // Controle do checkbox e botão
         const checkbox = document.getElementById('confirmacao');
         const button = document.getElementById('acessarBtn');
@@ -110,15 +295,15 @@
         const termosAceitos = localStorage.getItem('ineleg_termos_aceitos') === 'true';
 
         if (termosAceitos) {
-            // Se já aceitou, permitir acesso direto
             checkbox.checked = true;
             button.disabled = false;
             if (consultaLink) {
                 consultaLink.style.pointerEvents = 'auto';
                 consultaLink.style.opacity = '1';
             }
+            // Mostrar toast de boas-vindas
+            setTimeout(() => showToast('Bem-vindo de volta! Termos já aceitos.', 'success'), 500);
         } else {
-            // Bloquear link de consulta no menu
             if (consultaLink) {
                 consultaLink.style.pointerEvents = 'none';
                 consultaLink.style.opacity = '0.5';
@@ -126,7 +311,12 @@
                 consultaLink.setAttribute('aria-disabled', 'true');
                 consultaLink.addEventListener('click', function (e) {
                     e.preventDefault();
-                    alert('Por favor, leia e concorde com os termos antes de acessar o sistema de consulta.');
+                    showModal(
+                        'Termos não aceitos',
+                        'Por favor, leia e concorde com os termos de uso antes de acessar o sistema de consulta.',
+                        null,
+                        false
+                    );
                 });
             }
         }
@@ -135,13 +325,13 @@
             button.disabled = !this.checked;
             button.setAttribute('aria-disabled', String(!this.checked));
 
-            // Atualizar estado do link de consulta
             if (consultaLink) {
                 if (this.checked) {
                     consultaLink.style.pointerEvents = 'auto';
                     consultaLink.style.opacity = '1';
                     consultaLink.style.cursor = 'pointer';
                     consultaLink.setAttribute('aria-disabled', 'false');
+                    showToast('Termos aceitos! Você pode acessar o sistema.', 'success');
                 } else {
                     consultaLink.style.pointerEvents = 'none';
                     consultaLink.style.opacity = '0.5';
@@ -153,27 +343,43 @@
 
         button.addEventListener('click', function () {
             if (checkbox.checked) {
-                // Salvar consentimento no localStorage
                 localStorage.setItem('ineleg_termos_aceitos', 'true');
-                window.location.href = 'consulta';
+                showToast('Redirecionando para o sistema...', 'info');
+                setTimeout(() => {
+                    window.location.href = 'consulta';
+                }, 500);
             }
         });
 
+        // Verificar se foi redirecionado da consulta
+        const redirectReason = sessionStorage.getItem('ineleg_redirect_reason');
+        if (redirectReason === 'terms_not_accepted') {
+            sessionStorage.removeItem('ineleg_redirect_reason');
+            setTimeout(() => {
+                showModal(
+                    'Acesso Negado',
+                    'Você precisa aceitar os termos de uso antes de acessar o sistema de consulta. Por favor, marque a caixa de confirmação abaixo.',
+                    null,
+                    false
+                );
+            }, 300);
+        }
+
         // Atalhos de teclado
         document.addEventListener('keydown', function (e) {
-            // Alt + D para documentação
             if (e.altKey && e.key === 'd') {
                 e.preventDefault();
                 window.open('docs/README.md', '_blank');
             }
-
-            // Ctrl + Enter para acessar (se checkbox marcado)
             if (e.ctrlKey && e.key === 'Enter') {
                 if (checkbox.checked) {
                     e.preventDefault();
                     localStorage.setItem('ineleg_termos_aceitos', 'true');
                     window.location.href = 'consulta';
                 }
+            }
+            if (e.key === 'Escape') {
+                modalOverlay.classList.remove('active');
             }
         });
     </script>
@@ -182,7 +388,6 @@
     <script src="js/components.js?v=0.0.8"></script>
     <script src="js/theme-manager.js?v=0.0.8"></script>
     <script>
-        // Inicializar componentes antes do DOMContentLoaded
         Components.init('index');
     </script>
 </body>
