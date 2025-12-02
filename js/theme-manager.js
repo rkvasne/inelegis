@@ -106,10 +106,16 @@ const ThemeManager = (() => {
      * Anexa event listeners
      */
     function attachEventListeners() {
-        const button = document.getElementById('themeToggle');
-        if (button) {
-            button.addEventListener('click', toggleTheme);
-        }
+        // Usar setTimeout para garantir que o DOM está pronto
+        setTimeout(() => {
+            const button = document.getElementById('themeToggle');
+            if (button) {
+                button.addEventListener('click', toggleTheme);
+                console.log('✅ Theme toggle button attached');
+            } else {
+                console.warn('⚠️ Theme toggle button not found');
+            }
+        }, 100);
     }
 
     /**
