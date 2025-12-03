@@ -3220,13 +3220,25 @@ code {
   color: var(--text-primary);
 }
 
+.history-summary-card .history-card-subtitle--text {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.history-summary-card .history-card-subtitle--empty {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
 
 .stat-card {
   display: flex;
   align-items: center;
   gap: var(--space-3);
   padding: var(--space-4);
-  background: var(--bg-primary);
+  background: var(--bg-secondary);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
@@ -3236,7 +3248,7 @@ code {
 
 .stat-card:hover {
   border-color: var(--primary-300);
-  background: var(--bg-secondary);
+  background: var(--bg-tertiary);
 }
 
 .stat-icon {
@@ -3258,12 +3270,12 @@ code {
 }
 
 .stat-card.inelegivel {
-  background: var(--bg-primary);
+  background: var(--bg-secondary);
   border-color: var(--border-color);
 }
 
 .stat-card.elegivel {
-  background: var(--bg-primary);
+  background: var(--bg-secondary);
   border-color: var(--border-color);
 }
 
@@ -3318,11 +3330,16 @@ code {
   justify-content: space-between;
   align-items: center;
   padding: var(--space-3);
-  background: var(--bg-primary);
+  background: var(--bg-secondary);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   font-size: 0.95rem;
   box-shadow: var(--shadow-sm);
+}
+
+.stats-item:hover {
+  background: var(--bg-tertiary);
+  border-color: var(--primary-300);
 }
 
 .stats-count {
@@ -3409,14 +3426,18 @@ code {
     border-color: var(--border-color);
 }
 
-.dark-theme .history-summary-card,
-.dark-theme .stats-item {
+.dark-theme .history-summary-card {
   background: var(--bg-primary);
   border-color: var(--border-color);
 }
 
+.dark-theme .stats-item {
+  background: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
 .dark-theme .stat-card {
-  background: var(--bg-primary);
+  background: var(--bg-secondary);
   border-color: var(--border-color);
 }
 
@@ -3426,12 +3447,12 @@ code {
 }
 
 .dark-theme .stat-card.inelegivel {
-  background: var(--bg-primary);
+  background: var(--bg-secondary);
   border-color: var(--border-color);
 }
 
 .dark-theme .stat-card.elegivel {
-  background: var(--bg-primary);
+  background: var(--bg-secondary);
   border-color: var(--border-color);
 }
 

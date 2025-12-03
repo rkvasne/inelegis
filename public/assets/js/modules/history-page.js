@@ -122,7 +122,12 @@ const HistoryPage = (() => {
         const html = cards.map(card => {
             const subtitleClasses = ['history-card-subtitle'];
             if (card.isText) {
-                subtitleClasses.push('history-card-subtitle--text');
+                const isEmpty = card.value === 'Sem registros';
+                if (isEmpty) {
+                    subtitleClasses.push('history-card-subtitle--empty');
+                } else {
+                    subtitleClasses.push('history-card-subtitle--text');
+                }
             } else {
                 subtitleClasses.push('history-card-value');
             }

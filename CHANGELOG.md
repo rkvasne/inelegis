@@ -289,3 +289,9 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 ### 🐛 Fixed
 - Removido `margin-top: var(--space-5)` de cards sequenciais dentro de `.history-panels`, corrigindo desalinhamento que empurrava o card "Consultas Frequentes" para baixo.
 - Ajustada a disposição para manter os cards "Consultas Recentes" e "Consultas Frequentes" lado a lado em desktop (`grid-template-columns: repeat(2, 1fr)`), com fallback para 1 coluna em mobile.
+ - Texto de "Última consulta" sem registros passa a usar fonte menor e cor secundária para manter proporcionalidade com os demais cards do resumo.
+
+### 🛠 Changed
+- Cards estatísticos da seção "Estatísticas" (`.stat-card`) agora possuem fundo distinto do card pai (`var(--bg-secondary)`) e hover sutil (`var(--bg-tertiary)`), melhorando contraste.
+- Itens das listas "Leis Mais Consultadas" e "Artigos em Destaque" (`.stats-item`) usam fundo distinto (`var(--bg-secondary)`) e hover sutil com realce de borda (`border-color: var(--primary-300)`).
+- Páginas públicas atualizadas para exibir `v0.1.1` em badges e querystrings de assets.
