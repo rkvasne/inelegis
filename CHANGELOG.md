@@ -1,7 +1,7 @@
 # Changelog
 
-**Última atualização:** 02 de dezembro de 2025
-**Versão atual:** 0.1.0
+**Última atualização:** 03 de dezembro de 2025
+**Versão atual:** 0.1.1
 
 Todas as alterações notáveis neste projeto serão documentadas neste arquivo.
 
@@ -284,3 +284,9 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 - Pastas e arquivos de documentação redundantes em `dist/docs` e aliases de índice e changelog da documentação.
 
 ---
+## [0.1.1] - 2025-12-03
+
+### 🐛 Fixed
+- Removido `margin-top: var(--space-5)` de cards sequenciais dentro de `.history-panels`, corrigindo desalinhamento que empurrava o card "Consultas Frequentes" para baixo.
+- Ajustada a disposição para manter os cards "Consultas Recentes" e "Consultas Frequentes" lado a lado em desktop (`grid-template-columns: repeat(2, 1fr)`), com fallback para 1 coluna em mobile.
+- Definida altura fixa dos cabeçalhos dos cards para alinhamento perfeito (`height: 80px`), respeitando o `box-sizing`.
