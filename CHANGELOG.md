@@ -289,4 +289,3 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 ### 🐛 Fixed
 - Removido `margin-top: var(--space-5)` de cards sequenciais dentro de `.history-panels`, corrigindo desalinhamento que empurrava o card "Consultas Frequentes" para baixo.
 - Ajustada a disposição para manter os cards "Consultas Recentes" e "Consultas Frequentes" lado a lado em desktop (`grid-template-columns: repeat(2, 1fr)`), com fallback para 1 coluna em mobile.
-- Definida altura fixa dos cabeçalhos dos cards para alinhamento perfeito (`height: 80px`), respeitando o `box-sizing`.
