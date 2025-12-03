@@ -27,7 +27,7 @@ const path = require('path');
 const vm = require('vm');
 
 const exceptionCode = fs.readFileSync(
-  path.join(__dirname, '../js/exceptions.js'),
+  path.join(__dirname, '../src/js/modules/exceptions.js'),
   'utf8'
 );
 

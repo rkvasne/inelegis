@@ -30,7 +30,7 @@ const path = require('path');
 const vm = require('vm');
 
 const formatterCode = fs.readFileSync(
-  path.join(__dirname, '../js/formatters.js'),
+  path.join(__dirname, '../src/js/modules/formatters.js'),
   'utf8'
 );
 

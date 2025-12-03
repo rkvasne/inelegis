@@ -290,17 +290,39 @@ const HistoryPage = (() => {
         const card = document.createElement('div');
         card.className = modifier ? `stat-card ${modifier}` : 'stat-card';
 
-        const statValue = document.createElement('div');
-        statValue.className = 'stat-value';
-        statValue.textContent = value;
+        const icon = document.createElement('span');
+        icon.className = 'stat-icon';
+        icon.innerHTML = getStatIcon(modifier);
 
-        const statLabel = document.createElement('div');
+        const content = document.createElement('div');
+        content.className = 'stat-card-content';
+
+        const statLabel = document.createElement('span');
         statLabel.className = 'stat-label';
         statLabel.textContent = label;
 
-        card.appendChild(statValue);
-        card.appendChild(statLabel);
+        const statValue = document.createElement('strong');
+        statValue.className = 'stat-value';
+        statValue.textContent = value;
+
+        content.appendChild(statLabel);
+        content.appendChild(statValue);
+
+        card.appendChild(icon);
+        card.appendChild(content);
         return card;
+    }
+
+    function getStatIcon(modifier) {
+        if (modifier === 'inelegivel') {
+            return '<svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-12.728 12.728M5.636 5.636l12.728 12.728"/></svg>';
+        }
+
+        if (modifier === 'elegivel') {
+            return '<svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>';
+        }
+
+        return '<svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h16v16H4z"/></svg>';
     }
 
     function createStatsBlock(title, data) {

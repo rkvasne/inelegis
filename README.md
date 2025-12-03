@@ -130,6 +130,7 @@ inelegis-app/
 - ✅ **Histórico unificado** – `history/refatoracao-v0.0.6.md` concentra plano, execução e lições; `RELEASE-NOTES-v0.0.9.md` descreve este patch.
 - ✅ **Referências atualizadas** – scripts, README e `.env.example` passam a apontar para os novos caminhos.
 - ✅ **Patch release** – `package.json` e os badges refletem a versão `0.0.9`.
+- ✅ **Painel histórico refinado** – `historico.html` agora usa hero compacto e cards estatísticos com ícones alinhados à FAQ administrativa.
 
 ## Histórico de versões anteriores
 
@@ -172,6 +173,7 @@ A documentação completa está disponível na pasta [`docs/`](docs/).
 *   [🔧 Guia de Manutenção](docs/guides/MAINTENANCE.md)
 *   [📝 Release Notes v0.0.9](docs/history/RELEASE-NOTES-v0.0.9.md)
 *   [📘 Histórico da Refatoração](docs/history/refatoracao-v0.0.6.md)
+*   [🤖 Instruções para Copilotos](.github/copilot-instructions.md)
 
 ---
 

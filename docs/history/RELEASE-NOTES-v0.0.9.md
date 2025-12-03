@@ -14,6 +14,7 @@
 - ✅ Versão do projeto elevada para `0.0.9`, alinhando badge, `package.json` e notas públicas.
 - ✅ Tela `historico.html` criada para concentrar estatísticas, exportação e auditoria do histórico (admin), substituindo o painel lateral.
 - ✅ Melhorias contínuas: painel administrativo herdou o mesmo estilo dos cards da consulta, removeu o badge administrativo e mantém os botões na mesma linha do status para auditoria rápida.
+- ✅ Hero e cards estatísticos do histórico foram redesenhados com ícones e tipografia compacta alinhados à FAQ administrativa.
 - ✅ Landing page recebeu ajuste no gradiente do card CTA para preservar contraste no modo escuro.
 
 ---
