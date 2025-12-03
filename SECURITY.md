@@ -6,7 +6,7 @@ Atualmente, oferecemos suporte de segurança para as seguintes versões:
 
 | Versão | Suportada          |
 | ------ | ------------------ |
-| 0.0.9  | ✅ Sim             |
+| 0.1.0  | ✅ Sim             |
 | 0.0.8  | ❌ Não             |
 | < 0.0.8| ❌ Não             |
 
@@ -44,7 +44,7 @@ Incluir no relatório:
 
 ## Medidas de Segurança Implementadas
 
-### ✅ v0.0.9 (Atual)
+### ✅ v0.1.0 (Atual)
 
 - **XSS Prevention:** Sanitização completa de HTML
 - **CSP:** Content Security Policy implementado
@@ -52,6 +52,8 @@ Incluir no relatório:
 - **Input Validation:** Validação de todas as entradas
 - **Safe DOM Manipulation:** Sem uso direto de innerHTML
 - **Historico Admin Isolado:** Interface de auditoria acessível apenas por URL direta, sem links no menu público
+- **CORS Restrito:** APIs `analytics`, `dashboard` e `search-history` aceitam apenas origens permitidas
+- **Sugestões Sanitizadas:** Conteúdo de sugestões de artigos é inserido via `Sanitizer.safeInnerHTML`
 
 ### 🔐 Acesso Restrito ao Histórico Administrativo
 
@@ -141,4 +143,4 @@ Para questões de segurança:
 ---
 
 **Última atualização:** 02 de dezembro de 2025  
-**Versão:** 0.0.9
+**Versão:** 0.1.0

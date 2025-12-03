@@ -2,7 +2,7 @@
  * Search History Manager
  * Gerencia histórico de consultas do usuário
  * Sincroniza com Redis via API
- * @version 0.0.9
+ * @version 0.1.0
  */
 
 const SEARCH_HISTORY_DEBUG_ENABLED = (() => {

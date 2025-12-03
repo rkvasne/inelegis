@@ -33,9 +33,7 @@ const ALLOWED_ORIGINS = [
  * Valida origem da requisição (CORS)
  */
 function validateOrigin(origin) {
-    return ALLOWED_ORIGINS.includes(origin) || 
-           origin?.includes('inelegis') ||
-           process.env.NODE_ENV === 'development';
+    return ALLOWED_ORIGINS.includes(origin) || process.env.NODE_ENV === 'development';
 }
 
 /**
@@ -48,6 +46,22 @@ function validateEvent(event) {
     
     if (!['search', 'error', 'action'].includes(event.type)) {
         return false;
+    }
+    
+    if (event.type === 'search') {
+        if (!event.data || !event.data.lei || !event.data.artigo || !event.data.resultado) {
+            return false;
+        }
+    }
+    if (event.type === 'error') {
+        if (!event.data || !event.data.message) {
+            return false;
+        }
+    }
+    if (event.type === 'action') {
+        if (!event.data || !event.data.action) {
+            return false;
+        }
     }
     
     return true;

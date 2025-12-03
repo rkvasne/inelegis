@@ -19,7 +19,7 @@ function debugLog(...args) {
     }
 }
 
-// LIMPEZA AGRESSIVA DE CACHE - v0.0.9
+// LIMPEZA AGRESSIVA DE CACHE - v0.1.0
 (function() {
     // 1. Desregistrar TODOS os Service Workers
     if ('serviceWorker' in navigator) {
@@ -43,7 +43,7 @@ function debugLog(...args) {
         });
     }
     
-    debugLog('Limpeza de cache executada - v0.0.9');
+    debugLog('Limpeza de cache executada - v0.1.0');
 })();
 
 // Elementos DOM
@@ -62,8 +62,13 @@ const dataOcorrenciaExtincao = document.getElementById('dataOcorrenciaExtincao')
 // Verificar se está na página Consulta e se checkbox foi marcado
 function verificarAcessoConsulta() {
     if (window.location.pathname.includes('consulta') || window.location.href.includes('consulta')) {
-        const termosAceitos = localStorage.getItem('ineleg_termos_aceitos') === 'true';
-        if (!termosAceitos) {
+        let aceitos = false;
+        try {
+            aceitos = (typeof window !== 'undefined' && window.SecureStorage && window.SecureStorage.getItem('termos_aceitos') === true) || (typeof localStorage !== 'undefined' && localStorage.getItem('ineleg_termos_aceitos') === 'true');
+        } catch (e) {
+            aceitos = false;
+        }
+        if (!aceitos) {
             window.location.href = './';
             return false;
         }
@@ -968,7 +973,11 @@ function mostrarSugestoes(termo) {
             </div>`
         ).join('');
 
-        sugestoesDiv.innerHTML = sugestoesHtml;
+        if (typeof window !== 'undefined' && window.Sanitizer) {
+            window.Sanitizer.safeInnerHTML(sugestoesDiv, sugestoesHtml);
+        } else {
+            sugestoesDiv.innerHTML = sugestoesHtml;
+        }
         sugestoesDiv.classList.add('show');
     } else {
         esconderSugestoes();
@@ -1069,7 +1078,7 @@ function mostrarToast(msg, type = 'info') {
     };
 
     // Estrutura moderna do toast
-    toast.innerHTML = `
+    const html = `
         <div class="toast-content">
             <div class="toast-icon">
                 ${icons[type] || icons.info}
@@ -1077,6 +1086,11 @@ function mostrarToast(msg, type = 'info') {
             <div class="toast-message">${msg}</div>
         </div>
     `;
+    if (typeof window !== 'undefined' && window.Sanitizer) {
+        window.Sanitizer.safeInnerHTML(toast, html);
+    } else {
+        toast.innerHTML = html;
+    }
 
     document.body.appendChild(toast);
 

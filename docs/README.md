@@ -5,8 +5,7 @@ Bem-vindo à documentação oficial do projeto **Inelegis**.
 ## 🚀 Navegação Rápida
 
 ### 📖 Índice e Histórico
-- **[📚 Índice Completo](INDEX.md)** – atalho direto para este README
-- **[📝 Changelog da Documentação](CHANGELOG-DOCS.md)** – histórico de edições
+- **[📚 README (Índice principal)](README.md)** – este documento
 
 ### 🛠️ Guias
 - **[Guia de Desenvolvimento](guides/DEVELOPMENT.md)** – arquitetura, módulos, testes e padrões
@@ -25,9 +24,9 @@ Bem-vindo à documentação oficial do projeto **Inelegis**.
 
 ### 🗂️ Histórico e Release Notes
 - **[Refatoração v0.0.6](history/refatoracao-v0.0.6.md)** – contexto, plano e implementação
-- **[Release Notes v0.0.9](history/RELEASE-NOTES-v0.0.9.md)** – reorganização de documentação e atualização de paths
+- **[Release Notes v0.1.0](../CHANGELOG.md)** – consolidação de documentação e padronização
 - **[Release Notes v0.0.8](history/RELEASE-NOTES-v0.0.8.md)** – padronização completa de design
-- **[Resumo da sessão 02/12/2025](history/SESSION-SUMMARY-2025-12-02.md)** – métricas objetivas da virada para 0.0.9
+- **[Resumo da sessão 02/12/2025](history/SESSION-SUMMARY-2025-12-02.md)** – métricas da virada para 0.0.9
 - **[Template de Hotfix Crítico](history/templates/critical-hotfix-template.md)** – mensagem de commit para correções urgentes
 
 ### 📁 Referências
@@ -40,9 +39,7 @@ Bem-vindo à documentação oficial do projeto **Inelegis**.
 
 ```
 docs/
-├── README.md                # Este índice
-├── INDEX.md                 # Alias apontando para o README
-├── CHANGELOG-DOCS.md        # Histórico de edições
+├── README.md                # Índice principal
 │
 ├── design/                  # Sistema de design e temas
 │   ├── COMPONENTS.md
@@ -80,15 +77,14 @@ docs/
 
 Sempre edite os arquivos-fonte dentro de `src/` (ex.: `src/js/modules/*`, `src/js/data.js`). Os bundles em `public/` e `assets/` são gerados automaticamente; rode `npm run sync:js` ou `npm run dev` para refletir suas mudanças antes de validar ou abrir PR.
 
-## 🆕 Novidades v0.0.9
+## 🆕 Novidades v0.1.0
 
-- ✅ Documentação reestruturada por domínio (`design/`, `guides/`, `operations/`, `history/`).
-- ✅ Histórico consolidado em `history/refatoracao-v0.0.6.md` e novas release notes para 0.0.9.
-- ✅ Referências internas e scripts atualizados para os novos caminhos.
-- ✅ Versão do projeto elevada para 0.0.9.
-- ✅ Guia específico para agentes Copilot disponível em `.github/copilot-instructions.md` com fluxos e convenções do repositório.
+- ✅ Documentação consolidada e padronizada; remoção de duplicatas (`dist/docs`, `docs/INDEX.md`, `docs/CHANGELOG-DOCS.md`).
+- ✅ Links internos atualizados e verificados.
+- ✅ Versão do projeto elevada para 0.1.0.
+- ✅ Mantenedores e contribuidores seguem o fluxo único de documentação central.
 
 ---
 
 **Última atualização:** 02 de dezembro de 2025  
-**Versão:** 0.0.9
+**Versão:** 0.1.0

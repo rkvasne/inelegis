@@ -1,7 +1,7 @@
 /**
  * Theme Manager
  * Gerencia tema claro/escuro com persistência
- * @version 0.0.9
+ * @version 0.1.0
  */
 
 const THEME_DEBUG_ENABLED = (() => {

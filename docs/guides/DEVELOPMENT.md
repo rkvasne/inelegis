@@ -1,7 +1,7 @@
 # Guia de Desenvolvimento
 
 **Última atualização:** 02 de dezembro de 2025
-**Versão atual:** 0.0.9
+**Versão atual:** 0.1.0
 
 Este arquivo fornece orientações técnicas para desenvolvedores trabalhando neste repositório.
 
@@ -78,7 +78,7 @@ Como esta é uma aplicação frontend com sistema de build:
 - `buildLeiIndex()` - Constrói índices
 - `clearCache()` - Limpa cache
 
-**[modules/search-history.js](../src/js/modules/search-history.js)** - Histórico (v0.0.9):
+**[modules/search-history.js](../src/js/modules/search-history.js)** - Histórico (v0.1.0):
 - `add()` - Adiciona consulta (com detecção de duplicatas)
 - `getRecent()` - Obtém consultas recentes
 - `getFrequent()` - Obtém consultas frequentes
@@ -86,7 +86,7 @@ Como esta é uma aplicação frontend com sistema de build:
 - `clear()` / `remove()` - Intencionalmente desabilitados (logam um aviso e retornam `false`)
 - Persistência: histórico fica somente no Redis via `/api/search-history`; o front guarda apenas um `userId` em cookie (`inelegis_uid`) para correlacionar sessões, sem gravar dados sensíveis no `localStorage`.
 
-**[modules/history-page.js](../src/js/modules/history-page.js)** - Tela de Histórico/Admin (v0.0.9):
+**[modules/history-page.js](../src/js/modules/history-page.js)** - Tela de Histórico/Admin (v0.1.0):
 - `init()` - Inicializa página dedicada (`historico.html`).
 - `loadData()` - Sincroniza registros e estatísticas via `SearchHistory`/Redis.
 - `renderSummary()` / `renderTable()` - Exibe cards, listas (recentes/frequentes) e tabela com filtro.

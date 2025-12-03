@@ -1,7 +1,7 @@
 # 🤝 Guia de Contribuição
 
 **Última atualização:** 01 de dezembro de 2025
-**Versão atual:** 0.0.6
+**Versão atual:** 0.1.0
 
 Obrigado pelo seu interesse em contribuir para o **Inelegis**! 🎉
 

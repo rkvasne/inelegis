@@ -1,7 +1,7 @@
 # Changelog
 
 **Última atualização:** 02 de dezembro de 2025
-**Versão atual:** 0.0.9
+**Versão atual:** 0.1.0
 
 Todas as alterações notáveis neste projeto serão documentadas neste arquivo.
 
@@ -269,3 +269,18 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 [0.0.3]: https://github.com/rkvasne/inelegis-app/compare/v0.0.2...v0.0.3
 [0.0.2]: https://github.com/rkvasne/inelegis-app/compare/v0.0.1...v0.0.2
 [0.0.1]: https://github.com/rkvasne/inelegis-app/releases/tag/v0.0.1
+## [0.1.0] - 2025-12-02
+
+### 🛠 Changed
+- Consolidação da documentação: remoção de duplicatas e arquivos obsoletos (`dist/docs`, `docs/INDEX.md`, `docs/CHANGELOG-DOCS.md`, `docs/history/CHANGELOG-DOCS-ARCHIVE.md`).
+- Padronização do índice principal em `docs/README.md` e atualização de links internos.
+- Versão do projeto atualizada para `0.1.0` em `package.json`, badges e páginas públicas.
+
+### 📚 Documentation
+- `docs/README.md` atualizado para refletir a estrutura consolidada e versão `0.1.0`.
+- `SECURITY.md`, `CONTRIBUTING.md` e guias operacionais atualizados para `0.1.0`.
+
+### 🧹 Removed
+- Pastas e arquivos de documentação redundantes em `dist/docs` e aliases de índice e changelog da documentação.
+
+---

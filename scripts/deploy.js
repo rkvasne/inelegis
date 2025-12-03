@@ -124,7 +124,7 @@ function generateDeployScript() {
 
   const deployScript = `#!/bin/bash
 
-# Script de Deploy Automático - Ineleg-App v0.0.9
+# Script de Deploy Automático - Ineleg-App v0.1.0
 # Sistema de Consulta de Inelegibilidade Eleitoral
 # Gerado em: ${new Date().toLocaleString('pt-BR')}
 
@@ -271,7 +271,7 @@ echo "📊 Estatísticas do deploy:"
 echo "   Diretório: $DEPLOY_DIR"
 echo "   Backup: $BACKUP_DIR/backup_$TIMESTAMP"
 echo "   Data: $(date)"
-echo "   Versão: 0.0.9"
+echo "   Versão: 0.1.0"
 `;
 
   fs.writeFileSync('deploy.sh', deployScript);
@@ -285,7 +285,7 @@ echo "   Versão: 0.0.9"
 function generateDeployInstructions() {
   log('📋 Gerando instruções de deploy...', 'blue');
 
-  const instructions = `# Instruções de Deploy - Ineleg-App v0.0.9
+  const instructions = `# Instruções de Deploy - Ineleg-App v0.1.0
 
 ## Sistema de Consulta de Inelegibilidade Eleitoral
 
@@ -392,7 +392,7 @@ O sistema requer HTTPS para funcionar como PWA.
 - **Desenvolvido por**: Sistema Interno TRE-SP
 - **Base de dados**: TRE-SP - Outubro 2024 - CRE-RO 02/06/2025
 - **Última atualização**: Janeiro 2025
-- **Versão**: 0.0.9
+- **Versão**: 0.1.0
 
 ---
 *Instruções geradas automaticamente pelo sistema de deploy Ineleg-App*

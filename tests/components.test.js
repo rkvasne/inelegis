@@ -1,6 +1,6 @@
 /**
  * Testes para Components
- * @version 0.0.9
+ * @version 0.1.0
  */
 
 console.log('🧪 Iniciando testes dos Componentes...\n');

@@ -17,7 +17,7 @@
     <a href="https://github.com/rkvasne/inelegis-app/issues">Solicitar Feature</a>
   </p>
 
-  [![Version](https://img.shields.io/badge/version-0.0.9-blue.svg?style=for-the-badge)](https://semver.org)
+  [![Version](https://img.shields.io/badge/version-0.1.0-blue.svg?style=for-the-badge)](https://semver.org)
   [![License](https://img.shields.io/badge/license-MIT-green.svg?style=for-the-badge)](LICENSE)
   [![Tests](https://img.shields.io/badge/tests-100%25-success.svg?style=for-the-badge)](tests/)
   [![Theme](https://img.shields.io/badge/theme-validated-success.svg?style=for-the-badge)](docs/design/THEME-VALIDATOR.md)
@@ -61,7 +61,7 @@ Siga estes passos para rodar o projeto localmente.
 
 ### Pré-requisitos
 
-*   **Node.js** (v18 ou superior)
+*   **Node.js** (22.x)
 *   **Git**
 
 ### Instalação
@@ -124,13 +124,12 @@ inelegis-app/
 
 ---
 
-## 🆕 Novidades v0.0.9
+## 🆕 Novidades v0.1.0
 
-- ✅ **Documentação reestruturada** – `docs/` agora possui as pastas `design/`, `guides/`, `operations/` e `history/` para navegação direta.
-- ✅ **Histórico unificado** – `history/refatoracao-v0.0.6.md` concentra plano, execução e lições; `RELEASE-NOTES-v0.0.9.md` descreve este patch.
-- ✅ **Referências atualizadas** – scripts, README e `.env.example` passam a apontar para os novos caminhos.
-- ✅ **Patch release** – `package.json` e os badges refletem a versão `0.0.9`.
-- ✅ **Painel histórico refinado** – `historico.html` agora usa hero compacto e cards estatísticos com ícones alinhados à FAQ administrativa.
+- ✅ **Documentação consolidada e padronizada** – remoção de duplicatas (`dist/docs`, aliases antigos) e centralização do índice em `docs/README.md`.
+- ✅ **Links internos atualizados** – referências, scripts e README apontam para caminhos únicos.
+- ✅ **Versionamento** – `package.json` e badges atualizados para `0.1.0`.
+- ✅ **Manutenção de histórico** – release notes anteriores preservadas em `docs/history`.
 
 ## Histórico de versões anteriores
 
@@ -171,7 +170,7 @@ A documentação completa está disponível na pasta [`docs/`](docs/).
 *   [📖 Índice da Documentação](docs/README.md)
 *   [🛠️ Guia de Desenvolvimento](docs/guides/DEVELOPMENT.md)
 *   [🔧 Guia de Manutenção](docs/guides/MAINTENANCE.md)
-*   [📝 Release Notes v0.0.9](docs/history/RELEASE-NOTES-v0.0.9.md)
+*   [📝 Release Notes v0.1.0](CHANGELOG.md)
 *   [📘 Histórico da Refatoração](docs/history/refatoracao-v0.0.6.md)
 *   [🤖 Instruções para Copilotos](.github/copilot-instructions.md)
 
@@ -198,13 +197,13 @@ Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.
 ---
 
 **Última atualização:** 02 de dezembro de 2025  
-**Versão:** 0.0.9
+**Versão:** 0.1.0
 
 ---
 
 <div align="center">
   
-  **Desenvolvido com ☕ e código por [Raphael Kvasne](https://github.com/rkvasne)**
+  **Desenvolvido com ☕ por Raphael Kvasne**
   
   [⬆ Voltar ao topo](#-inelegis)
 

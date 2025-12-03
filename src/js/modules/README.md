@@ -221,7 +221,7 @@ Todos os módulos seguem práticas de segurança:
 ## 📚 Documentação Adicional
 
 - [Histórico da Refatoração](../../../docs/history/refatoracao-v0.0.6.md)
-- [Release Notes v0.0.9](../../../docs/history/RELEASE-NOTES-v0.0.9.md)
+- [Release Notes v0.1.0](../../../CHANGELOG.md)
 
 ---
 
@@ -239,10 +239,10 @@ Ao adicionar novos módulos:
 
 ## 📝 Changelog
 
-### v0.0.9 (02/12/2025)
-- ✅ Versão dos módulos, badges e metadados atualizados para 0.0.9
-- ✅ Ajustes de paths para `public/` + `src/` com novo pipeline `sync-js`
-- ✅ Docs sincronizados com release notes mais recentes
+### v0.1.0 (02/12/2025)
+- ✅ Consolidação da documentação, remoção de duplicatas e padronização
+- ✅ Versão dos módulos, badges e metadados atualizados para 0.1.0
+- ✅ Links internos apontando para documentação central
 
 ### v0.0.8 (02/12/2025)
 - ✅ Sistema de toast e modal para UX
@@ -262,4 +262,4 @@ Ao adicionar novos módulos:
 ---
 
 **Última atualização:** 02 de dezembro de 2025  
-**Versão:** 0.0.9
+**Versão:** 0.1.0
