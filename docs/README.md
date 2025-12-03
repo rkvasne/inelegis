@@ -74,6 +74,7 @@ docs/
 - [Repositório GitHub](https://github.com/rkvasne/ineleg-app)
 - [Changelog](../CHANGELOG.md)
 - [Voltar para a Raiz](../README.md)
+- [🤖 Instruções para Copilotos](../.github/copilot-instructions.md)
 
 ## ✏️ Fluxo de Edição
 
@@ -85,6 +86,7 @@ Sempre edite os arquivos-fonte dentro de `src/` (ex.: `src/js/modules/*`, `src/j
 - ✅ Histórico consolidado em `history/refatoracao-v0.0.6.md` e novas release notes para 0.0.9.
 - ✅ Referências internas e scripts atualizados para os novos caminhos.
 - ✅ Versão do projeto elevada para 0.0.9.
+- ✅ Guia específico para agentes Copilot disponível em `.github/copilot-instructions.md` com fluxos e convenções do repositório.
 
 ---
 

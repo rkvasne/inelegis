@@ -7,6 +7,20 @@
 
 ---
 
+## 🔄 Complementos de 02/12/2025 (noite)
+
+### 🤖 Guia para agentes Copilot
+
+- ✅ Criado `.github/copilot-instructions.md` descrevendo arquitetura, fluxos de build/testes e padrões de sanitização.
+- ✅ README raiz e `docs/README.md` passaram a referenciar o novo guia para facilitar o onboarding automatizado.
+
+### 📊 Histórico administrativo documentado
+
+- ✅ Notas das versões agora mencionam o hero compacto e os cards estatísticos com ícones aplicados em `historico.html`.
+- ✅ Seção "Novidades v0.0.9" do README sinaliza o refinamento do painel para auditoria.
+
+---
+
 ## 🗂️ Reorganização de 02/12/2025 (Noite)
 
 ### 📁 Estrutura modular em `docs/`
