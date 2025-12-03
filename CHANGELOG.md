@@ -20,12 +20,12 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 - README principal, `docs/README.md`, scripts utilitários e `.env.example` apontam para os novos caminhos.
 - Badge de versão, `package.json` e módulos JavaScript sincronizados para 0.0.9.
 - Botão de histórico removido da tela de consulta; registros agora são adicionados diretamente via `SearchHistory` e acessados somente pela nova tela administrativa.
-- Painel `historico.html` recebeu alinhamento idêntico ao card de consulta (títulos maiores, botões à direita e badge administrativa dedicada) e removeu texto redundante sobre Redis.
+- Painel `historico.html` ganhou layout alinhado aos cards da consulta (badge removida, botões junto ao status e cards métricos no estilo da FAQ) e removeu texto redundante sobre Redis.
 - Landing page ajustou o gradiente do card CTA para respeitar o tema escuro.
 
 ### 🐛 Fixed
 - Cards de resumo do histórico reduzem o texto “Sem registros” para manter proporção e exibem mensagens claras quando não existem consultas.
-- `SearchHistory` agora persiste o histórico em `localStorage` (até 50 registros) antes de tentar o Redis, garantindo que a tela administrativa exiba dados recentes mesmo offline.
+- Mensagem exibida quando os termos já foram aceitos foi reescrita para deixar claro que o acesso continua liberado.
 
 ### 📚 Documentation
 - `history/RELEASE-NOTES-v0.0.9.md` criado com os destaques da reorganização.

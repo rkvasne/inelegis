@@ -56,7 +56,6 @@ Incluir no relatório:
 ### 🔐 Acesso Restrito ao Histórico Administrativo
 
 - A tela `historico.html` serve exclusivamente para auditoria interna. Ela não aparece na navegação do sistema nem no menu de componentes.
-- O front mantém até 50 entradas recentes no `localStorage` (`inelegis_history`) para fallback offline; limpe os dados do navegador em estações compartilhadas e documente o procedimento no playbook local.
 - Compartilhe a URL apenas com equipes autorizadas. Evite divulgar o link em documentos públicos ou tickets.
 - Sempre verifique o cabeçalho `Referer` quando o app estiver atrás de um proxy reverso e recuse acessos externos suspeitos.
 - A auditoria de logs deve ser feita após autenticação federada (quando disponível) ou por meio de VPN corporativa.

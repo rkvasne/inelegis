@@ -27,60 +27,19 @@ function historyDebugLog(...args) {
 const SearchHistory = (() => {
     const USER_ID_COOKIE = 'inelegis_uid';
     const LEGACY_USER_ID_KEY = 'inelegis_user_id';
-    const LOCAL_STORAGE_KEY = 'inelegis_history';
     const COOKIE_MAX_AGE = 60 * 60 * 24 * 365; // 1 ano
     let cachedHistory = [];
-    let cacheHydrated = false;
 
     const MAX_HISTORY = 50;
     const MAX_RECENT = 10;
     const API_URL = '/api/search-history';
     
-    function hydrateCacheFromStorage() {
-        if (cacheHydrated) {
-            return;
-        }
-        cacheHydrated = true;
-
-        if (typeof localStorage === 'undefined') {
-            return;
-        }
-
-        try {
-            const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
-            if (stored) {
-                const parsed = JSON.parse(stored);
-                if (Array.isArray(parsed)) {
-                    cachedHistory = parsed.slice(0, MAX_HISTORY);
-                }
-            }
-        } catch (error) {
-            console.warn('Histórico: falha ao carregar armazenamento local:', error);
-        }
-    }
-
-    function persistCache() {
-        if (typeof localStorage === 'undefined') {
-            return;
-        }
-
-        try {
-            const payload = JSON.stringify(cachedHistory.slice(0, MAX_HISTORY));
-            localStorage.setItem(LOCAL_STORAGE_KEY, payload);
-        } catch (error) {
-            console.warn('Histórico: falha ao salvar armazenamento local:', error);
-        }
-    }
-
     function getCachedHistory() {
-        hydrateCacheFromStorage();
         return cachedHistory.slice();
     }
 
     function setCachedHistory(entries) {
-        hydrateCacheFromStorage();
         cachedHistory = Array.isArray(entries) ? entries.slice(0, MAX_HISTORY) : [];
-        persistCache();
     }
 
     function readCookie(name) {

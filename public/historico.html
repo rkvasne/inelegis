@@ -25,23 +25,8 @@
         <section class="card history-hero">
             <div class="card-header">
                 <div class="history-hero-copy">
-                    <p class="admin-badge">Ferramenta Administrativa</p>
                     <h1 id="history-title">Histórico de Consultas</h1>
                     <p>Centralize auditorias, exporte registros e acompanhe estatísticas sem acessar a tela principal de consulta.</p>
-                </div>
-                <div class="history-hero-actions">
-                    <button id="historyRefreshBtn" class="btn btn-secondary" type="button">
-                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9M20 20v-5h-.581m-15.357-2a8.003 8.003 0 0015.938 2" />
-                        </svg>
-                        Sincronizar
-                    </button>
-                    <button id="historyExportBtn" class="btn btn-primary" type="button">
-                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M12 12v9m0 0l-3-3m3 3l3-3M12 3v9m0 0l3-3m-3 3L9 9" />
-                        </svg>
-                        Exportar TXT
-                    </button>
                 </div>
             </div>
             <div class="card-body">
@@ -49,7 +34,23 @@
                     <span class="history-spinner" aria-hidden="true"></span>
                     <span>Sincronizando histórico...</span>
                 </div>
-                <p id="historyStatusMessage" class="history-status">Aguardando sincronização.</p>
+                <div class="history-status-row">
+                    <p id="historyStatusMessage" class="history-status">Aguardando sincronização.</p>
+                    <div class="history-hero-actions">
+                        <button id="historyRefreshBtn" class="btn btn-secondary" type="button">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9M20 20v-5h-.581m-15.357-2a8.003 8.003 0 0015.938 2" />
+                            </svg>
+                            Sincronizar
+                        </button>
+                        <button id="historyExportBtn" class="btn btn-primary" type="button">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M12 12v9m0 0l-3-3m3 3l3-3M12 3v9m0 0l3-3m-3 3L9 9" />
+                            </svg>
+                            Exportar TXT
+                        </button>
+                    </div>
+                </div>
             </div>
         </section>
 

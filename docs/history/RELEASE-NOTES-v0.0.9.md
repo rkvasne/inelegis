@@ -13,8 +13,7 @@
 - ✅ Novos caminhos referenciados em README, scripts utilitários e exemplos de configuração.
 - ✅ Versão do projeto elevada para `0.0.9`, alinhando badge, `package.json` e notas públicas.
 - ✅ Tela `historico.html` criada para concentrar estatísticas, exportação e auditoria do histórico (admin), substituindo o painel lateral.
-- ✅ Melhorias contínuas: painel administrativo herdou o mesmo estilo dos cards da consulta, botões alinhados à direita e feedback claro quando não existem registros.
-- ✅ `SearchHistory` salva até 50 registros no `localStorage` antes de sincronizar com Redis, garantindo que o painel funcione mesmo em redes restritas.
+- ✅ Melhorias contínuas: painel administrativo herdou o mesmo estilo dos cards da consulta, removeu o badge administrativo e mantém os botões na mesma linha do status para auditoria rápida.
 - ✅ Landing page recebeu ajuste no gradiente do card CTA para preservar contraste no modo escuro.
 
 ---
