@@ -69,10 +69,7 @@ const HistoryPage = (() => {
             renderStatsSection();
             renderTable();
 
-            const statusMessage = historyData.length === 0
-                ? 'Nenhuma consulta encontrada ainda. Execute uma busca na tela principal e sincronize novamente.'
-                : `${historyData.length} registro(s) carregados.`;
-            showStatus(statusMessage);
+            showStatus(`${historyData.length} registro(s) carregados.`);
         } catch (error) {
             console.error('HistoryPage load error:', error);
             showStatus('Não foi possível carregar o histórico. Tente novamente.', true);
