@@ -1086,7 +1086,7 @@ code {
 }
 
 /* Utilitários */
-.hidden { display: none; }
+.hidden { display: none !important; }
 .sr-only {
   position: absolute;
   width: 1px;
@@ -2742,7 +2742,7 @@ code {
 .history-summary {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: var(--space-3);
+  gap: var(--space-4);
   margin: 2rem 0;
 }
 
@@ -2757,6 +2757,8 @@ code {
   border: 1px solid var(--border-color);
   box-shadow: var(--shadow-sm);
   text-align: center;
+  min-height: 150px;
+  justify-content: center;
 }
 
 .history-summary-card .summary-label {
@@ -2830,8 +2832,16 @@ code {
 .history-panels {
   display: grid;
   gap: var(--space-3);
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   margin-bottom: 2rem;
+  align-items: stretch;
+}
+
+/* Responsivo para cards do histórico */
+@media (max-width: 768px) {
+  .history-panels {
+    grid-template-columns: 1fr;
+  }
 }
 
 .history-table-header {
@@ -2851,6 +2861,23 @@ code {
 .history-table-wrapper {
   width: 100%;
   overflow-x: auto;
+}
+
+.history-panels > section.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.history-panels > section.card .card-body {
+  flex: 1;
+}
+
+.history-panels > section.card .card-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  box-sizing: border-box;
 }
 
 .history-table {
@@ -3155,6 +3182,44 @@ code {
   max-width: 960px;
 }
 
+.history-page section.card {
+  margin-bottom: var(--space-6);
+}
+
+/* Exceção para os cards dentro de history-panels */
+.history-page .history-panels > section.card {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.history-card-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--radius-md);
+  background: var(--primary-50);
+  color: var(--primary-600);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.history-card-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.history-card-subtitle {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.history-card-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
 
 .stat-card {
   display: flex;
@@ -3193,11 +3258,29 @@ code {
 }
 
 .stat-card.inelegivel {
-  border-color: rgba(239, 68, 68, 0.35);
+  background: var(--bg-primary);
+  border-color: var(--border-color);
 }
 
 .stat-card.elegivel {
-  border-color: rgba(34, 197, 94, 0.35);
+  background: var(--bg-primary);
+  border-color: var(--border-color);
+}
+
+.stat-card.inelegivel .stat-icon,
+.stat-card.elegivel .stat-icon {
+  background: var(--primary-50);
+  color: var(--primary-600);
+}
+
+.stat-card.inelegivel .stat-label,
+.stat-card.elegivel .stat-label {
+  color: var(--text-primary);
+}
+
+.stat-card.inelegivel .stat-value,
+.stat-card.elegivel .stat-value {
+  color: var(--text-primary);
 }
 
 .stat-value {
@@ -3262,6 +3345,14 @@ code {
       flex-direction: column;
       align-items: flex-start;
     }
+
+    .history-panels {
+      grid-template-columns: 1fr;
+    }
+
+    .history-panels > section.card .card-header {
+      height: auto;
+    }
 }
 
 
@@ -3319,9 +3410,13 @@ code {
 }
 
 .dark-theme .history-summary-card,
-.dark-theme .stat-card,
 .dark-theme .stats-item {
-  background: var(--bg-secondary);
+  background: var(--bg-primary);
+  border-color: var(--border-color);
+}
+
+.dark-theme .stat-card {
+  background: var(--bg-primary);
   border-color: var(--border-color);
 }
 
@@ -3331,11 +3426,13 @@ code {
 }
 
 .dark-theme .stat-card.inelegivel {
-  border-color: rgba(239, 68, 68, 0.4);
+  background: var(--bg-primary);
+  border-color: var(--border-color);
 }
 
 .dark-theme .stat-card.elegivel {
-  border-color: rgba(34, 197, 94, 0.4);
+  background: var(--bg-primary);
+  border-color: var(--border-color);
 }
 
 .dark-theme .empty-state {
@@ -3580,4 +3677,10 @@ code {
 .hover-glow:hover {
   box-shadow: 0 0 20px var(--primary-500);
   filter: brightness(1.1);
+}
+.history-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  align-items: center;
 }
