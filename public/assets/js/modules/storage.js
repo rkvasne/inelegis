@@ -25,7 +25,7 @@ const SecureStorage = {
         value: value,
         timestamp: Date.now(),
         expiry: Date.now() + expiryMs,
-        version: '0.0.9'
+        version: '0.1.0'
       };
       
       const fullKey = this.PREFIX + key;

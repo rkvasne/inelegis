@@ -36,9 +36,7 @@ const ALLOWED_ORIGINS = [
  * Valida origem da requisição (CORS)
  */
 function validateOrigin(origin) {
-    return ALLOWED_ORIGINS.includes(origin) || 
-           origin?.includes('inelegis') ||
-           process.env.NODE_ENV === 'development';
+    return ALLOWED_ORIGINS.includes(origin) || process.env.NODE_ENV === 'development';
 }
 
 /**

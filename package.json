@@ -1,6 +1,6 @@
 {
   "name": "inelegis",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "description": "Sistema de Consulta de Inelegibilidade Eleitoral",
   "main": "index.html",
   "scripts": {
@@ -8,7 +8,7 @@
     "lint": "node scripts/lint.js",
     "lint:fix": "node scripts/lint.js --fix",
     "test": "node scripts/test.js",
-    "test:unit": "node tests/formatters.test.js && node tests/exceptions.test.js",
+    "test:unit": "node tests/formatters.test.js && node tests/exceptions.test.js && node tests/search-index.test.js && node tests/fallback.test.js && node tests/extrair-artigos.test.js",
     "test:theme": "node tests/theme-manager.test.js",
     "test:components": "node tests/components.test.js",
     "test:all": "npm run test:unit && npm run test:theme && npm run test:components && npm run test",

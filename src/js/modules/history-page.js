@@ -113,18 +113,35 @@ const HistoryPage = (() => {
             : 'Sem registros';
 
         const cards = [
-            { label: 'Consultas sincronizadas', value: total },
-            { label: 'Inelegíveis', value: inelegiveis },
-            { label: 'Elegíveis', value: elegiveis },
-            { label: 'Última consulta', value: ultimaConsulta, isText: true }
+            { key: 'total', label: 'Consultas sincronizadas', value: total },
+            { key: 'inelegiveis', label: 'Inelegíveis', value: inelegiveis },
+            { key: 'elegiveis', label: 'Elegíveis', value: elegiveis },
+            { key: 'ultima', label: 'Última consulta', value: ultimaConsulta, isText: true }
         ];
 
-        elements.summary.innerHTML = cards.map(card => `
-            <article class="history-summary-card">
-                <span class="summary-label">${card.label}</span>
-                <strong class="summary-value ${card.isText ? 'summary-value--text' : ''}">${card.value}</strong>
-            </article>
-        `).join('');
+        const html = cards.map(card => {
+            const subtitleClasses = ['history-card-subtitle'];
+            if (card.isText) {
+                subtitleClasses.push('history-card-subtitle--text');
+            } else {
+                subtitleClasses.push('history-card-value');
+            }
+
+            return `
+                <article class="history-summary-card history-card">
+                    <div class="history-card-icon" aria-hidden="true">${getSummaryIcon(card.key)}</div>
+                    <div class="history-card-info">
+                        <h3 class="history-card-title">${card.label}</h3>
+                        <p class="${subtitleClasses.join(' ')}">${card.value}</p>
+                    </div>
+                </article>
+            `;
+        }).join('');
+        if (typeof window !== 'undefined' && window.Sanitizer) {
+            window.Sanitizer.safeInnerHTML(elements.summary, html);
+        } else {
+            elements.summary.innerHTML = html;
+        }
     }
 
     function renderRecent() {
@@ -198,20 +215,32 @@ const HistoryPage = (() => {
         filteredHistory.forEach(entry => {
             const row = document.createElement('tr');
 
-            row.innerHTML = `
-                <td>
-                    <div class="history-table-time">${formatDate(entry.timestamp)}</div>
-                    <small class="history-table-sub">${formatTime(entry.timestamp)}</small>
-                </td>
-                <td>${entry.lei || 'N/A'}</td>
-                <td>${entry.artigo || 'N/A'}</td>
-                <td>
-                    <span class="history-badge ${entry.resultado === 'inelegivel' ? 'badge-danger' : 'badge-success'}">
-                        ${entry.resultado ? entry.resultado.toUpperCase() : 'N/A'}
-                    </span>
-                </td>
-            `;
+            const tdTime = document.createElement('td');
+            const divTime = document.createElement('div');
+            divTime.className = 'history-table-time';
+            divTime.textContent = formatDate(entry.timestamp);
+            const smallSub = document.createElement('small');
+            smallSub.className = 'history-table-sub';
+            smallSub.textContent = formatTime(entry.timestamp);
+            tdTime.appendChild(divTime);
+            tdTime.appendChild(smallSub);
 
+            const tdLei = document.createElement('td');
+            tdLei.textContent = entry.lei || 'N/A';
+
+            const tdArtigo = document.createElement('td');
+            tdArtigo.textContent = entry.artigo || 'N/A';
+
+            const tdResultado = document.createElement('td');
+            const badge = document.createElement('span');
+            badge.className = `history-badge ${entry.resultado === 'inelegivel' ? 'badge-danger' : 'badge-success'}`;
+            badge.textContent = entry.resultado ? entry.resultado.toUpperCase() : 'N/A';
+            tdResultado.appendChild(badge);
+
+            row.appendChild(tdTime);
+            row.appendChild(tdLei);
+            row.appendChild(tdArtigo);
+            row.appendChild(tdResultado);
             fragment.appendChild(row);
         });
 
@@ -288,21 +317,26 @@ const HistoryPage = (() => {
 
     function createStatCard(modifier, value, label) {
         const card = document.createElement('div');
-        card.className = modifier ? `stat-card ${modifier}` : 'stat-card';
+        card.className = modifier ? `stat-card history-card ${modifier}` : 'stat-card history-card';
 
         const icon = document.createElement('span');
-        icon.className = 'stat-icon';
-        icon.innerHTML = getStatIcon(modifier);
+        icon.className = 'history-card-icon stat-icon';
+        const iconHtml = getStatIcon(modifier);
+        if (typeof window !== 'undefined' && window.Sanitizer) {
+            window.Sanitizer.safeInnerHTML(icon, iconHtml);
+        } else {
+            icon.innerHTML = iconHtml;
+        }
 
         const content = document.createElement('div');
-        content.className = 'stat-card-content';
+        content.className = 'history-card-info stat-card-content';
 
         const statLabel = document.createElement('span');
-        statLabel.className = 'stat-label';
+        statLabel.className = 'history-card-title stat-label';
         statLabel.textContent = label;
 
         const statValue = document.createElement('strong');
-        statValue.className = 'stat-value';
+        statValue.className = 'history-card-subtitle history-card-value stat-value';
         statValue.textContent = value;
 
         content.appendChild(statLabel);
@@ -323,6 +357,17 @@ const HistoryPage = (() => {
         }
 
         return '<svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h16v16H4z"/></svg>';
+    }
+
+    function getSummaryIcon(key) {
+        const icons = {
+            total: '<svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h18M3 12h18M3 17h18"/></svg>',
+            inelegiveis: '<svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>',
+            elegiveis: '<svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>',
+            ultima: '<svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>'
+        };
+
+        return icons[key] || icons.total;
     }
 
     function createStatsBlock(title, data) {

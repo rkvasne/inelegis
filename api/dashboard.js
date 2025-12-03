@@ -24,7 +24,17 @@ function getRedis() {
 }
 
 // Token de acesso
-const ADMIN_TOKEN = process.env.ANALYTICS_ADMIN_TOKEN || 'dev_token_change_me';
+const ADMIN_TOKEN = process.env.ANALYTICS_ADMIN_TOKEN;
+
+const ALLOWED_ORIGINS = [
+    'https://inelegis.vercel.app',
+    'http://localhost:3000',
+    'http://localhost:8080'
+];
+
+function validateOrigin(origin) {
+    return ALLOWED_ORIGINS.includes(origin) || process.env.NODE_ENV === 'development';
+}
 
 /**
  * Valida token de acesso
@@ -166,8 +176,10 @@ async function getSearchesByPeriod(days = 7) {
  * Handler principal
  */
 export default async function handler(req, res) {
-    // CORS
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    const origin = req.headers.origin;
+    if (validateOrigin(origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+    }
     res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     

@@ -2,7 +2,7 @@
 
 ---
 
-**Versão:** 0.0.9  
+**Versão:** 0.1.0  
 **Data:** 02 de dezembro de 2025
 
 ---

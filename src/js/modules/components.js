@@ -1,7 +1,7 @@
 /**
  * Reusable Components
  * Componentes reutilizáveis para todas as páginas
- * @version 0.0.9
+ * @version 0.1.0
  */
 
 const Components = (() => {
@@ -12,8 +12,7 @@ const Components = (() => {
      */
     function renderHeader(currentPage = '') {
         // Verificar se termos foram aceitos
-        const termosAceitos = typeof localStorage !== 'undefined' && 
-                              localStorage.getItem('ineleg_termos_aceitos') === 'true';
+        const termosAceitos = (typeof window !== 'undefined' && window.SecureStorage && window.SecureStorage.getItem('termos_aceitos') === true) || (typeof localStorage !== 'undefined' && localStorage.getItem('ineleg_termos_aceitos') === 'true');
         
         const pages = [
             { id: 'index', href: './', label: 'Início', icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
@@ -54,7 +53,7 @@ const Components = (() => {
                             <img id="header-logo" src="${logoSrc}" alt="Inelegis Logo" width="32" height="32" loading="lazy" style="border-radius: 4px;">
                         </div>
                         <div class="brand-text">
-                            <h1>Inelegis <span class="version-badge">v0.0.9</span></h1>
+                            <h1>Inelegis <span class="version-badge">v0.1.0</span></h1>
                             <p>Consulta de Inelegibilidade Eleitoral</p>
                         </div>
                     </div>

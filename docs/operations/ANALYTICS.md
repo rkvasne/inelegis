@@ -2,7 +2,7 @@
 
 ---
 
-**Versão:** 0.0.9  
+**Versão:** 0.1.0  
 **Data:** 02 de dezembro de 2025
 
 ---
@@ -185,10 +185,11 @@ await redis.zincrby('analytics:top:leis', 1, lei);
 
 ## 🔐 Segurança
 
-- CORS restrito a origens permitidas
+- CORS restrito a origens permitidas (analytics, dashboard, search-history)
 - Dashboard protegido por token
 - Dados anônimos (sem PII)
 - TTL de 90 dias nos eventos
+ - Sugestões no frontend são sanitizadas via `Sanitizer.safeInnerHTML`
 
 ---
 

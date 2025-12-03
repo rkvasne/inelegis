@@ -1,0 +1,229 @@
+Recomendações
+
+- Unificar CORS de APIs
+  - Tornar dashboard consistente com validateOrigin e remover wildcard; usar lista explícita de origens e preflight adequado.
+- Endurecer validateOrigin
+  - Remover origin?.includes('inelegis') e validar somente origens exatas definidas em configuração.
+- Padronizar Termos com SecureStorage
+  - Migrar verificação dos termos para SecureStorage.getItem('termos_aceitos') e unificar prefixo inelegis_ .
+- Alinhar versão do Node
+  - Atualizar o README para “Node 22.x” ou relaxar engines para “>=18” se compatível com scripts e dependências.
+- Aplicar Sanitizer nas áreas dinâmicas
+  - Onde innerHTML é usado com conteúdo dinâmico (mesmo que não venha do usuário), preferir Sanitizer.safeInnerHTML para padronização.
+- Ampliar cobertura de testes
+  - Adicionar testes para SearchIndex.buscar , integração básica de script.js (extração/verificação), e endpoints com mocks (sem rodar comandos).
+Plano de Ação
+
+- Segurança e CORS
+  - Ajustar CORS do dashboard para origens permitidas e remover wildcard.
+  - Fortalecer validateOrigin nas APIs para matches exatos de origem.
+- Termos de Uso
+  - Trocar localStorage.getItem('ineleg_termos_aceitos') por SecureStorage.getItem('termos_aceitos') e padronizar escrita/leitura.
+- Documentação
+  - Corrigir versão do Node no README para refletir package.json .
+  - Incluir nota sobre cookie inelegis_uid e não uso de localStorage para identificadores em ANALYTICS.md (já consistente).
+- Testes
+  - Incluir testes unitários para SearchIndex e extração/verificação em script.js .
+  - Acrescentar testes de CORS e autorização simulando chamadas às APIs.
+Infra e Deploy
+
+- Vercel
+  - CSP adequada e cabeçalhos de segurança ativos ( vercel.json:30–52 ).
+  - buildCommand referencia pipeline customizada ( vercel.json:4 ), com validações e simulações em scripts.
+- Redis
+  - Setup e chaves documentadas ( docs/guides/SETUP-REDIS.md:104–118, 120–127 ), TTL de histórico ( api/search-history.js:26–28 ), métricas e timeline do analytics ( SETUP-REDIS.md:108–118 ).
+- Tokens
+  - ADMIN_TOKEN para dashboard com fallback dev inseguro — manter somente via env ( api/dashboard.js:26–35 ), reforçar documentação de rotação ( scripts/generate-admin-token.js:117–128 ).
+
+---
+
+Correções Mapeadas
+
+Críticas
+
+Unificar CORS e endurecer autorização no dashboard:
+Endereço: api/dashboard.js:168–173 (CORS *) e api/dashboard.js:26–35 (fallback de ADMIN_TOKEN).
+Ação: substituir wildcard por validação de origem consistente; remover fallback dev_token_change_me; falhar com 401 se token ausente/errado.
+Endurecer validação de origem nas APIs:
+Endereços: api/analytics.js:24–39 e api/search-history.js:29–41, 47–53.
+Ação: remover origin?.includes('inelegis'); validar apenas origens explícitas; reaproveitar padrão setCorsHeaders.
+Padronizar “termos aceitos” com SecureStorage:
+Endereços: src/js/modules/terms-gate.js:3–6, src/js/modules/components.js:15–17, 29–33, src/js/script.js:65.
+Ação: trocar leitura/gravação diretas de localStorage por SecureStorage.getItem('termos_aceitos')/setItem('termos_aceitos', true).
+Importantes
+
+Aplicar Sanitizer.safeInnerHTML em sugestões de artigos:
+Endereço: src/js/script.js:971–976 (popula sugestoesDiv.innerHTML).
+Ação: usar window.Sanitizer.safeInnerHTML(sugestoesDiv, sugestõesHtml) (já disponível em src/js/modules/sanitizer.js:34–51).
+Alinhar versão do Node:
+Endereços: README.md:64 (v18) e package.json:58–60 (Node 22.x).
+Ação: atualizar README para “Node 22.x” e ajustar seção de pré-requisitos e badges.
+Secundárias
+
+Revisão de innerHTML em pontos dinâmicos similares:
+Endereços: src/js/modules/components.js (strings de UI injetadas), revisar outros usos.
+Expandir testes:
+SearchIndex.buscar e fluxo de extração/consulta:
+Endereços alvo: src/js/modules/search-index.js:62–65, 70–83, 146–156; src/js/script.js:580–608, 624–632.
+Ação: adicionar testes unitários e de integração leves.
+Documentação de segurança:
+Reforçar tokens e CORS nos guias (docs/guides/SETUP-REDIS.md:131–136, docs/operations/ANALYTICS.md:36–48, 54–83).
+Ordem de Implementação
+
+Segurança nas APIs (CORS e token) → 2) Gate de termos com SecureStorage → 3) Sanitizer nas sugestões → 4) Atualização de README (Node) e docs → 5) Testes adicionais → 6) Validação end-to-end.
+Dependências:
+dashboard depende de REDIS_URL e ANALYTICS_ADMIN_TOKEN presentes (já documentados).
+Frontend sugestões dependem de Sanitizer carregado antes de script.js (ver SECURITY.md e troubleshooting).
+Gate de termos depende de SecureStorage disponível (src/js/modules/storage.js:143–147).
+
+Implementação por Arquivo
+
+api/dashboard.js
+Branch: fix/security-cors-dashboard.
+Correções:
+Substituir Access-Control-Allow-Origin: '*' por lista validada de origens (mesma abordagem de api/search-history.js:47–53).
+Remover fallback dev_token_change_me (api/dashboard.js:26–35); exigir process.env.ANALYTICS_ADMIN_TOKEN.
+Testes:
+curl com token válido e inválido; checar 401 sem token; acesso somente de origens permitidas.
+Changelog:
+CHANGELOG.md → “Security: CORS restrito e token obrigatório no dashboard.”
+
+api/analytics.js
+Branch: fix/security-cors-analytics.
+Correções:
+Remover origin?.includes('inelegis') (api/analytics.js:24–39).
+Reutilizar padrão de validateOrigin com lista de origens; incluir localhost dev.
+Testes:
+POST com origem não listada → bloquear; origem válida → aceitar com status 200.
+Changelog:
+
+api/search-history.js
+Branch: fix/security-cors-history.
+Correções:
+Manter lista de origens; revisar setCorsHeaders conforme validateOrigin (api/search-history.js:38–53).
+Testes:
+GET/POST com origem válida; testar TTL e limite MAX_HISTORY.
+Changelog:
+“Security: CORS consistente e validação de origem em histórico.”
+
+src/js/modules/terms-gate.js
+Branch: fix/terms-gate-secure-storage.
+Correções:
+Substituir leitura direta de localStorage (src/js/modules/terms-gate.js:3–6) por SecureStorage.getItem('termos_aceitos').
+Testes:
+Simular usuário sem termos aceita → redireciona; com SecureStorage.setItem('termos_aceitos', true) → acesso liberado.
+Changelog:
+“Changed: termos aceitos via SecureStorage (expiração, validação).”
+src/js/modules/components.js
+
+Branch: fix/components-terms-gate.
+Correções:
+Trocar verificação de termos (src/js/modules/components.js:15–17) para SecureStorage.getItem('termos_aceitos') === true.
+Manter lógica de disable do link Consulta (src/js/modules/components.js:29–33).
+Testes:
+Renderização do header em páginas com/sem termos; comportamento de botão desativado.
+Changelog:
+“Changed: gate de navegação consulta com SecureStorage.”
+src/js/script.js
+
+Branch: fix/sanitizer-suggestions.
+Correções:
+Trocar sugestoesDiv.innerHTML = sugestoesHtml por Sanitizer.safeInnerHTML(sugestoesDiv, sugestoesHtml) (src/js/script.js:971–976).
+Confirmar que Sanitizer está carregado antes; se não, fallback controlado (sem inline script).
+Testes:
+Entrada de busca que gera sugestões; inspecionar DOM; nenhum <script> injeta; sem XSS em termos estranhos.
+Changelog:
+“Security: Sanitização de sugestões de artigos.”
+
+README.md
+Branch: docs/node-version-sync.
+Correções:
+Atualizar pré-requisitos para “Node 22.x” (README.md:64) ou ajustar package.json engines para “>=18” conforme política; recomendado alinhar ao package.json:58–60.
+Testes:
+Não aplicável em runtime; validar consistência com engines.
+Changelog:
+“Docs: Node version alinhada ao engines.”
+
+Testes adicionais
+Branch: test/search-index-script.
+Correções:
+Adicionar arquivo de testes para SearchIndex.buscar cobrindo:
+Artigo existente sem exceção → inelegivel: true.
+Artigo existente com exceção aplicável → inelegivel: false.
+Busca flexível retornando candidato (src/js/modules/search-index.js:112–141).
+Adicionar testes para extrairArtigosDoNorma (src/js/script.js:580–608).
+Testes:
+npm run test:unit e npm run test:all.
+Changelog:
+“Added: testes do índice e extrator de artigos.”
+
+Execução de Testes e Validações
+
+Após cada modificação significativa:
+npm run lint
+npm run validate
+npm run test:unit
+Após séries de mudanças por área:
+npm run test:all
+Verificação manual no dev server: npm run dev e navegação em http://localhost:3000 (sem executar aqui).
+APIs
+Exercitar endpoints:
+POST /api/analytics com eventos válidos.
+GET /api/dashboard?type=all com e sem Authorization: Bearer TOKEN.
+GET/POST /api/search-history?userId=... com diferentes origens.
+Frontend
+Verificar:
+Gate de termos antes de “Consulta” (components.js:19–23, 29–33).
+Modal de resultado utiliza ModalManager com Sanitizer (modal-manager.js:35–42).
+Sugestões aparecem e são sanitizadas (script.js:959–976).
+Histórico renderiza corretamente (history-page.js:42–79, 195–231).
+Atualização da Documentação
+
+Arquivos afetados e ações:
+README.md:
+Pré-requisitos Node 22.x; instruções de testes (README.md:80–88).
+docs/guides/SETUP-REDIS.md:
+Seção de token e segurança já adequada; adicionar nota de rotação e ausência de fallback do dashboard.
+docs/operations/ANALYTICS.md:
+Confirmar cookie inelegis_uid (já descrito) e fluxo batch; acrescentar nota sobre origens permitidas.
+docs/guides/VARIAVEIS-AMBIENTE.md:
+Reforçar variáveis necessárias, especialmente ANALYTICS_ADMIN_TOKEN.
+SECURITY.md:
+Adicionar linha sobre sanitização garantida nas sugestões e adoção de SecureStorage em gates.
+Diagramas/fluxos:
+Atualizar diagrama de APIs para CORS restrito e token obrigatório no dashboard.
+Fluxo de UI: “termos aceitos” via SecureStorage antes de “Consulta”.
+
+---
+
+[CHECKED] 1. Implementar funcionalidade principal
+[CHECKED] 2. Adicionar validações de entrada
+[CHECKED] 3. Configurar ambiente de produção
+[CHECKED] 4. Escrever testes unitários
+[CHECKED] 5. Documentar o código
+[CHECKED] 6. Expandir testes para fallback de busca
+[CHECKED] 7. Revisar sanitização com innerHTML dinâmico
+[CHECKED] 8. Inserir notas em SECURITY.md e ANALYTICS.md
+[CHECKED] 9. Expandir testes para SearchIndex.buscar
+[CHECKED] 10. Adicionar testes para extrairArtigosDoNorma
+[CHECKED] 11. Revisar innerHTML indireto em módulos
+[CHECKED] 12. Executar testes unitários e completos
+[CHECKED] 13. Executar lint e validate
+[CHECKED] 14. Padronizar verificação de termos em script.js
+[CHECKED] 15. Reduzir var para let/const
+[CHECKED] 16. Remover !important do CSS
+[CHECKED] 17. Reexecutar testes unitários e completos
+[CHECKED] 18. Reexecutar lint e validate
+[CHECKED] 19. Restaurar landing page do commit anterior
+[CHECKED] 20. Externalizar CSS da landing para arquivo dedicado
+[CHECKED] 21. Adicionar metatags SEO (canonical, og, twitter, robots)
+[CHECKED] 22. Aplicar ARIA nos ícones dos CTAs
+[CHECKED] 23. Adicionar seção "Como funciona" (3 passos)
+[CHECKED] 24. Integrar analytics para CTAs da landing
+[CHECKED] 25. Adicionar novo card na seção Recursos
+[CHECKED] 26. Melhorar rodapé da landing
+[CHECKED] 27. Melhorar cores e contraste da seção Estatísticas
+[CHECKED] 28. Adicionar efeito de luminosidade no hover dos cards
+[CHECKED] 29. Melhorar contraste da seção Estatísticas
+[CHECKED] 30. Adicionar luminosidade no hover dos cards
+[CHECKED] 31. Melhorar rodapé minimalista

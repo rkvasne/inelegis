@@ -21,583 +21,26 @@
     <meta property="og:title" content="Inelegis - Sistema de Consulta de Inelegibilidade Eleitoral">
     <meta property="og:description" content="Sistema não oficial para consulta rápida de inelegibilidade eleitoral">
     <meta property="og:type" content="website">
-
-    <style>
-        /* Reset e Base */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            /* Cores Primárias */
-            --primary-50: #f0f9ff;
-            --primary-100: #e0f2fe;
-            --primary-200: #bae6fd;
-            --primary-500: #0ea5e9;
-            --primary-600: #0284c7;
-            --primary-700: #0369a1;
-            --primary-800: #075985;
-            --primary-900: #0c4a6e;
-            
-            /* Cores Semânticas */
-            --bg-primary: #ffffff;
-            --bg-secondary: #f9fafb;
-            --bg-tertiary: #f3f4f6;
-            --text-primary: #111827;
-            --text-secondary: #6b7280;
-            --page-bg-start: var(--primary-50);
-            --page-bg-end: var(--primary-100);
-            --cta-bg-start: var(--primary-100);
-            --cta-bg-end: var(--primary-200);
-            
-            /* Cores de Status */
-            --info-bg: rgba(59, 130, 246, 0.1);
-            --warning-500: #fbbf24;
-            
-            /* Neutras */
-            --neutral-300: #d4d4d4;
-            --neutral-400: #a3a3a3;
-            --primary-800: #075985;
-            --primary-900: #0c4a6e;
-            --neutral-50: #fafafa;
-            --neutral-100: #f5f5f5;
-            --neutral-200: #e5e5e5;
-            --neutral-600: #525252;
-            --neutral-700: #404040;
-            --neutral-800: #262626;
-            --neutral-900: #171717;
-            --success-500: #10b981;
-            --radius-lg: 0.5rem;
-            --radius-xl: 0.75rem;
-            --radius-2xl: 1rem;
-            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
-        }
-
-        .dark-theme {
-            --bg-primary: #0f172a;
-            --bg-secondary: #1e293b;
-            --bg-tertiary: #334155;
-            --text-primary: #f1f5f9;
-            --text-secondary: #cbd5e1;
-            --text-on-primary: #ffffff;
-            --text-on-dark: #ffffff;
-            --glass-bg: rgba(255, 255, 255, 0.1);
-            --primary-500: #38bdf8;
-            --primary-600: #0ea5e9;
-            --page-bg-start: #0b1120;
-            --page-bg-end: #0f172a;
-            --info-bg: rgba(56, 189, 248, 0.18);
-            --cta-bg-start: #1e293b;
-            --cta-bg-end: #0f172a;
-        }
-
-        body {
-            font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
-            line-height: 1.6;
-            color: var(--text-primary);
-            background: linear-gradient(135deg, var(--page-bg-start) 0%, var(--page-bg-end) 100%);
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem 1rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background:
-                radial-gradient(circle at 20% 50%, var(--info-bg) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, var(--info-bg) 0%, transparent 50%);
-            z-index: 0;
-        }
-
-        .hero-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: var(--bg-primary, rgba(255, 255, 255, 0.9));
-            border-radius: 9999px;
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: var(--primary-700);
-            margin-bottom: 2rem;
-            box-shadow: var(--shadow-md);
-            animation: slideDown 0.6s ease-out;
-        }
-
-        .hero-badge .dot {
-            width: 0.5rem;
-            height: 0.5rem;
-            background: var(--success-500);
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-
-        .hero-title {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 900;
-            line-height: 1.1;
-            color: var(--text-primary);
-            margin-bottom: 1.5rem;
-            animation: fadeInUp 0.8s ease-out 0.2s both;
-        }
-
-        .hero-title .gradient-text {
-            background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-800) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-description {
-            font-size: clamp(1.125rem, 2vw, 1.5rem);
-            color: var(--text-secondary);
-            max-width: 800px;
-            margin: 0 auto 3rem;
-            animation: fadeInUp 0.8s ease-out 0.4s both;
-        }
-
-        .hero-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            justify-content: center;
-            animation: fadeInUp 0.8s ease-out 0.6s both;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 1rem 2rem;
-            border-radius: var(--radius-lg);
-            font-weight: 600;
-            font-size: 1rem;
-            text-decoration: none;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow-md);
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
-            color: var(--text-on-primary, #fff);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .btn-secondary {
-            background: var(--bg-primary, #fff);
-            color: var(--primary-700);
-            border: 2px solid var(--primary-600);
-        }
-
-        .btn-secondary:hover {
-            background: var(--primary-600);
-            color: var(--text-on-primary, #fff);
-        }
-
-        /* Features Section */
-        .features {
-            padding: 5rem 1rem;
-            background: var(--bg-primary, #fff);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .section-badge {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            background: var(--primary-100);
-            color: var(--primary-700);
-            border-radius: 9999px;
-            font-size: 0.875rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .section-title {
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 800;
-            color: var(--text-primary);
-            margin-bottom: 1rem;
-        }
-
-        .section-description {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .feature-card {
-            padding: 2rem;
-            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
-            border-radius: var(--radius-xl);
-            border: 1px solid var(--border-color, #e5e7eb);
-            transition: all 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-xl);
-        }
-
-        .feature-icon {
-            width: 3rem;
-            height: 3rem;
-            background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
-            border-radius: var(--radius-lg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-on-primary, #fff);
-            margin-bottom: 1.5rem;
-        }
-
-        .feature-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 0.75rem;
-        }
-
-        .feature-description {
-            color: var(--text-secondary);
-            line-height: 1.7;
-        }
-
-        /* Stats Section */
-        .stats {
-            padding: 5rem 1rem;
-            background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-800) 100%);
-            color: var(--text-on-primary, #fff);
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 3.5rem;
-            font-weight: 900;
-            margin-bottom: 0.5rem;
-            background: var(--glass-bg, rgba(255, 255, 255, 0.2));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .stat-label {
-            font-size: 1.125rem;
-            opacity: var(--opacity-overlay, 0.95);
-            font-weight: 500;
-        }
-
-        /* CTA Section */
-        .cta {
-            padding: 5rem 1rem;
-            background: var(--bg-primary, #fff);
-        }
-
-        .cta-content {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-            padding: 4rem 2rem;
-            background: linear-gradient(135deg, var(--cta-bg-start) 0%, var(--cta-bg-end) 100%);
-            border-radius: var(--radius-2xl);
-            box-shadow: var(--shadow-xl);
-        }
-
-        .cta-title {
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 800;
-            color: var(--text-primary);
-            margin-bottom: 1rem;
-        }
-
-        .cta-description {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-        }
-
-        /* Footer */
-        .footer {
-            background: var(--bg-tertiary, #1e293b);
-            color: var(--text-on-dark, #fff);
-            padding: 3rem 1rem 2rem;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .footer-logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-
-        .footer-description {
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .footer-disclaimer {
-            padding: 1.5rem;
-            background: var(--glass-bg, rgba(255, 255, 255, 0.05));
-            border-radius: var(--radius-lg);
-            margin-bottom: 2rem;
-            color: var(--warning-500);
-            font-size: 0.875rem;
-            line-height: 1.6;
-        }
-
-        .footer-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            justify-content: center;
-            margin-bottom: 2rem;
-        }
-
-        .footer-link {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-link:hover {
-            color: var(--text-on-dark, #fff);
-        }
-
-        .footer-copy {
-            padding-top: 2rem;
-            border-top: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
-            color: var(--text-tertiary);
-            font-size: 0.875rem;
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes pulse {
-
-            0%,
-            100% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0.5;
-            }
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero {
-                padding: 3rem 1rem;
-            }
-
-            .features,
-            .stats,
-            .cta {
-                padding: 3rem 1rem;
-            }
-
-            .btn {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .footer-links {
-                flex-direction: column;
-                gap: 1rem;
-            }
-        }
-
-        /* Scroll Animations */
-        .scroll-animate {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-
-        .scroll-animate.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .scroll-animate-left {
-            opacity: 0;
-            transform: translateX(-30px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-
-        .scroll-animate-left.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .scroll-animate-right {
-            opacity: 0;
-            transform: translateX(30px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-
-        .scroll-animate-right.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .scroll-animate-scale {
-            opacity: 0;
-            transform: scale(0.95);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-
-        .scroll-animate-scale.visible {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        /* Stagger animation delays */
-        .feature-card:nth-child(1) {
-            transition-delay: 0.1s;
-        }
-
-        .feature-card:nth-child(2) {
-            transition-delay: 0.2s;
-        }
-
-        .feature-card:nth-child(3) {
-            transition-delay: 0.3s;
-        }
-
-        .feature-card:nth-child(4) {
-            transition-delay: 0.4s;
-        }
-
-        .feature-card:nth-child(5) {
-            transition-delay: 0.5s;
-        }
-
-        .feature-card:nth-child(6) {
-            transition-delay: 0.6s;
-        }
-
-        .stat-item:nth-child(1) {
-            transition-delay: 0.1s;
-        }
-
-        .stat-item:nth-child(2) {
-            transition-delay: 0.2s;
-        }
-
-        .stat-item:nth-child(3) {
-            transition-delay: 0.3s;
-        }
-
-        .stat-item:nth-child(4) {
-            transition-delay: 0.4s;
-        }
-
-        /* Scroll Smooth */
-        html {
-            scroll-behavior: smooth;
-        }
-    </style>
+    <meta property="og:url" content="https://inelegis.vercel.app/landing">
+    <meta property="og:image" content="https://inelegis.vercel.app/assets/images/logo-dark.png">
+    <link rel="canonical" href="https://inelegis.vercel.app/landing">
+    <meta name="robots" content="index,follow">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Inelegis - Sistema de Consulta de Inelegibilidade">
+    <meta name="twitter:description" content="Sistema não oficial para consulta rápida de inelegibilidade eleitoral">
+    <meta name="twitter:image" content="https://inelegis.vercel.app/assets/images/logo-dark.png">
+
+    <link rel="stylesheet" href="/styles/landing.css">
 </head>
 
 <body>
-    <img src="/assets/images/logo-dark.png" alt="Logomarca oficial do Inelegis" loading="lazy" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);clip-path:inset(50%);border:0;" />
+    <img src="/assets/images/logo-dark.png" alt="Logomarca oficial do Inelegis" loading="lazy" class="sr-only" />
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
             <div class="hero-badge">
                 <span class="dot"></span>
-                Sistema Ativo v0.0.9
+                Sistema Ativo v0.1.0
             </div>
 
             <h1 class="hero-title">
@@ -611,20 +54,60 @@
             </p>
 
             <div class="hero-buttons">
-                <a href="./" class="btn btn-primary">
-                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <a href="./" class="btn btn-primary" title="Acessar Sistema">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                     </svg>
                     Acessar Sistema
                 </a>
-                <a href="sobre" class="btn btn-secondary">
-                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <a href="sobre" class="btn btn-secondary" title="Saiba mais sobre o Inelegis">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
                     Saiba Mais
                 </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="features" id="como-funciona">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Como funciona</span>
+                <h2 class="section-title">Consulta em 3 passos</h2>
+                <p class="section-description">Selecione a lei, informe o artigo e veja o resultado com exceções aplicáveis.</p>
+            </div>
+            <div class="howto-grid">
+                <div class="howto-step scroll-animate-left">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">1. Selecione a lei</h3>
+                    <p class="feature-description">Escolha a base legal desejada para a consulta.</p>
+                </div>
+                <div class="howto-step scroll-animate">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v3a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm0 7a1 1 0 011-1h10a1 1 0 011 1v3a1 1 0 01-1 1H4a1 1 0 01-1-1v-3zm12 6a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1h-4a1 1 0 01-1-1v-3z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">2. Informe o artigo</h3>
+                    <p class="feature-description">Digite o artigo com parágrafos, incisos e alíneas, se necessário.</p>
+                </div>
+                <div class="howto-step scroll-animate-right">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">3. Veja o resultado</h3>
+                    <p class="feature-description">Resultado com indicação de inelegibilidade e exceções aplicáveis.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -713,6 +196,17 @@
                         para colar em documentos.
                     </p>
                 </div>
+                <div class="feature-card scroll-animate">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c1.654 0 3-1.346 3-3s-1.346-3-3-3-3 1.346-3 3 1.346 3 3 3zm6 10H6a2 2 0 01-2-2v-5a2 2 0 012-2h1v-1a5 5 0 0110 0v1h1a2 2 0 012 2v5a2 2 0 01-2 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Segurança e Privacidade</h3>
+                    <p class="feature-description">
+                        CSP ativa, sanitização de HTML e coleta anônima sem PII para uso seguro.
+                    </p>
+                </div>
             </div>
         </div>
     </section>
@@ -747,7 +241,7 @@
                 <p class="cta-description">
                     Acesse o sistema agora e otimize seu trabalho com consultas rápidas e precisas.
                 </p>
-                <a href="./" class="btn btn-primary">
+                <a href="./" class="btn btn-primary" title="Acessar Sistema Agora">
                     <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
@@ -762,11 +256,28 @@
     <div id="footer-placeholder"></div>
 
     <!-- Components & Theme Manager -->
-    <script src="/assets/js/modules/components.js?v=0.0.9" defer></script>
-    <script src="/assets/js/modules/theme-manager.js?v=0.0.9" defer></script>
+    <script src="/assets/js/modules/analytics.js?v=0.1.0" defer></script>
+    <script src="/assets/js/modules/components.js?v=0.1.0" defer></script>
+    <script src="/assets/js/modules/theme-manager.js?v=0.1.0" defer></script>
     <script>
         window.addEventListener('DOMContentLoaded', () => {
             Components.init('landing');
+            if (window.Analytics && typeof window.Analytics.init === 'function') {
+                window.Analytics.init();
+            }
+            const ctas = [
+                { el: document.querySelector('.hero-buttons .btn.btn-primary'), id: 'cta_access_top' },
+                { el: document.querySelector('.hero-buttons .btn.btn-secondary'), id: 'cta_more_top' },
+                { el: document.querySelector('.cta .btn.btn-primary'), id: 'cta_access_bottom' }
+            ];
+            ctas.forEach(({ el, id }) => {
+                if (!el) return;
+                el.addEventListener('click', () => {
+                    if (window.Analytics && typeof window.Analytics.trackAction === 'function') {
+                        window.Analytics.trackAction('landing_cta_click', { id });
+                    }
+                });
+            });
         });
     </script>
 

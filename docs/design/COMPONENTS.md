@@ -1,7 +1,7 @@
 # 🧩 Guia de Componentes Reutilizáveis
 
 **Última atualização:** 02 de dezembro de 2025  
-**Versão:** 0.0.9
+**Versão:** 0.1.0
 
 Este documento descreve o sistema de componentes reutilizáveis do Inelegis.
 

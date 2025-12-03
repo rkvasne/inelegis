@@ -32,7 +32,7 @@ class Linter {
   }
 
   async lint() {
-    this.log('Iniciando lint do Inelegis v0.0.9', 'info');
+    this.log('Iniciando lint do Inelegis v0.1.0', 'info');
 
     try {
       // 1. Lint HTML
@@ -538,7 +538,7 @@ class Linter {
   generateReport() {
     const report = {
       timestamp: new Date().toISOString(),
-      version: '0.0.9',
+      version: '0.1.0',
       summary: {
         errors: this.errors.length,
         warnings: this.warnings.length,
@@ -560,7 +560,7 @@ class Linter {
 
     // Exibir resumo
     console.log('\n' + '='.repeat(60));
-    console.log('🔍 RELATÓRIO DE LINT - INELEG-APP v0.0.9');
+    console.log('🔍 RELATÓRIO DE LINT - INELEG-APP v0.1.0');
     console.log('='.repeat(60));
     console.log(`Status: ${report.summary.status}`);
     console.log(`Erros: ${this.errors.length}`);
