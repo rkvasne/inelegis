@@ -620,7 +620,7 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, alin
 
 -- Lei 12.850/13 - Organização Criminosa
 INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, alinea, combinacao, eh_excecao, tipo_crime, item_alinea_e, observacoes) VALUES
-('lei_12850_13', 'Lei 12.850/13', NULL, NULL, NULL, NULL, NULL, FALSE, 'Crimes Praticados por Organização Criminosa', '10', NULL);
+('lei_12850_13', 'Lei 12.850/13', '2º', NULL, NULL, NULL, NULL, FALSE, 'Crimes Praticados por Organização Criminosa', '10', 'Art. 2º define o crime de promover, constituir, financiar ou integrar organização criminosa');
 
 -- Lei 13.260/16 - Terrorismo
 INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, alinea, combinacao, eh_excecao, tipo_crime, item_alinea_e, observacoes) VALUES
