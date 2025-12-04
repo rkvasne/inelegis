@@ -122,36 +122,17 @@ navigator.clipboard.writeText(texto);
 
 ---
 
-### 🔍 `search-index.js` - Busca Otimizada
-**Propósito:** Otimizar performance de busca usando índices e cache
-
-**Funções:**
-- `buildLeiIndex(leisDisponiveis, tabelaInelegibilidade)` - Constrói índice
-- `getItensPorLei(codigoLei, leisDisponiveis, tabelaInelegibilidade)` - Obtém itens
-- `buscar(codigoLei, numeroArtigo, leisDisponiveis, tabelaInelegibilidade)` - Busca otimizada
-- `clearCache()` - Limpa cache
-
-**Exemplo:**
-```javascript
-// Busca otimizada (usa cache)
-const resultado = SearchIndex.buscar(
-  'CP',
-  '121, §2º',
-  leisDisponiveis,
-  tabelaInelegibilidade
-);
-
-if (resultado) {
-  console.log('Encontrado:', resultado);
-}
-```
+### 🔍 `search-index.js` (Descontinuado)
+Substituído por `data-normalizado.js` com `DataNormalizer.query` e índices internos. Todas as consultas devem usar exclusivamente dados **pré-normalizados**.
 
 ---
 
 ## 🔗 Dependências
 
+### 🔗 Dependências
+
 ### Ordem de Carregamento
-Os módulos devem ser carregados nesta ordem no HTML:
+Os módulos e dados devem ser carregados nesta ordem no HTML:
 
 ```html
 <!-- 1. Módulos base (sem dependências) -->
@@ -165,11 +146,11 @@ Os módulos devem ser carregados nesta ordem no HTML:
 <!-- 3. Módulos de UI -->
 <script src="js/modal-manager.js"></script>
 
-<!-- 4. Módulos de busca (dependem dos anteriores) -->
-<script src="js/search-index.js"></script>
+<!-- 4. Dados normalizados (fonte única de verdade) -->
+<script src="/assets/js/normalizado.data.js"></script>
 
-<!-- 5. Dados e lógica principal -->
-<script src="data.js"></script>
+<!-- 5. API de consulta e lógica principal -->
+<script src="/assets/js/data-normalizado.js"></script>
 <script src="script.js"></script>
 ```
 

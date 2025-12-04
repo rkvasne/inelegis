@@ -1240,7 +1240,7 @@ code {
 }
 
 .modal-header-text p {
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   color: var(--text-secondary);
   margin: 0;
   line-height: 1.4;
@@ -2093,6 +2093,39 @@ code {
   border: 1px solid var(--border-color);
 }
 
+/* Form hints */
+.form-group { position: relative; }
+.select-highlight { box-shadow: 0 0 0 4px var(--primary-100); border-color: var(--primary-500); }
+.hand-hint {
+  position: absolute;
+  right: 0.5rem;
+  top: -0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  background: var(--bg-primary);
+  border: 1px solid var(--primary-300);
+  color: var(--primary-700);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-md);
+  font-size: 0.75rem;
+  animation: hint-blink 1s ease-in-out infinite;
+  z-index: 5;
+}
+.hand-hint svg { color: var(--primary-600); }
+@keyframes hint-blink { 0%,100%{opacity:1} 50%{opacity:.35} }
+
+.hand-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  margin-top: 0.5rem;
+  color: var(--primary-700);
+  font-size: 0.8125rem;
+  animation: hint-blink 1s ease-in-out infinite;
+}
+.hand-indicator .hand-emoji { font-size: 1rem; }
+
 .info-item-ase {
   background: var(--primary-50);
   border-color: var(--primary-200);
@@ -2105,7 +2138,7 @@ code {
 }
 
 .info-label {
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -2113,7 +2146,7 @@ code {
 }
 
 .info-value {
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--text-primary);
   line-height: 1.4;
@@ -2151,9 +2184,9 @@ code {
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  margin-bottom: var(--space-2);
+  margin-bottom: var(--space-3);
   font-weight: 600;
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
 }
 
 .modal-section.modal-warning .section-header {
@@ -2173,7 +2206,7 @@ code {
 }
 
 .section-content {
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   line-height: 1.5;
   color: var(--text-primary);
 }

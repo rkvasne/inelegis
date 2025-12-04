@@ -98,7 +98,7 @@ const Components = (() => {
                             <span class="footer-separator">|</span>
                             <a href="faq" class="footer-link">FAQ</a>
                             <span class="footer-separator">|</span>
-                            <a href="https://inelegis.vercel.app/CHANGELOG" class="footer-link" target="_blank" rel="noopener noreferrer">Changelog</a>
+                            <a href="https://github.com/rkvasne/ineleg-app/blob/main/CHANGELOG.md" class="footer-link" target="_blank" rel="noopener noreferrer">Changelog</a>
                             <span class="footer-separator">|</span>
                             <a href="https://github.com/rkvasne/ineleg-app" class="footer-link" target="_blank" rel="noopener noreferrer">GitHub</a>
                         </div>

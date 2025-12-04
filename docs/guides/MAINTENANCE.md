@@ -129,23 +129,16 @@ NÃO geram inelegibilidade:
 2. Baixar: Tabela de Inelegibilidade mais recente (PDF/XML)
 3. Documentar: Data de publicação e versão
 
-### Passo 2: Comparar com `src/js/data.js`
-1. Abrir arquivo: `src/js/data.js`
-2. Comparar `tabelaInelegibilidade` com tabela oficial
-3. Verificar `leisDisponiveis` por novas leis
-4. Documentar todas as mudanças
+### Passo 2: Extrair dados normalizados do XML
+1. Garantir arquivo: `docs/references/tabela-oficial.xml`
+2. Executar o extrator: `node scripts/extrair_normalizado_xml.js`
+3. Gera: `public/assets/js/normalizado.data.js`
+4. Conferir o número de itens gerados e amostrar alguns casos
 
-### Passo 3: Atualizar `src/js/data.js`
-```javascript
-// Estrutura que deve ser mantida:
-{
-    norma: "Arts. ...",           // Artigos que geram inelegibilidade
-    excecoes: ["Art...", ...],   // Artigos que NÃO geram (exceções)
-    crime: "Categoria (número)", // Categoria conforme LC 64/90
-    codigo: "SIGLA_LEI",         // Código para busca
-    observacao: "..."            // Opcional: notas sobre atualizações
-}
-```
+### Passo 3: Verificar indexação e consultas
+1. Carregar `normalizado.data.js` antes de `data-normalizado.js`
+2. Validar consultas com `DataNormalizer.query`
+3. Validar sugestões com `DataNormalizer.getSugestoesPorLei`
 
 ### Passo 4: Validar mudanças
 1. Executar testes manuais com novos artigos
@@ -153,15 +146,15 @@ NÃO geram inelegibilidade:
 3. Garantir que nenhum artigo foi duplicado
 4. Revisar formatação
 
-### Passo 5: Sincronizar bundle
-1. Execute `npm run sync:js` (ou `npm run dev`) para espelhar `src/js/data.js` em `public/assets/js/data.js`
-2. Confirme que o bundle gerado foi versionado corretamente
+### Passo 5: Publicar dados normalizados
+1. Confirmar presença de `public/assets/js/normalizado.data.js` no HTML
+2. Confirmar carregamento de `public/assets/js/data-normalizado.js`
+3. Não incluir `data.js` em nenhuma página
 
 ### Passo 6: Documentar
-1. Adicionar nota de data de atualização em `observacao`
-2. Atualizar este arquivo (MANUTENCAO.md)
-3. Criar versão de release se houver mudanças significativas
-4. Notificar usuários
+1. Atualizar este arquivo (MAINTENANCE.md) com data e origem dos dados
+2. Criar versão de release se houver mudanças significativas
+3. Notificar usuários
 
 ---
 
@@ -169,10 +162,11 @@ NÃO geram inelegibilidade:
 
 ### A cada 3 meses
 
-- [ ] Acessar site TRE-SP para verificar atualizações
-- [ ] Comparar `src/js/data.js` com tabela oficial
+- [ ] Acessar site TRE-SP/TSE para verificar atualizações
+- [ ] Baixar XML oficial mais recente
+- [ ] Rodar `scripts/extrair_normalizado_xml.js`
 - [ ] Validar 10% dos artigos aleatoriamente
-- [ ] Executar testes de busca com artigos atualizados
+- [ ] Executar testes das consultas normalizadas
 - [ ] Revisar logs para erros de validação
 - [ ] Backup completo dos arquivos
 - [ ] Documentar qualquer mudança
@@ -211,27 +205,17 @@ NÃO geram inelegibilidade:
 ## 📞 Referência Rápida
 
 ### Adicionar uma Nova Lei
-1. Adicione em `leisDisponiveis` array
-2. Adicione artigos em `tabelaInelegibilidade`
-3. Mantenha estrutura consistente
-4. Teste búsca com novo código
+1. Atualize o XML oficial em `docs/references/tabela-oficial.xml`
+2. Execute `node scripts/extrair_normalizado_xml.js`
+3. Valide consultas com `DataNormalizer.query`
 
 ### Corrigir um Artigo Existente
-1. Localize em `tabelaInelegibilidade`
-2. Atualize `norma` ou `excecoes`
-3. Teste bem a mudança
-4. Documente no campo `observacao`
+1. Corrija no XML oficial a referência legislativa
+2. Regerar `normalizado.data.js`
+3. Validar exceções e índices por lei
 
 ### Adicionar uma Observação Legislativa
-```javascript
-{
-    norma: "Art. XXX",
-    excecoes: [],
-    crime: "Categoria",
-    codigo: "SIGLA",
-    observacao: "Lei YYY/AAAA alterou este artigo em DD/MM/AAAA"
-}
-```
+Use o campo `observacao` nos itens normalizados para registrar data e origem da alteração. Recomenda-se registrar a observação na fonte XML quando aplicável.
 
 ---
 
@@ -265,7 +249,7 @@ NÃO geram inelegibilidade:
 
 ### Status: ✅ TODOS OS PROBLEMAS RESOLVIDOS
 
-**Última atualização:** 01 de dezembro de 2025
+**Última atualização:** 04 de dezembro de 2025
 
 Todos os problemas identificados anteriormente foram corrigidos:
 - ✅ Conformidade com XML TRE-SP: 100%
@@ -279,7 +263,7 @@ Todos os problemas identificados anteriormente foram corrigidos:
 
 ## 📝 Notas Operacionais
 
-1. **Dados é crítico:** Qualquer erro em `src/js/data.js` afeta diretamente usuários
+1. **Dados é crítico:** Qualquer erro em `normalizado.data.js` afeta diretamente usuários
 2. **Teste sempre:** Antes de publicar mudanças, teste com casos reais
 3. **Documente bem:** Observações ajudam futuros mantenedores
 4. **Backup regular:** Faça backup antes de qualquer grande atualização

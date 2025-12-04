@@ -81,8 +81,8 @@ replacements.forEach(replacement => {
 const header = `/**
  * INELEGIS - Sistema de Consulta de Inelegibilidade Eleitoral
  * 
- * Versão: 0.1.0
- * Última atualização: 01 de dezembro de 2025
+ * Versão: 0.1.1
+ * Última atualização: 04 de dezembro de 2025
  * 
  * Este arquivo utiliza os seguintes módulos:
  * - src/js/modules/sanitizer.js: Prevenção XSS
@@ -90,7 +90,7 @@ const header = `/**
  * - src/js/modules/formatters.js: Formatação de artigos
  * - src/js/modules/exceptions.js: Validação de exceções
  * - src/js/modules/modal-manager.js: Gerenciamento de modal
- * - src/js/modules/search-index.js: Busca otimizada
+ * - public/assets/js/data-normalizado.js: Fonte única de dados normalizados
  */
 
 `;

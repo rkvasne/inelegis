@@ -73,9 +73,13 @@ docs/
 - [Voltar para a Raiz](../README.md)
 - [🤖 Instruções para Copilotos](../.github/copilot-instructions.md)
 
-## ✏️ Fluxo de Edição
+## ✏️ Fluxo de Dados e Edição
 
-Sempre edite os arquivos-fonte dentro de `src/` (ex.: `src/js/modules/*`, `src/js/data.js`). Os bundles em `public/` e `assets/` são gerados automaticamente; rode `npm run sync:js` ou `npm run dev` para refletir suas mudanças antes de validar ou abrir PR.
+O runtime usa exclusivamente dados previamente normalizados e API de consulta:
+- Gere `public/assets/js/normalizado.data.js` a partir do XML oficial (`docs/references/tabela-oficial.xml`) usando `scripts/extrair_normalizado_xml.js`.
+- Carregue `normalizado.data.js` antes de `data-normalizado.js` nas páginas que realizam consulta.
+- Use `public/assets/js/data-normalizado.js` como API única de consultas (`DataNormalizer.query`, índices por lei, sugestões por lei).
+- A pasta `src/js/` é espelho histórico; o runtime atual usa `public/assets/js`.
 
 ## 🆕 Novidades v0.1.0
 
@@ -83,8 +87,9 @@ Sempre edite os arquivos-fonte dentro de `src/` (ex.: `src/js/modules/*`, `src/j
 - ✅ Links internos atualizados e verificados.
 - ✅ Versão do projeto elevada para 0.1.0.
 - ✅ Mantenedores e contribuidores seguem o fluxo único de documentação central.
+ - ✅ Fonte única de dados: consultas agora usam somente dados previamente normalizados (`public/assets/js/data-normalizado.js`). Não há mais tratamento de dados a cada consulta.
 
 ---
 
-**Última atualização:** 02 de dezembro de 2025  
-**Versão:** 0.1.0
+**Última atualização:** 04 de dezembro de 2025  
+**Versão:** 0.1.2

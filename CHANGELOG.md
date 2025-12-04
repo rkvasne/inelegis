@@ -1,7 +1,7 @@
 # Changelog
 
-**Última atualização:** 03 de dezembro de 2025
-**Versão atual:** 0.1.1
+**Última atualização:** 04 de dezembro de 2025
+**Versão atual:** 0.1.2
 
 Todas as alterações notáveis neste projeto serão documentadas neste arquivo.
 
@@ -11,6 +11,34 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 ---
 
 ## [0.0.9] - 2025-12-02
+
+## [0.1.2] - 2025-12-04
+
+### 📚 Documentation
+- Consolidação e padronização completa da documentação em todas as pastas.
+- Atualizados READMEs e guias para refletir uso exclusivo de dados normalizados.
+- Corrigida ordem de carregamento: `normalizado.data.js` antes de `data-normalizado.js`.
+- Removido documento obsoleto `scripts/DOC-AGENT-README.md`.
+
+### 🛠 Changed
+- Scripts operacionais migrados para trabalhar com `normalizado.data.js`.
+- Removidos comandos `validate`, `backup`, `deploy` do `package.json` para evitar referências a `data.js`.
+
+### 🛠 Changed
+- Consulta passa a usar exclusivamente dados previamente normalizados via `public/assets/js/data-normalizado.js`.
+- `buscarInelegibilidadePorLeiEArtigo` agora utiliza `DataNormalizer.query` em vez de processamento por consulta.
+- Sugestões e índice por lei usam `DataNormalizer.getSugestoesPorLei` e `DataNormalizer.getItensPorLei`.
+
+### 🗑 Removed
+- Removidos arquivos legados de busca baseada em dados brutos:
+  - `public/assets/js/modules/search-index.js`
+  - `src/js/modules/search-index.js`
+  - `tests/search-index.test.js`
+  - `tests/fallback.test.js`
+
+### 📚 Documentation
+- Documentação atualizada para refletir “fonte única de verdade” com dados normalizados.
+- READMEs de módulos marcam `search-index.js` como descontinuado.
 
 ### ✨ Added
 - Nova página `public/historico.html` com painel administrativo completo (cards, estatísticas e exportação TXT) para consultas sincronizadas via Redis.

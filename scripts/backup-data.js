@@ -11,7 +11,7 @@ const crypto = require('crypto');
 class DataBackup {
   constructor() {
     this.backupDir = path.join(__dirname, '..', 'backups');
-    this.dataFile = path.join(__dirname, '..', 'data.js');
+    this.dataFile = path.join(__dirname, '..', 'public', 'assets', 'js', 'normalizado.data.js');
   }
 
   init() {
@@ -30,7 +30,7 @@ class DataBackup {
       const content = fs.readFileSync(this.dataFile, 'utf8');
       const hash = this.generateHash(content);
       const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-      const backupFileName = `data-${timestamp}-${hash}.js`;
+      const backupFileName = `normalizado.data-${timestamp}-${hash}.js`;
       const backupPath = path.join(this.backupDir, backupFileName);
 
       fs.writeFileSync(backupPath, content);
@@ -39,7 +39,7 @@ class DataBackup {
       const metadata = {
         timestamp: new Date().toISOString(),
         hash,
-        originalFile: 'data.js',
+        originalFile: 'normalizado.data.js',
         backupFile: backupFileName,
         size: content.length
       };
@@ -143,15 +143,10 @@ class DataBackup {
   validateData() {
     try {
       const content = fs.readFileSync(this.dataFile, 'utf8');
+      const match = content.match(/window\.__INELEG_NORMALIZADO__\s*=\s*(\[[\s\S]*?\])/);
+      if (!match) throw new Error('Marcador __INELEG_NORMALIZADO__ ausente');
+      JSON.parse(match[1]);
       
-      // Verificar se é JavaScript válido
-      eval(`(function() { ${content} })()`);
-      
-      // Verificar estrutura básica
-      if (!content.includes('tabelaInelegibilidade') || !content.includes('leisDisponiveis')) {
-        throw new Error('Estrutura de dados inválida');
-      }
-
       console.log('✅ Dados validados com sucesso');
       return true;
     } catch (error) {
