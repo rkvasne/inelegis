@@ -43,7 +43,7 @@ Como esta é uma aplicação frontend com sistema de build:
 - Legenda explicando os tipos de resultado.
 
 **[script.js](../src/js/script.js)** - Lógica da aplicação organizada em grupos funcionais:
-1. **Lógica de Busca**: `realizarBusca()` - Núcleo da consulta (usa SearchIndex).
+1. **Lógica de Busca**: `realizarBusca()` - Núcleo da consulta (usa `DataNormalizer.query`).
 2. **Gerenciamento de UI**: `exibirResultado()` - Exibição de resultados (usa ModalManager).
 3. **Sugestões**: `mostrarSugestoes()`, `obterSugestoesPorLei()` - Sugestões em tempo real.
 
@@ -73,10 +73,7 @@ Como esta é uma aplicação frontend com sistema de build:
 - `close()` - Fecha modal
 - `exportContent()` - Exporta resultado
 
-**[modules/search-index.js](../src/js/modules/search-index.js)** - Performance:
-- `buscar()` - Busca otimizada com cache
-- `buildLeiIndex()` - Constrói índices
-- `clearCache()` - Limpa cache
+**[modules/search-index.js] (descontinuado)** - Módulo legado substituído por `data-normalizado.js`. Consultas devem usar apenas `DataNormalizer.query` e índices gerados por `DataNormalizer.getItensPorLei`.
 
 **[modules/search-history.js](../src/js/modules/search-history.js)** - Histórico (v0.1.0):
 - `add()` - Adiciona consulta (com detecção de duplicatas)
@@ -109,14 +106,9 @@ Como esta é uma aplicação frontend com sistema de build:
 - `renderAlert()` - Renderiza alertas
 6. **Atalhos de Teclado**: Implementação de hotkeys (Ctrl+L, Ctrl+A, Ctrl+Enter, F1, Esc).
 
-**[data.js](../src/js/data.js)** - Configuração de dados:
-1. **leisDisponiveis** - Array com mais de 40 códigos de leis.
-2. **tabelaInelegibilidade** - Array de objetos descrevendo cada ocorrência documentada na planilha do TRE-SP:
-  - `norma`: string com a referência textual (“Art. 121, § 2º…”)
-  - `excecoes`: lista de exceções em texto livre
-  - `crime`: categoria/observação exibida no modal
-  - `codigo`: identificador da lei usada para filtro
-  - `observacao` (opcional)
+**[normalizado.data.js](../public/assets/js/normalizado.data.js)** - Fonte de dados normalizados:
+1. `window.__INELEG_NORMALIZADO__` - Estrutura gerada a partir do XML oficial.
+2. Cada item contém: `codigo`, `norma`, `excecoes[]`, `crime`, `observacao`, `estruturado.artigos[]`.
 
 **[styles.css](../public/styles/styles.css)** - Sistema de design CSS profissional:
 - Paleta de cores corporativa e tokens de design.
@@ -126,7 +118,7 @@ Como esta é uma aplicação frontend com sistema de build:
 
 ### Exemplo de Estrutura de Dados
 
-Em `data.js`, cada item de `tabelaInelegibilidade` segue este padrão:
+Cada item de `window.__INELEG_NORMALIZADO__` segue este padrão:
 ```javascript
 {
   norma: "Arts. 121, 121-A, 122, §1º a § 7º, 123 a 127",
@@ -147,7 +139,7 @@ A aplicação suporta notação de artigos jurídicos brasileiros:
 - Citações concorrentes: `121 c/c 312`
 - Combinado: `121, §2º, I, "a" c/c 312 c/c 213`
 
-Expressões regulares em `src/js/script.js` lidam com a extração e correspondência desses componentes.
+O parse é feito em `ArtigoFormatter` e a correspondência é realizada exclusivamente sobre dados pré-normalizados via `DataNormalizer`.
 
 ---
 
@@ -179,14 +171,12 @@ A entrada do usuário é formatada automaticamente para padrões legais:
 
 ## 🔧 Manutenção de Dados
 
-Os dados de inelegibilidade em `src/js/data.js` mapeiam diretamente para:
-- Tabela oficial de inelegibilidade do TRE-SP.
-- Arquivos PDF e XML de referência na pasta `docs/references/`.
+Os dados oficiais são extraídos do XML em `docs/references/tabela-oficial.xml` e **geram** `public/assets/js/normalizado.data.js` via `scripts/extrair_normalizado_xml.js`. A aplicação usa exclusivamente `DataNormalizer` para consultas.
 
 **Se a lei eleitoral mudar:**
-1. Atualize o objeto `tabelaInelegibilidade` em `data.js`.
-2. Adicione novas leis ao array `leisDisponiveis` se necessário.
-3. Teste com números de artigos relevantes.
+1. Baixe o XML/PDF oficial dos TREs.
+2. Execute `node scripts/extrair_normalizado_xml.js` para regenerar `normalizado.data.js`.
+3. As consultas usam `DataNormalizer.query` e índices internos (`getItensPorLei`, `getSugestoesPorLei`).
 
 ---
 
@@ -209,9 +199,9 @@ Os dados de inelegibilidade em `src/js/data.js` mapeiam diretamente para:
 
 ## 📝 Tarefas Comuns
 
-**Entender validação de artigos**: Veja `buscarInelegibilidadePorLeiEArtigo()` em `src/js/script.js` - faz o parse da notação e busca na tabela (a migração completa para `SearchIndex.buscar()` ainda está em andamento).
+**Entender validação de artigos**: Veja `buscarInelegibilidadePorLeiEArtigo()` em `src/js/script.js` - faz o parse da notação e busca apenas em dados normalizados (`DataNormalizer.query`).
 
-**Adicionar nova lei**: Adicione ao array `leisDisponiveis` em `src/js/data.js`, depois adicione entradas em `tabelaInelegibilidade`.
+**Adicionar nova lei**: Atualize o XML oficial e regenere `normalizado.data.js` com o extrator.
 
 **Modificar exibição de resultado**: Edite `exibirResultado()` em `src/js/script.js` - controla o conteúdo e estilo do modal.
 
@@ -219,7 +209,7 @@ Os dados de inelegibilidade em `src/js/data.js` mapeiam diretamente para:
 
 **Atualizar estilos**: Cores e layout estão em `public/styles/styles.css`.
 
-**Atualizar tabela de inelegibilidade**: Edite o array `tabelaInelegibilidade` em `src/js/data.js`.
+**Atualizar tabela de inelegibilidade**: Atualize o XML oficial; não há edição manual de `data.js`.
 
 
 ---

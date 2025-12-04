@@ -1,0 +1,20 @@
+{
+  "version": "0.1.0",
+  "modules": {
+    "sanitizer": true,
+    "storage": true,
+    "formatters": true,
+    "exceptions": true,
+    "modalManager": true,
+    "dataNormalizer": true
+  },
+  "features": {
+    "csp": true,
+    "secureStorage": true,
+    "optimizedSearch": true
+  },
+  "migration": {
+    "date": "2025-12-04T12:34:19.146Z",
+    "backupDir": "E:\\Ineleg\\ineleg-app\\.backup-1764851659061"
+  }
+}

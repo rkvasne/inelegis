@@ -17,7 +17,7 @@
     <a href="https://github.com/rkvasne/inelegis-app/issues">Solicitar Feature</a>
   </p>
 
-  [![Version](https://img.shields.io/badge/version-0.1.0-blue.svg?style=for-the-badge)](https://semver.org)
+  [![Version](https://img.shields.io/badge/version-0.1.2-blue.svg?style=for-the-badge)](https://semver.org)
   [![License](https://img.shields.io/badge/license-MIT-green.svg?style=for-the-badge)](LICENSE)
   [![Tests](https://img.shields.io/badge/tests-100%25-success.svg?style=for-the-badge)](tests/)
   [![Theme](https://img.shields.io/badge/theme-validated-success.svg?style=for-the-badge)](docs/design/THEME-VALIDATOR.md)
@@ -111,7 +111,7 @@ inelegis-app/
 ├── 📁 src/
 │   └── 📁 js/                   # Fontes JavaScript
 │       ├── script.js           # Lógica principal (fonte)
-│       ├── data.js             # Base legislativa em memória
+│       ├── normalizado.data.js # Dados normalizados (gerado a partir do XML)
 │       └── 📁 modules/         # Componentes especializados
 ├── 📁 scripts/                 # Build, deploy, validações, sync
 ├── 📁 docs/                    # Documentação completa
@@ -170,7 +170,7 @@ A documentação completa está disponível na pasta [`docs/`](docs/).
 *   [📖 Índice da Documentação](docs/README.md)
 *   [🛠️ Guia de Desenvolvimento](docs/guides/DEVELOPMENT.md)
 *   [🔧 Guia de Manutenção](docs/guides/MAINTENANCE.md)
-*   [📝 Release Notes v0.1.0](CHANGELOG.md)
+*   [📝 Changelog](CHANGELOG.md)
 *   [📘 Histórico da Refatoração](docs/history/refatoracao-v0.0.6.md)
 *   [🤖 Instruções para Copilotos](.github/copilot-instructions.md)
 
@@ -196,8 +196,8 @@ Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.
 
 ---
 
-**Última atualização:** 02 de dezembro de 2025  
-**Versão:** 0.1.0
+**Última atualização:** 04 de dezembro de 2025  
+**Versão:** 0.1.2
 
 ---
 

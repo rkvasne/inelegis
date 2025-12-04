@@ -102,29 +102,40 @@ class Migrator {
         continue;
       }
 
-      // Adicionar scripts antes de data.js
+      // Adicionar scripts substituindo data.js
       const scriptInsert = `    <!-- Módulos de Segurança e Utilidades -->
-    <script src="/assets/js/modules/sanitizer.js"></script>
-    <script src="/assets/js/modules/storage.js"></script>
-    <script src="/assets/js/modules/formatters.js"></script>
-    <script src="/assets/js/modules/exceptions.js"></script>
-    <script src="/assets/js/modules/modal-manager.js"></script>
-    <script src="/assets/js/modules/search-index.js"></script>
+        <script src="/assets/js/modules/sanitizer.js"></script>
+        <script src="/assets/js/modules/storage.js"></script>
+        <script src="/assets/js/modules/formatters.js"></script>
+        <script src="/assets/js/modules/exceptions.js"></script>
+        <script src="/assets/js/modules/modal-manager.js"></script>
+        <!-- Dados normalizados e fonte única de verdade -->
+        <script src="/assets/js/normalizado.data.js"></script>
+        <script src="/assets/js/data-normalizado.js"></script>
 
-    <!-- Scripts Principais -->
+        <!-- Scripts Principais -->
 `;
 
       const dataScriptPattern = /<script\s+src="[^"]*data\.js[^"]*"><\/script>/i;
 
-      if (!dataScriptPattern.test(content)) {
-        this.log(`Data.js não encontrado em ${target.label}`, 'warning');
-        continue;
+      if (dataScriptPattern.test(content)) {
+        content = content.replace(
+          dataScriptPattern,
+          scriptInsert
+        );
+      } else {
+        // Se não houver data.js, apenas injeta novos scripts antes do principal
+        const mainScriptPattern = /<script\s+src="[^"]*script\.js[^"]*"\s*defer?><\/script>/i;
+        if (mainScriptPattern.test(content)) {
+          content = content.replace(
+            mainScriptPattern,
+            scriptInsert + '$&'
+          );
+        } else {
+          // Fallback: adiciona no final do body
+          content = content.replace(/<\/body>/i, scriptInsert + '\n</body>');
+        }
       }
-
-      content = content.replace(
-        dataScriptPattern,
-        scriptInsert + '    <script src="/assets/js/data.js"></script>'
-      );
 
       fs.writeFileSync(target.filePath, content, 'utf8');
       this.changes.push(`Atualizado: ${target.label}`);
@@ -168,7 +179,7 @@ class Migrator {
         formatters: true,
         exceptions: true,
         modalManager: true,
-        searchIndex: true
+        dataNormalizer: true
       },
       features: {
         csp: true,

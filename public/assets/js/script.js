@@ -407,7 +407,6 @@ function realizarBusca() {
 function buscarInelegibilidadePorLeiEArtigo(codigoLei, numeroArtigo) {
     debugLog('INICIANDO BUSCA', { codigoLei, numeroArtigo });
 
-    // Rejeitar números de artigo muito curtos (menos de 2 dígitos)
     if (numeroArtigo.trim().length < 2) {
         debugLog('Artigo muito curto', numeroArtigo);
         return null;
@@ -416,99 +415,42 @@ function buscarInelegibilidadePorLeiEArtigo(codigoLei, numeroArtigo) {
     const artigoProcessado = ArtigoFormatter.processar(numeroArtigo);
     debugLog('ARTIGO PROCESSADO', artigoProcessado);
 
-    let melhorResultado = null;
-    let excecoesEncontradas = [];
-
-    // Buscar somente entre itens da lei (índice em memória)
-    const candidatos = getItensPorLei(codigoLei);
-    for (const item of candidatos) {
-        // Verificar se a lei corresponde
-        const leiCorresponde = verificarLeiCorresponde(item, codigoLei);
-
-        if (!leiCorresponde) {
-            continue;
-        }
-
-        // Verificar se o artigo corresponde (considerando formatação completa)
-        const artigoCorresponde = verificarArtigoCorresponde(item.norma, artigoProcessado);
-
-        if (artigoCorresponde) {
-            debugLog('Entrada encontrada', item);
-
-            // Verificar se há exceções aplicáveis
-            const temExcecao = ExceptionValidator.verificar(item, artigoProcessado);
-
-            if (temExcecao) {
-                excecoesEncontradas.push({
-                    norma: item.norma,
-                    excecoes: item.excecoes,
-                    crime: item.crime,
-                    observacao: item.observacao
-                });
-                debugLog('Exceção encontrada', temExcecao);
-            }
-
-            // Retornar o resultado com informações de exceção
-            melhorResultado = {
-                ...item,
-                artigoOriginal: numeroArtigo,
-                artigoProcessado: artigoProcessado,
-                inelegivel: !temExcecao,
-                temExcecao: temExcecao,
-                // Exibir somente exceções do mesmo artigo consultado
-                excecoes: filtrarExcecoesDoMesmoArtigo(item.excecoes || [], artigoProcessado),
-                excecoesDetalhes: excecoesEncontradas
-            };
-
-            break; // Encontrou a primeira correspondência exata
-        }
-    }
-
-    // Se não encontrou correspondência exata, tentar busca flexível
-    if (!melhorResultado) {
-        melhorResultado = buscarFlexivel(codigoLei, artigoProcessado);
-    }
-
-    return melhorResultado;
-}
-
-// Busca flexível - procura por correspondências parciais
-function buscarFlexivel(codigoLei, artigoProcessado) {
-    debugLog('INICIANDO BUSCA FLEXÍVEL');
-
-    const artigoPrincipal = artigoProcessado.artigo;
-
-    // Rejeitar artigos muito curtos (menos de 2 dígitos) para evitar falsos positivos
-    if (artigoPrincipal.length < 2) {
-        debugLog('Artigo curto demais para busca flexível', artigoPrincipal);
+    if (typeof DataNormalizer === 'undefined') {
+        console.error('DataNormalizer não disponível');
         return null;
     }
 
-    for (const item of tabelaInelegibilidade) {
-        if (!verificarLeiCorresponde(item, codigoLei)) {
-            continue;
-        }
+    const resultados = DataNormalizer.query({
+        lei: codigoLei,
+        artigo: artigoProcessado.artigo,
+        paragrafo: artigoProcessado.paragrafo,
+        inciso: artigoProcessado.inciso,
+        alinea: artigoProcessado.alinea
+    });
 
-        // Buscar apenas pelo artigo principal usando extração estruturada
-        const artigos = extrairArtigosDoNorma(item.norma);
-        if (artigos.includes(artigoPrincipal)) {
-            debugLog('Resultado via busca flexível', item.norma, artigos);
-
-            const temExcecao = ExceptionValidator.verificar(item, artigoProcessado);
-
-            return {
-                ...item,
-                artigoProcessado: artigoProcessado,
-                inelegivel: !temExcecao,
-                temExcecao: temExcecao,
-                excecoes: filtrarExcecoesDoMesmoArtigo(item.excecoes || [], artigoProcessado),
-                buscaFlexivel: true
-            };
-        }
+    if (!resultados || resultados.length === 0) {
+        return null;
     }
 
-    return null;
+    const item = resultados[0];
+    const temExcecao = ExceptionValidator.verificar(item, artigoProcessado);
+    return {
+        ...item,
+        artigoOriginal: numeroArtigo,
+        artigoProcessado: artigoProcessado,
+        inelegivel: !temExcecao,
+        temExcecao: temExcecao,
+        excecoes: filtrarExcecoesDoMesmoArtigo(item.excecoes || [], artigoProcessado),
+        excecoesDetalhes: temExcecao ? [{
+            norma: item.norma,
+            excecoes: item.excecoes,
+            crime: item.crime,
+            observacao: item.observacao
+        }] : []
+    };
 }
+
+function buscarFlexivel() { return null; }
 
 // Processar uma parte do artigo (artigo, parágrafo, inciso, alínea)
 function processarParteArtigo(parte) {
@@ -581,60 +523,7 @@ function formatarParteArtigo(parte) {
     return formatado;
 }
 
-// Extrair todos os artigos de uma string norma
-function extrairArtigosDoNorma(normaString) {
-    if (!normaString) return [];
-
-    const norma = normaString.toLowerCase();
-    const artigos = [];
-
-    // Padrão para encontrar "Art. NNN" ou "Arts. NNN, NNN, ..."
-    // Primeiro, remove "Art." ou "Arts." e pega tudo que segue
-    const matchArts = norma.match(/art\.?s?\.?\s+([\d\-\s,;"'a-z§º°àáäâãèéëêìíïîòóöôùúüûçñ.e-]+)/gi);
-
-    if (matchArts) {
-        for (const match of matchArts) {
-            // Remove "art." ou "arts." do início
-            const semaRtigo = match.replace(/^art\.?s?\.?\s+/i, '');
-
-            // Extrai todos os números (artigos) da string
-            // Padrão: número com opcionais hífen e letra (ex: 123, 123-A, 123-a)
-            const numeroMatches = semaRtigo.match(/\b(\d+)(?:-[a-z])?\b/gi);
-
-            if (numeroMatches) {
-                for (const num of numeroMatches) {
-                    artigos.push(num.match(/\d+/)[0]); // Pega só o número
-                }
-            }
-        }
-    }
-
-    return [...new Set(artigos)]; // Remove duplicatas
-}
-
-// Verificar se artigo corresponde (considerando formatação completa)
-function verificarArtigoCorresponde(artigoTabela, artigoProcessado) {
-    // Verificar se os parâmetros são válidos
-    if (!artigoTabela || !artigoProcessado || !artigoProcessado.artigo) {
-        return false;
-    }
-
-    const artigoPrincipal = artigoProcessado.artigo.toLowerCase().trim();
-
-    // Verificar se o artigo principal não está vazio
-    if (!artigoPrincipal.trim()) {
-        return false;
-    }
-
-    // Extrair todos os artigos da tabela
-    const artigos = extrairArtigosDoNorma(artigoTabela);
-
-    debugLog(`Artigos extraídos de "${artigoTabela}": ${artigos.join(', ')}`);
-    debugLog(`Procurando por: "${artigoPrincipal}"`);
-
-    // Verificar se o artigo principal está na lista
-    return artigos.includes(artigoPrincipal);
-}
+// Busca e verificação operam apenas sobre dados normalizados
 
 // Verificar se a lei corresponde ao item da tabela
 function verificarLeiCorresponde(item, codigoLei) {
@@ -986,37 +875,10 @@ function mostrarSugestoes(termo) {
 
 // Obter sugestões por lei específica com busca inteligente
 function obterSugestoesPorLei(codigoLei, termo) {
-    const sugestoes = new Set();
-    const termoNormalizado = termo.toLowerCase().trim();
-
-    if (!termoNormalizado || termoNormalizado.length === 0) {
-        return [];
-    }
-
-    tabelaInelegibilidade.forEach(item => {
-        if (verificarLeiCorresponde(item, codigoLei)) {
-            const artigos = extrairArtigos(item.norma);
-            artigos.forEach(artigo => {
-                const artigoLower = artigo.toLowerCase();
-
-                // Correspondência exata ou parcial
-                if (artigoLower.includes(termoNormalizado) ||
-                    artigoLower.startsWith(termoNormalizado) ||
-                    termoNormalizado.startsWith(artigo.substring(0, 3))) {
-                    sugestoes.add(artigo);
-                }
-            });
-        }
-    });
-
-    // Converter para array, ordenar por relevância e limitar a 10 sugestões
-    return Array.from(sugestoes)
-        .sort((a, b) => {
-            const aStarts = a.toLowerCase().startsWith(termoNormalizado) ? 0 : 1;
-            const bStarts = b.toLowerCase().startsWith(termoNormalizado) ? 0 : 1;
-            return aStarts - bStarts || a.length - b.length;
-        })
-        .slice(0, 10);
+    const t = String(termo || '').toLowerCase().trim();
+    if (!t) return [];
+    if (typeof DataNormalizer === 'undefined') return [];
+    return DataNormalizer.getSugestoesPorLei(codigoLei, t);
 }
 
 // Selecionar sugestão
@@ -1196,9 +1058,9 @@ function filtrarExcecoesDoMesmoArtigo(excecoes, artigoProcessado) {
     const norm = (s) => { try { return String(s || '').normalize('NFD').replace(/\p{Diacritic}/gu, ''); } catch { return String(s || '') } };
     return excecoes.filter((ex) => rx.test(norm(ex)));
 }
-// Usar SearchIndex para busca otimizada
 function getItensPorLei(codigoLei) {
-    return SearchIndex.getItensPorLei(codigoLei, leisDisponiveis, tabelaInelegibilidade);
+    if (typeof DataNormalizer === 'undefined') return [];
+    return DataNormalizer.getItensPorLei(codigoLei);
 }
 
 

@@ -11,7 +11,7 @@ Recomendações
 - Aplicar Sanitizer nas áreas dinâmicas
   - Onde innerHTML é usado com conteúdo dinâmico (mesmo que não venha do usuário), preferir Sanitizer.safeInnerHTML para padronização.
 - Ampliar cobertura de testes
-  - Adicionar testes para SearchIndex.buscar , integração básica de script.js (extração/verificação), e endpoints com mocks (sem rodar comandos).
+  - Adicionar testes para DataNormalizer.query, integração básica de script.js (consulta e exceções), e endpoints com mocks (sem rodar comandos).
 Plano de Ação
 
 - Segurança e CORS
@@ -23,7 +23,7 @@ Plano de Ação
   - Corrigir versão do Node no README para refletir package.json .
   - Incluir nota sobre cookie inelegis_uid e não uso de localStorage para identificadores em ANALYTICS.md (já consistente).
 - Testes
-  - Incluir testes unitários para SearchIndex e extração/verificação em script.js .
+  - Incluir testes unitários para DataNormalizer e verificação de exceções em script.js.
   - Acrescentar testes de CORS e autorização simulando chamadas às APIs.
 Infra e Deploy
 
@@ -62,9 +62,9 @@ Secundárias
 
 Revisão de innerHTML em pontos dinâmicos similares:
 Endereços: src/js/modules/components.js (strings de UI injetadas), revisar outros usos.
-Expandir testes:
-SearchIndex.buscar e fluxo de extração/consulta:
-Endereços alvo: src/js/modules/search-index.js:62–65, 70–83, 146–156; src/js/script.js:580–608, 624–632.
+- Expandir testes:
+Consultas via DataNormalizer.query:
+Endereços alvo: public/assets/js/data-normalizado.js; src/js/script.js (consulta e exceções).
 Ação: adicionar testes unitários e de integração leves.
 Documentação de segurança:
 Reforçar tokens e CORS nos guias (docs/guides/SETUP-REDIS.md:131–136, docs/operations/ANALYTICS.md:36–48, 54–83).

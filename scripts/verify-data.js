@@ -6,18 +6,18 @@
 
 const fs = require('fs');
 const vm = require('vm');
+const path = require('path');
 
-const paths = require('./project-paths');
-const dataPath = paths.js.data;
+const dataPath = path.join(__dirname, '..', 'public', 'assets', 'js', 'normalizado.data.js');
 
 function loadDataJs(file) {
   const code = fs.readFileSync(file, 'utf8');
-  const sandbox = { console: { log() {} } };
+  const sandbox = { console: { log() {} }, window: {} };
   vm.createContext(sandbox);
-  vm.runInContext(code + '\n;this.__leisDisponiveis = leisDisponiveis; this.__tabelaInelegibilidade = tabelaInelegibilidade;', sandbox, {
-    filename: 'data.js',
+  vm.runInContext(code + '\n;this.__NORMALIZADO = window.__INELEG_NORMALIZADO__;', sandbox, {
+    filename: 'normalizado.data.js',
   });
-  return { leisDisponiveis: sandbox.__leisDisponiveis, tabelaInelegibilidade: sandbox.__tabelaInelegibilidade };
+  return sandbox.__NORMALIZADO || [];
 }
 
 function hasSuspectChars(str) {
@@ -29,12 +29,12 @@ function normalize(str) {
 }
 
 function main() {
-  const { leisDisponiveis, tabelaInelegibilidade } = loadDataJs(dataPath);
+  const items = loadDataJs(dataPath);
   const problems = [];
 
   // 1) Campos obrigatórios e caracteres suspeitos
   let suspectCount = 0;
-  tabelaInelegibilidade.forEach((item, idx) => {
+  items.forEach((item, idx) => {
     const ctx = `item #${idx + 1}`;
     if (!item || typeof item !== 'object') problems.push({ type: 'invalid_item', ctx });
     if (!item.norma) problems.push({ type: 'missing_field', field: 'norma', ctx });
@@ -48,7 +48,7 @@ function main() {
   const key = (it) => `${(it.codigo || '').toLowerCase()}|${normalize((it.norma || '').toLowerCase())}`;
   const seen = new Map();
   const dups = [];
-  tabelaInelegibilidade.forEach((it) => {
+  items.forEach((it) => {
     const k = key(it);
     if (seen.has(k)) dups.push({ a: seen.get(k), b: it });
     else seen.set(k, it);
@@ -56,7 +56,7 @@ function main() {
 
   // 3) Exceções com formato suspeito
   const badExceptions = [];
-  tabelaInelegibilidade.forEach((it) => {
+  items.forEach((it) => {
     if (!Array.isArray(it.excecoes)) return;
     it.excecoes.forEach((ex) => {
       if (typeof ex !== 'string' || ex.trim() === '') {
@@ -73,39 +73,28 @@ function main() {
 
   // 4) Verificar "c.c." vs "c/c"
   let ccDots = 0;
-  tabelaInelegibilidade.forEach((it) => {
+  items.forEach((it) => {
     const txt = `${it.norma} ${Array.isArray(it.excecoes) ? it.excecoes.join(' | ') : ''}`;
     if (/c\.c\./i.test(txt)) ccDots++;
   });
 
-  // 5) Códigos de lei presentes em leisDisponiveis
-  const codigosLeis = new Set((leisDisponiveis || []).map((l) => l.value));
-  const missingLawCodes = [];
-  tabelaInelegibilidade.forEach((it) => {
-    if (!codigosLeis.has(it.codigo)) missingLawCodes.push(it.codigo);
-  });
-
   // Saída
   const summary = {
-    totalNormas: tabelaInelegibilidade.length,
-    totalLeis: leisDisponiveis.length,
+    totalNormas: items.length,
     suspectCharEntries: suspectCount,
     duplicates: dups.length,
     badExceptions: badExceptions.length,
     occurrencesCcDot: ccDots,
-    missingLawCodes: Array.from(new Set(missingLawCodes)).filter(Boolean),
     problems,
   };
 
   // Relatório amigável
-  console.log('=== Verificação data.js ===');
+  console.log('=== Verificação normalizado.data.js ===');
   console.log(`Normas: ${summary.totalNormas}`);
-  console.log(`Leis: ${summary.totalLeis}`);
   console.log(`Entradas com caracteres suspeitos (�): ${summary.suspectCharEntries}`);
   console.log(`Duplicatas (codigo|norma): ${summary.duplicates}`);
   console.log(`Exceções com formato suspeito: ${summary.badExceptions}`);
   console.log(`Ocorrências de "c.c.": ${summary.occurrencesCcDot}`);
-  if (summary.missingLawCodes.length) console.log('Códigos sem correspondência em leisDisponiveis:', summary.missingLawCodes.join(', '));
 
   if (summary.duplicates) {
     console.log('\n-- Duplicatas (exemplo de 5) --');
@@ -126,7 +115,6 @@ function main() {
 try {
   main();
 } catch (e) {
-  console.error('Falha ao verificar data.js:', e.message);
+  console.error('Falha ao verificar normalizado.data.js:', e.message);
   process.exit(1);
 }
-
