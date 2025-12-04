@@ -7,8 +7,8 @@
     <title>Consulta | Inelegis - Sistema de Consulta de Inelegibilidade</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/assets/images/logo-dark.ico">
-    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/logo-dark.ico">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
 
     <!-- Fonts -->
@@ -24,7 +24,7 @@
     <!-- Header será renderizado aqui -->
     <div id="header-placeholder"></div>
 
-    <img src="/assets/images/logo-dark.png" alt="Logomarca oficial do Inelegis" loading="lazy" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);clip-path:inset(50%);border:0;" />
+    <img src="/assets/images/logo-dark.png" alt="Logomarca oficial do Inelegis" loading="lazy" class="sr-only">
 
     <!-- Conteúdo Principal -->
     <main class="container container--wide mt-8">
@@ -117,7 +117,7 @@
                         <div class="flex gap-2">
                             <input type="text" id="artigoInput" class="form-input flex-1" title="Digite o artigo completo após selecionar a lei"
                                 placeholder="Ex: Art. 155, § 1º, I, do CP" aria-describedby="ajudaArtigo">
-                            <button id="searchBtn" class="btn btn-primary" disabled title="Buscar inelegibilidade do artigo informado">
+                            <button id="searchBtn" class="btn btn-primary" type="button" disabled title="Buscar inelegibilidade do artigo informado">
                                 <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                     aria-hidden="true">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -131,7 +131,7 @@
                             artigo completo ou use o
                             construtor abaixo.</p>
                         <p class="text-sm text-neutral-600 mt-1">
-                            Precisa revisar consultas anteriores? Use a tela <a href="historico" class="text-primary-600 font-medium">Histórico (Admin)</a> para acessar registros completos.
+                            Precisa revisar consultas anteriores? Use a tela <a href="historico.html" class="text-primary-600 font-medium">Histórico (Admin)</a> para acessar registros completos.
                         </p>
                     </div>
                 </div>
@@ -181,7 +181,7 @@
                                 <span id="previewArtigo" class="preview-text">Art. , , , do
                                     CP</span>
                             </div>
-                            <button id="montarArtigoBtn" class="btn btn-primary" disabled title="Montar artigo com os campos acima">
+                            <button id="montarArtigoBtn" class="btn btn-primary" type="button" disabled title="Montar artigo com os campos acima">
                                 <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z">
@@ -192,9 +192,9 @@
                         </div>
                         <!-- Botões auxiliares esperados pelo script (escondidos) -->
                         <div class="hidden">
-                            <button id="insertParagrafoBtn" aria-label="Inserir parágrafo"></button>
-                            <button id="insertAlineaBtn" aria-label="Inserir alínea"></button>
-                            <button id="insertConcBtn" aria-label="Inserir concomitante"></button>
+                            <button id="insertParagrafoBtn" aria-label="Inserir parágrafo" type="button"></button>
+                            <button id="insertAlineaBtn" aria-label="Inserir alínea" type="button"></button>
+                            <button id="insertConcBtn" aria-label="Inserir concomitante" type="button"></button>
                         </div>
                     </div>
                 </div>
