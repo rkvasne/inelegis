@@ -106,7 +106,7 @@ Como esta é uma aplicação frontend com sistema de build:
 - `renderAlert()` - Renderiza alertas
 6. **Atalhos de Teclado**: Implementação de hotkeys (Ctrl+L, Ctrl+A, Ctrl+Enter, F1, Esc).
 
-**[normalizado.data.js](../public/assets/js/normalizado.data.js)** - Fonte de dados normalizados:
+**[data-normalizado.js](../public/assets/js/data-normalizado.js)** - Fonte de dados normalizados:
 1. `window.__INELEG_NORMALIZADO__` - Estrutura gerada a partir do XML oficial.
 2. Cada item contém: `codigo`, `norma`, `excecoes[]`, `crime`, `observacao`, `estruturado.artigos[]`.
 
@@ -171,11 +171,11 @@ A entrada do usuário é formatada automaticamente para padrões legais:
 
 ## 🔧 Manutenção de Dados
 
-Os dados oficiais são extraídos do XML em `docs/references/tabela-oficial.xml` e **geram** `public/assets/js/normalizado.data.js` via `scripts/extrair_normalizado_xml.js`. A aplicação usa exclusivamente `DataNormalizer` para consultas.
+Os dados oficiais são extraídos do XML em `docs/references/tabela-oficial.xml` e **geram** `public/assets/js/data-normalizado.js` via `scripts/extrair_normalizado_xml.js`. A aplicação usa exclusivamente `DataNormalizer` (exposto por `consulta-normalizado.js`) para consultas.
 
 **Se a lei eleitoral mudar:**
 1. Baixe o XML/PDF oficial dos TREs.
-2. Execute `node scripts/extrair_normalizado_xml.js` para regenerar `normalizado.data.js`.
+2. Execute `node scripts/extrair_normalizado_xml.js` para regenerar `data-normalizado.js`.
 3. As consultas usam `DataNormalizer.query` e índices internos (`getItensPorLei`, `getSugestoesPorLei`).
 
 ---
@@ -201,7 +201,7 @@ Os dados oficiais são extraídos do XML em `docs/references/tabela-oficial.xml`
 
 **Entender validação de artigos**: Veja `buscarInelegibilidadePorLeiEArtigo()` em `src/js/script.js` - faz o parse da notação e busca apenas em dados normalizados (`DataNormalizer.query`).
 
-**Adicionar nova lei**: Atualize o XML oficial e regenere `normalizado.data.js` com o extrator.
+**Adicionar nova lei**: Atualize o XML oficial e regenere `data-normalizado.js` com o extrator.
 
 **Modificar exibição de resultado**: Edite `exibirResultado()` em `src/js/script.js` - controla o conteúdo e estilo do modal.
 

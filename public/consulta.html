@@ -49,38 +49,38 @@
                     <div class="radio-group">
                         <label class="radio-option">
                             <input type="radio" id="condenacao" name="tipoComunicacao" value="condenacao" checked>
-                            <div class="radio-content">
-                                <div class="radio-icon">
+                            <span class="radio-content">
+                                <span class="radio-icon">
                                     <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd"
                                             d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                                             clip-rule="evenodd"></path>
                                     </svg>
-                                </div>
-                                <div class="radio-text">
+                                </span>
+                                <span class="radio-text">
                                     <span class="radio-title">Condenação</span>
                                     <span class="radio-description">Sentença condenatória
                                         transitada em julgado</span>
-                                </div>
-                            </div>
+                                </span>
+                            </span>
                         </label>
                         <label class="radio-option">
                             <input type="radio" id="extincao" name="tipoComunicacao" value="extincao">
-                            <div class="radio-content">
-                                <div class="radio-icon warning">
+                            <span class="radio-content">
+                                <span class="radio-icon warning">
                                     <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd"
                                             d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
                                             clip-rule="evenodd"></path>
                                     </svg>
-                                </div>
-                                <div class="radio-text">
+                                </span>
+                                <span class="radio-text">
                                     <span class="radio-title">Extinção da
                                         Punibilidade</span>
                                     <span class="radio-description">Processo com extinção da
                                         punibilidade</span>
-                                </div>
-                            </div>
+                                </span>
+                            </span>
                         </label>
                     </div>
                 </div>
@@ -406,7 +406,7 @@
                         <p id="modalSubtitle">Análise de inelegibilidade eleitoral</p>
                     </div>
                 </div>
-                <button class="modal-close-btn" onclick="fecharModal()" aria-label="Fechar modal">
+                <button class="modal-close-btn" onclick="fecharModal()" aria-label="Fechar modal" type="button">
                     <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
                         </path>
@@ -419,14 +419,14 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="modal-btn secondary" onclick="fecharModal()">
+                <button class="modal-btn secondary" onclick="fecharModal()" type="button">
                     <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
                         </path>
                     </svg>
                     Fechar
                 </button>
-                <button class="modal-btn primary" onclick="exportarResultado()">
+                <button class="modal-btn primary" onclick="exportarResultado()" type="button">
                     <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2z">
@@ -450,10 +450,10 @@
     <script src="/assets/js/modules/analytics.js?v=0.1.1" defer></script>
 
     <!-- Scripts Principais -->
-    <script src="/assets/js/normalizado.data.js" defer></script>
     <script src="/assets/js/data-normalizado.js" defer></script>
+    <script src="/assets/js/consulta-normalizado.js" defer></script>
     <script src="/assets/js/script.js" defer></script>
-    
+
     <!-- Inicializar Módulos -->
     <script>
         // Verificar se termos foram aceitos

@@ -76,9 +76,9 @@ docs/
 ## ✏️ Fluxo de Dados e Edição
 
 O runtime usa exclusivamente dados previamente normalizados e API de consulta:
-- Gere `public/assets/js/normalizado.data.js` a partir do XML oficial (`docs/references/tabela-oficial.xml`) usando `scripts/extrair_normalizado_xml.js`.
-- Carregue `normalizado.data.js` antes de `data-normalizado.js` nas páginas que realizam consulta.
-- Use `public/assets/js/data-normalizado.js` como API única de consultas (`DataNormalizer.query`, índices por lei, sugestões por lei).
+- Gere `public/assets/js/data-normalizado.js` a partir do XML oficial (`docs/references/tabela-oficial.xml`) usando `scripts/extrair_normalizado_xml.js`.
+- Carregue `data-normalizado.js` (dados) antes de `consulta-normalizado.js` (API) nas páginas que realizam consulta.
+- Use `public/assets/js/consulta-normalizado.js` como API única de consultas (`DataNormalizer.query`, índices por lei, sugestões por lei).
 - A pasta `src/js/` é espelho histórico; o runtime atual usa `public/assets/js`.
 
 ## 🆕 Novidades v0.1.0
@@ -92,4 +92,4 @@ O runtime usa exclusivamente dados previamente normalizados e API de consulta:
 ---
 
 **Última atualização:** 04 de dezembro de 2025  
-**Versão:** 0.1.2
+**Versão:** 0.1.3
