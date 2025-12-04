@@ -17,13 +17,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/styles/styles.css?v=0.1.1">
     <script src="/assets/js/modules/theme-bootstrap.js?v=0.1.1"></script>
-    
+
     <!-- Open Graph Image -->
     <meta property="og:image" content="https://inelegis.vercel.app/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta name="twitter:image" content="https://inelegis.vercel.app/og-image.png">
-    
+
     <style>
         /* Toast Styles */
         .toast-container {
@@ -180,7 +180,7 @@
                 <p>Dados oficiais e status de conformidade</p>
             </div>
             <div class="card-body">
-                <div class="alert alert-info" role="region" aria-labelledby="info-title">
+                <section class="alert alert-info" aria-labelledby="info-title">
                     <div class="alert-icon" aria-hidden="true">
                         <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -191,8 +191,8 @@
                         <h3 id="info-title">Base de Dados Oficial</h3>
                         <p>Tabela exemplificativa disponibilizada pelo TRE-SP - atualizada em outubro de 2024 - revisada pela CRE-RO em 02/06/2025</p>
                     </div>
-                </div>
-                
+                </section>
+
                 <div class="mt-4 text-center">
                     <a href="landing.html" class="landing-link">
                         <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -217,7 +217,7 @@
                         <input type="checkbox" id="confirmacao" class="checkbox-input">
                         <label for="confirmacao" class="checkbox-label">
                             Estou ciente de que este é um sistema não oficial e que devo sempre
-                            confirmar as informações na legislação vigente e nas orientações oficiais 
+                            confirmar as informações na legislação vigente e nas orientações oficiais
                             mais recentes antes de tomar decisões definitivas.
                         </label>
                     </div>
@@ -237,10 +237,10 @@
 
     <!-- Footer será renderizado aqui -->
     <div id="footer-placeholder"></div>
-    
+
     <!-- Toast Container -->
     <div id="toast-container" class="toast-container"></div>
-    
+
     <!-- Modal de Aviso -->
     <div id="modal-overlay" class="modal-overlay">
         <div class="modal-content">
@@ -466,8 +466,8 @@
         <script src="/assets/js/modules/exceptions.js"></script>
         <script src="/assets/js/modules/modal-manager.js"></script>
         <!-- Dados normalizados e fonte única de verdade -->
-        <script src="/assets/js/normalizado.data.js"></script>
         <script src="/assets/js/data-normalizado.js"></script>
+        <script src="/assets/js/consulta-normalizado.js"></script>
 
         <!-- Scripts Principais -->
 

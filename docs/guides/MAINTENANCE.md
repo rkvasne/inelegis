@@ -132,12 +132,12 @@ NÃO geram inelegibilidade:
 ### Passo 2: Extrair dados normalizados do XML
 1. Garantir arquivo: `docs/references/tabela-oficial.xml`
 2. Executar o extrator: `node scripts/extrair_normalizado_xml.js`
-3. Gera: `public/assets/js/normalizado.data.js`
+3. Gera: `public/assets/js/data-normalizado.js`
 4. Conferir o número de itens gerados e amostrar alguns casos
 
 ### Passo 3: Verificar indexação e consultas
-1. Carregar `normalizado.data.js` antes de `data-normalizado.js`
-2. Validar consultas com `DataNormalizer.query`
+1. Carregar `data-normalizado.js` (dados) antes de `consulta-normalizado.js` (API)
+2. Validar consultas com `DataNormalizer.query` (exposta por `consulta-normalizado.js`)
 3. Validar sugestões com `DataNormalizer.getSugestoesPorLei`
 
 ### Passo 4: Validar mudanças
@@ -147,8 +147,8 @@ NÃO geram inelegibilidade:
 4. Revisar formatação
 
 ### Passo 5: Publicar dados normalizados
-1. Confirmar presença de `public/assets/js/normalizado.data.js` no HTML
-2. Confirmar carregamento de `public/assets/js/data-normalizado.js`
+1. Confirmar presença de `public/assets/js/data-normalizado.js` no HTML
+2. Confirmar carregamento de `public/assets/js/consulta-normalizado.js`
 3. Não incluir `data.js` em nenhuma página
 
 ### Passo 6: Documentar
@@ -211,7 +211,7 @@ NÃO geram inelegibilidade:
 
 ### Corrigir um Artigo Existente
 1. Corrija no XML oficial a referência legislativa
-2. Regerar `normalizado.data.js`
+2. Regerar `data-normalizado.js`
 3. Validar exceções e índices por lei
 
 ### Adicionar uma Observação Legislativa
@@ -263,7 +263,7 @@ Todos os problemas identificados anteriormente foram corrigidos:
 
 ## 📝 Notas Operacionais
 
-1. **Dados é crítico:** Qualquer erro em `normalizado.data.js` afeta diretamente usuários
+1. **Dados é crítico:** Qualquer erro em `data-normalizado.js` afeta diretamente usuários
 2. **Teste sempre:** Antes de publicar mudanças, teste com casos reais
 3. **Documente bem:** Observações ajudam futuros mantenedores
 4. **Backup regular:** Faça backup antes de qualquer grande atualização

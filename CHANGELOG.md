@@ -19,14 +19,16 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 - Remoção de documentos redundantes/obsoletos espelhados em `dist/`.
 - Padronização de formato e estrutura (índices, navegação, títulos e seções).
 - Atualização de READMEs para refletir uso exclusivo de dados normalizados.
+ - Atualização de nomenclatura nos guias para refletir arquivos: `data-normalizado.js` (dados) e `consulta-normalizado.js` (API).
 
 ### 🛠 Changed
 - Versão incrementada para `0.1.3` em `package.json` e badges públicos.
 - Metadados de versão/data sincronizados nos READMEs de módulos.
+ - Renomeação dos arquivos: `normalizado.data.js` → `data-normalizado.js` (dados) e `data-normalizado.js` → `consulta-normalizado.js` (API). Todas as referências atualizadas.
 
 ### ✅ Quality
 - Verificação de consistência de links internos nos principais documentos.
-- Confirmação de ordem de carregamento: `normalizado.data.js` antes de `data-normalizado.js`.
+ - Confirmação de ordem de carregamento: `data-normalizado.js` (dados) antes de `consulta-normalizado.js` (API).
 
 ## [0.1.2] - 2025-12-04
 

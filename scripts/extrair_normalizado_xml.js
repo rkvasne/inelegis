@@ -3,7 +3,7 @@ const fs=require('fs');
 const path=require('path');
 
 const xmlPath=path.join(__dirname,'../docs/references/tabela-oficial.xml');
-const outJsPath=path.join(__dirname,'../public/assets/js/normalizado.data.js');
+const outJsPath=path.join(__dirname,'../public/assets/js/data-normalizado.js');
 
 function readXml(p){return fs.readFileSync(p,'utf8');}
 function stripTags(s){return String(s||'').replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim();}

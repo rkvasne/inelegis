@@ -147,10 +147,10 @@ Os módulos e dados devem ser carregados nesta ordem no HTML:
 <script src="js/modal-manager.js"></script>
 
 <!-- 4. Dados normalizados (fonte única de verdade) -->
-<script src="/assets/js/normalizado.data.js"></script>
+<script src="/assets/js/data-normalizado.js"></script>
 
 <!-- 5. API de consulta e lógica principal -->
-<script src="/assets/js/data-normalizado.js"></script>
+<script src="/assets/js/consulta-normalizado.js"></script>
 <script src="script.js"></script>
 ```
 

@@ -34,19 +34,19 @@
 <body>
     <img src="/assets/images/logo-dark.png" alt="Logomarca oficial do Inelegis" loading="lazy" class="sr-only">
     <h1>Teste de Tema - Inelegis</h1>
-    
+
     <div>
         <button onclick="clearTheme()" type="button">Limpar localStorage</button>
         <button onclick="setLight()" type="button">Forçar Tema Claro</button>
         <button onclick="setDark()" type="button">Forçar Tema Escuro</button>
         <button onclick="checkTheme()" type="button">Verificar Tema Atual</button>
     </div>
-    
+
     <div class="info">
         <h2>Informações:</h2>
         <p id="info">Clique em "Verificar Tema Atual" para ver as informações</p>
     </div>
-    
+
     <script>
         function clearTheme() {
             localStorage.removeItem('inelegis_theme');
