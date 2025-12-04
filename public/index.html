@@ -7,8 +7,8 @@
     <title>Início | Inelegis - Sistema de Consulta de Inelegibilidade</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/assets/images/logo-dark.ico">
-    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/logo-dark.ico">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
 
     <!-- Fonts -->
@@ -17,6 +17,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/styles/styles.css?v=0.1.1">
     <script src="/assets/js/modules/theme-bootstrap.js?v=0.1.1"></script>
+    
+    <!-- Open Graph Image -->
+    <meta property="og:image" content="https://inelegis.vercel.app/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:image" content="https://inelegis.vercel.app/og-image.png">
     
     <style>
         /* Toast Styles */
@@ -164,7 +170,7 @@
     <!-- Header será renderizado aqui -->
     <div id="header-placeholder"></div>
 
-    <img src="/assets/images/logo-dark.png" alt="Logomarca oficial do Inelegis" loading="lazy" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);clip-path:inset(50%);border:0;" />
+    <img src="/assets/images/logo-dark.png" alt="Logomarca oficial do Inelegis" loading="lazy" class="sr-only">
 
     <main class="container mt-8">
         <!-- Card de Informações do Sistema -->
@@ -187,7 +193,7 @@
                     </div>
                 </div>
                 
-                <div class="mt-4" style="text-align: center;">
+                <div class="mt-4 text-center">
                     <a href="landing.html" class="landing-link">
                         <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -218,7 +224,7 @@
                 </div>
 
                 <div class="flex justify-center">
-                    <button id="acessarBtn" class="btn btn-primary" disabled aria-describedby="confirmacao">
+                    <button id="acessarBtn" class="btn btn-primary" type="button" disabled aria-describedby="confirmacao">
                         <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                         </svg>
@@ -250,8 +256,8 @@
                 Mensagem do modal
             </div>
             <div class="modal-footer">
-                <button id="modal-cancel" class="btn btn-secondary">Cancelar</button>
-                <button id="modal-confirm" class="btn btn-primary">Confirmar</button>
+                <button id="modal-cancel" class="btn btn-secondary" type="button">Cancelar</button>
+                <button id="modal-confirm" class="btn btn-primary" type="button">Confirmar</button>
             </div>
         </div>
     </div>

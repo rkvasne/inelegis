@@ -242,5 +242,5 @@ Ao adicionar novos módulos:
 
 ---
 
-**Última atualização:** 02 de dezembro de 2025  
-**Versão:** 0.1.0
+**Última atualização:** 04 de dezembro de 2025  
+**Versão:** 0.1.3

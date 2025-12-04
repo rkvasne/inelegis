@@ -32,14 +32,14 @@
     </style>
 </head>
 <body>
-    <img src="/assets/images/logo-dark.png" alt="Logomarca oficial do Inelegis" loading="lazy" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);clip-path:inset(50%);border:0;" />
+    <img src="/assets/images/logo-dark.png" alt="Logomarca oficial do Inelegis" loading="lazy" class="sr-only">
     <h1>Teste de Tema - Inelegis</h1>
     
     <div>
-        <button onclick="clearTheme()">Limpar localStorage</button>
-        <button onclick="setLight()">Forçar Tema Claro</button>
-        <button onclick="setDark()">Forçar Tema Escuro</button>
-        <button onclick="checkTheme()">Verificar Tema Atual</button>
+        <button onclick="clearTheme()" type="button">Limpar localStorage</button>
+        <button onclick="setLight()" type="button">Forçar Tema Claro</button>
+        <button onclick="setDark()" type="button">Forçar Tema Escuro</button>
+        <button onclick="checkTheme()" type="button">Verificar Tema Atual</button>
     </div>
     
     <div class="info">

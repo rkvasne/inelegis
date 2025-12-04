@@ -1,7 +1,7 @@
 # Changelog
 
 **Última atualização:** 04 de dezembro de 2025
-**Versão atual:** 0.1.2
+**Versão atual:** 0.1.3
 
 Todas as alterações notáveis neste projeto serão documentadas neste arquivo.
 
@@ -11,6 +11,22 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 ---
 
 ## [0.0.9] - 2025-12-02
+
+## [0.1.3] - 2025-12-04
+
+### 📚 Documentation
+- Unificação final da documentação em todas as pastas e subpastas.
+- Remoção de documentos redundantes/obsoletos espelhados em `dist/`.
+- Padronização de formato e estrutura (índices, navegação, títulos e seções).
+- Atualização de READMEs para refletir uso exclusivo de dados normalizados.
+
+### 🛠 Changed
+- Versão incrementada para `0.1.3` em `package.json` e badges públicos.
+- Metadados de versão/data sincronizados nos READMEs de módulos.
+
+### ✅ Quality
+- Verificação de consistência de links internos nos principais documentos.
+- Confirmação de ordem de carregamento: `normalizado.data.js` antes de `data-normalizado.js`.
 
 ## [0.1.2] - 2025-12-04
 
