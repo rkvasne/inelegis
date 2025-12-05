@@ -112,10 +112,12 @@
   --opacity-high: 0.9;
 
   /* Header e Footer */
-  --header-bg: linear-gradient(135deg,
-      var(--primary-600) 0%,
-      var(--primary-700) 50%,
-      var(--primary-800) 100%);
+  --header-bg: linear-gradient(
+    135deg,
+    var(--primary-600) 0%,
+    var(--primary-700) 50%,
+    var(--primary-800) 100%
+  );
   --header-text: var(--text-on-primary);
   --footer-bg: var(--bg-tertiary);
   /* Era secondary, mudei para tertiary para contraste */
@@ -470,9 +472,11 @@ code {
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(ellipse at 30% 0%,
-      var(--glass-bg) 0%,
-      transparent 50%);
+  background: radial-gradient(
+    ellipse at 30% 0%,
+    var(--glass-bg) 0%,
+    transparent 50%
+  );
   pointer-events: none;
 }
 
@@ -856,36 +860,44 @@ code {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg,
-      var(--primary-500) 0%,
-      var(--primary-600) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--primary-500) 0%,
+    var(--primary-600) 100%
+  );
   color: var(--text-on-primary);
   border-color: var(--primary-600);
   box-shadow: 0 1px 2px var(--primary-200);
 }
 
 .btn-primary:hover:not(:disabled) {
-  background: linear-gradient(135deg,
-      var(--primary-600) 0%,
-      var(--primary-700) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--primary-600) 0%,
+    var(--primary-700) 100%
+  );
   border-color: var(--primary-700);
   box-shadow: 0 2px 4px var(--primary-200);
   transform: translateY(-1px);
 }
 
 .dark-theme .btn-primary {
-  background: linear-gradient(135deg,
-      var(--primary-600) 0%,
-      var(--primary-700) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--primary-600) 0%,
+    var(--primary-700) 100%
+  );
   color: var(--text-on-primary);
   border-color: var(--primary-600);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .dark-theme .btn-primary:hover:not(:disabled) {
-  background: linear-gradient(135deg,
-      var(--primary-500) 0%,
-      var(--primary-600) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--primary-500) 0%,
+    var(--primary-600) 100%
+  );
   border-color: var(--primary-500);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
@@ -1076,7 +1088,6 @@ code {
 
 /* Animação do indicador */
 @keyframes pointRight {
-
   0%,
   100% {
     transform: translateX(0);
@@ -1131,7 +1142,6 @@ code {
 }
 
 @keyframes pointDown {
-
   0%,
   100% {
     transform: translateY(0);
@@ -1395,9 +1405,11 @@ code {
 .main-footer {
   border-top: 1px solid var(--white-05);
   padding: 60px 0 20px;
-  background: linear-gradient(180deg,
-      var(--footer-gradient-start) 0%,
-      var(--footer-gradient-end) 100%);
+  background: linear-gradient(
+    180deg,
+    var(--footer-gradient-start) 0%,
+    var(--footer-gradient-end) 100%
+  );
   margin-top: 0;
   color: var(--white-80);
   text-align: left;
@@ -1597,9 +1609,11 @@ code {
 html:not(.dark-theme) .main-footer {
   border-top: none;
   box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
-  background: linear-gradient(180deg,
-      var(--bg-secondary) 0%,
-      var(--bg-primary) 100%);
+  background: linear-gradient(
+    180deg,
+    var(--bg-secondary) 0%,
+    var(--bg-primary) 100%
+  );
   color: var(--text-primary);
 }
 
@@ -1989,7 +2003,6 @@ html:not(.dark-theme) .main-footer .footer-bottom {
 }
 
 @keyframes blink {
-
   0%,
   100% {
     opacity: 1;
@@ -2265,7 +2278,7 @@ html:not(.dark-theme) .main-footer .footer-bottom {
   accent-color: var(--primary-600);
 }
 
-.checkbox-group input[type="radio"]:checked+div {
+.checkbox-group input[type="radio"]:checked + div {
   border-color: var(--primary-500);
   background: var(--primary-50);
 }
@@ -2568,7 +2581,7 @@ html:not(.dark-theme) .main-footer .footer-bottom {
   background: var(--bg-tertiary);
 }
 
-.radio-option input[type="radio"]:checked+.radio-content {
+.radio-option input[type="radio"]:checked + .radio-content {
   border-color: var(--primary-500);
   background: var(--info-bg);
 }
@@ -4080,10 +4093,12 @@ a {
    Loading States
    ======================================== */
 .skeleton {
-  background: linear-gradient(90deg,
-      var(--bg-secondary) 25%,
-      var(--bg-tertiary) 50%,
-      var(--bg-secondary) 75%);
+  background: linear-gradient(
+    90deg,
+    var(--bg-secondary) 25%,
+    var(--bg-tertiary) 50%,
+    var(--bg-secondary) 75%
+  );
   background-size: 200% 100%;
   animation: skeleton-loading 1.5s infinite;
   border-radius: var(--radius-md);
@@ -4456,7 +4471,6 @@ details[open] .accordion-chevron {
    Prefers Reduced Motion
    ======================================== */
 @media (prefers-reduced-motion: reduce) {
-
   *,
   *::before,
   *::after {
@@ -4926,19 +4940,31 @@ textarea:focus-visible {
 
 /* Vibrancy states with better glassmorphism and contrast */
 .modal-status-card.ineligible {
-  background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(153, 27, 27, 0.05) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(239, 68, 68, 0.15) 0%,
+    rgba(153, 27, 27, 0.05) 100%
+  );
   border-color: rgba(239, 68, 68, 0.4);
   box-shadow: 0 0 20px rgba(239, 68, 68, 0.1);
 }
 
 .modal-status-card.eligible {
-  background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(21, 128, 61, 0.05) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(34, 197, 94, 0.15) 0%,
+    rgba(21, 128, 61, 0.05) 100%
+  );
   border-color: rgba(34, 197, 94, 0.4);
   box-shadow: 0 0 20px rgba(34, 197, 94, 0.1);
 }
 
 .modal-status-card.not-found {
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(180, 83, 9, 0.05) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(245, 158, 11, 0.15) 0%,
+    rgba(180, 83, 9, 0.05) 100%
+  );
   border-color: rgba(245, 158, 11, 0.4);
   box-shadow: 0 0 20px rgba(245, 158, 11, 0.1);
 }
@@ -4958,7 +4984,6 @@ textarea:focus-visible {
 }
 
 @keyframes modalIconPulse {
-
   0%,
   100% {
     transform: scale(1);
