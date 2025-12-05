@@ -148,7 +148,8 @@ const ModalManager = {
     if (exceptions) {
       textoExportar += "\n--------------------------------------------------\n";
       textoExportar += "ALERTA DE EXCEÇÕES:\n";
-      textoExportar += exceptions.innerText.replace(/\n\n+/g, '\n').trim() + "\n";
+      textoExportar +=
+        exceptions.innerText.replace(/\n\n+/g, "\n").trim() + "\n";
     }
 
     // Extrair seções antigas (compatibilidade)
