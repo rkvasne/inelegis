@@ -25,6 +25,13 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 - **Sistema de Design**:
   - Correção de variáveis de espaçamento inexistentes.
   - Melhoria de contraste e sombras nos cards do tema claro.
+  - Padronização dos botões do modal ("Fechar" e "Exportar") com tamanhos iguais e correção de cor no hover (uso de `bg-tertiary` para contraste).
+
+### 🏗 Arquitetura & Backend
+- **Limpeza de Legado**: Remoção do arquivo `src/js/data.js` (dados brutos não normalizados) e atualização dos scripts de build para usar apenas a fonte normalizada.
+- **Ambiente de Desenvolvimento**:
+  - Remoção de mock local para API de histórico.
+  - Obrigatoriedade de configuração do Redis (`REDIS_URL`) no ambiente de desenvolvimento para garantir paridade com produção.
 
 ### 📚 Documentação
 - Consolidação do índice geral (`docs/README.md`) com mapa único, guideline de formato e links para todos os subdiretórios.
