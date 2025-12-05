@@ -275,7 +275,7 @@ class Builder {
 
     // Criar arquivo de build info
     const buildInfo = {
-      version: '0.1.7',
+      version: '0.1.8',
       buildDate: new Date().toISOString(),
       buildNumber: Date.now(),
       environment: 'production',
@@ -316,7 +316,7 @@ class Builder {
 
     // Exibir resumo
     console.log('\n' + '='.repeat(60));
-    console.log('📊 RELATÓRIO DE BUILD - INELEG-APP v0.1.7');
+    console.log('📊 RELATÓRIO DE BUILD - INELEG-APP v0.1.8');
     console.log('='.repeat(60));
     console.log(`Status: ${report.status}`);
     console.log(`Erros: ${this.errors.length}`);
