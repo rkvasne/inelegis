@@ -4,7 +4,7 @@ const path = require('path');
 const paths = require('./project-paths');
 
 // Arquivos que NÃO devem ser copiados para public/assets/js
-const EXCLUDE_FILES = new Set(['data.js']);
+const EXCLUDE_FILES = new Set([]);
 
 function copyDirectory(src, dest) {
   if (!fs.existsSync(src)) {

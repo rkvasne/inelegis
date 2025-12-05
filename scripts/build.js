@@ -68,8 +68,7 @@ class Builder {
     const requiredFiles = [
       paths.pages.index,
       paths.styles.main,
-      paths.js.main,
-      paths.js.data
+      paths.js.main
     ];
 
     const requiredDirs = [

@@ -14,7 +14,6 @@ module.exports = {
     src: JS_SRC_DIR,
     public: JS_PUBLIC_DIR,
     main: path.join(JS_SRC_DIR, 'script.js'),
-    data: path.join(JS_SRC_DIR, 'data.js'),
     modules: path.join(JS_SRC_DIR, 'modules')
   },
   styles: {
