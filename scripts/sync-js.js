@@ -3,14 +3,15 @@ const fs = require('fs');
 const path = require('path');
 const paths = require('./project-paths');
 
+// Arquivos que NÃO devem ser copiados para public/assets/js
+const EXCLUDE_FILES = new Set(['data.js']);
+
 function copyDirectory(src, dest) {
   if (!fs.existsSync(src)) {
     throw new Error(`Diretório fonte inexistente: ${src}`);
   }
 
-  if (fs.existsSync(dest)) {
-    fs.rmSync(dest, { recursive: true, force: true });
-  }
+  // Preservar destino para não apagar arquivos gerados (ex.: normalizados)
   fs.mkdirSync(dest, { recursive: true });
 
   const entries = fs.readdirSync(src, { withFileTypes: true });
@@ -21,6 +22,9 @@ function copyDirectory(src, dest) {
     if (entry.isDirectory()) {
       copyDirectory(srcPath, destPath);
     } else {
+      if (EXCLUDE_FILES.has(entry.name)) {
+        continue;
+      }
       fs.copyFileSync(srcPath, destPath);
     }
   }
@@ -28,7 +32,7 @@ function copyDirectory(src, dest) {
 
 function main() {
   copyDirectory(paths.js.src, paths.js.public);
-  console.log(`📦 Sincronizado src/js -> ${path.relative(paths.root, paths.js.public)}`);
+  console.log(`📦 Sincronizado src/js → ${path.relative(paths.root, paths.js.public)} (preservando destino, excluindo: ${Array.from(EXCLUDE_FILES).join(', ')})`);
 }
 
 if (require.main === module) {

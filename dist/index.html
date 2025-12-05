@@ -7,16 +7,23 @@
     <title>Início | Inelegis - Sistema de Consulta de Inelegibilidade</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/assets/images/logo-dark.ico">
-    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/logo-dark.ico">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/styles/styles.css?v=0.0.9">
-    <script src="/assets/js/modules/theme-bootstrap.js?v=0.0.9"></script>
-    
+    <link rel="stylesheet" href="/styles/styles.css?v=0.1.1">
+    <script src="/assets/js/modules/theme-bootstrap.js?v=0.1.1"></script>
+
+    <!-- Open Graph Image -->
+    <meta property="og:image" content="https://inelegis.vercel.app/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:image" content="https://inelegis.vercel.app/og-image.png">
+
     <style>
         /* Toast Styles */
         .toast-container {
@@ -139,11 +146,13 @@
             display: none;
             color: var(--warning-500);
             font-size: 1.5rem;
-            margin-right: 8px;
             animation: blink 0.5s ease-in-out infinite;
+            line-height: 1;
+            align-items: center;
+            justify-content: center;
         }
         .arrow-indicator.show {
-            display: inline-block;
+            display: inline-flex;
         }
         @keyframes blink {
             0%, 100% { opacity: 1; }
@@ -151,7 +160,8 @@
         }
         .checkbox-wrapper {
             display: flex;
-            align-items: flex-start;
+            align-items: center;
+            gap: var(--space-3);
         }
     </style>
 </head>
@@ -159,6 +169,8 @@
 <body>
     <!-- Header será renderizado aqui -->
     <div id="header-placeholder"></div>
+
+    <img src="/assets/images/logo-dark.png" alt="Logomarca oficial do Inelegis" loading="lazy" class="sr-only">
 
     <main class="container mt-8">
         <!-- Card de Informações do Sistema -->
@@ -168,7 +180,7 @@
                 <p>Dados oficiais e status de conformidade</p>
             </div>
             <div class="card-body">
-                <div class="alert alert-info" role="region" aria-labelledby="info-title">
+                <section class="alert alert-info" aria-labelledby="info-title">
                     <div class="alert-icon" aria-hidden="true">
                         <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -179,9 +191,9 @@
                         <h3 id="info-title">Base de Dados Oficial</h3>
                         <p>Tabela exemplificativa disponibilizada pelo TRE-SP - atualizada em outubro de 2024 - revisada pela CRE-RO em 02/06/2025</p>
                     </div>
-                </div>
-                
-                <div class="mt-4" style="text-align: center;">
+                </section>
+
+                <div class="mt-4 text-center">
                     <a href="landing.html" class="landing-link">
                         <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -205,14 +217,14 @@
                         <input type="checkbox" id="confirmacao" class="checkbox-input">
                         <label for="confirmacao" class="checkbox-label">
                             Estou ciente de que este é um sistema não oficial e que devo sempre
-                            confirmar as informações na legislação vigente e nas orientações oficiais 
+                            confirmar as informações na legislação vigente e nas orientações oficiais
                             mais recentes antes de tomar decisões definitivas.
                         </label>
                     </div>
                 </div>
 
                 <div class="flex justify-center">
-                    <button id="acessarBtn" class="btn btn-primary" disabled aria-describedby="confirmacao">
+                    <button id="acessarBtn" class="btn btn-primary" type="button" disabled aria-describedby="confirmacao">
                         <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                         </svg>
@@ -225,10 +237,10 @@
 
     <!-- Footer será renderizado aqui -->
     <div id="footer-placeholder"></div>
-    
+
     <!-- Toast Container -->
     <div id="toast-container" class="toast-container"></div>
-    
+
     <!-- Modal de Aviso -->
     <div id="modal-overlay" class="modal-overlay">
         <div class="modal-content">
@@ -244,16 +256,17 @@
                 Mensagem do modal
             </div>
             <div class="modal-footer">
-                <button id="modal-cancel" class="btn btn-secondary">Cancelar</button>
-                <button id="modal-confirm" class="btn btn-primary">Confirmar</button>
+                <button id="modal-cancel" class="btn btn-secondary" type="button">Cancelar</button>
+                <button id="modal-confirm" class="btn btn-primary" type="button">Confirmar</button>
             </div>
         </div>
     </div>
 
     <!-- Script -->
     <script>
-        // Toast function
-        function showToast(message, type = 'info', duration = 3000) {
+        window.addEventListener('DOMContentLoaded', () => {
+            // Toast function
+            function showToast(message, type = 'info', duration = 3000) {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
             toast.className = `toast ${type}`;
@@ -272,16 +285,16 @@
                 toast.style.animation = 'slideOut 0.3s ease forwards';
                 setTimeout(() => toast.remove(), 300);
             }, duration);
-        }
-        
-        // Modal functions
-        const modalOverlay = document.getElementById('modal-overlay');
-        const modalTitle = document.getElementById('modal-title');
-        const modalBody = document.getElementById('modal-body');
-        const modalCancel = document.getElementById('modal-cancel');
-        const modalConfirm = document.getElementById('modal-confirm');
-        
-        function showModal(title, message, onConfirm, showCancel = true) {
+            }
+            
+            // Modal functions
+            const modalOverlay = document.getElementById('modal-overlay');
+            const modalTitle = document.getElementById('modal-title');
+            const modalBody = document.getElementById('modal-body');
+            const modalCancel = document.getElementById('modal-cancel');
+            const modalConfirm = document.getElementById('modal-confirm');
+            
+            function showModal(title, message, onConfirm, showCancel = true) {
             modalTitle.textContent = title;
             modalBody.textContent = message;
             modalCancel.style.display = showCancel ? 'block' : 'none';
@@ -291,156 +304,173 @@
                 modalOverlay.classList.remove('active');
                 if (onConfirm) onConfirm();
             };
-        }
-        
-        modalCancel.onclick = () => modalOverlay.classList.remove('active');
-        modalOverlay.onclick = (e) => {
-            if (e.target === modalOverlay) modalOverlay.classList.remove('active');
-        };
-
-        // Controle do checkbox e botão
-        const checkbox = document.getElementById('confirmacao');
-        const button = document.getElementById('acessarBtn');
-        const consultaLink = document.querySelector('a[href="consulta"]');
-
-        // Verificar se usuário já aceitou os termos anteriormente
-        const termosAceitos = localStorage.getItem('ineleg_termos_aceitos') === 'true';
-
-        if (termosAceitos) {
-            checkbox.checked = true;
-            button.disabled = false;
-            if (consultaLink) {
-                consultaLink.style.pointerEvents = 'auto';
-                consultaLink.style.opacity = '1';
             }
-            // Mostrar toast de boas-vindas
-            setTimeout(() => showToast('Bem-vindo de volta! Termos já aceitos.', 'success'), 500);
-        } else {
-            if (consultaLink) {
-                consultaLink.style.pointerEvents = 'none';
-                consultaLink.style.opacity = '0.5';
-                consultaLink.style.cursor = 'not-allowed';
-                consultaLink.setAttribute('aria-disabled', 'true');
-                consultaLink.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    showModal(
-                        'Termos não aceitos',
-                        'Por favor, leia e concorde com os termos de uso antes de acessar o sistema de consulta.',
-                        null,
-                        false
-                    );
-                });
-            }
-        }
+            
+            modalCancel.onclick = () => modalOverlay.classList.remove('active');
+            modalOverlay.onclick = (e) => {
+                if (e.target === modalOverlay) modalOverlay.classList.remove('active');
+            };
 
-        checkbox.addEventListener('change', function () {
-            button.disabled = !this.checked;
-            button.setAttribute('aria-disabled', String(!this.checked));
+            // Controle do checkbox e botão
+            const checkbox = document.getElementById('confirmacao');
+            const button = document.getElementById('acessarBtn');
+            const consultaLink = document.querySelector('a[href="consulta"]');
 
-            // Salvar no localStorage imediatamente
-            if (this.checked) {
-                localStorage.setItem('ineleg_termos_aceitos', 'true');
-            } else {
-                localStorage.removeItem('ineleg_termos_aceitos');
-            }
+            // Verificar se usuário já aceitou os termos anteriormente
+            const termosAceitos = localStorage.getItem('ineleg_termos_aceitos') === 'true';
 
-            // Atualizar link do menu no header
-            const headerConsultaLink = document.querySelector('.header-nav-link[href="consulta"]');
-            if (headerConsultaLink) {
-                if (this.checked) {
-                    headerConsultaLink.classList.remove('disabled');
-                    headerConsultaLink.removeAttribute('aria-disabled');
-                    headerConsultaLink.onclick = null;
-                } else {
-                    headerConsultaLink.classList.add('disabled');
-                    headerConsultaLink.setAttribute('aria-disabled', 'true');
-                }
-            }
-
-            if (consultaLink) {
-                if (this.checked) {
+            if (termosAceitos) {
+                checkbox.checked = true;
+                button.disabled = false;
+                if (consultaLink) {
                     consultaLink.style.pointerEvents = 'auto';
                     consultaLink.style.opacity = '1';
-                    consultaLink.style.cursor = 'pointer';
-                    consultaLink.setAttribute('aria-disabled', 'false');
-                    showToast('Termos aceitos! Você pode acessar o sistema.', 'success');
-                } else {
+                }
+                // Mostrar toast de boas-vindas
+                setTimeout(() => showToast('Bem-vindo de volta!', 'success'), 500);
+            } else {
+                if (consultaLink) {
                     consultaLink.style.pointerEvents = 'none';
                     consultaLink.style.opacity = '0.5';
                     consultaLink.style.cursor = 'not-allowed';
                     consultaLink.setAttribute('aria-disabled', 'true');
+                    consultaLink.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        showModal(
+                            'Termos não aceitos',
+                            'Por favor, leia e concorde com os termos de uso antes de acessar o sistema de consulta.',
+                            null,
+                            false
+                        );
+                    });
                 }
             }
-        });
 
-        button.addEventListener('click', function () {
-            if (checkbox.checked) {
-                try {
+            checkbox.addEventListener('change', function () {
+                button.disabled = !this.checked;
+                button.setAttribute('aria-disabled', String(!this.checked));
+
+                // Salvar no localStorage imediatamente
+                if (this.checked) {
                     localStorage.setItem('ineleg_termos_aceitos', 'true');
-                } catch (e) {
-                    console.error('Erro ao salvar termos:', e);
+                } else {
+                    localStorage.removeItem('ineleg_termos_aceitos');
                 }
-                showToast('Redirecionando para o sistema...', 'info');
-                setTimeout(() => {
-                    window.location.href = 'consulta';
-                }, 500);
-            }
-        });
 
-        // Função para mostrar seta piscando
-        const arrowIndicator = document.getElementById('arrow-indicator');
-        function showArrow() {
-            arrowIndicator.classList.add('show');
-            // Scroll para o checkbox
-            checkbox.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            // Remover após 5 segundos
-            setTimeout(() => {
-                arrowIndicator.classList.remove('show');
-            }, 5000);
-        }
+                // Atualizar link do menu no header
+                const headerConsultaLink = document.querySelector('.header-nav-link[href="consulta"]');
+                if (headerConsultaLink) {
+                    if (this.checked) {
+                        headerConsultaLink.classList.remove('disabled');
+                        headerConsultaLink.removeAttribute('aria-disabled');
+                        headerConsultaLink.onclick = null;
+                    } else {
+                        headerConsultaLink.classList.add('disabled');
+                        headerConsultaLink.setAttribute('aria-disabled', 'true');
+                    }
+                }
 
-        // Verificar se foi redirecionado da consulta
-        const redirectReason = sessionStorage.getItem('ineleg_redirect_reason');
-        if (redirectReason === 'terms_not_accepted') {
-            sessionStorage.removeItem('ineleg_redirect_reason');
-            setTimeout(() => {
-                showModal(
-                    'Acesso Negado',
-                    'Você precisa aceitar os termos de uso antes de acessar o sistema de consulta. Por favor, marque a caixa de confirmação abaixo.',
-                    () => showArrow(),
-                    false
-                );
-            }, 300);
-        }
-        
-        // Expor função para o components.js
-        window.showCheckboxArrow = showArrow;
+                if (consultaLink) {
+                    if (this.checked) {
+                        consultaLink.style.pointerEvents = 'auto';
+                        consultaLink.style.opacity = '1';
+                        consultaLink.style.cursor = 'pointer';
+                        consultaLink.setAttribute('aria-disabled', 'false');
+                        showToast('Termos aceitos! Você pode acessar o sistema.', 'success');
+                    } else {
+                        consultaLink.style.pointerEvents = 'none';
+                        consultaLink.style.opacity = '0.5';
+                        consultaLink.style.cursor = 'not-allowed';
+                        consultaLink.setAttribute('aria-disabled', 'true');
+                    }
+                }
+            });
 
-        // Atalhos de teclado
-        document.addEventListener('keydown', function (e) {
-            if (e.altKey && e.key === 'd') {
-                e.preventDefault();
-                window.open('docs/README.md', '_blank');
-            }
-            if (e.ctrlKey && e.key === 'Enter') {
+            button.addEventListener('click', function () {
                 if (checkbox.checked) {
-                    e.preventDefault();
-                    localStorage.setItem('ineleg_termos_aceitos', 'true');
-                    window.location.href = 'consulta';
+                    try {
+                        localStorage.setItem('ineleg_termos_aceitos', 'true');
+                    } catch (e) {
+                        console.error('Erro ao salvar termos:', e);
+                    }
+                    showToast('Redirecionando para o sistema...', 'info');
+                    setTimeout(() => {
+                        window.location.href = 'consulta';
+                    }, 500);
                 }
+            });
+
+            // Função para mostrar seta piscando
+            const arrowIndicator = document.getElementById('arrow-indicator');
+            function showArrow() {
+                arrowIndicator.classList.add('show');
+                // Scroll para o checkbox
+                checkbox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                // Remover após 5 segundos
+                setTimeout(() => {
+                    arrowIndicator.classList.remove('show');
+                }, 5000);
             }
-            if (e.key === 'Escape') {
-                modalOverlay.classList.remove('active');
+
+            // Verificar se foi redirecionado da consulta
+            const redirectReason = sessionStorage.getItem('ineleg_redirect_reason');
+            if (redirectReason === 'terms_not_accepted') {
+                sessionStorage.removeItem('ineleg_redirect_reason');
+                setTimeout(() => {
+                    showModal(
+                        'Acesso Negado',
+                        'Você precisa aceitar os termos de uso antes de acessar o sistema de consulta. Por favor, marque a caixa de confirmação abaixo.',
+                        () => showArrow(),
+                        false
+                    );
+                }, 300);
             }
+            
+            // Expor função para o components.js
+            window.showCheckboxArrow = showArrow;
+
+            // Atalhos de teclado
+            document.addEventListener('keydown', function (e) {
+                if (e.altKey && e.key === 'd') {
+                    e.preventDefault();
+                    window.open('docs/README.md', '_blank');
+                }
+                if (e.ctrlKey && e.key === 'Enter') {
+                    if (checkbox.checked) {
+                        e.preventDefault();
+                        localStorage.setItem('ineleg_termos_aceitos', 'true');
+                        window.location.href = 'consulta';
+                    }
+                }
+                if (e.key === 'Escape') {
+                    modalOverlay.classList.remove('active');
+                }
+            });
         });
     </script>
 
     <!-- Components & Theme Manager -->
-    <script src="/assets/js/modules/components.js?v=0.0.9"></script>
-    <script src="/assets/js/modules/theme-manager.js?v=0.0.9"></script>
+    <script src="/assets/js/modules/components.js?v=0.1.1" defer></script>
+    <script src="/assets/js/modules/theme-manager.js?v=0.1.1" defer></script>
     <script>
-        Components.init('index');
+        window.addEventListener('DOMContentLoaded', () => {
+            if (window.Components) {
+                Components.init('index');
+            }
+        });
     </script>
+    <!-- Módulos de Segurança e Utilidades -->
+        <script src="/assets/js/modules/sanitizer.js"></script>
+        <script src="/assets/js/modules/storage.js"></script>
+        <script src="/assets/js/modules/formatters.js"></script>
+        <script src="/assets/js/modules/exceptions.js"></script>
+        <script src="/assets/js/modules/modal-manager.js"></script>
+        <!-- Dados normalizados e fonte única de verdade -->
+        <script src="/assets/js/data-normalizado.js"></script>
+        <script src="/assets/js/consulta-normalizado.js"></script>
+
+        <!-- Scripts Principais -->
+
 </body>
 
 </html>

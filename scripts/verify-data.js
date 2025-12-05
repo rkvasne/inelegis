@@ -8,14 +8,14 @@ const fs = require('fs');
 const vm = require('vm');
 const path = require('path');
 
-const dataPath = path.join(__dirname, '..', 'public', 'assets', 'js', 'normalizado.data.js');
+const dataPath = path.join(__dirname, '..', 'public', 'assets', 'js', 'data-normalizado.js');
 
 function loadDataJs(file) {
   const code = fs.readFileSync(file, 'utf8');
   const sandbox = { console: { log() {} }, window: {} };
   vm.createContext(sandbox);
   vm.runInContext(code + '\n;this.__NORMALIZADO = window.__INELEG_NORMALIZADO__;', sandbox, {
-    filename: 'normalizado.data.js',
+    filename: 'data-normalizado.js',
   });
   return sandbox.__NORMALIZADO || [];
 }
@@ -89,7 +89,7 @@ function main() {
   };
 
   // Relatório amigável
-  console.log('=== Verificação normalizado.data.js ===');
+  console.log('=== Verificação data-normalizado.js ===');
   console.log(`Normas: ${summary.totalNormas}`);
   console.log(`Entradas com caracteres suspeitos (�): ${summary.suspectCharEntries}`);
   console.log(`Duplicatas (codigo|norma): ${summary.duplicates}`);
@@ -115,6 +115,6 @@ function main() {
 try {
   main();
 } catch (e) {
-  console.error('Falha ao verificar normalizado.data.js:', e.message);
+  console.error('Falha ao verificar data-normalizado.js:', e.message);
   process.exit(1);
 }

@@ -9,9 +9,9 @@ Este diretório contém utilitários para desenvolvimento, validação, build e 
 - `lint.js` — Verificações de qualidade (HTML/CSS/JS/estrutura/performance).
 - `test.js` — Testes integrados do projeto.
 - `validate-theme.js` — Validação avançada de temas CSS.
-- `extrair_normalizado_xml.js` — Gera `public/assets/js/normalizado.data.js` a partir do XML oficial.
+- `extrair_normalizado_xml.js` — Gera `public/assets/js/data-normalizado.js` a partir do XML oficial.
 - `verify-data.js` — Verifica consistência dos dados normalizados.
-- `backup-data.js` — Backup/restore de `normalizado.data.js`.
+- `backup-data.js` — Backup/restore de `data-normalizado.js`.
 - `validate-html-links.js` — Valida links internos de todos os HTML em `public/`.
 - `migrate.js`/`rollback.js` — Migrações e reversões pontuais.
 - `optimize.js` — Otimizações pós-build.
@@ -26,4 +26,3 @@ node scripts/extrair_normalizado_xml.js
 ```
 
 Todos os scripts assumem Windows 11 como ambiente padrão.
-
