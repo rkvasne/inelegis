@@ -275,7 +275,7 @@ class Builder {
 
     // Criar arquivo de build info
     const buildInfo = {
-      version: '0.1.5',
+      version: '0.1.6',
       buildDate: new Date().toISOString(),
       buildNumber: Date.now(),
       environment: 'production',
@@ -297,7 +297,7 @@ class Builder {
 
     const report = {
       timestamp: new Date().toISOString(),
-      version: '0.1.5',
+      version: '0.1.6',
       status: this.errors.length === 0 ? 'SUCCESS' : 'FAILED',
       summary: {
         errors: this.errors.length,
@@ -316,7 +316,7 @@ class Builder {
 
     // Exibir resumo
     console.log('\n' + '='.repeat(60));
-    console.log('📊 RELATÓRIO DE BUILD - INELEG-APP v0.1.5');
+    console.log('📊 RELATÓRIO DE BUILD - INELEG-APP v0.1.6');
     console.log('='.repeat(60));
     console.log(`Status: ${report.status}`);
     console.log(`Erros: ${this.errors.length}`);
