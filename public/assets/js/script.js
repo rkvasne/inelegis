@@ -52,12 +52,52 @@ const artigoInput = document.getElementById('artigoInput');
 const buscarBtn = document.getElementById('searchBtn');
 const resultadoDiv = document.getElementById('resultado');
 const sugestoesDiv = document.getElementById('suggestions');
+const leiDropdownButton = document.getElementById('leiDropdownButton');
+const leiListbox = document.getElementById('leiListbox');
+const leiArrowIndicator = document.getElementById('leiArrowIndicator');
 
 // Elementos dos radio buttons
 const radioCondenacao = document.getElementById('condenacao');
 const radioExtincao = document.getElementById('extincao');
 const dataOcorrenciaCondenacao = document.getElementById('dataOcorrenciaCondenacao');
 const dataOcorrenciaExtincao = document.getElementById('dataOcorrenciaExtincao');
+
+// Mapeamento de nomes amigáveis das leis (Global para acesso em todo o script)
+const LEIS_DISPONIVEIS = [
+    { value: "CP", text: "Código Penal (Decreto-Lei 2.848/40)" },
+    { value: "CPM", text: "Código Penal Militar (Decreto-Lei nº 1.001/69)" },
+    { value: "LEI_5452", text: "Decreto-Lei 5.452/43 (CLT)" },
+    { value: "LEI_7661", text: "Decreto-Lei 7.661/45 (Lei Falimentar - Revogada)" },
+    { value: "LEI_201", text: "Decreto-Lei 201/67 (Crimes de responsabilidade dos Prefeitos)" },
+    { value: "LEI_105", text: "Lei Complementar 105/01 (Sigilo Bancário)" },
+    { value: "LEI_1521", text: "Lei 1.521/51 (Crimes contra a economia popular)" },
+    { value: "LEI_2889", text: "Lei 2.889/56 (Crimes de genocídio)" },
+    { value: "LEI_4591", text: "Lei 4.591/64 (Condomínios e incorporações)" },
+    { value: "LEI_4595", text: "Lei 4.595/64 (Sistema Financeiro)" },
+    { value: "LEI_4728", text: "Lei 4.728/65 (Mercado de Capitais)" },
+    { value: "LEI_4737", text: "Lei 4.737/65 (Código Eleitoral)" },
+    { value: "LEI_4898", text: "Lei 4.898/65 (Abuso de autoridade)" },
+    { value: "LEI_6091", text: "Lei 6.091/74 (Transporte de eleitores)" },
+    { value: "LEI_6368", text: "Lei 6.368/76 (Lei de Drogas - Revogada)" },
+    { value: "LEI_6385", text: "Lei 6.385/76 (CVM)" },
+    { value: "LEI_6766", text: "Lei 6.766/79 (Parcelamento do solo urbano)" },
+    { value: "LEI_6996", text: "Lei 6.996/82 (Processamento eletrônico eleitoral)" },
+    { value: "LEI_7492", text: "Lei 7.492/86 (Lei do Colarinho Branco)" },
+    { value: "LEI_7716", text: "Lei 7.716/89 (Crimes de racismo)" },
+    { value: "LEI_8069", text: "Lei 8.069/90 (Estatuto da Criança e do Adolescente)" },
+    { value: "LEI_8137", text: "Lei 8.137/90 (Crimes contra a ordem tributária)" },
+    { value: "LEI_8176", text: "Lei 8.176/91 (Ordem econômica)" },
+    { value: "LEI_8666", text: "Lei 8.666/93 (Licitações e Contratos)" },
+    { value: "LEI_9455", text: "Lei 9.455/97 (Tortura)" },
+    { value: "LEI_9504", text: "Lei 9.504/97 (Lei Eleitoral)" },
+    { value: "LEI_9605", text: "Lei 9.605/98 (Lei Ambiental)" },
+    { value: "LEI_9613", text: "Lei 9.613/98 (Lavagem de dinheiro)" },
+    { value: "LEI_10826", text: "Lei 10.826/03 (Armas de Fogo)" },
+    { value: "LEI_11101", text: "Lei 11.101/05 (Lei Falimentar)" },
+    { value: "LEI_11343", text: "Lei 11.343/06 (Lei de Drogas)" },
+    { value: "LEI_12850", text: "Lei 12.850/13 (Organização Criminosa)" },
+    { value: "LEI_13260", text: "Lei 13.260/16 (Terrorismo)" }
+];
 
 // Verificar se está na página Consulta e se checkbox foi marcado
 function verificarAcessoConsulta() {
@@ -90,12 +130,14 @@ document.addEventListener('DOMContentLoaded', function () {
     popularSelectLeis();
     configurarEventListeners();
     configurarRadioButtons();
-    // Foco automático no select de leis para acesso rápido
-    leiSelect.focus();
-    // Preload do primeiro item para melhor performance
-    if (leiSelect.options.length > 1) {
-        leiSelect.selectedIndex = 1;
-        leiSelect.dispatchEvent(new Event('change'));
+    artigoInput.disabled = true;
+    buscarBtn.disabled = true;
+    if (leiArrowIndicator) {
+        if (!leiSelect.value) {
+            leiArrowIndicator.classList.add('show');
+        } else {
+            leiArrowIndicator.classList.remove('show');
+        }
     }
 });
 
@@ -121,22 +163,240 @@ function obterTipoComunicacao() {
     return radioCondenacao.checked ? 'condenacao' : 'extincao';
 }
 
+// Função global para atualizar o preview do artigo
+function atualizarPreviewGlobal() {
+    const artigoCompleto = artigoInput.value.trim();
+    let leiSelecionada = '';
+    
+    // 1. Tentar pegar do dropdown visual (que é a fonte mais direta da UI atual)
+    if (leiDropdownButton && leiDropdownButton.textContent && leiDropdownButton.textContent !== 'Selecione a lei ou código...') {
+        leiSelecionada = leiDropdownButton.textContent;
+    } 
+    // 2. Se não, tentar pegar do valor do select usando a lista global
+    else if (leiSelect.value) {
+        const found = LEIS_DISPONIVEIS.find(l => l.value === leiSelect.value);
+        if (found) {
+            leiSelecionada = found.text;
+        } else if (typeof DataNormalizer !== 'undefined' && DataNormalizer.getLeis) {
+             // 3. Tentar DataNormalizer como fallback
+             const lista = DataNormalizer.getLeis();
+             const foundNorm = Array.isArray(lista) ? lista.find(x => x.value === leiSelect.value) : null;
+             if (foundNorm) leiSelecionada = foundNorm.text;
+        }
+    }
+
+    // Se ainda assim não achou, usar o valor bruto (fallback final)
+    if (!leiSelecionada && leiSelect.value) {
+        leiSelecionada = leiSelect.value;
+    }
+
+    // Se o campo "Artigo Completo" tiver conteúdo, mostrar ele no preview
+    if (artigoCompleto) {
+        // Adicionar "Art. " se não começar com isso
+        const artigoFormatado = artigoCompleto.toLowerCase().startsWith('art.')
+            ? artigoCompleto
+            : `Art. ${artigoCompleto}`;
+        document.getElementById('previewArtigo').textContent = `${artigoFormatado} do ${leiSelecionada}`;
+        return;
+    }
+
+    // Caso contrário, mostrar o preview do construtor
+    const artigo = document.getElementById('artigoNum').value.trim();
+    const paragrafo = document.getElementById('paragrafoNum').value.trim();
+    const inciso = document.getElementById('incisoNum').value.trim();
+    const alinea = document.getElementById('alineaNum').value.trim();
+    const concomitante = document.getElementById('concomitanteNum').value.trim();
+
+    let preview = 'Art. ';
+    if (artigo) preview += artigo;
+    if (paragrafo) preview += `, §${paragrafo}º`;
+    if (inciso) preview += `, ${inciso}`;
+    if (alinea) preview += `, "${alinea}"`;
+    if (concomitante) preview += ` c/c ${concomitante}`;
+    
+    // Adicionar a lei apenas se houver alguma selecionada
+    if (leiSelecionada) {
+        preview += ` do ${leiSelecionada}`;
+    }
+
+    document.getElementById('previewArtigo').textContent = preview;
+}
+
 // Popular o select com as leis disponíveis
 function popularSelectLeis() {
-    // Limpar opções existentes
-    leiSelect.innerHTML = '<option value="">Selecione uma lei...</option>';
+    // LEIS_DISPONIVEIS agora é global
+    const lawMap = new Map(LEIS_DISPONIVEIS.map(l => [l.value, l.text]));
 
-    // Adicionar opções das leis
-    leisDisponiveis.forEach(lei => {
-        const option = document.createElement('option');
-        option.value = lei.value;
-        option.textContent = lei.text;
-        leiSelect.appendChild(option);
+    let leis = [];
+    if (typeof DataNormalizer !== 'undefined' && DataNormalizer.getLeis) {
+        // Se DataNormalizer existir, usar, mas tentar mapear os nomes
+        const rawLeis = DataNormalizer.getLeis();
+        leis = rawLeis.map(lei => ({
+            value: lei.value,
+            text: lawMap.get(lei.value) || lei.text // Usa o nome amigável se existir
+        }));
+    } else if (Array.isArray(window.__INELEG_NORMALIZADO__)) {
+        const map = new Map();
+        for (const it of window.__INELEG_NORMALIZADO__) {
+            if (!map.has(it.codigo)) {
+                const nomeAmigavel = lawMap.get(it.codigo) || it.norma;
+                map.set(it.codigo, nomeAmigavel);
+            }
+        }
+        leis = Array.from(map.entries()).map(([value, text]) => ({ value, text }));
+    }
+
+    // Ordenar leis alfabeticamente pelo texto
+    leis.sort((a, b) => a.text.localeCompare(b.text));
+
+    if (!leiListbox) return;
+    
+    leiListbox.innerHTML = '';
+
+    // Adicionar campo de pesquisa no dropdown
+    const searchContainer = document.createElement('div');
+    searchContainer.className = 'dropdown-search-container';
+    
+    // Prevenir fechamento ao clicar no container
+    searchContainer.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
+
+    const searchInput = document.createElement('input');
+    searchInput.type = 'text';
+    searchInput.className = 'dropdown-search-input';
+    searchInput.placeholder = 'Pesquisar lei...';
+    searchInput.setAttribute('aria-label', 'Pesquisar na lista de leis');
+    
+    // Prevenir fechamento ao clicar no input
+    searchInput.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
+
+    // Focar no input quando dropdown abrir (será tratado no event listener do botão)
+    
+    // Filtragem dinâmica
+    searchInput.addEventListener('input', (e) => {
+        const term = e.target.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        const items = leiListbox.querySelectorAll('.dropdown-item');
+        let hasResults = false;
+        
+        items.forEach(item => {
+            const text = item.textContent.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            if (text.includes(term)) {
+                item.style.display = '';
+                hasResults = true;
+            } else {
+                item.style.display = 'none';
+            }
+        });
+
+        // Gerenciar mensagem de "nenhum resultado" se necessário
+        let noResultMsg = leiListbox.querySelector('.dropdown-no-results');
+        if (!hasResults) {
+            if (!noResultMsg) {
+                noResultMsg = document.createElement('div');
+                noResultMsg.className = 'dropdown-no-results';
+                noResultMsg.textContent = 'Nenhuma lei encontrada';
+                noResultMsg.style.padding = '8px 12px';
+                noResultMsg.style.color = 'var(--text-secondary)';
+                noResultMsg.style.fontSize = '0.875rem';
+                noResultMsg.style.textAlign = 'center';
+                leiListbox.appendChild(noResultMsg);
+            } else {
+                noResultMsg.style.display = 'block';
+            }
+        } else if (noResultMsg) {
+            noResultMsg.style.display = 'none';
+        }
+    });
+
+    searchContainer.appendChild(searchInput);
+    leiListbox.appendChild(searchContainer);
+
+    leis.forEach(lei => {
+        const li = document.createElement('li');
+        li.className = 'dropdown-item';
+        li.setAttribute('role', 'option');
+        li.setAttribute('data-value', lei.value);
+        li.textContent = lei.text;
+        li.tabIndex = 0;
+        
+        li.addEventListener('click', function () {
+            const valor = this.getAttribute('data-value');
+            leiSelect.value = valor;
+            
+            if (leiDropdownButton) {
+                leiDropdownButton.textContent = lei.text;
+                leiDropdownButton.setAttribute('aria-expanded', 'false');
+            }
+            
+            leiListbox.classList.add('hidden');
+            leiSelect.dispatchEvent(new Event('change'));
+        });
+
+        li.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+                this.click();
+            } else if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                const next = this.nextElementSibling;
+                if (next) next.focus();
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                const prev = this.previousElementSibling;
+                if (prev) prev.focus();
+            }
+        });
+        
+        leiListbox.appendChild(li);
     });
 }
 
 // Configurar event listeners
 function configurarEventListeners() {
+    if (leiDropdownButton && leiListbox) {
+        leiDropdownButton.addEventListener('click', function () {
+            const expanded = this.getAttribute('aria-expanded') === 'true';
+            this.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+            if (expanded) {
+                leiListbox.classList.add('hidden');
+            } else {
+                leiListbox.classList.remove('hidden');
+                // Focar no input de pesquisa ao abrir
+                const searchInput = leiListbox.querySelector('.dropdown-search-input');
+                if (searchInput) {
+                    searchInput.focus();
+                } else {
+                    const firstItem = leiListbox.querySelector('.dropdown-item');
+                    if (firstItem) firstItem.focus();
+                }
+            }
+        });
+        document.addEventListener('click', function (e) {
+            if (!leiDropdownButton.contains(e.target) && !leiListbox.contains(e.target)) {
+                leiDropdownButton.setAttribute('aria-expanded', 'false');
+                leiListbox.classList.add('hidden');
+            }
+        });
+        leiDropdownButton.addEventListener('keydown', function (e) {
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                this.setAttribute('aria-expanded', 'true');
+                leiListbox.classList.remove('hidden');
+                
+                // Focar no input de pesquisa ao abrir via teclado também
+                const searchInput = leiListbox.querySelector('.dropdown-search-input');
+                if (searchInput) {
+                    searchInput.focus();
+                } else {
+                    const firstItem = leiListbox.querySelector('.dropdown-item');
+                    if (firstItem) firstItem.focus();
+                }
+            }
+        });
+    }
+
     // Debounce de sugestões para evitar excesso de renderização
     const debouncedSugestoes = (function () {
         let t;
@@ -151,6 +411,7 @@ function configurarEventListeners() {
             }, 220);
         };
     })();
+
     // Evento de mudança no select de lei
     leiSelect.addEventListener('change', function () {
         if (this.value) {
@@ -166,76 +427,26 @@ function configurarEventListeners() {
             document.getElementById('insertConcBtn').disabled = false;
             document.getElementById('montarArtigoBtn').disabled = false;
 
-            // Função para atualizar o preview do artigo em tempo real
-            const atualizarPreview = () => {
-                const artigoCompleto = artigoInput.value.trim();
-                const leiSelecionada = leiSelect.options[leiSelect.selectedIndex].text;
+            if (leiArrowIndicator) {
+                leiArrowIndicator.classList.remove('show');
+            }
 
-                // Se o campo "Artigo Completo" tiver conteúdo, mostrar ele no preview
-                if (artigoCompleto) {
-                    // Adicionar "Art. " se não começar com isso
-                    const artigoFormatado = artigoCompleto.toLowerCase().startsWith('art.')
-                        ? artigoCompleto
-                        : `Art. ${artigoCompleto}`;
-                    document.getElementById('previewArtigo').textContent = `${artigoFormatado} do ${leiSelecionada}`;
-                    return;
-                }
-
-                // Caso contrário, mostrar o preview do construtor
-                const artigo = document.getElementById('artigoNum').value.trim();
-                const paragrafo = document.getElementById('paragrafoNum').value.trim();
-                const inciso = document.getElementById('incisoNum').value.trim();
-                const alinea = document.getElementById('alineaNum').value.trim();
-                const concomitante = document.getElementById('concomitanteNum').value.trim();
-
-                let preview = 'Art. ';
-                if (artigo) preview += artigo;
-                if (paragrafo) preview += `, §${paragrafo}º`;
-                if (inciso) preview += `, ${inciso}`;
-                if (alinea) preview += `, "${alinea}"`;
-                if (concomitante) preview += ` c/c ${concomitante}`;
-                preview += ` do ${leiSelecionada}`;
-
-                document.getElementById('previewArtigo').textContent = preview;
-            };
-
-            // Adicionar event listeners para atualizar o preview
-            artigoInput.addEventListener('input', atualizarPreview);
-            document.getElementById('artigoNum').addEventListener('input', atualizarPreview);
-            document.getElementById('paragrafoNum').addEventListener('input', atualizarPreview);
-            document.getElementById('incisoNum').addEventListener('input', atualizarPreview);
-            document.getElementById('alineaNum').addEventListener('input', atualizarPreview);
-            document.getElementById('concomitanteNum').addEventListener('input', atualizarPreview);
-
-            // Atualizar preview inicial
-            atualizarPreview();
-
+            // Atualizar preview inicial e focar
+            atualizarPreviewGlobal();
             artigoInput.focus();
         } else {
-            artigoInput.disabled = true;
-            artigoInput.value = '';
-            buscarBtn.disabled = true;
-            // Desabilitar inputs do artigo builder
-            document.getElementById('artigoNum').disabled = true;
-            document.getElementById('paragrafoNum').disabled = true;
-            document.getElementById('incisoNum').disabled = true;
-            document.getElementById('alineaNum').disabled = true;
-            document.getElementById('concomitanteNum').disabled = true;
-            document.getElementById('insertParagrafoBtn').disabled = true;
-            document.getElementById('insertAlineaBtn').disabled = true;
-            document.getElementById('insertConcBtn').disabled = true;
-            document.getElementById('montarArtigoBtn').disabled = true;
-            // Limpar campos do builder
-            document.getElementById('artigoNum').value = '';
-            document.getElementById('paragrafoNum').value = '';
-            document.getElementById('incisoNum').value = '';
-            document.getElementById('alineaNum').value = '';
-            document.getElementById('concomitanteNum').value = '';
-            // Resetar preview
-            document.getElementById('previewArtigo').textContent = 'Art. , , , do';
             limparBusca();
         }
         verificarCamposPreenchidos();
+    });
+
+    // Listeners para atualização do preview pelos campos do builder
+    const builderInputs = ['artigoNum', 'paragrafoNum', 'incisoNum', 'alineaNum', 'concomitanteNum'];
+    builderInputs.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.addEventListener('input', atualizarPreviewGlobal);
+        }
     });
 
     // Botões para inserir símbolos
@@ -246,6 +457,7 @@ function configurarEventListeners() {
             artigoInput.value += `, §${paraNum}º`;
             artigoInput.focus();
             verificarCamposPreenchidos();
+            atualizarPreviewGlobal();
             debouncedSugestoes(artigoInput.value.trim());
         }
     });
@@ -257,6 +469,7 @@ function configurarEventListeners() {
             artigoInput.value += `, "${alinea}"`;
             artigoInput.focus();
             verificarCamposPreenchidos();
+            atualizarPreviewGlobal();
             debouncedSugestoes(artigoInput.value.trim());
         }
     });
@@ -268,6 +481,7 @@ function configurarEventListeners() {
             artigoInput.value += ` c/c ${conc}`;
             artigoInput.focus();
             verificarCamposPreenchidos();
+            atualizarPreviewGlobal();
             debouncedSugestoes(artigoInput.value.trim());
         }
     });
@@ -295,6 +509,7 @@ function configurarEventListeners() {
         artigoInput.value = artigoMontado;
         artigoInput.focus();
         verificarCamposPreenchidos();
+        atualizarPreviewGlobal();
         debouncedSugestoes(artigoInput.value.trim());
     });
 
@@ -319,11 +534,18 @@ function configurarEventListeners() {
         }
 
         verificarCamposPreenchidos();
+        atualizarPreviewGlobal();
         debouncedSugestoes(valorTrim);
     });
 
     // Evento de clique no botão buscar
     buscarBtn.addEventListener('click', realizarBusca);
+
+    // Evento de clique no botão limpar
+    const limparBtn = document.getElementById('limparBtn');
+    if (limparBtn) {
+        limparBtn.addEventListener('click', limparBusca);
+    }
 
     // Evento de tecla Enter nos campos
     leiSelect.addEventListener('keydown', function (e) {
@@ -604,7 +826,7 @@ function verificarLeiCorresponde(item, codigoLei) {
 // Exibir resultado da consulta
 function exibirResultado(resultado) {
     const leiInfo = leisDisponiveis.find(l => l.value === resultado.codigo);
-    const nomeLei = leiInfo ? leiInfo.descricao : resultado.codigo;
+    const nomeLei = leiInfo ? (leiInfo.descricao || leiInfo.text) : resultado.codigo;
 
     const statusClass = resultado.inelegivel ? 'inelegivel' : 'elegivel';
     const statusTexto = resultado.inelegivel ? 'INELEGÍVEL' : 'ELEGÍVEL';
@@ -638,8 +860,8 @@ function exibirResultado(resultado) {
 
     // Usar artigo formatado se disponível
     const artigoExibicao = resultado.artigoProcessado ?
-        resultado.artigoProcessado.formatado :
-        resultado.artigoConsultado;
+        (resultado.artigoProcessado.formatado || resultado.artigoOriginal) :
+        resultado.artigoOriginal;
 
     // Construir seção de exceções
     let secaoExcecoes = '';
@@ -900,13 +1122,60 @@ function esconderSugestoes() {
 // Limpar busca
 function limparBusca() {
     leiSelect.value = '';
+    
+    // Resetar o botão do dropdown visual
+    if (leiDropdownButton) {
+        leiDropdownButton.textContent = 'Selecione a lei ou código...';
+        leiDropdownButton.setAttribute('aria-expanded', 'false');
+    }
+
+    // Resetar input de pesquisa e itens do dropdown
+    if (leiListbox) {
+        const searchInput = leiListbox.querySelector('.dropdown-search-input');
+        if (searchInput) {
+            searchInput.value = '';
+        }
+        
+        const items = leiListbox.querySelectorAll('.dropdown-item');
+        items.forEach(item => item.style.display = '');
+        
+        const noResults = leiListbox.querySelector('.dropdown-no-results');
+        if (noResults) noResults.style.display = 'none';
+        
+        leiListbox.classList.add('hidden');
+    }
+
     artigoInput.value = '';
     artigoInput.disabled = true;
     buscarBtn.disabled = true;
+    
+    // Limpar campos do construtor
+    document.getElementById('artigoNum').value = '';
+    document.getElementById('paragrafoNum').value = '';
+    document.getElementById('incisoNum').value = '';
+    document.getElementById('alineaNum').value = '';
+    document.getElementById('concomitanteNum').value = '';
+    document.getElementById('previewArtigo').textContent = 'Art. , , , do';
+    
+    // Desabilitar construtor
+    document.getElementById('artigoNum').disabled = true;
+    document.getElementById('paragrafoNum').disabled = true;
+    document.getElementById('incisoNum').disabled = true;
+    document.getElementById('alineaNum').disabled = true;
+    document.getElementById('concomitanteNum').disabled = true;
+    document.getElementById('insertParagrafoBtn').disabled = true;
+    document.getElementById('insertAlineaBtn').disabled = true;
+    document.getElementById('insertConcBtn').disabled = true;
+    document.getElementById('montarArtigoBtn').disabled = true;
+
     resultadoDiv.style.display = 'none';
     resultadoDiv.classList.remove('show');
     esconderSugestoes();
     leiSelect.focus();
+    
+    if (leiArrowIndicator) {
+        leiArrowIndicator.classList.add('show');
+    }
 }
 
 // Copiar resultado
@@ -1037,6 +1306,9 @@ function fecharModal() {
 function novaConsulta() {
     fecharModal();
     limparBusca();
+    if (leiArrowIndicator) {
+        leiArrowIndicator.classList.add('show');
+    }
 }
 
 // Fechar modal ao pressionar ESC

@@ -11,7 +11,7 @@ const crypto = require('crypto');
 class DataBackup {
   constructor() {
     this.backupDir = path.join(__dirname, '..', 'backups');
-    this.dataFile = path.join(__dirname, '..', 'public', 'assets', 'js', 'normalizado.data.js');
+    this.dataFile = path.join(__dirname, '..', 'public', 'assets', 'js', 'data-normalizado.js');
   }
 
   init() {
@@ -30,7 +30,7 @@ class DataBackup {
       const content = fs.readFileSync(this.dataFile, 'utf8');
       const hash = this.generateHash(content);
       const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-      const backupFileName = `normalizado.data-${timestamp}-${hash}.js`;
+      const backupFileName = `data-normalizado-${timestamp}-${hash}.js`;
       const backupPath = path.join(this.backupDir, backupFileName);
 
       fs.writeFileSync(backupPath, content);
@@ -39,7 +39,7 @@ class DataBackup {
       const metadata = {
         timestamp: new Date().toISOString(),
         hash,
-        originalFile: 'normalizado.data.js',
+        originalFile: 'data-normalizado.js',
         backupFile: backupFileName,
         size: content.length
       };

@@ -110,8 +110,8 @@ class Migrator {
         <script src="/assets/js/modules/exceptions.js"></script>
         <script src="/assets/js/modules/modal-manager.js"></script>
         <!-- Dados normalizados e fonte única de verdade -->
-        <script src="/assets/js/normalizado.data.js"></script>
         <script src="/assets/js/data-normalizado.js"></script>
+        <script src="/assets/js/consulta-normalizado.js"></script>
 
         <!-- Scripts Principais -->
 `;

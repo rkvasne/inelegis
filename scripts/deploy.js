@@ -62,7 +62,7 @@ function checkBuildExists() {
     'test-theme.html',
     path.join('styles', 'styles.css'),
     path.join('assets', 'js', 'script.js'),
-    path.join('assets', 'js', 'normalizado.data.js')
+    path.join('assets', 'js', 'data-normalizado.js')
   ];
 
   const missingFiles = requiredFiles.filter(file => !fs.existsSync(path.join(BUILD_DIR, file)));

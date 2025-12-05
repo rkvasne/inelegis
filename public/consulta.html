@@ -15,9 +15,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/styles/styles.css?v=0.1.1">
-    <script src="/assets/js/modules/theme-bootstrap.js?v=0.1.1"></script>
-    <script src="/assets/js/modules/terms-gate.js?v=0.1.1"></script>
+    <link rel="stylesheet" href="/styles/styles.css?v=0.1.4">
+    <script src="/assets/js/modules/theme-bootstrap.js?v=0.1.4"></script>
+    <script src="/assets/js/modules/terms-gate.js?v=0.1.4"></script>
 </head>
 
 <body>
@@ -98,9 +98,14 @@
                             </svg>
                             Lei/Código Aplicável
                         </label>
-                        <select id="leiSelect" class="form-select" aria-label="Selecionar lei ou código aplicável" title="Selecione a lei/código aplicável para habilitar os campos de artigo">
-                            <option value="">Selecione a lei ou código...</option>
-                        </select>
+                        <div class="indicator-container">
+                            <span id="leiArrowIndicator" class="arrow-indicator" aria-hidden="true">👇</span>
+                            <div id="leiDropdown" class="dropdown">
+                                <button id="leiDropdownButton" class="dropdown-toggle" aria-expanded="false" aria-controls="leiListbox" type="button">Selecione a lei ou código...</button>
+                                <ul id="leiListbox" class="dropdown-menu hidden" role="listbox" aria-labelledby="leiDropdownButton"></ul>
+                                <input type="hidden" id="leiSelect" value="">
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Campo de Artigo -->
@@ -125,6 +130,12 @@
                                     </path>
                                 </svg>
                                 Buscar
+                            </button>
+                            <button id="limparBtn" class="btn btn-secondary" type="button" title="Limpar consulta">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                </svg>
+                                Limpar
                             </button>
                         </div>
                         <p id="ajudaArtigo" class="text-sm text-neutral-600 mt-2">Digite o
@@ -439,15 +450,15 @@
     </div>
 
     <!-- Módulos de Segurança e Utilidades -->
-    <script src="/assets/js/modules/sanitizer.js?v=0.1.1" defer></script>
-    <script src="/assets/js/modules/storage.js?v=0.1.1" defer></script>
-    <script src="/assets/js/modules/formatters.js?v=0.1.1" defer></script>
-    <script src="/assets/js/modules/exceptions.js?v=0.1.1" defer></script>
-    <script src="/assets/js/modules/modal-manager.js?v=0.1.1" defer></script>
-    <script src="/assets/js/modules/search-history.js?v=0.1.1" defer></script>
-    <script src="/assets/js/modules/components.js?v=0.1.1" defer></script>
-    <script src="/assets/js/modules/theme-manager.js?v=0.1.1" defer></script>
-    <script src="/assets/js/modules/analytics.js?v=0.1.1" defer></script>
+    <script src="/assets/js/modules/sanitizer.js?v=0.1.4" defer></script>
+    <script src="/assets/js/modules/storage.js?v=0.1.4" defer></script>
+    <script src="/assets/js/modules/formatters.js?v=0.1.4" defer></script>
+    <script src="/assets/js/modules/exceptions.js?v=0.1.4" defer></script>
+    <script src="/assets/js/modules/modal-manager.js?v=0.1.4" defer></script>
+    <script src="/assets/js/modules/search-history.js?v=0.1.4" defer></script>
+    <script src="/assets/js/modules/components.js?v=0.1.4" defer></script>
+    <script src="/assets/js/modules/theme-manager.js?v=0.1.4" defer></script>
+    <script src="/assets/js/modules/analytics.js?v=0.1.4" defer></script>
 
     <!-- Scripts Principais -->
     <script src="/assets/js/data-normalizado.js" defer></script>
