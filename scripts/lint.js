@@ -31,7 +31,7 @@ class Linter {
     console.log(`${prefix} [${timestamp.split('T')[1].split('.')[0]}] ${message}`);
   }
 
-  async run() {
+  async lint() {
     this.log('Iniciando lint do Inelegis v0.1.5', 'info');
 
     try {
