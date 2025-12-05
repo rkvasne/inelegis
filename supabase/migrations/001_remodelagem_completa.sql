@@ -638,6 +638,7 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, alin
 DROP FUNCTION IF EXISTS public.verificar_elegibilidade(text, text, text, text, text);
 
 -- Nova Função RPC otimizada com metadados de exceção para UI V3
+-- Nova Função RPC corrigida (resolvendo ambiguidade de colunas)
 CREATE OR REPLACE FUNCTION public.verificar_elegibilidade(
     p_codigo_norma TEXT,
     p_artigo TEXT,
@@ -660,35 +661,37 @@ DECLARE
     v_record record;
     v_excecoes_list TEXT;
 BEGIN
-    -- 1. Buscar o registro mais específico (priorizando exatidão)
-    SELECT * INTO v_record
-    FROM public.crimes_inelegibilidade
-    WHERE codigo = p_codigo_norma 
-      AND artigo = p_artigo
-      AND (p_paragrafo IS NULL OR paragrafo = p_paragrafo)
-      AND (p_inciso IS NULL OR inciso = p_inciso)
-      AND (p_alinea IS NULL OR alinea = p_alinea)
+    -- 1. Buscar o registro mais específico (usando alias 't' para evitar conflito com parâmetros de retorno)
+    SELECT 
+        t.eh_excecao, t.tipo_crime, t.observacoes, t.item_alinea_e
+    INTO v_record
+    FROM public.crimes_inelegibilidade t
+    WHERE t.codigo = p_codigo_norma 
+      AND t.artigo = p_artigo
+      AND (p_paragrafo IS NULL OR t.paragrafo = p_paragrafo)
+      AND (p_inciso IS NULL OR t.inciso = p_inciso)
+      AND (p_alinea IS NULL OR t.alinea = p_alinea)
     ORDER BY 
-      (paragrafo IS NOT DISTINCT FROM p_paragrafo) DESC,
-      (inciso IS NOT DISTINCT FROM p_inciso) DESC,
-      (alinea IS NOT DISTINCT FROM p_alinea) DESC,
-      eh_excecao ASC 
+      (t.paragrafo IS NOT DISTINCT FROM p_paragrafo) DESC,
+      (t.inciso IS NOT DISTINCT FROM p_inciso) DESC,
+      (t.alinea IS NOT DISTINCT FROM p_alinea) DESC,
+      t.eh_excecao ASC 
     LIMIT 1;
 
-    -- 2. Buscar TODAS as exceções para este artigo para o disclaimer (Coluna central no UI V3)
+    -- 2. Buscar TODAS as exceções para este artigo (Coluna central no UI V3)
     SELECT string_agg(
         CASE 
-            WHEN paragrafo IS NOT NULL THEN 'Parágrafo ' || paragrafo 
-            WHEN inciso IS NOT NULL THEN 'Inciso ' || inciso 
-            WHEN alinea IS NOT NULL THEN 'Alínea ' || alinea 
+            WHEN t2.paragrafo IS NOT NULL THEN 'Parágrafo ' || t2.paragrafo 
+            WHEN t2.inciso IS NOT NULL THEN 'Inciso ' || t2.inciso 
+            WHEN t2.alinea IS NOT NULL THEN 'Alínea ' || t2.alinea 
             ELSE 'Artigo/Caput'
-        END || COALESCE(' (' || observacoes || ')', ''), 
+        END || COALESCE(' (' || t2.observacoes || ')', ''), 
         '; '
     ) INTO v_excecoes_list
-    FROM public.crimes_inelegibilidade
-    WHERE codigo = p_codigo_norma 
-      AND artigo = p_artigo 
-      AND eh_excecao = TRUE;
+    FROM public.crimes_inelegibilidade t2
+    WHERE t2.codigo = p_codigo_norma 
+      AND t2.artigo = p_artigo 
+      AND t2.eh_excecao = TRUE;
 
     IF v_record IS NULL THEN
         RETURN QUERY SELECT 
