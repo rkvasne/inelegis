@@ -391,8 +391,8 @@ O sistema requer HTTPS para funcionar como PWA.
 
 - **Desenvolvido por**: Sistema Interno TRE-SP
 - **Base de dados**: TRE-SP - Outubro 2024 - CRE-RO 02/06/2025
-- **Última atualização**: Janeiro 2025
-- **Versão**: 0.1.0
+- **Última atualização**: Dezembro 2025
+- **Versão**: 0.1.4
 
 ---
 *Instruções geradas automaticamente pelo sistema de deploy Ineleg-App*

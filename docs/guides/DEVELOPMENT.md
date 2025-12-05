@@ -1,7 +1,7 @@
 # Guia de Desenvolvimento
 
-**Última atualização:** 02 de dezembro de 2025
-**Versão atual:** 0.1.0
+**Última atualização:** 04 de dezembro de 2025
+**Versão atual:** 0.1.4
 
 Este arquivo fornece orientações técnicas para desenvolvedores trabalhando neste repositório.
 
