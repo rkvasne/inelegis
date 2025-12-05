@@ -43,7 +43,11 @@ export const InputValidator = {
     normalized = normalized.replace(/[§º°ª]/g, "").trim();
 
     // Mapeamentos comuns
-    if (normalized === "parágrafo único" || normalized === "p. único" || normalized === "p.u") {
+    if (
+      normalized === "parágrafo único" ||
+      normalized === "p. único" ||
+      normalized === "p.u"
+    ) {
       return "unico";
     }
 
