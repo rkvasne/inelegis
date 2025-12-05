@@ -1275,34 +1275,50 @@ code {
   font-weight: 500;
 }
 
+#modalResultado {
+  --modal-title-size: 1.0625rem;
+  --modal-subtitle-size: 0.85rem;
+  --modal-body-size: 0.9rem;
+  --modal-section-title-size: 0.875rem;
+  --modal-label-size: 0.75rem;
+  --modal-value-size: 0.9rem;
+  --modal-status-size: 1.125rem;
+}
+
 #modalResultado .modal-header-text h3 {
-  font-size: 1rem;
+  font-size: var(--modal-title-size);
 }
 
 #modalResultado .modal-header-text p {
-  font-size: 0.8125rem;
+  font-size: var(--modal-subtitle-size);
 }
 
 #modalResultado .modal-body p,
 #modalResultado .modal-body li {
-  font-size: 0.9375rem;
+  font-size: var(--modal-body-size);
   line-height: 1.5;
 }
 
 #modalResultado .section-header {
-  font-size: 0.875rem;
+  font-size: var(--modal-section-title-size);
 }
 
-#modalResultado .info-label {
-  font-size: 0.7rem;
+#modalResultado .info-label,
+#modalResultado .status-label {
+  font-size: var(--modal-label-size);
 }
 
-#modalResultado .info-value {
-  font-size: 0.8125rem;
+#modalResultado .info-value,
+#modalResultado .section-intro,
+#modalResultado .section-note,
+#modalResultado .exception-list li,
+#modalResultado .modal-ase-info p,
+#modalResultado .modal-ase-info li {
+  font-size: var(--modal-value-size);
 }
 
 #modalResultado .status-value {
-  font-size: 1.125rem;
+  font-size: var(--modal-status-size);
 }
 
 .modal-title-section {
