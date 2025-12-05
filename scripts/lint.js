@@ -385,7 +385,6 @@ class Linter {
       { label: 'public/index.html', path: paths.pages.index, level: 'error' },
       { label: 'public/styles/styles.css', path: paths.styles.main, level: 'error' },
       { label: 'src/js/script.js', path: paths.js.main, level: 'error' },
-      { label: 'src/js/data.js', path: paths.js.data, level: 'error' },
       { label: 'public/assets/js/', path: paths.js.public, level: 'warning' },
       { label: 'src/js/modules/', path: paths.js.modules, level: 'suggestion' },
       { label: 'README.md', path: path.join(this.projectRoot, 'README.md'), level: 'suggestion' },
