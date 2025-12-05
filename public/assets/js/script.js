@@ -953,8 +953,8 @@ function exibirResultado(resultado) {
     const aseInfo = __genAsePad(tipoComunicacao, resultado.inelegivel);
 
     // Atualizar header do modal
-    document.getElementById('modalTitle').textContent = nomeLei;
-    document.getElementById('modalSubtitle').textContent = `Art. ${artigoExibicao}`;
+    document.getElementById('modalTitle').textContent = 'Resultado da Consulta';
+    document.getElementById('modalSubtitle').textContent = `${nomeLei} • Art. ${artigoExibicao}`;
 
     // Montar modal com novo design
     abrirModal(statusClass, statusTexto, `
@@ -1013,8 +1013,8 @@ function exibirNaoEncontrado(codigoLei, artigo) {
         : 'Como o artigo não está listado na coluna "NORMA/INCIDÊNCIA", a extinção relacionada a este artigo NÃO gera inelegibilidade e não requer ASE 370 ou ASE 540.';
 
     // Atualizar header do modal
-    document.getElementById('modalTitle').textContent = 'Artigo Não Encontrado';
-    document.getElementById('modalSubtitle').textContent = `${nomeLei} • Art. ${artigo}`;
+    document.getElementById('modalTitle').textContent = nomeLei;
+    document.getElementById('modalSubtitle').textContent = `Art. ${artigo}`;
 
     abrirModal('nao-encontrado', 'NÃO ENCONTRADO', `
         <div class="modal-status-card nao-encontrado">
