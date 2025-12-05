@@ -20,6 +20,7 @@ class Builder {
     this.jsPublicDir = paths.js.public;
     this.errors = [];
     this.warnings = [];
+    this.isDryRun = process.argv.includes('--dry-run');
   }
 
   log(message, type = 'info') {
@@ -50,8 +51,12 @@ class Builder {
       // 4. Executar testes
       await this.runTests();
 
-      // 5. Criar build de produção
-      await this.createBuild();
+      // 5. Criar build de produção (pular se for dry-run)
+      if (!this.isDryRun) {
+        await this.createBuild();
+      } else {
+        this.log('Modo Dry-Run: pulando criação de arquivos de build', 'info');
+      }
 
       // 6. Relatório final
       this.generateReport();
