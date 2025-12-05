@@ -145,7 +145,7 @@ const HistoryPage = (() => {
             return;
         }
 
-        const recent = historyData.slice(0, 8);
+        const recent = historyData.slice(0, 4);
         renderHistoryList(elements.recent, recent, entry => ({
             text: formatDateTime(entry.timestamp)
         }));
@@ -167,7 +167,7 @@ const HistoryPage = (() => {
 
         const frequent = Object.values(freqMap)
             .sort((a, b) => b.count - a.count)
-            .slice(0, 8);
+            .slice(0, 4);
 
         renderHistoryList(elements.frequent, frequent, entry => ({
             text: `${entry.count}x consultado`

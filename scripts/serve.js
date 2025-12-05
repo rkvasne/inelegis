@@ -11,6 +11,17 @@ const path = require('path');
 const { execSync } = require('child_process');
 const paths = require('./project-paths');
 const { copyDirectory } = require('./sync-js');
+require('dotenv').config(); // Carregar variáveis de ambiente
+const Redis = require('ioredis');
+
+// Configuração do Redis
+let redisClient = null;
+if (process.env.REDIS_URL) {
+  redisClient = new Redis(process.env.REDIS_URL);
+  redisClient.on('error', (err) => console.error('Redis Client Error', err));
+} else {
+  console.warn('⚠️ REDIS_URL não definida. A persistência do histórico não funcionará.');
+}
 
 class DevServer {
   constructor() {
@@ -84,6 +95,12 @@ class DevServer {
   handleRequest(req, res) {
     let filePath = req.url === '/' ? '/index.html' : req.url;
 
+    // Tratamento de API
+    if (req.url.startsWith('/api/search-history')) {
+      this.handleApiRequest(req, res);
+      return;
+    }
+
     // Remover query parameters
     filePath = filePath.split('?')[0];
 
@@ -133,6 +150,134 @@ class DevServer {
     // Servir arquivo
     const ext = path.extname(filePath);
     this.serveFile(res, fullPath, ext);
+  }
+
+  async handleApiRequest(req, res) {
+    // Parse URL e Query Params
+    const url = new URL(req.url, `http://localhost:${this.port}`);
+    const userId = url.searchParams.get('userId');
+    const method = req.method;
+
+    // Headers CORS e JSON
+    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+    if (method === 'OPTIONS') {
+      res.writeHead(204);
+      res.end();
+      return;
+    }
+
+    if (!redisClient) {
+      res.writeHead(503);
+      res.end(JSON.stringify({ error: 'Redis unavailable' }));
+      return;
+    }
+
+    try {
+      if (method === 'GET') {
+        if (!userId) {
+          res.writeHead(400);
+          res.end(JSON.stringify({ error: 'userId required' }));
+          return;
+        }
+
+        const key = `history:${userId}`;
+        const limit = parseInt(url.searchParams.get('limit') || '50');
+
+        // Se pedir estatísticas
+        if (url.searchParams.get('stats') === 'true') {
+          const items = await redisClient.lrange(key, 0, -1); // Pegar tudo para estatísticas
+          const history = items.map(item => {
+            try { return JSON.parse(item); } catch { return null; }
+          }).filter(Boolean);
+
+          const stats = {
+            total: history.length,
+            inelegiveis: history.filter(h => h.resultado === 'Inelegível').length,
+            elegiveis: history.filter(h => h.resultado === 'Elegível').length,
+            leisMaisConsultadas: {},
+            artigosMaisConsultados: {}
+          };
+
+          history.forEach(h => {
+            stats.leisMaisConsultadas[h.lei] = (stats.leisMaisConsultadas[h.lei] || 0) + 1;
+            const artKey = `${h.lei} - Art. ${h.artigo}`;
+            stats.artigosMaisConsultados[artKey] = (stats.artigosMaisConsultados[artKey] || 0) + 1;
+          });
+
+          // Ordenar e cortar tops
+          stats.leisMaisConsultadas = Object.fromEntries(
+            Object.entries(stats.leisMaisConsultadas).sort(([,a], [,b]) => b - a).slice(0, 5)
+          );
+          stats.artigosMaisConsultados = Object.fromEntries(
+            Object.entries(stats.artigosMaisConsultados).sort(([,a], [,b]) => b - a).slice(0, 5)
+          );
+
+          res.writeHead(200);
+          res.end(JSON.stringify({ success: true, stats }));
+          return;
+        }
+
+        // Histórico normal
+        const items = await redisClient.lrange(key, 0, limit - 1);
+        const history = items.map(item => {
+          try { return JSON.parse(item); } catch { return null; }
+        }).filter(Boolean);
+
+        res.writeHead(200);
+        res.end(JSON.stringify({ success: true, history }));
+        return;
+      }
+
+      if (method === 'POST') {
+        let body = '';
+        req.on('data', chunk => body += chunk.toString());
+        req.on('end', async () => {
+          try {
+            const { userId, search } = JSON.parse(body);
+            if (!userId || !search) {
+              res.writeHead(400);
+              res.end(JSON.stringify({ error: 'Invalid data' }));
+              return;
+            }
+
+            const key = `history:${userId}`;
+            const entry = {
+              ...search,
+              timestamp: search.timestamp || new Date().toISOString(),
+              id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
+            };
+
+            await redisClient.lpush(key, JSON.stringify(entry));
+            await redisClient.ltrim(key, 0, 99); // Manter últimos 100
+            await redisClient.expire(key, 60 * 60 * 24 * 365); // TTL 1 ano
+
+            // Stats globais
+            await redisClient.incr('history:total');
+            
+            this.log(`Nova consulta salva no Redis para ${userId}`, 'success');
+            res.writeHead(200);
+            res.end(JSON.stringify({ success: true, entry }));
+          } catch (e) {
+            console.error('Erro ao processar POST:', e);
+            res.writeHead(500);
+            res.end(JSON.stringify({ error: 'Internal Server Error' }));
+          }
+        });
+        return;
+      }
+
+      res.writeHead(405);
+      res.end(JSON.stringify({ error: 'Method not allowed' }));
+
+    } catch (error) {
+      console.error('Erro Redis:', error);
+      res.writeHead(500);
+      res.end(JSON.stringify({ error: 'Database Error' }));
+    }
   }
 
   serveFile(res, filePath, ext) {

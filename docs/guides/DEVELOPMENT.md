@@ -26,6 +26,7 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 Como esta é uma aplicação frontend com sistema de build:
 
 - **Desenvolvimento**: Execute `npm run dev` (ou `node scripts/serve.js`) para o servidor local.
+  - Requer `REDIS_URL` configurada no `.env` para funcionamento do Histórico de Consultas.
 - **Produção**: Execute `npm run build` (ou `node scripts/build.js`) para gerar a versão otimizada.
 - **Deploy**: O conteúdo da pasta `dist/` é o que deve ser publicado.
 
