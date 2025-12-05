@@ -831,6 +831,15 @@ function exibirResultado(resultado) {
     const statusClass = resultado.inelegivel ? 'inelegivel' : 'elegivel';
     const statusTexto = resultado.inelegivel ? 'INELEGÍVEL' : 'ELEGÍVEL';
 
+    // Atualizar header do modal com a Lei e Artigo
+    document.getElementById('modalTitle').textContent = 'Resultado da Consulta';
+    // Usar artigo formatado se disponível
+    const artigoExibicao = resultado.artigoProcessado ?
+        (resultado.artigoProcessado.formatado || resultado.artigoOriginal) :
+        resultado.artigoOriginal;
+    
+    document.getElementById('modalSubtitle').textContent = `${nomeLei} • Art. ${artigoExibicao}`;
+
     // Registrar consulta no histórico consolidado
     if (typeof SearchHistory !== 'undefined') {
         const artigoParaHistorico = resultado.artigoProcessado?.formatado || 
@@ -858,10 +867,10 @@ function exibirResultado(resultado) {
         });
     }
 
-    // Usar artigo formatado se disponível
-    const artigoExibicao = resultado.artigoProcessado ?
-        (resultado.artigoProcessado.formatado || resultado.artigoOriginal) :
-        resultado.artigoOriginal;
+    // Usar artigo formatado se disponível (já definido acima)
+    // const artigoExibicao = resultado.artigoProcessado ?
+    //     (resultado.artigoProcessado.formatado || resultado.artigoOriginal) :
+    //     resultado.artigoOriginal;
 
     // Construir seção de exceções
     let secaoExcecoes = '';
@@ -1013,8 +1022,8 @@ function exibirNaoEncontrado(codigoLei, artigo) {
         : 'Como o artigo não está listado na coluna "NORMA/INCIDÊNCIA", a extinção relacionada a este artigo NÃO gera inelegibilidade e não requer ASE 370 ou ASE 540.';
 
     // Atualizar header do modal
-    document.getElementById('modalTitle').textContent = nomeLei;
-    document.getElementById('modalSubtitle').textContent = `Art. ${artigo}`;
+    document.getElementById('modalTitle').textContent = 'Artigo Não Encontrado';
+    document.getElementById('modalSubtitle').textContent = `${nomeLei} • Art. ${artigo}`;
 
     abrirModal('nao-encontrado', 'NÃO ENCONTRADO', `
         <div class="modal-status-card nao-encontrado">
@@ -1359,21 +1368,24 @@ function getItensPorLei(codigoLei) {
 function __genAsePad(tipo, inelegivel) {
     if (tipo === 'condenacao') {
         const motivo = inelegivel ? 'Motivo 7' : 'Motivo 2';
-        const cls = inelegivel ? 'ase-337-warning' : 'ase-337-success';
         return `
-      <p class="ase-card ${cls}">
-        <strong>ASE 337 - ${motivo}:</strong> Condenação criminal<br>
-        <strong>Data de Ocorrência:</strong> Trânsito em julgado da sentença condenatória
-      </p>
-    `;
+            <div class="ase-row">
+                <strong>ASE 337 - ${motivo}:</strong> Condenação criminal
+            </div>
+            <div class="ase-row">
+                <strong>Data de Ocorrência:</strong> Trânsito em julgado da sentença condenatória
+            </div>
+        `;
     } else {
         return `
-      <p class="ase-card ase-370-info">
-        <strong>ASE 370 - Extinção de Punibilidade</strong><br>
-        <strong>Data de Ocorrência:</strong> Decisão judicial que declarou a extinção
-        ${inelegivel ? '<br><em>Observação:</em> Se resultar em inelegibilidade, gerar automaticamente o ASE 540 (Cancelamento de Inelegibilidade).' : ''}
-      </p>
-    `;
+            <div class="ase-row">
+                <strong>ASE 370 - Extinção de Punibilidade</strong>
+            </div>
+            <div class="ase-row">
+                <strong>Data de Ocorrência:</strong> Decisão judicial que declarou a extinção
+            </div>
+            ${inelegivel ? '<div class="ase-row ase-obs"><em>Observação:</em> Se resultar em inelegibilidade, gerar automaticamente o ASE 540 (Cancelamento de Inelegibilidade).</div>' : ''}
+        `;
     }
 }
 
