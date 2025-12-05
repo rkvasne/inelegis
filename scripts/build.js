@@ -169,9 +169,14 @@ class Builder {
   }
 
   async validateJavaScript() {
-    const jsFiles = [paths.js.main, paths.js.data];
+    const jsFiles = [paths.js.main];
 
     for (const jsPath of jsFiles) {
+      if (!fs.existsSync(jsPath)) {
+        this.errors.push(`Arquivo JS não encontrado: ${path.relative(this.projectRoot, jsPath)}`);
+        continue;
+      }
+
       const content = fs.readFileSync(jsPath, 'utf8');
       const label = path.relative(this.projectRoot, jsPath);
 
