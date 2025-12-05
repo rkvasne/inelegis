@@ -1,10 +1,16 @@
+---
+docStatus: historical
+docScope: design
+lastReviewed: 2025-12-05
+---
 # Theme Validator Pro - Documentação Completa
 
 **Versão:** 3.1.0  
 **Autor:** Inelegis Team  
 **Licença:** MIT
 
----
+# 🎨 Theme Validator Pro v3.1
+
 
 ## Visão Geral
 

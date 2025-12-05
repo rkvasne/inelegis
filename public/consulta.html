@@ -50,11 +50,10 @@
                         <label class="radio-option">
                             <input type="radio" id="condenacao" name="tipoComunicacao" value="condenacao" checked>
                             <span class="radio-content">
-                                <span class="radio-icon">
-                                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd"
-                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                            clip-rule="evenodd"></path>
+                                <span class="radio-icon danger">
+                                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" class="text-danger-600">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7a4 4 0 118 0v4" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 11h12a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2v-6a2 2 0 012-2z" />
                                     </svg>
                                 </span>
                                 <span class="radio-text">
@@ -67,11 +66,9 @@
                         <label class="radio-option">
                             <input type="radio" id="extincao" name="tipoComunicacao" value="extincao">
                             <span class="radio-content">
-                                <span class="radio-icon warning">
-                                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd"
-                                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
-                                            clip-rule="evenodd"></path>
+                                <span class="radio-icon success">
+                                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" class="text-success-600">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                     </svg>
                                 </span>
                                 <span class="radio-text">
@@ -131,12 +128,7 @@
                                 </svg>
                                 Buscar
                             </button>
-                            <button id="limparBtn" class="btn btn-secondary" type="button" title="Limpar consulta">
-                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                </svg>
-                                Limpar
-                            </button>
+                            
                         </div>
                         <p id="ajudaArtigo" class="text-sm text-neutral-600 mt-2">Digite o
                             artigo completo ou use o
@@ -192,13 +184,11 @@
                                 <span id="previewArtigo" class="preview-text">Art. , , , do
                                     CP</span>
                             </div>
-                            <button id="montarArtigoBtn" class="btn btn-primary" type="button" disabled title="Montar artigo com os campos acima">
-                                <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z">
-                                    </path>
+                            <button id="limparBtn" class="btn btn-secondary" type="button" title="Limpar consulta">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                                 </svg>
-                                Montar Artigo
+                                Limpar
                             </button>
                         </div>
                         <!-- Botões auxiliares esperados pelo script (escondidos) -->

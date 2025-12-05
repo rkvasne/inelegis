@@ -1,3 +1,8 @@
+---
+docStatus: reference
+docScope: operations
+lastReviewed: 2025-12-05
+---
 # 📊 Sistema de Analytics
 
 ---

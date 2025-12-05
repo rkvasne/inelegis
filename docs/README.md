@@ -1,3 +1,8 @@
+---
+docStatus: active
+docScope: docs-index
+lastReviewed: 2025-12-05
+---
 # 📚 Documentação do Inelegis
 
 Bem-vindo à documentação oficial do projeto **Inelegis**.

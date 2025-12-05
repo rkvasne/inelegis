@@ -1,3 +1,8 @@
+---
+docStatus: historical
+docScope: history
+lastReviewed: 2025-12-05
+---
 # 🔧 Histórico Consolidado da Refatoração v0.0.6
 
 **Última atualização:** 02 de dezembro de 2025  

@@ -1,3 +1,8 @@
+---
+docStatus: historical
+docScope: design
+lastReviewed: 2025-12-05
+---
 # 🎨 Decisões de Design - Inelegis
 
 **Última atualização:** 01 de dezembro de 2025  
