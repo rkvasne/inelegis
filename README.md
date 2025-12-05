@@ -17,7 +17,7 @@
     <a href="https://github.com/rkvasne/inelegis-app/issues">Solicitar Feature</a>
   </p>
 
-  [![Version](https://img.shields.io/badge/version-0.1.4-blue.svg?style=for-the-badge)](https://semver.org)
+  [![Version](https://img.shields.io/badge/version-0.1.9-blue.svg?style=for-the-badge)](https://semver.org)
   [![License](https://img.shields.io/badge/license-MIT-green.svg?style=for-the-badge)](LICENSE)
   [![Tests](https://img.shields.io/badge/tests-100%25-success.svg?style=for-the-badge)](tests/)
   [![Theme](https://img.shields.io/badge/theme-validated-success.svg?style=for-the-badge)](docs/design/THEME-VALIDATOR.md)
@@ -124,55 +124,30 @@ inelegis-app/
 
 ---
 
-## 🆕 Novidades v0.1.0
+## 🆕 Novidades recentes
 
-- ✅ **Documentação consolidada e padronizada** – remoção de duplicatas (`dist/docs`, aliases antigos) e centralização do índice em `docs/README.md`.
-- ✅ **Links internos atualizados** – referências, scripts e README apontam para caminhos únicos.
-- ✅ **Versionamento** – `package.json` e badges atualizados para `0.1.0`.
-- ✅ **Manutenção de histórico** – release notes anteriores preservadas em `docs/history`.
+Consulte o [CHANGELOG](CHANGELOG.md) ou as notas de release para detalhes completos:
 
-## Histórico de versões anteriores
+- [Release Notes v0.1.0](docs/history/RELEASE-NOTES-v0.1.0.md)
+- [Release Notes v0.0.9](docs/history/RELEASE-NOTES-v0.0.9.md)
+- [Release Notes v0.0.8](docs/history/RELEASE-NOTES-v0.0.8.md)
 
-### Identidade Visual e Design
-- ✅ **Favicon e Logo** - Identidade visual completa implementada
-- ✅ **Footer Ultra-Compacto** - Layout minimalista de 3 linhas
-- ✅ **Página Sobre Redesenhada** - Features grid com hover effects
-- ✅ **Botões CTA Melhorados** - Layout responsivo e limpo
-
-### Theme Validator Pro v3.1.0
-- ✅ **Validação de Inputs** - Detecta inputs sem variáveis de tema
-- ✅ **23+ Categorias** - Detecção abrangente de problemas
-- ✅ **Suporte a 9+ Frameworks** - Tailwind, Material, Bootstrap, etc.
-
-### Novidades v0.0.8
-- ✅ **Analytics com Redis** - Sistema de analytics usando ioredis
-- ✅ **Histórico sincronizado** - Buscas salvas no Redis
-- ✅ **Toast e Modal** - UX melhorada sem alert() nativo
-- ✅ **Verificação de termos** - Menu Consulta bloqueado sem aceitar termos
-- ✅ **Cache desabilitado** - Sem Service Worker, sempre versão atual
-- ✅ **Header azul** - Design consistente com landing page
-
-### Novidades v0.0.7
-- ✅ **Tema escuro completo** - Alternância automática
-- ✅ **Componentes reutilizáveis** - Header, Nav, Footer modulares
-
-### Novidades v0.0.6
-- ✅ **Zero vulnerabilidades XSS** - Sanitização completa de HTML
-- ✅ **90% mais rápido** - Busca otimizada de ~50ms para ~5ms
-- ✅ **20 testes automatizados** - Cobertura de 60%
-- ✅ **Código modular** - 6 módulos especializados
-- ✅ **Documentação completa** - Guias técnicos atualizados
+Versões anteriores ao ciclo 0.0.8 permanecem arquivadas em `docs/history/`.
 
 ## 📚 Documentação
 
-A documentação completa está disponível na pasta [`docs/`](docs/).
+Toda a documentação oficial vive em [`docs/`](docs/). Utilize a tabela abaixo como mapa único:
 
-*   [📖 Índice da Documentação](docs/README.md)
-*   [🛠️ Guia de Desenvolvimento](docs/guides/DEVELOPMENT.md)
-*   [🔧 Guia de Manutenção](docs/guides/MAINTENANCE.md)
-*   [📝 Changelog](CHANGELOG.md)
-*   [📘 Histórico da Refatoração](docs/history/refatoracao-v0.0.6.md)
-*   [🤖 Instruções para Copilotos](.github/copilot-instructions.md)
+| Seção | Descrição |
+|-------|-----------|
+| [Índice Geral](docs/README.md) | Navegação centralizada e padrões de escrita |
+| [Guias](docs/guides/) | Desenvolvimento, manutenção, variáveis de ambiente e operação do Redis |
+| [Design](docs/design/) | Componentes, decisões visuais e Theme Validator |
+| [Operações](docs/operations/) | Analytics, segurança e rotinas administrativas |
+| [Histórico](docs/history/) | Release notes, marcos e templates de hotfix |
+| [Referências](docs/references/) | Tabelas e anexos oficiais (manual ASE, XML do TRE-SP) |
+
+> Precisa editar ou criar um novo documento? Siga primeiro o padrão definido em `docs/README.md#padrao-de-formato`.
 
 ---
 
@@ -196,8 +171,8 @@ Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.
 
 ---
 
-**Última atualização:** 04 de dezembro de 2025  
-**Versão:** 0.1.3
+**Última atualização:** 05 de dezembro de 2025  
+**Versão:** 0.1.9
 
 ---
 

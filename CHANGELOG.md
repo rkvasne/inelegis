@@ -1,7 +1,7 @@
 # Changelog
 
-**Última atualização:** 04 de dezembro de 2025
-**Versão atual:** 0.1.4
+**Última atualização:** 05 de dezembro de 2025
+**Versão atual:** 0.1.9
 
 Todas as alterações notáveis neste projeto serão documentadas neste arquivo.
 
@@ -9,6 +9,17 @@ O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
+
+## [0.1.9] - 2025-12-05
+
+### 📚 Documentação
+- Consolidação do índice geral (`docs/README.md`) com mapa único, guideline de formato e links para todos os subdiretórios.
+- Criação de `docs/history/RELEASE-NOTES-v0.1.0.md`, removendo duplicação de conteúdo do README.
+- Revisão do `README.md` para apontar apenas para fontes oficiais e atualizar badge, links e metadados de versão.
+
+### 🧩 Manutenção
+- Versão do projeto promovida para `0.1.9` no `package.json`, badges e documentos.
+- Atualização dos campos "Última atualização" e referências cruzadas para manter consistência com o estado atual do repositório.
 
 ## [0.1.4] - 2025-12-04
 
