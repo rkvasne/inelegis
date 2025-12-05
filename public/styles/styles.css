@@ -1219,7 +1219,6 @@ code {
   display: flex;
   flex-direction: column;
   border: 1px solid var(--border-color);
-  margin-top: -10px; /* Ajuste para subir o modal */
 }
 
 .dark-theme .modal-content {
