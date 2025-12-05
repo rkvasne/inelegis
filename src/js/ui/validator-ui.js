@@ -290,29 +290,30 @@ export class ValidatorUI {
    * @param {string} a Alínea
    */
   renderResult(result, artigoNum, p, i, a) {
-    if (!this.resultContainer) return;
-
     const isInelegivel = result.resultado === "INELEGIVEL";
     const isElegivel = result.resultado === "ELEGIVEL";
     const naoConsta = result.resultado === "NAO_CONSTA";
 
-    let cardClass, statusText, statusClass, iconColor;
+    // Coletar tipo de comunicação para ASE
+    const tipoComunicacao = document.querySelector('input[name="tipoComunicacao"]:checked')?.value;
+
+    // Configurações visuais baseadas no resultado
+    let statusClass = "";
+    let statusText = "";
+    let statusIcon = "";
 
     if (isInelegivel) {
-      cardClass = "border-danger-500 bg-white";
-      statusClass = "bg-danger-600 text-white";
+      statusClass = "ineligible";
       statusText = "INELEGÍVEL";
-      iconColor = "text-danger-600";
+      statusIcon = `<svg width="24" height="24" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>`;
     } else if (isElegivel) {
-      cardClass = "border-success-500 bg-white";
-      statusClass = "bg-success-600 text-white";
-      statusText = "ELEGÍVEL (EXCEÇÃO)";
-      iconColor = "text-success-600";
+      statusClass = "eligible";
+      statusText = "ELEGÍVEL";
+      statusIcon = `<svg width="24" height="24" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>`;
     } else {
-      cardClass = "border-warning-500 bg-white";
-      statusClass = "bg-warning-500 text-white";
-      statusText = "NÃO CONSTA";
-      iconColor = "text-warning-600";
+      statusClass = "not-found";
+      statusText = "NÃO ENCONTRADO";
+      statusIcon = `<svg width="24" height="24" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>`;
     }
 
     // Formatar incidência
@@ -321,84 +322,95 @@ export class ValidatorUI {
     if (i) incidencia += `, Inc. ${i}`;
     if (a) incidencia += `, Alínea ${a}`;
 
-    const html = `
-            <div class="validator-card border-t-8 ${cardClass} p-0 rounded-xl shadow-lg animate-fade-in overflow-hidden">
-                <div class="px-6 py-4 border-b border-neutral-100 flex justify-between items-center bg-neutral-50/50">
-                    <span class="inline-block px-4 py-1.5 text-xs font-bold tracking-widest uppercase rounded-lg ${statusClass} shadow-sm">
-                        ${statusText}
-                    </span>
-                    <span class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">Resultado da Análise Digital</span>
-                </div>
-                
-                <div class="p-0">
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="bg-neutral-100/80">
-                                <th class="p-4 text-[10px] font-black text-neutral-600 uppercase tracking-tighter border-r border-neutral-200 w-1/3">NORMA / INCIDÊNCIA</th>
-                                <th class="p-4 text-[10px] font-black text-neutral-600 uppercase tracking-tighter border-r border-neutral-200 w-1/3">EXCEÇÕES</th>
-                                <th class="p-4 text-[10px] font-black text-neutral-600 uppercase tracking-tighter w-1/3">CRIMES (LC 64/90, 1º, I, "e")</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="p-5 align-top border-r border-neutral-100">
-                                    <h4 class="text-sm font-bold text-neutral-900 mb-1">${this.selectedLawName}</h4>
-                                    <p class="text-lg font-black text-primary-700 leading-tight">${incidencia}</p>
-                                </td>
-                                <td class="p-5 align-top border-r border-neutral-100">
-                                    ${
-                                      isElegivel
-                                        ? `<div class="flex items-start gap-2 text-success-700 bg-success-50 p-2 rounded border border-success-100">
-                                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" class="mt-0.5">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                            </svg>
-                                            <div>
-                                                <p class="text-xs font-bold uppercase tracking-tight">Consta como Exceção</p>
-                                                <p class="text-[11px] leading-tight mt-1">${result.observacoes || "Este dispositivo é uma exceção à regra de inelegibilidade."}</p>
-                                            </div>
-                                           </div>`
-                                        : `<p class="text-xs text-neutral-400 italic">Nenhuma exceção aplicada para este dispositivo.</p>`
-                                    }
-                                </td>
-                                <td class="p-5 align-top">
-                                    <p class="text-sm font-bold text-neutral-800 leading-snug">${result.tipo_crime || "---"}</p>
-                                    ${result.motivo ? `<p class="text-[10px] text-neutral-500 mt-2 leading-tight bg-neutral-50 p-2 rounded">${result.motivo}</p>` : ""}
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                ${
-                  result.observacoes && !isElegivel
-                    ? `
-                    <div class="px-6 py-4 bg-neutral-50/50 border-t border-neutral-100">
-                        <span class="text-[10px] font-bold text-neutral-400 uppercase block mb-1">Notas Adicionais / Jurisprudência</span>
-                        <p class="text-xs text-neutral-600 leading-relaxed">${result.observacoes}</p>
-                    </div>
-                    `
-                    : ""
-                }
-
-                <div class="px-6 py-3 border-t border-neutral-100 bg-white flex justify-between items-center">
-                    <div class="flex items-center gap-2">
-                        <div class="w-1.5 h-1.5 rounded-full ${isInelegivel ? "bg-danger-500" : isElegivel ? "bg-success-500" : "bg-warning-500"} animate-pulse"></div>
-                        <span class="text-[10px] text-neutral-400 font-medium">Fonte Corregedoria-Geral Eleitoral • Base Supabase</span>
-                    </div>
-                    <button class="text-xs font-bold text-primary-600 hover:text-primary-800 transition-colors uppercase tracking-widest" 
-                            onclick="document.getElementById('artigoSelect').value=''; document.getElementById('validator-result').classList.add('hidden'); window.scrollTo({top: 0, behavior: 'smooth'});">
-                        Refazer Consulta
-                    </button>
-                </div>
+    // Construir Conteúdo do Modal
+    const bodyHTML = `
+      <div class="result-modal-v3">
+        <!-- Card de Status Principal -->
+        <div class="modal-status-card ${statusClass} mb-4">
+          <div class="flex items-center gap-4">
+            <div class="status-icon-container">
+              ${statusIcon}
             </div>
-        `;
+            <div>
+              <span class="status-label">RESULTADO</span>
+              <h2 class="status-value">${statusText}</h2>
+            </div>
+          </div>
+        </div>
 
-    this.resultContainer.innerHTML = html;
-    this.resultContainer.classList.remove("hidden");
-    this.resultContainer.scrollIntoView({
-      behavior: "smooth",
-      block: "nearest",
-    });
+        <!-- Grid de Informações Técnicas -->
+        <div class="grid grid-cols-2 gap-4 mb-4">
+          <div class="info-card">
+            <span class="info-label">CRIME/DELITO</span>
+            <p class="info-value">
+              ${result.tipo_crime || "Não consta crime impeditivo"}
+              ${result.item_alinea_e ? `<strong>(${result.item_alinea_e})</strong>` : ""}
+            </p>
+            <p class="info-subtext text-[10px] text-neutral-400 mt-1 italic">
+              (Conforme elencados no Art. 1º, I, “e” da LC 64/90, alterada pela LC 135 de 4.6.2010)
+            </p>
+          </div>
+          <div class="info-card">
+            <span class="info-label">NORMA/INCIDÊNCIA</span>
+            <p class="info-value">${incidencia}</p>
+            <p class="info-subtext text-xs text-neutral-500 mt-1">${this.selectedLawName}</p>
+          </div>
+        </div>
+
+        <!-- ASE e Datas -->
+        <div class="ase-card mb-4 bg-neutral-800 text-neutral-100 p-4 rounded-xl border border-neutral-700 shadow-sm">
+          <div class="grid grid-cols-1 gap-3">
+            <div>
+              <span class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest block mb-1">ASE DE ANOTAÇÃO</span>
+              <p class="text-sm font-bold">
+                ${tipoComunicacao === "condenacao"
+        ? `ASE 337 - Motivo ${isInelegivel ? "7" : "2"}: Condenação criminal`
+        : "Consulte o manual para este tipo de comunicação"}
+              </p>
+            </div>
+            <div class="pt-2 border-t border-neutral-700">
+              <span class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest block mb-1">DADOS CRONOLÓGICOS RELEVANTES</span>
+              <p class="text-sm">
+                <span class="font-bold">Data de Ocorrência:</span> 
+                <span class="text-neutral-300 italic">Trânsito em julgado da sentença condenatória</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Disclaimer de Exceções -->
+        ${result.excecoes_detalhes ? `
+        <div class="exception-alert-card border-2 border-warning-200 bg-warning-50 p-4 rounded-xl">
+          <div class="flex items-start gap-3">
+            <div class="text-warning-600 mt-0.5">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+            </div>
+            <div>
+              <h4 class="text-sm font-black text-warning-900 uppercase mb-1">Atenção: Exceções Existentes</h4>
+              <p class="text-xs text-warning-800 leading-normal">
+                Este artigo possui exceções que podem <strong>NÃO gerar inelegibilidade</strong> caso o condenado se enquadre em uma delas:
+              </p>
+              <div class="mt-2 p-3 bg-white/60 rounded-lg text-[11px] font-medium text-warning-900 border border-warning-100">
+                ${result.excecoes_detalhes}
+              </div>
+            </div>
+          </div>
+        </div>
+        ` : ""}
+      </div>
+    `;
+
+    // Abrir Modal
+    if (window.ModalManager) {
+      // Atualizar subtítulo do modal com a lei
+      const subtitle = document.getElementById("modalSubtitle");
+      if (subtitle) subtitle.textContent = this.selectedLawName;
+
+      const title = document.getElementById("modalTitle");
+      if (title) title.textContent = "Resultado da Consulta";
+
+      window.ModalManager.open(statusClass, statusText, bodyHTML);
+    }
   }
 
   /** Oculta o container de resultados */
@@ -409,3 +421,4 @@ export class ValidatorUI {
     }
   }
 }
+

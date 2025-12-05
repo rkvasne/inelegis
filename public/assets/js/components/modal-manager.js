@@ -127,41 +127,49 @@ const ModalManager = {
     }
 
     // Extrair informações do grid
-    const infoItems = modalBody.querySelectorAll(".info-item");
+    const infoItems = modalBody.querySelectorAll(".info-item, .info-card");
     infoItems.forEach((item) => {
       const label = item.querySelector(".info-label");
       const value = item.querySelector(".info-value");
       if (label && value) {
-        textoExportar += `${label.textContent}: ${value.textContent}\n`;
+        textoExportar += `${label.textContent.trim()}: ${value.textContent.trim()}\n`;
       }
     });
-    textoExportar += "\n";
 
     // Extrair ASE info
-    const aseInfo = modalBody.querySelector(".modal-ase-info");
+    const aseInfo = modalBody.querySelector(".modal-ase-info, .ase-card");
     if (aseInfo) {
-      textoExportar += `${aseInfo.textContent.trim()}\n\n`;
+      textoExportar += "\nDETALHES DE ANOTAÇÃO:\n";
+      textoExportar += aseInfo.innerText.trim() + "\n";
     }
 
-    // Extrair seções
+    // Extrair Exceções
+    const exceptions = modalBody.querySelector(".exception-alert-card");
+    if (exceptions) {
+      textoExportar += "\n--------------------------------------------------\n";
+      textoExportar += "ALERTA DE EXCEÇÕES:\n";
+      textoExportar += exceptions.innerText.replace(/\n\n+/g, '\n').trim() + "\n";
+    }
+
+    // Extrair seções antigas (compatibilidade)
     const sections = modalBody.querySelectorAll(".modal-section");
     sections.forEach((section) => {
       const header = section.querySelector(".section-header");
       const content = section.querySelector(".section-content");
       if (header) {
-        textoExportar += `${header.textContent.trim()}\n`;
+        textoExportar += `\n${header.textContent.trim()}\n`;
         textoExportar += "-".repeat(30) + "\n";
       }
       if (content) {
-        textoExportar += `${content.textContent.trim()}\n\n`;
+        textoExportar += `${content.textContent.trim()}\n`;
       }
     });
 
     // Adicionar rodapé
-    textoExportar += "=".repeat(50) + "\n";
+    textoExportar += "\n" + "=".repeat(50) + "\n";
     textoExportar +=
       "Inelegis - Sistema de Consulta de Inelegibilidade Eleitoral\n";
-    textoExportar += "Base de dados: TRE-SP (Out/2024) - CRE-RO (02/06/2025)\n";
+    textoExportar += "Base de dados: TRE-SP (Out/2024) - CRE-RO (Feb/2026)\n";
     textoExportar += `Exportado em: ${new Date().toLocaleString("pt-BR")}\n`;
 
     return textoExportar;
