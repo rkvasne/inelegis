@@ -82,12 +82,18 @@ Siga estes passos para rodar o projeto localmente.
     npm run test:unit
     ```
 
-4.  **Inicie o servidor de desenvolvimento**
+4.  **Configure as variáveis de ambiente**
+    Crie um arquivo `.env` na raiz do projeto com a URL do seu Redis (necessário para o histórico):
+    ```env
+    REDIS_URL=redis://seu-usuario:sua-senha@seu-host:porta
+    ```
+
+5.  **Inicie o servidor de desenvolvimento**
     ```bash
     npm run dev
     ```
 
-5.  **Acesse no navegador**
+6.  **Acesse no navegador**
     Abra `http://localhost:3000` para ver a aplicação rodando.
 
 ---
