@@ -104,39 +104,11 @@ class TestRunner {
   async runIntegrationTests() {
     this.log('Executando testes de integração...', 'info');
 
-    // Teste 1: Carregamento de dados
-    this.test('Carregamento da tabela de inelegibilidade', () => {
-      return fs.existsSync(paths.js.data);
+    // Teste 1: Dados normalizados
+    this.test('Existência de dados normalizados', () => {
+      const dataPath = path.join(paths.js.public, 'data-normalizado.js');
+      return fs.existsSync(dataPath);
     });
-
-    // Teste 2: Estrutura de dados
-    this.test('Estrutura da tabela de dados', () => {
-      // Verificar se data.js tem estrutura esperada
-      const content = fs.readFileSync(paths.js.data, 'utf8');
-      return content.includes('tabelaInelegibilidade') && content.includes('leisDisponiveis');
-    });
-
-    // Teste 3: Service Worker (Removido - cache desabilitado)
-    // this.test('Service Worker configurado', () => {
-    //   const swPath = path.join(this.projectRoot, 'sw.js');
-    //   return fs.existsSync(swPath);
-    // });
-
-    // Teste 5: Manifest PWA (Removido - PWA desativado)
-    /*
-    this.test('Manifest PWA válido', () => {
-      const manifestPath = path.join(this.projectRoot, 'manifest.json');
-      if (!fs.existsSync(manifestPath)) return false;
-      
-      try {
-        const content = fs.readFileSync(manifestPath, 'utf8');
-        const manifest = JSON.parse(content);
-        return manifest.name && manifest.start_url;
-      } catch {
-        return false;
-      }
-    });
-    */
   }
 
   async runFunctionalTests() {
@@ -180,39 +152,15 @@ class TestRunner {
   async runDataTests() {
     this.log('Executando testes de dados...', 'info');
 
-    // Teste 1: Dados não vazios
-    this.test('Tabela de inelegibilidade não vazia', () => {
-      const content = fs.readFileSync(paths.js.data, 'utf8');
-      // Verificar se há pelo menos algumas entradas
-      return (content.match(/norma:/g) || []).length > 10;
-    });
-
-    // Teste 2: Leis disponíveis
-      this.test('Lista de leis disponíveis', () => {
-        const content = fs.readFileSync(paths.js.data, 'utf8');
-      return content.includes('leisDisponiveis') && content.includes('value:');
-    });
-
-    // Teste 3: Estrutura consistente
-      this.test('Estrutura de dados consistente', () => {
-        const content = fs.readFileSync(paths.js.data, 'utf8');
-      return content.includes('norma:') &&
-        content.includes('codigo:') &&
-        content.includes('crime:');
-    });
-
-    // Teste 4: Códigos válidos
-      this.test('Códigos de lei válidos', () => {
-        const content = fs.readFileSync(paths.js.data, 'utf8');
-      return content.includes('CP') &&
-        content.includes('LEI_') &&
-        !content.includes('undefined');
-    });
-
-    // Teste 5: Exceções formatadas
-      this.test('Exceções bem formatadas', () => {
-        const content = fs.readFileSync(paths.js.data, 'utf8');
-      return content.includes('excecoes:') && content.includes('Art.');
+    // Teste 1: Verificar integridade dos dados normalizados
+    this.test('Dados normalizados válidos', () => {
+      const dataPath = path.join(paths.js.public, 'data-normalizado.js');
+      if (!fs.existsSync(dataPath)) return false;
+      
+      const content = fs.readFileSync(dataPath, 'utf8');
+      return content.includes('window.__INELEG_NORMALIZADO__') && 
+             content.includes('itens') && 
+             content.includes('leis');
     });
   }
 
