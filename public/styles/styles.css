@@ -1694,6 +1694,16 @@ code {
   color: var(--warning-border);
 }
 
+.radio-icon.danger {
+  background: var(--danger-bg);
+  color: var(--danger-border);
+}
+
+.radio-icon.success {
+  background: var(--success-bg);
+  color: var(--success-border);
+}
+
 .radio-text {
   display: flex;
     flex-direction: column;
@@ -2370,4 +2380,44 @@ code {
   .modal-info-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* Histórico Page Styles */
+.history-page .history-summary { margin-top: var(--space-6); background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: var(--radius-xl); padding: var(--space-4) var(--space-5); }
+.history-panels { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
+.history-page .history-panels { margin-top: var(--space-5); margin-bottom: var(--space-8); }
+.history-page section.card { margin-top: var(--space-5); }
+#sectionStats { margin-top: var(--space-10); }
+.history-table-header { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); }
+.history-table-wrapper { overflow-x: auto; }
+.history-table { width: 100%; border-collapse: collapse; }
+.history-table th { text-align: left; padding: 0.75rem 1rem; font-weight: 600; color: var(--text-secondary); border-bottom: 1px solid var(--border-color); }
+.history-table td { padding: 0.75rem 1rem; color: var(--text-primary); border-bottom: 1px solid var(--border-color); }
+.history-table-time { font-weight: 600; color: var(--text-primary); }
+.history-table-sub { color: var(--text-tertiary); }
+.history-badge { display: inline-block; padding: 0.25rem 0.5rem; border-radius: var(--radius-sm); font-size: 0.75rem; font-weight: 600; }
+.badge-danger { background: var(--danger-bg); color: var(--danger-border); border: 1px solid var(--danger-border); }
+.badge-success { background: var(--success-bg); color: var(--success-border); border: 1px solid var(--success-border); }
+.empty-state { padding: var(--space-4); background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-lg); color: var(--text-secondary); }
+
+/* Histórico - Cartões de resumo/listas com mais contraste */
+.history-page .features-grid { gap: var(--space-4); }
+.history-page .feature-card { background: var(--bg-tertiary); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); }
+.history-page .feature-card:hover { box-shadow: var(--shadow-md); border-color: var(--primary-300); }
+.history-page .feature-icon { background: var(--glass-bg); color: var(--text-primary); }
+.history-summary .feature-card h3 { margin: 0; }
+.history-summary .feature-card strong { font-size: 1.125rem; }
+.history-summary .feature-card .feature-icon svg { width: 20px; height: 20px; }
+.history-panels .card { height: 100%; }
+.history-page .history-panels .card { margin-top: 0; }
+
+@media (min-width: 768px) {
+    .stats-grid-3 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media (max-width: 767px) {
+    .stats-grid-3 {
+        grid-template-columns: 1fr;
+    }
 }

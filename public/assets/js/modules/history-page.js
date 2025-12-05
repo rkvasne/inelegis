@@ -119,29 +119,20 @@ const HistoryPage = (() => {
             { key: 'ultima', label: 'Última consulta', value: ultimaConsulta, isText: true }
         ];
 
-        const html = cards.map(card => {
-            const subtitleClasses = ['history-card-subtitle'];
-            if (card.isText) {
-                const isEmpty = card.value === 'Sem registros';
-                if (isEmpty) {
-                    subtitleClasses.push('history-card-subtitle--empty');
-                } else {
-                    subtitleClasses.push('history-card-subtitle--text');
-                }
-            } else {
-                subtitleClasses.push('history-card-value');
-            }
-
-            return `
-                <article class="history-summary-card history-card">
-                    <div class="history-card-icon" aria-hidden="true">${getSummaryIcon(card.key)}</div>
-                    <div class="history-card-info">
-                        <h3 class="history-card-title">${card.label}</h3>
-                        <p class="${subtitleClasses.join(' ')}">${card.value}</p>
+        const html = `
+            <div class="features-grid">
+                ${cards.map(card => `
+                    <div class="feature-card">
+                        <div class="feature-icon">${getSummaryIcon(card.key)}</div>
+                        <div class="feature-content">
+                            <h3>${card.label}</h3>
+                            ${card.isText ? `<p class="text-sm text-neutral-600">${card.value}</p>` : `<strong>${card.value}</strong>`}
+                        </div>
                     </div>
-                </article>
-            `;
-        }).join('');
+                `).join('')}
+            </div>
+        `;
+
         if (typeof window !== 'undefined' && window.Sanitizer) {
             window.Sanitizer.safeInnerHTML(elements.summary, html);
         } else {
@@ -155,9 +146,9 @@ const HistoryPage = (() => {
         }
 
         const recent = historyData.slice(0, 8);
-        renderHistoryList(elements.recent, recent, entry =>
-            createMeta('history-date', formatDateTime(entry.timestamp))
-        );
+        renderHistoryList(elements.recent, recent, entry => ({
+            text: formatDateTime(entry.timestamp)
+        }));
     }
 
     function renderFrequent() {
@@ -178,9 +169,9 @@ const HistoryPage = (() => {
             .sort((a, b) => b.count - a.count)
             .slice(0, 8);
 
-        renderHistoryList(elements.frequent, frequent, entry =>
-            createMeta('history-count', `${entry.count}x consultado`)
-        );
+        renderHistoryList(elements.frequent, frequent, entry => ({
+            text: `${entry.count}x consultado`
+        }));
     }
 
     function renderStatsSection() {
@@ -189,17 +180,75 @@ const HistoryPage = (() => {
         }
 
         const statsData = stats || { leisMaisConsultadas: {}, artigosMaisConsultados: {} };
-        const grid = document.createElement('div');
-        grid.className = 'stats-grid';
 
-        grid.appendChild(createStatCard('', statsData.total || 0, 'Total de Consultas'));
-        grid.appendChild(createStatCard('inelegivel', statsData.inelegiveis || 0, 'Inelegíveis'));
-        grid.appendChild(createStatCard('elegivel', statsData.elegiveis || 0, 'Elegíveis'));
+        const totals = [
+            { key: 'total', label: 'Total de Consultas', value: statsData.total || 0 },
+            { key: 'inelegivel', label: 'Inelegíveis', value: statsData.inelegiveis || 0 },
+            { key: 'elegivel', label: 'Elegíveis', value: statsData.elegiveis || 0 }
+        ];
 
-        elements.stats.innerHTML = '';
-        elements.stats.appendChild(grid);
-        elements.stats.appendChild(createStatsBlock('Leis Mais Consultadas', statsData.leisMaisConsultadas));
-        elements.stats.appendChild(createStatsBlock('Artigos em Destaque', statsData.artigosMaisConsultados));
+        const totalsHtml = `
+            <div class="features-grid stats-grid-3">
+                ${totals.map(t => `
+                    <div class=\"feature-card\">
+                        <div class=\"feature-icon\">${getStatIcon(t.key === 'total' ? '' : t.key)}</div>
+                        <div class=\"feature-content\">
+                            <h3>${t.label}</h3>
+                            <strong>${t.value}</strong>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+
+        const leisEntries = Object.entries(statsData.leisMaisConsultadas || {});
+        const artigosEntries = Object.entries(statsData.artigosMaisConsultados || {});
+
+        const leisHtml = leisEntries.length ? `
+            <div class=\"features-grid mt-4\">
+                ${leisEntries.map(([lei, count]) => `
+                    <div class=\"feature-card\">
+                        <div class=\"feature-icon\">${getStatIcon('')}</div>
+                        <div class=\"feature-content\">
+                            <h3>${lei}</h3>
+                            <p class=\"text-sm text-neutral-600\">${count}x consultada</p>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        ` : '<div class="empty-state">Sem dados suficientes</div>';
+
+        const artigosHtml = artigosEntries.length ? `
+            <div class=\"features-grid mt-4\">
+                ${artigosEntries.map(([art, count]) => `
+                    <div class=\"feature-card\">
+                        <div class=\"feature-icon\">${getStatIcon('')}</div>
+                        <div class=\"feature-content\">
+                            <h3>Art. ${art}</h3>
+                            <p class=\"text-sm text-neutral-600\">${count}x consultado</p>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        ` : '<div class="empty-state">Sem dados suficientes</div>';
+
+        const html = `
+            ${totalsHtml}
+            <div class=\"mt-6\">
+                <h3>Leis Mais Consultadas</h3>
+                ${leisHtml}
+            </div>
+            <div class=\"mt-6\">
+                <h3>Artigos em Destaque</h3>
+                ${artigosHtml}
+            </div>
+        `;
+
+        if (typeof window !== 'undefined' && window.Sanitizer) {
+            window.Sanitizer.safeInnerHTML(elements.stats, html);
+        } else {
+            elements.stats.innerHTML = html;
+        }
     }
 
     function renderTable() {
@@ -260,13 +309,31 @@ const HistoryPage = (() => {
             return;
         }
 
-        const fragment = document.createDocumentFragment();
-        data.forEach(entry => {
-            const metaNode = typeof metaFactory === 'function' ? metaFactory(entry) : null;
-            fragment.appendChild(createHistoryItem(entry, metaNode));
-        });
+        const cardsHtml = `
+            <div class="features-grid">
+                ${data.map(entry => {
+                    const meta = typeof metaFactory === 'function' ? metaFactory(entry) : null;
+                    const icon = entry.resultado === 'inelegivel' ? getStatIcon('inelegivel') : getStatIcon('elegivel');
+                    const subtitle = meta && meta.text ? `<p class=\"text-sm text-neutral-600\">${meta.text}</p>` : '';
+                    return `
+                        <div class=\"feature-card\">
+                            <div class=\"feature-icon\">${icon}</div>
+                            <div class=\"feature-content\">
+                                <h3>${entry.lei || 'N/A'}</h3>
+                                <p class=\"text-sm\"><strong>Art.</strong> ${entry.artigo || 'N/A'} • ${String(entry.resultado || '').toUpperCase()}</p>
+                                ${subtitle}
+                            </div>
+                        </div>
+                    `;
+                }).join('')}
+            </div>
+        `;
 
-        container.appendChild(fragment);
+        if (typeof window !== 'undefined' && window.Sanitizer) {
+            window.Sanitizer.safeInnerHTML(container, cardsHtml);
+        } else {
+            container.innerHTML = cardsHtml;
+        }
     }
 
     function showEmptyState(container, message) {

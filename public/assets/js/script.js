@@ -19,7 +19,7 @@ function debugLog(...args) {
     }
 }
 
-// LIMPEZA AGRESSIVA DE CACHE - v0.1.0
+// LIMPEZA AGRESSIVA DE CACHE - v0.1.9
 (function() {
     // 1. Desregistrar TODOS os Service Workers
     if ('serviceWorker' in navigator) {
@@ -27,6 +27,13 @@ function debugLog(...args) {
             registrations.forEach(registration => {
                 registration.unregister().then(() => {
                     debugLog('SW desregistrado', registration.scope);
+                });
+                // Enter aciona busca diretamente
+                el.addEventListener('keydown', function (e) {
+                    if (e.key === 'Enter' && !buscarBtn.disabled) {
+                        e.preventDefault();
+                        realizarBusca();
+                    }
                 });
             });
         });
@@ -425,7 +432,6 @@ function configurarEventListeners() {
             document.getElementById('insertParagrafoBtn').disabled = false;
             document.getElementById('insertAlineaBtn').disabled = false;
             document.getElementById('insertConcBtn').disabled = false;
-            document.getElementById('montarArtigoBtn').disabled = false;
 
             if (leiArrowIndicator) {
                 leiArrowIndicator.classList.remove('show');
@@ -445,9 +451,78 @@ function configurarEventListeners() {
     builderInputs.forEach(id => {
         const el = document.getElementById(id);
         if (el) {
-            el.addEventListener('input', atualizarPreviewGlobal);
+            el.addEventListener('input', function () {
+                atualizarPreviewGlobal();
+                const artigo = document.getElementById('artigoNum').value;
+                const paragrafo = document.getElementById('paragrafoNum').value;
+                const inciso = document.getElementById('incisoNum').value;
+                const alinea = document.getElementById('alineaNum').value;
+                const concomitante = document.getElementById('concomitanteNum').value;
+
+                if (artigo) {
+                    let artigoMontado = artigo;
+                    if (paragrafo) artigoMontado += `, §${paragrafo}º`;
+                    if (inciso) artigoMontado += `, ${inciso}`;
+                    if (alinea) artigoMontado += `, \"${alinea}\"`;
+                    if (concomitante) artigoMontado += ` c/c ${concomitante}`;
+                    artigoInput.value = artigoMontado;
+                    verificarCamposPreenchidos();
+                    debouncedSugestoes(artigoInput.value.trim());
+                }
+            });
+            el.addEventListener('change', function () {
+                atualizarPreviewGlobal();
+                const artigo = document.getElementById('artigoNum').value;
+                const paragrafo = document.getElementById('paragrafoNum').value;
+                const inciso = document.getElementById('incisoNum').value;
+                const alinea = document.getElementById('alineaNum').value;
+                const concomitante = document.getElementById('concomitanteNum').value;
+
+                if (artigo) {
+                    let artigoMontado = artigo;
+                    if (paragrafo) artigoMontado += `, §${paragrafo}º`;
+                    if (inciso) artigoMontado += `, ${inciso}`;
+                    if (alinea) artigoMontado += `, \"${alinea}\"`;
+                    if (concomitante) artigoMontado += ` c/c ${concomitante}`;
+                    artigoInput.value = artigoMontado;
+                    verificarCamposPreenchidos();
+                    debouncedSugestoes(artigoInput.value.trim());
+                }
+            });
+            el.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' && !buscarBtn.disabled) {
+                    e.preventDefault();
+                    realizarBusca();
+                }
+            });
         }
     });
+
+    const builderContainer = document.querySelector('.article-builder');
+    if (builderContainer) {
+        builderContainer.addEventListener('focusin', function () {
+            const valor = artigoInput && artigoInput.value ? artigoInput.value.trim() : '';
+            if (!valor) return;
+            const parsed = ArtigoFormatter.processar(valor);
+            const artEl = document.getElementById('artigoNum');
+            const paraEl = document.getElementById('paragrafoNum');
+            const incEl = document.getElementById('incisoNum');
+            const aliEl = document.getElementById('alineaNum');
+            const concEl = document.getElementById('concomitanteNum');
+            if (artEl && !artEl.value) artEl.value = parsed.artigo || '';
+            if (paraEl && !paraEl.value) paraEl.value = parsed.paragrafo || '';
+            if (incEl && !incEl.value) incEl.value = parsed.inciso || '';
+            if (aliEl && !aliEl.value) aliEl.value = parsed.alinea || '';
+            if (concEl && !concEl.value) {
+                if (parsed.concomitante && parsed.concomitante.length > 0) {
+                    concEl.value = parsed.concomitante.map(c => ArtigoFormatter.formatarParte(c)).join(' c/c ');
+                } else {
+                    concEl.value = '';
+                }
+            }
+            atualizarPreviewGlobal();
+        });
+    }
 
     // Botões para inserir símbolos
     document.getElementById('insertParagrafoBtn').addEventListener('click', function (e) {
@@ -486,32 +561,7 @@ function configurarEventListeners() {
         }
     });
 
-    // Botão para montar o artigo completo
-    document.getElementById('montarArtigoBtn').addEventListener('click', function (e) {
-        e.preventDefault();
-        const artigo = document.getElementById('artigoNum').value;
-        const paragrafo = document.getElementById('paragrafoNum').value;
-        const inciso = document.getElementById('incisoNum').value;
-        const alinea = document.getElementById('alineaNum').value;
-        const concomitante = document.getElementById('concomitanteNum').value;
-
-        if (!artigo) {
-            alert('Digite o número do artigo');
-            return;
-        }
-
-        let artigoMontado = artigo;
-        if (paragrafo) artigoMontado += `, §${paragrafo}º`;
-        if (inciso) artigoMontado += `, ${inciso}`;
-        if (alinea) artigoMontado += `, "${alinea}"`;
-        if (concomitante) artigoMontado += ` c/c ${concomitante}`;
-
-        artigoInput.value = artigoMontado;
-        artigoInput.focus();
-        verificarCamposPreenchidos();
-        atualizarPreviewGlobal();
-        debouncedSugestoes(artigoInput.value.trim());
-    });
+    
 
     // Evento de input no campo artigo
     artigoInput.addEventListener('input', function () {
@@ -533,6 +583,12 @@ function configurarEventListeners() {
             }
         }
 
+        verificarCamposPreenchidos();
+        atualizarPreviewGlobal();
+        debouncedSugestoes(valorTrim);
+    });
+    artigoInput.addEventListener('change', function () {
+        const valorTrim = this.value.trim();
         verificarCamposPreenchidos();
         atualizarPreviewGlobal();
         debouncedSugestoes(valorTrim);
@@ -825,8 +881,11 @@ function verificarLeiCorresponde(item, codigoLei) {
 
 // Exibir resultado da consulta
 function exibirResultado(resultado) {
-    const leiInfo = leisDisponiveis.find(l => l.value === resultado.codigo);
-    const nomeLei = leiInfo ? (leiInfo.descricao || leiInfo.text) : resultado.codigo;
+    const leiInfoNorm = Array.isArray(leisDisponiveis) ? leisDisponiveis.find(l => l.value === resultado.codigo) : null;
+    const nomeLeiNorm = leiInfoNorm ? (leiInfoNorm.descricao || leiInfoNorm.text) : '';
+    const leiInfoStatic = Array.isArray(LEIS_DISPONIVEIS) ? LEIS_DISPONIVEIS.find(l => l.value === resultado.codigo) : null;
+    const nomeLeiStatic = leiInfoStatic ? (leiInfoStatic.descricao || leiInfoStatic.text) : '';
+    const nomeLei = (nomeLeiNorm && String(nomeLeiNorm).trim()) ? nomeLeiNorm : ((nomeLeiStatic && String(nomeLeiStatic).trim()) ? nomeLeiStatic : resultado.codigo);
 
     const statusClass = resultado.inelegivel ? 'inelegivel' : 'elegivel';
     const statusTexto = resultado.inelegivel ? 'INELEGÍVEL' : 'ELEGÍVEL';
@@ -1014,62 +1073,108 @@ function exibirResultado(resultado) {
 
 // Exibir quando não encontrado
 function exibirNaoEncontrado(codigoLei, artigo) {
-    const leiInfo = leisDisponiveis.find(l => l.value === codigoLei);
-    const nomeLei = leiInfo ? leiInfo.descricao : codigoLei;
+    const leiInfoNorm = Array.isArray(leisDisponiveis) ? leisDisponiveis.find(l => l.value === codigoLei) : null;
+    const nomeLeiNorm = leiInfoNorm ? (leiInfoNorm.descricao || leiInfoNorm.text) : '';
+    const leiInfoStatic = Array.isArray(LEIS_DISPONIVEIS) ? LEIS_DISPONIVEIS.find(l => l.value === codigoLei) : null;
+    const nomeLeiStatic = leiInfoStatic ? (leiInfoStatic.descricao || leiInfoStatic.text) : '';
+    const nomeLei = (nomeLeiNorm && String(nomeLeiNorm).trim()) ? nomeLeiNorm : ((nomeLeiStatic && String(nomeLeiStatic).trim()) ? nomeLeiStatic : codigoLei);
     const tipoComunicacao = obterTipoComunicacao();
     const interpretacao = tipoComunicacao === 'condenacao'
         ? 'Como o artigo não está listado na coluna "NORMA/INCIDÊNCIA", a condenação por este artigo NÃO gera inelegibilidade conforme ASE 337, razão 7.'
         : 'Como o artigo não está listado na coluna "NORMA/INCIDÊNCIA", a extinção relacionada a este artigo NÃO gera inelegibilidade e não requer ASE 370 ou ASE 540.';
 
+    const parsed = ArtigoFormatter.processar(artigo);
+    let detalhesArtigo = '';
+    if (parsed && (parsed.paragrafo || parsed.inciso || parsed.alinea || (parsed.concomitante && parsed.concomitante.length > 0))) {
+        const componentes = [];
+        if (parsed.paragrafo) {
+            componentes.push(`<span class="detail-badge">§${parsed.paragrafo}º</span>`);
+        }
+        if (parsed.inciso) {
+            componentes.push(`<span class="detail-badge">Inciso ${parsed.inciso}</span>`);
+        }
+        if (parsed.alinea) {
+            componentes.push(`<span class="detail-badge">Alínea "${parsed.alinea}"</span>`);
+        }
+        if (parsed.concomitante && parsed.concomitante.length > 0) {
+            const conc = parsed.concomitante
+                .map(c => formatarParteArtigo(c))
+                .join(', ');
+            componentes.push(`<span class="detail-badge badge-conc">c/c ${conc}</span>`);
+        }
+
+        detalhesArtigo = `
+            <div class="modal-section modal-info">
+                <div class="section-header">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path>
+                        <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span>Componentes do Artigo</span>
+                </div>
+                <div class="section-content">
+                    <div class="detail-badges">
+                        ${componentes.join('')}
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
     // Atualizar header do modal
     document.getElementById('modalTitle').textContent = 'Artigo Não Encontrado';
     document.getElementById('modalSubtitle').textContent = `${nomeLei} • Art. ${artigo}`;
 
-    abrirModal('nao-encontrado', 'NÃO ENCONTRADO', `
-        <div class="modal-status-card nao-encontrado">
+    if (typeof SearchHistory !== 'undefined') {
+        try {
+            const artigoParaHistorico = ArtigoFormatter.formatar((artigo || '').trim());
+            SearchHistory.add({
+                lei: codigoLei,
+                artigo: artigoParaHistorico || artigo || 'N/A',
+                resultado: 'nao_encontrado',
+                timestamp: new Date().toISOString()
+            });
+        } catch (e) {}
+    }
+
+    abrirModal('inelegivel', 'NÃO ENCONTRADO', `
+        <div class="modal-status-card inelegivel">
             <div class="status-icon-wrapper">
                 <svg width="28" height="28" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
                 </svg>
             </div>
             <div class="status-text-wrapper">
-                <span class="status-label">Status</span>
+                <span class="status-label">Resultado</span>
                 <span class="status-value">NÃO ENCONTRADO</span>
             </div>
         </div>
 
-        <div class="modal-section modal-info">
-            <div class="section-header">
-                <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
-                </svg>
-                <span>Informações da Consulta</span>
+        <div class="modal-info-grid">
+            <div class="info-item">
+                <span class="info-label">Crime/Delito</span>
+                <span class="info-value">N/A</span>
             </div>
-            <div class="section-content">
-                <div class="modal-info-grid">
-                    <div class="info-item">
-                        <span class="info-label">Tipo de Comunicação</span>
-                        <span class="info-value">${tipoComunicacao === 'condenacao' ? 'Condenação' : 'Extinção da Punibilidade'}</span>
-                    </div>
-                    <div class="info-item">
-                        <span class="info-label">Base de Dados</span>
-                        <span class="info-value">TRE-SP (Out/2024)</span>
-                    </div>
-                </div>
+            <div class="info-item">
+                <span class="info-label">Norma/Incidência</span>
+                <span class="info-value">Art. ${artigo}</span>
             </div>
         </div>
 
-        <div class="modal-section modal-success">
+        ${detalhesArtigo}
+
+        <div class="modal-section modal-info">
             <div class="section-header">
                 <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                    <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path>
+                    <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"></path>
                 </svg>
-                <span>Interpretação Jurídica</span>
+                <span>Informações</span>
             </div>
             <div class="section-content">
                 <p class="section-intro">${interpretacao}</p>
                 <div class="section-note">
-                    <strong>Conclusão:</strong> O artigo consultado não consta na tabela oficial de inelegibilidade, portanto <strong>não gera impedimento eleitoral</strong>.
+                    <strong>Conclusão:</strong> O artigo consultado não consta na tabela oficial de inelegibilidade.
                 </div>
             </div>
         </div>
@@ -1175,7 +1280,7 @@ function limparBusca() {
     document.getElementById('insertParagrafoBtn').disabled = true;
     document.getElementById('insertAlineaBtn').disabled = true;
     document.getElementById('insertConcBtn').disabled = true;
-    document.getElementById('montarArtigoBtn').disabled = true;
+    // Botão Montar removido; limpeza mantém estado consistente
 
     resultadoDiv.style.display = 'none';
     resultadoDiv.classList.remove('show');

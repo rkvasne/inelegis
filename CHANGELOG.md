@@ -12,6 +12,20 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ## [0.1.9] - 2025-12-05
 
+### 🎨 UI/UX & Design
+- **Histórico de Consultas**:
+  - Refatoração completa do layout para uso de cards (`features-grid`).
+  - Estatísticas organizadas em grid de 3 colunas para melhor visualização de totais.
+  - Correção de espaçamentos entre painéis de "Consultas Recentes/Frequentes" e seção de "Estatísticas".
+  - Tabelas e badges padronizados com o design system.
+- **Página de Consulta**:
+  - Atualização dos ícones dos cards de comunicação:
+    - "Condenação" agora usa ícone de cadeado com indicador visual vermelho (`danger`).
+    - "Extinção da Punibilidade" usa ícone de check com indicador verde (`success`).
+- **Sistema de Design**:
+  - Correção de variáveis de espaçamento inexistentes.
+  - Melhoria de contraste e sombras nos cards do tema claro.
+
 ### 📚 Documentação
 - Consolidação do índice geral (`docs/README.md`) com mapa único, guideline de formato e links para todos os subdiretórios.
 - Criação de `docs/history/RELEASE-NOTES-v0.1.0.md`, removendo duplicação de conteúdo do README.

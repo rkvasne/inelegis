@@ -1,3 +1,8 @@
+---
+docStatus: active
+docScope: runtime
+lastReviewed: 2025-12-05
+---
 # JS (src)
 
 Esta pasta contém o código-fonte histórico e/ou de desenvolvimento. O runtime atual da aplicação usa exclusivamente `public/assets/js`.

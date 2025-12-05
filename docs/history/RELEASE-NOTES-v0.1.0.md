@@ -1,3 +1,8 @@
+---
+docStatus: historical
+docScope: history
+lastReviewed: 2025-12-05
+---
 # Release Notes v0.1.0
 
 **Data:** 04 de dezembro de 2025  

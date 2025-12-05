@@ -183,6 +183,10 @@ class DocumentationAgent {
             // Ler conteúdo
             doc.content = fs.readFileSync(doc.fullPath, 'utf-8');
             doc.lines = doc.content.split('\n').length;
+            doc.metadata = this.extractFrontMatter(doc.content);
+            doc.bodyContent = doc.metadata?.body || doc.content;
+
+            doc.docStatus = this.determineDocStatus(doc);
             
             // Verificar tamanho
             if (doc.sizeKB > CONFIG.maxDocSize) {
@@ -214,7 +218,7 @@ class DocumentationAgent {
             }
             
             // Verificar se é histórico
-            if (this.isHistorical(doc)) {
+            if (doc.docStatus === 'historical' && !doc.metadata?.data?.docStatus) {
                 doc.issues.push({
                     type: 'historical',
                     severity: 'info',
@@ -235,7 +239,9 @@ class DocumentationAgent {
                 const doc1 = this.docs[i];
                 const doc2 = this.docs[j];
                 
-                const similarity = this.calculateSimilarity(doc1.content, doc2.content);
+                const content1 = doc1.bodyContent || doc1.content;
+                const content2 = doc2.bodyContent || doc2.content;
+                const similarity = this.calculateSimilarity(content1, content2);
                 
                 if (similarity > 0.7) { // 70% similar
                     const issue = {
@@ -313,19 +319,53 @@ class DocumentationAgent {
      * Verifica se documento é temporário
      */
     isTemporary(doc) {
+        const bodySample = (doc.bodyContent || doc.content).substring(0, 500);
         return CONFIG.temporaryPatterns.some(pattern => 
-            pattern.test(doc.name) || pattern.test(doc.content.substring(0, 500))
+            pattern.test(doc.name) || pattern.test(bodySample)
         );
     }
 
     /**
-     * Verifica se documento é histórico
+     * Extrai front matter (YAML simples)
      */
-    isHistorical(doc) {
-        const firstLines = doc.content.substring(0, 1000).toLowerCase();
-        return CONFIG.historicalKeywords.some(keyword => 
-            firstLines.includes(keyword)
-        );
+    extractFrontMatter(content) {
+        const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?/);
+        if (!match) return null;
+
+        const raw = match[1];
+        const data = {};
+
+        raw.split(/\r?\n/).forEach(line => {
+            const trimmed = line.trim();
+            if (!trimmed || trimmed.startsWith('#')) return;
+            if (!trimmed.includes(':')) return;
+            const [key, ...rest] = trimmed.split(':');
+            const value = rest.join(':').trim().replace(/^['"]|['"]$/g, '');
+            if (!key) return;
+            data[key.trim()] = value;
+        });
+
+        const bodyStart = content.slice(match[0].length);
+        const body = bodyStart.replace(/^\r?\n/, '');
+        return { data, body };
+    }
+
+    /**
+     * Determina status do documento (active/reference/historical)
+     */
+    determineDocStatus(doc) {
+        if (doc.metadata?.data?.docStatus) {
+            return doc.metadata.data.docStatus.toLowerCase();
+        }
+
+        return this.containsHistoricalKeywords(doc.bodyContent || doc.content)
+            ? 'historical'
+            : 'active';
+    }
+
+    containsHistoricalKeywords(text) {
+        const sample = (text || '').substring(0, 1000).toLowerCase();
+        return CONFIG.historicalKeywords.some(keyword => sample.includes(keyword));
     }
 
     /**

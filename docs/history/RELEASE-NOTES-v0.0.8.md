@@ -1,3 +1,8 @@
+---
+docStatus: historical
+docScope: history
+lastReviewed: 2025-12-05
+---
 # Release Notes - Inelegis v0.0.8
 
 **Data de Lançamento:** 02 de dezembro de 2025  

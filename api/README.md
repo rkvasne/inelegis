@@ -1,3 +1,8 @@
+---
+docStatus: reference
+docScope: api
+lastReviewed: 2025-12-05
+---
 # 🔌 API Endpoints
 
 Serverless Functions do Inelegis (Vercel)
