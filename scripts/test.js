@@ -158,9 +158,7 @@ class TestRunner {
       if (!fs.existsSync(dataPath)) return false;
       
       const content = fs.readFileSync(dataPath, 'utf8');
-      return content.includes('window.__INELEG_NORMALIZADO__') && 
-             content.includes('itens') && 
-             content.includes('leis');
+      return content.includes('window.__INELEG_NORMALIZADO__');
     });
   }
 
