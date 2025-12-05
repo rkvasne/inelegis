@@ -19,6 +19,8 @@ Esta pasta contém o código-fonte histórico e/ou de desenvolvimento. O runtime
 - API de consulta: `public/assets/js/consulta-normalizado.js` (expõe `DataNormalizer`).
 - Lógica da página: `public/assets/js/script.js` e módulos em `public/assets/js/modules/`.
 
+> **Nota:** O arquivo `src/js/data.js` (antigo espelho dos dados brutos do PDF) foi removido na versão 0.1.9 para evitar confusão. A única fonte de verdade para dados agora é `public/assets/js/data-normalizado.js`.
+
 ## Ordem de carregamento (referência)
 
 1. Módulos base de UI e utilitários (`public/assets/js/modules/*`).
