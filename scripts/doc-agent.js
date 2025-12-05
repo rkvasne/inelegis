@@ -33,7 +33,7 @@ const CONFIG = {
         /ANALISE-DOCUMENTACAO/i,
         /ATUALIZACAO-/i,
         /RESUMO-/i,
-        /-TEMP/i,
+        /-TEMP\b/i,
         /-OLD/i,
         /\.backup/i,
         /\.bak/i
@@ -72,6 +72,7 @@ class DocumentationAgent {
             oversized: 0,
             missing: 0
         };
+        this.visitedDirs = new Set();
     }
 
     /**
@@ -128,10 +129,22 @@ class DocumentationAgent {
      * Escaneia diretório recursivamente
      */
     scanDirectory(dirPath, relativePath = '') {
-        const items = fs.readdirSync(dirPath);
+        let currentPath;
+        try {
+            currentPath = fs.realpathSync(dirPath);
+        } catch (error) {
+            return;
+        }
+
+        if (this.visitedDirs.has(currentPath)) {
+            return;
+        }
+        this.visitedDirs.add(currentPath);
+
+        const items = fs.readdirSync(currentPath);
         
         items.forEach(item => {
-            const fullPath = path.join(dirPath, item);
+            const fullPath = path.join(currentPath, item);
             const relPath = path.join(relativePath, item);
             const stat = fs.statSync(fullPath);
             

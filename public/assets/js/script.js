@@ -953,8 +953,8 @@ function exibirResultado(resultado) {
     const aseInfo = __genAsePad(tipoComunicacao, resultado.inelegivel);
 
     // Atualizar header do modal
-    document.getElementById('modalTitle').textContent = 'Resultado da Consulta';
-    document.getElementById('modalSubtitle').textContent = `${nomeLei} • Art. ${artigoExibicao}`;
+    document.getElementById('modalTitle').textContent = nomeLei;
+    document.getElementById('modalSubtitle').textContent = `Art. ${artigoExibicao}`;
 
     // Montar modal com novo design
     abrirModal(statusClass, statusTexto, `
@@ -1359,24 +1359,21 @@ function getItensPorLei(codigoLei) {
 function __genAsePad(tipo, inelegivel) {
     if (tipo === 'condenacao') {
         const motivo = inelegivel ? 'Motivo 7' : 'Motivo 2';
+        const cls = inelegivel ? 'ase-337-warning' : 'ase-337-success';
         return `
-            <div class="ase-row">
-                <strong>ASE 337 - ${motivo}:</strong> Condenação criminal
-            </div>
-            <div class="ase-row">
-                <strong>Data de Ocorrência:</strong> Trânsito em julgado da sentença condenatória
-            </div>
-        `;
+      <p class="ase-card ${cls}">
+        <strong>ASE 337 - ${motivo}:</strong> Condenação criminal<br>
+        <strong>Data de Ocorrência:</strong> Trânsito em julgado da sentença condenatória
+      </p>
+    `;
     } else {
         return `
-            <div class="ase-row">
-                <strong>ASE 370 - Extinção de Punibilidade</strong>
-            </div>
-            <div class="ase-row">
-                <strong>Data de Ocorrência:</strong> Decisão judicial que declarou a extinção
-            </div>
-            ${inelegivel ? '<div class="ase-row ase-obs"><em>Observação:</em> Se resultar em inelegibilidade, gerar automaticamente o ASE 540 (Cancelamento de Inelegibilidade).</div>' : ''}
-        `;
+      <p class="ase-card ase-370-info">
+        <strong>ASE 370 - Extinção de Punibilidade</strong><br>
+        <strong>Data de Ocorrência:</strong> Decisão judicial que declarou a extinção
+        ${inelegivel ? '<br><em>Observação:</em> Se resultar em inelegibilidade, gerar automaticamente o ASE 540 (Cancelamento de Inelegibilidade).' : ''}
+      </p>
+    `;
     }
 }
 
