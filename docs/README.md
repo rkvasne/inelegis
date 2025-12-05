@@ -24,7 +24,8 @@ Bem-vindo à documentação oficial do projeto **Inelegis**.
 
 ### 🗂️ Histórico e Release Notes
 - **[Refatoração v0.0.6](history/refatoracao-v0.0.6.md)** – contexto, plano e implementação
-- **[Release Notes v0.1.0](../CHANGELOG.md)** – consolidação de documentação e padronização
+- **[Release Notes v0.1.0](history/RELEASE-NOTES-v0.1.0.md)** – consolidação de documentação e padronização
+- **[Release Notes v0.0.9](history/RELEASE-NOTES-v0.0.9.md)** – avanços no fluxo de sessão e UX
 - **[Release Notes v0.0.8](history/RELEASE-NOTES-v0.0.8.md)** – padronização completa de design
 - **[Resumo da sessão 02/12/2025](history/SESSION-SUMMARY-2025-12-02.md)** – métricas da virada para 0.0.9
 - **[Template de Hotfix Crítico](history/templates/critical-hotfix-template.md)** – mensagem de commit para correções urgentes
@@ -66,6 +67,16 @@ docs/
     └── tabela-oficial.xml
 ```
 
+## 📐 Padrão de Formato
+
+Para manter consistência entre todos os documentos:
+
+1. Inicie cada arquivo com um título (`# Nome do Documento`).
+2. Em seguida inclua um bloco de metadados com **Data**, **Versão** (quando aplicável) e **Status**.
+3. Utilize subtítulos em segunda pessoa (`## Seção`) e listas curtas e escaneáveis.
+4. Quando referenciar outro arquivo, prefira caminhos relativos (ex.: `../CHANGELOG.md`).
+5. Atualize o campo "Última atualização" sempre que modificar conteúdo substancial.
+
 ## 🔗 Links Úteis
 
 - [Repositório GitHub](https://github.com/rkvasne/ineleg-app)
@@ -83,13 +94,9 @@ O runtime usa exclusivamente dados previamente normalizados e API de consulta:
 
 ## 🆕 Novidades v0.1.0
 
-- ✅ Documentação consolidada e padronizada; remoção de duplicatas (`dist/docs`, `docs/INDEX.md`, `docs/CHANGELOG-DOCS.md`).
-- ✅ Links internos atualizados e verificados.
-- ✅ Versão do projeto elevada para 0.1.0.
-- ✅ Mantenedores e contribuidores seguem o fluxo único de documentação central.
- - ✅ Fonte única de dados: consultas agora usam somente dados previamente normalizados (`public/assets/js/data-normalizado.js`). Não há mais tratamento de dados a cada consulta.
+Veja [Release Notes v0.1.0](history/RELEASE-NOTES-v0.1.0.md) para o resumo completo do ciclo.
 
 ---
 
-**Última atualização:** 04 de dezembro de 2025  
-**Versão:** 0.1.3
+**Última atualização:** 05 de dezembro de 2025  
+**Versão:** 0.1.9
