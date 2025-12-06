@@ -17,7 +17,7 @@
     <a href="https://github.com/rkvasne/inelegis-app/issues">Solicitar Feature</a>
   </p>
 
-  [![Version](https://img.shields.io/badge/version-0.1.9-blue.svg?style=for-the-badge)](https://semver.org)
+  [![Version](https://img.shields.io/badge/version-0.2.0-blue.svg?style=for-the-badge)](https://semver.org)
   [![License](https://img.shields.io/badge/license-MIT-green.svg?style=for-the-badge)](LICENSE)
   [![Tests](https://img.shields.io/badge/tests-100%25-success.svg?style=for-the-badge)](tests/)
   [![Theme](https://img.shields.io/badge/theme-validated-success.svg?style=for-the-badge)](docs/design/THEME-VALIDATOR.md)
@@ -178,7 +178,7 @@ Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.
 ---
 
 **Última atualização:** 05 de dezembro de 2025  
-**Versão:** 0.1.9
+**Versão:** 0.2.0
 
 ---
 

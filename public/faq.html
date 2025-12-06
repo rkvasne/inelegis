@@ -7,17 +7,16 @@
     <title>FAQ | Inelegis - Sistema de Consulta de Inelegibilidade</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico?v=0.1.8">
-    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.1.8">
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png?v=0.1.8">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico?v=0.2.0">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.2.0">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png?v=0.2.0">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/styles/styles.css?v=0.1.8">
-    <script src="/assets/js/modules/theme-bootstrap.js?v=0.1.8"></script>
-    <script src="/assets/js/modules/terms-gate.js?v=0.1.8"></script>
+    <link rel="stylesheet" href="/styles/styles.css?v=0.2.0">
+    <script src="/assets/js/modules/theme-bootstrap.js?v=0.2.0"></script>
 </head>
 
 <body>
@@ -27,27 +26,36 @@
     <img src="/assets/images/logo-dark.png" alt="Logomarca oficial do Inelegis" loading="lazy" class="sr-only">
 
     <!-- FAQ Hero -->
-    <div class="faq-hero">
-        <div class="faq-hero-content scroll-animate-scale">
-            <h1>❓ Perguntas Frequentes</h1>
-            <p>Encontre respostas rápidas para as dúvidas mais comuns sobre o sistema</p>
+    <section class="faq-hero">
+        <div class="container container--content">
+            <div class="faq-hero-content">
+                <h1 class="faq-hero-title">Perguntas Frequentes</h1>
+                <p class="faq-hero-subtitle">Encontre respostas rápidas para as dúvidas mais comuns sobre o sistema</p>
+                
+                <!-- Search Box dentro do hero -->
+                <div class="faq-search-wrapper">
+                    <div class="search-box">
+                        <input type="text" id="faqSearch" class="search-input" placeholder="Buscar perguntas..."
+                            aria-label="Buscar perguntas" title="Buscar perguntas">
+                        <svg class="search-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-
-    <!-- Search Box -->
-    <div class="faq-search scroll-animate">
-        <div class="search-box">
-            <input type="text" id="faqSearch" class="search-input" placeholder="Buscar perguntas..."
-                aria-label="Buscar perguntas" title="Buscar perguntas">
-            <svg class="search-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-            </svg>
-        </div>
-    </div>
+    </section>
 
     <!-- Conteúdo Principal -->
-    <main class="container mt-8">
+    <main class="container container--content" style="padding-top: var(--space-6); padding-bottom: var(--space-12);">
+        <!-- Breadcrumbs -->
+        <nav class="breadcrumbs" aria-label="Navegação">
+            <a href="index.html" class="breadcrumb-link">Início</a>
+            <span class="breadcrumb-separator">›</span>
+            <span class="breadcrumb-current">FAQ</span>
+        </nav>
+
         <!-- Categorias Rápidas -->
         <div class="faq-categories">
             <a href="#geral" class="category-card scroll-animate" title="Ver categoria: Geral">
@@ -633,25 +641,29 @@
         </div>
 
         <!-- CTA Final -->
-        <div class="faq-cta scroll-animate-scale">
-            <h3>Não encontrou sua resposta?</h3>
-            <p>Entre em contato ou consulte a documentação completa do sistema.</p>
-            <div class="faq-cta-buttons">
-                <a href="https://github.com/rkvasne/ineleg-app/blob/main/docs/README.md" class="btn btn-primary" target="_blank" rel="noopener noreferrer" title="Ver documentação completa">
-                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253Z">
-                        </path>
-                    </svg>
-                    Ver Documentação
-                </a>
-                <a href="consulta.html" class="btn btn-secondary" title="Ir para consulta">
-                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                    </svg>
-                    Ir para Consulta
-                </a>
+        <div class="card text-center">
+            <div class="card-header">
+                <h2>Não encontrou sua resposta?</h2>
+                <p>Entre em contato ou consulte a documentação completa</p>
+            </div>
+            <div class="card-body">
+                <div class="flex gap-3 justify-center" style="flex-wrap: wrap;">
+                    <a href="https://github.com/rkvasne/ineleg-app/blob/main/docs/README.md" class="btn btn-primary" target="_blank" rel="noopener noreferrer" title="Ver documentação completa">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253Z">
+                            </path>
+                        </svg>
+                        Ver Documentação
+                    </a>
+                    <a href="consulta.html" class="btn btn-secondary" title="Ir para consulta">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                        Ir para Consulta
+                    </a>
+                </div>
             </div>
         </div>
     </main>
@@ -761,8 +773,9 @@
     <div id="footer-placeholder"></div>
 
     <!-- Components & Theme Manager -->
-    <script src="/assets/js/modules/components.js?v=0.1.8" defer></script>
-    <script src="/assets/js/modules/theme-manager.js?v=0.1.8" defer></script>
+    <script src="/assets/js/modules/components.js?v=0.2.0" defer></script>
+    <script src="/assets/js/modules/theme-manager.js?v=0.2.0" defer></script>
+    <script src="/assets/js/modules/ui-enhancements.js?v=0.2.0" defer></script>
     <script>
         window.addEventListener('DOMContentLoaded', () => {
             if (window.Components) {
