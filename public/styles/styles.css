@@ -1106,17 +1106,18 @@ code {
 .footer-copy {
   font-size: 15px;
   font-weight: 600;
-  color: var(--text-tertiary); /* Mudado de text-secondary para text-tertiary para ficar mais escuro/suave */
-  opacity: 0.6; /* Reduzido de 0.8 para 0.6 para ficar mais "apagado" */
+  color: var(--text-primary); /* Volta para text-primary (branco no dark) para destaque */
+  opacity: 0.9; /* Opacidade alta para ficar brilhante como no Dahora */
   margin: 0;
-  line-height: 1.4;
+  line-height: 1.6; /* Ajustado de 1.4 para 1.6 para igualar ao Dahora */
 }
 
 .footer-description {
   font-size: 13px;
   color: var(--text-tertiary);
-  opacity: 0.6; /* Reduzido de 0.8 para 0.6 */
+  opacity: 0.6;
   margin: 0;
+  line-height: 1.6; /* Garantindo line-height 1.6 */
 }
 
 .footer-links {
@@ -1126,6 +1127,7 @@ code {
   justify-content: center;
   align-items: center;
   margin-top: 0;
+  line-height: 1.6; /* Garantindo line-height 1.6 */
 }
 
 .footer-separator {
