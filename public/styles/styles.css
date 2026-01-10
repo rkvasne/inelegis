@@ -1098,22 +1098,23 @@ code {
 .footer-content {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap: 2px; /* Reduzido de 4px para 2px */
   align-items: center;
   text-align: center;
 }
 
 .footer-copy {
-  font-size: 0.875rem;
+  font-size: 15px; /* Tamanho solicitado */
   font-weight: 600;
   color: var(--text-primary);
   margin: 0;
+  line-height: 1.4;
 }
 
 .footer-description {
-  font-size: 0.875rem;
+  font-size: 13px; /* Reduzido para 13px */
   color: var(--text-secondary);
-  margin: 0;
+  margin: 0 0 2px 0; /* Margem inferior reduzida para aproximar links */
 }
 
 .footer-links {
@@ -1122,6 +1123,7 @@ code {
   gap: var(--space-2);
   justify-content: center;
   align-items: center;
+  margin-top: 0; /* Removido margin-top extra */
 }
 
 .footer-separator {
@@ -2060,9 +2062,35 @@ code {
   border: 1px solid;
 }
 
+.legend-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+}
+
+.legend-title {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  color: #ffffff;
+  line-height: 1;
+}
+
 .legend-item.ineligible {
   background: var(--danger-bg);
   border-color: var(--danger-border);
+}
+
+.legend-item.ineligible .legend-title {
+  background-color: var(--danger-border);
 }
 
 .legend-item.eligible {
@@ -2070,9 +2098,18 @@ code {
   border-color: var(--success-border);
 }
 
+.legend-item.eligible .legend-title {
+  background-color: var(--success-border);
+}
+
 .legend-item.not-found {
   background: var(--warning-bg);
   border-color: var(--warning-border);
+}
+
+.legend-item.not-found .legend-title {
+  background-color: var(--warning-border);
+  color: #ffffff; /* Garantir texto branco mesmo no amarelo se necessário, ou usar cor escura se o contraste for ruim */
 }
 
 .legend-icon {

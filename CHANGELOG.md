@@ -1,12 +1,12 @@
 ---
 docStatus: active
 docScope: release-history
-lastReviewed: 2025-12-05
+lastReviewed: 2026-01-09
 ---
 # Changelog
 
-**Última atualização:** 05 de dezembro de 2025
-**Versão atual:** 0.2.0
+**Última atualização:** 09 de janeiro de 2026
+**Versão atual:** 0.2.0+dev
 
 Todas as alterações notáveis neste projeto serão documentadas neste arquivo.
 
@@ -14,6 +14,14 @@ O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
+
+## [Unreleased]
+
+### 🎨 UI/UX
+- **Legenda de Resultados**:
+  - Títulos ("INELEGÍVEL", "ELEGÍVEL", "NÃO ENCONTRADO") transformados em badges.
+  - Badges agora ficam em linha separada da descrição.
+  - Cores dos badges correspondem à cor da borda do card (Vermelho, Verde, Laranja) para melhor destaque e organização.
 
 ## [0.2.0] - 2025-12-05
 
