@@ -1,11 +1,11 @@
 ---
 docStatus: active
 docScope: release-history
-lastReviewed: 2026-01-09
+lastReviewed: 2026-01-10
 ---
 # Changelog
 
-**Última atualização:** 09 de janeiro de 2026
+**Última atualização:** 10 de janeiro de 2026
 **Versão atual:** 0.2.0+dev
 
 Todas as alterações notáveis neste projeto serão documentadas neste arquivo.
@@ -23,6 +23,11 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
   - Altura reduzida com espaçamento otimizado entre elementos.
   - Tipografia ajustada: Fonte 15px para copyright e 13px para descrição e links.
   - Alinhamento visual unificado entre Landing Page e páginas internas.
+  - Ajuste de espaçamento entre colunas (gap) para consistência.
+  - Remoção da borda/“card” ao redor da logo no rodapé.
+  - Breakpoint de altura fixa ajustado para incluir 768px (desktop).
+- **Cards**:
+  - Melhorado contraste de subtítulos no tema escuro (ex.: “Confirme os termos...”).
 - **Legenda de Resultados**:
   - Títulos ("INELEGÍVEL", "ELEGÍVEL", "NÃO ENCONTRADO") transformados em badges.
   - Badges agora ficam em linha separada da descrição.
