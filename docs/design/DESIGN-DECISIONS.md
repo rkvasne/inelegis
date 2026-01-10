@@ -296,4 +296,4 @@ Resultados:
 
 ---
 
-**Dúvidas?** Consulte a [documentação completa](README.md) ou abra uma [issue no GitHub](https://github.com/rkvasne/inelegis-app/issues).
+**Dúvidas?** Consulte a [documentação completa](README.md) ou abra uma [issue no GitHub](https://github.com/rkvasne/inelegis/issues).

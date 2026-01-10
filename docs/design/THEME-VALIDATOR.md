@@ -377,5 +377,5 @@ MIT License - Veja LICENSE para detalhes.
 
 ## Suporte
 
-- Issues: https://github.com/rkvasne/ineleg-app/issues
-- Docs: https://github.com/rkvasne/ineleg-app/blob/main/docs/
+- Issues: https://github.com/rkvasne/inelegis/issues
+- Docs: https://github.com/rkvasne/inelegis/blob/main/docs/

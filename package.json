@@ -56,10 +56,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rkvasne/ineleg-app.git"
+    "url": "git+https://github.com/rkvasne/inelegis.git"
   },
   "bugs": {
-    "url": "https://github.com/rkvasne/ineleg-app/issues"
+    "url": "https://github.com/rkvasne/inelegis/issues"
   },
-  "homepage": "https://github.com/rkvasne/ineleg-app#readme"
+  "homepage": "https://github.com/rkvasne/inelegis#readme"
 }

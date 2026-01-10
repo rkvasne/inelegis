@@ -32,7 +32,7 @@ Este projeto e todos os seus participantes estão sob o [Código de Conduta do C
 
 ### 🐛 Reportando Bugs
 
-Bugs são rastreados como [GitHub Issues](https://github.com/rkvasne/inelegis-app/issues). Ao criar uma issue, explique o problema e inclua detalhes adicionais para ajudar os mantenedores a reproduzi-lo:
+Bugs são rastreados como [GitHub Issues](https://github.com/rkvasne/inelegis/issues). Ao criar uma issue, explique o problema e inclua detalhes adicionais para ajudar os mantenedores a reproduzi-lo:
 
 *   **Use um título claro e descritivo.**
 *   **Descreva os passos exatos para reproduzir o problema.**
@@ -42,7 +42,7 @@ Bugs são rastreados como [GitHub Issues](https://github.com/rkvasne/inelegis-ap
 
 ### 💡 Sugerindo Melhorias
 
-Sugestões de melhorias também são rastreadas como [GitHub Issues](https://github.com/rkvasne/inelegis-app/issues).
+Sugestões de melhorias também são rastreadas como [GitHub Issues](https://github.com/rkvasne/inelegis/issues).
 
 *   **Use um título claro e descritivo.**
 *   **Forneça uma descrição detalhada da sugestão.**
@@ -73,8 +73,8 @@ Para configurar seu ambiente de desenvolvimento local:
 
 1.  Clone o repositório:
     ```bash
-    git clone https://github.com/rkvasne/inelegis-app.git
-    cd inelegis-app
+    git clone https://github.com/rkvasne/inelegis.git
+    cd inelegis
     ```
 
 2.  Instale as dependências:
