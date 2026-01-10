@@ -1104,19 +1104,19 @@ code {
 }
 
 .footer-copy {
-  font-size: 15px; /* Tamanho solicitado */
+  font-size: 15px;
   font-weight: 600;
-  color: var(--text-secondary); /* Alterado para ficar mais suave (antes era --text-primary) */
-  opacity: 0.8; /* Adicionado opacidade para suavizar ainda mais */
+  color: var(--text-tertiary); /* Mudado de text-secondary para text-tertiary para ficar mais escuro/suave */
+  opacity: 0.6; /* Reduzido de 0.8 para 0.6 para ficar mais "apagado" */
   margin: 0;
   line-height: 1.4;
 }
 
 .footer-description {
-  font-size: 13px; /* Reduzido para 13px */
-  color: var(--text-tertiary); /* Alterado para text-tertiary para ficar mais apagado */
-  opacity: 0.8; /* Adicionado opacidade */
-  margin: 0; /* Margem removida, controlado pelo gap */
+  font-size: 13px;
+  color: var(--text-tertiary);
+  opacity: 0.6; /* Reduzido de 0.8 para 0.6 */
+  margin: 0;
 }
 
 .footer-links {
@@ -1125,27 +1125,27 @@ code {
   gap: var(--space-2);
   justify-content: center;
   align-items: center;
-  margin-top: 0; /* Removido margin-top extra */
+  margin-top: 0;
 }
 
 .footer-separator {
   color: var(--text-muted);
   font-size: 0.875rem;
   user-select: none;
-  opacity: 0.5; /* Separador mais discreto */
+  opacity: 0.4; /* Reduzido de 0.5 para 0.4 */
 }
 
 .footer-link {
-  font-size: 13px; /* Alterado para 13px conforme solicitado */
-  color: var(--text-tertiary); /* Alterado para text-tertiary */
+  font-size: 13px;
+  color: var(--text-tertiary);
   text-decoration: none;
   transition: var(--transition-fast);
-  opacity: 0.8; /* Link com opacidade padrão */
+  opacity: 0.6; /* Reduzido de 0.8 para 0.6 */
 }
 
 .footer-link:hover {
   color: var(--primary-600);
-  opacity: 1; /* Fica totalmente visível ao passar o mouse */
+  opacity: 1;
 }
 
 .footer-link[target="_blank"]::after {
