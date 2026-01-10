@@ -12,9 +12,9 @@
     <br />
     <a href="docs/README.md">Documentação</a>
     ·
-    <a href="https://github.com/rkvasne/inelegis-app/issues">Reportar Bug</a>
+    <a href="https://github.com/rkvasne/inelegis/issues">Reportar Bug</a>
     ·
-    <a href="https://github.com/rkvasne/inelegis-app/issues">Solicitar Feature</a>
+    <a href="https://github.com/rkvasne/inelegis/issues">Solicitar Feature</a>
   </p>
 
   [![Version](https://img.shields.io/badge/version-0.2.0-blue.svg?style=for-the-badge)](https://semver.org)
@@ -68,8 +68,8 @@ Siga estes passos para rodar o projeto localmente.
 
 1.  **Clone o repositório**
     ```bash
-    git clone https://github.com/rkvasne/inelegis-app.git
-    cd inelegis-app
+    git clone https://github.com/rkvasne/inelegis.git
+    cd inelegis
     ```
 
 2.  **Instale as dependências**

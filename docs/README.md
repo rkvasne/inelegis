@@ -92,7 +92,7 @@ Para manter consistência entre todos os documentos:
 
 ## 🔗 Links Úteis
 
-- [Repositório GitHub](https://github.com/rkvasne/ineleg-app)
+- [Repositório GitHub](https://github.com/rkvasne/inelegis)
 - [Changelog](../CHANGELOG.md)
 - [Voltar para a Raiz](../README.md)
 - [🤖 Instruções para Copilotos](../.github/copilot-instructions.md)
