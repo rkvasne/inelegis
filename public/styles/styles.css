@@ -1184,11 +1184,12 @@ code {
 
 .main-footer {
   border-top: 1px solid rgba(255, 255, 255, 0.03);
-  padding: 48px 40px 20px;
+  padding: 44px 40px 18px;
   background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
   margin-top: 0;
   color: rgba(255, 255, 255, 0.8);
   text-align: left;
+  box-sizing: border-box;
 }
 
 .main-footer .footer-content {
@@ -1196,8 +1197,8 @@ code {
   margin: 0 auto;
   display: grid;
   grid-template-columns: 40% 30% 30%;
-  gap: 40px;
-  margin-bottom: 32px;
+  gap: 36px;
+  margin-bottom: 28px;
   align-items: flex-start;
   text-align: left;
 }
@@ -1221,7 +1222,7 @@ code {
 .main-footer .footer-links h4,
 .main-footer .footer-social h4 {
   color: rgba(255, 255, 255, 0.8);
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   margin-top: 0;
   font-size: 16px;
   font-weight: 600;
@@ -1243,13 +1244,14 @@ code {
 }
 
 .main-footer .link-list li {
-  margin-bottom: 10px;
+  margin-bottom: 9px;
 }
 
 .main-footer .link-list a {
   color: rgba(255, 255, 255, 0.5);
   text-decoration: none;
   font-size: 14px;
+  line-height: 1.6;
   transition: color 0.2s ease;
   display: inline-block;
 }
@@ -1285,10 +1287,10 @@ code {
 
 .main-footer .footer-bottom {
   text-align: center;
-  padding-top: 16px;
+  padding-top: 14px;
   border-top: 1px solid rgba(255, 255, 255, 0.03);
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.32);
 }
 
 .main-footer .footer-bottom p {
@@ -1376,12 +1378,29 @@ html:not(.dark-theme) .main-footer .social-icons a:hover {
 
 html:not(.dark-theme) .main-footer .footer-bottom {
   border-top: 1px solid rgba(15, 23, 42, 0.08);
-  color: rgba(15, 23, 42, 0.55);
+  color: rgba(15, 23, 42, 0.48);
+}
+
+@media (min-width: 769px) {
+  .main-footer {
+    height: 358.13px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .main-footer .footer-content {
+    flex: 1;
+  }
+
+  .main-footer .footer-bottom {
+    flex-shrink: 0;
+  }
 }
 
 @media (max-width: 768px) {
   .main-footer {
     padding: 40px 20px 20px;
+    height: auto;
   }
 
   .main-footer .footer-content {
