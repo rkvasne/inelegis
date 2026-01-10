@@ -65,7 +65,7 @@ const Components = (() => {
                     </nav>
                     
                     <div class="header-actions">
-                        <button id="themeToggle" class="theme-toggle" aria-label="Alternar tema">
+                        <button id="themeToggle" class="theme-toggle" aria-label="Alternar tema" title="Alternar tema">
                             <svg class="sun-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
                             </svg>
@@ -104,19 +104,18 @@ const Components = (() => {
                         <ul class="link-list">
                             <li><a href="./">Início</a></li>
                             <li><a href="consulta">Consulta</a></li>
-                            <li><a href="sobre">Sobre</a></li>
                             <li><a href="faq">FAQ</a></li>
                         </ul>
                     </div>
                     <div class="footer-social">
                         <h4>Links Úteis</h4>
                         <div class="social-icons">
-                            <a href="https://github.com/rkvasne/ineleg-app" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                            <a href="https://github.com/rkvasne/ineleg-app" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                     <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
                                 </svg>
                             </a>
-                            <a href="https://github.com/rkvasne/ineleg-app/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer" aria-label="Changelog">
+                            <a href="https://github.com/rkvasne/ineleg-app/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer" aria-label="Changelog" title="Changelog">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                                     <polyline points="14 2 14 8 20 8"></polyline>
@@ -124,7 +123,7 @@ const Components = (() => {
                                     <line x1="16" y1="17" x2="8" y2="17"></line>
                                 </svg>
                             </a>
-                            <a href="https://github.com/rkvasne/ineleg-app/issues" target="_blank" rel="noopener noreferrer" aria-label="Issues">
+                            <a href="https://github.com/rkvasne/ineleg-app/issues" target="_blank" rel="noopener noreferrer" aria-label="Issues" title="Issues">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                     <circle cx="12" cy="12" r="10"></circle>
                                     <line x1="12" y1="8" x2="12" y2="12"></line>
@@ -219,7 +218,7 @@ const Components = (() => {
                     ${message ? `<p>${message}</p>` : ''}
                 </div>
                 ${dismissible ? `
-                    <button class="alert-close" aria-label="Fechar alerta">
+                    <button class="alert-close" aria-label="Fechar alerta" title="Fechar alerta">
                         <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                         </svg>

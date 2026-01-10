@@ -37,6 +37,7 @@
             btn = document.createElement('button');
             btn.className = 'back-to-top';
             btn.setAttribute('aria-label', 'Voltar ao topo');
+            btn.setAttribute('title', 'Voltar ao topo');
             btn.innerHTML = `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>`;
             document.body.appendChild(btn);
         }
@@ -98,7 +99,7 @@
                 <div class="shortcuts-modal" role="dialog" aria-labelledby="shortcutsTitle">
                     <div class="shortcuts-modal-header">
                         <h2 class="shortcuts-modal-title" id="shortcutsTitle">Atalhos de Teclado</h2>
-                        <button class="shortcuts-modal-close" aria-label="Fechar">
+                        <button class="shortcuts-modal-close" aria-label="Fechar" title="Fechar">
                             <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                             </svg>
