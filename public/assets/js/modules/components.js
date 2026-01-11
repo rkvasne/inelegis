@@ -39,18 +39,17 @@ const Components = (() => {
             `;
         }).join('');
 
-        // Detectar tema atual para escolher logo
-        // logo-dark.png = escudo escuro (para fundo claro)
-        // logo-claro.png = escudo claro (para fundo escuro)
+        const isLandingPage = currentPage === 'landing';
         const isDarkTheme = document.documentElement.classList.contains('dark-theme');
-        const logoSrc = `${IMAGE_BASE_PATH}${isDarkTheme ? 'logo-claro.png' : 'logo-dark.png'}`;
+        const logoSrc = isLandingPage ? `${IMAGE_BASE_PATH}${isDarkTheme ? 'logo-claro.png' : 'logo-dark.png'}` : `${IMAGE_BASE_PATH}logo-dark.png`;
+        const logoLockAttr = isLandingPage ? '' : ' data-logo-lock="true"';
 
         return `
             <header class="system-header">
                 <div class="header-wrapper">
                     <div class="system-brand">
                         <div class="brand-icon">
-                            <img id="header-logo" src="${logoSrc}" alt="Inelegis Logo" width="32" height="32" loading="lazy" style="border-radius: 4px;">
+                            <img id="header-logo"${logoLockAttr} src="${logoSrc}" alt="Inelegis Logo" width="32" height="32" loading="lazy" style="border-radius: 4px;">
                         </div>
                         <div class="brand-text">
                             <h1>Inelegis <span class="version-badge">v0.1.9</span></h1>
@@ -84,10 +83,11 @@ const Components = (() => {
     /**
      * Renderiza o footer
      */
-    function renderFooter() {
+    function renderFooter(currentPage = '') {
         const currentYear = new Date().getFullYear();
+        const isLandingPage = currentPage === 'landing';
         const isDarkTheme = document.documentElement.classList.contains('dark-theme');
-        const logoSrc = `${IMAGE_BASE_PATH}${isDarkTheme ? 'logo-claro.png' : 'logo-dark.png'}`;
+        const logoSrc = isLandingPage ? `${IMAGE_BASE_PATH}${isDarkTheme ? 'logo-claro.png' : 'logo-dark.png'}` : `${IMAGE_BASE_PATH}logo-dark.png`;
         
         return `
             <footer class="main-footer">
@@ -242,7 +242,7 @@ const Components = (() => {
         // Renderizar footer se houver placeholder
         const footerPlaceholder = document.getElementById('footer-placeholder');
         if (footerPlaceholder) {
-            footerPlaceholder.outerHTML = renderFooter();
+            footerPlaceholder.outerHTML = renderFooter(currentPage);
         }
 
         // Inicializar tema após renderizar componentes

@@ -149,6 +149,7 @@ const ThemeManager = (() => {
     function updateLogo(theme) {
         const logo = document.getElementById('header-logo');
         if (!logo) return;
+        if (logo.dataset.logoLock === 'true') return;
         
         // logo-dark.png = escudo escuro (para fundo claro)
         // logo-claro.png = escudo claro (para fundo escuro)
