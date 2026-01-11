@@ -1201,7 +1201,7 @@ code {
   margin: 0 auto;
   display: grid;
   grid-template-columns: 40% 30% 30%;
-  gap: 40px;
+  gap: 60px;
   margin-bottom: 28px;
   align-items: flex-start;
   text-align: left;
