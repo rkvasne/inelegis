@@ -1188,7 +1188,7 @@ code {
 
 .main-footer {
   border-top: 1px solid rgba(255, 255, 255, 0.03);
-  padding: 44px 40px 18px;
+  padding: 60px 40px 20px;
   background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
   margin-top: 0;
   color: rgba(255, 255, 255, 0.8);
@@ -1201,8 +1201,8 @@ code {
   margin: 0 auto;
   display: grid;
   grid-template-columns: 40% 30% 30%;
-  gap: 60px;
-  margin-bottom: 28px;
+  gap: 40px;
+  margin-bottom: 40px;
   align-items: flex-start;
   text-align: left;
 }
@@ -1210,7 +1210,7 @@ code {
 .main-footer .footer-brand {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 20px;
   align-items: flex-start;
   text-align: left;
 }
@@ -1226,7 +1226,7 @@ code {
 .main-footer .footer-links h4,
 .main-footer .footer-social h4 {
   color: rgba(255, 255, 255, 0.8);
-  margin-bottom: 14px;
+  margin-bottom: 20px;
   margin-top: 0;
   font-size: 16px;
   font-weight: 600;
@@ -1248,7 +1248,7 @@ code {
 }
 
 .main-footer .link-list li {
-  margin-bottom: 9px;
+  margin-bottom: 12px;
 }
 
 .main-footer .link-list a {
@@ -1291,7 +1291,7 @@ code {
 
 .main-footer .footer-bottom {
   text-align: center;
-  padding-top: 14px;
+  padding-top: 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.03);
   font-size: 14px;
   color: rgba(255, 255, 255, 0.32);
