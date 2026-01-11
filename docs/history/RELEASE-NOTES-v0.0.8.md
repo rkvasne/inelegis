@@ -1,7 +1,7 @@
 ---
 docStatus: historical
 docScope: history
-lastReviewed: 2025-12-05
+lastReviewed: 2026-01-10
 ---
 # Release Notes - Inelegis v0.0.8
 
@@ -43,7 +43,7 @@ Esta versão representa uma **refatoração completa do sistema de design**, com
 - `consulta.html` - Sistema de consulta
 - `sobre.html` - Página sobre
 - `faq.html` - Perguntas frequentes
-- `js/components.js` - Componente de header
+- `src/js/modules/components.js` - Fonte do header/footer (sincroniza para runtime)
 
 ---
 

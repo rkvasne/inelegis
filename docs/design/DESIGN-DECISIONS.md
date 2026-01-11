@@ -1,7 +1,7 @@
 ---
 docStatus: historical
 docScope: design
-lastReviewed: 2025-12-05
+lastReviewed: 2026-01-10
 ---
 # 🎨 Decisões de Design - Inelegis
 
@@ -283,17 +283,15 @@ Considere migrar para um framework SE:
 
 ## 🎉 Conclusão
 
-**A decisão de usar Vanilla JS foi acertada!**
+**A decisão de usar Vanilla JS foi adequada ao objetivo do projeto.**
 
 Resultados:
-- ✅ Bundle size: 5KB (vs 100KB+ com frameworks)
-- ✅ Tempo de carregamento: 50ms (vs 800ms+)
-- ✅ Manutenibilidade: Excelente
-- ✅ Performance: Máxima
-- ✅ Complexidade: Mínima
+- ✅ Simplicidade de deploy (páginas estáticas)
+- ✅ Menos dependências no runtime
+- ✅ Debugging direto no navegador
 
-**Mantenha simples. Mantenha rápido. Mantenha Vanilla.** 🍦
+Para medir tamanho e artefatos localmente, use os scripts do projeto (ex.: `npm run size` e `npm run build`).
 
 ---
 
-**Dúvidas?** Consulte a [documentação completa](README.md) ou abra uma [issue no GitHub](https://github.com/rkvasne/inelegis/issues).
+**Dúvidas?** Consulte a [documentação completa](../README.md) ou abra uma [issue no GitHub](https://github.com/rkvasne/inelegis/issues).

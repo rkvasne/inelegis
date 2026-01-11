@@ -1,11 +1,11 @@
 ---
 docStatus: active
-docScope: runtime
-lastReviewed: 2025-12-05
+docScope: source
+lastReviewed: 2026-01-10
 ---
-# JS (src)
+# JS (fonte)
 
-Esta pasta contém o código-fonte histórico e/ou de desenvolvimento. O runtime atual da aplicação usa exclusivamente `public/assets/js`.
+Esta pasta contém fontes de desenvolvimento e/ou referência. O runtime carrega `public/assets/js/**`.
 
 ## Papel desta pasta
 
@@ -13,7 +13,7 @@ Esta pasta contém o código-fonte histórico e/ou de desenvolvimento. O runtime
 - Desenvolvimento local: pode ser usada como origem em pipelines de build, quando configurados.
 - Não participar do runtime: páginas públicas carregam scripts de `public/assets/js`.
 
-## Onde está o código ativo
+## Onde está o código ativo (runtime)
 
 - Dados normalizados: `public/assets/js/data-normalizado.js` (gera `window.__INELEG_NORMALIZADO__`).
 - API de consulta: `public/assets/js/consulta-normalizado.js` (expõe `DataNormalizer`).
@@ -43,5 +43,4 @@ Esta pasta contém o código-fonte histórico e/ou de desenvolvimento. O runtime
 
 ## Status
 
-- **Última atualização:** 05 de dezembro de 2025  
-- **Versão:** 0.1.9
+- **Última atualização:** 10 de janeiro de 2026

@@ -1,7 +1,9 @@
+---
+docStatus: reference
+docScope: design
+lastReviewed: 2026-01-11
+---
 # 🧩 Guia de Componentes Reutilizáveis
-
-**Última atualização:** 02 de dezembro de 2025  
-**Versão:** 0.1.0
 
 Este documento descreve o sistema de componentes reutilizáveis do Inelegis.
 
@@ -298,7 +300,7 @@ Todos os componentes possuem testes automatizados que verificam:
 
 ## 📝 Exemplos Práticos
 
-> 💡 Carregue `js/theme-bootstrap.js` no `<head>` para aplicar o tema antes do primeiro paint. Se a página exigir confirmação dos termos, também inclua `js/terms-gate.js` logo após o bootstrap.
+> 💡 Carregue `/assets/js/modules/theme-bootstrap.js` no `<head>` para aplicar o tema antes do primeiro paint. Se a página exigir confirmação dos termos, também inclua `/assets/js/modules/terms-gate.js` logo após o bootstrap.
 
 ### Página Completa
 
@@ -309,9 +311,9 @@ Todos os componentes possuem testes automatizados que verificam:
     <meta charset="UTF-8">
     <title>Minha Página | Inelegis</title>
     <link rel="stylesheet" href="/styles/styles.css">
-    <script src="js/theme-bootstrap.js"></script>
+    <script src="/assets/js/modules/theme-bootstrap.js?v=0.2.0"></script>
     <!-- Opcional: restringe acesso caso os termos não tenham sido aceitos -->
-    <script src="js/terms-gate.js"></script>
+    <script src="/assets/js/modules/terms-gate.js?v=0.2.0"></script>
 </head>
 <body>
     <div id="header-placeholder"></div>
@@ -324,8 +326,8 @@ Todos os componentes possuem testes automatizados que verificam:
 
     <div id="footer-placeholder"></div>
 
-    <script src="js/components.js"></script>
-    <script src="js/theme-manager.js"></script>
+    <script src="/assets/js/modules/components.js?v=0.2.0" defer></script>
+    <script src="/assets/js/modules/theme-manager.js?v=0.2.0" defer></script>
     <script>
         Components.init('minha-pagina');
     </script>
@@ -360,14 +362,14 @@ document.getElementById('container').innerHTML = card;
 
 ### Adicionando Novos Componentes
 
-1. Adicione a função no arquivo `js/components.js`
+1. Faça as alterações em `src/js/modules/components.js`
 2. Documente os parâmetros e retorno
-3. Crie testes em `tests/components.test.js`
+3. Crie/atualize testes em `tests/components.test.js`
 4. Atualize este documento
 
 ### Modificando Componentes Existentes
 
-1. Faça as alterações em `js/components.js`
+1. Faça as alterações em `src/js/modules/components.js`
 2. Atualize os testes se necessário
 3. Execute `npm run test:components`
 4. Atualize a documentação
@@ -376,10 +378,11 @@ document.getElementById('container').innerHTML = card;
 
 ## 📚 Referências
 
-- [DEVELOPMENT.md](DEVELOPMENT.md) - Guia técnico completo
+- [DEVELOPMENT.md](../guides/DEVELOPMENT.md) - Guia técnico completo
 - [README.md](../README.md) - Visão geral do projeto
-- [js/components.js](../js/components.js) - Código fonte dos componentes
+- [src/js/modules/components.js](../../src/js/modules/components.js) - Fonte dos componentes
+- [public/assets/js/modules/components.js](../../public/assets/js/modules/components.js) - Runtime (sincronizado)
 
 ---
 
-**Dúvidas?** Consulte a [documentação completa](README.md) ou abra uma [issue no GitHub](https://github.com/rkvasne/inelegis/issues).
+**Dúvidas?** Consulte a [documentação completa](../README.md) ou abra uma [issue no GitHub](https://github.com/rkvasne/inelegis/issues).

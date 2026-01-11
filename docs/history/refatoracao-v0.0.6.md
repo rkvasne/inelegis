@@ -1,7 +1,7 @@
 ---
 docStatus: historical
 docScope: history
-lastReviewed: 2025-12-05
+lastReviewed: 2026-01-10
 ---
 # 🔧 Histórico Consolidado da Refatoração v0.0.6
 
@@ -234,5 +234,5 @@ tests/
 
 - [`docs/guides/DEVELOPMENT.md`](../guides/DEVELOPMENT.md)
 - [`docs/guides/MAINTENANCE.md`](../guides/MAINTENANCE.md)
-- [`docs/CHANGELOG-DOCS.md`](../CHANGELOG-DOCS.md)
+- [`CHANGELOG.md`](../../CHANGELOG.md)
 - OWASP, Web.dev Performance, WCAG 2.1, Conventional Commits

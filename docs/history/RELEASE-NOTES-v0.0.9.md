@@ -1,7 +1,7 @@
 ---
 docStatus: historical
 docScope: history
-lastReviewed: 2025-12-05
+lastReviewed: 2026-01-10
 ---
 # Release Notes - Inelegis v0.0.9
 
@@ -36,7 +36,7 @@ lastReviewed: 2025-12-05
 ### Ajustes complementares
 
 - `docs/README.md` e `README.md` agora apresentam navegação direta para as novas pastas.
-- `CHANGELOG-DOCS.md` registra a consolidação e substituição dos arquivos legados (`HISTORICO.md`, `REFACTORING-PLAN.md`, `IMPLEMENTATION-GUIDE.md`).
+- O `CHANGELOG.md` registra a consolidação e substituição dos arquivos legados (`HISTORICO.md`, `REFACTORING-PLAN.md`, `IMPLEMENTATION-GUIDE.md`).
 - `history/SESSION-SUMMARY-2025-12-02.md` substitui o antigo `SUMMARY.md` e mantém o resumo executivo fora da raiz.
 
 ---
@@ -62,6 +62,7 @@ lastReviewed: 2025-12-05
 
 1. Revisar `docs/README.md` e garantir que todos os links navegam corretamente.
 2. Executar `npm run lint` para verificar se não há apontamentos de documentação pendentes (script customizado).
-3. Conferir `CHANGELOG-DOCS.md` para histórico completo e rastreabilidade.
+3. Conferir `CHANGELOG.md` para histórico completo e rastreabilidade.
+3. Conferir `CHANGELOG.md` para histórico completo e rastreabilidade.
 
 > Esta release não introduz mudanças funcionais, focando exclusivamente em organização, documentação e rastreamento de versão.

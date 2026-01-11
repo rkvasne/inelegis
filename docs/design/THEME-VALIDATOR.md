@@ -1,7 +1,7 @@
 ---
 docStatus: historical
 docScope: design
-lastReviewed: 2025-12-05
+lastReviewed: 2026-01-10
 ---
 # Theme Validator Pro - Documentação Completa
 
