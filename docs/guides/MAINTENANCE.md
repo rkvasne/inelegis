@@ -1,9 +1,11 @@
+---
+docStatus: active
+docScope: guide
+lastReviewed: 2026-01-10
+---
 # Manutenção e Validação de Dados
 
-**Última atualização:** 01 de dezembro de 2025
-**Status de conformidade:** ✅ 100% com XML TRE-SP (outubro/2024)
-**Próxima revisão recomendada:** 24 de janeiro de 2026 (trimestral)
-**Tipo:** Sistema não oficial (ferramenta auxiliar)
+Este guia descreve como manter os dados normalizados e validar o funcionamento do projeto. Ele não substitui validação jurídica e não certifica uso em produção.
 
 ---
 
@@ -11,13 +13,8 @@
 
 ### Resumo Executivo
 ```
-✅ Completude:     100% (todas as 41 leis presentes)
-✅ Precisão:        100% (todas as discrepâncias corrigidas)
-✅ Integridade:    100% (0 artigos faltantes)
-✅ Conformidade:   100% (alinhado com LC 64/90 e LC 135/2010)
-✅ Atualização:    100% (inclui modificações até 2024)
-
-CERTIFICAÇÃO: ✅ SISTEMA APROVADO PARA PRODUÇÃO
+Este resumo deve ser tratado como checklist operacional e não como certificação.
+Use os scripts e testes do repositório para obter um resultado verificável.
 ```
 
 ### Métricas Detalhadas
@@ -36,7 +33,7 @@ CERTIFICAÇÃO: ✅ SISTEMA APROVADO PARA PRODUÇÃO
 ### Código Penal (CP) - Decreto-Lei 2.848/40
 ✅ 11 grupos de artigos validados
 ✅ 38 exceções verificadas
-✅ 100% conformidade
+✅ Validação realizada conforme checklist do projeto
 
 **Categorias de crime:**
 - Crimes contra a vida
@@ -53,14 +50,14 @@ CERTIFICAÇÃO: ✅ SISTEMA APROVADO PARA PRODUÇÃO
 ### Código Penal Militar (CPM) - Decreto-Lei nº 1.001/69
 ✅ 10 grupos de artigos validados
 ✅ 13 exceções verificadas
-✅ 100% conformidade (com 1 correção menor já aplicada)
+✅ Validação realizada conforme checklist do projeto (com 1 correção menor já aplicada)
 
 **Nota especial:** O conceito de "crime de menor potencial ofensivo" não se aplica ao CPM conforme art. 90-A da Lei 9.099/95
 
 ---
 
 ### Leis Especiais (31 leis)
-✅ 30 leis com 100% conformidade
+✅ 30 leis validadas conforme checklist do projeto
 ✅ 1 lei com formatação ligeiramente diferente (sem impacto)
 ✅ 65 exceções validadas
 
@@ -240,7 +237,7 @@ Use o campo `observacao` nos itens normalizados para registrar data e origem da 
 
 | Data | Versão | Status | Notas |
 |------|--------|--------|-------|
-| 2025-10-24 | 0.0.2 | ✅ 100% | Conformidade perfeita alcançada |
+| 2025-10-24 | 0.0.2 | ✅ Ok | Checklist aplicado |
 | 2025-10-22 | 0.0.1 | ✅ Baseline | Implementação inicial |
 
 ---
@@ -286,26 +283,12 @@ Todos os problemas identificados anteriormente foram corrigidos:
 ### Documentação Interna
 - [DEVELOPMENT.md](DEVELOPMENT.md) - Guia técnico
 - [README.md](../README.md) - Índice da Documentação
-- [manual-ase.md](references/manual-ase.md) - Guia operacional
+- [manual-ase.md](../references/manual-ase.md) - Guia operacional
 
 ---
 
-## ✅ Assinatura de Validação
+## Status do Documento
 
-**Validado por:** Análise automática ferramenta de IA
-**Data:** 22 de outubro de 2025
-**Status:** ✅ APROVADO PARA PRODUÇÃO
-**Próxima revisão:** 22 de janeiro de 2026
-
-Este documento certifica que o sistema Ineleg-App está:
-- ✅ Conforme com legislação brasileira vigente
-- ✅ Alinhado com tabela oficial TRE-SP
-- ✅ Pronto para uso operacional
-- ✅ Adequadamente documentado
-- ✅ Seguindo melhores práticas de manutenção
-
----
-
-**Versão deste documento:** 1.0
+- **Última atualização:** 10 de janeiro de 2026
 **Último update:** 01 de dezembro de 2025
 **Status:** ✅ Consolidado e validado

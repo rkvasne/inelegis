@@ -1,7 +1,9 @@
+---
+docStatus: active
+docScope: guide
+lastReviewed: 2026-01-11
+---
 # Guia de Desenvolvimento
-
-**Última atualização:** 04 de dezembro de 2025
-**Versão atual:** 0.1.4
 
 Este arquivo fornece orientações técnicas para desenvolvedores trabalhando neste repositório.
 
@@ -36,47 +38,47 @@ Como esta é uma aplicação frontend com sistema de build:
 
 ### Arquivos Principais
 
-**[index.html](../public/index.html)** - Estrutura HTML contendo:
+**[index.html](../../public/index.html)** - Estrutura HTML contendo:
 - Formulário de busca com alternância de tipo de comunicação (Condenação/Extinção).
 - Dropdown de leis e campo de artigo.
 - Modal de exibição de resultados.
 - Painéis de informação e avisos legais.
 - Legenda explicando os tipos de resultado.
 
-**[script.js](../src/js/script.js)** - Lógica da aplicação organizada em grupos funcionais:
+**[script.js](../../src/js/script.js)** - Lógica da aplicação (fonte) organizada em grupos funcionais:
 1. **Lógica de Busca**: `realizarBusca()` - Núcleo da consulta (usa `DataNormalizer.query`).
 2. **Gerenciamento de UI**: `exibirResultado()` - Exibição de resultados (usa ModalManager).
 3. **Sugestões**: `mostrarSugestoes()`, `obterSugestoesPorLei()` - Sugestões em tempo real.
 
 ### Módulos JavaScript (v0.0.7+)
 
-**[modules/sanitizer.js](../src/js/modules/sanitizer.js)** - Segurança:
+**[modules/sanitizer.js](../../src/js/modules/sanitizer.js)** - Segurança:
 - `escapeHtml()` - Previne XSS
 - `safeInnerHTML()` - Inserção segura de HTML
 - `sanitizeAttributes()` - Remove atributos perigosos
 
-**[modules/storage.js](../src/js/modules/storage.js)** - Armazenamento:
+**[modules/storage.js](../../src/js/modules/storage.js)** - Armazenamento:
 - `setItem()` - Salva com validação e expiração
 - `getItem()` - Recupera com validação
 - `cleanExpired()` - Limpeza automática
 
-**[modules/formatters.js](../src/js/modules/formatters.js)** - Formatação:
+**[modules/formatters.js](../../src/js/modules/formatters.js)** - Formatação:
 - `formatar()` - Auto-correção (§1 → §1º, cc → c/c)
 - `processar()` - Parse de notação complexa
 - `extrairArtigos()` - Extração de números
 
-**[modules/exceptions.js](../src/js/modules/exceptions.js)** - Validação:
+**[modules/exceptions.js](../../src/js/modules/exceptions.js)** - Validação:
 - `verificar()` - Verifica exceções aplicáveis
 - `filtrarPorArtigo()` - Filtra exceções relevantes
 
-**[modules/modal-manager.js](../src/js/modules/modal-manager.js)** - Interface:
+**[modules/modal-manager.js](../../src/js/modules/modal-manager.js)** - Interface:
 - `open()` - Abre modal com conteúdo
 - `close()` - Fecha modal
 - `exportContent()` - Exporta resultado
 
 **[modules/search-index.js] (descontinuado)** - Módulo legado substituído por `data-normalizado.js`. Consultas devem usar apenas `DataNormalizer.query` e índices gerados por `DataNormalizer.getItensPorLei`.
 
-**[modules/search-history.js](../src/js/modules/search-history.js)** - Histórico (v0.1.0):
+**[modules/search-history.js](../../src/js/modules/search-history.js)** - Histórico (v0.1.0):
 - `add()` - Adiciona consulta (com detecção de duplicatas)
 - `getRecent()` - Obtém consultas recentes
 - `getFrequent()` - Obtém consultas frequentes
@@ -84,20 +86,20 @@ Como esta é uma aplicação frontend com sistema de build:
 - `clear()` / `remove()` - Intencionalmente desabilitados (logam um aviso e retornam `false`)
 - Persistência: histórico fica somente no Redis via `/api/search-history`; o front guarda apenas um `userId` em cookie (`inelegis_uid`) para correlacionar sessões, sem gravar dados sensíveis no `localStorage`.
 
-**[modules/history-page.js](../src/js/modules/history-page.js)** - Tela de Histórico/Admin (v0.1.0):
+**[modules/history-page.js](../../src/js/modules/history-page.js)** - Tela de Histórico/Admin (v0.1.0):
 - `init()` - Inicializa página dedicada (`historico.html`).
 - `loadData()` - Sincroniza registros e estatísticas via `SearchHistory`/Redis.
 - `renderSummary()` / `renderTable()` - Exibe cards, listas (recentes/frequentes) e tabela com filtro.
 - `exportHistory()` - Copia para clipboard ou baixa `.txt` com todos os registros.
 > 📎 A tela não aparece na navegação: acesse diretamente `/historico.html` (link interno restrito).
 
-**[modules/theme-manager.js](../src/js/modules/theme-manager.js)** - Gerenciamento de Tema (v0.0.7):
+**[modules/theme-manager.js](../../src/js/modules/theme-manager.js)** - Gerenciamento de Tema (v0.0.7):
 - `init()` - Inicializa tema (detecta preferência do sistema)
 - `toggle()` - Alterna entre claro/escuro
 - `apply()` - Aplica tema específico
 - `getCurrent()` - Obtém tema atual
 
-**[modules/components.js](../src/js/modules/components.js)** - Componentes Reutilizáveis (v0.0.7):
+**[modules/components.js](../../src/js/modules/components.js)** - Componentes Reutilizáveis (v0.0.7):
 - `init()` - Inicializa componentes na página
 - `renderHeader()` - Renderiza header com tema toggle
 - `renderNav()` - Renderiza navegação
@@ -107,11 +109,11 @@ Como esta é uma aplicação frontend com sistema de build:
 - `renderAlert()` - Renderiza alertas
 6. **Atalhos de Teclado**: Implementação de hotkeys (Ctrl+L, Ctrl+A, Ctrl+Enter, F1, Esc).
 
-**[data-normalizado.js](../public/assets/js/data-normalizado.js)** - Fonte de dados normalizados:
+**[data-normalizado.js](../../public/assets/js/data-normalizado.js)** - Fonte de dados normalizados:
 1. `window.__INELEG_NORMALIZADO__` - Estrutura gerada a partir do XML oficial.
 2. Cada item contém: `codigo`, `norma`, `excecoes[]`, `crime`, `observacao`, `estruturado.artigos[]`.
 
-**[styles.css](../public/styles/styles.css)** - Sistema de design CSS profissional:
+**[styles.css](../../public/styles/styles.css)** - Sistema de design CSS profissional:
 - Paleta de cores corporativa e tokens de design.
 - Layout responsivo com componentes modernos.
 - Efeitos de glassmorphism e animações.
@@ -184,7 +186,7 @@ Os dados oficiais são extraídos do XML em `docs/references/tabela-oficial.xml`
 ## 📚 Referências de Documentação
 
 - **[README.md](../README.md)** - Funcionalidades, atalhos, exemplos de uso.
-- **[manual-ase.md](references/manual-ase.md)** - Manual do sistema eleitoral com explicações de códigos ASE.
+- **[manual-ase.md](../references/manual-ase.md)** - Manual do sistema eleitoral com explicações de códigos ASE.
 - **Tabelas PDF/XML** - Dados oficiais de referência do TRE-SP em `docs/references/`.
 
 ---
@@ -365,4 +367,4 @@ node tests/exceptions.test.js
 
 ---
 
-**Última atualização:** 02/12/2025
+**Última atualização:** 11/01/2026

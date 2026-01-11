@@ -1,7 +1,7 @@
 ---
 docStatus: active
 docScope: docs-index
-lastReviewed: 2025-12-05
+lastReviewed: 2026-01-11
 ---
 # 📚 Documentação do Inelegis
 
@@ -72,7 +72,9 @@ docs/
 │
 ├── history/                 # Releases e marcos do projeto
 │   ├── refatoracao-v0.0.6.md
-│   ├── RELEASE-NOTES-v0.0.9.md
+│   ├── RELEASE-NOTES-v0.2.0.md
+│   ├── RELEASE-NOTES-v0.1.9.md
+│   ├── ...
 │   └── RELEASE-NOTES-v0.0.8.md
 │
 └── references/              # Materiais oficiais e anexos
@@ -85,10 +87,10 @@ docs/
 Para manter consistência entre todos os documentos:
 
 1. Inicie cada arquivo com um título (`# Nome do Documento`).
-2. Em seguida inclua um bloco de metadados com **Data**, **Versão** (quando aplicável) e **Status**.
-3. Utilize subtítulos em segunda pessoa (`## Seção`) e listas curtas e escaneáveis.
+2. Inclua o frontmatter YAML com `docStatus`, `docScope` e `lastReviewed`.
+3. Utilize subtítulos (`## Seção`) e listas curtas e escaneáveis.
 4. Quando referenciar outro arquivo, prefira caminhos relativos (ex.: `../CHANGELOG.md`).
-5. Atualize o campo "Última atualização" sempre que modificar conteúdo substancial.
+5. Atualize `lastReviewed` sempre que revisar ou alterar conteúdo substancial.
 
 ## 🔗 Links Úteis
 
@@ -111,5 +113,5 @@ Veja [Release Notes v0.2.0](history/RELEASE-NOTES-v0.2.0.md) para o resumo compl
 
 ---
 
-**Última atualização:** 05 de dezembro de 2025  
+**Última atualização:** 11 de janeiro de 2026  
 **Versão:** 0.2.0

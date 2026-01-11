@@ -19,7 +19,7 @@
 
   [![Version](https://img.shields.io/badge/version-0.2.0-blue.svg?style=for-the-badge)](https://semver.org)
   [![License](https://img.shields.io/badge/license-MIT-green.svg?style=for-the-badge)](LICENSE)
-  [![Tests](https://img.shields.io/badge/tests-100%25-success.svg?style=for-the-badge)](tests/)
+  [![Tests](https://img.shields.io/badge/tests-suite-blue.svg?style=for-the-badge)](tests/)
   [![Theme](https://img.shields.io/badge/theme-validated-success.svg?style=for-the-badge)](docs/design/THEME-VALIDATOR.md)
 
 </div>
@@ -125,7 +125,7 @@ inelegis-app/
 └── README.md
 ```
 
-> **Nota:** os arquivos em `src/js` são sincronizados automaticamente para `public/assets/js` via `npm run sync:js` (executado por `npm run dev/build`). Sempre edite os fontes dentro de `src/` e considere `public/assets/js/data-normalizado.js` e `public/assets/js/consulta-normalizado.js` como as fontes oficiais carregadas no runtime.
+> **Nota:** o runtime carrega scripts de `public/assets/js`. Quando existir fonte equivalente em `src/js`, ela pode ser sincronizada para o runtime via `npm run sync:js` (executado por `npm run dev/build`).
 
 ---
 

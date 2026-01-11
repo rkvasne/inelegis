@@ -1,32 +1,35 @@
 ---
 docStatus: active
 docScope: runtime
-lastReviewed: 2025-12-05
+lastReviewed: 2026-01-10
 ---
-# JS (src)
+# JS (runtime)
 
-Esta pasta contém o código-fonte histórico e/ou de desenvolvimento. O runtime atual da aplicação usa exclusivamente `public/assets/js`.
+Esta pasta contém os scripts carregados pelas páginas em produção.
 
-## Papel desta pasta
+## Fonte, build e sincronização
 
-- Espelho histórico: mantém versões anteriores e bases de referência para desenvolvimentos.
-- Desenvolvimento local: pode ser usada como origem em pipelines de build, quando configurados.
-- Não participar do runtime: páginas públicas carregam scripts de `public/assets/js`.
+- O runtime carrega `public/assets/js/**`.
+- Quando existir fonte equivalente em `src/js/**`, ela pode ser sincronizada para cá.
+- Arquivos gerados (ex.: dados normalizados) também vivem em `public/assets/js/**`.
 
 ## Onde está o código ativo
 
-- Dados normalizados: `public/assets/js/data-normalizado.js` (gera `window.__INELEG_NORMALIZADO__`).
-- API de consulta: `public/assets/js/consulta-normalizado.js` (expõe `DataNormalizer`).
-- Lógica da página: `public/assets/js/script.js` e módulos em `public/assets/js/modules/`.
+- Dados normalizados: `data-normalizado.js` (gera `window.__INELEG_NORMALIZADO__`).
+- API de consulta: `consulta-normalizado.js` (expõe `DataNormalizer`).
+- Lógica de página: `script.js` e módulos em `modules/`.
 
-> **Nota:** O arquivo `src/js/data.js` (antigo espelho dos dados brutos do PDF) foi removido na versão 0.1.9 para evitar confusão. A única fonte de verdade para dados agora é `public/assets/js/data-normalizado.js`.
+## Fonte dos dados
+
+- Fonte: `docs/references/tabela-oficial.xml`
+- Gerador: `scripts/extrair_normalizado_xml.js`
 
 ## Ordem de carregamento (referência)
 
-1. Módulos base de UI e utilitários (`public/assets/js/modules/*`).
-2. Dados (`public/assets/js/data-normalizado.js`).
-3. API de consulta (`public/assets/js/consulta-normalizado.js`).
-4. Scripts de página (`public/assets/js/script.js`).
+1. Módulos base de UI e utilitários (`modules/*`).
+2. Dados (`data-normalizado.js`).
+3. API de consulta (`consulta-normalizado.js`).
+4. Scripts de página (`script.js`).
 
 ## Convenções e nomes
 
@@ -43,5 +46,4 @@ Esta pasta contém o código-fonte histórico e/ou de desenvolvimento. O runtime
 
 ## Status
 
-- **Última atualização:** 05 de dezembro de 2025  
-- **Versão:** 0.1.9
+- **Última atualização:** 10 de janeiro de 2026

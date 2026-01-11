@@ -1,7 +1,7 @@
 ---
 docStatus: reference
 docScope: operations
-lastReviewed: 2025-12-05
+lastReviewed: 2026-01-10
 ---
 # 📊 Sistema de Analytics
 
@@ -41,7 +41,7 @@ Coleta dados anônimos de uso para:
 ## 🏗️ Arquitetura
 
 ```
-Frontend (js/analytics.js)
+Frontend (`public/assets/js/modules/analytics.js`)
     ↓
 Coleta eventos em batch
     ↓
@@ -174,7 +174,7 @@ await redis.incr('analytics:total');
 await redis.zincrby('analytics:top:leis', 1, lei);
 ```
 
-**Configuração:** Ver [SETUP-REDIS.md](SETUP-REDIS.md)
+**Configuração:** Ver [SETUP-REDIS.md](../guides/SETUP-REDIS.md)
 
 ---
 
@@ -194,11 +194,11 @@ await redis.zincrby('analytics:top:leis', 1, lei);
 - Dashboard protegido por token
 - Dados anônimos (sem PII)
 - TTL de 90 dias nos eventos
- - Sugestões no frontend são sanitizadas via `Sanitizer.safeInnerHTML`
+- Sugestões no frontend são sanitizadas via `Sanitizer.safeInnerHTML`
 
 ---
 
 ## 📚 Referências
 
-- [SETUP-REDIS.md](SETUP-REDIS.md) - Configuração do Redis
-- [VARIAVEIS-AMBIENTE.md](VARIAVEIS-AMBIENTE.md) - Variáveis necessárias
+- [SETUP-REDIS.md](../guides/SETUP-REDIS.md) - Configuração do Redis
+- [VARIAVEIS-AMBIENTE.md](../guides/VARIAVEIS-AMBIENTE.md) - Variáveis necessárias

@@ -1,3 +1,8 @@
+---
+docStatus: reference
+docScope: guide
+lastReviewed: 2026-01-10
+---
 # 🚀 Setup do Redis
 
 ---

@@ -1,3 +1,8 @@
+---
+docStatus: active
+docScope: runtime
+lastReviewed: 2026-01-11
+---
 # 📦 Módulos JavaScript - Inelegis
 
 Esta pasta contém os módulos JavaScript do projeto Inelegis, criados como parte do plano de refatoração v0.0.6.
@@ -129,29 +134,27 @@ Substituído por `data-normalizado.js` com `DataNormalizer.query` e índices int
 
 ## 🔗 Dependências
 
-### 🔗 Dependências
-
 ### Ordem de Carregamento
 Os módulos e dados devem ser carregados nesta ordem no HTML:
 
 ```html
 <!-- 1. Módulos base (sem dependências) -->
-<script src="js/sanitizer.js"></script>
-<script src="js/storage.js"></script>
+<script src="/assets/js/modules/sanitizer.js?v=0.2.0" defer></script>
+<script src="/assets/js/modules/storage.js?v=0.2.0" defer></script>
 
 <!-- 2. Módulos de processamento -->
-<script src="js/formatters.js"></script>
-<script src="js/exceptions.js"></script>
+<script src="/assets/js/modules/formatters.js?v=0.2.0" defer></script>
+<script src="/assets/js/modules/exceptions.js?v=0.2.0" defer></script>
 
 <!-- 3. Módulos de UI -->
-<script src="js/modal-manager.js"></script>
+<script src="/assets/js/modules/modal-manager.js?v=0.2.0" defer></script>
 
 <!-- 4. Dados normalizados (fonte única de verdade) -->
-<script src="/assets/js/data-normalizado.js"></script>
+<script src="/assets/js/data-normalizado.js" defer></script>
 
 <!-- 5. API de consulta e lógica principal -->
-<script src="/assets/js/consulta-normalizado.js"></script>
-<script src="script.js"></script>
+<script src="/assets/js/consulta-normalizado.js" defer></script>
+<script src="/assets/js/script.js" defer></script>
 ```
 
 ---
@@ -173,20 +176,6 @@ npm run test:unit
 
 ---
 
-## 📊 Performance
-
-### Antes da Modularização
-- Busca: ~50ms
-- Código duplicado: 15%
-- Manutenibilidade: Baixa
-
-### Depois da Modularização
-- Busca: ~5ms (90% mais rápido)
-- Código duplicado: <5%
-- Manutenibilidade: Alta
-
----
-
 ## 🔒 Segurança
 
 Todos os módulos seguem práticas de segurança:
@@ -202,7 +191,7 @@ Todos os módulos seguem práticas de segurança:
 ## 📚 Documentação Adicional
 
 - [Histórico da Refatoração](../../../docs/history/refatoracao-v0.0.6.md)
-- [Release Notes v0.1.0](../../../CHANGELOG.md)
+- [Changelog](../../../CHANGELOG.md)
 
 ---
 
@@ -217,30 +206,9 @@ Ao adicionar novos módulos:
 5. Atualizar este README
 
 ---
-
-## 📝 Changelog
-
-### v0.1.0 (02/12/2025)
-- ✅ Consolidação da documentação, remoção de duplicatas e padronização
-- ✅ Versão dos módulos, badges e metadados atualizados para 0.1.0
-- ✅ Links internos apontando para documentação central
-
-### v0.0.8 (02/12/2025)
-- ✅ Sistema de toast e modal para UX
-- ✅ Verificação de termos no menu
-- ✅ Cache desabilitado (sem Service Worker)
-- ✅ Header com tons de azul
-
-### v0.0.7 (02/12/2025)
-- ✅ `search-history.js` - Sincronização com Redis
-- ✅ `analytics.js` - Envio de eventos para API
-
-### v0.0.6 (01/12/2025)
-- ✅ Criação inicial dos 6 módulos
-- ✅ Implementação de testes
 - ✅ Documentação completa
 
 ---
 
-**Última atualização:** 05 de dezembro de 2025  
-**Versão:** 0.1.9
+**Última atualização:** 11 de janeiro de 2026  
+**Versão:** 0.2.0

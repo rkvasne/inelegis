@@ -1,7 +1,7 @@
 ---
 docStatus: historical
 docScope: release-notes
-lastReviewed: 2025-12-05
+lastReviewed: 2026-01-10
 ---
 # Release Notes - v0.2.0
 
