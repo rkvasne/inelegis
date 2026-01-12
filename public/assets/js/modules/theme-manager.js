@@ -164,7 +164,7 @@ const ThemeManager = (() => {
     function updateFavicon(theme) {
         // logo-dark.ico = escudo escuro (para tema claro)
         // logo-claro.ico = escudo claro (para tema escuro)
-        const faviconFilename = theme === THEME_DARK ? 'logo-claro.ico' : 'logo-dark.ico';
+        const faviconFilename = 'logo-dark.ico';
         const faviconSrc = `${IMAGE_BASE_PATH}${faviconFilename}`;
         
         // Atualizar favicon existente
