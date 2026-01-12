@@ -19,13 +19,17 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ### 🎨 UI/UX
 - **Footer**:
+  - Sincronização de layout com projeto Dahora App (Grid 40% / 30% / 30%).
+  - Correção de conflito de classes (`.footer-content`) que comprimia a largura do rodapé.
+  - Largura forçada para 100% dentro do container de 1200px para evitar "shrink" indesejado.
   - Redesign completo para estilo minimalista e compacto.
   - Altura reduzida com espaçamento otimizado entre elementos.
   - Tipografia ajustada: Fonte 15px para copyright e 13px para descrição e links.
   - Alinhamento visual unificado entre Landing Page e páginas internas.
-  - Ajuste de espaçamento entre colunas (gap) para consistência.
   - Remoção da borda/“card” ao redor da logo no rodapé.
   - Breakpoint de altura fixa ajustado para incluir 768px (desktop).
+- **Favicon**:
+  - Atualizado para `logo-dark.ico` em todas as páginas e modos (Claro/Escuro) para consistência.
 - **Cards**:
   - Melhorado contraste de subtítulos no tema escuro (ex.: “Confirme os termos...”).
 - **Legenda de Resultados**:

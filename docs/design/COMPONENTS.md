@@ -95,27 +95,23 @@ const header = Components.renderHeader('consulta');
 
 ### 2. Footer
 
-Renderiza o rodapé com informações de copyright e links úteis.
+Renderiza o rodapé principal do site, sincronizado visualmente com o padrão do projeto.
 
 **Uso:**
 ```javascript
-const footer = Components.renderFooter();
+// Renderizado automaticamente via Components.init()
+// Mas pode ser chamado manualmente:
+const footerHtml = Components.renderFooter('landing'); // ou 'internal'
 ```
 
-**Parâmetros:** Nenhum
+**Estrutura CSS:**
+- `.main-footer`: Container principal (fundo, padding, bordas)
+- `.footer-content`: Grid de 3 colunas (40% / 30% / 30%) com largura máx de 1200px
+- `.footer-bottom`: Linha de copyright e links secundários
 
-**Retorna:** String HTML
-
-**Exemplo:**
-```javascript
-const footer = Components.renderFooter();
-// Renderiza footer com ano atual automaticamente
-```
-
-**Características:**
-- Copyright com ano dinâmico
-- Links para documentação
-- Links para GitHub
+**Nota:**
+Existe um legado `.footer` (footer compacto) que não deve ser confundido com `.main-footer`.
+O layout utiliza `display: grid` em desktop e cai para coluna única em mobile (< 768px).
 
 ---
 
