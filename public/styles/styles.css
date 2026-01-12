@@ -1447,6 +1447,11 @@ html:not(.dark-theme) .main-footer .footer-bottom {
     margin: 6px 0;
     font-size: 12px;
   }
+
+  .main-footer .footer-links h4,
+  .main-footer .footer-social h4 {
+    justify-content: center;
+  }
 }
 
 @media (max-width: 480px) {
