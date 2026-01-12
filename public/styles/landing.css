@@ -105,7 +105,7 @@ html{scroll-behavior:smooth}
 .skip-to-content{position:absolute;top:-100%;left:50%;transform:translateX(-50%);background:var(--primary-600);color:#fff;padding:.5rem 1rem;border-radius:.375rem;text-decoration:none;font-weight:500;z-index:9999;transition:top .2s ease}
 .skip-to-content:focus{top:.5rem}
 .main-footer{border-top:1px solid rgba(255,255,255,.03);padding:60px 40px 20px;background:linear-gradient(180deg,#1e293b 0%,#0f172a 100%);margin-top:0;color:rgba(255,255,255,.8);text-align:left;box-sizing:border-box}
-.main-footer .footer-content{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:40% 30% 30%;gap:40px;margin-bottom:40px;align-items:flex-start}
+.main-footer .footer-content{width:100%;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:40% 30% 30%;gap:40px;margin-bottom:40px;align-items:flex-start}
 .main-footer .footer-brand{display:flex;flex-direction:column;gap:20px;align-items:flex-start;text-align:left}
 .main-footer .footer-brand p{margin:0;padding:0;font-size:14px;color:rgba(255,255,255,.5);line-height:1.6}
 .main-footer .footer-links h4,.main-footer .footer-social h4{color:rgba(255,255,255,.8);margin-bottom:20px;margin-top:0;font-size:16px;font-weight:600;line-height:1.2;height:32px;display:flex;align-items:center}
