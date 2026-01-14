@@ -372,6 +372,36 @@ document.getElementById('container').innerHTML = card;
 
 ---
 
+## 📐 Padrões de Layout
+
+O sistema utiliza variáveis CSS globais para garantir consistência de alinhamento entre Landing Page e Aplicação.
+
+### Container & Espaçamento
+- **Largura Máxima (`--container-width`)**: `1440px`
+  - Define o limite de largura do conteúdo central em telas grandes.
+  - Alinhado com padrões modernos (referência: Perssua.com).
+
+- **Gutter Lateral (`--page-gutter`)**: `1.25rem` (20px)
+  - Espaçamento interno fixo nas laterais do container.
+  - Aplicado uniformemente em Header, Main Content e Footer.
+
+- **Breakpoints**:
+  - Desktop: `>= 768px`
+  - Mobile: `< 768px`
+
+### Estrutura CSS Recomendada
+Ao criar novas páginas, utilize a classe `.container` para herdar esses padrões automaticamente:
+
+```css
+.container {
+  max-width: var(--container-width); /* 1440px */
+  margin: 0 auto;
+  padding: 0 var(--page-gutter); /* 20px */
+}
+```
+
+---
+
 ## 📚 Referências
 
 - [DEVELOPMENT.md](../guides/DEVELOPMENT.md) - Guia técnico completo
