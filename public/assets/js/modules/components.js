@@ -48,9 +48,7 @@ const Components = (() => {
             <header class="system-header">
                 <div class="header-wrapper">
                     <div class="system-brand">
-                        <div class="brand-icon">
-                            <img id="header-logo"${logoLockAttr} src="${logoSrc}" alt="Inelegis Logo" width="32" height="32" loading="lazy" style="border-radius: 4px;">
-                        </div>
+                        <img id="header-logo"${logoLockAttr} src="${logoSrc}" alt="Inelegis Logo" class="brand-icon" width="32" height="32" loading="lazy">
                         <div class="brand-text">
                             <h1>Inelegis <span class="version-badge">v0.1.9</span></h1>
                             <p>Consulta de Inelegibilidade Eleitoral</p>
@@ -108,14 +106,14 @@ const Components = (() => {
                         </ul>
                     </div>
                     <div class="footer-social">
-                        <h4>Links Úteis</h4>
+                        <h4>Transparência</h4>
                         <div class="social-icons">
-                            <a href="https://github.com/rkvasne/inelegis" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
+                            <a href="https://github.com/rkvasne/inelegis" target="_blank" rel="noopener noreferrer" aria-label="Código Fonte" title="Código Fonte (Open Source)">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                     <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
                                 </svg>
                             </a>
-                            <a href="https://github.com/rkvasne/inelegis/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer" aria-label="Changelog" title="Changelog">
+                            <a href="https://github.com/rkvasne/inelegis/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer" aria-label="Histórico de Versões" title="Histórico de Versões">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                                     <polyline points="14 2 14 8 20 8"></polyline>
@@ -123,7 +121,7 @@ const Components = (() => {
                                     <line x1="16" y1="17" x2="8" y2="17"></line>
                                 </svg>
                             </a>
-                            <a href="https://github.com/rkvasne/inelegis/issues" target="_blank" rel="noopener noreferrer" aria-label="Issues" title="Issues">
+                            <a href="https://github.com/rkvasne/inelegis/issues" target="_blank" rel="noopener noreferrer" aria-label="Relatar Problema" title="Relatar Problema">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                     <circle cx="12" cy="12" r="10"></circle>
                                     <line x1="12" y1="8" x2="12" y2="12"></line>
@@ -134,7 +132,7 @@ const Components = (() => {
                     </div>
                 </div>
                 <div class="footer-bottom">
-                    <p>© ${currentYear}&nbsp;Inelegis • <a href="https://github.com/rkvasne/inelegis" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+                    <p>© ${currentYear}&nbsp;Inelegis • <a href="https://github.com/rkvasne/inelegis" target="_blank" rel="noopener noreferrer">Código Fonte</a></p>
                     <p>Consulta de Inelegibilidade Eleitoral</p>
                 </div>
             </footer>

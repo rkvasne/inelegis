@@ -413,15 +413,15 @@ code {
 .brand-icon {
   width: 2.75rem;
   height: 2.75rem;
-  background: var(--glass-bg);
+  /* background: var(--glass-bg); */
   border-radius: var(--radius-lg);
   display: flex;
   align-items: center;
   justify-content: center;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--glass-border);
-  color: var(--glass-text);
+  /* backdrop-filter: blur(10px); */
+  /* -webkit-backdrop-filter: blur(10px); */
+  /* border: 1px solid var(--glass-border); */
+  /* color: var(--glass-text); */
   flex-shrink: 0;
 }
 
