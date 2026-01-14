@@ -1,3 +1,8 @@
+---
+docStatus: reference
+docScope: references
+lastReviewed: 2026-01-14
+---
 # 📘 Manual ASE - Sistema Eleitoral
 
 Guia de referência dos códigos ASE (Atos do Sistema Eleitoral) utilizados pela Justiça Eleitoral.
