@@ -3054,6 +3054,9 @@ html:not(.dark-theme) .main-footer .footer-bottom {
 /* Seções do FAQ */
 .faq-section {
   margin-bottom: var(--space-8);
+  max-width: 800px; /* Melhor legibilidade para texto */
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .faq-section-title {
