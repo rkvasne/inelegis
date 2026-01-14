@@ -138,12 +138,12 @@
   --glass-saturate: 180%;
 
   /* Layout */
-  --container-width: 1440px; /* Alinhado com Perssua (medido) */
+  --container-width: 1312px; /* Referência referência visual */
   --header-height: 70px;
   --border-radius: 12px;
   --transition-fast: 150ms ease-in-out;
   --transition-normal: 250ms ease-in-out;
-  --page-gutter: 1.25rem; /* 20px - Unificado com referência Perssua */
+  --page-gutter: 1.5rem; /* 24px - Padrão harmônico */
 }
 
 /* ========================================

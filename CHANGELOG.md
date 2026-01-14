@@ -18,9 +18,9 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 ## [Unreleased]
 
 ### 📐 Layout & Design
-- **Container**: Aumentada largura máxima para `1440px` (alinhado com referência Perssua.com).
-- **Gutter**: Padronizado espaçamento lateral (padding) para `1.25rem` (20px) em todas as páginas.
-- **Responsividade**: Unificado breakpoint de tablet/desktop para `768px` para evitar saltos de layout.
+- **Container**: Ajustada largura máxima para `1312px` (referência: referência visual).
+- **Gutter**: Padronizado espaçamento lateral (padding) para `1.5rem` (24px).
+- **Responsividade**: Unificado breakpoint de tablet/desktop para `768px`.
 - **Header/Footer**: Alinhamento perfeito das margens internas com o conteúdo principal.
 
 ### ⚙️ CI/CD
