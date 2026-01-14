@@ -281,7 +281,7 @@ Todos os problemas identificados anteriormente foram corrigidos:
 - **CPM:** Código Penal Militar (Decreto-Lei 1.001/69)
 
 ### Documentação Interna
-- [DEVELOPMENT.md](DEVELOPMENT.md) - Guia técnico
+- [development.md](development.md) - Guia técnico
 - [README.md](../README.md) - Índice da Documentação
 - [manual-ase.md](../references/manual-ase.md) - Guia operacional
 

@@ -25,24 +25,15 @@ Bem-vindo à documentação oficial do projeto **Inelegis**.
 ### 🎨 Design System
 - **[Componentes](design/components.md)** – catálogo dos componentes reutilizáveis
 - **[Landing Page](design/landing-page.md)** – guia de design e template da landing page
+- **[Landing Template](design/landing-template.md)** – modelo base para páginas de marketing
 - **[Decisões de Design](design/design-decisions.md)** – porquês de cada escolha
 - **[Theme Validator](design/theme-validator.md)** – uso do validador de temas
 
-### 🗂️ Histórico e Release Notes (ordem decrescente)
-- **[Release Notes v0.2.0](history/release-notes-v0.2.0.md)** – padronização visual completa, heroes unificados, breadcrumbs
-- **[Release Notes v0.1.9](history/release-notes-v0.1.9.md)** – histórico reformulado, FAQ corrigida e melhorias de acesso
-- **[Release Notes v0.1.8](history/release-notes-v0.1.8.md)** – página Histórico, módulos utilitários e Dev Server
-- **[Release Notes v0.1.7](history/release-notes-v0.1.7.md)** – melhorias de FAQ, acessibilidade e atalhos
-- **[Release Notes v0.1.6](history/release-notes-v0.1.6.md)** – confiabilidade do consentimento e ajustes de UI
-- **[Release Notes v0.1.5](history/release-notes-v0.1.5.md)** – padronização de modal e refinamentos de tema
-- **[Release Notes v0.1.4](history/release-notes-v0.1.4.md)** – otimizações do modal e correções visuais
-- **[Release Notes v0.1.3](history/release-notes-v0.1.3.md)** – ajustes menores de UI/UX
-- **[Release Notes v0.1.0](history/release-notes-v0.1.0.md)** – consolidação de documentação e padronização
-- **[Release Notes v0.0.9](history/release-notes-v0.0.9.md)** – avanços no fluxo de sessão e UX
-- **[Release Notes v0.0.8](history/release-notes-v0.0.8.md)** – padronização completa de design
+### 🗂️ Histórico e Versões
+- **[Changelog](../CHANGELOG.md)** – histórico consolidado de versões e mudanças
 - **[Refatoração v0.0.6](history/refatoracao-v0.0.6.md)** – contexto, plano e implementação
-- **[Resumo da sessão 02/12/2025](history/session-summary-2025-12-02.md)** – métricas da virada para 0.0.9
-- **[Template de Hotfix Crítico](history/templates/critical-hotfix-template.md)** – mensagem de commit para correções urgentes
+- **[Resumo da sessão 02/12/2025](history/session-summary-2025-12-02.md)** – métricas da virada para 0.1.9
+- **Commits e Versionamento (Hotfix crítico)**: veja [AGENTS.md](../AGENTS.md) – seção “Commits e Versionamento”
 
 ### 📁 Referências
 - **[`references/`](references/)** – manual ASE, tabelas oficiais e anexos de domínio
@@ -60,6 +51,7 @@ docs/
 │   ├── components.md
 │   ├── design-decisions.md
 │   ├── landing-page.md
+│   ├── landing-template.md
 │   └── theme-validator.md
 │
 ├── guides/                  # Guias de desenvolvimento e manutenção
@@ -74,10 +66,7 @@ docs/
 │
 ├── history/                 # Releases e marcos do projeto
 │   ├── refatoracao-v0.0.6.md
-│   ├── release-notes-v0.2.0.md
-│   ├── release-notes-v0.1.9.md
-│   ├── ...
-│   └── release-notes-v0.0.8.md
+│   └── session-summary-2025-12-02.md
 │
 └── references/              # Materiais oficiais e anexos
     ├── manual-ase.md
@@ -86,14 +75,7 @@ docs/
 
 ## 📐 Padrão de Formato
 
-Para manter consistência entre todos os documentos:
-
-1. Inicie cada arquivo com um título (`# Nome do Documento`).
-2. Inclua o frontmatter YAML com `docStatus`, `docScope` e `lastReviewed`.
-3. Utilize subtítulos (`## Seção`) e listas curtas e escaneáveis.
-4. Quando referenciar outro arquivo, prefira caminhos relativos (ex.: `../CHANGELOG.md`).
-5. Atualize `lastReviewed` sempre que revisar ou alterar conteúdo substancial.
-6. Use **kebab-case** (minúsculas) para nomes de arquivos (ex: `my-doc.md`).
+Para manter consistência entre todos os documentos, siga o padrão centralizado em [AGENTS.md](../AGENTS.md) (seções “Documentação” e “Commits e Versionamento”).
 
 ## 🔗 Links Úteis
 
@@ -101,3 +83,4 @@ Para manter consistência entre todos os documentos:
 - [Changelog](../CHANGELOG.md)
 - [Voltar para a Raiz](../README.md)
 - [🤖 Instruções para Copilotos](../.github/copilot-instructions.md)
+- [Regras para Agentes (AGENTS.md)](../AGENTS.md)

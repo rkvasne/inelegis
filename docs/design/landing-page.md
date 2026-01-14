@@ -103,4 +103,4 @@ Todo o conteúdo principal deve estar dentro de um container que respeite essas 
 ## 🛠️ Template Base
 
 Para criar novas seções ou páginas de marketing, utilize o template localizado em:
-`docs/design/templates/landing-template.html`
+`docs/design/landing-template.md`

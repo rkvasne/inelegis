@@ -232,7 +232,7 @@ tests/
 
 ## 8. Referências
 
-- [`docs/guides/DEVELOPMENT.md`](../guides/DEVELOPMENT.md)
-- [`docs/guides/MAINTENANCE.md`](../guides/MAINTENANCE.md)
+- [`docs/guides/development.md`](../guides/development.md)
+- [`docs/guides/maintenance.md`](../guides/maintenance.md)
 - [`CHANGELOG.md`](../../CHANGELOG.md)
 - OWASP, Web.dev Performance, WCAG 2.1, Conventional Commits

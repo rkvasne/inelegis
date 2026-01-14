@@ -1,3 +1,8 @@
+---
+docStatus: active
+docScope: security
+lastReviewed: 2026-01-14
+---
 # Política de Segurança
 
 ## Versões Suportadas
@@ -6,7 +11,7 @@ Atualmente, oferecemos suporte de segurança para as seguintes versões:
 
 | Versão | Suportada          |
 | ------ | ------------------ |
-| 0.1.0  | ✅ Sim             |
+| 0.2.0  | ✅ Sim             |
 | 0.0.8  | ❌ Não             |
 | < 0.0.8| ❌ Não             |
 
@@ -142,5 +147,5 @@ Para questões de segurança:
 
 ---
 
-**Última atualização:** 02 de dezembro de 2025  
-**Versão:** 0.1.0
+**Última atualização:** 14 de janeiro de 2026  
+**Versão:** 0.2.0

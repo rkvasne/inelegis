@@ -7,6 +7,8 @@ lastReviewed: 2026-01-10
 
 Esta pasta contém os scripts carregados pelas páginas em produção.
 
+> Regras gerais de documentação, commits, lint e testes: consulte [AGENTS.md](../../AGENTS.md).
+
 ## Fonte, build e sincronização
 
 - O runtime carrega `public/assets/js/**`.

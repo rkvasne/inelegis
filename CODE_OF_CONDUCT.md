@@ -1,3 +1,8 @@
+---
+docStatus: governance
+docScope: code-of-conduct
+lastReviewed: 2026-01-14
+---
 # Código de Conduta
 
 ## Nosso Compromisso
@@ -42,5 +47,5 @@ Este Código de Conduta é adaptado do [Contributor Covenant](https://www.contri
 
 ---
 
-**Última atualização:** 01 de dezembro de 2025  
-**Versão:** 0.0.6
+**Última atualização:** 14 de janeiro de 2026  
+**Versão:** 0.2.0

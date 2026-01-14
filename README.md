@@ -1,3 +1,8 @@
+---
+docStatus: active
+docScope: root-readme
+lastReviewed: 2026-01-14
+---
 <div align="center">
 
   # ⚖️ INELEGIS
@@ -131,13 +136,7 @@ inelegis-app/
 
 ## 🆕 Novidades recentes
 
-Consulte o [CHANGELOG](CHANGELOG.md) ou as notas de release para detalhes completos:
-
-- [Release Notes v0.2.0](docs/history/release-notes-v0.2.0.md)
-- [Release Notes v0.1.9](docs/history/release-notes-v0.1.9.md)
-- [Release Notes v0.1.8](docs/history/release-notes-v0.1.8.md)
-
-Versões anteriores permanecem arquivadas em `docs/history/`.
+Consulte o [CHANGELOG](CHANGELOG.md) para o histórico completo e a versão atual (0.2.0).
 
 ## 📚 Documentação
 
@@ -176,7 +175,7 @@ Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.
 
 ---
 
-**Última atualização:** 05 de dezembro de 2025  
+**Última atualização:** 14 de janeiro de 2026  
 **Versão:** 0.2.0
 
 ---

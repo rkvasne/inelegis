@@ -1,7 +1,14 @@
 # 🤝 Guia de Contribuição
+# 🤝 Guia de Contribuição
 
-**Última atualização:** 01 de dezembro de 2025
-**Versão atual:** 0.1.0
+---
+docStatus: active
+docScope: contributing
+lastReviewed: 2026-01-14
+---
+
+**Última atualização:** 14 de janeiro de 2026
+**Versão atual:** 0.2.0
 
 Obrigado pelo seu interesse em contribuir para o **Inelegis**! 🎉
 
@@ -66,7 +73,7 @@ Para configurar seu ambiente de desenvolvimento local:
 
 ### Pré-requisitos
 
-*   Node.js 18+
+*   Node.js 22+
 *   Git
 
 ### Configuração
