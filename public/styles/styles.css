@@ -361,7 +361,7 @@ code {
 
 /* Container para páginas de conteúdo/leitura (FAQ, Sobre) */
 .container--content {
-  max-width: 800px;
+  max-width: 1024px; /* Aumentado de 800px para acomodar melhor os cards */
 }
 
 /* Cards - largura total do container */
