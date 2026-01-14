@@ -17,6 +17,15 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ## [Unreleased]
 
+### 📐 Layout & Design
+- **Container**: Aumentada largura máxima para `1440px` (alinhado com referência Perssua.com).
+- **Gutter**: Padronizado espaçamento lateral (padding) para `1.25rem` (20px) em todas as páginas.
+- **Responsividade**: Unificado breakpoint de tablet/desktop para `768px` para evitar saltos de layout.
+- **Header/Footer**: Alinhamento perfeito das margens internas com o conteúdo principal.
+
+### ⚙️ CI/CD
+- **Testes**: Configurado script de teste para pular (skip) validação de layout via Puppeteer se o navegador não puder ser iniciado (fix para Vercel/Serverless).
+
 ### 🎨 UI/UX
 - **Footer**:
   - Sincronização de layout com projeto Dahora App (Grid 40% / 30% / 30%).

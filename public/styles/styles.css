@@ -138,7 +138,7 @@
   --glass-saturate: 180%;
 
   /* Layout */
-  --container-width: 1100px; /* Ajustado para aproximar do Perssua */
+  --container-width: 1440px; /* Alinhado com Perssua (medido) */
   --header-height: 70px;
   --border-radius: 12px;
   --transition-fast: 150ms ease-in-out;
