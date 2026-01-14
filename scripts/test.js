@@ -227,7 +227,18 @@ class TestRunner {
     }
 
     const serverInfo = await this.startStaticServer(paths.publicDir);
-    const browser = await puppeteer.launch({ headless: true });
+    let browser;
+    
+    try {
+      browser = await puppeteer.launch({ 
+        headless: "new",
+        args: ['--no-sandbox', '--disable-setuid-sandbox'] 
+      });
+    } catch (error) {
+      this.skip('Layout: validação via Puppeteer', `Falha ao iniciar browser: ${error.message.split('\n')[0]}`);
+      await serverInfo.server.close();
+      return;
+    }
 
     try {
       await this.testAsync('Layout: gutters consistentes entre páginas', async () => {
