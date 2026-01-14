@@ -7,6 +7,8 @@
 
 const fs = require('fs');
 const path = require('path');
+const http = require('http');
+const url = require('url');
 const paths = require('./project-paths');
 
 class TestRunner {
@@ -47,6 +49,9 @@ class TestRunner {
 
       // 3. Testes de funcionalidade
       await this.runFunctionalTests();
+
+      // 4. Testes de layout (Puppeteer)
+      await this.runLayoutTests();
 
       // 4. Testes de dados
       await this.runDataTests();
@@ -181,6 +186,322 @@ class TestRunner {
       this.failures.push(`${name}: ${error.message}`);
       this.log(`${name} ✗ (${error.message})`, 'error');
     }
+  }
+
+  async testAsync(name, testFn) {
+    this.results.total++;
+
+    try {
+      const result = await testFn();
+
+      if (result) {
+        this.results.passed++;
+        this.log(`${name} ✓`, 'success');
+      } else {
+        this.results.failed++;
+        this.failures.push(name);
+        this.log(`${name} ✗`, 'error');
+      }
+    } catch (error) {
+      this.results.failed++;
+      this.failures.push(`${name}: ${error.message}`);
+      this.log(`${name} ✗ (${error.message})`, 'error');
+    }
+  }
+
+  skip(name, reason) {
+    this.results.total++;
+    this.results.skipped++;
+    this.log(`${name} (${reason})`, 'skip');
+  }
+
+  async runLayoutTests() {
+    this.log('Executando testes de layout...', 'info');
+
+    let puppeteer;
+    try {
+      puppeteer = require('puppeteer');
+    } catch (error) {
+      this.skip('Layout: validação via Puppeteer', 'Puppeteer não instalado');
+      return;
+    }
+
+    const serverInfo = await this.startStaticServer(paths.publicDir);
+    const browser = await puppeteer.launch({ headless: true });
+
+    try {
+      await this.testAsync('Layout: gutters consistentes entre páginas', async () => {
+        const pagePaths = [
+          '/landing.html',
+          '/index.html',
+          '/consulta.html',
+          '/faq.html',
+          '/sobre.html'
+        ];
+
+        const pagesData = [];
+        const page = await browser.newPage();
+
+        for (const pagePath of pagePaths) {
+          await page.goto(`${serverInfo.baseUrl}${pagePath}`, { waitUntil: 'domcontentloaded' });
+
+          const isLanding = pagePath.includes('landing.html');
+          const headerSelector = isLanding ? '.landing-nav' : '.header-wrapper';
+          const titleSelector = isLanding ? '.nav-title' : '.brand-text h1';
+
+          await page.waitForSelector(headerSelector, { timeout: 5000 });
+          await page.waitForSelector('.container', { timeout: 5000 });
+
+          const metrics = await page.evaluate(
+            ({ headerSelector, titleSelector }) => {
+              const toPx = (value) => {
+                const num = Number.parseFloat(value);
+                return Number.isFinite(num) ? num : 0;
+              };
+
+              const getPadding = (selector) => {
+                const el = document.querySelector(selector);
+                if (!el) return null;
+                const cs = getComputedStyle(el);
+                return {
+                  left: toPx(cs.paddingLeft),
+                  right: toPx(cs.paddingRight)
+                };
+              };
+
+              const getFontSize = (selector) => {
+                const el = document.querySelector(selector);
+                if (!el) return null;
+                const cs = getComputedStyle(el);
+                return toPx(cs.fontSize);
+              };
+
+              return {
+                headerPadding: getPadding(headerSelector),
+                containerPadding: getPadding('.container'),
+                footerContentPadding: getPadding('.main-footer .footer-content'),
+                titleFontSize: getFontSize(titleSelector)
+              };
+            },
+            { headerSelector, titleSelector }
+          );
+
+          pagesData.push({
+            pagePath,
+            ...metrics
+          });
+        }
+
+        await page.close();
+
+        const tolerance = 0.5;
+        const eq = (a, b) => Math.abs(a - b) <= tolerance;
+
+        const pickGutter = (data) => {
+          if (data.headerPadding && data.headerPadding.left > 0) return data.headerPadding.left;
+          if (data.containerPadding && data.containerPadding.left > 0) return data.containerPadding.left;
+          return null;
+        };
+
+        const expectedGutter = pickGutter(pagesData[0]);
+        if (!expectedGutter) {
+          throw new Error(`Não foi possível detectar gutter esperado em ${pagesData[0].pagePath}`);
+        }
+
+        const mismatches = [];
+
+        for (const data of pagesData) {
+          const checkPair = (label, padding) => {
+            if (!padding) return;
+            if (!eq(padding.left, expectedGutter) || !eq(padding.right, expectedGutter) || !eq(padding.left, padding.right)) {
+              mismatches.push({
+                page: data.pagePath,
+                label,
+                left: padding.left,
+                right: padding.right,
+                expected: expectedGutter
+              });
+            }
+          };
+
+          checkPair('header', data.headerPadding);
+          checkPair('container', data.containerPadding);
+          checkPair('footerContent', data.footerContentPadding);
+        }
+
+        if (mismatches.length > 0) {
+          const details = mismatches
+            .map((m) => `${m.page} ${m.label} left=${m.left} right=${m.right} expected≈${m.expected}`)
+            .join(' | ');
+          throw new Error(details);
+        }
+
+        const landing = pagesData.find((d) => d.pagePath.includes('landing.html'));
+        const internal = pagesData.find((d) => d.pagePath.includes('index.html'));
+
+        if (landing && internal && landing.titleFontSize && internal.titleFontSize) {
+          if (!eq(landing.titleFontSize, internal.titleFontSize)) {
+            throw new Error(`Font-size do título diverge: landing=${landing.titleFontSize}px vs interno=${internal.titleFontSize}px`);
+          }
+        }
+
+        return true;
+      });
+
+      await this.testAsync('Layout: referência perssua.com/pt (heurística de gutter)', async () => {
+        const referenceUrls = [
+          'https://perssua.com/pt',
+          'https://perssua.com/pt/',
+          'https://www.perssua.com/pt',
+          'https://www.perssua.com/pt/'
+        ];
+
+        const page = await browser.newPage();
+
+        let reference = null;
+        let selectedUrl = null;
+        let lastError = null;
+
+        try {
+          for (const candidateUrl of referenceUrls) {
+            try {
+              await page.goto(candidateUrl, { waitUntil: 'domcontentloaded', timeout: 15000 });
+              selectedUrl = candidateUrl;
+
+              reference = await page.evaluate(() => {
+                const viewportWidth = window.innerWidth || document.documentElement.clientWidth || 0;
+                const elements = Array.from(document.querySelectorAll('body *')).slice(0, 800);
+                const candidates = [];
+
+                for (const el of elements) {
+                  const rect = el.getBoundingClientRect();
+                  if (!rect || rect.width <= 0) continue;
+
+                  const left = rect.left;
+                  const right = viewportWidth - rect.right;
+
+                  if (rect.width < 600) continue;
+                  if (rect.width > viewportWidth - 40) continue;
+                  if (left <= 0 || right <= 0) continue;
+                  if (Math.abs(left - right) > 12) continue;
+
+                  candidates.push({
+                    width: rect.width,
+                    left,
+                    right
+                  });
+                }
+
+                candidates.sort((a, b) => b.width - a.width || a.left - b.left);
+                return candidates[0] || null;
+              });
+
+              if (reference) break;
+            } catch (error) {
+              lastError = error;
+            }
+          }
+        } finally {
+          await page.close();
+        }
+
+        if (!reference) {
+          const message = lastError ? lastError.message : 'Não foi possível obter referência';
+          this.skip('Layout: referência perssua.com/pt (heurística de gutter)', `Indisponível: ${message}`);
+          return true;
+        }
+
+        const appPage = await browser.newPage();
+
+        try {
+          await appPage.goto(`${serverInfo.baseUrl}/landing.html`, { waitUntil: 'domcontentloaded' });
+          await appPage.waitForSelector('.landing-nav', { timeout: 5000 });
+
+          const appGutter = await appPage.evaluate(() => {
+            const el = document.querySelector('.landing-nav');
+            if (!el) return null;
+            const cs = getComputedStyle(el);
+            const num = Number.parseFloat(cs.paddingLeft);
+            return Number.isFinite(num) ? num : null;
+          });
+
+          if (appGutter == null) return true;
+
+          const tolerance = 2;
+          const refGutter = reference.left;
+          if (Math.abs(appGutter - refGutter) > tolerance) {
+            throw new Error(`Gutter difere da referência (${selectedUrl}): app≈${appGutter}px vs ref≈${refGutter}px`);
+          }
+
+          return true;
+        } finally {
+          await appPage.close();
+        }
+      });
+    } finally {
+      await browser.close();
+      await this.closeServer(serverInfo.server);
+    }
+  }
+
+  closeServer(server) {
+    return new Promise((resolve) => {
+      server.close(() => resolve());
+    });
+  }
+
+  startStaticServer(rootDir) {
+    const mimeTypes = new Map([
+      ['.html', 'text/html; charset=utf-8'],
+      ['.css', 'text/css; charset=utf-8'],
+      ['.js', 'application/javascript; charset=utf-8'],
+      ['.json', 'application/json; charset=utf-8'],
+      ['.svg', 'image/svg+xml'],
+      ['.png', 'image/png'],
+      ['.jpg', 'image/jpeg'],
+      ['.jpeg', 'image/jpeg'],
+      ['.webp', 'image/webp'],
+      ['.ico', 'image/x-icon']
+    ]);
+
+    const serveFile = async (filePath, res) => {
+      try {
+        const ext = path.extname(filePath).toLowerCase();
+        const contentType = mimeTypes.get(ext) || 'application/octet-stream';
+        const content = await fs.promises.readFile(filePath);
+        res.statusCode = 200;
+        res.setHeader('Content-Type', contentType);
+        res.end(content);
+      } catch (error) {
+        res.statusCode = 404;
+        res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+        res.end('Not found');
+      }
+    };
+
+    const server = http.createServer(async (req, res) => {
+      const parsed = url.parse(req.url || '/');
+      const pathname = decodeURIComponent(parsed.pathname || '/');
+
+      let relativePath = pathname;
+      if (relativePath === '/') relativePath = '/index.html';
+
+      const safePath = path.normalize(relativePath).replace(/^(\.\.[\/\\])+/, '');
+      const filePath = path.join(rootDir, safePath);
+
+      await serveFile(filePath, res);
+    });
+
+    return new Promise((resolve, reject) => {
+      server.listen(0, '127.0.0.1', () => {
+        const address = server.address();
+        if (!address || typeof address === 'string') {
+          reject(new Error('Falha ao iniciar servidor local'));
+          return;
+        }
+        resolve({ server, baseUrl: `http://127.0.0.1:${address.port}` });
+      });
+    });
   }
 
   // Funções de simulação para testes unitários
