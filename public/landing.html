@@ -245,6 +245,80 @@
         </div>
     </section>
 
+    <!-- FAQ Teaser Section -->
+    <section class="faq-teaser">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Dúvidas</span>
+                <h2 class="section-title">Perguntas Frequentes</h2>
+                <p class="section-description">
+                    Respostas rápidas para as dúvidas mais comuns.
+                </p>
+            </div>
+
+            <div class="faq-teaser-grid">
+                <div class="faq-teaser-item scroll-animate">
+                    <button class="faq-teaser-question">
+                        O que é o Inelegis?
+                        <span class="faq-teaser-toggle">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="faq-teaser-answer">
+                        <p>
+                            O Inelegis é um sistema não oficial desenvolvido por servidor para auxiliar servidores dos TREs. 
+                            Facilita a consulta rápida de crimes que ensejam inelegibilidade eleitoral, baseando-se na tabela exemplificativa do TRE-SP.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-teaser-item scroll-animate">
+                    <button class="faq-teaser-question">
+                        Este sistema é oficial?
+                        <span class="faq-teaser-toggle">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="faq-teaser-answer">
+                        <p>
+                            <strong>Não.</strong> O Inelegis é uma ferramenta auxiliar independente. Embora utilize dados de fontes oficiais (TRE-SP e CRE-RO), 
+                            não é mantido ou endossado oficialmente por nenhum órgão da Justiça Eleitoral. Sempre confirme na legislação vigente.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-teaser-item scroll-animate">
+                    <button class="faq-teaser-question">
+                        O sistema é gratuito?
+                        <span class="faq-teaser-toggle">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="faq-teaser-answer">
+                        <p>
+                            Sim, totalmente gratuito e de código aberto. Não há custos, taxas ou assinaturas para usar o sistema.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-teaser-footer scroll-animate">
+                <a href="faq.html" class="btn btn-secondary">
+                    Ver todas as perguntas
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
     <!-- Stats Section -->
     <section class="stats">
         <div class="stats-grid">
@@ -300,6 +374,28 @@
             if (window.Analytics && typeof window.Analytics.init === 'function') {
                 window.Analytics.init();
             }
+
+            // FAQ Teaser Accordion
+            const faqQuestions = document.querySelectorAll('.faq-teaser-question');
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const item = question.parentElement;
+                    const isActive = item.classList.contains('active');
+                    
+                    // Close all others
+                    document.querySelectorAll('.faq-teaser-item').forEach(otherItem => {
+                        otherItem.classList.remove('active');
+                        otherItem.querySelector('.faq-teaser-answer').style.maxHeight = null;
+                    });
+
+                    // Toggle current
+                    if (!isActive) {
+                        item.classList.add('active');
+                        const answer = item.querySelector('.faq-teaser-answer');
+                        answer.style.maxHeight = answer.scrollHeight + "px";
+                    }
+                });
+            });
             const ctas = [
                 { el: document.querySelector('.hero-buttons .btn.btn-primary'), id: 'cta_access_top' },
                 { el: document.querySelector('.hero-buttons .btn.btn-secondary'), id: 'cta_more_top' },
