@@ -361,7 +361,7 @@ code {
 
 /* Container para páginas de conteúdo/leitura (FAQ, Sobre) */
 .container--content {
-  max-width: 1200px; /* Aumentado para 1200px para equilibrar cards e perguntas */
+  max-width: 960px; /* Equilíbrio entre cards e leitura */
 }
 
 /* Cards - largura total do container */
