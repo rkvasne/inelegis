@@ -1,3 +1,8 @@
+---
+docStatus: active
+docScope: scripts
+lastReviewed: 14/01/2026
+---
 # 📜 Scripts do Projeto
 
 Este diretório contém utilitários para desenvolvimento, validação, build e manutenção.

@@ -1,11 +1,10 @@
 ---
 docStatus: historical
 docScope: design
-lastReviewed: 2026-01-10
+lastReviewed: 14/01/2026
 ---
 # 🎨 Decisões de Design - Inelegis
 
-**Última atualização:** 01 de dezembro de 2025  
 **Versão:** 0.0.7
 
 Este documento explica as principais decisões de design e arquitetura do projeto.

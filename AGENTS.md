@@ -85,23 +85,84 @@ docs/               # Documentação
 
 ---
 
+## 🏗️ Estrutura do Projeto
+
+```
+api/                      # Endpoints serverless (analytics, dashboard, redis, search-history)
+docs/                     # Documentação (design, guides, operations, history, references)
+public/                   # Assets e páginas estáticas
+├── assets/
+│   ├── icons/            # Ícones e imagens auxiliares
+│   ├── images/           # Logos e imagens públicas
+│   └── js/               # Runtime JS do frontend
+│       ├── modules/      # Módulos reutilizáveis (sanitização, tema, UI, histórico, etc.)
+│       ├── consulta-normalizado.js
+│       ├── data-normalizado.js
+│       └── script.js
+├── styles/               # CSS (tema e landing)
+└── *.html                # Páginas (index, consulta, histórico, landing, etc.)
+src/
+└── js/
+    ├── modules/          # Fontes JS modulares (espelhados do runtime)
+    └── script.js
+scripts/                  # Build, lint, validações e manutenção
+tests/                    # Testes Node e HTML
+.github/                  # Instruções para copilotos
+.vscode/                  # Configurações da IDE
+# Arquivos raiz
+package.json, vercel.json, .eslintrc.json, .env.example, README.md, CHANGELOG.md
+```
+
+---
+
 ## 🛠️ Comandos do Projeto
 
 ```bash
 # Instalar dependências
 npm install
 
-# Rodar em desenvolvimento
+# Desenvolvimento (sync + servidor)
 npm run dev
+npm run serve
 
-# Build de produção
+# Checagens e build
+npm run check
 npm run build
-
-# Rodar testes
-npm test
+npm run optimize
+npm run sync:js
 
 # Lint
 npm run lint
+npm run lint:fix
+
+# Testes
+npm test
+npm run test:unit
+npm run test:components
+npm run test:theme
+npm run test:all
+
+# Validação de temas
+npm run validate:theme
+npm run validate:theme:fix
+npm run validate:theme:strict
+
+# Documentação (agente)
+npm run doc:check
+npm run doc:audit
+
+# Dados e manutenção
+npm run redis:maintain
+npm run migrate
+npm run rollback
+npm run generate-token
+
+# Limpeza e utilitários
+npm run clean
+npm run clean:all
+npm run reinstall
+npm run update-deps
+npm run size
 ```
 
 ---
@@ -109,15 +170,20 @@ npm run lint
 ## 📐 Padrões de Código
 
 ### JavaScript (Vanilla)
-- Manter código modular em `src/js/` e `src/js/modules/`
+- Manter código modular em `src/js/modules/` e `public/assets/js/modules/`
 - Evitar dependências de framework no frontend
+- Evitar `innerHTML` direto; usar `Sanitizer.safeInnerHTML` (módulo de sanitização)
+- Gerenciar tema via `modules/theme-manager.js`/`theme-bootstrap.js`
+- Histórico de busca pelo módulo `modules/search-history.js` (persistência via API Redis)
 
 ### HTML
 - Manter atributos de acessibilidade já existentes (`aria-*`)
+- Páginas em `public/*.html` com scripts ao final do `body`
+- Compatível com CSP reforçada em `vercel.json`
 
 ### CSS
 - Seguir o padrão de variáveis de tema (claro/escuro) existente
-- Preferir mudanças localizadas em `public/styles/`
+- Preferir mudanças localizadas em `public/styles/` (`styles.css`, `landing.css`)
 
 ---
 
@@ -278,10 +344,14 @@ Para guias complementares:
 
 | Ação | Comando |
 |------|---------|
-| Iniciar dev | `npm run dev` |
-| Build | `npm run build` |
-| Testar | `npm test` |
-| Lint | `npm run lint` |
+| Dev (sync + servidor) | `npm run dev` |
+| Servir local | `npm run serve` |
+| Checagens (lint+test+dry-run) | `npm run check` |
+| Build produção | `npm run build` |
+| Testes unitários | `npm run test:unit` |
+| Testes completos | `npm test` |
+| Lint com correção | `npm run lint:fix` |
+| Validar tema | `npm run validate:theme` |
 
 ---
 

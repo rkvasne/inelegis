@@ -1,7 +1,7 @@
 ---
 docStatus: active
 docScope: guide
-lastReviewed: 2026-01-11
+lastReviewed: 14/01/2026
 ---
 # Guia de Desenvolvimento
 
@@ -367,4 +367,3 @@ node tests/exceptions.test.js
 
 ---
 
-**Última atualização:** 11/01/2026

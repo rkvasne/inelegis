@@ -1,7 +1,7 @@
 ---
 docStatus: active
 docScope: runtime
-lastReviewed: 2026-01-11
+lastReviewed: 14/01/2026
 ---
 # 📦 Módulos JavaScript - Inelegis
 
@@ -210,5 +210,4 @@ Ao adicionar novos módulos:
 
 ---
 
-**Última atualização:** 11 de janeiro de 2026  
 **Versão:** 0.2.0

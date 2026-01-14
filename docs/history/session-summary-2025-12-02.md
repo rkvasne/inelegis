@@ -1,7 +1,7 @@
 ---
 docStatus: historical
 docScope: session-summary
-lastReviewed: 2026-01-10
+lastReviewed: 14/01/2026
 ---
 # Resumo da Sessão - 02/12/2025 (v0.0.9)
 

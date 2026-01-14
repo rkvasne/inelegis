@@ -1,7 +1,7 @@
 ---
 docStatus: active
 docScope: source
-lastReviewed: 2026-01-10
+lastReviewed: 14/01/2026
 ---
 # JS (fonte)
 
@@ -44,5 +44,3 @@ Esta pasta contém fontes de desenvolvimento e/ou referência. O runtime carrega
 - Fonte: `docs/references/tabela-oficial.xml`.
 
 ## Status
-
-- **Última atualização:** 10 de janeiro de 2026

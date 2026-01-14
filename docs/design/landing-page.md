@@ -1,7 +1,7 @@
 ---
 docStatus: active
 docScope: design
-lastReviewed: 2026-01-14
+lastReviewed: 14/01/2026
 ---
 
 # 🎨 Guia de Design da Landing Page

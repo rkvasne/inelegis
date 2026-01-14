@@ -1,7 +1,7 @@
 ---
 docStatus: active
 docScope: security
-lastReviewed: 2026-01-14
+lastReviewed: 14/01/2026
 ---
 # Política de Segurança
 
@@ -68,8 +68,7 @@ Incluir no relatório:
 - A auditoria de logs deve ser feita após autenticação federada (quando disponível) ou por meio de VPN corporativa.
 
 ### 🔍 Auditoria de Segurança
-
-- Última auditoria: 01 de dezembro de 2025
+- Última auditoria: 01/12/2025
 - Vulnerabilidades encontradas: 0
 - Status: ✅ Seguro
 
@@ -147,5 +146,4 @@ Para questões de segurança:
 
 ---
 
-**Última atualização:** 14 de janeiro de 2026  
 **Versão:** 0.2.0
