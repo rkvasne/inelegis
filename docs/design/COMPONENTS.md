@@ -377,11 +377,11 @@ document.getElementById('container').innerHTML = card;
 O sistema utiliza variáveis CSS globais para garantir consistência de alinhamento entre Landing Page e Aplicação.
 
 ### Container & Espaçamento
-- **Largura Máxima (`--container-width`)**: `1440px`
+- **Largura Máxima (`--container-width`)**: `1312px`
   - Define o limite de largura do conteúdo central em telas grandes.
-  - Alinhado com padrões modernos (referência: Perssua.com).
+  - Alinhado com padrões modernos (referência: referência visual).
 
-- **Gutter Lateral (`--page-gutter`)**: `1.25rem` (20px)
+- **Gutter Lateral (`--page-gutter`)**: `1.5rem` (24px)
   - Espaçamento interno fixo nas laterais do container.
   - Aplicado uniformemente em Header, Main Content e Footer.
 
@@ -394,9 +394,9 @@ Ao criar novas páginas, utilize a classe `.container` para herdar esses padrõe
 
 ```css
 .container {
-  max-width: var(--container-width); /* 1440px */
+  max-width: var(--container-width); /* 1312px */
   margin: 0 auto;
-  padding: 0 var(--page-gutter); /* 20px */
+  padding: 0 var(--page-gutter); /* 24px */
 }
 ```
 
