@@ -400,6 +400,21 @@ Ao criar novas páginas, utilize a classe `.container` para herdar esses padrõe
 }
 ```
 
+### Grids & Colunas
+Ao utilizar CSS Grid dentro do container, prefira unidades fracionárias (`fr`) em vez de porcentagens (`%`) quando houver `gap`, para evitar overflow horizontal.
+
+**Correto:**
+```css
+grid-template-columns: 4fr 3fr 3fr;
+gap: 40px;
+```
+
+**Evitar (causa overflow):**
+```css
+grid-template-columns: 40% 30% 30%; /* Soma 100% + gap = Overflow */
+gap: 40px;
+```
+
 ---
 
 ## 📚 Referências
