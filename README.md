@@ -5,32 +5,14 @@
   # INELEGIS
   
   **Sistema de Consulta de Inelegibilidade Eleitoral**
-  
-  <p align="center">
-    Uma ferramenta moderna, rápida e precisa para análise jurídica eleitoral.
-    <br />
-    <a href="https://inelegis.vercel.app"><strong>Ver Demo Online »</strong></a>
-    <br />
-    <br />
-    <a href="docs/README.md">Documentação</a>
-    ·
-    <a href="CONTRIBUTING.md">Contributing</a>
-    ·
-    <a href="CODE_OF_CONDUCT.md">Code of Conduct</a>
-    ·
-    <a href="SECURITY.md">Security</a>
-    ·
-    <a href="LICENSE.md">License</a>
-    ·
-    <a href="https://github.com/rkvasne/inelegis/issues">Reportar Bug</a>
-    ·
-    <a href="https://github.com/rkvasne/inelegis/issues">Solicitar Feature</a>
-  </p>
+  *Uma ferramenta moderna, rápida e precisa para análise jurídica eleitoral.*
+ 
+[![Version](https://img.shields.io/badge/version-0.2.0-blue.svg?style=for-the-badge)](https://semver.org)
+[![License](https://img.shields.io/badge/license-MIT-green.svg?style=for-the-badge)](LICENSE.md)
+[![Tests](https://img.shields.io/badge/tests-suite-blue.svg?style=for-the-badge)](tests/)
+[![Theme](https://img.shields.io/badge/theme-validated-success.svg?style=for-the-badge)](docs/design/theme-validator.md)
 
-  [![Version](https://img.shields.io/badge/version-0.2.0-blue.svg?style=for-the-badge)](https://semver.org)
-  [![License](https://img.shields.io/badge/license-MIT-green.svg?style=for-the-badge)](LICENSE.md)
-  [![Tests](https://img.shields.io/badge/tests-suite-blue.svg?style=for-the-badge)](tests/)
-  [![Theme](https://img.shields.io/badge/theme-validated-success.svg?style=for-the-badge)](docs/design/theme-validator.md)
+[Ver Demo Online](https://inelegis.vercel.app) • [Documentação](docs/README.md) • [Contributing](CONTRIBUTING.md) • [Code of Conduct](CODE_OF_CONDUCT.md) • [Security](SECURITY.md) • [License](LICENSE.md) • [Reportar Bug](https://github.com/rkvasne/inelegis/issues) • [Solicitar Feature](https://github.com/rkvasne/inelegis/issues)
 
 </div>
 
@@ -143,6 +125,8 @@ inelegis-app/
 
 Consulte o [CHANGELOG](CHANGELOG.md) para o histórico completo e a versão atual (0.2.0).
 
+---
+
 ## 📚 Documentação
 
 Toda a documentação oficial vive em [`docs/`](docs/). Utilize a tabela abaixo como mapa único:
@@ -185,14 +169,6 @@ Políticas do projeto:
 
 ---
 
-**Versão:** 0.2.0
+## 🔒 Privacidade
 
----
-
-<div align="center">
-  
-  **Desenvolvido com ☕ por Raphael Kvasne**
-  
-  [⬆ Voltar ao topo](#-inelegis)
-
-</div>
+Veja [PRIVACY.md](PRIVACY.md).

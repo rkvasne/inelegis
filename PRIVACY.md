@@ -2,7 +2,11 @@
 
 > Navegação: [README do projeto](README.md) • [Documentação](docs/README.md)
 
+---
+
 Esta política descreve como dados podem ser processados ao usar o **Inelegis**, tanto no navegador quanto (quando habilitado) nas APIs do projeto.
+
+---
 
 ## Escopo
 
@@ -10,6 +14,8 @@ Este documento cobre:
 - O que o frontend armazena localmente (ex.: tema, aceite de termos)
 - O que pode ser enviado às APIs do projeto (ex.: analytics e histórico de buscas)
 - Como você pode exercer controle (ex.: limpeza de dados locais e cookies)
+
+---
 
 ## Dados no navegador
 
@@ -26,6 +32,8 @@ O projeto usa um cookie para identificar de forma pseudônima a sessão do usuá
 - `inelegis_uid` (max-age típico de 12 meses)
 
 Esse identificador é utilizado pelo frontend para correlacionar eventos e para o histórico de buscas.
+
+---
 
 ## Dados enviados para o servidor (quando habilitado)
 
@@ -47,12 +55,16 @@ O frontend pode sincronizar histórico de consultas com:
 - lei, artigo, resultado e timestamp
 - userId derivado de `inelegis_uid`
 
+---
+
 ## Retenção
 
 Os tempos abaixo refletem o comportamento padrão do código:
 - Eventos de analytics no Redis: TTL de 90 dias (por evento)
 - Histórico no Redis: TTL configurável por `REDIS_HISTORY_TTL` (padrão: 365 dias)
 - Cookie `inelegis_uid`: max-age típico de 12 meses
+
+---
 
 ## Seus controles
 
@@ -61,12 +73,11 @@ Você pode:
 - Apagar cookies do site para redefinir `inelegis_uid`
 - Desabilitar analytics via console do navegador (quando disponível): `Analytics.disable()`
 
+---
+
 ## Contato
 
 Para dúvidas sobre privacidade e dados:
 - Issues: https://github.com/rkvasne/inelegis/issues
 - Segurança (canal privado): https://github.com/rkvasne/inelegis/security/advisories/new
 
----
-
-**Versão:** 0.2.0
