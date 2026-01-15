@@ -19,7 +19,7 @@ function debugLog(...args) {
     }
 }
 
-// LIMPEZA AGRESSIVA DE CACHE - v0.1.9
+// LIMPEZA AGRESSIVA DE CACHE - v0.2.0
 (function() {
     // 1. Desregistrar TODOS os Service Workers
     if ('serviceWorker' in navigator) {
@@ -50,7 +50,7 @@ function debugLog(...args) {
         });
     }
     
-    debugLog('Limpeza de cache executada - v0.1.0');
+    debugLog('Limpeza de cache executada - v0.2.0');
 })();
 
 // Elementos DOM

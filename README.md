@@ -5,7 +5,7 @@ lastReviewed: 14/01/2026
 ---
 <div align="center">
 
-  <img src="public/assets/images/logo.png" width="256" height="256" alt="Logo do INELEGIS" />
+  <img src="public/assets/images/logo-dark.png" width="256" height="256" alt="Logo do INELEGIS" />
 
   # INELEGIS
   

@@ -172,7 +172,7 @@ class Migrator {
     this.log('Criando arquivo de configuração...', 'info');
 
     const config = {
-      version: '0.1.0',
+      version: '0.2.0',
       modules: {
         sanitizer: true,
         storage: true,

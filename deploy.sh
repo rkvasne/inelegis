@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Script de Deploy Automático - Ineleg-App v0.0.2
+# Script de Deploy Automático - Ineleg-App v0.2.0
 # Sistema de Consulta de Inelegibilidade Eleitoral
 # Gerado em: 24/10/2025, 14:30:29
 
@@ -147,4 +147,4 @@ echo "📊 Estatísticas do deploy:"
 echo "   Diretório: $DEPLOY_DIR"
 echo "   Backup: $BACKUP_DIR/backup_$TIMESTAMP"
 echo "   Data: $(date)"
-echo "   Versão: 0.0.2"
+echo "   Versão: 0.2.0"
