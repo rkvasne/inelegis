@@ -1,7 +1,7 @@
 ---
 docStatus: active
 docScope: design
-lastReviewed: 14/01/2026
+lastReviewed: 15/01/2026
 ---
 
 # 🎨 Guia de Design da Landing Page
@@ -70,7 +70,7 @@ Todo o conteúdo principal deve estar dentro de um container que respeite essas 
   - Exemplo: `grid-template-columns: 1fr 1fr 1fr;` com `gap: 40px`.
 - **Alinhamento:**
   - Coluna 1 (Marca/Info): Alinhada à esquerda.
-  - Coluna 2 (Links Rápidos): Centralizada.
+  - Coluna 2 (Links Rápidos): Bloco centralizado, itens alinhados à esquerda.
   - Coluna 3 (Transparência/Social):
     - O **bloco** deve alinhar à direita (`align-items: flex-end`) para casar com a margem do header.
     - O **conteúdo interno** (título, ícones) deve alinhar à esquerda (`align-items: flex-start`).
