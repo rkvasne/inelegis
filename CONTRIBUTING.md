@@ -1,12 +1,9 @@
-# 🤝 Guia de Contribuição
+# 🤝 Contribuindo — INELEGIS
 
----
-docStatus: active
-docScope: contributing
-lastReviewed: 15/01/2026
----
+> Navegação: [README do projeto](README.md) • [Documentação](docs/README.md)
 
-**Versão atual:** 0.2.0
+**Versão:** v0.2.0  
+**Data:** 15/01/2026
 
 Obrigado pelo seu interesse em contribuir para o **Inelegis**! 🎉
 
