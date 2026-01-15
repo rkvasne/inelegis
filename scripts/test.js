@@ -38,7 +38,7 @@ class TestRunner {
   }
 
   async runTests() {
-    this.log('Iniciando testes do Inelegis v0.1.8', 'info');
+    this.log('Iniciando testes do Inelegis v0.2.0', 'info');
 
     try {
       // 1. Testes de unidade
@@ -543,7 +543,7 @@ class TestRunner {
   generateReport() {
     const report = {
       timestamp: new Date().toISOString(),
-      version: '0.1.5',
+      version: '0.2.0',
       summary: {
         total: this.results.total,
         passed: this.results.passed,
@@ -562,7 +562,7 @@ class TestRunner {
 
     // Exibir resumo
     console.log('\n' + '='.repeat(60));
-      console.log('📊 RELATÓRIO DE TESTES - INELEG-APP v0.1.8');
+      console.log('📊 RELATÓRIO DE TESTES - INELEG-APP v0.2.0');
       console.log('='.repeat(60));
     console.log(`Total de testes: ${this.results.total}`);
     console.log(`Passou: ${this.results.passed}`);

@@ -3,7 +3,7 @@
 ---
 docStatus: active
 docScope: contributing
-lastReviewed: 14/01/2026
+lastReviewed: 15/01/2026
 ---
 
 **Versão atual:** 0.2.0
@@ -39,19 +39,19 @@ Este projeto e todos os seus participantes estão sob o [Código de Conduta do C
 
 Bugs são rastreados como [GitHub Issues](https://github.com/rkvasne/inelegis/issues). Ao criar uma issue, explique o problema e inclua detalhes adicionais para ajudar os mantenedores a reproduzi-lo:
 
-*   **Use um título claro e descritivo.**
-*   **Descreva os passos exatos para reproduzir o problema.**
-*   **Descreva o comportamento esperado e o que aconteceu de fato.**
-*   **Inclua screenshots e GIFs animados** se possível.
-*   **Informe o ambiente:** Navegador, Sistema Operacional, Versão.
+- **Use um título claro e descritivo.**
+- **Descreva os passos exatos para reproduzir o problema.**
+- **Descreva o comportamento esperado e o que aconteceu de fato.**
+- **Inclua screenshots e GIFs animados** se possível.
+- **Informe o ambiente:** Navegador, Sistema Operacional, Versão.
 
 ### 💡 Sugerindo Melhorias
 
 Sugestões de melhorias também são rastreadas como [GitHub Issues](https://github.com/rkvasne/inelegis/issues).
 
-*   **Use um título claro e descritivo.**
-*   **Forneça uma descrição detalhada da sugestão.**
-*   **Explique por que essa melhoria seria útil** para a maioria dos usuários.
+- **Use um título claro e descritivo.**
+- **Forneça uma descrição detalhada da sugestão.**
+- **Explique por que essa melhoria seria útil** para a maioria dos usuários.
 
 ### 📥 Seu Primeiro Pull Request
 
@@ -71,8 +71,8 @@ Para configurar seu ambiente de desenvolvimento local:
 
 ### Pré-requisitos
 
-*   Node.js 22+
-*   Git
+- Node.js 22+
+- Git
 
 ### Configuração
 
@@ -117,25 +117,25 @@ Estrutura:
 ```
 
 Tipos comuns:
-*   `feat`: Nova funcionalidade
-*   `fix`: Correção de bug
-*   `docs`: Alterações apenas na documentação
-*   `style`: Alterações que não afetam o significado do código (espaços, formatação, etc)
-*   `refactor`: Alteração de código que não corrige um bug nem adiciona uma feature
-*   `perf`: Alteração de código que melhora a performance
-*   `test`: Adição ou correção de testes
-*   `chore`: Alterações no processo de build, ferramentas auxiliares, etc
+- `feat`: Nova funcionalidade
+- `fix`: Correção de bug
+- `docs`: Alterações apenas na documentação
+- `style`: Alterações que não afetam o significado do código (espaços, formatação, etc)
+- `refactor`: Alteração de código que não corrige um bug nem adiciona uma feature
+- `perf`: Alteração de código que melhora a performance
+- `test`: Adição ou correção de testes
+- `chore`: Alterações no processo de build, ferramentas auxiliares, etc
 
 Exemplos:
-*   `feat: adiciona filtro de busca por data`
-*   `fix(css): corrige alinhamento do header no mobile`
-*   `docs: atualiza instruções de instalação no README`
+- `feat: adiciona filtro de busca por data`
+- `fix(css): corrige alinhamento do header no mobile`
+- `docs: atualiza instruções de instalação no README`
 
 ### 🧱 Padrões de Código
 
-*   **HTML**: Semântico e acessível. Use tags apropriadas (`<header>`, `<main>`, `<nav>`, etc).
-*   **CSS**: Organizado e modular. Evite estilos inline. Use variáveis CSS para cores e espaçamentos.
-*   **JavaScript**: Moderno (ES6+). Use `const` e `let`. Evite `var`. Comente funções complexas.
+- **HTML**: Semântico e acessível. Use tags apropriadas (`<header>`, `<main>`, `<nav>`, etc).
+- **CSS**: Organizado e modular. Evite estilos inline. Use variáveis CSS para cores e espaçamentos.
+- **JavaScript**: Moderno (ES6+). Use `const` e `let`. Evite `var`. Comente funções complexas.
 
 ---
 

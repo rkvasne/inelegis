@@ -1,8 +1,3 @@
----
-docStatus: governance
-docScope: code-of-conduct
-lastReviewed: 14/01/2026
----
 # Código de Conduta
 
 ## Nosso Compromisso

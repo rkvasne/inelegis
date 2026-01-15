@@ -36,7 +36,7 @@ class Builder {
   }
 
   async build() {
-    this.log('Iniciando build do Inelegis v0.1.5', 'info');
+    this.log('Iniciando build do Inelegis v0.2.0', 'info');
 
     try {
       // 1. Validar estrutura do projeto
@@ -284,7 +284,7 @@ class Builder {
 
     // Criar arquivo de build info
     const buildInfo = {
-      version: '0.1.8',
+      version: '0.2.0',
       buildDate: new Date().toISOString(),
       buildNumber: Date.now(),
       environment: 'production',
@@ -306,7 +306,7 @@ class Builder {
 
     const report = {
       timestamp: new Date().toISOString(),
-      version: '0.1.6',
+      version: '0.2.0',
       status: this.errors.length === 0 ? 'SUCCESS' : 'FAILED',
       summary: {
         errors: this.errors.length,
@@ -325,7 +325,7 @@ class Builder {
 
     // Exibir resumo
     console.log('\n' + '='.repeat(60));
-    console.log('📊 RELATÓRIO DE BUILD - INELEG-APP v0.1.8');
+    console.log('📊 RELATÓRIO DE BUILD - INELEG-APP v0.2.0');
     console.log('='.repeat(60));
     console.log(`Status: ${report.status}`);
     console.log(`Erros: ${this.errors.length}`);

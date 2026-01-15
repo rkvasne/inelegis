@@ -1,3 +1,20 @@
+# 📄 Licença (MIT)
+
+---
+docStatus: active
+docScope: license
+lastReviewed: 15/01/2026
+---
+
+**Versão atual:** 0.2.0
+
+Este projeto é licenciado sob os termos da Licença MIT.
+
+---
+
+## Texto da licença
+
+```text
 MIT License
 
 Copyright (c) 2025 Inelegis
@@ -19,3 +36,4 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+```
