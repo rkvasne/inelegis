@@ -8,6 +8,8 @@ lastReviewed: 15/01/2026
 
 Este documento define os padrões visuais e estruturais específicos para a Landing Page do Inelegis, baseados na referência visual moderna (SaaS/Fintech) e alinhamento preciso.
 
+Este é o documento de referência principal (fonte de verdade) para layout, alinhamento e responsividade.
+
 ---
 
 ## 📐 Dimensões & Layout
@@ -104,3 +106,5 @@ Todo o conteúdo principal deve estar dentro de um container que respeite essas 
 
 Para criar novas seções ou páginas de marketing, utilize o template localizado em:
 `docs/design/landing-template.md`
+
+O template é uma referência copiável e deve permanecer alinhado às regras definidas neste guia.
