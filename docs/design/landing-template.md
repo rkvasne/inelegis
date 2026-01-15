@@ -1,7 +1,7 @@
 ---
 docStatus: reference
 docScope: design
-lastReviewed: 14/01/2026
+lastReviewed: 15/01/2026
 ---
 # 📄 Template de Landing Page (Markdown)
 
@@ -17,6 +17,7 @@ Este documento fornece o template base para páginas de marketing (Landing Pages
 - Hero com título e subtítulo
 - Seções de conteúdo dentro de `.container` com largura máxima de 1312px
 - Footer com grid 1fr 1fr 1fr (desktop) e coluna única (mobile)
+- Coluna de links centralizada no grid, com itens alinhados à esquerda
 
 ## 🧩 Referência HTML
 
@@ -108,7 +109,7 @@ Este documento fornece o template base para páginas de marketing (Landing Pages
                 <p>Consulta de Inelegibilidade Eleitoral</p>
             </div>
 
-            <!-- Coluna 2: Links -->
+            <!-- Coluna 2: Links (bloco centralizado, itens alinhados à esquerda) -->
             <div class="footer-links">
                 <h4>Links Rápidos</h4>
                 <ul class="link-list">

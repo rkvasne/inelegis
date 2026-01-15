@@ -1,7 +1,7 @@
 ---
 docStatus: reference
 docScope: design
-lastReviewed: 14/01/2026
+lastReviewed: 15/01/2026
 ---
 # 🧩 Guia de Componentes Reutilizáveis
 
@@ -106,7 +106,8 @@ const footerHtml = Components.renderFooter('landing'); // ou 'internal'
 
 **Estrutura CSS:**
 - `.main-footer`: Container principal (fundo, padding, bordas)
-- `.footer-content`: Grid de 3 colunas (40% / 30% / 30%) com largura máx de 1200px
+- `.footer-content`: Grid de 3 colunas (1fr 1fr 1fr) com `gap: 40px` e largura máx alinhada ao container
+- `.footer-links`: Coluna centralizada no grid, com itens alinhados à esquerda
 - `.footer-bottom`: Linha de copyright e links secundários
 
 **Nota:**
