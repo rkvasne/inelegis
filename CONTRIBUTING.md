@@ -1,9 +1,8 @@
 # 🤝 Contribuindo — INELEGIS
 
-> Navegação: [README do projeto](README.md) • [Documentação](docs/README.md)
+Obrigado por considerar contribuir com o INELE-APP.
 
-**Versão:** v0.2.0  
-**Data:** 15/01/2026
+> Navegação: [README do projeto](README.md) • [Documentação](docs/README.md)
 
 Obrigado pelo seu interesse em contribuir para o **Inelegis**! 🎉
 
