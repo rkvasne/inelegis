@@ -12,12 +12,11 @@ Este documento fornece o template base para páginas de marketing (Landing Pages
 - Facilitar revisão e versionamento
 - Manter um único ponto de referência para novos materiais de marketing
 
-## 🧱 Estrutura Recomendada
-- Header fixo com navegação
-- Hero com título e subtítulo
-- Seções de conteúdo dentro de `.container` com largura máxima de 1312px
-- Footer com grid 1fr 1fr 1fr (desktop) e coluna única (mobile)
-- Coluna de links centralizada no grid, com itens alinhados à esquerda
+## ✅ Fonte de verdade
+As regras de layout, alinhamento e responsividade da landing page ficam em:
+- `docs/design/landing-page.md`
+
+Este arquivo existe para fornecer um HTML completo (copiável) que segue essas regras.
 
 ## 🧩 Referência HTML
 
