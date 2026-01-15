@@ -4,7 +4,7 @@
 
   # INELEGIS
   
-  **Sistema de Consulta de Inelegibilidade Eleitoral**
+  **Sistema de Consulta de Inelegibilidade Eleitoral.**  
   *Uma ferramenta moderna, rápida e precisa para análise jurídica eleitoral.*
  
 [![Version](https://img.shields.io/badge/version-0.2.0-blue.svg?style=for-the-badge)](https://semver.org)
@@ -12,7 +12,7 @@
 [![Tests](https://img.shields.io/badge/tests-suite-blue.svg?style=for-the-badge)](tests/)
 [![Theme](https://img.shields.io/badge/theme-validated-success.svg?style=for-the-badge)](docs/design/theme-validator.md)
 
-[Ver Demo Online](https://inelegis.vercel.app) • [Documentação](docs/README.md) • [Contributing](CONTRIBUTING.md) • [Code of Conduct](CODE_OF_CONDUCT.md) • [Security](SECURITY.md) • [License](LICENSE.md) • [Reportar Bug](https://github.com/rkvasne/inelegis/issues) • [Solicitar Feature](https://github.com/rkvasne/inelegis/issues)
+[Acesse o Sistema](https://inelegis.vercel.app) • [Recursos](#-recursos-principais) • [Tecnologias](#-tecnologias) • [Começando](#-começando) • [Estrutura](#-estrutura-do-projeto) • [Novidades](#-novidades) • [Documentação](#-documentação) • [Contribuição](#-contribuição)
 
 </div>
 
@@ -35,7 +35,7 @@
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+## 🛠 Tecnologias
 
 Este projeto foi construído com foco em **performance**, **acessibilidade** e **manutenibilidade**.
 
@@ -121,7 +121,7 @@ inelegis-app/
 
 ---
 
-## 🆕 Novidades recentes
+## 🆕 Novidades
 
 Consulte o [CHANGELOG](CHANGELOG.md) para o histórico completo e a versão atual (0.2.0).
 
