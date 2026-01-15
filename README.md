@@ -20,7 +20,7 @@
     ·
     <a href="SECURITY.md">Security</a>
     ·
-    <a href="LICENSE">License</a>
+    <a href="LICENSE.md">License</a>
     ·
     <a href="https://github.com/rkvasne/inelegis/issues">Reportar Bug</a>
     ·
@@ -28,7 +28,7 @@
   </p>
 
   [![Version](https://img.shields.io/badge/version-0.2.0-blue.svg?style=for-the-badge)](https://semver.org)
-  [![License](https://img.shields.io/badge/license-MIT-green.svg?style=for-the-badge)](LICENSE)
+  [![License](https://img.shields.io/badge/license-MIT-green.svg?style=for-the-badge)](LICENSE.md)
   [![Tests](https://img.shields.io/badge/tests-suite-blue.svg?style=for-the-badge)](tests/)
   [![Theme](https://img.shields.io/badge/theme-validated-success.svg?style=for-the-badge)](docs/design/theme-validator.md)
 
@@ -176,7 +176,7 @@ Veja nosso [Guia de Contribuição](CONTRIBUTING.md) para mais detalhes.
 
 ## 📄 Licença
 
-Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.
+Distribuído sob a licença MIT. Veja `LICENSE.md` para mais informações.
 
 ---
 
