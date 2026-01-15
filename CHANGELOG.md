@@ -1,7 +1,7 @@
 ---
 docStatus: active
 docScope: release-history
-lastReviewed: 14/01/2026
+lastReviewed: 15/01/2026
 ---
 # Changelog
 
@@ -18,7 +18,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ### 📚 Documentation
 - Unificação de documentação: remoção de arquivos `release-notes-*` (conteúdo consolidado no CHANGELOG).
-- Conversão de `docs/design/landing-template.html` para `docs/design/landing-template.md`.
+- Unificação do template da landing dentro de `docs/design/landing-page.md`.
 - Padronização de metadados (front matter) em `README.md`, `docs/README.md`, `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md` e `SECURITY.md`.
 - Atualização de links internos e índice central em `docs/README.md`.
 

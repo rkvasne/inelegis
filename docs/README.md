@@ -1,7 +1,7 @@
 ---
 docStatus: active
 docScope: docs-index
-lastReviewed: 14/01/2026
+lastReviewed: 15/01/2026
 ---
 # 📚 Documentação do Inelegis
 
@@ -24,8 +24,7 @@ Bem-vindo à documentação oficial do projeto **Inelegis**.
 
 ### 🎨 Design System
 - **[Componentes](design/components.md)** – catálogo dos componentes reutilizáveis
-- **[Landing Page](design/landing-page.md)** – guia de design e template da landing page
-- **[Landing Template](design/landing-template.md)** – modelo base para páginas de marketing
+- **[Landing Page](design/landing-page.md)** – guia de design e template copiável da landing page
 - **[Decisões de Design](design/design-decisions.md)** – porquês de cada escolha
 - **[Theme Validator](design/theme-validator.md)** – uso do validador de temas
 
@@ -50,7 +49,6 @@ docs/
 │   ├── components.md
 │   ├── design-decisions.md
 │   ├── landing-page.md
-│   ├── landing-template.md
 │   └── theme-validator.md
 │
 ├── guides/                  # Guias de desenvolvimento e manutenção
