@@ -1243,10 +1243,13 @@ code {
 
 .main-footer .footer-links h4 {
   justify-content: flex-start;
+  width: max-content;
 }
 
 .main-footer .footer-links {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: left;
 }
 
@@ -1267,6 +1270,7 @@ code {
   padding: 0;
   margin: 0;
   display: block;
+  width: max-content;
 }
 
 .main-footer .link-list li {
