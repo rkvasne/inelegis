@@ -120,9 +120,11 @@ npm run test:unit
 # Lint
 npm run lint
 
-# Build / validação de dados
+# Build
 npm run build
-npm run validate
+
+# Validação de tema
+npm run validate:theme
 ```
 
 ### 3.4 Otimizações Opcionais

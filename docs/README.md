@@ -32,7 +32,6 @@ Bem-vindo à documentação oficial do projeto **Inelegis**.
 ### 🗂️ Histórico e Versões
 - **[Changelog](../CHANGELOG.md)** – histórico consolidado de versões e mudanças
 - **[Refatoração v0.0.6](history/refatoracao-v0.0.6.md)** – contexto, plano e implementação
-- **[Resumo da sessão 02/12/2025](history/session-summary-2025-12-02.md)** – métricas da virada para 0.1.9
 - **Commits e Versionamento (Hotfix crítico)**: veja [AGENTS.md](../AGENTS.md) – seção “Commits e Versionamento”
 
 ### 📁 Referências
@@ -66,7 +65,6 @@ docs/
 │
 ├── history/                 # Releases e marcos do projeto
 │   ├── refatoracao-v0.0.6.md
-│   └── session-summary-2025-12-02.md
 │
 └── references/              # Materiais oficiais e anexos
     ├── manual-ase.md

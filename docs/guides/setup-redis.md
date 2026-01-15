@@ -16,16 +16,13 @@ lastReviewed: 14/01/2026
 
 ### Variáveis Necessárias
 
-| Variável | Descrição | Obrigatório |
-|----------|-----------|-------------|
-| `REDIS_URL` | URL de conexão Redis | Sim |
-| `ANALYTICS_ADMIN_TOKEN` | Token para acessar dashboard | Sim |
+As variáveis de ambiente e seus significados ficam em [variaveis-ambiente.md](variaveis-ambiente.md).
 
 ### Setup em 4 Passos
 
 1. **Criar Redis** → Vercel Dashboard → Storage → Create Database → KV
 2. **Conectar ao Projeto** → Connect Project → `REDIS_URL` criada automaticamente
-3. **Gerar Token** → `openssl rand -hex 32`
+3. **Gerar Token** → `npm run generate-token`
 4. **Adicionar no Vercel** → Settings → Environment Variables → `ANALYTICS_ADMIN_TOKEN`
 
 ---
@@ -51,7 +48,7 @@ lastReviewed: 14/01/2026
 1. Vá em **Settings** → **Environment Variables**
 2. Adicione:
    - **Name:** `ANALYTICS_ADMIN_TOKEN`
-   - **Value:** Token gerado com `openssl rand -hex 32`
+   - **Value:** Token gerado com `npm run generate-token`
 3. Clique em **Save**
 
 ### 4. Deploy
@@ -66,8 +63,8 @@ git push origin main
 
 ### 1. Criar .env.local
 
-```bash
-cp .env.example .env.local
+```powershell
+Copy-Item .env.example .env.local
 ```
 
 ### 2. Copiar REDIS_URL do Vercel

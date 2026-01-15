@@ -41,7 +41,7 @@ Token para acessar a API de dashboard.
 ANALYTICS_ADMIN_TOKEN="seu_token_aqui"
 ```
 
-**Gerar:** `openssl rand -hex 32`
+**Gerar:** `npm run generate-token`
 
 ### NODE_ENV (opcional)
 
@@ -103,25 +103,19 @@ REDIS_WEEKLY_METRICS_KEY="history:metrics:weekly"
 
 ## 🚀 Setup
 
-### Desenvolvimento Local
+O setup de Redis (Vercel) e os passos completos de ambiente ficam em [setup-redis.md](setup-redis.md).
 
-```bash
-# 1. Copiar template
-cp .env.example .env.local
+Para desenvolvimento local:
 
-# 2. Editar com seus valores
-# REDIS_URL=...
-# ANALYTICS_ADMIN_TOKEN=...
-
-# 3. Executar
-npm run dev
+```powershell
+Copy-Item .env.example .env.local
 ```
 
-### Produção (Vercel)
+Edite `.env.local` com seus valores e execute:
 
-1. Vercel Dashboard → Settings → Environment Variables
-2. Adicionar `REDIS_URL` (do Storage)
-3. Adicionar `ANALYTICS_ADMIN_TOKEN`
+```bash
+npm run dev
+```
 
 ---
 

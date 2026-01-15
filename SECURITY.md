@@ -19,16 +19,14 @@ Atualmente, oferecemos suporte de segurança para as seguintes versões:
 
 A segurança do Inelegis é uma prioridade. Se você descobrir uma vulnerabilidade de segurança, por favor, siga estas diretrizes:
 
-### 🔒 Relatório Privado
+### Relatório Privado
 
 **NÃO** abra uma issue pública para vulnerabilidades de segurança.
 
-Em vez disso:
-1. Envie um e-mail para [security@inelegis.com] (se disponível)
-2. Ou crie uma issue privada no GitHub (se disponível)
-3. Ou entre em contato através dos canais oficiais do projeto
+Em vez disso, use um canal privado:
+- GitHub Security Advisories: https://github.com/rkvasne/inelegis/security/advisories/new
 
-### 📋 Informações Necessárias
+### Informações Necessárias
 
 Incluir no relatório:
 - Descrição detalhada da vulnerabilidade
@@ -37,7 +35,7 @@ Incluir no relatório:
 - Versão afetada
 - Sugestões de correção (se houver)
 
-### ⏱️ Tempo de Resposta
+### Tempo de Resposta
 
 - **Confirmação:** Dentro de 48 horas
 - **Avaliação inicial:** Dentro de 7 dias
@@ -140,9 +138,8 @@ npm audit fix
 ## Contato
 
 Para questões de segurança:
-- 📧 E-mail: [Adicionar e-mail de segurança]
-- 🐛 Issues privadas: [Link se disponível]
-- 📱 Contato direto: [Informações de contato]
+- Canal privado: https://github.com/rkvasne/inelegis/security/advisories/new
+- Assuntos não relacionados a segurança: https://github.com/rkvasne/inelegis/issues
 
 ---
 
