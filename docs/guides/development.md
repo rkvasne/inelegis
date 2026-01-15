@@ -76,7 +76,7 @@ Como esta é uma aplicação frontend com sistema de build:
 - `close()` - Fecha modal
 - `exportContent()` - Exporta resultado
 
-**[modules/search-index.js] (descontinuado)** - Módulo legado substituído por `data-normalizado.js`. Consultas devem usar apenas `DataNormalizer.query` e índices gerados por `DataNormalizer.getItensPorLei`.
+**modules/search-index.js (removido)** - Módulo legado substituído por `data-normalizado.js`. Consultas devem usar apenas `DataNormalizer.query` e índices gerados por `DataNormalizer.getItensPorLei`.
 
 **[modules/search-history.js](../../src/js/modules/search-history.js)** - Histórico (v0.1.0):
 - `add()` - Adiciona consulta (com detecção de duplicatas)
@@ -217,86 +217,17 @@ Os dados oficiais são extraídos do XML em `docs/references/tabela-oficial.xml`
 
 ---
 
-## 🎨 Validação de Temas
+## Validação de Temas
 
-### Theme Validator Pro v3.0.0
-
-Script avançado para detectar problemas de aplicação de temas CSS em qualquer projeto.
+A documentação canônica do validador fica em [theme-validator.md](../design/theme-validator.md).
 
 ```bash
-# Validação básica
 npm run validate:theme
-
-# Com sugestões de correção
-node scripts/validate-theme.js --fix
-
-# Apenas erros (ignorar warnings)
-node scripts/validate-theme.js --min-severity error
-
-# Saída JSON para CI/CD
-node scripts/validate-theme.js --json
-
-# Verificar apenas arquivos CSS
-node scripts/validate-theme.js --only "**/*.css"
-
-# Modo verbose com detalhes
-node scripts/validate-theme.js --verbose --fix
+npm run validate:theme:fix
+npm run validate:theme:strict
 ```
 
-> ⚠️ **Observação**: O Theme Validator pode exibir o aviso "Arquivo principal CSS sem suporte a dark mode" para `public/styles/styles.css`. A aplicação trata o modo escuro via classe `dark-theme` aplicada pelo JavaScript, portanto a mensagem é apenas informativa e não exige alteração imediata.
-
-### Categorias de Problemas Detectados
-
-**Erros (devem ser corrigidos):**
-- Cores hexadecimais hardcoded (`#fff`, `#000000`)
-- Cores nomeadas básicas (`white`, `black`, `red`, `blue`)
-- Estilos inline com cores
-- JavaScript inline styles com cores
-- Tailwind classes com cores hardcoded (`bg-[#fff]`)
-- Dark mode sem variáveis CSS
-
-**Warnings (recomendado corrigir):**
-- Cores RGB/RGBA hardcoded
-- Cores HSL/HSLA hardcoded
-- Cores nomeadas estendidas (`coral`, `salmon`, etc.)
-- Variáveis não-semânticas (`--neutral-500`, `--gray-200`)
-- Gradientes com cores hardcoded
-- `!important` em propriedades de cor
-- CSS-in-JS com cores hardcoded
-- SVG com cores inline
-
-**Info (considerar):**
-- Opacidade hardcoded
-- Canvas/WebGL colors
-- Z-index hardcoded
-
-### Frameworks Suportados
-
-O script detecta variáveis não-semânticas de:
-- Tailwind CSS (`--slate-500`, `--gray-200`)
-- Material Design (`--md-blue-500`)
-- Bootstrap (`--bs-gray-500`)
-- Chakra UI (`--chakra-colors-gray-500`)
-- Ant Design (`--ant-blue-5`)
-- Radix UI (`--gray-9`, `--blue-a9`)
-- Shadcn/ui
-- IBM Carbon
-- Open Props
-
-### Configuração Customizada
-
-Crie `.themevalidator.json` na raiz do projeto:
-
-```json
-{
-  "ignoreDirs": ["legacy", "vendor"],
-  "ignoreFiles": ["*.generated.css"],
-  "severityDefaults": {
-    "hex-color": "warning",
-    "named-color-basic": "error"
-  }
-}
-```
+> **Observação**: o validador pode indicar que `public/styles/styles.css` “não suporta dark mode”. O app aplica o modo escuro via classe `dark-theme` em runtime; a mensagem é informativa.
 
 ---
 

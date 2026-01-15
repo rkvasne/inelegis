@@ -163,14 +163,14 @@ const card = `
 ```
 
 ### 3. Validação Automática
-
+ 
 Adicione validação no build:
-
+ 
 ```json
 {
   "scripts": {
-    "validate": "html-validator --file=*.html",
-    "prebuild": "npm run validate"
+    "check": "npm run lint && npm run test && node scripts/build.js --dry-run",
+    "prebuild": "npm run check"
   }
 }
 ```

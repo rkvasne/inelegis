@@ -95,7 +95,7 @@ history:{userId}
 npm i -g vercel
 
 # Configurar .env.local
-cp .env.example .env.local
+Copy-Item .env.example .env.local
 
 # Executar
 vercel dev
@@ -105,6 +105,6 @@ vercel dev
 
 ## 📚 Documentação
 
-- [ANALYTICS.md](../docs/operations/ANALYTICS.md)
-- [SETUP-REDIS.md](../docs/guides/SETUP-REDIS.md)
-- [VARIAVEIS-AMBIENTE.md](../docs/guides/VARIAVEIS-AMBIENTE.md)
+- [analytics.md](../docs/operations/analytics.md)
+- [setup-redis.md](../docs/guides/setup-redis.md)
+- [variaveis-ambiente.md](../docs/guides/variaveis-ambiente.md)

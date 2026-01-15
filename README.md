@@ -5,7 +5,9 @@ lastReviewed: 14/01/2026
 ---
 <div align="center">
 
-  # ⚖️ INELEGIS
+  <img src="public/assets/images/logo.png" width="256" height="256" alt="Logo do INELEGIS" />
+
+  # INELEGIS
   
   **Sistema de Consulta de Inelegibilidade Eleitoral**
   
@@ -16,6 +18,14 @@ lastReviewed: 14/01/2026
     <br />
     <br />
     <a href="docs/README.md">Documentação</a>
+    ·
+    <a href="CONTRIBUTING.md">Contributing</a>
+    ·
+    <a href="CODE_OF_CONDUCT.md">Code of Conduct</a>
+    ·
+    <a href="SECURITY.md">Security</a>
+    ·
+    <a href="LICENSE">License</a>
     ·
     <a href="https://github.com/rkvasne/inelegis/issues">Reportar Bug</a>
     ·
@@ -88,7 +98,7 @@ Siga estes passos para rodar o projeto localmente.
     ```
 
 4.  **Configure as variáveis de ambiente**
-    Crie um arquivo `.env` na raiz do projeto com a URL do seu Redis (necessário para o histórico):
+    Crie um arquivo `.env.local` na raiz do projeto com a URL do seu Redis (necessário para o histórico):
     ```env
     REDIS_URL=redis://seu-usuario:sua-senha@seu-host:porta
     ```
