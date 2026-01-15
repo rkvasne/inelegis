@@ -1205,7 +1205,7 @@ code {
   padding: 0 var(--page-gutter);
   box-sizing: border-box;
   display: grid;
-  grid-template-columns: 4fr 3fr 3fr; /* Usar fr para descontar o gap corretamente */
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 40px;
   margin-bottom: 40px;
   align-items: flex-start;
@@ -1241,8 +1241,13 @@ code {
   align-items: center;
 }
 
+.main-footer .footer-links h4 {
+  justify-content: center;
+}
+
 .main-footer .footer-links {
   display: block;
+  text-align: center;
 }
 
 .main-footer .footer-social {
@@ -1261,6 +1266,7 @@ code {
   list-style: none;
   padding: 0;
   margin: 0;
+  display: inline-block;
 }
 
 .main-footer .link-list li {

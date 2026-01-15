@@ -3,6 +3,7 @@
 > Navegação: [README do projeto](README.md) • [Documentação](docs/README.md)
 
 ---
+
 MIT License
 
 Copyright (c) 2025 Inelegis
