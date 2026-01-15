@@ -178,6 +178,11 @@ Veja nosso [Guia de Contribuição](CONTRIBUTING.md) para mais detalhes.
 
 Distribuído sob a licença MIT. Veja `LICENSE.md` para mais informações.
 
+Políticas do projeto:
+- [Política de Privacidade](PRIVACY.md)
+- [Política de Segurança](SECURITY.md)
+- [Código de Conduta](CODE_OF_CONDUCT.md)
+
 ---
 
 **Versão:** 0.2.0

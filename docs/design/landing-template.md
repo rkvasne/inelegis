@@ -16,7 +16,7 @@ Este documento fornece o template base para páginas de marketing (Landing Pages
 - Header fixo com navegação
 - Hero com título e subtítulo
 - Seções de conteúdo dentro de `.container` com largura máxima de 1312px
-- Footer com grid 4fr 3fr 3fr (desktop) e coluna única (mobile)
+- Footer com grid 1fr 1fr 1fr (desktop) e coluna única (mobile)
 
 ## 🧩 Referência HTML
 

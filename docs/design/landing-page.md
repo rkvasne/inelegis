@@ -67,10 +67,10 @@ Todo o conteúdo principal deve estar dentro de um container que respeite essas 
 ### Footer (`.main-footer`)
 - **Estrutura de Grid:**
   - **NUNCA** use porcentagens (`%`) se houver `gap`. Use `fr`.
-  - Exemplo: `grid-template-columns: 4fr 3fr 3fr;` com `gap: 40px`.
+  - Exemplo: `grid-template-columns: 1fr 1fr 1fr;` com `gap: 40px`.
 - **Alinhamento:**
   - Coluna 1 (Marca/Info): Alinhada à esquerda.
-  - Coluna 2 (Links Rápidos): Alinhada à esquerda (padrão).
+  - Coluna 2 (Links Rápidos): Centralizada.
   - Coluna 3 (Transparência/Social):
     - O **bloco** deve alinhar à direita (`align-items: flex-end`) para casar com a margem do header.
     - O **conteúdo interno** (título, ícones) deve alinhar à esquerda (`align-items: flex-start`).
