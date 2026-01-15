@@ -24,6 +24,8 @@ Coleta dados anônimos de uso para:
 
 ## 🔒 Privacidade
 
+Para detalhes consolidados (cookies, armazenamento local, retenção e controles), veja a [Política de Privacidade](../../PRIVACY.md).
+
 ### Dados Coletados (Anônimos)
 - Lei e artigo consultados
 - Resultado (inelegível/elegível)

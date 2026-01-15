@@ -1,21 +1,8 @@
 # 🔐 Política de Segurança — INELEGIS
 
-**Versão:** v0.2.0  
-**Data:** 15/01/2026
+> Navegação: [README do projeto](README.md) • [Documentação](docs/README.md) • [Política de Privacidade](PRIVACY.md)
 
 Este documento descreve como reportar vulnerabilidades e quais controles de segurança são aplicados no **Inelegis**.
-
-## 📋 Índice
-
-- [Relatando uma Vulnerabilidade](#-relatando-uma-vulnerabilidade)
-  - [Relatório Privado](#-relatório-privado)
-  - [Informações Necessárias](#-informações-necessárias)
-  - [Tempo de Resposta](#-tempo-de-resposta)
-- [Controles Implementados](#-controles-implementados)
-- [Dependências](#-dependências)
-- [Contato](#-contato)
-
----
 
 ## 🚨 Relatando uma Vulnerabilidade
 
@@ -64,3 +51,7 @@ npm audit
 
 - Segurança (privado): https://github.com/rkvasne/inelegis/security/advisories/new
 - Outros assuntos: https://github.com/rkvasne/inelegis/issues
+
+---
+
+**Versão:** 0.2.0
