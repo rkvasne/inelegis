@@ -3,7 +3,7 @@
 .dark-theme{--bg-primary:#0f172a;--bg-secondary:#1e293b;--bg-tertiary:#334155;--text-primary:#f1f5f9;--text-secondary:#cbd5e1;--text-on-primary:#ffffff;--text-on-dark:#ffffff;--glass-bg:rgba(255,255,255,.1);--primary-500:#38bdf8;--primary-600:#0ea5e9;--page-bg-start:#0b1120;--page-bg-end:#0f172a;--info-bg:rgba(56,189,248,.18);--cta-bg-start:#1e293b;--cta-bg-end:#0f172a;--footer-bg:var(--bg-primary);--border-color:#334155;--text-muted:#475569}
 body{font-family:'Inter',ui-sans-serif,system-ui,sans-serif;line-height:1.6;color:var(--text-primary);background:linear-gradient(135deg,var(--page-bg-start) 0%,var(--page-bg-end) 100%);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);clip-path:inset(50%);border:0}
-.hero{padding:8rem var(--page-gutter) 6rem;position:relative;overflow:hidden}
+.hero{padding:4rem var(--page-gutter) 6rem;position:relative;overflow:hidden}
 .hero::before{content:"";position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(circle at 20% 50%,var(--info-bg) 0%,transparent 50%),radial-gradient(circle at 80% 80%,var(--info-bg) 0%,transparent 50%);z-index:0}
 .hero-content{max-width:900px;margin:0 auto;text-align:center;position:relative;z-index:1}
 .hero-badge{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1rem;background:var(--bg-primary,rgba(255,255,255,.9));border-radius:9999px;font-size:.875rem;font-weight:600;color:var(--primary-700);margin-bottom:2rem;box-shadow:var(--shadow-md);animation:slideDown .6s ease-out}
@@ -157,7 +157,7 @@ html:not(.dark-theme) .main-footer .footer-bottom{border-top:1px solid rgba(15,2
 .main-footer .footer-bottom a:hover{color:var(--primary-500);opacity:1}
 
 /* Header Landing */
-.landing-header{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(255,255,255,.8);backdrop-filter:blur(12px);border-bottom:1px solid var(--border-color);transition:all .3s ease}
+.landing-header{position:sticky;top:0;left:0;width:100%;z-index:1000;background:rgba(255,255,255,.8);backdrop-filter:blur(12px);border-bottom:1px solid var(--border-color);transition:all .3s ease}
 .dark-theme .landing-header{background:rgba(15,23,42,.8)}
 .landing-nav{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:var(--nav-max-width);margin:0 auto;padding:1rem var(--page-gutter)}
 .nav-brand{display:flex;align-items:center;gap:.75rem;text-decoration:none}

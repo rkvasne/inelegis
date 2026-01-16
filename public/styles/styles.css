@@ -139,6 +139,7 @@
 
   /* Layout */
   --container-width: 1312px; /* Referência referência visual */
+  --content-max-width: 1312px; /* Compatibilidade com Footer */
   --header-height: 70px;
   --border-radius: 12px;
   --transition-fast: 150ms ease-in-out;
@@ -404,8 +405,8 @@ code {
   gap: var(--space-6);
   max-width: var(--container-width);
   margin: 0 auto;
-  padding-left: 24px;
-  padding-right: 24px;
+  padding-left: var(--page-gutter);
+  padding-right: var(--page-gutter);
   box-sizing: border-box;
 }
 
