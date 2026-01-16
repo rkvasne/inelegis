@@ -401,12 +401,10 @@ code {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%; /* Garantir que ocupe toda a largura disponível */
-  gap: var(--space-6);
+  width: 100%;
   max-width: var(--container-width);
   margin: 0 auto;
-  padding-left: var(--page-gutter);
-  padding-right: var(--page-gutter);
+  padding: 0 var(--page-gutter);
   box-sizing: border-box;
 }
 
