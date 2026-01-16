@@ -413,7 +413,7 @@ code {
 .system-brand {
   display: flex;
   align-items: center;
-  gap: var(--space-3);
+  gap: 0.75rem;
   flex-shrink: 0;
 }
 
