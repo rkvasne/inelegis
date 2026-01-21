@@ -69,6 +69,7 @@
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   
   /* Z-index (algumas reservadas para uso futuro) */
   --z-dropdown: 1000; /* Reservado */
@@ -93,7 +94,7 @@
   /* Header e Footer */
   --header-bg: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 50%, var(--primary-800) 100%);
   --header-text: var(--text-on-primary);
-  --footer-bg: var(--bg-secondary);
+  --footer-bg: var(--bg-tertiary); /* Era secondary, mudei para tertiary para contraste */
   --footer-text: var(--text-secondary);
   --nav-active-bg: rgba(255, 255, 255, 0.25);
   --nav-hover-bg: rgba(255, 255, 255, 0.15);
@@ -417,23 +418,30 @@ code {
 .system-brand {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.5rem;
   flex-shrink: 0;
 }
 
 .brand-icon {
-  width: 2.75rem;
-  height: 2.75rem;
+  width: 2.25rem;
+  height: 2.25rem;
   /* background: var(--glass-bg); */
   border-radius: var(--radius-lg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block; /* Alterado de flex para block para evitar sub-pixel centering issues */
+  padding: 0;
+  margin: 0;
   /* backdrop-filter: blur(10px); */
   /* -webkit-backdrop-filter: blur(10px); */
   /* border: 1px solid var(--glass-border); */
   /* color: var(--glass-text); */
   flex-shrink: 0;
+}
+
+.brand-icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .brand-text {
@@ -1214,7 +1222,8 @@ code {
   padding-left: 24px;
   padding-right: 24px;
   box-sizing: border-box;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr max-content 1fr;
   align-items: flex-start;
   gap: 40px;
   margin-bottom: 40px;
@@ -1227,6 +1236,7 @@ code {
   gap: 20px;
   align-items: flex-start;
   text-align: left;
+  justify-self: start;
 }
 
 .main-footer .footer-brand p {
@@ -1262,6 +1272,7 @@ code {
   align-items: flex-start;
   text-align: left;
   width: max-content;
+  justify-self: center;
 }
 
 .main-footer .footer-social {
@@ -1270,6 +1281,7 @@ code {
   flex-direction: column;
   align-items: flex-end;
   text-align: right;
+  justify-self: end;
 }
   
   .main-footer .footer-social-wrapper {
@@ -1440,17 +1452,18 @@ html:not(.dark-theme) .main-footer .footer-bottom {
   }
 
   .main-footer .footer-content {
-  width: 100%;
-  max-width: var(--container-width);
-  margin: 0 auto;
-  padding-left: 24px;
-  padding-right: 24px;
-  box-sizing: border-box;
-  display: flex;
-  align-items: flex-start;
-  gap: 40px;
-  margin-bottom: 40px;
-}
+    width: 100%;
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding-left: 24px;
+    padding-right: 24px;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 1fr max-content 1fr;
+    align-items: flex-start;
+    gap: 40px;
+    margin-bottom: 40px;
+  }
 
   .main-footer .footer-bottom {
     flex-shrink: 0;
@@ -1464,17 +1477,18 @@ html:not(.dark-theme) .main-footer .footer-bottom {
   }
 
   .main-footer .footer-content {
-  width: 100%;
-  max-width: var(--container-width);
-  margin: 0 auto;
-  padding-left: 24px;
-  padding-right: 24px;
-  box-sizing: border-box;
-  display: flex;
-  align-items: flex-start;
-  gap: 40px;
-  margin-bottom: 40px;
-}
+    width: 100%;
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding-left: 24px;
+    padding-right: 24px;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: flex-start;
+    gap: 40px;
+    margin-bottom: 40px;
+  }
 
   .main-footer .footer-brand .brand,
   .main-footer .social-icons {

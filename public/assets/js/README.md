@@ -1,37 +1,34 @@
 ---
 docStatus: active
-docScope: runtime
+docScope: source
 lastReviewed: 14/01/2026
 ---
-# JS (runtime)
+# JS (fonte)
 
-Esta pasta contém os scripts carregados pelas páginas em produção.
+Esta pasta contém fontes de desenvolvimento e/ou referência. O runtime carrega `public/assets/js/**`.
 
 > Regras gerais de documentação, commits, lint e testes: consulte [AGENTS.md](../../AGENTS.md).
 
-## Fonte, build e sincronização
+## Papel desta pasta
 
-- O runtime carrega `public/assets/js/**`.
-- Quando existir fonte equivalente em `src/js/**`, ela pode ser sincronizada para cá.
-- Arquivos gerados (ex.: dados normalizados) também vivem em `public/assets/js/**`.
+- Espelho histórico: mantém versões anteriores e bases de referência para desenvolvimentos.
+- Desenvolvimento local: pode ser usada como origem em pipelines de build, quando configurados.
+- Não participar do runtime: páginas públicas carregam scripts de `public/assets/js`.
 
-## Onde está o código ativo
+## Onde está o código ativo (runtime)
 
-- Dados normalizados: `data-normalizado.js` (gera `window.__INELEG_NORMALIZADO__`).
-- API de consulta: `consulta-normalizado.js` (expõe `DataNormalizer`).
-- Lógica de página: `script.js` e módulos em `modules/`.
+- Dados normalizados: `public/assets/js/data-normalizado.js` (gera `window.__INELEG_NORMALIZADO__`).
+- API de consulta: `public/assets/js/consulta-normalizado.js` (expõe `DataNormalizer`).
+- Lógica da página: `public/assets/js/script.js` e módulos em `public/assets/js/modules/`.
 
-## Fonte dos dados
-
-- Fonte: `docs/references/tabela-oficial.xml`
-- Gerador: `scripts/extrair_normalizado_xml.js`
+> **Nota:** O arquivo `src/js/data.js` (antigo espelho dos dados brutos do PDF) foi removido na versão 0.1.9 para evitar confusão. A única fonte de verdade para dados agora é `public/assets/js/data-normalizado.js`.
 
 ## Ordem de carregamento (referência)
 
-1. Módulos base de UI e utilitários (`modules/*`).
-2. Dados (`data-normalizado.js`).
-3. API de consulta (`consulta-normalizado.js`).
-4. Scripts de página (`script.js`).
+1. Módulos base de UI e utilitários (`public/assets/js/modules/*`).
+2. Dados (`public/assets/js/data-normalizado.js`).
+3. API de consulta (`public/assets/js/consulta-normalizado.js`).
+4. Scripts de página (`public/assets/js/script.js`).
 
 ## Convenções e nomes
 

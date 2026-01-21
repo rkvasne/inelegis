@@ -44,9 +44,10 @@ const Components = (() => {
         const logoSrc = isLandingPage ? `${IMAGE_BASE_PATH}${isDarkTheme ? 'logo-claro.png' : 'logo-dark.png'}` : `${IMAGE_BASE_PATH}logo-dark.png`;
         const logoLockAttr = isLandingPage ? '' : ' data-logo-lock="true"';
 
+        const wrapperClass = isLandingPage ? 'header-wrapper landing-nav' : 'header-wrapper';
         return `
             <header class="system-header">
-                <div class="header-wrapper">
+                <div class="${wrapperClass}">
                     <div class="system-brand">
                         <div class="brand-icon">
                             <img id="header-logo"${logoLockAttr} src="${logoSrc}" alt="Inelegis Logo" width="32" height="32" loading="lazy" style="border-radius: 4px;">
