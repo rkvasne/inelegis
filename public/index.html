@@ -232,26 +232,26 @@
         }
         
         /* Card Hierarchy */
-        .card--primary {
+        .card-primary {
             border: 2px solid var(--primary-200);
             box-shadow: var(--shadow-md);
         }
-        .card--primary .card-header {
+        .card-primary .card-header {
             background: var(--primary-50);
             border-bottom: 1px solid var(--primary-100);
         }
-        .dark-theme .card--primary {
+        .dark-theme .card-primary {
             border-color: var(--primary-800);
         }
-        .dark-theme .card--primary .card-header {
+        .dark-theme .card-primary .card-header {
             background: var(--primary-900);
             border-bottom-color: var(--primary-800);
         }
         
-        .card--secondary {
-            opacity: 0.9;
+        .card-secondary {
+            opacity: var(--opacity-high);
         }
-        .card--secondary .card-header h2 {
+        .card-secondary .card-header h2 {
             font-size: 1.125rem;
         }
         
@@ -312,7 +312,7 @@
 
     <main class="container container--content main-content">
         <!-- Card de Acesso (Principal) -->
-        <div class="card card--primary mb-6">
+        <div class="card card-primary mb-6">
             <div class="card-header">
                 <h2>Acessar Sistema</h2>
                 <p>Confirme os termos para continuar</p>
@@ -346,7 +346,7 @@
         </div>
 
         <!-- Card de Informações (Secundário) -->
-        <div class="card card--secondary mb-6">
+        <div class="card card-secondary mb-6">
             <div class="card-header">
                 <h2>Sobre os Dados</h2>
                 <p>Fonte e atualização</p>

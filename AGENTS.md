@@ -63,6 +63,14 @@ Importante — validação e segurança:
 - ❌ NUNCA use sufixos como `_fix`, `_v2`, `_novo`, `_final`
 - ✅ Corrija o arquivo original até que funcione
 
+### 🌍 Repositório Global de Regras (Fonte Única da Verdade)
+- Este projeto adota a estratégia de **zero redundância** para templates e regras canônicas.
+- **Localização Global:** `e:\Agents`
+- **Regra:** Nunca duplique templates (ex: Landing Page, PR, Issue) dentro do projeto. Consulte sempre o repositório global.
+- **Caminhos Úteis:**
+  - Templates: `e:\Agents\templates\`
+  - Regras: `e:\Agents\rules\`
+
 ### Documentação (padrão recomendado)
 - **Raiz (padrão GitHub)**: manter arquivos canônicos em UPPERCASE/nomes tradicionais:
   - `README.md`, `LICENSE`, `CHANGELOG.md`, `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`, `PRIVACY.md`

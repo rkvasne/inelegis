@@ -305,10 +305,6 @@ function popularSelectLeis() {
                 noResultMsg = document.createElement('div');
                 noResultMsg.className = 'dropdown-no-results';
                 noResultMsg.textContent = 'Nenhuma lei encontrada';
-                noResultMsg.style.padding = '8px 12px';
-                noResultMsg.style.color = 'var(--text-secondary)';
-                noResultMsg.style.fontSize = '0.875rem';
-                noResultMsg.style.textAlign = 'center';
                 leiListbox.appendChild(noResultMsg);
             } else {
                 noResultMsg.style.display = 'block';

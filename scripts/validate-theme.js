@@ -41,7 +41,8 @@ const DEFAULT_CONFIG = {
         'node_modules', '.git', 'dist', 'build', '.next', '.nuxt', '.output',
         'coverage', 'vendor', '.cache', '.parcel-cache', '.turbo', '.vercel',
         '__pycache__', '.pytest_cache', 'venv', 'env', '.env', 'target',
-        'out', 'public/build', 'static/build', '.svelte-kit', '.astro'
+        'out', 'public/build', 'static/build', '.svelte-kit', '.astro',
+        'agents-link'
     ],
 
     // Arquivos para ignorar
