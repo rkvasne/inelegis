@@ -14,6 +14,7 @@ Bem-vindo à documentação oficial do projeto **Inelegis**.
 
 ### 🛠️ Guias
 - **[Guia de Desenvolvimento](guides/development.md)** – arquitetura, módulos, testes e padrões
+- **[DevOps e CI/CD](guides/devops.md)** – pipeline de automação e deploy
 - **[Guia de Manutenção](guides/maintenance.md)** – atualização de dados, validação e deploy
 - **[Variáveis de Ambiente](guides/variaveis-ambiente.md)** – configuração completa
 - **[Setup Redis](guides/setup-redis.md)** – configuração consolidada do Redis

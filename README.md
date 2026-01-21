@@ -9,6 +9,7 @@
  
 [![Version](https://img.shields.io/badge/version-0.2.0-blue.svg?style=for-the-badge)](https://semver.org)
 [![License](https://img.shields.io/badge/license-MIT-green.svg?style=for-the-badge)](LICENSE.md)
+[![CI/CD](https://img.shields.io/badge/CI%2FCD-active-success.svg?style=for-the-badge)](.github/workflows/ci-cd.yml)
 [![Tests](https://img.shields.io/badge/tests-suite-blue.svg?style=for-the-badge)](tests/)
 [![Theme](https://img.shields.io/badge/theme-validated-success.svg?style=for-the-badge)](docs/design/theme-validator.md)
 

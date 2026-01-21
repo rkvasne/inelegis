@@ -107,7 +107,7 @@ body {
   right: 0;
 }
 
-.header-container {
+.header-container, .header-wrapper.landing-nav {
   width: 100%;
   max-width: var(--nav-max-width);
   margin: 0 auto;
@@ -117,10 +117,38 @@ body {
   align-items: center;
 }
 
+/* Fix System Header Logo Alignment */
+.header-wrapper.landing-nav .brand-icon {
+  width: 36px !important;
+  height: 36px !important;
+  background: transparent !important;
+  border: none !important;
+  display: block !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  flex-shrink: 0;
+}
+
+.header-wrapper.landing-nav .brand-icon img {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 8px;
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.header-wrapper.landing-nav .system-brand {
+  gap: 0.5rem !important;
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
 .brand {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  font-family: 'Poppins', sans-serif;
   font-weight: 800;
   font-size: 1.5rem;
   color: var(--primary-700);
@@ -282,6 +310,7 @@ body {
 }
 
 .hero-title {
+  font-family: 'Poppins', sans-serif;
   font-size: clamp(2.5rem, 5vw, 4rem);
   font-weight: 900;
   line-height: 1.1;
@@ -366,6 +395,7 @@ body {
 }
 
 .section-header {
+  display: block;
   text-align: center;
   margin-bottom: 3.5rem;
 }
@@ -382,14 +412,16 @@ body {
 }
 
 .section-title {
+  font-family: 'Poppins', sans-serif;
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 800;
   color: var(--text-primary);
   margin-bottom: 1rem;
+  letter-spacing: -0.03em;
 }
 
 .section-description {
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   color: var(--text-secondary);
   max-width: 700px;
   margin: 0 auto;
@@ -429,6 +461,9 @@ body {
   border-radius: var(--radius-xl);
   border: 1px solid var(--border-color, #e5e7eb);
   transition: transform .3s ease, box-shadow .3s ease, filter .3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .feature-card:hover {
@@ -450,8 +485,9 @@ body {
 }
 
 .feature-title {
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
   color: var(--text-primary);
   margin-bottom: .75rem;
 }
@@ -459,6 +495,88 @@ body {
 .feature-description {
   color: var(--text-secondary);
   line-height: 1.7;
+}
+
+.faq-teaser {
+  padding: 3rem 0;
+  background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+}
+
+.faq-teaser .section-header {
+  display: block;
+  text-align: center;
+}
+
+.faq-teaser .section-description {
+  margin: 0 auto;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.faq-teaser-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.faq-teaser-item {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.faq-teaser-question {
+  width: 100%;
+  text-align: left;
+  padding: 1rem 1.25rem;
+  background: var(--glass-bg, var(--white-10));
+  border: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.faq-teaser-question:hover {
+  filter: brightness(1.03);
+}
+
+.faq-teaser-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-md);
+  background: var(--primary-100);
+  color: var(--primary-700);
+}
+
+.faq-teaser-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .3s ease;
+  background: var(--bg-primary);
+}
+
+.faq-teaser-item.active .faq-teaser-answer {
+  max-height: 300px;
+}
+
+.faq-teaser-footer {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.faq-teaser-footer .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .stats {
@@ -482,6 +600,7 @@ body {
 }
 
 .stat-number {
+  font-family: 'Poppins', sans-serif;
   font-size: 3.5rem;
   font-weight: 900;
   margin-bottom: .5rem;
@@ -491,8 +610,9 @@ body {
 
 .stat-label {
   font-size: 1.125rem;
-  color: var(--primary-50);
+  color: var(--white-90);
   font-weight: 600;
+  opacity: 0.7;
 }
 
 .cta {
@@ -601,6 +721,7 @@ body {
 .main-footer .footer-links h4,
 .main-footer .footer-social h4 {
   margin: 0 0 1rem 0;
+  font-family: 'Poppins', sans-serif;
   font-size: 1rem;
   font-weight: 600;
   color: var(--text-primary);
@@ -705,6 +826,19 @@ body {
 @media (max-width: 768px) {
   :root {
     --page-gutter: 1rem;
+  }
+  .section-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.75rem;
+  }
+  .section-title {
+    margin-bottom: 0.5rem;
+  }
+  .section-description {
+    margin: 0 auto;
+    text-align: center;
   }
   .nav-desktop {
     display: none;

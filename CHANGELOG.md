@@ -16,12 +16,21 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ## [Unreleased]
 
+### ⚙️ CI/CD & DevOps
+- **Pipeline GitHub Actions**: Implementado workflow completo de CI/CD (`.github/workflows/ci-cd.yml`) com Quality Gate (Audit, Lint, Testes, Validação de Tema) e Build Verification.
+- **Scripts**:
+  - Removido `scripts/deploy.js` (redundante/obsoleto).
+  - Movido e renomeado `deploy.sh` da raiz para `scripts/deploy-server.sh` (organização).
+- **Documentação**: Criado guia `docs/guides/devops.md` detalhando o pipeline de automação.
+
 ### 📚 Documentation
 - Unificação de documentação: remoção de arquivos `release-notes-*` (conteúdo consolidado no CHANGELOG).
 - Unificação do template da landing dentro de `docs/design/landing-page.md`.
 - Padronização de metadados (front matter) em `README.md`, `docs/README.md`, `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md` e `SECURITY.md`.
 - Atualização de links internos e índice central em `docs/README.md`.
 - AGENTS.md atualizado com referência ao repositório global de regras.
+- Adicionada seção “Ferramentas e Versões Recomendadas” em `docs/guides/development.md`.
+  - Node.js 22.x; ESLint 9.39.x; Prettier 3.8.x; HTML-validate 10.6.x; Puppeteer 24.35.x; ioredis 5.9.x; dotenv 17.2.x.
 
 ### 📐 Layout & Design
 - **Container**: Ajustada largura máxima para `1312px` (referência: referência visual).

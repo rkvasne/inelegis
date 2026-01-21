@@ -1,0 +1,62 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  quality-gate:
+    name: 🛡️ Quality Gate
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: 🔒 Security Audit
+      # Falha apenas em vulnerabilidades altas ou críticas
+      run: npm audit --audit-level=high
+
+    - name: 🎨 Linting & Code Style
+      run: npm run lint
+
+    - name: 🎭 Theme Validation
+      run: npm run validate:theme
+
+    - name: 🧪 Run Tests (Unit & Components)
+      run: npm run test:all
+
+    - name: 📚 Documentation Check
+      run: npm run doc:check
+
+  build-verification:
+    name: 🏗️ Build Verification
+    needs: quality-gate
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: 🏗️ Build Project
+      run: npm run build

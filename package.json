@@ -43,13 +43,13 @@
   "author": "Inelegis",
   "license": "MIT",
   "dependencies": {
-    "ioredis": "^5.8.2"
+    "ioredis": "^5.9.2"
   },
   "devDependencies": {
     "dotenv": "^17.2.3",
-    "eslint": "^9.0.0",
-    "html-validate": "^8.0.0",
-    "prettier": "^3.0.0",
+    "eslint": "^9.39.2",
+    "html-validate": "^10.6.0",
+    "prettier": "^3.8.0",
     "puppeteer": "^24.35.0"
   },
   "engines": {

@@ -32,54 +32,18 @@
     <meta name="twitter:description" content="Sistema não oficial para consulta rápida de inelegibilidade eleitoral">
     <meta name="twitter:image" content="https://inelegis.vercel.app/og-image.png">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/styles.css?v=0.2.0">
+    <script src="/assets/js/modules/theme-bootstrap.js?v=0.2.0"></script>
     <link rel="stylesheet" href="/styles/landing.css">
 </head>
 
 <body>
     <img src="/assets/images/logo-dark.png" alt="Logomarca oficial do Inelegis" loading="lazy" class="sr-only">
     
-    <header class="header fixed-top">
-        <div class="container header-container">
-            <a href="./" class="brand">
-                <img src="/assets/images/logo-dark.png" alt="Inelegis" class="brand-logo">
-                <span class="brand-text">Inelegis</span>
-            </a>
-            
-            <nav class="nav-desktop" aria-label="Navegação principal">
-                <ul class="nav-list">
-                    <li><a href="#como-funciona" class="nav-link">Como Funciona</a></li>
-                    <li><a href="#recursos" class="nav-link">Recursos</a></li>
-                    <li><a href="sobre.html" class="nav-link">Sobre</a></li>
-                    <li><a href="faq.html" class="nav-link">FAQ</a></li>
-                </ul>
-            </nav>
-
-            <div class="header-actions">
-                <button id="theme-toggle" class="btn-icon theme-toggle" aria-label="Alternar tema" title="Alternar tema">
-                    <svg class="sun-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                    </svg>
-                    <svg class="moon-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
-                    </svg>
-                </button>
-                <a href="./" class="btn btn-primary btn-sm">Acessar Sistema</a>
-                <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Menu">
-                    <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                </button>
-            </div>
-        </div>
-
-        <div class="mobile-menu" id="mobile-menu">
-            <a href="#como-funciona" class="mobile-link">Como Funciona</a>
-            <a href="#recursos" class="mobile-link">Recursos</a>
-            <a href="sobre.html" class="mobile-link">Sobre</a>
-            <a href="faq.html" class="mobile-link">FAQ</a>
-            <a href="./" class="btn btn-primary btn-full">Acessar Sistema</a>
-        </div>
-    </header>
+    <div id="header-placeholder"></div>
 
     <main>
         <!-- Hero Section -->

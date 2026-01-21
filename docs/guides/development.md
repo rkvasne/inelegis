@@ -298,3 +298,15 @@ node tests/exceptions.test.js
 
 ---
 
+## 🛠 Ferramentas e Versões Recomendadas
+
+- Node.js: 22.x (engine do projeto)
+- ESLint: 9.39.x (estável)
+- Prettier: 3.8.x
+- HTML-validate: 10.6.x (requer Node 20+)
+- Puppeteer: 24.35.x
+- ioredis: 5.9.x
+- dotenv: 17.2.x
+
+> As versões acima refletem o estado estável em jan/2026 e são alinhadas com os requisitos atuais do projeto.
+
