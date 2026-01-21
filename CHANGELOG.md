@@ -1,7 +1,7 @@
 ---
 docStatus: active
 docScope: release-history
-lastReviewed: 15/01/2026
+lastReviewed: 21/01/2026
 ---
 # Changelog
 
@@ -21,6 +21,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 - Unificação do template da landing dentro de `docs/design/landing-page.md`.
 - Padronização de metadados (front matter) em `README.md`, `docs/README.md`, `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md` e `SECURITY.md`.
 - Atualização de links internos e índice central em `docs/README.md`.
+- AGENTS.md atualizado com referência ao repositório global de regras.
 
 ### 📐 Layout & Design
 - **Container**: Ajustada largura máxima para `1312px` (referência: referência visual).
@@ -32,6 +33,9 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 - **Testes**: Configurado script de teste para pular (skip) validação de layout via Puppeteer se o navegador não puder ser iniciado (fix para Vercel/Serverless).
 
 ### 🎨 UI/UX
+- Cards da página inicial renomeados para `card-primary`/`card-secondary` e opacidade via variável.
+- Rodapé de componentes com seção de transparência e CTA “GitHub”.
+- Mensagem de “Nenhuma lei encontrada” sem estilos inline no JavaScript.
 - **Footer**:
   - Sincronização de layout com projeto Dahora App (Grid 40% / 30% / 30%).
   - Correção de conflito de classes (`.footer-content`) que comprimia a largura do rodapé.
@@ -50,6 +54,13 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
   - Títulos ("INELEGÍVEL", "ELEGÍVEL", "NÃO ENCONTRADO") transformados em badges.
   - Badges agora ficam em linha separada da descrição.
   - Cores dos badges correspondem à cor da borda do card (Vermelho, Verde, Laranja) para melhor destaque e organização.
+
+### 🎨 CSS & Tema
+- Substituição de cores e opacidades hardcoded por variáveis de tema.
+- Atualizações em `landing.css` para CTA, rodapé e menu mobile.
+
+### 🧪 Validação
+- Validador de tema ignora o diretório `agents-link`.
 
 ## [0.2.0] - 05/12/2025
 

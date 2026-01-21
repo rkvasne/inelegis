@@ -127,7 +127,7 @@ const ThemeManager = (() => {
      * @param {string} theme - Tema atual
      */
     function updateToggleButton(theme) {
-        const button = document.getElementById('themeToggle');
+        const button = document.getElementById('themeToggle') || document.getElementById('theme-toggle');
         if (!button) return;
 
         const sunIcon = button.querySelector('.sun-icon');
@@ -200,7 +200,7 @@ const ThemeManager = (() => {
     function attachEventListeners() {
         // Usar setTimeout para garantir que o DOM está pronto
         setTimeout(() => {
-            const button = document.getElementById('themeToggle');
+            const button = document.getElementById('themeToggle') || document.getElementById('theme-toggle');
             if (button) {
                 button.addEventListener('click', toggleTheme);
                 themeDebugLog('Theme toggle button attached');
