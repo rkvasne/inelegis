@@ -220,8 +220,8 @@
   --header-bg: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
   --header-text: var(--text-primary);
   --footer-bg: #0f172a; /* Slate 900 - Mais escuro para contraste */
-  --footer-gradient-start: #0b1120;
-  --footer-gradient-end: #0f172a;
+  --footer-gradient-start: #111827;
+  --footer-gradient-end: #0b1120;
   --badge-overlay-bg: rgba(15, 23, 42, 0.45);
   --nav-hover-bg: rgba(30, 41, 59, 0.8);
   --header-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
@@ -1348,6 +1348,10 @@ code {
   border-top: 1px solid var(--white-05);
   font-size: 14px;
   color: var(--white-30);
+}
+
+.dark-theme .main-footer .footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .main-footer .footer-bottom p {
