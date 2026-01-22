@@ -147,14 +147,19 @@ const ThemeManager = (() => {
      * @param {string} theme - Tema atual
      */
     function updateLogo(theme) {
-        const logo = document.getElementById('header-logo');
-        if (!logo) return;
-        if (logo.dataset.logoLock === 'true') return;
-        
-        // logo-dark.png = escudo escuro (para fundo claro)
-        // logo-claro.png = escudo claro (para fundo escuro)
         const logoSrc = `${IMAGE_BASE_PATH}${theme === THEME_DARK ? 'logo-claro.png' : 'logo-dark.png'}`;
-        logo.src = logoSrc;
+
+        // Atualizar logo do header
+        const headerLogo = document.getElementById('header-logo');
+        if (headerLogo && headerLogo.dataset.logoLock !== 'true') {
+            headerLogo.src = logoSrc;
+        }
+
+        // Atualizar outros logos conscientes do tema (ex: footer)
+        const themeLogos = document.querySelectorAll('.theme-aware-logo');
+        themeLogos.forEach(logo => {
+            logo.src = logoSrc;
+        });
     }
 
     /**
