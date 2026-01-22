@@ -702,7 +702,7 @@ body {
 .main-footer .footer-brand .logo {
   font-size: 1.25rem;
   font-weight: 700;
-  color: var(--primary-600);
+  color: var(--text-primary);
 }
 
 .main-footer .footer-brand p {
