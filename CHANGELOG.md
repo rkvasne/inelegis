@@ -30,6 +30,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 - Atualização de links internos e índice central em `docs/README.md`.
 - AGENTS.md atualizado com referência ao repositório global de regras.
 - Remoção de menções a ferramentas e referências externas específicas na documentação.
+- Histórico de commits reescrito para remover menções a ferramentas externas.
 - Adicionada seção “Ferramentas e Versões Recomendadas” em `docs/guides/development.md`.
   - Node.js 22.x; ESLint 9.39.x; Prettier 3.8.x; HTML-validate 10.6.x; Puppeteer 24.35.x; ioredis 5.9.x; dotenv 17.2.x.
 
