@@ -88,7 +88,7 @@ const Components = (() => {
         const currentYear = new Date().getFullYear();
         const isLandingPage = currentPage === 'landing';
         const isDarkTheme = document.documentElement.classList.contains('dark-theme');
-        const logoSrc = isLandingPage ? `${IMAGE_BASE_PATH}${isDarkTheme ? 'logo-claro.png' : 'logo-dark.png'}` : `${IMAGE_BASE_PATH}logo-dark.png`;
+        const logoSrc = `${IMAGE_BASE_PATH}${isDarkTheme ? 'logo-claro.png' : 'logo-dark.png'}`;
         
         return `
             <footer class="main-footer">
