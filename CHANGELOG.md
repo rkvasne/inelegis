@@ -52,6 +52,8 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
   - **Dark Mode**: Ajustado fundo do rodapé (`--bg-tertiary`) para contraste mais leve em relação ao corpo da página.
   - **Marca**: Cor do texto "Inelegis" e ícone padronizados com o cabeçalho em todos os temas e páginas.
   - **Lógica de Logo**: Implementado `ThemeManager.updateLogo` aprimorado para sincronizar logos do rodapé (`.theme-aware-logo`) com o tema ativo.
+  - **Header**: Ajustada lógica para utilizar logo claro em todas as páginas quando em modo escuro (correção para páginas internas).
+  - **Dark Mode**: Aumentado contraste do fundo do rodapé (`Slate 900`) para melhor diferenciação do corpo da página.
   - Largura forçada para 100% dentro do container de 1200px para evitar "shrink" indesejado.
   - Redesign completo para estilo minimalista e compacto.
   - Altura reduzida com espaçamento otimizado entre elementos.

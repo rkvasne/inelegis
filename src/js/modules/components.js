@@ -41,8 +41,10 @@ const Components = (() => {
 
         const isLandingPage = currentPage === 'landing';
         const isDarkTheme = document.documentElement.classList.contains('dark-theme');
-        const logoSrc = isLandingPage ? `${IMAGE_BASE_PATH}${isDarkTheme ? 'logo-claro.png' : 'logo-dark.png'}` : `${IMAGE_BASE_PATH}logo-dark.png`;
-        const logoLockAttr = isLandingPage ? '' : ' data-logo-lock="true"';
+        // Usar lógica baseada no tema para todas as páginas
+        // Se for landing, segue o tema. Se for interna, também deve seguir o tema (dark mode pede logo claro)
+        const logoSrc = `${IMAGE_BASE_PATH}${isDarkTheme ? 'logo-claro.png' : 'logo-dark.png'}`;
+        const logoLockAttr = isLandingPage ? '' : ' data-logo-lock="false"';
 
         const wrapperClass = isLandingPage ? 'header-wrapper landing-nav' : 'header-wrapper';
         return `
@@ -50,7 +52,7 @@ const Components = (() => {
                 <div class="${wrapperClass}">
                     <div class="system-brand">
                         <div class="brand-icon">
-                            <img id="header-logo"${logoLockAttr} src="${logoSrc}" alt="Inelegis Logo" width="32" height="32" loading="lazy" style="border-radius: 4px;">
+                            <img id="header-logo"${logoLockAttr} src="${logoSrc}" alt="Inelegis Logo" class="theme-aware-logo" width="32" height="32" loading="lazy" style="border-radius: 4px;">
                         </div>
                         <div class="brand-text">
                             <h1>Inelegis <span class="version-badge">v0.2.0</span></h1>
