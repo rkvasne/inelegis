@@ -29,6 +29,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 - Padronização de metadados (front matter) em `README.md`, `docs/README.md`, `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md` e `SECURITY.md`.
 - Atualização de links internos e índice central em `docs/README.md`.
 - AGENTS.md atualizado com referência ao repositório global de regras.
+- Remoção de menções a ferramentas e referências externas específicas na documentação.
 - Adicionada seção “Ferramentas e Versões Recomendadas” em `docs/guides/development.md`.
   - Node.js 22.x; ESLint 9.39.x; Prettier 3.8.x; HTML-validate 10.6.x; Puppeteer 24.35.x; ioredis 5.9.x; dotenv 17.2.x.
 
