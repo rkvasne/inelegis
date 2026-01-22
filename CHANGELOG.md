@@ -48,6 +48,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 - **Footer**:
   - Sincronização de layout com projeto Dahora App (Grid 40% / 30% / 30%).
   - Correção de conflito de classes (`.footer-content`) que comprimia a largura do rodapé.
+  - **Melhoria Visual**: Removida borda sólida e adicionada sombra suave para melhor separação do conteúdo (Sistema e Landing Page).
   - Largura forçada para 100% dentro do container de 1200px para evitar "shrink" indesejado.
   - Redesign completo para estilo minimalista e compacto.
   - Altura reduzida com espaçamento otimizado entre elementos.

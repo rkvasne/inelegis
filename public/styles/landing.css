@@ -668,7 +668,8 @@ body {
 
 .main-footer {
   background: var(--footer-bg);
-  border-top: 1px solid var(--border-color);
+  border-top: none;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
   padding: 4rem 0 2rem;
   margin-top: 0;
 }

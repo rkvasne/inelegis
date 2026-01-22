@@ -1402,7 +1402,8 @@ code {
 }
 
 html:not(.dark-theme) .main-footer {
-  border-top: 1px solid var(--border-color);
+  border-top: none;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
   background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
   color: var(--text-primary);
 }
