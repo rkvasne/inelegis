@@ -95,7 +95,7 @@ const Components = (() => {
                 <div class="footer-content">
                     <div class="footer-brand">
                         <div class="brand">
-                            <img src="${logoSrc}" alt="Inelegis Logo" class="brand-icon" width="32" height="32" loading="lazy">
+                            <img src="${logoSrc}" alt="Inelegis Logo" class="brand-icon theme-aware-logo" width="32" height="32" loading="lazy">
                             <div class="logo">Inelegis</div>
                         </div>
                         <p>Consulta de Inelegibilidade Eleitoral</p>

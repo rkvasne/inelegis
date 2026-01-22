@@ -51,6 +51,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
   - **Melhoria Visual**: Removida borda sólida e adicionada sombra suave para melhor separação do conteúdo (Sistema e Landing Page).
   - **Dark Mode**: Ajustado fundo do rodapé (`--bg-tertiary`) para contraste mais leve em relação ao corpo da página.
   - **Marca**: Cor do texto "Inelegis" e ícone padronizados com o cabeçalho em todos os temas e páginas.
+  - **Lógica de Logo**: Implementado `ThemeManager.updateLogo` aprimorado para sincronizar logos do rodapé (`.theme-aware-logo`) com o tema ativo.
   - Largura forçada para 100% dentro do container de 1200px para evitar "shrink" indesejado.
   - Redesign completo para estilo minimalista e compacto.
   - Altura reduzida com espaçamento otimizado entre elementos.

@@ -1409,7 +1409,7 @@ html:not(.dark-theme) .main-footer {
 }
 
 html:not(.dark-theme) .main-footer .footer-brand .logo {
-  color: var(--primary-700);
+  color: var(--text-primary);
 }
 
 html:not(.dark-theme) .main-footer .footer-brand p {
