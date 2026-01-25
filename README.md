@@ -1,11 +1,11 @@
 <div align="center">
 
-  <img src="public/assets/images/logo-dark.png" width="256" height="256" alt="Logo do INELEGIS" />
+<h1>⚖️ INELEGIS</h1>
 
-  # INELEGIS
-  
-  **Sistema de Consulta de Inelegibilidade Eleitoral.**  
-  *Uma ferramenta moderna, rápida e precisa para análise jurídica eleitoral.*
+<img src="public/assets/images/logo-dark.png" width="256" height="256" alt="Logo do INELEGIS" />
+
+**Sistema de Consulta de Inelegibilidade Eleitoral.**  
+*Uma ferramenta moderna, rápida e precisa para análise jurídica eleitoral.*
  
 [![Version](https://img.shields.io/badge/version-0.2.0-blue.svg?style=for-the-badge)](https://semver.org)
 [![License](https://img.shields.io/badge/license-MIT-green.svg?style=for-the-badge)](LICENSE.md)
@@ -13,13 +13,19 @@
 [![Tests](https://img.shields.io/badge/tests-suite-blue.svg?style=for-the-badge)](tests/)
 [![Theme](https://img.shields.io/badge/theme-validated-success.svg?style=for-the-badge)](docs/design/theme-validator.md)
 
-[Acesse o Sistema](https://inelegis.vercel.app) • [Recursos](#-recursos-principais) • [Tecnologias](#-tecnologias) • [Começando](#-começando) • [Estrutura](#-estrutura-do-projeto) • [Novidades](#-novidades) • [Documentação](#-documentação) • [Contribuição](#-contribuição)
+[README](README.md) • [Documentação](docs/README.md) • [Changelog](CHANGELOG.md) • [Contribuição](CONTRIBUTING.md) • [Licença](LICENSE.md)
 
 </div>
 
 ---
 
-## ✨ Recursos Principais
+## 📖 Sobre
+
+O **Inelegis** é uma aplicação web para consulta de inelegibilidade eleitoral, focada em performance, acessibilidade e manutenção simples.
+
+---
+
+## ✨ Funcionalidades
 
 | Recurso | Descrição |
 |---------|-----------|
@@ -48,7 +54,7 @@ Este projeto foi construído com foco em **performance**, **acessibilidade** e *
 
 ---
 
-## 🚀 Começando
+## 🛠️ Instalação
 
 Siga estes passos para rodar o projeto localmente.
 
@@ -86,8 +92,13 @@ Siga estes passos para rodar o projeto localmente.
     npm run dev
     ```
 
-6.  **Acesse no navegador**
-    Abra `http://localhost:3000` para ver a aplicação rodando.
+---
+
+## 🚀 Como Usar
+
+Após iniciar o servidor:
+
+- Acesse `http://localhost:3000`
 
 ---
 
@@ -138,7 +149,7 @@ Toda a documentação oficial vive em [`docs/`](docs/). Utilize a tabela abaixo 
 | [Guias](docs/guides/) | Desenvolvimento, manutenção, variáveis de ambiente e operação do Redis |
 | [Design](docs/design/) | Componentes, decisões visuais e Theme Validator |
 | [Operações](docs/operations/) | Analytics, segurança e rotinas administrativas |
-| [Histórico](docs/history/) | Release notes, marcos e templates de hotfix |
+| [Histórico](docs/history/) | Release notes, marcos e hotfix |
 | [Referências](docs/references/) | Tabelas e anexos oficiais (manual ASE, XML do TRE-SP) |
 
 > Precisa editar ou criar um novo documento? Siga primeiro o padrão definido em `docs/README.md#padrao-de-formato`.
@@ -159,17 +170,20 @@ Veja nosso [Guia de Contribuição](CONTRIBUTING.md) para mais detalhes.
 
 ---
 
+## 🔒 Políticas do Repositório
+
+- [SECURITY.md](SECURITY.md)
+- [PRIVACY.md](PRIVACY.md)
+- [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
+
+---
+
 ## 📄 Licença
 
 Distribuído sob a licença MIT. Veja `LICENSE.md` para mais informações.
 
-Políticas do projeto:
-- [Política de Privacidade](PRIVACY.md)
-- [Política de Segurança](SECURITY.md)
-- [Código de Conduta](CODE_OF_CONDUCT.md)
+<div align="center">
 
----
+**Desenvolvido pela equipe Inelegis**
 
-## 🔒 Privacidade
-
-Veja [PRIVACY.md](PRIVACY.md).
+</div>

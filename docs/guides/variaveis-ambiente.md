@@ -16,7 +16,7 @@ lastReviewed: 14/01/2026
 
 | Arquivo | Propósito | Git |
 |---------|-----------|-----|
-| `.env.example` | Template | ✅ Commitado |
+| `.env.example` | Exemplo | ✅ Commitado |
 | `.env.local` | Desenvolvimento | ❌ Ignorado |
 
 ---

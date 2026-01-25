@@ -25,10 +25,9 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ### 📚 Documentation
 - Unificação de documentação: remoção de arquivos `release-notes-*` (conteúdo consolidado no CHANGELOG).
-- Unificação do template da landing dentro de `docs/design/landing-page.md`.
 - Padronização de metadados (front matter) em `README.md`, `docs/README.md`, `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md` e `SECURITY.md`.
 - Atualização de links internos e índice central em `docs/README.md`.
-- AGENTS.md atualizado com referência ao repositório global de regras.
+- Documentação de agentes atualizada para apontar para o repositório global de regras.
 - Remoção de menções a ferramentas e referências externas específicas na documentação.
 - Histórico de commits reescrito para remover menções a ferramentas externas.
 - Adicionada seção “Ferramentas e Versões Recomendadas” em `docs/guides/development.md`.

@@ -310,7 +310,7 @@
         </div>
     </section>
 
-    <main class="container container--content main-content">
+    <main class="container container--content main-content" tabindex="-1">
         <!-- Card de Acesso (Principal) -->
         <div class="card card-primary mb-6">
             <div class="card-header">
@@ -374,7 +374,7 @@
     <div id="footer-placeholder"></div>
 
     <!-- Toast Container -->
-    <div id="toast-container" class="toast-container"></div>
+    <div id="toast-container" class="toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
 
     <!-- Modal de Aviso -->
     <div id="modal-overlay" class="modal-overlay">
@@ -445,6 +445,10 @@
             modalOverlay.onclick = (e) => {
                 if (e.target === modalOverlay) modalOverlay.classList.remove('active');
             };
+
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/service-worker.js');
+            }
 
             // Controle do checkbox e botão
             const checkbox = document.getElementById('confirmacao');

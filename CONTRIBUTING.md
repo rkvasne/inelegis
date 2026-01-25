@@ -1,140 +1,80 @@
-# 🤝 Contribuindo — INELEGIS
+# Guia de Contribuição
 
-Obrigado por considerar contribuir com o INELE-APP.
+Obrigado por considerar contribuir com este projeto.
 
-> Navegação: [README do projeto](README.md) • [Documentação](docs/README.md)
-
-Obrigado pelo seu interesse em contribuir para o **Inelegis**! 🎉
-
-Este documento é um guia para ajudar você a contribuir para este projeto. Seja corrigindo bugs, adicionando novas funcionalidades, melhorando a documentação ou traduzindo, sua ajuda é muito bem-vinda.
-
-## 📋 Índice
-
-- [Código de Conduta](#-código-de-conduta)
-- [Como Posso Contribuir?](#-como-posso-contribuir)
-  - [Reportando Bugs](#-reportando-bugs)
-  - [Sugerindo Melhorias](#-sugerindo-melhorias)
-  - [Seu Primeiro Pull Request](#-seu-primeiro-pull-request)
-- [Ambiente de Desenvolvimento](#-ambiente-de-desenvolvimento)
-- [Guia de Estilo](#-guia-de-estilo)
-  - [Mensagens de Commit](#-mensagens-de-commit)
-  - [Padrões de Código](#-padrões-de-código)
-- [Licença](#-licença)
+[README](README.md) • [Documentação](docs/README.md) • [Changelog](CHANGELOG.md) • [Contribuição](CONTRIBUTING.md) • [Licença](LICENSE.md)
 
 ---
 
-## 📜 Código de Conduta
+## 📌 Código de Conduta
 
-Este projeto e todos os seus participantes estão sob o [Código de Conduta do Contribuidor](https://www.contributor-covenant.org/version/2/1/code_of_conduct/). Ao participar, espera-se que você mantenha este código. Por favor, relate comportamentos inaceitáveis para os mantenedores do projeto.
-
----
-
-## 🚀 Como Posso Contribuir?
-
-### 🐛 Reportando Bugs
-
-Bugs são rastreados como [GitHub Issues](https://github.com/rkvasne/inelegis/issues). Ao criar uma issue, explique o problema e inclua detalhes adicionais para ajudar os mantenedores a reproduzi-lo:
-
-- **Use um título claro e descritivo.**
-- **Descreva os passos exatos para reproduzir o problema.**
-- **Descreva o comportamento esperado e o que aconteceu de fato.**
-- **Inclua screenshots e GIFs animados** se possível.
-- **Informe o ambiente:** Navegador, Sistema Operacional, Versão.
-
-### 💡 Sugerindo Melhorias
-
-Sugestões de melhorias também são rastreadas como [GitHub Issues](https://github.com/rkvasne/inelegis/issues).
-
-- **Use um título claro e descritivo.**
-- **Forneça uma descrição detalhada da sugestão.**
-- **Explique por que essa melhoria seria útil** para a maioria dos usuários.
-
-### 📥 Seu Primeiro Pull Request
-
-1.  **Fork o repositório** e clone-o localmente.
-2.  **Crie uma branch** para sua edição: `git checkout -b feature/minha-feature` ou `fix/meu-fix`.
-3.  **Faça suas alterações** seguindo os padrões de código.
-4.  **Teste suas alterações** para garantir que nada quebrou.
-5.  **Commit suas alterações** seguindo o padrão de commits.
-6.  **Push para a branch**: `git push origin feature/minha-feature`.
-7.  **Abra um Pull Request** no repositório original.
+Este projeto segue o [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
 
 ---
 
-## 💻 Ambiente de Desenvolvimento
+## ✅ Como Contribuir
 
-Para configurar seu ambiente de desenvolvimento local:
+1. Faça um fork do repositório.
+2. Crie uma branch com nome descritivo.
+3. Faça alterações pequenas e focadas.
+4. Adicione testes quando aplicável.
+5. Abra um Pull Request explicando a mudança.
+
+### Reportar bugs
+
+- Use [GitHub Issues](https://github.com/rkvasne/inelegis/issues).
+- Inclua passos de reprodução, comportamento esperado e ambiente.
+
+### Sugerir melhorias
+
+- Descreva o contexto e o valor da melhoria.
+- Use [GitHub Issues](https://github.com/rkvasne/inelegis/issues).
+
+---
+
+## 🛠️ Ambiente Local
 
 ### Pré-requisitos
 
 - Node.js 22+
 - Git
 
-### Configuração
+### Instalação
 
-1.  Clone o repositório:
-    ```bash
-    git clone https://github.com/rkvasne/inelegis.git
-    cd inelegis
-    ```
+```bash
+git clone https://github.com/rkvasne/inelegis.git
+cd inelegis
+npm install
+```
 
-2.  Instale as dependências:
-    ```bash
-    npm install
-    ```
+### Executar
 
-3.  Execute os testes:
-    ```bash
-    npm run test:unit
-    ```
+```bash
+npm run dev
+```
 
-4.  Inicie o servidor de desenvolvimento:
-    ```bash
-    npm run dev
-    ```
+### Testes
 
-5.  Acesse `http://localhost:3000`.
+```bash
+npm run test:unit
+```
 
 ---
 
-## 🎨 Guia de Estilo
+## 🧱 Padrões do Projeto
 
-### 📝 Mensagens de Commit
+- **Commits:** siga [Conventional Commits](https://www.conventionalcommits.org/).
+- **Lint/Test:** rode antes de abrir PR.
+- **Docs:** atualize README/CHANGELOG quando necessário.
 
-Utilizamos o padrão **[Conventional Commits](https://www.conventionalcommits.org/)**. Isso ajuda a criar um histórico de commits legível e automatizar a geração de changelogs.
+---
 
-Estrutura:
-```
-<tipo>[escopo opcional]: <descrição>
+## 🔒 Segurança
 
-[corpo opcional]
-
-[rodapé opcional]
-```
-
-Tipos comuns:
-- `feat`: Nova funcionalidade
-- `fix`: Correção de bug
-- `docs`: Alterações apenas na documentação
-- `style`: Alterações que não afetam o significado do código (espaços, formatação, etc)
-- `refactor`: Alteração de código que não corrige um bug nem adiciona uma feature
-- `perf`: Alteração de código que melhora a performance
-- `test`: Adição ou correção de testes
-- `chore`: Alterações no processo de build, ferramentas auxiliares, etc
-
-Exemplos:
-- `feat: adiciona filtro de busca por data`
-- `fix(css): corrige alinhamento do header no mobile`
-- `docs: atualiza instruções de instalação no README`
-
-### 🧱 Padrões de Código
-
-- **HTML**: Semântico e acessível. Use tags apropriadas (`<header>`, `<main>`, `<nav>`, etc).
-- **CSS**: Organizado e modular. Evite estilos inline. Use variáveis CSS para cores e espaçamentos.
-- **JavaScript**: Moderno (ES6+). Use `const` e `let`. Evite `var`. Comente funções complexas.
+Se encontrou uma vulnerabilidade, siga o [SECURITY.md](SECURITY.md).
 
 ---
 
 ## 📄 Licença
 
-Ao contribuir, você concorda que suas contribuições serão licenciadas sob a Licença MIT do projeto.
+Ao contribuir, você concorda com a licença descrita em [LICENSE.md](LICENSE.md).
