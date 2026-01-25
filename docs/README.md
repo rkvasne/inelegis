@@ -25,14 +25,13 @@ Bem-vindo à documentação oficial do projeto **Inelegis**.
 
 ### 🎨 Design System
 - **[Componentes](design/components.md)** – catálogo dos componentes reutilizáveis
-- **[Landing Page](design/landing-page.md)** – guia de design e template copiável da landing page
 - **[Decisões de Design](design/design-decisions.md)** – porquês de cada escolha
 - **[Theme Validator](design/theme-validator.md)** – uso do validador de temas
 
 ### 🗂️ Histórico e Versões
 - **[Changelog](../CHANGELOG.md)** – histórico consolidado de versões e mudanças
 - **[Refatoração v0.0.6](history/refatoracao-v0.0.6.md)** – contexto, plano e implementação
-- **Commits e Versionamento (Hotfix crítico)**: veja [AGENTS.md](../AGENTS.md) – seção “Commits e Versionamento”
+- **Commits e Versionamento (Hotfix crítico)**: veja o repositório `e:\Agents` – seção “Commits e Versionamento”
 
 ### 📁 Referências
 - **[`references/`](references/)** – manual ASE, tabelas oficiais e anexos de domínio
@@ -49,7 +48,6 @@ docs/
 ├── design/                  # Sistema de design e temas
 │   ├── components.md
 │   ├── design-decisions.md
-│   ├── landing-page.md
 │   └── theme-validator.md
 │
 ├── guides/                  # Guias de desenvolvimento e manutenção
@@ -72,7 +70,7 @@ docs/
 
 ## 📐 Padrão de Formato
 
-Para manter consistência entre todos os documentos, siga o padrão centralizado em [AGENTS.md](../AGENTS.md) (seções “Documentação” e “Commits e Versionamento”).
+Para manter consistência entre todos os documentos, siga o padrão centralizado no repositório `e:\Agents` (seções “Documentação” e “Commits e Versionamento”).
 
 ## 🔗 Links Úteis
 
@@ -84,4 +82,4 @@ Para manter consistência entre todos os documentos, siga o padrão centralizado
 - [Código de Conduta](../CODE_OF_CONDUCT.md)
 - [Licença](../LICENSE.md)
 - [🤖 Instruções para Copilotos](../.github/copilot-instructions.md)
-- [Regras para Agentes (AGENTS.md)](../AGENTS.md)
+- Regras para Agentes: repositório `e:\Agents`

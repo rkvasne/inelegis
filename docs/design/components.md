@@ -24,35 +24,11 @@ O sistema de componentes foi criado para:
 
 ### Configuração Básica
 
-1. **Adicione os placeholders no HTML:**
-
-```html
-<body>
-    <!-- Header será renderizado aqui -->
-    <div id="header-placeholder"></div>
-
-    <!-- Seu conteúdo aqui -->
-    <main>...</main>
-
-    <!-- Footer será renderizado aqui -->
-    <div id="footer-placeholder"></div>
-
-    <!-- Scripts -->
-    <script src="/assets/js/modules/components.js" defer></script>
-    <script src="/assets/js/modules/theme-manager.js" defer></script>
-    <script>
-        window.addEventListener('DOMContentLoaded', () => {
-            Components.init('nome-da-pagina');
-        });
-    </script>
-</body>
-```
-
-2. **Inicialize os componentes:**
+- Adicione os placeholders `header-placeholder` e `footer-placeholder` no HTML da página.
+- Carregue `components.js` e `theme-manager.js` no final do `body` com `defer`.
+- Inicialize com `Components.init('id-da-pagina')`.
 
 ```javascript
-// Substitua 'nome-da-pagina' pelo ID da página atual
-// Opções: 'index', 'consulta', 'sobre', 'faq'
 Components.init('consulta');
 ```
 

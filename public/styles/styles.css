@@ -6,6 +6,14 @@
 /* Importação da Fonte Inter */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: local('Inter');
+}
+
 /* Reset e Base */
 * {
   margin: 0;
@@ -334,6 +342,20 @@ button:focus-visible,
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
+  outline: 2px solid var(--primary-600);
+  outline-offset: 2px;
+}
+
+a:focus {
+  outline: 2px solid var(--primary-600);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
   outline: 2px solid var(--primary-600);
   outline-offset: 2px;
 }

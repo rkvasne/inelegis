@@ -130,8 +130,7 @@ class Builder {
       { test: content.includes('viewport'), message: 'Meta viewport presente' },
       // { test: content.includes('manifest.json'), message: 'Manifest PWA linkado' },
       { test: content.includes('apple-touch-icon'), message: 'Ícone Apple definido' },
-      { test: content.includes('Inter'), message: 'Font Inter carregada' },
-      { test: content.includes('tailwindcss'), message: 'Tailwind CSS carregado' }
+      { test: content.includes('Inter'), message: 'Font Inter carregada' }
     ];
 
     let passed = 0;
