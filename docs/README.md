@@ -7,7 +7,11 @@ lastReviewed: 15/01/2026
 
 > Navegação: [README do projeto](../README.md) • [Documentação](README.md)
 
+---
+
 Bem-vindo à documentação oficial do projeto **Inelegis**.
+
+---
 
 ## 🚀 Navegação Rápida
 
