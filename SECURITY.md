@@ -1,4 +1,4 @@
-# 🔐 Política de Segurança — INELEGIS
+# 🔐 Política de Segurança - Inelegis
 
 > Navegação: [README do projeto](README.md) • [Documentação](docs/README.md)
 
