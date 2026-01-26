@@ -6,6 +6,8 @@
 
 Este documento é a fonte única de verdade (SSOT) para políticas e práticas de segurança do INELEGIS.
 
+---
+
 ## 🧭 Mapa de Uso Rápido
 
 - Definir regras de acesso  

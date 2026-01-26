@@ -1,9 +1,11 @@
 # 🤝 Contribuindo - Inelegis
 
+> Navegação: [README do projeto](README.md) • [Documentação](docs/README.md)
+
+---
+
 Obrigado por investir seu tempo contribuindo com o **Inelegis**! 🎉
 Siga este guia para entender como você pode ajudar a melhorar o projeto.
-
-> Navegação: [README do projeto](README.md) • [Documentação](docs/README.md)
 
 ---
 
