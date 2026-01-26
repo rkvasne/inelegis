@@ -1,7 +1,6 @@
-# 🤖 Readme - Inelegis
 <div align="center">
 
-<h1>Inelegis</h1>
+<h1>🛡️ Inelegis</h1>
 
 <img src="public/assets/images/logo-dark.png" alt="Logo do Inelegis" width="256" height="256">
 
