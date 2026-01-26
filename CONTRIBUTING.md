@@ -1,8 +1,7 @@
 # 🤝 Contribuindo - Inelegis
 
 Obrigado por investir seu tempo contribuindo com o **Inelegis**! 🎉
-
-Este projeto é construído pela comunidade, para a comunidade. Siga este guia para entender como você pode ajudar a melhorar o projeto.
+Siga este guia para entender como você pode ajudar a melhorar o projeto.
 
 [README](README.md) • [Documentação](docs/README.md) • [Changelog](CHANGELOG.md) • [Contribuindo](CONTRIBUTING.md) • [Licença](LICENSE.md)
 
