@@ -3,17 +3,17 @@ docStatus: active
 docScope: source
 lastReviewed: 14/01/2026
 ---
-# JS (fonte)
+# JS (runtime)
 
-Esta pasta contém fontes de desenvolvimento e/ou referência. O runtime carrega `public/assets/js/**`.
+Esta pasta contém o JavaScript carregado pelas páginas públicas. O runtime carrega `public/assets/js/**`.
 
 > Regras gerais de documentação, commits, lint e testes: consulte [AGENTS.md](../../AGENTS.md).
 
 ## Papel desta pasta
 
-- Espelho histórico: mantém versões anteriores e bases de referência para desenvolvimentos.
-- Desenvolvimento local: pode ser usada como origem em pipelines de build, quando configurados.
-- Não participar do runtime: páginas públicas carregam scripts de `public/assets/js`.
+- Fonte de verdade do runtime.
+- Scripts carregados diretamente pelas páginas públicas.
+- Desenvolvimento local: `src/js` mantém espelhos históricos e pode ser sincronizado quando aplicável.
 
 ## Onde está o código ativo (runtime)
 
