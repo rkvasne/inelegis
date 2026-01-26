@@ -11,7 +11,7 @@
 [![License](https://img.shields.io/badge/license-MIT-orange.svg?style=for-the-badge)](LICENSE.md)
 [![Status](https://img.shields.io/badge/status-active-success.svg?style=for-the-badge)](CHANGELOG.md)
 
-[README](README.md) • [Documentação](docs/README.md) • [Changelog](CHANGELOG.md) • [Contribuição](CONTRIBUTING.md) • [Licença](LICENSE.md)
+[Documentação](docs/README.md) • [Changelog](CHANGELOG.md) • [Contribuição](CONTRIBUTING.md) • [Licença](LICENSE.md)
 
 </div>
 
