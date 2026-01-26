@@ -3,7 +3,7 @@
 Obrigado por investir seu tempo contribuindo com o **Inelegis**! 🎉
 Siga este guia para entender como você pode ajudar a melhorar o projeto.
 
-[README](README.md) • [Documentação](docs/README.md) • [Changelog](CHANGELOG.md) • [Contribuindo](CONTRIBUTING.md) • [Licença](LICENSE.md)
+> Navegação: [README do projeto](README.md) • [Documentação](docs/README.md)
 
 ---
 

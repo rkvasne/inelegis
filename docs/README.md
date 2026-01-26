@@ -5,6 +5,8 @@ lastReviewed: 15/01/2026
 ---
 # 📚 Documentação do Inelegis
 
+> Navegação: [README do projeto](../README.md) • [Documentação](README.md)
+
 Bem-vindo à documentação oficial do projeto **Inelegis**.
 
 ## 🚀 Navegação Rápida
