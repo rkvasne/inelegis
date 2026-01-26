@@ -9,14 +9,14 @@ Bem-vindo à documentação oficial do projeto **Inelegis**.
 
 ## 🚀 Navegação Rápida
 
-### 📖 Índice e Histórico
+### 📖 Índice
 - **[📚 README (Índice principal)](README.md)** – este documento
 
 ### 🛠️ Guias
 - **[Guia de Desenvolvimento](guides/development.md)** – arquitetura, módulos, testes e padrões
 - **[DevOps e CI/CD](guides/devops.md)** – pipeline de automação e deploy
 - **[Guia de Manutenção](guides/maintenance.md)** – atualização de dados, validação e deploy
-- **[Variáveis de Ambiente](guides/variaveis-ambiente.md)** – configuração completa
+- **[Variáveis de Ambiente](guides/variaveis-ambiente.md)** – catálogo de variáveis
 - **[Setup Redis](guides/setup-redis.md)** – configuração consolidada do Redis
 
 ### ⚙️ Operações e Segurança
@@ -30,7 +30,7 @@ Bem-vindo à documentação oficial do projeto **Inelegis**.
 
 ### 🗂️ Histórico e Versões
 - **[Changelog](../CHANGELOG.md)** – histórico consolidado de versões e mudanças
-- **[Refatoração v0.0.6](history/refatoracao-v0.0.6.md)** – contexto, plano e implementação
+- **[Refatoração v0.0.6](history/refatoracao-v0.0.6.md)** – arquivo histórico (não operacional)
 - **Commits e Versionamento (Hotfix crítico)**: veja o repositório `e:\Agents` – seção “Commits e Versionamento”
 
 ### 📁 Referências
@@ -77,6 +77,7 @@ Para manter consistência entre todos os documentos, siga o padrão centralizado
 - [Repositório GitHub](https://github.com/rkvasne/inelegis)
 - [Changelog](../CHANGELOG.md)
 - [Voltar para a Raiz](../README.md)
+- [Contribuição](../CONTRIBUTING.md)
 - [Política de Privacidade](../PRIVACY.md)
 - [Política de Segurança](../SECURITY.md)
 - [Código de Conduta](../CODE_OF_CONDUCT.md)

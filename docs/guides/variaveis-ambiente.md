@@ -103,19 +103,7 @@ REDIS_WEEKLY_METRICS_KEY="history:metrics:weekly"
 
 ## 🚀 Setup
 
-O setup de Redis (Vercel) e os passos completos de ambiente ficam em [setup-redis.md](setup-redis.md).
-
-Para desenvolvimento local:
-
-```powershell
-Copy-Item .env.example .env.local
-```
-
-Edite `.env.local` com seus valores e execute:
-
-```bash
-npm run dev
-```
+O passo a passo completo de ambiente e Redis fica em [setup-redis.md](setup-redis.md).
 
 ---
 

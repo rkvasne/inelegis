@@ -174,12 +174,7 @@ A entrada do usuário é formatada automaticamente para padrões legais:
 
 ## 🔧 Manutenção de Dados
 
-Os dados oficiais são extraídos do XML em `docs/references/tabela-oficial.xml` e **geram** `public/assets/js/data-normalizado.js` via `scripts/extrair_normalizado_xml.js`. A aplicação usa exclusivamente `DataNormalizer` (exposto por `consulta-normalizado.js`) para consultas.
-
-**Se a lei eleitoral mudar:**
-1. Baixe o XML/PDF oficial dos TREs.
-2. Execute `node scripts/extrair_normalizado_xml.js` para regenerar `data-normalizado.js`.
-3. As consultas usam `DataNormalizer.query` e índices internos (`getItensPorLei`, `getSugestoesPorLei`).
+O procedimento canônico de atualização de dados e validação está em [maintenance.md](maintenance.md).
 
 ---
 
@@ -204,7 +199,7 @@ Os dados oficiais são extraídos do XML em `docs/references/tabela-oficial.xml`
 
 **Entender validação de artigos**: Veja `buscarInelegibilidadePorLeiEArtigo()` em `src/js/script.js` - faz o parse da notação e busca apenas em dados normalizados (`DataNormalizer.query`).
 
-**Adicionar nova lei**: Atualize o XML oficial e regenere `data-normalizado.js` com o extrator.
+**Adicionar nova lei**: Siga o procedimento em [maintenance.md](maintenance.md).
 
 **Modificar exibição de resultado**: Edite `exibirResultado()` em `src/js/script.js` - controla o conteúdo e estilo do modal.
 
@@ -212,7 +207,7 @@ Os dados oficiais são extraídos do XML em `docs/references/tabela-oficial.xml`
 
 **Atualizar estilos**: Cores e layout estão em `public/styles/styles.css`.
 
-**Atualizar tabela de inelegibilidade**: Atualize o XML oficial; não há edição manual de `data.js`.
+**Atualizar tabela de inelegibilidade**: Siga o procedimento em [maintenance.md](maintenance.md).
 
 
 ---
