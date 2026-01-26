@@ -443,7 +443,7 @@ class Linter {
         type: 'suggestion'
       },
       {
-        test: () => content.includes('focus:'),
+        test: () => content.includes(':focus') || content.includes('focus-visible'),
         message: 'A11y: Estados de foco visíveis',
         type: 'suggestion'
       }
