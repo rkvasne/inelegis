@@ -121,8 +121,8 @@ body {
 .header-wrapper.landing-nav .brand-icon {
   width: 36px !important;
   height: 36px !important;
-  background: transparent !important;
-  border: none !important;
+  background: transparent;
+  border: none;
   display: block !important;
   padding: 0 !important;
   margin: 0 !important;
