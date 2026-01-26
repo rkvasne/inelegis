@@ -1,4 +1,4 @@
-# Guia de Contribuição
+# 🤝 Contribuição - Inelegis
 
 Obrigado por considerar contribuir com este projeto.
 
@@ -19,16 +19,6 @@ Este projeto segue o [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
 3. Faça alterações pequenas e focadas.
 4. Adicione testes quando aplicável.
 5. Abra um Pull Request explicando a mudança.
-
-### Reportar bugs
-
-- Use [GitHub Issues](https://github.com/rkvasne/inelegis/issues).
-- Inclua passos de reprodução, comportamento esperado e ambiente.
-
-### Sugerir melhorias
-
-- Descreva o contexto e o valor da melhoria.
-- Use [GitHub Issues](https://github.com/rkvasne/inelegis/issues).
 
 ---
 
