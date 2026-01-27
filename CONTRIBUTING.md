@@ -6,7 +6,7 @@
 
 Obrigado por investir seu tempo contribuindo com o **Inelegis**! 🎉
 
-Siga este guia para entender como você pode ajudar a melhorar o ecossistema de regras para agentes de IA.
+Siga este guia para entender como você pode ajudar a melhorar o **Inelegis**.
 
 ---
 
