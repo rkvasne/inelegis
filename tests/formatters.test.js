@@ -30,7 +30,7 @@ const path = require('path');
 const vm = require('vm');
 
 const formatterCode = fs.readFileSync(
-  path.join(__dirname, '../src/js/modules/formatters.js'),
+  path.join(__dirname, '../src/js/utils/formatters.js'),
   'utf8'
 );
 
@@ -140,7 +140,7 @@ test('Deve lidar com entrada inválida', () => {
   const result1 = ArtigoFormatter.formatar(null);
   const result2 = ArtigoFormatter.formatar('');
   const result3 = ArtigoFormatter.processar(undefined);
-  
+
   assert.ok(result1 === null || result1 === '', 'Null deve retornar vazio');
   assert.ok(result2 === '', 'String vazia deve retornar vazia');
   assert.ok(result3.artigo === '', 'Undefined deve retornar objeto vazio');

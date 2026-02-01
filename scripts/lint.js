@@ -260,19 +260,33 @@ class Linter {
     }
 
     // Verificar módulos JS
-    if (fs.existsSync(paths.js.modules)) {
-      const modules = fs.readdirSync(paths.js.modules).filter(f => f.endsWith('.js'));
-      this.log(`Módulos JS encontrados: ${modules.length}`, 'success');
+    const moduleDirs = [
+      { name: 'services', path: paths.js.services },
+      { name: 'utils', path: paths.js.utils },
+      { name: 'components', path: paths.js.components },
+      { name: 'ui', path: paths.js.ui }
+    ];
 
-      // Verificar cada módulo
-      for (const module of modules) {
-        const modulePath = path.join(paths.js.modules, module);
-        const content = fs.readFileSync(modulePath, 'utf8');
+    let totalModules = 0;
 
-        if (content.includes('window.App')) {
-          this.log(`${module}: Namespace global definido`, 'success');
+    for (const dirObj of moduleDirs) {
+      if (dirObj.path && fs.existsSync(dirObj.path)) {
+        const modules = fs.readdirSync(dirObj.path).filter(f => f.endsWith('.js'));
+        totalModules += modules.length;
+
+        for (const module of modules) {
+          const modulePath = path.join(dirObj.path, module);
+          const content = fs.readFileSync(modulePath, 'utf8');
+
+          if (content.includes('window.App')) {
+            this.log(`${module}: Namespace global definido`, 'success');
+          }
         }
       }
+    }
+
+    if (totalModules > 0) {
+      this.log(`Módulos JS encontrados: ${totalModules}`, 'success');
     }
   }
 
@@ -386,7 +400,8 @@ class Linter {
       { label: 'public/styles/styles.css', path: paths.styles.main, level: 'error' },
       { label: 'src/js/script.js', path: paths.js.main, level: 'error' },
       { label: 'public/assets/js/', path: paths.js.public, level: 'warning' },
-      { label: 'src/js/modules/', path: paths.js.modules, level: 'suggestion' },
+      { label: 'src/js/services/', path: paths.js.services, level: 'suggestion' },
+      { label: 'src/js/utils/', path: paths.js.utils, level: 'suggestion' },
       { label: 'README.md', path: path.join(this.projectRoot, 'README.md'), level: 'suggestion' },
       { label: 'scripts/', path: path.join(this.projectRoot, 'scripts'), level: 'suggestion' },
       { label: 'tests/', path: path.join(this.projectRoot, 'tests'), level: 'suggestion' },

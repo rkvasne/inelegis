@@ -33,6 +33,14 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 - **Testes**:
   - Implementação de testes unitários para a nova arquitetura modular.
   - Validação de 100% de sucesso nos testes de lógica de busca.
+- **Estrutura de Arquivos**:
+  - Reorganização semântica de `src/js/modules/` para arquitetura em camadas:
+    - `src/js/services/` (Lógica)
+    - `src/js/utils/` (Utilitários)
+    - `src/js/components/` (Componentes UI)
+    - `src/js/ui/` (Views/Events)
+  - Limpeza de redundâncias e atualização dos scripts de build/lint para suportar a nova estrutura.
+  - Atualização automática de imports em todos os arquivos JS.
 
 ### ⚙️ CI/CD & DevOps
 - **Pipeline GitHub Actions**: Implementado workflow completo de CI/CD (`.github/workflows/ci-cd.yml`) com Quality Gate (Audit, Lint, Testes, Validação de Tema) e Build Verification.

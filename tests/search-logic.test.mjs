@@ -1,4 +1,4 @@
-import { buscarInelegibilidadePorLeiEArtigo, filtrarExcecoesDoMesmoArtigo } from '../src/js/modules/search-logic.js';
+import { buscarInelegibilidadePorLeiEArtigo, filtrarExcecoesDoMesmoArtigo } from '../src/js/services/search-logic.js';
 
 // Setup Mock Environment
 global.window = {};

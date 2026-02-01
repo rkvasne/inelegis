@@ -105,6 +105,6 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE.md](LICENSE.md) p
 
 <div align="center">
 
-**Desenvolvido pela equipe Inelegis**
+****
 
 </div>

@@ -14,7 +14,10 @@ module.exports = {
     src: JS_SRC_DIR,
     public: JS_PUBLIC_DIR,
     main: path.join(JS_SRC_DIR, 'script.js'),
-    modules: path.join(JS_SRC_DIR, 'modules')
+    services: path.join(JS_SRC_DIR, 'services'),
+    utils: path.join(JS_SRC_DIR, 'utils'),
+    components: path.join(JS_SRC_DIR, 'components'),
+    ui: path.join(JS_SRC_DIR, 'ui')
   },
   styles: {
     main: path.join(PUBLIC_DIR, 'styles', 'styles.css')

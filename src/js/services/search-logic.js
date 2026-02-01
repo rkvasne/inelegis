@@ -5,7 +5,7 @@
  * Handles the business logic for finding laws and articles.
  */
 
-import { debugLog } from './core-utils.js';
+import { debugLog } from '../utils/core-utils.js';
 
 // Dependencies (assuming global or passed) - In a full module system these would be imports
 // For now, we wrap access to them
