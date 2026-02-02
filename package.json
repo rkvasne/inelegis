@@ -9,7 +9,6 @@
     "test:coverage": "node scripts/test.js --coverage",
     "data:refresh": "node scripts/data-refresh.js",
     "etl": "npm run data:refresh",
-    "load:redis": "node scripts/redis-loader.js",
     "lint:fix": "node scripts/lint.js --fix",
     "test": "node scripts/test.js",
     "test:unit": "node tests/formatters.test.js && node tests/exceptions.test.js",
@@ -38,8 +37,7 @@
     "size": "node -e \"const fs=require('fs'); const path=require('path'); const getSize=d=>fs.readdirSync(d).reduce((s,f)=>{const p=path.join(d,f); return s+(fs.statSync(p).isDirectory()?getSize(p):fs.statSync(p).size)},0); console.log('Tamanho do projeto:', Math.round(getSize('.')/1024)+'KB');\"",
     "validate:theme": "node scripts/validate-theme.js",
     "validate:theme:fix": "node scripts/validate-theme.js --fix",
-    "validate:theme:strict": "node scripts/validate-theme.js --strict",
-    "redis:maintain": "node scripts/redis-maintenance.js"
+    "validate:theme:strict": "node scripts/validate-theme.js --strict"
   },
   "keywords": [
     "inelegibilidade",
