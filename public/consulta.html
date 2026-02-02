@@ -108,18 +108,9 @@
                             Lei/Código Aplicável
                         </label>
                         <div class="indicator-container">
-                            <span id="leiArrowIndicator" class="arrow-indicator" aria-hidden="true">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z" />
-                                </svg>
-                            </span>
-                            <div id="leiDropdown" class="dropdown">
-                                <button id="leiDropdownButton" class="dropdown-toggle" aria-expanded="false"
-                                    aria-controls="leiListbox" type="button">Selecione a lei ou código...</button>
-                                <ul id="leiListbox" class="dropdown-menu hidden" role="listbox"
-                                    aria-labelledby="leiDropdownButton"></ul>
-                                <input type="hidden" id="leiSelect" value="">
-                            </div>
+                            <select id="leiSelect" class="form-select w-full" aria-label="Selecione a lei ou código">
+                                <option value="" selected>Selecione a lei ou código...</option>
+                            </select>
                         </div>
                     </div>
 
