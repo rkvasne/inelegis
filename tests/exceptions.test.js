@@ -26,10 +26,12 @@ const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
 
-const exceptionCode = fs.readFileSync(
+let exceptionCode = fs.readFileSync(
   path.join(__dirname, '../src/js/utils/exceptions.js'),
   'utf8'
 );
+// Remove ES6 export for VM execution
+exceptionCode = exceptionCode.replace(/export\s+\{.*?\};?/g, '');
 
 const sandbox = { window: {}, console };
 vm.createContext(sandbox);

@@ -25,6 +25,28 @@ O **Inelegis** é uma aplicação web para consulta de inelegibilidade eleitoral
 
 ---
 
+## 🗄️ Arquitetura de Dados
+
+O projeto utiliza um pipeline ETL para garantir a integridade das normas jurídicas:
+
+1.  **Fonte:** `docs/references/tabela-oficial.docx` (Nova Fonte Primária).
+2.  **Processamento:** `npm run data:refresh` (ou `node scripts/etl-docx.js`) extrai os dados do DOCX via XML estruturado e gera:
+    *   `src/data/legal-database.json`: Banco de dados versionado (Fonte da Verdade).
+    *   `public/assets/js/data-search-index.js`: Índice otimizado para busca rápida no frontend.
+    *   `public/assets/js/data-normalizado.js`: Arquivo legado de compatibilidade.
+3.  **Redis:** `node scripts/redis-loader.js` carrega os dados processados para o Redis para consultas de alta performance no backend.
+
+---
+
+## 🛠️ Scripts Disponíveis
+
+*   `npm run serve`: Inicia servidor de desenvolvimento
+*   `npm run etl`: Regenera a base de dados a partir do XML
+*   `npm run load:redis`: Carrega dados no Redis
+*   `npm test`: Executa testes
+
+---
+
 ## ✨ Funcionalidades
 
 ### 🚀 Produtividade
@@ -102,9 +124,3 @@ Contribuições são bem-vindas! Veja [CONTRIBUTING.md](CONTRIBUTING.md) para sa
 ## 📄 Licença
 
 Este projeto está sob a licença MIT. Veja o arquivo [LICENSE.md](LICENSE.md) para mais detalhes.
-
-<div align="center">
-
-****
-
-</div>

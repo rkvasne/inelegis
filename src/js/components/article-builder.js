@@ -1,9 +1,4 @@
-'use strict';
-
-/**
- * Article Builder Module
- * Manages the interactive construction of legal article strings.
- */
+import { ArtigoFormatter } from '../utils/formatters.js';
 
 export class ArticleBuilder {
     constructor(state) {
@@ -16,6 +11,7 @@ export class ArticleBuilder {
             concomitante: document.getElementById('concomitanteNum')
         };
         this.preview = document.getElementById('previewArtigo');
+        this.isUpdatingFromMain = false;
 
         this.init();
     }
@@ -23,16 +19,17 @@ export class ArticleBuilder {
     init() {
         if (!this.inputs.artigo) return;
 
-        // Add event listeners to all inputs
+        // Add event listeners to builder inputs
         Object.values(this.inputs).forEach(input => {
             if (input) {
                 input.addEventListener('input', () => this.updatePreview());
             }
         });
 
-        // Enable inputs when Lei is selected (handled via state observer or method)
-        // For now, we assume the orchestrator handles enablement, 
-        // but we expose a method to reset/enable.
+        // Add listener to Main Input for reverse sync
+        if (this.state.artigoInput) {
+            this.state.artigoInput.addEventListener('input', () => this.syncFromMainInput());
+        }
     }
 
     enable() {
@@ -47,7 +44,39 @@ export class ArticleBuilder {
         if (this.preview) this.preview.textContent = 'Art. , , , do ...';
     }
 
-    updatePreview() {
+    syncFromMainInput() {
+        if (!this.state.artigoInput) return;
+
+        const value = this.state.artigoInput.value;
+        // Avoid cycle if this input triggered by updatePreview
+        if (document.activeElement !== this.state.artigoInput) return;
+
+        this.isUpdatingFromMain = true;
+
+        try {
+            const parsed = ArtigoFormatter.processar(value);
+
+            if (this.inputs.artigo) this.inputs.artigo.value = parsed.artigo || '';
+            if (this.inputs.paragrafo) this.inputs.paragrafo.value = parsed.paragrafo || '';
+            if (this.inputs.inciso) this.inputs.inciso.value = parsed.inciso || '';
+            if (this.inputs.alinea) this.inputs.alinea.value = parsed.alinea || '';
+            // Basic handling for concomitante (taking the first one number if exists)
+            if (this.inputs.concomitante && parsed.concomitante && parsed.concomitante.length > 0) {
+                this.inputs.concomitante.value = parsed.concomitante[0].artigo || '';
+            } else if (this.inputs.concomitante) {
+                this.inputs.concomitante.value = '';
+            }
+
+            // Update preview text, but DO NOT write back to main input
+            this.updatePreview(true);
+        } catch (e) {
+            console.error('Error parsing main input:', e);
+        } finally {
+            this.isUpdatingFromMain = false;
+        }
+    }
+
+    updatePreview(skipMainUpdate = false) {
         const parts = [];
 
         // 1. Lei (from global state)
@@ -87,11 +116,8 @@ export class ArticleBuilder {
         if (this.preview) this.preview.textContent = result;
 
         // Update Main Input (Synced)
-        if (this.state.artigoInput) {
-            // Only update if user is using the builder (naive check: builder has values)
-            if (artNum || parNum || incNum || aliNum) {
-                this.state.artigoInput.value = result;
-            }
+        if (!skipMainUpdate && this.state.artigoInput && !this.isUpdatingFromMain) {
+            this.state.artigoInput.value = result;
         }
     }
 }

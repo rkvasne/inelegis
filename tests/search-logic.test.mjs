@@ -73,13 +73,19 @@ test('buscarInelegibilidade - Deve buscar e retornar resultado', () => {
     assert(res.inelegivel === true, 'Deve ser inelegível');
 });
 
-test('buscarInelegibilidade - Deve respeitar exceção', () => {
-    mockDataNormalizer.query = () => [{ codigo: 'CP', crime: 'Teste', excecoes: [] }];
-    mockExceptionValidator.verificar = () => 'Exceção detectada';
+test('buscarInelegibilidade - Deve respeitar exceção (Real Validator)', () => {
+    // Provide data that creates a real exception match
+    mockDataNormalizer.query = () => [{
+        codigo: 'CP',
+        crime: 'Teste',
+        excecoes: ['Art. 155, caput']
+    }];
 
+    // Using real ExceptionValidator, '155' should match 'Art. 155, caput'
     const res = buscarInelegibilidadePorLeiEArtigo('CP', '155');
     assert(res.inelegivel === false, 'Deve ser elegível por exceção');
-    assert(res.temExcecao === 'Exceção detectada', 'Deve conter texto da exceção');
+    assert(res.temExcecao, 'Deve conter a exceção encontrada');
+    assert(typeof res.temExcecao === 'string', 'Exceção deve ser string');
 });
 
 // Summary

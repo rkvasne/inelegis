@@ -1,0 +1,359 @@
+[
+  {
+    "_id": 0,
+    "lei_raw": "CÓDIGO PENAL( Decreto-Lei 2.848/40 )",
+    "artigos_raw": "Arts. 121, 121-A, 122, §1º a § 7º,123 a 127",
+    "excecoes_raw": "Art. 121, § 3ºArt. 122, caput",
+    "crime_raw": "Crimes contra a vida (9)"
+  },
+  {
+    "_id": 1,
+    "lei_raw": "CÓDIGO PENAL( Decreto-Lei 2.848/40 )",
+    "artigos_raw": "Art.129, § 2º c.c. § 12 eArt.129, § 3º c.c. § 12 Art.148, § 1º, IV",
+    "excecoes_raw": "",
+    "crime_raw": "Crime hediondo (7)Obs.: crime definido como hediondo pelaLei 13.142, de 06/07/2015 e pela Lei 14.811/2024, de 12/01/24"
+  },
+  {
+    "_id": 2,
+    "lei_raw": "CÓDIGO PENAL( Decreto-Lei 2.848/40 )",
+    "artigos_raw": "193547133739Art.149",
+    "excecoes_raw": "",
+    "crime_raw": "Crime de redução à condição análoga à de escravo e contra dignidade sexual (8 e 9)"
+  },
+  {
+    "_id": 3,
+    "lei_raw": "CÓDIGO PENAL( Decreto-Lei 2.848/40 )",
+    "artigos_raw": "Art. 149-A, caput, I a V, c.c. § 1º, II",
+    "excecoes_raw": "",
+    "crime_raw": "Crime hediondo (7)Obs.: crime definido como hediondo pela Lei 14.811/2024, de 12/01/24"
+  },
+  {
+    "_id": 4,
+    "lei_raw": "CÓDIGO PENAL( Decreto-Lei 2.848/40 )",
+    "artigos_raw": "Arts. 155, 157, 158, 159, 160, 162,163, 168, 168-A, 171, 172, 173, 174,175, 177, 178, 180, 180-A e 184",
+    "excecoes_raw": "Art. 163, caputArt. 163, parágrafo único, IV Art. 175, caput, e 175, I e II Art. 177, § 2ºArt. 180, § 3ºArt. 184, §4º",
+    "crime_raw": "Crimes contra o patrimônio (1 e 2)Obs.: entendimento firmado pelo TSE no Recurso Especial Eleitoral nº 145-94.2016.6.24.0074/SC."
+  },
+  {
+    "_id": 5,
+    "lei_raw": "CÓDIGO PENAL( Decreto-Lei 2.848/40 )",
+    "artigos_raw": "Arts. 213 a 220, 223, 227 a 231-A",
+    "excecoes_raw": "Art. 216-A Art. 216-B",
+    "crime_raw": "Crimes contra a dignidade sexual (9)Obs.: Arts. 214, 216, 217, 219, 220, 223, 231 e231-A revogados pela Lei 11.106, de 28/03/2005, Lei 12.015, de 07/08/2009, Lei 13.344/16, de 06/10/2016."
+  },
+  {
+    "_id": 6,
+    "lei_raw": "CÓDIGO PENAL( Decreto-Lei 2.848/40 )",
+    "artigos_raw": "Arts. 267, 270, 271, 272, 273,274, 275, 276, 277, 278 e 280",
+    "excecoes_raw": "Art. 267, § 2º Art. 270, § 2ºArt. 271, parágrafo único Art. 272, § 2ºArt. 273, § 2ºArt. 278, parágrafo único Art. 280, parágrafo único",
+    "crime_raw": "Crimes contra a saúde pública (3)"
+  },
+  {
+    "_id": 7,
+    "lei_raw": "CÓDIGO PENAL( Decreto-Lei 2.848/40 )",
+    "artigos_raw": "Art. 288 e 288-A",
+    "excecoes_raw": "",
+    "crime_raw": "Crimes praticados por quadrilha ou bando(10)"
+  },
+  {
+    "_id": 8,
+    "lei_raw": "CÓDIGO PENAL( Decreto-Lei 2.848/40 )",
+    "artigos_raw": "Arts. 289, 290, 291, 293, 294, 296 a300, 303, 304, 305, 306, 309, 310,311 e 311-A",
+    "excecoes_raw": "Art. 289, § 2º Art. 293, § 4ºArt. 304, nas figuras dos arts. 301 e302",
+    "crime_raw": "Crimes contra a fé pública (1)"
+  },
+  {
+    "_id": 9,
+    "lei_raw": "CÓDIGO PENAL( Decreto-Lei 2.848/40 )",
+    "artigos_raw": "Arts. 312, 313, 313-A, 314, 316, 317,318, 322, 323, 325, 328, 332, 333,334, 334-A, 337, 337-A,  337-B,337-C, 338, 339, 342, 343, 344,347, parágrafo único, 351, 353, 355,356, 357, 359-C, 359-D, 359-G e359-H",
+    "excecoes_raw": "Art. 312, § 2º Art. 317, § 2ºArt. 323, caput e § 1º Art. 325, caput e § 1º Art. 328, caputArt. 347, caputArt. 351, caput e § 4º",
+    "crime_raw": "Crimes contra a administração pública (1)"
+  },
+  {
+    "_id": 10,
+    "lei_raw": "CÓDIGO PENAL MILITAR ( Decreto-Lei nº 1.001/69 )Obs.: o conceito de crime de menor potencial ofensivo não se aplica a estes crimes, conforme dispõe o art. 90-A, da Lei 9.099/95",
+    "artigos_raw": "Arts. 205 e 207",
+    "excecoes_raw": "",
+    "crime_raw": "Crimes contra a vida (9)"
+  },
+  {
+    "_id": 11,
+    "lei_raw": "CÓDIGO PENAL MILITAR ( Decreto-Lei nº 1.001/69 )Obs.: o conceito de crime de menor potencial ofensivo não se aplica a estes crimes, conforme dispõe o art. 90-A, da Lei 9.099/95",
+    "artigos_raw": "Art. 208",
+    "excecoes_raw": "",
+    "crime_raw": "Crimes hediondos (7)"
+  },
+  {
+    "_id": 12,
+    "lei_raw": "CÓDIGO PENAL MILITAR ( Decreto-Lei nº 1.001/69 )Obs.: o conceito de crime de menor potencial ofensivo não se aplica a estes crimes, conforme dispõe o art. 90-A, da Lei 9.099/95",
+    "artigos_raw": "Arts. 232 a 235, 238 e 239",
+    "excecoes_raw": "",
+    "crime_raw": "Crimes contra a dignidade sexual (9)"
+  },
+  {
+    "_id": 13,
+    "lei_raw": "CÓDIGO PENAL MILITAR ( Decreto-Lei nº 1.001/69 )Obs.: o conceito de crime de menor potencial ofensivo não se aplica a estes crimes, conforme dispõe o art. 90-A, da Lei 9.099/95",
+    "artigos_raw": "Arts. 240 a 254, 257 a 267",
+    "excecoes_raw": "Arts. 262, 263, 264 e 265 quandocombinados com o art. 266 (crimes culposos)",
+    "crime_raw": "Crimes contra o patrimônio (1 e 2)"
+  },
+  {
+    "_id": 14,
+    "lei_raw": "CÓDIGO PENAL MILITAR ( Decreto-Lei nº 1.001/69 )Obs.: o conceito de crime de menor potencial ofensivo não se aplica a estes crimes, conforme dispõe o art. 90-A, da Lei 9.099/95",
+    "artigos_raw": "Arts. 290 a 297",
+    "excecoes_raw": "Art. 292, § 2º Art. 293, § 3ºArt. 294, parágrafo único Art. 295, parágrafo únicoArt. 296, parágrafo único",
+    "crime_raw": "Crimes contra o meio ambiente e a saúde pública (3)"
+  },
+  {
+    "_id": 15,
+    "lei_raw": "CÓDIGO PENAL MILITAR ( Decreto-Lei nº 1.001/69 )Obs.: o conceito de crime de menor potencial ofensivo não se aplica a estes crimes, conforme dispõe o art. 90-A, da Lei 9.099/95",
+    "artigos_raw": "Arts. 298 a 322 e 324 a 354",
+    "excecoes_raw": "Art. 303, § 3º Art. 332, § 2ºArt. 352, parágrafo único",
+    "crime_raw": "Crimes contra a administração pública e a fé pública (1)"
+  },
+  {
+    "_id": 16,
+    "lei_raw": "CÓDIGO PENAL MILITAR ( Decreto-Lei nº 1.001/69 )Obs.: o conceito de crime de menor potencial ofensivo não se aplica a estes crimes, conforme dispõe o art. 90-A, da Lei 9.099/95",
+    "artigos_raw": "Art. 400",
+    "excecoes_raw": "",
+    "crime_raw": "Crimes contra a vida (9)"
+  },
+  {
+    "_id": 17,
+    "lei_raw": "CÓDIGO PENAL MILITAR ( Decreto-Lei nº 1.001/69 )Obs.: o conceito de crime de menor potencial ofensivo não se aplica a estes crimes, conforme dispõe o art. 90-A, da Lei 9.099/95",
+    "artigos_raw": "Arts. 401 e 402",
+    "excecoes_raw": "",
+    "crime_raw": "Crimes hediondos (7)"
+  },
+  {
+    "_id": 18,
+    "lei_raw": "CÓDIGO PENAL MILITAR ( Decreto-Lei nº 1.001/69 )Obs.: o conceito de crime de menor potencial ofensivo não se aplica a estes crimes, conforme dispõe o art. 90-A, da Lei 9.099/95",
+    "artigos_raw": "Arts. 404 a 406",
+    "excecoes_raw": "",
+    "crime_raw": "Crimes contra o patrimônio (1 e 2)"
+  },
+  {
+    "_id": 19,
+    "lei_raw": "CÓDIGO PENAL MILITAR ( Decreto-Lei nº 1.001/69 )Obs.: o conceito de crime de menor potencial ofensivo não se aplica a estes crimes, conforme dispõe o art. 90-A, da Lei 9.099/95",
+    "artigos_raw": "Arts. 407 e 408",
+    "excecoes_raw": "",
+    "crime_raw": "Crimes contra a dignidade sexual (9)"
+  },
+  {
+    "_id": 20,
+    "lei_raw": "Decreto-Lei 5.452/43 - art. 49(CLT)",
+    "artigos_raw": "",
+    "excecoes_raw": "Crimes contra a fé pública (1)",
+    "crime_raw": ""
+  },
+  {
+    "_id": 21,
+    "lei_raw": "Decreto-Lei 7.661/45 - arts. 186 a 189(Lei Falimentar)",
+    "artigos_raw": "",
+    "excecoes_raw": "Crimes previstos na lei que regula a falência (2)Obs.: Lei revogada pela Lei 11.101, de 09/02/2005",
+    "crime_raw": ""
+  },
+  {
+    "_id": 22,
+    "lei_raw": "Decreto-Lei 201/67 – art. 1º(Crimes de responsabilidade dos Prefeitos)",
+    "artigos_raw": "",
+    "excecoes_raw": "Crimes contra a administração pública (1)",
+    "crime_raw": ""
+  },
+  {
+    "_id": 23,
+    "lei_raw": "Lei Complementar 105/01 – art. 10",
+    "artigos_raw": "",
+    "excecoes_raw": "Crimes contra o sistema financeiro (2)",
+    "crime_raw": ""
+  },
+  {
+    "_id": 24,
+    "lei_raw": "Lei 1.521/51 - art. 3º",
+    "artigos_raw": "",
+    "excecoes_raw": "Crimes contra a economia popular (1)",
+    "crime_raw": ""
+  },
+  {
+    "_id": 25,
+    "lei_raw": "Lei 2.889/56 - arts. 1º, 2º e 3º(Define crimes de genocídio)",
+    "artigos_raw": "Art. 2º, caput, quando se referir ao art. 1º, alínea “e”Art. 3º, caput, quando se referirao art. 1º, alínea “e”",
+    "excecoes_raw": "Crimes hediondos (7)",
+    "crime_raw": ""
+  },
+  {
+    "_id": 26,
+    "lei_raw": "Lei 4.591/64 - art. 65(Condomínios e incorporações)",
+    "artigos_raw": "",
+    "excecoes_raw": "Crimes contra a economia popular (1)",
+    "crime_raw": ""
+  },
+  {
+    "_id": 27,
+    "lei_raw": "Lei 4.595/64 – art. 34",
+    "artigos_raw": "",
+    "excecoes_raw": "Crimes contra o sistema financeiro (2)",
+    "crime_raw": ""
+  },
+  {
+    "_id": 28,
+    "lei_raw": "Lei 4.728/65 – arts. 66-B, 73 e 74",
+    "artigos_raw": "",
+    "excecoes_raw": "Crimes contra o mercado de capitais (2)",
+    "crime_raw": ""
+  },
+  {
+    "_id": 29,
+    "lei_raw": "Lei 4.737/65 – arts. 289, 291, 298, 299, 301, 302,307 a 309, 315 a 317, 339, 340, 348 a 350, 352 a354-A(Código Eleitoral)",
+    "artigos_raw": "",
+    "excecoes_raw": "Crimes eleitorais (4)",
+    "crime_raw": ""
+  },
+  {
+    "_id": 30,
+    "lei_raw": "Lei 4.898/65 – art. 6º, §º 3º, “c”",
+    "artigos_raw": "",
+    "excecoes_raw": "Crimes de abuso de autoridade (5)",
+    "crime_raw": ""
+  },
+  {
+    "_id": 31,
+    "lei_raw": "Lei 6.091/74 – art. 11, incisos III e IV(Lei Eleitoral – Transporte de eleitores)",
+    "artigos_raw": "",
+    "excecoes_raw": "Crimes eleitorais (4)",
+    "crime_raw": ""
+  },
+  {
+    "_id": 32,
+    "lei_raw": "Lei 6.368/76 – arts. 12, 13 e 14(Lei de Drogas)",
+    "artigos_raw": "",
+    "excecoes_raw": "Crimes de tráfico de entorpecentes (7)Obs.: Lei revogada pela Lei 11.343, de 23/08/2006",
+    "crime_raw": ""
+  },
+  {
+    "_id": 33,
+    "lei_raw": "Lei 6.385/76 – arts. 27-C e 27-D(Criação da CVM)",
+    "artigos_raw": "",
+    "excecoes_raw": "Crimes contra o mercado de capitais (2)",
+    "crime_raw": ""
+  },
+  {
+    "_id": 34,
+    "lei_raw": "Lei 6.766/79 – arts. 50 e 51(Parcelamento do solo urbano)",
+    "artigos_raw": "",
+    "excecoes_raw": "Crimes contra a administração pública (1)",
+    "crime_raw": ""
+  },
+  {
+    "_id": 35,
+    "lei_raw": "Lei 6.996/82 – art. 15(Lei Eleitoral – Processamento eletrônico nos serv.eleitorais)",
+    "artigos_raw": "",
+    "excecoes_raw": "Crimes eleitorais (4)",
+    "crime_raw": ""
+  },
+  {
+    "_id": 36,
+    "lei_raw": "Lei 7.492/86 – arts. 2º a 23(Lei do Colarinho Branco)",
+    "artigos_raw": "",
+    "excecoes_raw": "Crimes contra o sistema financeiro (2)",
+    "crime_raw": ""
+  },
+  {
+    "_id": 37,
+    "lei_raw": "Lei 7.716/89 – arts. 2°-A, 3º a 14 e 20",
+    "artigos_raw": "",
+    "excecoes_raw": "Crimes de racismo (7)",
+    "crime_raw": ""
+  },
+  {
+    "_id": 38,
+    "lei_raw": "Lei 8.069/90 - arts. 240 a 241-D e 244-A(Estatuto da Criança e do Adolescente)",
+    "artigos_raw": "",
+    "excecoes_raw": "Crimes contra a dignidade sexual (9)",
+    "crime_raw": ""
+  },
+  {
+    "_id": 39,
+    "lei_raw": "Lei 8.137/90 - arts. 1º, 3º a 7º(Define crimes contra a ordem tributária)",
+    "artigos_raw": "Art. 7º, parágrafo único",
+    "excecoes_raw": "Crimes contra a economia popular (1)Obs.: arts. 5º e 6º revogados pelas Lei 12.529, de 30/11/2011",
+    "crime_raw": ""
+  },
+  {
+    "_id": 40,
+    "lei_raw": "Lei 8.176/91 – arts. 1º e 2º(Ordem econômica)",
+    "artigos_raw": "",
+    "excecoes_raw": "Crimes contra a economia popular e contra o patrimônio (1)",
+    "crime_raw": ""
+  },
+  {
+    "_id": 41,
+    "lei_raw": "Lei 8.666/93 – arts. 89, 90, 92, 94, 95 e 96(Licitações e Contratos)",
+    "artigos_raw": "",
+    "excecoes_raw": "Crimes contra a administração pública (1)",
+    "crime_raw": ""
+  },
+  {
+    "_id": 42,
+    "lei_raw": "Lei 9.455/97 – art. 1º",
+    "artigos_raw": "",
+    "excecoes_raw": "Crimes de tortura (7)",
+    "crime_raw": ""
+  },
+  {
+    "_id": 43,
+    "lei_raw": "Lei 9.504/97 – arts. 57-H, § 1º e 72(Lei Eleitoral)",
+    "artigos_raw": "",
+    "excecoes_raw": "Crimes eleitorais (4)",
+    "crime_raw": ""
+  },
+  {
+    "_id": 44,
+    "lei_raw": "Lei 9.605/98 – arts. 30, 33, 34, 35, 38, 38-A, 39,40, 41, 42, 50-A ,54, 56, 61, 62, 63, 66, 67, 68,69, 69-A(Lei Ambiental)",
+    "artigos_raw": "Art. 38, parágrafo único Art. 38-A, parágrafo único Art. 40, § 3ºArt. 41, parágrafo único Art. 54, § 1ºArt. 56, § 3ºArt. 62, parágrafo único Art. 67, parágrafo único Art. 68, parágrafo únicoArt. 69-A, § 1º",
+    "excecoes_raw": "Crimes contra o meio ambiente (3)",
+    "crime_raw": ""
+  },
+  {
+    "_id": 45,
+    "lei_raw": "Lei 9.613/98 – art. 1º",
+    "artigos_raw": "",
+    "excecoes_raw": "Crimes de lavagem ou ocultação de bens, direitos e valores (6)",
+    "crime_raw": ""
+  },
+  {
+    "_id": 46,
+    "lei_raw": "Lei 10.826/03 – art. 16, caput c.c. §2º,Art. 16, § 1º c.c. § 2º e arts. 17 e 18(Armas de Fogo) - alterações promovidas pela Lei nº 13964/2019 - de 24/12/2019.",
+    "artigos_raw": "",
+    "excecoes_raw": "Crime hediondo (7)",
+    "crime_raw": ""
+  },
+  {
+    "_id": 47,
+    "lei_raw": "Lei 11.101/05 – arts. 168 a 177(Lei Falimentar)",
+    "artigos_raw": "",
+    "excecoes_raw": "Crimes previstos na lei que regula a falência (2)",
+    "crime_raw": ""
+  },
+  {
+    "_id": 48,
+    "lei_raw": "Lei 11.343/06 – arts. 33 a 37(Lei de Drogas)",
+    "artigos_raw": "Art. 33, § 3º",
+    "excecoes_raw": "Crimes de tráfico de entorpecentes (7)",
+    "crime_raw": ""
+  },
+  {
+    "_id": 49,
+    "lei_raw": "Lei 12.850/13",
+    "artigos_raw": "",
+    "excecoes_raw": "Crimes Praticados por OrganizaçãoCriminosa (10)",
+    "crime_raw": ""
+  },
+  {
+    "_id": 50,
+    "lei_raw": "Lei 13.260/16 – arts. 2º a 6º",
+    "artigos_raw": "",
+    "excecoes_raw": "Crimes de terrorismo",
+    "crime_raw": ""
+  }
+]
