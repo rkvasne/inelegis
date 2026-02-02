@@ -44,16 +44,9 @@ export class ValidatorService {
                 // Tenta extrair um nome amigável
                 let nome = item.codigo;
                 if (item.codigo === 'CP') nome = 'Código Penal (Decreto-Lei 2.848/40)';
-                else if (item.codigo === 'CPM') nome = 'Código Penal Militar (Decreto-Lei 1.001/69)';
+                else if (item.codigo === 'CPM') nome = 'Código Penal Militar';
                 else if (item.codigo === 'CE' || item.codigo === 'CODIGO_ELEITORAL') nome = 'Código Eleitoral (Lei 4.737/65)';
-                else if (item.lei_raw) {
-                    // Usa o texto raw encurtado se disponível
-                    nome = item.lei_raw.split('(')[0].trim();
-                    if (item.lei_raw.includes('(')) {
-                        const parenteses = item.lei_raw.match(/\((.*?)\)/);
-                        if (parenteses) nome += ` (${parenteses[1]})`;
-                    }
-                }
+                else if (item.lei_nome) nome = item.lei_nome;
 
                 lawsMap.set(item.codigo, nome);
             }

@@ -1,13 +1,14 @@
 {
   "meta": {
     "version": "2.0.0",
-    "date": "2026-02-02T04:22:39.711Z",
+    "date": "2026-02-02T04:29:00.706Z",
     "source": "DOCX Oficial (Recuperado)",
     "total_entries": 51
   },
   "data": [
     {
       "codigo": "CP",
+      "lei_nome": "CÓDIGO PENAL( Decreto-Lei 2.848/40 )",
       "norma": "Arts. 121, 121-A, 122, §1º a § 7º,123 a 127",
       "excecoes": [
         "Art. 121, § 3º",
@@ -32,6 +33,7 @@
     },
     {
       "codigo": "CP",
+      "lei_nome": "CÓDIGO PENAL( Decreto-Lei 2.848/40 )",
       "norma": "Art.129, § 2º c.c. § 12 eArt.129, § 3º c.c. § 12 Art.148, § 1º, IV",
       "excecoes": [],
       "crime": "Crime hediondo (7)",
@@ -49,6 +51,7 @@
     },
     {
       "codigo": "CP",
+      "lei_nome": "CÓDIGO PENAL( Decreto-Lei 2.848/40 )",
       "norma": "193547133739Art.149",
       "excecoes": [],
       "crime": "Crime de redução à condição análoga à de escravo e contra dignidade sexual (8 e 9)",
@@ -61,6 +64,7 @@
     },
     {
       "codigo": "CP",
+      "lei_nome": "CÓDIGO PENAL( Decreto-Lei 2.848/40 )",
       "norma": "Art. 149-A, caput, I a V, c.c. § 1º, II",
       "excecoes": [],
       "crime": "Crime hediondo (7)",
@@ -74,6 +78,7 @@
     },
     {
       "codigo": "CP",
+      "lei_nome": "CÓDIGO PENAL( Decreto-Lei 2.848/40 )",
       "norma": "Arts. 155, 157, 158, 159, 160, 162,163, 168, 168-A, 171, 172, 173, 174,175, 177, 178, 180, 180-A e 184",
       "excecoes": [
         "Art. 163, caput",
@@ -111,6 +116,7 @@
     },
     {
       "codigo": "CP",
+      "lei_nome": "CÓDIGO PENAL( Decreto-Lei 2.848/40 )",
       "norma": "Arts. 213 a 220, 223, 227 a 231-A",
       "excecoes": [
         "Art. 216-A",
@@ -139,6 +145,7 @@
     },
     {
       "codigo": "CP",
+      "lei_nome": "CÓDIGO PENAL( Decreto-Lei 2.848/40 )",
       "norma": "Arts. 267, 270, 271, 272, 273,274, 275, 276, 277, 278 e 280",
       "excecoes": [
         "Art. 267, § 2º",
@@ -169,6 +176,7 @@
     },
     {
       "codigo": "CP",
+      "lei_nome": "CÓDIGO PENAL( Decreto-Lei 2.848/40 )",
       "norma": "Art. 288 e 288-A",
       "excecoes": [],
       "crime": "Crimes praticados por quadrilha ou bando(10)",
@@ -182,6 +190,7 @@
     },
     {
       "codigo": "CP",
+      "lei_nome": "CÓDIGO PENAL( Decreto-Lei 2.848/40 )",
       "norma": "Arts. 289, 290, 291, 293, 294, 296 a300, 303, 304, 305, 306, 309, 310,311 e 311-A",
       "excecoes": [
         "Art. 289, § 2º",
@@ -212,6 +221,7 @@
     },
     {
       "codigo": "CP",
+      "lei_nome": "CÓDIGO PENAL( Decreto-Lei 2.848/40 )",
       "norma": "Arts. 312, 313, 313-A, 314, 316, 317,318, 322, 323, 325, 328, 332, 333,334, 334-A, 337, 337-A,  337-B,337-C, 338, 339, 342, 343, 344,347, parágrafo único, 351, 353, 355,356, 357, 359-C, 359-D, 359-G e359-H",
       "excecoes": [
         "Art. 312, § 2º",
@@ -265,6 +275,7 @@
     },
     {
       "codigo": "CPM",
+      "lei_nome": "CÓDIGO PENAL MILITAR ( Decreto-Lei nº 1.001/69 )Obs.: o conceito de crime de menor potencial ofensivo não se aplica a estes crimes, conforme dispõe o art. 90-A, da Lei 9.099/95",
       "norma": "Arts. 205 e 207",
       "excecoes": [],
       "crime": "Crimes contra a vida (9)",
@@ -278,6 +289,7 @@
     },
     {
       "codigo": "CPM",
+      "lei_nome": "CÓDIGO PENAL MILITAR ( Decreto-Lei nº 1.001/69 )Obs.: o conceito de crime de menor potencial ofensivo não se aplica a estes crimes, conforme dispõe o art. 90-A, da Lei 9.099/95",
       "norma": "Art. 208",
       "excecoes": [],
       "crime": "Crimes hediondos (7)",
@@ -290,6 +302,7 @@
     },
     {
       "codigo": "CPM",
+      "lei_nome": "CÓDIGO PENAL MILITAR ( Decreto-Lei nº 1.001/69 )Obs.: o conceito de crime de menor potencial ofensivo não se aplica a estes crimes, conforme dispõe o art. 90-A, da Lei 9.099/95",
       "norma": "Arts. 232 a 235, 238 e 239",
       "excecoes": [],
       "crime": "Crimes contra a dignidade sexual (9)",
@@ -307,6 +320,7 @@
     },
     {
       "codigo": "CPM",
+      "lei_nome": "CÓDIGO PENAL MILITAR ( Decreto-Lei nº 1.001/69 )Obs.: o conceito de crime de menor potencial ofensivo não se aplica a estes crimes, conforme dispõe o art. 90-A, da Lei 9.099/95",
       "norma": "Arts. 240 a 254, 257 a 267",
       "excecoes": [
         "Arts. 262, 263, 264 e 265 quandocombinados com o art. 266 (crimes culposos)"
@@ -346,6 +360,7 @@
     },
     {
       "codigo": "CPM",
+      "lei_nome": "CÓDIGO PENAL MILITAR ( Decreto-Lei nº 1.001/69 )Obs.: o conceito de crime de menor potencial ofensivo não se aplica a estes crimes, conforme dispõe o art. 90-A, da Lei 9.099/95",
       "norma": "Arts. 290 a 297",
       "excecoes": [
         "Art. 292, § 2º",
@@ -371,6 +386,7 @@
     },
     {
       "codigo": "CPM",
+      "lei_nome": "CÓDIGO PENAL MILITAR ( Decreto-Lei nº 1.001/69 )Obs.: o conceito de crime de menor potencial ofensivo não se aplica a estes crimes, conforme dispõe o art. 90-A, da Lei 9.099/95",
       "norma": "Arts. 298 a 322 e 324 a 354",
       "excecoes": [
         "Art. 303, § 3º",
@@ -442,6 +458,7 @@
     },
     {
       "codigo": "CPM",
+      "lei_nome": "CÓDIGO PENAL MILITAR ( Decreto-Lei nº 1.001/69 )Obs.: o conceito de crime de menor potencial ofensivo não se aplica a estes crimes, conforme dispõe o art. 90-A, da Lei 9.099/95",
       "norma": "Art. 400",
       "excecoes": [],
       "crime": "Crimes contra a vida (9)",
@@ -454,6 +471,7 @@
     },
     {
       "codigo": "CPM",
+      "lei_nome": "CÓDIGO PENAL MILITAR ( Decreto-Lei nº 1.001/69 )Obs.: o conceito de crime de menor potencial ofensivo não se aplica a estes crimes, conforme dispõe o art. 90-A, da Lei 9.099/95",
       "norma": "Arts. 401 e 402",
       "excecoes": [],
       "crime": "Crimes hediondos (7)",
@@ -467,6 +485,7 @@
     },
     {
       "codigo": "CPM",
+      "lei_nome": "CÓDIGO PENAL MILITAR ( Decreto-Lei nº 1.001/69 )Obs.: o conceito de crime de menor potencial ofensivo não se aplica a estes crimes, conforme dispõe o art. 90-A, da Lei 9.099/95",
       "norma": "Arts. 404 a 406",
       "excecoes": [],
       "crime": "Crimes contra o patrimônio (1 e 2)",
@@ -481,6 +500,7 @@
     },
     {
       "codigo": "CPM",
+      "lei_nome": "CÓDIGO PENAL MILITAR ( Decreto-Lei nº 1.001/69 )Obs.: o conceito de crime de menor potencial ofensivo não se aplica a estes crimes, conforme dispõe o art. 90-A, da Lei 9.099/95",
       "norma": "Arts. 407 e 408",
       "excecoes": [],
       "crime": "Crimes contra a dignidade sexual (9)",
@@ -494,6 +514,7 @@
     },
     {
       "codigo": "CLT",
+      "lei_nome": "Decreto-Lei 5.452/43 - art. 49(CLT)",
       "norma": "",
       "excecoes": [
         "Crimes contra a fé pública (1)"
@@ -506,6 +527,7 @@
     },
     {
       "codigo": "LEI_7661",
+      "lei_nome": "Decreto-Lei 7.661/45 - arts. 186 a 189(Lei Falimentar)",
       "norma": "",
       "excecoes": [
         "Crimes previstos na lei que regula a falência (2)Obs.: Lei revogada pela Lei 11.101, de 09/02/2005"
@@ -518,6 +540,7 @@
     },
     {
       "codigo": "LEI_201",
+      "lei_nome": "Decreto-Lei 201/67 – art. 1º(Crimes de responsabilidade dos Prefeitos)",
       "norma": "",
       "excecoes": [
         "Crimes contra a administração pública (1)"
@@ -530,6 +553,7 @@
     },
     {
       "codigo": "LEI_105",
+      "lei_nome": "Lei Complementar 105/01 – art. 10",
       "norma": "",
       "excecoes": [
         "Crimes contra o sistema financeiro (2)"
@@ -542,6 +566,7 @@
     },
     {
       "codigo": "LEI_1521",
+      "lei_nome": "Lei 1.521/51 - art. 3º",
       "norma": "",
       "excecoes": [
         "Crimes contra a economia popular (1)"
@@ -554,6 +579,7 @@
     },
     {
       "codigo": "LEI_2889",
+      "lei_nome": "Lei 2.889/56 - arts. 1º, 2º e 3º(Define crimes de genocídio)",
       "norma": "Art. 2º, caput, quando se referir ao art. 1º, alínea “e”Art. 3º, caput, quando se referirao art. 1º, alínea “e”",
       "excecoes": [
         "Crimes hediondos (7)"
@@ -570,6 +596,7 @@
     },
     {
       "codigo": "LEI_4591",
+      "lei_nome": "Lei 4.591/64 - art. 65(Condomínios e incorporações)",
       "norma": "",
       "excecoes": [
         "Crimes contra a economia popular (1)"
@@ -582,6 +609,7 @@
     },
     {
       "codigo": "LEI_4595",
+      "lei_nome": "Lei 4.595/64 – art. 34",
       "norma": "",
       "excecoes": [
         "Crimes contra o sistema financeiro (2)"
@@ -594,6 +622,7 @@
     },
     {
       "codigo": "LEI_4728",
+      "lei_nome": "Lei 4.728/65 – arts. 66-B, 73 e 74",
       "norma": "",
       "excecoes": [
         "Crimes contra o mercado de capitais (2)"
@@ -606,6 +635,7 @@
     },
     {
       "codigo": "CE",
+      "lei_nome": "Lei 4.737/65 – arts. 289, 291, 298, 299, 301, 302,307 a 309, 315 a 317, 339, 340, 348 a 350, 352 a354-A(Código Eleitoral)",
       "norma": "",
       "excecoes": [
         "Crimes eleitorais (4)"
@@ -618,6 +648,7 @@
     },
     {
       "codigo": "LEI_4898",
+      "lei_nome": "Lei 4.898/65 – art. 6º, §º 3º, “c”",
       "norma": "",
       "excecoes": [
         "Crimes de abuso de autoridade (5)"
@@ -630,6 +661,7 @@
     },
     {
       "codigo": "CE",
+      "lei_nome": "Lei 6.091/74 – art. 11, incisos III e IV(Lei Eleitoral – Transporte de eleitores)",
       "norma": "",
       "excecoes": [
         "Crimes eleitorais (4)"
@@ -642,6 +674,7 @@
     },
     {
       "codigo": "LEI_6368",
+      "lei_nome": "Lei 6.368/76 – arts. 12, 13 e 14(Lei de Drogas)",
       "norma": "",
       "excecoes": [
         "Crimes de tráfico de entorpecentes (7)Obs.: Lei revogada pela Lei 11.343, de 23/08/2006"
@@ -654,6 +687,7 @@
     },
     {
       "codigo": "LEI_6385",
+      "lei_nome": "Lei 6.385/76 – arts. 27-C e 27-D(Criação da CVM)",
       "norma": "",
       "excecoes": [
         "Crimes contra o mercado de capitais (2)"
@@ -666,6 +700,7 @@
     },
     {
       "codigo": "LEI_6766",
+      "lei_nome": "Lei 6.766/79 – arts. 50 e 51(Parcelamento do solo urbano)",
       "norma": "",
       "excecoes": [
         "Crimes contra a administração pública (1)"
@@ -678,6 +713,7 @@
     },
     {
       "codigo": "CE",
+      "lei_nome": "Lei 6.996/82 – art. 15(Lei Eleitoral – Processamento eletrônico nos serv.eleitorais)",
       "norma": "",
       "excecoes": [
         "Crimes eleitorais (4)"
@@ -690,6 +726,7 @@
     },
     {
       "codigo": "LEI_7492",
+      "lei_nome": "Lei 7.492/86 – arts. 2º a 23(Lei do Colarinho Branco)",
       "norma": "",
       "excecoes": [
         "Crimes contra o sistema financeiro (2)"
@@ -702,6 +739,7 @@
     },
     {
       "codigo": "LEI_7716",
+      "lei_nome": "Lei 7.716/89 – arts. 2°-A, 3º a 14 e 20",
       "norma": "",
       "excecoes": [
         "Crimes de racismo (7)"
@@ -714,6 +752,7 @@
     },
     {
       "codigo": "LEI_8069",
+      "lei_nome": "Lei 8.069/90 - arts. 240 a 241-D e 244-A(Estatuto da Criança e do Adolescente)",
       "norma": "",
       "excecoes": [
         "Crimes contra a dignidade sexual (9)"
@@ -726,6 +765,7 @@
     },
     {
       "codigo": "LEI_8137",
+      "lei_nome": "Lei 8.137/90 - arts. 1º, 3º a 7º(Define crimes contra a ordem tributária)",
       "norma": "Art. 7º, parágrafo único",
       "excecoes": [
         "Crimes contra a economia popular (1)Obs.: arts. 5º e 6º revogados pelas Lei 12.529, de 30/11/2011"
@@ -740,6 +780,7 @@
     },
     {
       "codigo": "LEI_8176",
+      "lei_nome": "Lei 8.176/91 – arts. 1º e 2º(Ordem econômica)",
       "norma": "",
       "excecoes": [
         "Crimes contra a economia popular e contra o patrimônio (1)"
@@ -752,6 +793,7 @@
     },
     {
       "codigo": "LEI_8666",
+      "lei_nome": "Lei 8.666/93 – arts. 89, 90, 92, 94, 95 e 96(Licitações e Contratos)",
       "norma": "",
       "excecoes": [
         "Crimes contra a administração pública (1)"
@@ -764,6 +806,7 @@
     },
     {
       "codigo": "LEI_9455",
+      "lei_nome": "Lei 9.455/97 – art. 1º",
       "norma": "",
       "excecoes": [
         "Crimes de tortura (7)"
@@ -776,6 +819,7 @@
     },
     {
       "codigo": "CE",
+      "lei_nome": "Lei 9.504/97 – arts. 57-H, § 1º e 72(Lei Eleitoral)",
       "norma": "",
       "excecoes": [
         "Crimes eleitorais (4)"
@@ -788,6 +832,7 @@
     },
     {
       "codigo": "LEI_9605",
+      "lei_nome": "Lei 9.605/98 – arts. 30, 33, 34, 35, 38, 38-A, 39,40, 41, 42, 50-A ,54, 56, 61, 62, 63, 66, 67, 68,69, 69-A(Lei Ambiental)",
       "norma": "Art. 38, parágrafo único Art. 38-A, parágrafo único Art. 40, § 3ºArt. 41, parágrafo único Art. 54, § 1ºArt. 56, § 3ºArt. 62, parágrafo único Art. 67, parágrafo único Art. 68, parágrafo únicoArt. 69-A, § 1º",
       "excecoes": [
         "Crimes contra o meio ambiente (3)"
@@ -813,6 +858,7 @@
     },
     {
       "codigo": "LEI_9613",
+      "lei_nome": "Lei 9.613/98 – art. 1º",
       "norma": "",
       "excecoes": [
         "Crimes de lavagem ou ocultação de bens, direitos e valores (6)"
@@ -825,6 +871,7 @@
     },
     {
       "codigo": "LEI_10826",
+      "lei_nome": "Lei 10.826/03 – art. 16, caput c.c. §2º,Art. 16, § 1º c.c. § 2º e arts. 17 e 18(Armas de Fogo) - alterações promovidas pela Lei nº 13964/2019 - de 24/12/2019.",
       "norma": "",
       "excecoes": [
         "Crime hediondo (7)"
@@ -837,6 +884,7 @@
     },
     {
       "codigo": "LEI_11101",
+      "lei_nome": "Lei 11.101/05 – arts. 168 a 177(Lei Falimentar)",
       "norma": "",
       "excecoes": [
         "Crimes previstos na lei que regula a falência (2)"
@@ -849,6 +897,7 @@
     },
     {
       "codigo": "LEI_11343",
+      "lei_nome": "Lei 11.343/06 – arts. 33 a 37(Lei de Drogas)",
       "norma": "Art. 33, § 3º",
       "excecoes": [
         "Crimes de tráfico de entorpecentes (7)"
@@ -864,6 +913,7 @@
     },
     {
       "codigo": "LEI_12850",
+      "lei_nome": "Lei 12.850/13",
       "norma": "",
       "excecoes": [
         "Crimes Praticados por OrganizaçãoCriminosa (10)"
@@ -876,6 +926,7 @@
     },
     {
       "codigo": "LEI_13260",
+      "lei_nome": "Lei 13.260/16 – arts. 2º a 6º",
       "norma": "",
       "excecoes": [
         "Crimes de terrorismo"
