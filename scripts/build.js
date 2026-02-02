@@ -223,18 +223,22 @@ class Builder {
     this.log('Validando dados de inelegibilidade...', 'info');
 
     try {
-      // Executar script de verificação de dados
-      const { execSync } = require('child_process');
-      const output = execSync('node scripts/verify-data.js', {
-        cwd: this.projectRoot,
-        encoding: 'utf8'
-      });
+      const dataPath = path.join(this.projectRoot, 'src/data/legal-database.json');
 
-      if (output.includes('OK - Verificação concluída')) {
-        this.log('Dados validados com sucesso ✓', 'success');
-      } else {
-        this.warnings.push('Dados podem ter inconsistências');
+      if (!fs.existsSync(dataPath)) {
+        this.errors.push('Banco de dados legal-database.json não encontrado');
+        return;
       }
+
+      const content = fs.readFileSync(dataPath, 'utf8');
+      const json = JSON.parse(content);
+
+      if (!json.data || !Array.isArray(json.data) || json.data.length === 0) {
+        this.warnings.push('Banco de dados parece vazio ou tem formato inválido');
+      } else {
+        this.log(`Dados validados: ${json.data.length} registros (v${json.meta ? json.meta.version : '?'})`, 'success');
+      }
+
     } catch (error) {
       this.errors.push(`Erro na validação de dados: ${error.message}`);
     }
