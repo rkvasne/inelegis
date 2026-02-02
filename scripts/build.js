@@ -328,7 +328,7 @@ class Builder {
 
     // Exibir resumo
     console.log('\n' + '='.repeat(60));
-    console.log('📊 RELATÓRIO DE BUILD - INELEG-APP v0.2.0');
+    console.log('📊 RELATÓRIO DE BUILD - INELEG-APP v0.3.0');
     console.log('='.repeat(60));
     console.log(`Status: ${report.status}`);
     console.log(`Erros: ${this.errors.length}`);
