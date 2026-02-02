@@ -32,7 +32,7 @@ class Linter {
   }
 
   async lint() {
-    this.log('Iniciando lint do Inelegis v0.2.0', 'info');
+    this.log('Iniciando lint do Inelegis v0.3.0', 'info');
 
     try {
       // 1. Lint HTML
@@ -552,7 +552,7 @@ class Linter {
   generateReport() {
     const report = {
       timestamp: new Date().toISOString(),
-      version: '0.2.0',
+      version: '0.3.0',
       summary: {
         errors: this.errors.length,
         warnings: this.warnings.length,

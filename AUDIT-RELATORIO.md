@@ -1,6 +1,6 @@
 # 📊 Relatório de Auditoria Deep-Dive
 
-> **Projeto:** Inelegis v0.2.0
+> **Projeto:** Inelegis v0.3.0
 > **Data:** 02/02/2026
 > **Auditor:** Antigravity (Gemini 2.5 Pro)
 > **Padrão de Referência:** Solo Dev Hub v0.4.7

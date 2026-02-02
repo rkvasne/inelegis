@@ -284,9 +284,9 @@ Todos os componentes possuem testes automatizados que verificam:
     <meta charset="UTF-8">
     <title>Minha Página | Inelegis</title>
     <link rel="stylesheet" href="/styles/styles.css">
-    <script src="/assets/js/modules/theme-bootstrap.js?v=0.2.0"></script>
+    <script src="/assets/js/modules/theme-bootstrap.js?v=0.3.0"></script>
     <!-- Opcional: restringe acesso caso os termos não tenham sido aceitos -->
-    <script src="/assets/js/modules/terms-gate.js?v=0.2.0"></script>
+    <script src="/assets/js/modules/terms-gate.js?v=0.3.0"></script>
 </head>
 <body>
     <div id="header-placeholder"></div>
@@ -299,8 +299,8 @@ Todos os componentes possuem testes automatizados que verificam:
 
     <div id="footer-placeholder"></div>
 
-    <script src="/assets/js/modules/components.js?v=0.2.0" defer></script>
-    <script src="/assets/js/modules/theme-manager.js?v=0.2.0" defer></script>
+    <script src="/assets/js/modules/components.js?v=0.3.0" defer></script>
+    <script src="/assets/js/modules/theme-manager.js?v=0.3.0" defer></script>
     <script>
         Components.init('minha-pagina');
     </script>

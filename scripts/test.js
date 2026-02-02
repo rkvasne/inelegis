@@ -38,7 +38,7 @@ class TestRunner {
   }
 
   async runTests() {
-    this.log('Iniciando testes do Inelegis v0.2.0', 'info');
+    this.log('Iniciando testes do Inelegis v0.3.0', 'info');
 
     try {
       // 1. Testes de unidade
@@ -543,7 +543,7 @@ class TestRunner {
   generateReport() {
     const report = {
       timestamp: new Date().toISOString(),
-      version: '0.2.0',
+      version: '0.3.0',
       summary: {
         total: this.results.total,
         passed: this.results.passed,
