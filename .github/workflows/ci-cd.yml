@@ -60,3 +60,6 @@ jobs:
 
     - name: 🏗️ Build Project
       run: npm run build
+
+    - name: 🐳 Docker Build Check
+      run: docker build . --file Dockerfile --tag inelegis:latest

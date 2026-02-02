@@ -15,8 +15,11 @@
   - Atualização do Relatório de Auditoria (`AUDIT-RELATORIO.md`).
 - **Reorganização Estrutural (Code Janitor):**
   - Migração de `src/js/modules` (flat) para camadas semânticas (`services`, `utils`, `components`, `ui`).
-  - Atualização de imports, testes e scripts de automação (`lint`, `sync`, `integrate`).
-  - Limpeza do README.md e documentação de source.
+  - Atualização dos scripts de build/sync/lint e Unificação da Documentação (`src/js/README.md`).
+- **DevOps (Containerização):**
+  - Implementação de `Dockerfile` e `docker-compose.yml` (App + Redis).
+  - Atualização do Pipeline CI/CD com `docker build check`.
+  - Criação do Manual de Operações (`docs/guides/devops-manual.md`).
 - **Próximos Passos:**
   - Migração de componentes de UI para Web Components (Médio Prazo).
   - Hardening de segurança com Husky.

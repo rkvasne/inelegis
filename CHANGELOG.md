@@ -43,7 +43,13 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
   - Atualização automática de imports em todos os arquivos JS.
 
 ### ⚙️ CI/CD & DevOps
-- **Pipeline GitHub Actions**: Implementado workflow completo de CI/CD (`.github/workflows/ci-cd.yml`) com Quality Gate (Audit, Lint, Testes, Validação de Tema) e Build Verification.
+- **Containerização**:
+  - Criação de `Dockerfile` otimizado (Multi-stage, Node 22 Alpine) e seguro (Rootless).
+  - Criação de `docker-compose.yml` para orquestração local de App + Redis.
+  - Criação de `docs/guides/devops-manual.md` com instruções de deploy.
+- **Pipeline GitHub Actions**:
+  - Adicionado estágio de verificação de build do Docker (`Docker Build Check`) para garantir integridade da imagem.
+  - Implementado workflow completo de CI/CD (`.github/workflows/ci-cd.yml`) com Quality Gate.
 - **Scripts**:
   - Removido `scripts/deploy.js` (redundante/obsoleto).
   - Movido e renomeado `deploy.sh` da raiz para `scripts/deploy-server.sh` (organização).
