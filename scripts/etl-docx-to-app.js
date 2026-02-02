@@ -111,6 +111,14 @@ fs.writeFileSync(OUTPUT_PATH, JSON.stringify(output, null, 2));
 console.log(`✅ Base JSON Final Gerada: ${finalData.length} registros.`);
 console.log(`💾 Salvo em: ${OUTPUT_PATH}`);
 
+// --- GERAÇÃO DO ARQUIVO FRONTEND (CRÍTICO) ---
+// Gera o arquivo que o ValidatorService consome
+const JS_OUTPUT_PATH = path.join(__dirname, '../public/assets/js/data-normalizado.js');
+const jsContent = `;(function(){ window.__INELEG_NORMALIZADO__ = ${JSON.stringify(finalData)}; })();`;
+fs.writeFileSync(JS_OUTPUT_PATH, jsContent);
+console.log(`✅ Frontend JS Asset Atualizado: ${JS_OUTPUT_PATH}`);
+// ---------------------------------------------
+
 // Validação
 const cp = finalData.find(d => d.codigo === 'CP');
 console.log('Amostra CP:', JSON.stringify(cp, null, 2));
