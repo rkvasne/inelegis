@@ -79,6 +79,7 @@ const finalData = rawData.map(item => {
 
     return {
         codigo: normalizeCodigo(item.lei_raw),
+        lei_nome: item.lei_raw ? item.lei_raw.trim() : '',
         norma: item.artigos_raw || '', // Texto original dos artigos
         excecoes: excecoes,
         crime: info.crime,
