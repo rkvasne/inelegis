@@ -29,35 +29,34 @@ O **Inelegis** é uma aplicação web para consulta de inelegibilidade eleitoral
 
 O projeto utiliza um pipeline ETL para garantir a integridade das normas jurídicas:
 
-1.  **Fonte:** `docs/references/tabela-oficial.docx` (Nova Fonte Primária).
-2.  **Processamento:** `npm run data:refresh` (ou `node scripts/etl-docx.js`) extrai os dados do DOCX via XML estruturado e gera:
-    *   `src/data/legal-database.json`: Banco de dados versionado (Fonte da Verdade).
-    *   `public/assets/js/data-search-index.js`: Índice otimizado para busca rápida no frontend.
-    *   `public/assets/js/data-normalizado.js`: Arquivo legado de compatibilidade.
-3.  **Redis:** `node scripts/redis-loader.js` carrega os dados processados para o Redis para consultas de alta performance no backend.
+1.  **Fonte:** `docs/references/tabela-oficial.docx` (Fonte Primária).
+2.  **Processamento:** `npm run data:refresh` executa o pipeline completo:
+    *   **Extração:** DOCX -> JSON Bruto (`legal-database-docx.json`).
+    *   **Normalização:** Expansão de intervalos de artigos (ex: "121 a 125" -> [121...125]).
+    *   **Publicação:** Gera `public/assets/js/data-normalizado.js` consumido pelo Frontend.
+3.  **Redis:** `npm run load:redis` sincroniza o cache de backend (opcional para dev).
 
 ---
 
 ## 🛠️ Scripts Disponíveis
 
-*   `npm run serve`: Inicia servidor de desenvolvimento
-*   `npm run etl`: Regenera a base de dados a partir do XML
-*   `npm run load:redis`: Carrega dados no Redis
-*   `npm test`: Executa testes
+*   `npm run serve`: Inicia servidor de desenvolvimento.
+*   `npm run data:refresh`: Regenera a base de dados a partir do DOCX.
 
 ---
 
 ## ✨ Funcionalidades
 
 ### 🚀 Produtividade
-- **Busca Inteligente:** pesquisa por artigo, lei, descrição ou palavras-chave com feedback instantâneo.
-- **Construtor de Artigos:** montagem de referências legais complexas com preview em tempo real.
-- **Cópia Rápida:** exporte resultados formatados para documentos oficiais.
-- **Histórico de Consultas:** rastreio de pesquisas com estatísticas e exportação.
+- **Validação Estruturada:** Fluxo de seleção "Lei -> Artigo" à prova de erros (Drop-down dinâmico).
+- **Feedback Imediato:** Status de inelegibilidade exibido instantaneamente ao selecionar o artigo.
+- **Base Oficial:** Dados sincronizados diretamente com a tabela do TRE/CRE (DOCX).
+- **Cópia Rápida:** Resultados claros e objetivos.
+- **Histórico de Consultas:** Rastreio de pesquisas com estatísticas.
 
 ### 🎨 Interface
-- **Design Responsivo:** interface adaptada para desktop, tablet e mobile.
-- **Tema Escuro:** alternância automática com persistência de preferência.
+- **Design Responsivo:** Interface adaptada para desktop, tablet e mobile.
+- **Tema Escuro:** Alternância automática com persistência de preferência.
 - **Componentes Reutilizáveis:** sistema modular de componentes para manutenção.
 - **Theme Validator:** validação automatizada de temas com categorias de problemas.
 - **Animações Globais:** transições e hovers padronizados.

@@ -11,8 +11,24 @@ export class ValidatorUI {
         this.selectedLaw = null;
     }
 
-    init() {
-        if (!validatorService.init()) return;
+    async init() {
+        // Mecanismo de Retry para aguardar carregamento dos dados (corrige Race Condition)
+        let attempts = 0;
+        const maxAttempts = 20; // 20 * 100ms = 2 segundos
+
+        while (!window.__INELEG_NORMALIZADO__ && !window.DataNormalizer && attempts < maxAttempts) {
+            await new Promise(resolve => setTimeout(resolve, 100));
+            attempts++;
+        }
+
+        if (!validatorService.init()) {
+            console.error('Falha crítica: Dados não carregados após timeout.');
+            if (this.leiSelect) {
+                this.leiSelect.innerHTML = '<option value="">Erro: Dados indisponíveis</option>';
+                this.leiSelect.disabled = true;
+            }
+            return;
+        }
 
         this.setupLeiSelect();
         this.setupArtigoSelect();
