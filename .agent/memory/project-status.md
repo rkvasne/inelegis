@@ -7,6 +7,14 @@
 
 ## Log de Sessão / Últimas Atualizações
 
+### 01/02/2026 - Interface de Validação Estruturada (UX Pivot)
+- **Feito:**
+  - Implementação de `ValidatorService` e `ValidatorUI`.
+  - Refatoração de `consulta.html` para eliminar input de texto livre.
+  - Implementação de Selects em cascata (Lei -> Artigo).
+  - Exibição de resultados em tempo real (Instant Feedback).
+  - Remoção de código morto: `search-logic.js`, `article-builder.js`, `dom-manipulation.js`.
+
 ### 01/02/2026 - Recuperação de Dados Legais (Data Recovery)
 - **Feito:**
   - Recuperação integral da base de dados a partir do `tabela-oficial.docx` (restaurando "Código Penal").

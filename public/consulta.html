@@ -58,9 +58,12 @@
                             <input type="radio" id="condenacao" name="tipoComunicacao" value="condenacao" checked>
                             <span class="radio-content">
                                 <span class="radio-icon danger">
-                                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" class="text-danger-600">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7a4 4 0 118 0v4" />
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 11h12a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2v-6a2 2 0 012-2z" />
+                                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                        class="text-danger-600">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8 7a4 4 0 118 0v4" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M6 11h12a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2v-6a2 2 0 012-2z" />
                                     </svg>
                                 </span>
                                 <span class="radio-text">
@@ -74,8 +77,10 @@
                             <input type="radio" id="extincao" name="tipoComunicacao" value="extincao">
                             <span class="radio-content">
                                 <span class="radio-icon success">
-                                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" class="text-success-600">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                        class="text-success-600">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
                                     </svg>
                                 </span>
                                 <span class="radio-text">
@@ -105,18 +110,20 @@
                         <div class="indicator-container">
                             <span id="leiArrowIndicator" class="arrow-indicator" aria-hidden="true">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"/>
+                                    <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z" />
                                 </svg>
                             </span>
                             <div id="leiDropdown" class="dropdown">
-                                <button id="leiDropdownButton" class="dropdown-toggle" aria-expanded="false" aria-controls="leiListbox" type="button">Selecione a lei ou código...</button>
-                                <ul id="leiListbox" class="dropdown-menu hidden" role="listbox" aria-labelledby="leiDropdownButton"></ul>
+                                <button id="leiDropdownButton" class="dropdown-toggle" aria-expanded="false"
+                                    aria-controls="leiListbox" type="button">Selecione a lei ou código...</button>
+                                <ul id="leiListbox" class="dropdown-menu hidden" role="listbox"
+                                    aria-labelledby="leiDropdownButton"></ul>
                                 <input type="hidden" id="leiSelect" value="">
                             </div>
                         </div>
                     </div>
 
-                    <!-- Campo de Artigo -->
+                    <!-- Campo de Artigo (Validação Estruturada) -->
                     <div class="form-group">
                         <label class="form-label">
                             <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -125,92 +132,29 @@
                                     d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
                                 </path>
                             </svg>
-                            Artigo Completo
+                            Artigo (Tabela de Inelegibilidade)
                         </label>
-                        <div class="flex gap-2">
-                            <input type="text" id="artigoInput" class="form-input flex-1" title="Digite o artigo completo após selecionar a lei"
-                                placeholder="Ex: Art. 155, § 1º, I, do CP" aria-describedby="ajudaArtigo">
-                            <button id="searchBtn" class="btn btn-primary" type="button" disabled title="Buscar inelegibilidade do artigo informado">
-                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                    aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z">
-                                    </path>
-                                </svg>
-                                Buscar
-                            </button>
-                            
+                        <div class="indicator-container">
+                            <select id="artigoSelect" class="form-select w-full" disabled
+                                aria-label="Selecione o artigo">
+                                <option value="" selected>Selecione primeiro a lei...</option>
+                            </select>
                         </div>
-                        <p id="ajudaArtigo" class="text-sm text-neutral-600 mt-2">Digite o
-                            artigo completo ou use o
-                            construtor abaixo.</p>
-                        <p class="text-sm text-neutral-600 mt-1">
-                            Precisa revisar consultas anteriores? Use a tela <a href="historico.html" class="text-primary-600 font-medium">Histórico (Admin)</a> para acessar registros completos.
+                        <p id="ajudaArtigo" class="text-sm text-neutral-600 mt-2">
+                            A lista carrega apenas os artigos que constam na tabela oficial.
+                            Se o artigo não estiver na lista, ele <strong>não gera inelegibilidade</strong>.
                         </p>
                     </div>
                 </div>
 
-                <!-- Construtor de Artigos -->
-                <div class="form-group">
-                    <label class="form-label">
-                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
-                            </path>
-                        </svg>
-                        Construtor de Artigos
-                    </label>
-                    <div class="article-builder">
-                        <div class="builder-fields">
-                            <div class="field-group">
-                                <label class="field-label">Número</label>
-                                <input type="text" id="artigoNum" class="form-input" placeholder="Ex: 155" title="Número do artigo (habilita após selecionar a lei)"
-                                    aria-label="Número do artigo" disabled>
-                            </div>
-                            <div class="field-group">
-                                <label class="field-label">Parágrafo</label>
-                                <input type="text" id="paragrafoNum" class="form-input" placeholder="Ex: 1º" title="Parágrafo do artigo (habilita após selecionar a lei)"
-                                    aria-label="Parágrafo" disabled>
-                            </div>
-                            <div class="field-group">
-                                <label class="field-label">Inciso</label>
-                                <input type="text" id="incisoNum" class="form-input" placeholder="Ex: I" title="Inciso do artigo (habilita após selecionar a lei)"
-                                    aria-label="Inciso" disabled>
-                            </div>
-                            <div class="field-group">
-                                <label class="field-label">Alínea</label>
-                                <input type="text" id="alineaNum" class="form-input" placeholder="Ex: a" title="Alínea do artigo (habilita após selecionar a lei)"
-                                    aria-label="Alínea" disabled>
-                            </div>
-                            <div class="field-group">
-                                <label class="field-label">C/C</label>
-                                <input type="text" id="concomitanteNum" class="form-input" placeholder="Ex: 1" title="Combinação c/c (habilita após selecionar a lei)"
-                                    aria-label="Concomitante" disabled>
-                            </div>
-                        </div>
-                        <div class="builder-preview-row">
-                            <div class="builder-preview">
-                                <span class="preview-label">Preview:</span>
-                                <span id="previewArtigo" class="preview-text">Art. , , , do
-                                    CP</span>
-                            </div>
-                            <button id="limparBtn" class="btn btn-secondary" type="button" title="Limpar consulta">
-                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                </svg>
-                                Limpar
-                            </button>
-                        </div>
-                        <!-- Botões auxiliares esperados pelo script (escondidos) -->
-                        <div class="hidden">
-                            <button id="insertParagrafoBtn" aria-label="Inserir parágrafo" type="button"></button>
-                            <button id="insertAlineaBtn" aria-label="Inserir alínea" type="button"></button>
-                            <button id="insertConcBtn" aria-label="Inserir concomitante" type="button"></button>
-                        </div>
-                    </div>
+                <!-- Resultado Imediato (Validador) -->
+                <div id="validator-result" class="mt-6 hidden">
+                    <!-- Injetado via JS -->
                 </div>
             </div>
+
+            <!-- Construtor Removido em favor da Validação Estruturada -->
+        </div>
         </div>
 
         <!-- Seções Dinâmicas -->
@@ -345,54 +289,54 @@
                     </div>
                 </div>
 
-            <!-- Legenda de Resultados -->
-            <div class="results-legend">
-                <h3>Legenda de Resultados</h3>
-                <div class="legend-items">
-                    <div class="legend-item ineligible">
-                        <div class="legend-icon">
-                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd"
-                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
+                <!-- Legenda de Resultados -->
+                <div class="results-legend">
+                    <h3>Legenda de Resultados</h3>
+                    <div class="legend-items">
+                        <div class="legend-item ineligible">
+                            <div class="legend-icon">
+                                <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                            <div class="legend-content">
+                                <span class="legend-title">INELEGÍVEL</span>
+                                <span class="legend-description">Enseja anotação de
+                                    inelegibilidade</span>
+                            </div>
                         </div>
-                        <div class="legend-content">
-                            <span class="legend-title">INELEGÍVEL</span>
-                            <span class="legend-description">Enseja anotação de
-                                inelegibilidade</span>
+                        <div class="legend-item eligible">
+                            <div class="legend-icon">
+                                <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                            <div class="legend-content">
+                                <span class="legend-title">ELEGÍVEL</span>
+                                <span class="legend-description">Não enseja anotação de
+                                    inelegibilidade</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="legend-item eligible">
-                        <div class="legend-icon">
-                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd"
-                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                        </div>
-                        <div class="legend-content">
-                            <span class="legend-title">ELEGÍVEL</span>
-                            <span class="legend-description">Não enseja anotação de
-                                inelegibilidade</span>
-                        </div>
-                    </div>
-                    <div class="legend-item not-found">
-                        <div class="legend-icon">
-                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd"
-                                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                        </div>
-                        <div class="legend-content">
-                            <span class="legend-title">NÃO ENCONTRADO</span>
-                            <span class="legend-description">Artigo não encontrado na
-                                base de dados</span>
+                        <div class="legend-item not-found">
+                            <div class="legend-icon">
+                                <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                            <div class="legend-content">
+                                <span class="legend-title">NÃO ENCONTRADO</span>
+                                <span class="legend-description">Artigo não encontrado na
+                                    base de dados</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
             </div>
         </div>
     </main>
@@ -418,7 +362,8 @@
                         <p id="modalSubtitle">Análise de inelegibilidade eleitoral</p>
                     </div>
                 </div>
-                <button class="modal-close-btn" onclick="fecharModal()" aria-label="Fechar modal" title="Fechar modal" type="button">
+                <button class="modal-close-btn" onclick="fecharModal()" aria-label="Fechar modal" title="Fechar modal"
+                    type="button">
                     <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
                         </path>
@@ -470,18 +415,18 @@
     <!-- Inicializar Módulos -->
     <script>
         // Verificar se termos foram aceitos
-        (function() {
+        (function () {
             const termosValue = localStorage.getItem('ineleg_termos_aceitos');
-            
+
             const termosAceitos = termosValue === 'true';
-            
+
             if (!termosAceitos) {
                 sessionStorage.setItem('ineleg_redirect_reason', 'terms_not_accepted');
                 window.location.href = './';
                 return;
             }
         })();
-        
+
         window.addEventListener('DOMContentLoaded', () => {
             if (window.Components) {
                 Components.init('consulta');

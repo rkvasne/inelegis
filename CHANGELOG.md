@@ -20,6 +20,14 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ## [Unreleased]
 
+### 🎨 UI/UX - Validação Estruturada
+- **Fluxo de Decisão**: Substituição da busca textual por seleção hierárquica (Wizard):
+  - **Seleção de Lei**: Filtro inteligente de normas disponíveis.
+  - **Seleção de Artigo**: Carregamento dinâmico apenas de artigos existentes na tabela do TRE.
+  - **Feedback Imediato**: Exibição instantânea do status de inelegibilidade ao selecionar o artigo.
+- **Remoção de Erro Humano**: Eliminação de typos via input manual; sistema agora funciona como validador de conformidade.
+- **Interface**: Novos componentes de Dropdown e Cards de Resultado com estilização semântica (Vermelho/Verde) clara.
+
 ### 🏗️ Arquitetura & Código
 - **Refatoração Modular do Core**:
   - Migração de `script.js` (monólito) para arquitetura de Módulos ES6.
