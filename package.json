@@ -17,7 +17,8 @@
     "test:components": "node tests/components.test.js",
     "test:all": "npm run test:unit && npm run test",
     "sync:js": "node scripts/sync-js.js",
-    "serve": "npm run sync:js && node scripts/serve.js",
+    "supabase:config": "node scripts/build-supabase-config.js",
+    "serve": "npm run sync:js && npm run supabase:config && node scripts/serve.js",
     "dev": "npm run check && npm run serve",
     "check": "npm run lint && npm run test && node scripts/build.js --dry-run",
     "optimize": "node scripts/optimize.js",
@@ -47,6 +48,7 @@
   "author": "Inelegis",
   "license": "MIT",
   "dependencies": {
+    "@supabase/supabase-js": "^2.93.3",
     "ioredis": "^5.9.2"
   },
   "devDependencies": {

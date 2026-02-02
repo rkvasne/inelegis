@@ -1,8 +1,8 @@
 /**
- * Search History Manager
+ * Search History Manager - Supabase Edition
  * Gerencia histórico de consultas do usuário
- * Sincroniza com Redis via API
- * @version 0.2.0
+ * Sincroniza com Supabase via REST API
+ * @version 2.0.0
  */
 
 const SEARCH_HISTORY_DEBUG_ENABLED = (() => {
@@ -32,8 +32,15 @@ const SearchHistory = (() => {
 
     const MAX_HISTORY = 50;
     const MAX_RECENT = 10;
-    const API_URL = '/api/search-history';
-    
+
+    // Configuração Supabase (carregada do window.__SUPABASE_CONFIG__)
+    function getSupabaseConfig() {
+        if (typeof window !== 'undefined' && window.__SUPABASE_CONFIG__) {
+            return window.__SUPABASE_CONFIG__;
+        }
+        return null;
+    }
+
     function getCachedHistory() {
         return cachedHistory.slice();
     }
@@ -68,7 +75,7 @@ const SearchHistory = (() => {
         document.cookie = parts.join('; ');
         return true;
     }
-    
+
     // Obter userId do Analytics ou gerar um novo persistido em cookie
     function getUserId() {
         if (typeof window !== 'undefined' && window.Analytics?.getUserId) {
@@ -100,72 +107,128 @@ const SearchHistory = (() => {
     }
 
     /**
-     * Sincroniza busca com Redis via API
+     * Sincroniza busca com Supabase
      */
-    async function syncToRedis(search) {
+    async function syncToSupabase(search) {
+        const config = getSupabaseConfig();
+        if (!config) {
+            historyDebugLog('Supabase não configurado, salvando apenas em cache local');
+            return null;
+        }
+
         try {
             const userId = getUserId();
-            
-            const response = await fetch(API_URL, {
+
+            const response = await fetch(`${config.url}/rest/v1/rpc/add_to_history`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ userId, search })
+                headers: {
+                    'apikey': config.anonKey,
+                    'Authorization': `Bearer ${config.anonKey}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    p_user_id: userId,
+                    p_lei: search.lei,
+                    p_artigo: search.artigo,
+                    p_resultado: search.resultado,
+                    p_tipo_crime: search.tipoCrime || null,
+                    p_observacoes: search.observacoes || null
+                })
             });
-            
+
             if (!response.ok) {
                 throw new Error(`HTTP ${response.status}`);
             }
-            
+
             const result = await response.json();
-            historyDebugLog('Histórico sincronizado com Redis');
+            historyDebugLog('Histórico sincronizado com Supabase');
             return result;
-            
+
         } catch (error) {
-            console.warn('⚠️ Falha ao sincronizar com Redis:', error.message);
+            console.warn('⚠️ Falha ao sincronizar com Supabase:', error.message);
             return null;
         }
     }
 
     /**
-     * Busca histórico do Redis
+     * Busca histórico do Supabase
      */
-    async function fetchFromRedis(limit = MAX_HISTORY) {
+    async function fetchFromSupabase(limit = MAX_HISTORY) {
+        const config = getSupabaseConfig();
+        if (!config) {
+            historyDebugLog('Supabase não configurado');
+            return null;
+        }
+
         try {
             const userId = getUserId();
-            
-            const response = await fetch(`${API_URL}?userId=${userId}&limit=${limit}`);
-            
+
+            const response = await fetch(`${config.url}/rest/v1/rpc/get_user_history`, {
+                method: 'POST',
+                headers: {
+                    'apikey': config.anonKey,
+                    'Authorization': `Bearer ${config.anonKey}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    p_user_id: userId,
+                    p_limit: limit
+                })
+            });
+
             if (!response.ok) {
                 throw new Error(`HTTP ${response.status}`);
             }
-            
+
             const data = await response.json();
-            return data.history || [];
-            
+
+            // Mapear para formato esperado pelo frontend
+            return data.map(item => ({
+                lei: item.lei,
+                artigo: item.artigo,
+                resultado: item.resultado,
+                timestamp: item.timestamp,
+                tipoCrime: item.tipo_crime,
+                observacoes: item.observacoes
+            }));
+
         } catch (error) {
-            console.warn('⚠️ Falha ao buscar do Redis:', error.message);
+            console.warn('⚠️ Falha ao buscar do Supabase:', error.message);
             return null;
         }
     }
 
     /**
-     * Busca estatísticas do Redis
+     * Busca estatísticas do Supabase
      */
-    async function fetchStatsFromRedis() {
+    async function fetchStatsFromSupabase() {
+        const config = getSupabaseConfig();
+        if (!config) {
+            return null;
+        }
+
         try {
             const userId = getUserId();
-            
-            const response = await fetch(`${API_URL}?userId=${userId}&stats=true`);
-            
+
+            const response = await fetch(`${config.url}/rest/v1/rpc/get_user_stats`, {
+                method: 'POST',
+                headers: {
+                    'apikey': config.anonKey,
+                    'Authorization': `Bearer ${config.anonKey}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ p_user_id: userId })
+            });
+
             if (!response.ok) {
                 throw new Error(`HTTP ${response.status}`);
             }
-            
+
             const data = await response.json();
-            return data.stats || null;
-            
+            return data[0] || null;
+
         } catch (error) {
-            console.warn('⚠️ Falha ao buscar stats do Redis:', error.message);
+            console.warn('⚠️ Falha ao buscar stats do Supabase:', error.message);
             return null;
         }
     }
@@ -176,7 +239,7 @@ const SearchHistory = (() => {
     function addSearch(search) {
         try {
             const history = getCachedHistory();
-            
+
             if (!search.timestamp) {
                 search.timestamp = new Date().toISOString();
             }
@@ -186,11 +249,11 @@ const SearchHistory = (() => {
             const isDuplicate = history.some(item => {
                 const itemTime = new Date(item.timestamp).getTime();
                 const timeDiff = Math.abs(now - itemTime);
-                
+
                 return item.lei === search.lei &&
-                       item.artigo === search.artigo &&
-                       item.resultado === search.resultado &&
-                       timeDiff < 5000;
+                    item.artigo === search.artigo &&
+                    item.resultado === search.resultado &&
+                    timeDiff < 5000;
             });
 
             if (isDuplicate) {
@@ -208,12 +271,12 @@ const SearchHistory = (() => {
 
             // Atualizar cache em memória
             setCachedHistory(history);
-            
-            // Sincronizar com Redis (async, não bloqueia)
-            syncToRedis(search).catch(err => {
-                console.warn('Sync Redis falhou:', err);
+
+            // Sincronizar com Supabase (async, não bloqueia)
+            syncToSupabase(search).catch(err => {
+                console.warn('Sync Supabase falhou:', err);
             });
-            
+
             return true;
         } catch (error) {
             console.error('Erro ao adicionar ao histórico:', error);
@@ -229,17 +292,17 @@ const SearchHistory = (() => {
     }
 
     /**
-     * Obtém histórico com fallback para Redis
+     * Obtém histórico com fallback para Supabase
      */
     async function getHistoryAsync() {
-        // Tentar Redis primeiro
-        const redisHistory = await fetchFromRedis();
-        
-        if (Array.isArray(redisHistory) && redisHistory.length > 0) {
-            setCachedHistory(redisHistory);
-            return redisHistory;
+        // Tentar Supabase primeiro
+        const supabaseHistory = await fetchFromSupabase();
+
+        if (Array.isArray(supabaseHistory) && supabaseHistory.length > 0) {
+            setCachedHistory(supabaseHistory);
+            return supabaseHistory;
         }
-        
+
         return getCachedHistory();
     }
 
@@ -257,7 +320,7 @@ const SearchHistory = (() => {
     function getFrequent(limit = 10) {
         const history = getHistory();
         const frequency = {};
-        
+
         history.forEach(search => {
             const key = `${search.lei}|${search.artigo}`;
             if (!frequency[key]) {
@@ -284,7 +347,7 @@ const SearchHistory = (() => {
 
         return history.filter(search => {
             return search.lei.toLowerCase().includes(lowerQuery) ||
-                   search.artigo.toLowerCase().includes(lowerQuery);
+                search.artigo.toLowerCase().includes(lowerQuery);
         });
     }
 
@@ -309,7 +372,7 @@ const SearchHistory = (() => {
      */
     function getStats() {
         const history = getHistory();
-        
+
         const stats = {
             total: history.length,
             inelegiveis: 0,
@@ -325,11 +388,11 @@ const SearchHistory = (() => {
                 stats.elegiveis++;
             }
 
-            stats.leisMaisConsultadas[search.lei] = 
+            stats.leisMaisConsultadas[search.lei] =
                 (stats.leisMaisConsultadas[search.lei] || 0) + 1;
 
             const key = `${search.lei} - Art. ${search.artigo}`;
-            stats.artigosMaisConsultados[key] = 
+            stats.artigosMaisConsultados[key] =
                 (stats.artigosMaisConsultados[key] || 0) + 1;
         });
 
@@ -347,15 +410,22 @@ const SearchHistory = (() => {
     }
 
     /**
-     * Obtém estatísticas com fallback para Redis
+     * Obtém estatísticas com fallback para Supabase
      */
     async function getStatsAsync() {
-        const redisStats = await fetchStatsFromRedis();
-        
-        if (redisStats) {
-            return redisStats;
+        const supabaseStats = await fetchStatsFromSupabase();
+
+        if (supabaseStats) {
+            return {
+                total: supabaseStats.total,
+                inelegiveis: supabaseStats.inelegiveis,
+                elegiveis: supabaseStats.elegiveis,
+                naoConsta: supabaseStats.nao_consta,
+                primeiraConsulta: supabaseStats.primeira_consulta,
+                ultimaConsulta: supabaseStats.ultima_consulta
+            };
         }
-        
+
         return getStats();
     }
 
@@ -364,7 +434,7 @@ const SearchHistory = (() => {
      */
     function exportToText() {
         const history = getHistory();
-        
+
         let text = 'HISTÓRICO DE CONSULTAS - INELEGIS\n';
         text += '='.repeat(50) + '\n\n';
 
@@ -395,8 +465,9 @@ const SearchHistory = (() => {
         getStats,
         getStatsAsync,
         exportToText,
-        syncToRedis,
-        fetchFromRedis
+        // Manter compatibilidade (alias)
+        syncToRedis: syncToSupabase,
+        fetchFromRedis: fetchFromSupabase
     };
 })();
 
