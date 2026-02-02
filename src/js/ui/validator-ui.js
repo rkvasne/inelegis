@@ -3,11 +3,7 @@ import { validatorService } from '../services/validator-service.js';
 export class ValidatorUI {
     constructor() {
         // Elementos da UI
-        this.leiArrow = document.querySelector('#leiArrowIndicator');
-        this.leiDropdown = document.querySelector('#leiListbox');
-        this.leiButton = document.querySelector('#leiDropdownButton');
-        this.leiSelectInput = document.querySelector('#leiSelect');
-
+        this.leiSelect = document.querySelector('#leiSelect');
         this.artigoSelect = document.querySelector('#artigoSelect');
         this.resultContainer = document.querySelector('#validator-result');
 
@@ -18,67 +14,45 @@ export class ValidatorUI {
     init() {
         if (!validatorService.init()) return;
 
-        this.setupLeiDropdown();
+        this.setupLeiSelect();
         this.setupArtigoSelect();
+    }
 
-        // Fechar dropdown ao clicar fora
-        document.addEventListener('click', (e) => {
-            if (this.leiButton && !this.leiButton.contains(e.target) && !this.leiDropdown.contains(e.target)) {
-                this.toggleLeiDropdown(false);
+    // Configura o Select Nativo de Leis
+    setupLeiSelect() {
+        const laws = validatorService.getLaws();
+
+        if (!this.leiSelect) return;
+
+        // Limpa opções (mantendo a primeira)
+        this.leiSelect.innerHTML = '<option value="" selected>Selecione a lei ou código...</option>';
+
+        // Renderizar opções
+        laws.forEach(law => {
+            const option = document.createElement('option');
+            option.value = law.codigo;
+            option.textContent = law.nome;
+            this.leiSelect.appendChild(option);
+        });
+
+        // Evento de Mudança Simplificado
+        this.leiSelect.addEventListener('change', (e) => {
+            const codigo = e.target.value;
+            const nome = e.target.options[e.target.selectedIndex].text;
+
+            if (codigo) {
+                this.selectLaw(codigo, nome);
+            } else {
+                // Reset se selecionar "Selecione..."
+                this.artigoSelect.innerHTML = '<option value="" selected>Selecione primeiro a lei...</option>';
+                this.artigoSelect.disabled = true;
+                this.hideResult();
             }
         });
     }
 
-    // Configura o dropdown customizado de Leis
-    setupLeiDropdown() {
-        const laws = validatorService.getLaws();
-
-        if (!this.leiDropdown) return;
-
-        // Renderizar opções
-        this.leiDropdown.innerHTML = laws.map(law => `
-            <li role="option" data-value="${law.codigo}" class="dropdown-item cursor-pointer px-4 py-2 hover:bg-neutral-100 text-neutral-800 text-sm">
-                ${law.nome}
-            </li>
-        `).join('');
-
-        // Eventos do Dropdown Customizado
-        if (this.leiButton) {
-            this.leiButton.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const expandido = this.leiButton.getAttribute('aria-expanded') === 'true';
-                this.toggleLeiDropdown(!expandido);
-            });
-        }
-
-        // Seleção de Lei
-        this.leiDropdown.querySelectorAll('li').forEach(item => {
-            item.addEventListener('click', (e) => {
-                const codigo = e.target.dataset.value;
-                const nome = e.target.innerText;
-
-                this.selectLaw(codigo, nome);
-                this.toggleLeiDropdown(false);
-            });
-        });
-    }
-
-    toggleLeiDropdown(show) {
-        if (!this.leiButton || !this.leiDropdown) return;
-
-        this.leiButton.setAttribute('aria-expanded', show);
-        this.leiDropdown.classList.toggle('hidden', !show);
-        if (this.leiArrow) {
-            this.leiArrow.style.transform = show ? 'rotate(180deg)' : 'rotate(0deg)';
-            this.leiArrow.style.transition = 'transform 0.2s ease';
-        }
-    }
-
     selectLaw(codigo, nome) {
         this.selectedLaw = codigo;
-        if (this.leiButton) this.leiButton.innerText = nome;
-        if (this.leiSelectInput) this.leiSelectInput.value = codigo;
-
         // Resetar e Popular Artigos
         this.populateArtigoSelect(codigo);
         this.hideResult();
@@ -175,17 +149,6 @@ export class ValidatorUI {
                 </div>
             </div>
         `;
-
-        // Animation classes
-        const style = document.createElement('style');
-        style.innerHTML = `
-            @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-            .animate-fade-in { animation: fadeIn 0.4s ease-out; }
-        `;
-        if (!document.querySelector('#validator-styles')) {
-            style.id = 'validator-styles';
-            document.head.appendChild(style);
-        }
 
         if (this.resultContainer) {
             this.resultContainer.innerHTML = html;
