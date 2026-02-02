@@ -23,7 +23,7 @@ Bem-vindo à documentação oficial do projeto **Inelegis**.
 - **[DevOps e CI/CD](guides/devops.md)** – pipeline de automação e deploy
 - **[Guia de Manutenção](guides/maintenance.md)** – atualização de dados, validação e deploy
 - **[Variáveis de Ambiente](guides/variaveis-ambiente.md)** – catálogo de variáveis
-- **[Setup Redis](guides/setup-redis.md)** – configuração consolidada do Redis
+- **[Setup Supabase](guides/setup-supabase.md)** – configuração do banco de dados
 
 ### ⚙️ Operações e Segurança
 - **[Analytics](operations/analytics.md)** – coleta, estrutura e monitoramento
@@ -59,7 +59,7 @@ docs/
 ├── guides/                  # Guias de desenvolvimento e manutenção
 │   ├── development.md
 │   ├── maintenance.md
-│   ├── setup-redis.md
+│   ├── setup-supabase.md
 │   └── variaveis-ambiente.md
 │
 ├── operations/              # Operações, segurança e analytics
