@@ -15,6 +15,8 @@ export class ValidatorUI {
 
         /** @type {string|null} Código da lei selecionada */
         this.selectedLaw = null;
+
+        console.log('[ValidatorUI] Constructor - leiSelect:', !!this.leiSelect, 'artigoSelect:', !!this.artigoSelect);
     }
 
     /**
@@ -22,6 +24,9 @@ export class ValidatorUI {
      * Aguarda o carregamento dos dados e configura os listeners.
      */
     async init() {
+        console.log('[ValidatorUI] init() chamado');
+        console.log('[ValidatorUI] Estado inicial - __INELEG_NORMALIZADO__:', !!window.__INELEG_NORMALIZADO__);
+
         // Mecanismo de Retry para aguardar carregamento dos dados (corrige Race Condition)
         let attempts = 0;
         const maxAttempts = 20; // 20 * 100ms = 2 segundos
@@ -31,8 +36,14 @@ export class ValidatorUI {
             attempts++;
         }
 
+        console.log('[ValidatorUI] Após espera - attempts:', attempts, 'dados:', {
+            hasNormalizado: !!window.__INELEG_NORMALIZADO__,
+            hasDataNormalizer: !!window.DataNormalizer,
+            length: window.__INELEG_NORMALIZADO__?.length || 0
+        });
+
         if (!validatorService.init()) {
-            console.error('Falha crítica: Dados não carregados após timeout.');
+            console.error('[ValidatorUI] ERRO: validatorService.init() retornou false');
             if (this.leiSelect) {
                 this.leiSelect.innerHTML = '<option value="">Erro: Dados indisponíveis</option>';
                 this.leiSelect.disabled = true;
@@ -40,8 +51,12 @@ export class ValidatorUI {
             return;
         }
 
+        console.log('[ValidatorUI] Service OK. Chamando setupLeiSelect()...');
+
         this.setupLeiSelect();
         this.setupArtigoSelect();
+
+        console.log('[ValidatorUI] Inicialização COMPLETA');
     }
 
     /**
@@ -49,8 +64,12 @@ export class ValidatorUI {
      */
     setupLeiSelect() {
         const laws = validatorService.getLaws();
+        console.log('[ValidatorUI] setupLeiSelect - laws encontradas:', laws.length, laws);
 
-        if (!this.leiSelect) return;
+        if (!this.leiSelect) {
+            console.error('[ValidatorUI] ERRO: #leiSelect não encontrado no DOM!');
+            return;
+        }
 
         // Limpa opções (mantendo a primeira)
         this.leiSelect.innerHTML = '<option value="" selected>Selecione a lei ou código...</option>';
@@ -63,6 +82,8 @@ export class ValidatorUI {
             this.leiSelect.appendChild(option);
         });
 
+        console.log('[ValidatorUI] Opções adicionadas ao select:', this.leiSelect.options.length);
+
         // Evento de Mudança Simplificado
         this.leiSelect.addEventListener('change', (e) => {
             const codigo = e.target.value;
@@ -70,6 +91,11 @@ export class ValidatorUI {
 
             if (codigo) {
                 this.selectLaw(codigo, nome);
+                // Esconder a setinha indicadora após primeira seleção
+                const arrowIndicator = document.getElementById('leiArrowIndicator');
+                if (arrowIndicator) {
+                    arrowIndicator.classList.remove('show');
+                }
             } else {
                 // Reset se selecionar "Selecione..."
                 this.artigoSelect.innerHTML = '<option value="" selected>Selecione primeiro a lei...</option>';
