@@ -10,25 +10,27 @@ export class ValidatorService {
     }
 
     /**
-     * Inicializa com a instância global de dados (window.DataNormalizer ou window.__INELEG_NORMALIZADO__)
+     * Inicializa com a instância global de dados (window.__INELEG_NORMALIZADO__ ou window.DataNormalizer)
      * @returns {boolean} True se inicializado com sucesso
      */
     init() {
         if (typeof window !== 'undefined') {
-            // Caso 1: Interface Legada (Wrapper)
-            if (window.DataNormalizer) {
-                this.dataNormalizer = window.DataNormalizer;
-                return true;
-            }
-            // Caso 2: Array Direto (ETL Novo)
-            if (window.__INELEG_NORMALIZADO__) {
+            // Caso 1: Array Direto (ETL Novo) - PRIORIDADE MÁXIMA
+            if (window.__INELEG_NORMALIZADO__ && Array.isArray(window.__INELEG_NORMALIZADO__)) {
+                console.log('[ValidatorService] Usando window.__INELEG_NORMALIZADO__ (', window.__INELEG_NORMALIZADO__.length, 'registros)');
                 this.dataNormalizer = {
                     getAll: () => window.__INELEG_NORMALIZADO__
                 };
                 return true;
             }
+            // Caso 2: Interface Legada (Wrapper) - apenas se tiver getAll
+            if (window.DataNormalizer && typeof window.DataNormalizer.getAll === 'function') {
+                console.log('[ValidatorService] Usando window.DataNormalizer (legado)');
+                this.dataNormalizer = window.DataNormalizer;
+                return true;
+            }
         }
-        console.error('DataNormalizer não encontrado. Verifique se data-normalizado.js foi carregado.');
+        console.error('[ValidatorService] ERRO: Nenhuma fonte de dados encontrada!');
         return false;
     }
 

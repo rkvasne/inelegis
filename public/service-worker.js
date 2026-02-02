@@ -31,6 +31,13 @@ self.addEventListener('fetch', event => {
   }
 
   const request = event.request;
+  const url = new URL(request.url);
+
+  // Ignorar requisições externas (fonts, APIs, etc.) para evitar CSP violations
+  if (url.origin !== self.location.origin) {
+    return;
+  }
+
   const isNavigation = request.mode === 'navigate';
 
   event.respondWith(
