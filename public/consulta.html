@@ -399,9 +399,10 @@
     <script src="/assets/js/modules/analytics.js?v=0.2.0" defer></script>
 
     <!-- Scripts Principais -->
-    <script src="/assets/js/data-normalizado.js" defer></script>
+    <!-- IMPORTANTE: data-normalizado.js NÃO pode ter defer para garantir que carregue ANTES dos módulos ES6 -->
+    <script src="/assets/js/data-normalizado.js"></script>
     <script src="/assets/js/consulta-normalizado.js" defer></script>
-    <script type="module" src="/assets/js/script.js" defer></script>
+    <script type="module" src="/assets/js/script.js"></script>
 
     <!-- Inicializar Módulos -->
     <script>
