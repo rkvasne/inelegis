@@ -18,6 +18,26 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
 
+## [0.3.0] - 02/02/2026
+
+### 🚀 Infraestrutura (Supabase Migration)
+- **Migração Completa de Banco de Dados**: Substituição do Redis pelo Supabase (PostgreSQL) para persistência de dados.
+  - **Motivo**: Redução de custos, maior integridade de dados e eliminação de dependência de serviço externo pago para features básicas.
+  - **Tabelas Migradas**: 
+    - `normas`, `artigos_inelegiveis`, `artigos_excecoes` (Dados estáticos).
+    - `historico_consultas` (Dados de usuário).
+    - `analytics_events` (Dados de telemetria).
+- **Backend/API**:
+  - Migração de todas as Serverless Functions (`api/search-history.js`, `api/analytics.js`, `api/dashboard.js`) para usar `@supabase/supabase-js`.
+  - Criação de `api/maintenance.js` para limpeza automática de dados antigos.
+- **Frontend**:
+  - Novo `SupabaseClient` leve para consultas diretas (leitura) no cliente.
+  - Atualização do `ValidatorService` para consultas assíncronas com fallback resiliente (dados estáticos).
+  - Atualização de UI (`validator-ui.js`) com estados de carregamento (loading seeds).
+- **Documentação**:
+  - Novo guia `docs/guides/setup-supabase.md`.
+  - Atualização de `.env.example` e remoção de scripts `redis-*`.
+
 ## [Unreleased]
 
 ### 🎨 UI/UX - Validação Estruturada

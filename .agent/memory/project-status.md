@@ -7,6 +7,15 @@
 
 ## Log de Sessão / Últimas Atualizações
 
+### 02/02/2026 - Migração de Infraestrutura (Supabase)
+- **Feito:**
+  - Migração completa de Redis para Supabase (PostgreSQL).
+  - Implementação de Client/Service assíncrono para validação de elegibilidade.
+  - Refatoração de APIs Serverless para uso do SDK Supabase.
+  - Setup de Migrations SQL e configuração de RLS (Row Level Security).
+  - Limpeza de dívida técnica (scripts Redis removidos).
+  - Documentação atualizada (Setup Guide + Changelog).
+
 ### 01/02/2026 - Interface de Validação Estruturada (UX Pivot)
 - **Feito:**
   - Implementação de `ValidatorService` e `ValidatorUI`.
