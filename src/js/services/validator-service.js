@@ -9,11 +9,21 @@ export class ValidatorService {
         this.dataNormalizer = null;
     }
 
-    // Inicializa com a instância global de dados (window.DataNormalizer)
+    // Inicializa com a instância global de dados (window.DataNormalizer ou window.__INELEG_NORMALIZADO__)
     init() {
-        if (typeof window !== 'undefined' && window.DataNormalizer) {
-            this.dataNormalizer = window.DataNormalizer;
-            return true;
+        if (typeof window !== 'undefined') {
+            // Caso 1: Interface Legada (Wrapper)
+            if (window.DataNormalizer) {
+                this.dataNormalizer = window.DataNormalizer;
+                return true;
+            }
+            // Caso 2: Array Direto (ETL Novo)
+            if (window.__INELEG_NORMALIZADO__) {
+                this.dataNormalizer = {
+                    getAll: () => window.__INELEG_NORMALIZADO__
+                };
+                return true;
+            }
         }
         console.error('DataNormalizer não encontrado. Verifique se data-normalizado.js foi carregado.');
         return false;
