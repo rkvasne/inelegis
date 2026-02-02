@@ -11,17 +11,7 @@ const path = require('path');
 const { execSync } = require('child_process');
 const paths = require('./project-paths');
 const { copyDirectory } = require('./sync-js');
-require('dotenv').config(); // Carregar variáveis de ambiente
-const Redis = require('ioredis');
-
-// Configuração do Redis
-let redisClient = null;
-if (process.env.REDIS_URL) {
-  redisClient = new Redis(process.env.REDIS_URL);
-  redisClient.on('error', (err) => console.error('Redis Client Error', err));
-} else {
-  console.warn('⚠️ REDIS_URL não definida. A persistência do histórico não funcionará.');
-}
+require('dotenv').config();
 
 class DevServer {
   constructor() {
@@ -66,7 +56,7 @@ class DevServer {
   async start() {
     this.log('Iniciando servidor de desenvolvimento...', 'info');
 
-    // Garantir que os arquivos JS estão sincronizados antes de subir o servidor
+    // Garantir que os arquivos JS estão sincronizados
     this.syncJsAssets();
 
     const server = http.createServer((req, res) => {
@@ -76,15 +66,10 @@ class DevServer {
     server.listen(this.port, () => {
       this.log(`Servidor rodando em http://localhost:${this.port}`, 'success');
       this.log('Pressione Ctrl+C para parar o servidor', 'info');
-
-      // Abrir navegador automaticamente
       this.openBrowser();
-
-      // Configurar watchers para live reload
       this.setupWatchers();
     });
 
-    // Graceful shutdown
     process.on('SIGINT', () => {
       this.log('Parando servidor...', 'info');
       this.cleanup();
@@ -95,490 +80,149 @@ class DevServer {
   handleRequest(req, res) {
     let filePath = req.url === '/' ? '/index.html' : req.url;
 
-    // Tratamento de API
-    if (req.url.startsWith('/api/search-history')) {
-      this.handleApiRequest(req, res);
+    // Tratamento para API (Mocks ou Proxy se necessário)
+    // Com Supabase migration, APIs são externas
+    if (req.url.startsWith('/api/')) {
+      res.writeHead(404, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: 'API migrated to Supabase' }));
       return;
     }
 
-    // Remover query parameters
+    // Remover query string da URL para encontrar o arquivo
     filePath = filePath.split('?')[0];
 
-    // Prevenir directory traversal
-    if (filePath.includes('..')) {
-      this.sendError(res, 403, 'Forbidden');
+    // Tratamento para live reload
+    if (filePath === '/__live_reload') {
+      this.handleLiveReload(req, res);
       return;
     }
 
-    const normalized = filePath.replace(/^\/+/, '');
-    const fullPath = path.join(this.publicRoot, normalized);
+    // Tratamento para SPA (fallback para index.html se não encontrar)
+    // Mas como é multi-page, vamos tentar encontrar o arquivo
+    const extname = path.extname(filePath);
+    let contentType = this.mimeTypes[extname] || 'application/octet-stream';
+    let fullPath = path.join(this.publicRoot, filePath);
 
-    // Verificar se arquivo existe
-    if (!fs.existsSync(fullPath)) {
-      // Tentar adicionar .html se não tiver extensão (Clean URLs)
-      if (path.extname(filePath) === '') {
-        const htmlPath = fullPath + '.html';
-        if (fs.existsSync(htmlPath)) {
-          this.serveFile(res, htmlPath, '.html');
-          return;
+    // Se é diretório ou sem extensão, tenta adicionar .html
+    if (!extname || extname === '') {
+      if (fs.existsSync(fullPath) && fs.statSync(fullPath).isDirectory()) {
+        fullPath = path.join(fullPath, 'index.html');
+        contentType = 'text/html';
+      } else if (fs.existsSync(fullPath + '.html')) {
+        fullPath = fullPath + '.html';
+        contentType = 'text/html';
+      }
+    }
+
+    fs.readFile(fullPath, (err, content) => {
+      if (err) {
+        if (err.code === 'ENOENT') {
+          // Arquivo não encontrado
+          res.writeHead(404);
+          res.end('<h1>404 Not Found</h1>');
+        } else {
+          // Erro de servidor
+          res.writeHead(500);
+          res.end(`Server Error: ${err.code}`);
         }
-      }
-
-      // Para SPAs, redirecionar para index.html (fallback)
-      if (path.extname(filePath) === '') {
-        this.serveFile(res, paths.pages.index, '.html');
-        return;
-      }
-
-      this.sendError(res, 404, 'Not Found');
-      return;
-    }
-
-    const stat = fs.statSync(fullPath);
-
-    if (stat.isDirectory()) {
-      // Servir index.html se for diretório
-      const indexPath = path.join(fullPath, 'index.html');
-      if (fs.existsSync(indexPath)) {
-        this.serveFile(res, indexPath, '.html');
       } else {
-        this.sendDirectoryListing(res, fullPath, filePath);
-      }
-      return;
-    }
+        // Sucesso
+        res.writeHead(200, { 'Content-Type': contentType });
 
-    // Servir arquivo
-    const ext = path.extname(filePath);
-    this.serveFile(res, fullPath, ext);
-  }
-
-  async handleApiRequest(req, res) {
-    // Parse URL e Query Params
-    const url = new URL(req.url, `http://localhost:${this.port}`);
-    const userId = url.searchParams.get('userId');
-    const method = req.method;
-
-    // Headers CORS e JSON
-    res.setHeader('Content-Type', 'application/json');
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
-    if (method === 'OPTIONS') {
-      res.writeHead(204);
-      res.end();
-      return;
-    }
-
-    if (!redisClient) {
-      res.writeHead(503);
-      res.end(JSON.stringify({ error: 'Redis unavailable' }));
-      return;
-    }
-
-    try {
-      if (method === 'GET') {
-        if (!userId) {
-          res.writeHead(400);
-          res.end(JSON.stringify({ error: 'userId required' }));
-          return;
+        // Injetar script de live reload em arquivos HTML
+        if (contentType === 'text/html') {
+          const liveReloadScript = `
+            <script>
+              (function() {
+                const check = () => {
+                  fetch('/__live_reload')
+                    .then(res => res.json())
+                    .then(data => {
+                      if (data.reload) window.location.reload();
+                      else setTimeout(check, 1000);
+                    })
+                    .catch(() => setTimeout(check, 1000));
+                };
+                setTimeout(check, 1000);
+              })();
+            </script>
+          `;
+          res.end(content + liveReloadScript, 'utf-8');
+        } else {
+          res.end(content, 'utf-8');
         }
-
-        const key = `history:${userId}`;
-        const limit = parseInt(url.searchParams.get('limit') || '50');
-
-        // Se pedir estatísticas
-        if (url.searchParams.get('stats') === 'true') {
-          const items = await redisClient.lrange(key, 0, -1); // Pegar tudo para estatísticas
-          const history = items.map(item => {
-            try { return JSON.parse(item); } catch { return null; }
-          }).filter(Boolean);
-
-          const stats = {
-            total: history.length,
-            inelegiveis: history.filter(h => h.resultado === 'Inelegível').length,
-            elegiveis: history.filter(h => h.resultado === 'Elegível').length,
-            leisMaisConsultadas: {},
-            artigosMaisConsultados: {}
-          };
-
-          history.forEach(h => {
-            stats.leisMaisConsultadas[h.lei] = (stats.leisMaisConsultadas[h.lei] || 0) + 1;
-            const artKey = `${h.lei} - Art. ${h.artigo}`;
-            stats.artigosMaisConsultados[artKey] = (stats.artigosMaisConsultados[artKey] || 0) + 1;
-          });
-
-          // Ordenar e cortar tops
-          stats.leisMaisConsultadas = Object.fromEntries(
-            Object.entries(stats.leisMaisConsultadas).sort(([,a], [,b]) => b - a).slice(0, 5)
-          );
-          stats.artigosMaisConsultados = Object.fromEntries(
-            Object.entries(stats.artigosMaisConsultados).sort(([,a], [,b]) => b - a).slice(0, 5)
-          );
-
-          res.writeHead(200);
-          res.end(JSON.stringify({ success: true, stats }));
-          return;
-        }
-
-        // Histórico normal
-        const items = await redisClient.lrange(key, 0, limit - 1);
-        const history = items.map(item => {
-          try { return JSON.parse(item); } catch { return null; }
-        }).filter(Boolean);
-
-        res.writeHead(200);
-        res.end(JSON.stringify({ success: true, history }));
-        return;
-      }
-
-      if (method === 'POST') {
-        let body = '';
-        req.on('data', chunk => body += chunk.toString());
-        req.on('end', async () => {
-          try {
-            const { userId, search } = JSON.parse(body);
-            if (!userId || !search) {
-              res.writeHead(400);
-              res.end(JSON.stringify({ error: 'Invalid data' }));
-              return;
-            }
-
-            const key = `history:${userId}`;
-            const entry = {
-              ...search,
-              timestamp: search.timestamp || new Date().toISOString(),
-              id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
-            };
-
-            await redisClient.lpush(key, JSON.stringify(entry));
-            await redisClient.ltrim(key, 0, 99); // Manter últimos 100
-            await redisClient.expire(key, 60 * 60 * 24 * 365); // TTL 1 ano
-
-            // Stats globais
-            await redisClient.incr('history:total');
-            
-            this.log(`Nova consulta salva no Redis para ${userId}`, 'success');
-            res.writeHead(200);
-            res.end(JSON.stringify({ success: true, entry }));
-          } catch (e) {
-            console.error('Erro ao processar POST:', e);
-            res.writeHead(500);
-            res.end(JSON.stringify({ error: 'Internal Server Error' }));
-          }
-        });
-        return;
-      }
-
-      res.writeHead(405);
-      res.end(JSON.stringify({ error: 'Method not allowed' }));
-
-    } catch (error) {
-      console.error('Erro Redis:', error);
-      res.writeHead(500);
-      res.end(JSON.stringify({ error: 'Database Error' }));
-    }
-  }
-
-  serveFile(res, filePath, ext) {
-    try {
-      let content = fs.readFileSync(filePath);
-      const mimeType = this.mimeTypes[ext] || 'application/octet-stream';
-
-      // Injetar live reload script em HTML
-      if (ext === '.html') {
-        const htmlContent = content.toString();
-        const liveReloadScript = this.getLiveReloadScript();
-        content = htmlContent.replace('</body>', `${liveReloadScript}</body>`);
-      }
-
-      res.writeHead(200, {
-        'Content-Type': mimeType,
-        'Cache-Control': 'no-cache, no-store, must-revalidate',
-        'Pragma': 'no-cache',
-        'Expires': '0'
-      });
-
-      res.end(content);
-
-      this.log(`${this.getStatusIcon(200)} ${filePath}`, 'info');
-
-    } catch (error) {
-      this.log(`Erro ao servir ${filePath}: ${error.message}`, 'error');
-      this.sendError(res, 500, 'Internal Server Error');
-    }
-  }
-
-  sendError(res, statusCode, message) {
-    const errorPage = `
-      <!DOCTYPE html>
-      <html lang="pt-BR">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Erro ${statusCode} - Ineleg-App</title>
-        <style>
-          body { 
-            font-family: 'Inter', sans-serif; 
-            margin: 0; 
-            padding: 40px; 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #333;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-          }
-          .error-container {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            text-align: center;
-            max-width: 500px;
-          }
-          .error-code { 
-            font-size: 72px; 
-            font-weight: bold; 
-            color: #ef4444;
-            margin-bottom: 20px;
-          }
-          .error-message { 
-            font-size: 24px; 
-            margin-bottom: 30px;
-            color: #666;
-          }
-          .back-link {
-            display: inline-block;
-            padding: 12px 24px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            font-weight: 600;
-            transition: transform 0.2s;
-          }
-          .back-link:hover {
-            transform: translateY(-2px);
-          }
-        </style>
-      </head>
-      <body>
-        <div class="error-container">
-          <div class="error-code">${statusCode}</div>
-          <div class="error-message">${message}</div>
-          <a href="/" class="back-link">← Voltar ao Início</a>
-        </div>
-      </body>
-      </html>
-    `;
-
-    res.writeHead(statusCode, { 'Content-Type': 'text/html' });
-    res.end(errorPage);
-
-    this.log(`${this.getStatusIcon(statusCode)} ${statusCode} ${message}`, 'error');
-  }
-
-  sendDirectoryListing(res, dirPath, urlPath) {
-    try {
-      const files = fs.readdirSync(dirPath);
-
-      const listing = `
-        <!DOCTYPE html>
-        <html lang="pt-BR">
-        <head>
-          <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Diretório ${urlPath} - Ineleg-App</title>
-          <style>
-            body { 
-              font-family: 'Inter', sans-serif; 
-              margin: 0; 
-              padding: 40px; 
-              background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            }
-            .container {
-              max-width: 800px;
-              margin: 0 auto;
-              background: white;
-              padding: 40px;
-              border-radius: 20px;
-              box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-            }
-            h1 { color: #333; margin-bottom: 30px; }
-            .file-list { list-style: none; padding: 0; }
-            .file-item { 
-              padding: 12px; 
-              border-bottom: 1px solid #eee; 
-              display: flex;
-              align-items: center;
-              gap: 12px;
-            }
-            .file-item:hover { background: #f8f9fa; }
-            .file-link { 
-              text-decoration: none; 
-              color: #667eea; 
-              font-weight: 500;
-              flex: 1;
-            }
-            .file-link:hover { color: #5a67d8; }
-            .file-icon { font-size: 18px; }
-          </style>
-        </head>
-        <body>
-          <div class="container">
-            <h1>📁 Diretório: ${urlPath}</h1>
-            <ul class="file-list">
-              ${urlPath !== '/' ? '<li class="file-item"><span class="file-icon">📁</span><a href="../" class="file-link">.. (voltar)</a></li>' : ''}
-              ${files.map(file => {
-        const filePath = path.join(dirPath, file);
-        const isDir = fs.statSync(filePath).isDirectory();
-        const icon = isDir ? '📁' : this.getFileIcon(file);
-        const href = path.posix.join(urlPath, file);
-        return `<li class="file-item"><span class="file-icon">${icon}</span><a href="${href}" class="file-link">${file}</a></li>`;
-      }).join('')}
-            </ul>
-          </div>
-        </body>
-        </html>
-      `;
-
-      res.writeHead(200, { 'Content-Type': 'text/html' });
-      res.end(listing);
-
-    } catch (error) {
-      this.sendError(res, 500, 'Erro ao listar diretório');
-    }
-  }
-
-  getLiveReloadScript() {
-    return `
-      <script>
-        // Live Reload para desenvolvimento
-        (function() {
-          let lastModified = {};
-          
-          function checkForChanges() {
-            fetch('/api/changes', { method: 'HEAD' })
-              .then(response => {
-                const modified = response.headers.get('last-modified');
-                if (lastModified.value && modified !== lastModified.value) {
-                  console.log('🔄 Arquivos modificados, recarregando...');
-                  window.location.reload();
-                }
-                lastModified.value = modified;
-              })
-              .catch(() => {
-                // Ignorar erros de rede
-              });
-          }
-          
-          // Verificar mudanças a cada 1 segundo
-          setInterval(checkForChanges, 1000);
-          
-          console.log('🌐 Live reload ativo - arquivos serão recarregados automaticamente');
-        })();
-      </script>
-    `;
-  }
-
-  setupWatchers() {
-    const publicWatcher = fs.watch(this.publicRoot, { recursive: true }, (_, filename) => {
-      if (filename) {
-        this.log(`Arquivo modificado (public): ${filename}`, 'reload');
-        this.lastModified = Date.now();
       }
     });
-    this.watchers.set('public', publicWatcher);
-    this.log(`Monitorando: ${path.relative(this.projectRoot, this.publicRoot)}`, 'info');
-
-    const jsWatcher = fs.watch(this.jsSrcDir, { recursive: true }, (_, filename) => {
-      if (filename) {
-        this.log(`Atualizando assets JS: ${filename}`, 'reload');
-        try {
-          this.syncJsAssets();
-        } catch (error) {
-          this.log(`Falha ao sincronizar JS: ${error.message}`, 'error');
-        }
-        this.lastModified = Date.now();
-      }
-    });
-    this.watchers.set('src/js', jsWatcher);
-    this.log(`Monitorando: ${path.relative(this.projectRoot, this.jsSrcDir)}`, 'info');
   }
 
-  syncJsAssets() {
-    copyDirectory(this.jsSrcDir, this.jsPublicDir);
-    this.log('JS sincronizado com public/assets/js', 'success');
-  }
+  handleLiveReload(req, res) {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    const needsReload = this.lastModified > (req.headers['last-modified'] || 0);
+    // Na verdade, o cliente faz polling.
+    // Vamos simplificar: retorna se deve recarregar baseado no tempo
+    // O cliente vai apenas perguntar "devo recarregar?".
+    // Implementação simples de polling:
 
-  cleanup() {
-    for (const [path, watcher] of this.watchers) {
-      watcher.close();
-      this.log(`Parou de monitorar: ${path}`, 'info');
+    // O cliente deve enviar o timestamp da ultima verificação?
+    // Vamos usar um SSE (Server Sent Events) seria melhor, mas polling serve.
+    // Para simplificar: apenas retorna false, e quando eu mudo lastModified o cliente recarrega.
+
+    // Implementação correta: Long Polling ou apenas retornar status
+    const clientTime = parseInt(req.url.split('t=')[1] || '0');
+
+    if (this.lastModified > clientTime) {
+      res.end(JSON.stringify({ reload: true, timestamp: this.lastModified }));
+    } else {
+      res.end(JSON.stringify({ reload: false }));
     }
-    this.watchers.clear();
   }
 
   openBrowser() {
-    const url = `http://localhost:${this.port}`;
-
+    const startCmd = process.platform === 'win32' ? 'start' : 'open';
     try {
-      const platform = process.platform;
-      let command;
-
-      if (platform === 'win32') {
-        command = `start ${url}`;
-      } else if (platform === 'darwin') {
-        command = `open ${url}`;
-      } else {
-        command = `xdg-open ${url}`;
-      }
-
-      execSync(command);
-      this.log('Navegador aberto automaticamente', 'success');
-
-    } catch (error) {
-      this.log(`Não foi possível abrir o navegador automaticamente. Acesse: ${url}`, 'warning');
+      execSync(`${startCmd} http://localhost:${this.port}`);
+    } catch (e) {
+      this.log('Não foi possível abrir o navegador automaticamente', 'warning');
     }
   }
 
-  getStatusIcon(statusCode) {
-    if (statusCode >= 200 && statusCode < 300) return '✅';
-    if (statusCode >= 300 && statusCode < 400) return '🔄';
-    if (statusCode >= 400 && statusCode < 500) return '⚠️';
-    return '❌';
-  }
+  setupWatchers() {
+    const watchDir = (dir) => {
+      if (!fs.existsSync(dir)) return;
 
-  getFileIcon(filename) {
-    const ext = path.extname(filename).toLowerCase();
-    const icons = {
-      '.html': '🌐',
-      '.css': '🎨',
-      '.js': '⚡',
-      '.json': '📋',
-      '.md': '📝',
-      '.png': '🖼️',
-      '.jpg': '🖼️',
-      '.jpeg': '🖼️',
-      '.gif': '🖼️',
-      '.svg': '🎯',
-      '.ico': '🔷',
-      '.pdf': '📄',
-      '.txt': '📄'
+      this.log(`Monitorando diretório: ${path.relative(this.projectRoot, dir)}`, 'info');
+
+      fs.watch(dir, { recursive: true }, (eventType, filename) => {
+        if (filename && !filename.includes('node_modules') && !filename.includes('.git')) {
+          this.log(`Alteração detectada em ${filename}`, 'reload');
+
+          // Se for JS em src, sincronizar
+          if (dir.startsWith(this.jsSrcDir)) {
+            this.syncJsAssets();
+          }
+
+          this.lastModified = Date.now();
+        }
+      });
     };
 
-    return icons[ext] || '📄';
+    watchDir(this.publicRoot);
+    watchDir(this.jsSrcDir);
+  }
+
+  syncJsAssets() {
+    try {
+      copyDirectory(this.jsSrcDir, this.jsPublicDir, []);
+      this.log('Assets JS sincronizados', 'success');
+    } catch (err) {
+      this.log('Erro ao sincronizar JS: ' + err.message, 'error');
+    }
+  }
+
+  cleanup() {
+    // Fechar conexões se houver
   }
 }
 
-// Executar servidor se chamado diretamente
-if (require.main === module) {
-  const server = new DevServer();
-  server.start().catch(error => {
-    console.error('❌ Erro fatal no servidor:', error);
-    process.exit(1);
-  });
-}
-
-module.exports = DevServer;
+const server = new DevServer();
+server.start();

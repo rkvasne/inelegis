@@ -12,10 +12,10 @@ Este documento é a fonte única de verdade (SSOT) para políticas e práticas d
 
 - Definir regras de acesso  
   - Quando: ao criar ou revisar controles de acesso nos endpoints `/api/*` e no dashboard.  
-  - Ação: consultar Controles de Acesso e Redis, APIs e CORS para ajustar validações e restrições.
+  - Ação: consultar Controles de Acesso e Supabase (RLS), APIs e CORS para ajustar validações e restrições.
 - Configurar segredos e variáveis  
-  - Quando: ao adicionar, rotacionar ou revisar `REDIS_URL`, tokens e variáveis de deploy.  
-  - Ação: usar Gestão de Segredos para garantir que nenhum segredo seja exposto no código-fonte ou no cliente.
+  - Quando: ao adicionar, rotacionar ou revisar chaves de API, tokens e variáveis de deploy.  
+  - Ação: usar Gestão de Segredos para garantir que nenhum segredo (especialmente `SERVICE_ROLE_KEY`) seja exposto no código-fonte ou no cliente.
 - Implementar logging/auditoria  
   - Quando: ao registrar eventos técnicos sensíveis ou implementar novas trilhas de auditoria.  
   - Ação: seguir Logs e Auditoria para registrar apenas o mínimo necessário, sem PII e sem segredos.
@@ -47,13 +47,13 @@ Canal privado (GitHub Security Advisories):
 ## 2) Escopo
 - Aplicação: páginas estáticas (`public/*.html`) + CSS (`public/styles/*`) + JavaScript (runtime em `public/assets/js/**`)
 - APIs: funções serverless em `api/*` (analytics, dashboard, search-history)
-- Banco: Redis (via `ioredis`) para analytics e histórico
+- Banco: Supabase (PostgreSQL) com RLS ativado
 - Deploy: Vercel
 
 ---
 
 ## 3) Princípios
-- Menor privilégio por padrão
+- Menor privilégio por padrão (RLS)
 - Segregação de funções e ambientes
 - Evitar dados pessoais e reduzir dados ao mínimo necessário
 - Segredos fora do código-fonte (variáveis de ambiente)
@@ -64,15 +64,16 @@ Canal privado (GitHub Security Advisories):
 ## 4) Controles de Acesso
 - Endpoints públicos (ex.: analytics e histórico) devem validar origem (CORS) e validar payload.
 - Dashboard é protegido por token (não expor token no cliente).
-- Evitar expor dados sensíveis no frontend; validar regras de autorização no servidor quando houver.
+- Evitar expor dados sensíveis no frontend; validar regras de autorização no servidor (RLS/JWT).
 
 ---
 
-## 5) Redis, APIs e CORS
+## 5) Supabase, APIs e CORS
 - Restringir origens em endpoints `api/*` ao domínio de produção e aos hosts locais necessários.
 - Negar por padrão origens desconhecidas.
-- Validar campos obrigatórios e tamanho/forma do payload antes de persistir em Redis.
-- Revisar rotas/admin e evitar que tokens segredos sejam expostos no cliente.
+- Validar campos obrigatórios e tamanho/forma do payload antes de persistir no banco.
+- Revisar Row Level Security (RLS) policies regularmente.
+- Nunca expor `SUPABASE_SERVICE_ROLE_KEY` no frontend. Apenas `ANON_KEY` é pública.
 
 ---
 
@@ -100,7 +101,8 @@ Canal privado (GitHub Security Advisories):
 ## 9) Checklist Rápido
 - [ ] Segredos apenas em variáveis de ambiente
 - [ ] CORS restrito e testado nos endpoints `api/*`
-- [ ] Payloads validados antes de persistir em Redis
+- [ ] Payloads validados antes de persistir no banco
+- [ ] RLS Policies configuradas e testadas
 - [ ] Dashboard/rotas admin protegidos por token e sem exposição no cliente
 - [ ] Sem `innerHTML` direto; inserção segura de HTML
 - [ ] HTTPS e headers de segurança aplicados
@@ -115,7 +117,7 @@ Canal privado (GitHub Security Advisories):
 - Guia para agentes: `AGENTS.md`
 - Índice de documentação: `docs/README.md`
 - Variáveis de ambiente: `docs/guides/variaveis-ambiente.md`
-- Redis: `docs/guides/setup-redis.md`
+- Supabase Setup: `docs/guides/setup-supabase.md`
 - Analytics: `docs/operations/analytics.md`
 - Proteção contra corrupção de código: `docs/operations/protection.md`
 

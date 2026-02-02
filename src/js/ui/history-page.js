@@ -46,7 +46,7 @@ const HistoryPage = (() => {
         }
 
         toggleLoading(true);
-        showStatus('Sincronizando com Redis...');
+        showStatus('Sincronizando dados no Inelegis Cloud...');
 
         try {
             const [remoteHistory, remoteStats] = await Promise.all([
@@ -312,10 +312,10 @@ const HistoryPage = (() => {
         const cardsHtml = `
             <div class="features-grid">
                 ${data.map(entry => {
-                    const meta = typeof metaFactory === 'function' ? metaFactory(entry) : null;
-                    const icon = entry.resultado === 'inelegivel' ? getStatIcon('inelegivel') : getStatIcon('elegivel');
-                    const subtitle = meta && meta.text ? `<p class=\"text-sm text-neutral-600\">${meta.text}</p>` : '';
-                    return `
+            const meta = typeof metaFactory === 'function' ? metaFactory(entry) : null;
+            const icon = entry.resultado === 'inelegivel' ? getStatIcon('inelegivel') : getStatIcon('elegivel');
+            const subtitle = meta && meta.text ? `<p class=\"text-sm text-neutral-600\">${meta.text}</p>` : '';
+            return `
                         <div class=\"feature-card\">
                             <div class=\"feature-icon\">${icon}</div>
                             <div class=\"feature-content\">
@@ -325,7 +325,7 @@ const HistoryPage = (() => {
                             </div>
                         </div>
                     `;
-                }).join('')}
+        }).join('')}
             </div>
         `;
 
