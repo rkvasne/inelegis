@@ -39,3 +39,4 @@
 - 01/02/2026: Início da integração com Solo Dev Hub.
 - 02/02/2026: Consolidação Supabase-only, sanitização de dados e correção de infraestrutura de build.
 - 03/02/2026: Conformidade total com Solo Dev Hub v0.4.7, configuração de Husky/Lint-Staged e atualização de AGENTS/GEMINI.md.
+- 03/02/2026 (Sessão Tarde): Refatoração completa do Banco de Dados (Schema V2 Flat), correção de bugs de integração Frontend/DB e mitigação de vulnerabilidades de segurança.

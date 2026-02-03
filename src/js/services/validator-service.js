@@ -57,17 +57,19 @@ export class ValidatorService {
 
       // Remover duplicatas via JS (Supabase select distinct nem sempre é direto via SDK simples)
       const uniqueLaws = new Map();
-      data.forEach(item => {
+      data.forEach((item) => {
         if (!uniqueLaws.has(item.codigo)) {
           uniqueLaws.set(item.codigo, {
             codigo: item.codigo,
             nome: item.lei, // O campo 'lei' agora contem o nome descritivo
-            nome_completo: item.lei
+            nome_completo: item.lei,
           });
         }
       });
 
-      this.normasCache = Array.from(uniqueLaws.values()).sort((a, b) => a.codigo.localeCompare(b.codigo));
+      this.normasCache = Array.from(uniqueLaws.values()).sort((a, b) =>
+        a.codigo.localeCompare(b.codigo),
+      );
 
       console.log(
         "[ValidatorService] Carregadas",
@@ -109,16 +111,17 @@ export class ValidatorService {
       if (error) throw error;
 
       // Remover duplicatas e nulos
-      const uniqueArtigos = [...new Set(artigos.map((a) => a.artigo).filter(a => a))];
+      const uniqueArtigos = [
+        ...new Set(artigos.map((a) => a.artigo).filter((a) => a)),
+      ];
 
       // Ordenação numérica inteligente (ex: 1, 2, 10, 10-A)
       return uniqueArtigos.sort((a, b) => {
-        const numA = parseInt(a.replace(/\D/g, '')) || 0;
-        const numB = parseInt(b.replace(/\D/g, '')) || 0;
+        const numA = parseInt(a.replace(/\D/g, "")) || 0;
+        const numB = parseInt(b.replace(/\D/g, "")) || 0;
         if (numA === numB) return a.localeCompare(b);
         return numA - numB;
       });
-
     } catch (error) {
       console.error("[ValidatorService] Erro ao buscar artigos:", error);
       return [];

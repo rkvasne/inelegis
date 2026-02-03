@@ -19,6 +19,24 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
 
+## [0.3.3] - 03/02/2026
+
+### 🧱 Refatoração de Banco de Dados (Schema V2)
+
+- **Consolidação de Migrações**:
+  - Unificação de múltiplas tabelas (`normas`, `artigos_inelegiveis`, `artigos_excecoes`) em uma estrutura plana otimizada (`crimes_inelegibilidade`).
+  - Simplificação drástica das queries e redução de complexidade de joins.
+  - Limpeza de scripts de migração antigos fragmentados.
+- **Correção de Integridade**:
+  - Ajuste na constraint `NOT NULL` para leis que definem crimes de forma genérica (ex: Lei 12.850/13 - Organização Criminosa), garantindo inserção correta.
+
+### 🛡️ Segurança & Frontend
+
+- **Correção de Vulnerabilidade**: Atualização de dependências (`npm audit fix`) mitigando falha crítica em `@isaacs/brace-expansion`.
+- **Compatibilidade Frontend**:
+  - Refatoração do `ValidatorService.js` para consultar a nova tabela unificada.
+  - Otimização de lógica de cache e ordenação de leis/artigos no cliente.
+
 ## [0.3.2] - 03/02/2026
 
 ### 🛡️ Compliance & Governança
