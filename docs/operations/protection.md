@@ -20,6 +20,7 @@ O footer faz parte do módulo `Components`. **NUNCA edite o HTML do footer diret
 4. Teste em todas as páginas antes de commitar
 
 **Vantagens:**
+
 - ✅ Uma única fonte de verdade
 - ✅ Impossível ter footers diferentes entre páginas
 - ✅ Mudanças propagam automaticamente
@@ -38,7 +39,7 @@ O footer faz parte do módulo `Components`. **NUNCA edite o HTML do footer diret
 ```html
 <!-- INÍCIO: Legenda de Resultados -->
 <div class="results-legend">
-    <!-- conteúdo -->
+  <!-- conteúdo -->
 </div>
 <!-- FIM: Legenda de Resultados -->
 ```
@@ -47,7 +48,8 @@ O footer faz parte do módulo `Components`. **NUNCA edite o HTML do footer diret
 
 **Problema:** Scripts inline podem "vazar" para fora das tags `<script>`.
 
-**Solução:** 
+**Solução:**
+
 - Sempre use `<script>` com fechamento explícito
 - Nunca deixe scripts sem fechar
 - Prefira arquivos `.js` externos
@@ -57,6 +59,7 @@ O footer faz parte do módulo `Components`. **NUNCA edite o HTML do footer diret
 **Problema:** SVGs têm muitas tags e são fáceis de quebrar.
 
 **Solução:**
+
 - Mantenha SVGs em uma linha quando possível
 - Use comentários para marcar SVGs complexos
 
@@ -141,7 +144,7 @@ Sempre que possível, extraia seções repetidas para componentes JavaScript:
 ```javascript
 // Exemplo: components/header.js
 const headerHTML = `<header>...</header>`;
-document.body.insertAdjacentHTML('afterbegin', headerHTML);
+document.body.insertAdjacentHTML("afterbegin", headerHTML);
 ```
 
 ### 2. Templates Literais
@@ -158,9 +161,9 @@ const card = `
 ```
 
 ### 3. Validação Automática
- 
+
 Adicione validação no build:
- 
+
 ```json
 {
   "scripts": {

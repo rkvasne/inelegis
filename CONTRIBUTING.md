@@ -13,24 +13,31 @@ Siga este guia para entender como você pode ajudar a melhorar o **Inelegis**.
 ## 🧭 Como posso ajudar?
 
 ### 🐛 Reportar Bugs
+
 Encontrou um erro ou comportamento inesperado?
+
 1. Verifique se a [Issue](https://github.com/rkvasne/inelegis/issues) já não existe.
 2. Abra uma nova Issue com o template de **Bug Report**.
 3. Inclua passos para reproduzir e, se possível, screenshots.
 
 ### 💡 Sugerir Melhorias
+
 Tem uma ideia de melhoria ou nova feature?
+
 1. Abra uma Issue com a tag `enhancement` ou `feature request`.
 2. Explique o "porquê" dessa melhoria ser útil para outros usuários.
 
 ### 📝 Melhorar Documentação
+
 Documentação é cidadã de primeira classe aqui.
+
 - Corrija erros de digitação (typos).
 - Adicione exemplos mais claros.
 - Traduza conteúdo quando necessário.
 - **Dica:** Edições simples podem ser feitas direto pelo botão "Edit" do GitHub.
 
 ### 🔧 Enviar Código (Pull Requests)
+
 1. **Fork** o repositório.
 2. Crie uma **Branch** para sua feature (`git checkout -b feat/nova-melhoria`).
 3. **Commit** suas mudanças seguindo o padrão [Conventional Commits](https://www.conventionalcommits.org/).
@@ -42,6 +49,7 @@ Documentação é cidadã de primeira classe aqui.
 ## 📏 Convenções do Projeto
 
 ### Estrutura de Diretórios
+
 Mantenha a organização para facilitar manutenção e contribuição.
 
 ```text
@@ -53,15 +61,16 @@ tests/         # Testes automatizados
 ```
 
 ### Padrão de Commits
+
 Use o formato do [Conventional Commits](https://www.conventionalcommits.org/):
 
-| Tipo | Descrição | Exemplo |
-|------|-----------|---------|
-| `feat` | Nova funcionalidade | `feat: adicionar fluxo de consulta` |
-| `fix` | Correção de bug | `fix: corrigir busca por artigo` |
-| `docs` | Documentação | `docs: atualizar guia de contribuição` |
-| `style` | Formatação | `style: aplicar prettier` |
-| `refactor` | Refatoração | `refactor: simplificar validação` |
+| Tipo       | Descrição           | Exemplo                                |
+| ---------- | ------------------- | -------------------------------------- |
+| `feat`     | Nova funcionalidade | `feat: adicionar fluxo de consulta`    |
+| `fix`      | Correção de bug     | `fix: corrigir busca por artigo`       |
+| `docs`     | Documentação        | `docs: atualizar guia de contribuição` |
+| `style`    | Formatação          | `style: aplicar prettier`              |
+| `refactor` | Refatoração         | `refactor: simplificar validação`      |
 
 ---
 

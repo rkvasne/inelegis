@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /**
  * Módulo de validação de exceções
@@ -11,12 +11,12 @@ const ExceptionValidator = {
    */
   normalizar(texto) {
     try {
-      return String(texto || '')
-        .normalize('NFD')
-        .replace(/\p{Diacritic}/gu, '')
+      return String(texto || "")
+        .normalize("NFD")
+        .replace(/\p{Diacritic}/gu, "")
         .toLowerCase();
     } catch {
-      return String(texto || '').toLowerCase();
+      return String(texto || "").toLowerCase();
     }
   },
 
@@ -25,11 +25,15 @@ const ExceptionValidator = {
    * Versão consolidada e otimizada
    */
   verificar(item, artigoProcessado) {
-    if (!item.excecoes || !Array.isArray(item.excecoes) || item.excecoes.length === 0) {
+    if (
+      !item.excecoes ||
+      !Array.isArray(item.excecoes) ||
+      item.excecoes.length === 0
+    ) {
       return null;
     }
 
-    const artigoPrincipal = (artigoProcessado.artigo || '').toLowerCase();
+    const artigoPrincipal = (artigoProcessado.artigo || "").toLowerCase();
     const paragrafo = artigoProcessado.paragrafo
       ? String(artigoProcessado.paragrafo).toLowerCase()
       : null;
@@ -41,7 +45,7 @@ const ExceptionValidator = {
       : null;
 
     for (const excecao of item.excecoes) {
-      const excLower = String(excecao || '').toLowerCase();
+      const excLower = String(excecao || "").toLowerCase();
       const excNorm = this.normalizar(excLower);
 
       // Se o artigo consultado tem parágrafo, inciso ou alínea
@@ -50,10 +54,15 @@ const ExceptionValidator = {
 
         // Verificar parágrafo
         if (paragrafo && !corresponde) {
-          const regexParagrafo = new RegExp(`(§|\\u00a7|\\uFFFD)\\s*${paragrafo}`);
+          const regexParagrafo = new RegExp(
+            `(§|\\u00a7|\\uFFFD)\\s*${paragrafo}`,
+          );
           const regexParagrafoTexto = new RegExp(`paragrafo\\s*${paragrafo}`);
 
-          if (regexParagrafo.test(excLower) || regexParagrafoTexto.test(excNorm)) {
+          if (
+            regexParagrafo.test(excLower) ||
+            regexParagrafoTexto.test(excNorm)
+          ) {
             corresponde = true;
           }
         }
@@ -84,7 +93,9 @@ const ExceptionValidator = {
       } else {
         // Artigo sem especificações (caput)
         // Verificar se a exceção tem especificações
-        const temParagrafo = /(§|\\u00a7|\\uFFFD)\s*\d|paragrafo/i.test(excNorm);
+        const temParagrafo = /(§|\\u00a7|\\uFFFD)\s*\d|paragrafo/i.test(
+          excNorm,
+        );
         const temInciso = /,\s*[ivx]+|inciso/i.test(excNorm);
         const temAlinea = /"\w"|alinea/i.test(excNorm);
 
@@ -99,7 +110,7 @@ const ExceptionValidator = {
           `art. ${artigoPrincipal}, caput`,
           `art. ${artigoPrincipal} caput`,
           `art. ${artigoPrincipal}`,
-          `arts. ${artigoPrincipal}`
+          `arts. ${artigoPrincipal}`,
         ];
 
         for (const pattern of patterns) {
@@ -119,23 +130,26 @@ const ExceptionValidator = {
   filtrarPorArtigo(excecoes, artigoProcessado) {
     if (!Array.isArray(excecoes)) return [];
 
-    const numeroArtigo = (artigoProcessado && artigoProcessado.artigo)
-      ? String(artigoProcessado.artigo)
-      : '';
+    const numeroArtigo =
+      artigoProcessado && artigoProcessado.artigo
+        ? String(artigoProcessado.artigo)
+        : "";
 
     if (!numeroArtigo) return [];
 
-    const regex = new RegExp(String.raw`\bart\.?s?\.?\s*${numeroArtigo}(?!-)`, 'i');
+    const regex = new RegExp(
+      String.raw`\bart\.?s?\.?\s*${numeroArtigo}(?!-)`,
+      "i",
+    );
 
     return excecoes.filter((excecao) => {
       const excNorm = this.normalizar(excecao);
       return regex.test(excNorm);
     });
-  }
+  },
 };
 
 // Exportar para uso global
-if (typeof window !== 'undefined') {
+if (typeof window !== "undefined") {
   window.ExceptionValidator = ExceptionValidator;
 }
-

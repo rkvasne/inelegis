@@ -3,12 +3,12 @@ docStatus: active
 docScope: design
 lastReviewed: 14/01/2026
 ---
+
 # Theme Validator Pro v3.1.0
 
 **Versão:** 3.1.0  
 **Autor:** Inelegis  
 **Licença:** MIT
-
 
 ## Visão Geral
 
@@ -63,14 +63,14 @@ node scripts/validate-theme.js --verbose
 
 ## Opções de Linha de Comando
 
-| Opção | Alias | Descrição |
-|-------|-------|-----------|
-| `--verbose` | `-v` | Mostra detalhes de cada arquivo |
-| `--strict` | `-s` | Warnings são tratados como erros |
-| `--fix` | - | Mostra sugestões de correção |
-| `--json` | - | Saída em formato JSON |
-| `--quiet` | `-q` | Mostra apenas resumo final |
-| `--summary` | - | Mostra apenas estatísticas |
+| Opção       | Alias | Descrição                        |
+| ----------- | ----- | -------------------------------- |
+| `--verbose` | `-v`  | Mostra detalhes de cada arquivo  |
+| `--strict`  | `-s`  | Warnings são tratados como erros |
+| `--fix`     | -     | Mostra sugestões de correção     |
+| `--json`    | -     | Saída em formato JSON            |
+| `--quiet`   | `-q`  | Mostra apenas resumo final       |
+| `--summary` | -     | Mostra apenas estatísticas       |
 
 | `--no-color` | - | Desabilita cores no output |
 | `--ignore <glob>` | - | Padrão glob para ignorar |
@@ -180,10 +180,7 @@ Crie `.themevalidator.json` na raiz do projeto:
     "hex-color": "warning",
     "named-color-basic": "error"
   },
-  "semanticVarPrefixes": [
-    "--custom-bg-",
-    "--custom-text-"
-  ]
+  "semanticVarPrefixes": ["--custom-bg-", "--custom-text-"]
 }
 ```
 
@@ -248,6 +245,7 @@ Estrutura da saída JSON:
 ### 1. Use Variáveis Semânticas
 
 **Ruim:**
+
 ```css
 .button {
   background: #0ea5e9;
@@ -256,6 +254,7 @@ Estrutura da saída JSON:
 ```
 
 **Bom:**
+
 ```css
 .button {
   background: var(--primary-600);
@@ -266,6 +265,7 @@ Estrutura da saída JSON:
 ### 2. Evite Cores Nomeadas
 
 **Ruim:**
+
 ```css
 .header {
   background: blue;
@@ -274,6 +274,7 @@ Estrutura da saída JSON:
 ```
 
 **Bom:**
+
 ```css
 .header {
   background: var(--header-bg);
@@ -284,6 +285,7 @@ Estrutura da saída JSON:
 ### 3. Adapte ao Tema Escuro
 
 **Ruim:**
+
 ```css
 :root {
   --bg: #ffffff;
@@ -291,6 +293,7 @@ Estrutura da saída JSON:
 ```
 
 **Bom:**
+
 ```css
 :root {
   --bg: #ffffff;
@@ -324,6 +327,7 @@ node scripts/validate-theme.js --only "src/**/*.css"
 ### Variáveis Não Utilizadas
 
 Isso é apenas informativo. Você pode:
+
 - Remover as variáveis
 - Adicionar comentário explicativo
 - Ignorar a categoria
@@ -340,6 +344,7 @@ R: Sim, detecta problemas em JSX, TSX, Vue, Svelte, etc.
 
 **P: Como integrar com pre-commit hooks?**  
 R: Use husky:
+
 ```bash
 npx husky add .husky/pre-commit "npm run validate:theme"
 ```
@@ -352,6 +357,7 @@ R: Não, apenas reporta problemas. Use `--fix` para ver sugestões.
 ## Changelog
 
 ### v3.1.0 (02/12/2025)
+
 - Adicionadas 4 novas verificações avançadas
 - Suporte a detecção de componentes críticos
 - Verificação de gradientes adaptáveis
@@ -359,6 +365,7 @@ R: Não, apenas reporta problemas. Use `--fix` para ver sugestões.
 - Identificação de variáveis não utilizadas
 
 ### v3.0.0 (02/12/2025)
+
 - Reescrita completa do validador
 - Suporte a 9+ frameworks
 - 23+ categorias de problemas

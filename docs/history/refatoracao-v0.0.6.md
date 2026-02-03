@@ -3,6 +3,7 @@ docStatus: historical
 docScope: history
 lastReviewed: 14/01/2026
 ---
+
 # 🔧 Histórico Consolidado da Refatoração v0.0.6
 
 **Status:** ✅ Concluído / Referência histórica
@@ -27,14 +28,14 @@ Este documento substitui os antigos `REFACTORING-PLAN.md`, `IMPLEMENTATION-GUIDE
 
 ## 2. Plano Estratégico
 
-| Objetivo | Entregue |
-|----------|----------|
-| Eliminar XSS/uso direto de `innerHTML` | ✅ `js/sanitizer.js` e `ModalManager` |
-| Sincronizar versão/padrões | ✅ Tokens aplicados em CSS/JS |
-| Consolidar código duplicado | ✅ `formatters`, `exceptions`, `modal-manager`, `search-index` |
-| Implementar testes unitários | ✅ `tests/formatters.test.js`, `tests/exceptions.test.js`, etc. |
-| Otimizar busca | ✅ `SearchIndex` com cache em memória |
-| Melhorar acessibilidade | 🔄 Em progresso contínuo |
+| Objetivo                               | Entregue                                                        |
+| -------------------------------------- | --------------------------------------------------------------- |
+| Eliminar XSS/uso direto de `innerHTML` | ✅ `js/sanitizer.js` e `ModalManager`                           |
+| Sincronizar versão/padrões             | ✅ Tokens aplicados em CSS/JS                                   |
+| Consolidar código duplicado            | ✅ `formatters`, `exceptions`, `modal-manager`, `search-index`  |
+| Implementar testes unitários           | ✅ `tests/formatters.test.js`, `tests/exceptions.test.js`, etc. |
+| Otimizar busca                         | ✅ `SearchIndex` com cache em memória                           |
+| Melhorar acessibilidade                | 🔄 Em progresso contínuo                                        |
 
 ### Estrutura dos Módulos
 
@@ -87,10 +88,10 @@ const excecao = ExceptionValidator.verificar(item, artigoProcessado);
 
 ```javascript
 const resultado = SearchIndex.buscar(
-    leiSelecionada,
-    artigoDigitado,
-    leisDisponiveis,
-    tabelaInelegibilidade
+  leiSelecionada,
+  artigoDigitado,
+  leisDisponiveis,
+  tabelaInelegibilidade,
 );
 ```
 
@@ -107,8 +108,8 @@ const texto = ModalManager.exportContent();
 5. **Persistência segura**:
 
 ```javascript
-SecureStorage.setItem('termos_aceitos', true, 90 * 24 * 60 * 60 * 1000);
-const termosAceitos = SecureStorage.getItem('termos_aceitos') === true;
+SecureStorage.setItem("termos_aceitos", true, 90 * 24 * 60 * 60 * 1000);
+const termosAceitos = SecureStorage.getItem("termos_aceitos") === true;
 ```
 
 ### 3.3 Testes e Validação
@@ -134,12 +135,12 @@ npm run validate:theme
 
 ### 3.5 Troubleshooting
 
-| Problema | Ação |
-|----------|------|
-| `Sanitizer is not defined` | Verificar ordem de scripts, garantir `/assets/js/modules/sanitizer.js` antes de `script.js`. |
-| Busca não retorna | Confirmar `leisDisponiveis`, limpar cache com `SearchIndex.clearCache()`, verificar console. |
-| Modal não abre | Conferir carregamento de `ModalManager` e presença de `#modalResultado`. |
-| `SecureStorage` não persiste | Checar se `localStorage` está disponível (fallback para memória). |
+| Problema                     | Ação                                                                                         |
+| ---------------------------- | -------------------------------------------------------------------------------------------- |
+| `Sanitizer is not defined`   | Verificar ordem de scripts, garantir `/assets/js/modules/sanitizer.js` antes de `script.js`. |
+| Busca não retorna            | Confirmar `leisDisponiveis`, limpar cache com `SearchIndex.clearCache()`, verificar console. |
+| Modal não abre               | Conferir carregamento de `ModalManager` e presença de `#modalResultado`.                     |
+| `SecureStorage` não persiste | Checar se `localStorage` está disponível (fallback para memória).                            |
 
 ---
 
@@ -181,28 +182,32 @@ tests/
 ## 5. Métricas de Evolução
 
 ### Segurança
+
 | Versão | Vulnerabilidades XSS | CSP | Sanitização |
-|--------|---------------------|-----|-------------|
-| v0.0.5 | 3 conhecidas | ❌ | ❌ |
-| v0.0.6 | 0 | ✅ | ✅ |
+| ------ | -------------------- | --- | ----------- |
+| v0.0.5 | 3 conhecidas         | ❌  | ❌          |
+| v0.0.6 | 0                    | ✅  | ✅          |
 
 ### Performance
+
 | Versão | Tempo de Busca | Cache | Índices |
-|--------|---------------|-------|---------|
-| v0.0.5 | ~50ms | ❌ | ❌ |
-| v0.0.6 | ~5ms | ✅ | ✅ |
+| ------ | -------------- | ----- | ------- |
+| v0.0.5 | ~50ms          | ❌    | ❌      |
+| v0.0.6 | ~5ms           | ✅    | ✅      |
 
 ### Qualidade
+
 | Versão | Testes | Cobertura | Duplicação |
-|--------|--------|-----------|------------|
-| v0.0.5 | 0 | 0% | ~15% |
-| v0.0.6 | 20 | ~60% | <5% |
+| ------ | ------ | --------- | ---------- |
+| v0.0.5 | 0      | 0%        | ~15%       |
+| v0.0.6 | 20     | ~60%      | <5%        |
 
 ### Documentação
+
 | Versão | Documentos | Padrão | Completa |
-|--------|-----------|--------|----------|
-| v0.0.5 | 3 | ❌ | ❌ |
-| v0.0.6 | 15 | ✅ | ✅ |
+| ------ | ---------- | ------ | -------- |
+| v0.0.5 | 3          | ❌     | ❌       |
+| v0.0.6 | 15         | ✅     | ✅       |
 
 ---
 

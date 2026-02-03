@@ -3,6 +3,7 @@ docStatus: reference
 docScope: api
 lastReviewed: 14/01/2026
 ---
+
 # 🔌 API Endpoints
 
 Serverless Functions do Inelegis (Vercel)
@@ -31,6 +32,7 @@ curl -H "Authorization: Bearer TOKEN" \
 ```
 
 **Parâmetros:**
+
 - `type`: `general`, `top-searches`, `distribution`, `errors`, `timeline`, `all`
 - `days`: Número de dias para timeline (padrão: 7)
 
@@ -61,11 +63,12 @@ curl "https://inelegis.vercel.app/api/search-history?userId=user_123&stats=true"
 ## 🔒 Segurança
 
 ### CORS
+
 Origens permitidas:
+
 - `https://inelegis.vercel.app`
 - `http://localhost:3000`
 - `http://localhost:8080`
-
 
 Serverless Functions do Inelegis (Vercel)
 
@@ -93,6 +96,7 @@ curl -H "Authorization: Bearer TOKEN" \
 ```
 
 **Parâmetros:**
+
 - `type`: `general`, `top-searches`, `distribution`, `errors`, `timeline`, `all`
 - `days`: Número de dias para timeline (padrão: 7)
 
@@ -123,12 +127,15 @@ curl "https://inelegis.vercel.app/api/search-history?userId=user_123&stats=true"
 ## 🔒 Segurança
 
 ### CORS
+
 Origens permitidas:
+
 - `https://inelegis.vercel.app`
 - `http://localhost:3000`
 - `http://localhost:8080`
 
 ### Autenticação
+
 - Analytics e Search History: Público
 - Dashboard: Token obrigatório
 
@@ -139,6 +146,7 @@ Origens permitidas:
 Supabase (PostgreSQL).
 
 **Tabelas operacionais:**
+
 - `analytics_events`: Logs de eventos e buscas.
 - `historico_consultas`: Registro de consultas por usuário.
 - `normas`: Base jurídica.

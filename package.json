@@ -30,7 +30,12 @@
     "size": "node -e \"const fs=require('fs'); const path=require('path'); const getSize=d=>fs.readdirSync(d).reduce((s,f)=>{const p=path.join(d,f); return s+(fs.statSync(p).isDirectory()?getSize(p):fs.statSync(p).size)},0); console.log('Tamanho do projeto:', Math.round(getSize('.')/1024)+'KB');\"",
     "validate:theme": "node scripts/validate-theme.js",
     "validate:theme:fix": "node scripts/validate-theme.js --fix",
-    "validate:theme:strict": "node scripts/validate-theme.js --strict"
+    "validate:theme:strict": "node scripts/validate-theme.js --strict",
+    "verify": "powershell -ExecutionPolicy Bypass -File .agent/hub/system/validators/validator-integrity-check.ps1",
+    "context": "powershell -ExecutionPolicy Bypass -File .agent/hub/system/generators/generator-dynamic-context.ps1",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,css,md,json}\"",
+    "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,css,md,json}\"",
+    "prepare": "husky"
   },
   "keywords": [
     "inelegibilidade",
@@ -45,6 +50,8 @@
     "dotenv": "^17.2.3",
     "eslint": "^9.39.2",
     "html-validate": "^10.6.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
     "prettier": "^3.8.0",
     "puppeteer": "^24.35.0"
   },

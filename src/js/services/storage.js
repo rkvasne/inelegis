@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /**
  * Módulo seguro para gerenciamento de localStorage
@@ -9,7 +9,7 @@ const SecureStorage = {
   /**
    * Prefixo para todas as chaves do app
    */
-  PREFIX: 'inelegis_',
+  PREFIX: "inelegis_",
 
   /**
    * Tempo de expiração padrão (90 dias)
@@ -25,14 +25,14 @@ const SecureStorage = {
         value: value,
         timestamp: Date.now(),
         expiry: Date.now() + expiryMs,
-        version: '0.3.0'
+        version: "0.3.0",
       };
-      
+
       const fullKey = this.PREFIX + key;
       localStorage.setItem(fullKey, JSON.stringify(data));
       return true;
     } catch (error) {
-      console.error('Erro ao salvar no localStorage:', error);
+      console.error("Erro ao salvar no localStorage:", error);
       return false;
     }
   },
@@ -44,7 +44,7 @@ const SecureStorage = {
     try {
       const fullKey = this.PREFIX + key;
       const item = localStorage.getItem(fullKey);
-      
+
       if (!item) {
         return null;
       }
@@ -58,7 +58,7 @@ const SecureStorage = {
         // Ignorar silenciosamente e retornar null
         return null;
       }
-      
+
       // Validar estrutura
       if (!data.timestamp || !data.expiry || !data.value) {
         this.removeItem(key);
@@ -73,7 +73,7 @@ const SecureStorage = {
 
       return data.value;
     } catch (error) {
-      console.error('Erro ao ler do localStorage:', error);
+      console.error("Erro ao ler do localStorage:", error);
       return null;
     }
   },
@@ -87,7 +87,7 @@ const SecureStorage = {
       localStorage.removeItem(fullKey);
       return true;
     } catch (error) {
-      console.error('Erro ao remover do localStorage:', error);
+      console.error("Erro ao remover do localStorage:", error);
       return false;
     }
   },
@@ -98,14 +98,14 @@ const SecureStorage = {
   clear() {
     try {
       const keys = Object.keys(localStorage);
-      keys.forEach(key => {
+      keys.forEach((key) => {
         if (key.startsWith(this.PREFIX)) {
           localStorage.removeItem(key);
         }
       });
       return true;
     } catch (error) {
-      console.error('Erro ao limpar localStorage:', error);
+      console.error("Erro ao limpar localStorage:", error);
       return false;
     }
   },
@@ -123,9 +123,9 @@ const SecureStorage = {
   cleanExpired() {
     try {
       const keys = Object.keys(localStorage);
-      keys.forEach(key => {
+      keys.forEach((key) => {
         if (key.startsWith(this.PREFIX)) {
-          const shortKey = key.replace(this.PREFIX, '');
+          const shortKey = key.replace(this.PREFIX, "");
           try {
             this.getItem(shortKey); // Isso remove automaticamente se expirado
           } catch (itemError) {
@@ -135,13 +135,13 @@ const SecureStorage = {
         }
       });
     } catch (error) {
-      console.error('Erro ao limpar itens expirados:', error);
+      console.error("Erro ao limpar itens expirados:", error);
     }
-  }
+  },
 };
 
 // Limpar itens expirados ao carregar
-if (typeof window !== 'undefined') {
+if (typeof window !== "undefined") {
   window.SecureStorage = SecureStorage;
   SecureStorage.cleanExpired();
 }

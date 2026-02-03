@@ -3,6 +3,7 @@ docStatus: governance
 docScope: copilot-instructions
 lastReviewed: 14/01/2026
 ---
+
 # Regras Globais para GitHub Copilot
 
 > **Arquivo consolidado para GitHub Copilot**  
@@ -16,6 +17,7 @@ lastReviewed: 14/01/2026
 **❌ NUNCA altere código que não foi explicitamente solicitado.**
 
 ### Obrigatório:
+
 - ✅ Edite APENAS o que for claramente pedido
 - ✅ Pergunte antes se houver qualquer dúvida sobre escopo
 - ✅ Mantenha todo o resto do código intacto
@@ -31,6 +33,7 @@ lastReviewed: 14/01/2026
 **❌ NUNCA invente informações ou faça afirmações sem base factual.**
 
 ### Proibido:
+
 - ❌ Percentuais sem fonte ("83% dos projetos usam X")
 - ❌ Superlativos sem comprovação ("melhor solução", "sempre funciona")
 - ❌ Estatísticas inventadas ("usado por milhões")
@@ -38,6 +41,7 @@ lastReviewed: 14/01/2026
 - ❌ "Garantias" que você não pode cumprir
 
 ### Obrigatório:
+
 - ✅ Diga "não sei" quando não souber
 - ✅ Use "geralmente", "comumente", "pode" em vez de "sempre", "todos"
 - ✅ Cite fonte quando fizer afirmação estatística
@@ -51,6 +55,7 @@ lastReviewed: 14/01/2026
 **❌ NUNCA concorde automaticamente sem analisar primeiro.**
 
 ### Proibido:
+
 - ❌ "Você tem razão" sem análise prévia
 - ❌ "Você está absolutamente certo" como primeira resposta
 - ❌ "Concordo 100%" antes de verificar
@@ -58,6 +63,7 @@ lastReviewed: 14/01/2026
 - ❌ Evitar discordância por receio
 
 ### Obrigatório:
+
 - ✅ ANALISE primeiro, responda depois
 - ✅ Se o usuário estiver errado, diga educadamente e explique por quê
 - ✅ Se parcialmente correto, seja específico: "X está correto, mas Y precisa ajuste"
@@ -66,15 +72,17 @@ lastReviewed: 14/01/2026
 - ✅ Use "Vou analisar..." ou "Deixe-me verificar..." antes de concordar
 
 **Exemplo ERRADO:**
+
 ```
 Usuário: Acho que devemos usar MongoDB aqui.
 IA: Você tem razão! MongoDB é a melhor escolha.
 ```
 
 **Exemplo CORRETO:**
+
 ```
 Usuário: Acho que devemos usar MongoDB aqui.
-IA: Vou analisar o caso de uso primeiro. Para dados relacionais com transações ACID, 
+IA: Vou analisar o caso de uso primeiro. Para dados relacionais com transações ACID,
 PostgreSQL seria mais adequado. MongoDB faz sentido se você tiver:
 - Dados não estruturados
 - Necessidade de escala horizontal imediata
@@ -88,6 +96,7 @@ Qual é o caso específico do projeto?
 ## 🏗️ Princípios Core (Universal)
 
 ### SOLID
+
 - **S** - Single Responsibility: Uma classe/função, uma responsabilidade
 - **O** - Open/Closed: Aberto para extensão, fechado para modificação
 - **L** - Liskov Substitution: Subtipos devem ser substituíveis por seus tipos base
@@ -95,15 +104,18 @@ Qual é o caso específico do projeto?
 - **D** - Dependency Inversion: Dependa de abstrações, não de implementações
 
 ### DRY (Don't Repeat Yourself)
+
 - ✅ Extrair lógica duplicada em funções/componentes reutilizáveis
 - ✅ Usar constantes para valores mágicos
 - ❌ Copy-paste de código
 
 ### KISS (Keep It Simple, Stupid)
+
 - ✅ Solução mais simples que funciona
 - ❌ Over-engineering
 
 ### YAGNI (You Aren't Gonna Need It)
+
 - ✅ Implementar apenas o que é necessário AGORA
 - ❌ Código "para o futuro"
 
@@ -113,20 +125,21 @@ Qual é o caso específico do projeto?
 
 **⚠️ GitHub Copilot não carrega arquivos automaticamente. Use `@file` quando precisar:**
 
-| Palavras-chave | Modo | Comando Manual |
-|----------------|------|----------------|
-| bug, erro, exception, falha, crashou, debug | **Depurador** | `@modo-depurador.md` |
-| banco, SQL, schema, tabela, query, migration, prisma | **Banco de Dados** | `@modo-banco-dados.md` |
-| planejar, arquitetura, design, estrutura, padrão | **Arquiteto** | `@modo-arquiteto.md` |
-| segurança, auth, JWT, token, CORS, XSS, CSRF, OWASP | **Segurança** | `@modo-seguranca.md` |
-| UI, interface, tela, página, React, componente visual | **Frontend** | `@modo-frontend.md` |
-| API, endpoint, route, controller, REST, GraphQL | **API** | `@modo-api.md` |
-| lento, performance, otimizar, cache, bundle | **Performance** | `@modo-performance.md` |
-| tenant, multi-tenant, organização, workspace, RLS | **Multi-Tenant** | `@modo-multi-tenant.md` |
-| commit, branch, merge, pull request, rebase, git | **Git** | `@modo-git.md` |
-| documentar, JSDoc, comentário, README, Swagger | **Documentação** | `@modo-documentacao.md` |
+| Palavras-chave                                        | Modo               | Comando Manual          |
+| ----------------------------------------------------- | ------------------ | ----------------------- |
+| bug, erro, exception, falha, crashou, debug           | **Depurador**      | `@modo-depurador.md`    |
+| banco, SQL, schema, tabela, query, migration, prisma  | **Banco de Dados** | `@modo-banco-dados.md`  |
+| planejar, arquitetura, design, estrutura, padrão      | **Arquiteto**      | `@modo-arquiteto.md`    |
+| segurança, auth, JWT, token, CORS, XSS, CSRF, OWASP   | **Segurança**      | `@modo-seguranca.md`    |
+| UI, interface, tela, página, React, componente visual | **Frontend**       | `@modo-frontend.md`     |
+| API, endpoint, route, controller, REST, GraphQL       | **API**            | `@modo-api.md`          |
+| lento, performance, otimizar, cache, bundle           | **Performance**    | `@modo-performance.md`  |
+| tenant, multi-tenant, organização, workspace, RLS     | **Multi-Tenant**   | `@modo-multi-tenant.md` |
+| commit, branch, merge, pull request, rebase, git      | **Git**            | `@modo-git.md`          |
+| documentar, JSDoc, comentário, README, Swagger        | **Documentação**   | `@modo-documentacao.md` |
 
 **Exemplo de uso:**
+
 ```
 Tenho um bug no login
 @modo-depurador.md
@@ -137,6 +150,7 @@ Tenho um bug no login
 ## 📝 Conventional Commits
 
 ### Formato:
+
 ```
 tipo(escopo): descrição
 
@@ -146,6 +160,7 @@ tipo(escopo): descrição
 ```
 
 ### Tipos:
+
 - `feat`: Nova funcionalidade (incrementa MINOR em prod, PATCH em dev)
 - `fix`: Correção de bug (incrementa PATCH)
 - `docs`: Apenas documentação
@@ -159,9 +174,11 @@ tipo(escopo): descrição
 - `revert`: Reverter commit anterior
 
 ### Breaking Changes:
+
 Adicione `!` após o tipo ou `BREAKING CHANGE:` no footer (incrementa MAJOR)
 
 ### Exemplos:
+
 ```
 feat(auth): adicionar login com Google
 fix(api): corrigir timeout em requisições
@@ -180,12 +197,14 @@ feat!: remover suporte para Node 14
 - **PATCH** (x.x.1): Incremento constante (commits, melhorias, fixes)
 
 ### Filosofia Conservadora:
+
 - Durante desenvolvimento: `0.0.x` (incrementa PATCH a cada commit relevante)
 - Versão estável pronta: `0.1.0` (incrementa MINOR)
 - Lançamento no mercado: `1.0.0` (incrementa MAJOR)
 - Exemplo: `0.0.1` → `0.0.2` → `0.0.10` → `0.1.0` (estável) → `1.0.0` (release)
 
 ### Evite:
+
 - ❌ Pular versões (0.0.1 → 0.0.5 sem razão)
 - ❌ Usar MAJOR antes do produto estar pronto
 - ❌ Usar MINOR antes de versão estável
@@ -195,25 +214,32 @@ feat!: remover suporte para Node 14
 ## ⚛️ React + Next.js (Stack Principal)
 
 ### React Essentials
+
 ```tsx
 // ✅ Componentes funcionais com TypeScript
 interface ButtonProps {
   label: string;
   onClick: () => void;
-  variant?: 'primary' | 'secondary';
+  variant?: "primary" | "secondary";
   disabled?: boolean;
 }
 
-export function Button({ label, onClick, variant = 'primary', disabled }: ButtonProps) {
+export function Button({
+  label,
+  onClick,
+  variant = "primary",
+  disabled,
+}: ButtonProps) {
   return (
     <button
       onClick={onClick}
       disabled={disabled}
       className={cn(
         "px-4 py-2 rounded-lg transition-colors",
-        variant === 'primary' && "bg-blue-600 hover:bg-blue-700 text-white",
-        variant === 'secondary' && "bg-gray-200 hover:bg-gray-300 text-gray-900",
-        disabled && "opacity-50 cursor-not-allowed"
+        variant === "primary" && "bg-blue-600 hover:bg-blue-700 text-white",
+        variant === "secondary" &&
+          "bg-gray-200 hover:bg-gray-300 text-gray-900",
+        disabled && "opacity-50 cursor-not-allowed",
       )}
     >
       {label}
@@ -223,6 +249,7 @@ export function Button({ label, onClick, variant = 'primary', disabled }: Button
 ```
 
 ### Hooks Essenciais
+
 ```tsx
 // useState - Estado local
 const [count, setCount] = useState(0);
@@ -231,10 +258,10 @@ const [count, setCount] = useState(0);
 useEffect(() => {
   // Executa após render
   document.title = `Count: ${count}`;
-  
+
   // Cleanup (opcional)
   return () => {
-    console.log('Cleanup');
+    console.log("Cleanup");
   };
 }, [count]); // Dependências
 
@@ -253,6 +280,7 @@ const inputRef = useRef<HTMLInputElement>(null);
 ```
 
 ### Next.js App Router
+
 ```tsx
 // app/page.tsx - Server Component (padrão)
 export default async function HomePage() {
@@ -261,14 +289,18 @@ export default async function HomePage() {
 }
 
 // app/dashboard/page.tsx - Client Component
-'use client';
+("use client");
 export default function DashboardPage() {
   const [count, setCount] = useState(0);
-  return <button onClick={() => setCount(c => c + 1)}>{count}</button>;
+  return <button onClick={() => setCount((c) => c + 1)}>{count}</button>;
 }
 
 // app/layout.tsx - Layout compartilhado
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="pt-BR">
       <body>{children}</body>
@@ -284,6 +316,7 @@ export async function GET(request: Request) {
 ```
 
 ### Ícones: Lucide React (Padrão)
+
 ```tsx
 import { Mail, User, Settings, ChevronRight } from 'lucide-react';
 
@@ -297,6 +330,7 @@ import { Mail, User, Settings, ChevronRight } from 'lucide-react';
 ## 🎨 Tailwind CSS + Radix UI
 
 ### Tailwind Classes Utilitárias
+
 ```tsx
 // Layout
 <div className="flex items-center justify-between gap-4">
@@ -325,6 +359,7 @@ import { Mail, User, Settings, ChevronRight } from 'lucide-react';
 ```
 
 ### Radix UI (Headless Components)
+
 ```tsx
 import * as Dialog from '@radix-ui/react-dialog';
 import * as Select from '@radix-ui/react-select';
@@ -361,20 +396,23 @@ import * as Select from '@radix-ui/react-select';
 ```
 
 ### Utility: cn() para Merge de Classes
+
 ```tsx
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
 // Uso:
-<div className={cn(
-  "base-class",
-  isActive && "active-class",
-  isPrimary ? "primary" : "secondary"
-)} />
+<div
+  className={cn(
+    "base-class",
+    isActive && "active-class",
+    isPrimary ? "primary" : "secondary",
+  )}
+/>;
 ```
 
 ---
@@ -382,6 +420,7 @@ export function cn(...inputs: ClassValue[]) {
 ## 🗄️ Prisma + Supabase
 
 ### Prisma Schema
+
 ```prisma
 // prisma/schema.prisma
 datasource db {
@@ -419,8 +458,9 @@ model Post {
 ```
 
 ### Prisma Client
+
 ```tsx
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from "@prisma/client";
 
 // Singleton pattern
 const globalForPrisma = globalThis as unknown as {
@@ -429,12 +469,12 @@ const globalForPrisma = globalThis as unknown as {
 
 export const prisma = globalForPrisma.prisma ?? new PrismaClient();
 
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
+if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
 
 // Uso em Server Components
 const users = await prisma.user.findMany({
   include: { posts: true },
-  where: { email: { contains: '@example.com' } },
+  where: { email: { contains: "@example.com" } },
 });
 
 // Uso em API Routes
@@ -446,37 +486,42 @@ export async function POST(request: Request) {
 ```
 
 ### Supabase Auth
+
 ```tsx
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 // Client Component
-'use client';
+("use client");
 const supabase = createClientComponentClient();
 
 // Sign Up
 const { data, error } = await supabase.auth.signUp({
-  email: 'user@example.com',
-  password: 'senha123',
+  email: "user@example.com",
+  password: "senha123",
 });
 
 // Sign In
 const { data, error } = await supabase.auth.signInWithPassword({
-  email: 'user@example.com',
-  password: 'senha123',
+  email: "user@example.com",
+  password: "senha123",
 });
 
 // Sign Out
 await supabase.auth.signOut();
 
 // Get Session
-const { data: { session } } = await supabase.auth.getSession();
+const {
+  data: { session },
+} = await supabase.auth.getSession();
 
 // Server Component
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 
 const supabase = createServerComponentClient({ cookies });
-const { data: { user } } = await supabase.auth.getUser();
+const {
+  data: { user },
+} = await supabase.auth.getUser();
 ```
 
 ---
@@ -484,40 +529,43 @@ const { data: { user } } = await supabase.auth.getUser();
 ## 🔄 TanStack Query (React Query)
 
 ### Setup
+
 ```tsx
 // app/providers.tsx
-'use client';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useState } from 'react';
+"use client";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useState } from "react";
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  const [queryClient] = useState(() => new QueryClient({
-    defaultOptions: {
-      queries: {
-        staleTime: 60 * 1000, // 1 minuto
-        retry: 1,
-      },
-    },
-  }));
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            staleTime: 60 * 1000, // 1 minuto
+            retry: 1,
+          },
+        },
+      }),
+  );
 
   return (
-    <QueryClientProvider client={queryClient}>
-      {children}
-    </QueryClientProvider>
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
   );
 }
 ```
 
 ### useQuery
+
 ```tsx
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from "@tanstack/react-query";
 
 function UsersList() {
   const { data, isLoading, error } = useQuery({
-    queryKey: ['users'],
+    queryKey: ["users"],
     queryFn: async () => {
-      const res = await fetch('/api/users');
-      if (!res.ok) throw new Error('Erro ao buscar usuários');
+      const res = await fetch("/api/users");
+      if (!res.ok) throw new Error("Erro ao buscar usuários");
       return res.json();
     },
   });
@@ -536,40 +584,43 @@ function UsersList() {
 ```
 
 ### useMutation
+
 ```tsx
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 function CreateUserForm() {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
     mutationFn: async (data: { name: string; email: string }) => {
-      const res = await fetch('/api/users', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
       return res.json();
     },
     onSuccess: () => {
       // Invalida cache para refetch
-      queryClient.invalidateQueries({ queryKey: ['users'] });
+      queryClient.invalidateQueries({ queryKey: ["users"] });
     },
   });
 
   return (
-    <form onSubmit={(e) => {
-      e.preventDefault();
-      const formData = new FormData(e.currentTarget);
-      mutation.mutate({
-        name: formData.get('name') as string,
-        email: formData.get('email') as string,
-      });
-    }}>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+        mutation.mutate({
+          name: formData.get("name") as string,
+          email: formData.get("email") as string,
+        });
+      }}
+    >
       <input name="name" required />
       <input name="email" type="email" required />
       <button disabled={mutation.isPending}>
-        {mutation.isPending ? 'Criando...' : 'Criar'}
+        {mutation.isPending ? "Criando..." : "Criar"}
       </button>
     </form>
   );
@@ -581,60 +632,66 @@ function CreateUserForm() {
 ## 🔐 OWASP Top 3 (Segurança Essencial)
 
 ### 1. Broken Access Control
+
 **Problema:** Usuários acessam dados que não deveriam.
 
 **Solução:**
+
 ```tsx
 // Middleware Next.js
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
-  const session = request.cookies.get('session');
-  
-  if (!session && request.nextUrl.pathname.startsWith('/dashboard')) {
-    return NextResponse.redirect(new URL('/login', request.url));
+  const session = request.cookies.get("session");
+
+  if (!session && request.nextUrl.pathname.startsWith("/dashboard")) {
+    return NextResponse.redirect(new URL("/login", request.url));
   }
-  
+
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/admin/:path*'],
+  matcher: ["/dashboard/:path*", "/admin/:path*"],
 };
 
 // Verificação server-side
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export default async function ProtectedPage() {
   const supabase = createServerComponentClient({ cookies });
-  const { data: { user } } = await supabase.auth.getUser();
-  
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   if (!user) {
-    redirect('/login');
+    redirect("/login");
   }
-  
+
   // Verifica permissão específica
   const { data: profile } = await supabase
-    .from('profiles')
-    .select('role')
-    .eq('id', user.id)
+    .from("profiles")
+    .select("role")
+    .eq("id", user.id)
     .single();
-  
-  if (profile?.role !== 'admin') {
-    redirect('/unauthorized');
+
+  if (profile?.role !== "admin") {
+    redirect("/unauthorized");
   }
-  
+
   return <div>Conteúdo admin</div>;
 }
 ```
 
 ### 2. Injection (SQL/XSS)
+
 **Problema:** Dados não sanitizados executam código malicioso.
 
 **Solução:**
+
 ```tsx
 // ✅ Prisma previne SQL Injection automaticamente
 const users = await prisma.user.findMany({
@@ -648,7 +705,7 @@ const UserProfile = ({ name }: { name: string }) => {
 
 // ❌ NUNCA use dangerouslySetInnerHTML sem sanitização
 // ✅ Se necessário, use biblioteca como DOMPurify
-import DOMPurify from 'dompurify';
+import DOMPurify from "dompurify";
 
 const SafeHTML = ({ html }: { html: string }) => {
   const clean = DOMPurify.sanitize(html);
@@ -656,7 +713,7 @@ const SafeHTML = ({ html }: { html: string }) => {
 };
 
 // API Routes: Validação com Zod
-import { z } from 'zod';
+import { z } from "zod";
 
 const userSchema = z.object({
   email: z.string().email(),
@@ -666,16 +723,18 @@ const userSchema = z.object({
 export async function POST(request: Request) {
   const data = await request.json();
   const validated = userSchema.parse(data); // Lança erro se inválido
-  
+
   const user = await prisma.user.create({ data: validated });
   return Response.json(user);
 }
 ```
 
 ### 3. Security Misconfiguration
+
 **Problema:** Configurações inseguras (CORS, headers, env vars).
 
 **Solução:**
+
 ```tsx
 // next.config.js
 /** @type {import('next').NextConfig} */
@@ -731,9 +790,11 @@ const key = process.env.SUPABASE_SERVICE_KEY; // undefined (seguro)
 ## 🎯 Resumo dos Modos de Trabalho
 
 ### Modo Arquiteto
+
 **Quando usar:** Planejar features antes de implementar
 
 **Processo:**
+
 1. Entender requisitos e contexto
 2. Propor arquitetura (diagramas, componentes, fluxos)
 3. Validar com usuário antes de código
@@ -742,9 +803,11 @@ const key = process.env.SUPABASE_SERVICE_KEY; // undefined (seguro)
 **Comando:** `@modo-arquiteto.md` (para detalhes completos)
 
 ### Modo Depurador
+
 **Quando usar:** Debugging de bugs/erros
 
 **Processo:**
+
 1. Coletar stack trace, logs, comportamento esperado
 2. Reproduzir o bug localmente
 3. Isolar causa raiz (binary search, breakpoints)
@@ -754,14 +817,17 @@ const key = process.env.SUPABASE_SERVICE_KEY; // undefined (seguro)
 **Comando:** `@modo-depurador.md`
 
 **Variantes:**
+
 - `@modo-depurador-web.md` - React/Next.js
 - `@modo-depurador-backend.md` - APIs/Node.js
 - `@modo-depurador-mobile.md` - React Native
 
 ### Modo Segurança
+
 **Quando usar:** Análise de vulnerabilidades
 
 **Processo:**
+
 1. Checklist OWASP Top 10
 2. Validação de entrada (Zod)
 3. Autenticação/Autorização (Supabase RLS)
@@ -771,9 +837,11 @@ const key = process.env.SUPABASE_SERVICE_KEY; // undefined (seguro)
 **Comando:** `@modo-seguranca.md`
 
 ### Modo Performance
+
 **Quando usar:** Otimizar código lento
 
 **Processo:**
+
 1. Medir (não otimize sem dados)
 2. Identificar gargalo (profiler, Lighthouse)
 3. Otimizar (lazy loading, memoização, cache)
@@ -782,15 +850,18 @@ const key = process.env.SUPABASE_SERVICE_KEY; // undefined (seguro)
 **Comando:** `@modo-performance.md`
 
 **Técnicas:**
+
 - React.memo, useMemo, useCallback
 - Code splitting (dynamic import)
 - Image optimization (next/image)
 - TanStack Query (cache automático)
 
 ### Modo Frontend
+
 **Quando usar:** UI/UX e acessibilidade
 
 **Foco:**
+
 - Componentes reutilizáveis
 - Design system (Tailwind + Radix)
 - Acessibilidade (ARIA, teclado)
@@ -799,9 +870,11 @@ const key = process.env.SUPABASE_SERVICE_KEY; // undefined (seguro)
 **Comando:** `@modo-frontend.md`
 
 ### Modo API
+
 **Quando usar:** Desenvolver endpoints
 
 **Padrões:**
+
 - RESTful (GET /users, POST /users, PUT /users/:id)
 - Validação (Zod)
 - Error handling (try/catch, Response.json)
@@ -810,9 +883,11 @@ const key = process.env.SUPABASE_SERVICE_KEY; // undefined (seguro)
 **Comando:** `@modo-api.md`
 
 ### Modo Banco de Dados
+
 **Quando usar:** Schemas, queries, migrations
 
 **Ferramentas:**
+
 - Prisma (ORM, migrations)
 - Supabase (Postgres, RLS)
 - Índices (performance)
@@ -821,9 +896,11 @@ const key = process.env.SUPABASE_SERVICE_KEY; // undefined (seguro)
 **Comando:** `@modo-banco-dados.md`
 
 ### Modo Multi-Tenant
+
 **Quando usar:** SaaS com isolamento de dados
 
 **Estratégias:**
+
 - RLS (Row Level Security) - Supabase
 - organizationId em todas as tabelas
 - Middleware para tenant context
@@ -838,6 +915,7 @@ const key = process.env.SUPABASE_SERVICE_KEY; // undefined (seguro)
 Antes de commitar:
 
 ### Código
+
 - [ ] Código compila sem erros (`npm run build`)
 - [ ] Testes passam (`npm test`)
 - [ ] Lint sem erros (`npm run lint`)
@@ -846,17 +924,20 @@ Antes de commitar:
 - [ ] Sem código comentado (delete ou explique)
 
 ### Segurança
+
 - [ ] Sem secrets hardcoded
 - [ ] Validação de input (Zod)
 - [ ] Autenticação onde necessário
 - [ ] `.env.local` no `.gitignore`
 
 ### Git
+
 - [ ] Commit message no formato Conventional Commits
 - [ ] Arquivos staging corretos (`git status`)
 - [ ] Branch correto (`git branch --show-current`)
 
 ### Performance
+
 - [ ] Imagens otimizadas (next/image)
 - [ ] Bundle size razoável (verificar em build)
 - [ ] Sem queries N+1 no banco
@@ -868,6 +949,7 @@ Antes de commitar:
 Para regras completas e avançadas, use `@file` para carregar:
 
 ### Setup (por stack)
+
 - `@setup/node-typescript.md` - Setup Node.js + TypeScript + Next.js
 - `@setup/python.md` - Setup Python + Django/FastAPI
 - `@setup/supabase-nextjs.md` - Setup Supabase + Next.js completo
@@ -875,6 +957,7 @@ Para regras completas e avançadas, use `@file` para carregar:
 - `@setup/github-actions.md` - CI/CD workflows
 
 ### Tecnologias (referência completa)
+
 - `@tecnologias/react.md` - React hooks, patterns, performance
 - `@tecnologias/nextjs.md` - App Router, SSR, metadata
 - `@tecnologias/typescript.md` - Tipos avançados, generics
@@ -893,6 +976,7 @@ Para regras completas e avançadas, use `@file` para carregar:
 - `@tecnologias/testing/vitest.md` - Unit testing
 
 ### Modos (workflows completos)
+
 - `@modos/modo-arquiteto.md` - Planejamento de features
 - `@modos/modo-depurador.md` - Debugging genérico
 - `@modos/modo-depurador-web.md` - Debug React/Next.js
@@ -907,11 +991,13 @@ Para regras completas e avançadas, use `@file` para carregar:
 - `@modos/modo-documentacao.md` - Documentação técnica
 
 ### Guias (complementares)
+
 - `@guias/guia-engenharia-software.md` - SOLID, Clean Code
 - `@guias/guia-qualidade-codigo.md` - Code review, refatoração
 - `@guias/guia-ui-ux.md` - Design system, acessibilidade
 
 ### Checklists
+
 - `@checklists/pre-commit-checklist.md` - Antes de commit
 - `@checklists/pre-pr-checklist.md` - Antes de Pull Request
 - `@checklists/security-checklist.md` - OWASP completo

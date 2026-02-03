@@ -3,6 +3,7 @@ docStatus: reference
 docScope: references
 lastReviewed: 14/01/2026
 ---
+
 # 📘 Manual ASE - Sistema Eleitoral
 
 Guia de referência dos códigos ASE (Atos do Sistema Eleitoral) utilizados pela Justiça Eleitoral.
@@ -21,36 +22,46 @@ Guia de referência dos códigos ASE (Atos do Sistema Eleitoral) utilizados pela
 ## ASE 337 - SUSPENSÃO DE DIREITOS POLÍTICOS
 
 ### Descrição
+
 Registrar a suspensão de direitos políticos nas hipóteses decorrentes do sistema constitucional vigente e da legislação ordinária.
 
 ### Efeitos no Eleitor
+
 - Impede a quitação eleitoral
 - Altera situação da inscrição regular para suspensa
 - Impede o exercício do voto
 - Descaracteriza os débitos relativos à ausência às urnas e trabalhos eleitorais entre a data de ocorrência e a data de lançamento deste ASE
 
 ### Efeitos em Outro ASE
+
 - Inativa o(s) ASE(s): 094, 442 com data de ocorrência posterior a este ASE
 
 ### Dependência de ASE
+
 - Não depende de outro ASE
 
 ### Dependência de RAE
+
 - A inscrição que possui RAE pendente de processamento não pode receber este ASE
 
 ### Comando Duplo
+
 - A inscrição não pode ter duplicidade deste ASE com a mesma data de ocorrência e o mesmo complemento
 
 ### Situação da Inscrição
+
 - A inscrição deve estar em alguma da(s) situação(ões): CANCELADA, REGULAR, SUSPENSA
 
 ### Permissão Comando
+
 - **Manual:** Somente pela zona eleitoral da inscrição
 
 ### Contra ASE
+
 - Será inativado pelo ASE 370 indicado
 
 ### Data de Ocorrência
+
 - Deve ser igual ou anterior à data atual
 - O eleitor deve possuir 18 anos completos até a data de ocorrência
 - Dever ser:
@@ -60,12 +71,14 @@ Registrar a suspensão de direitos políticos nas hipóteses decorrentes do sist
   - A data em que foi firmado ou homologado o acordo (para os motivos 9 e 10)
 
 ### Complemento
+
 - Informação com o número do processo em que houve a condenação criminal ou da improbidade administrativa, no formato: `Proc. nº /ano-órgão/local/UF`
 - Ou número do documento que comunicou à Justiça Eleitoral a suspensão dos direitos políticos nas hipóteses de opção pelo Estatuto de Igualdade
 - Ou número do documento que declarou a suspensão, no caso de recusa de cumprimento de obrigação a todos imposta
 - Informação com o número do processo/procedimento em que foi firmado o acordo e o prazo de duração (para os motivos 9 e 10)
 
 ### Motivo/Forma
+
 Indica a situação causadora da suspensão:
 
 - **2** - Condenação criminal
@@ -77,6 +90,7 @@ Indica a situação causadora da suspensão:
 - **10** - Acordo de não persecução cível (art. 17, § 1º, da Lei nº 8.429/1992)
 
 ### Observação
+
 - Os motivos/forma 1 e 6 permanecem apenas para consulta (1 - incapacidade civil absoluta; 6 - outros)
 - Embora os crimes eleitorais figurem entre os que geram inelegibilidade após o cumprimento da pena (LC nº 64/90, art. 1º, I, e), seu registro far-se-á por intermédio do motivo/forma 8
 
@@ -85,7 +99,9 @@ Indica a situação causadora da suspensão:
 ## ASE 370 - CESSAÇÃO DO IMPEDIMENTO - SUSPENSÃO
 
 ### Descrição
+
 Registrar a cessação da circunstância que causou a suspensão da inscrição, nos seguintes casos:
+
 - Cumprimento do serviço militar obrigatório ou regularização da situação daqueles que se recusaram a cumpri-lo
 - Fim da incapacidade civil absoluta
 - Extinção da punibilidade, se decorrente de condenação criminal
@@ -95,30 +111,38 @@ Registrar a cessação da circunstância que causou a suspensão da inscrição,
 Utilizado para registrar a verificação de homonímia no caso de inscrição cancelada pelo batimento em agrupamento que envolva suspensão de direitos políticos.
 
 ### Efeitos no Eleitor
+
 - Altera situação da inscrição para: Regular (a regularização só se dará quando for inativado o último registro de suspensão ou de cancelamento (ASE 027 - motivo/forma 2) constante do histórico da inscrição e não existir registro de outro ASE de cancelamento em situação "ativo" no histórico)
 
 ### Efeitos em Outro ASE
+
 - Inativa o(s) ASE(s): 027 ou 043 ou 337 indicado
 - Inativa o ASE 027 com motivo/forma 2 indicado
 - Gera o ASE 540 com motivo 4, quando lançado ASE 370 com motivo 1 para inativar ASE 337 com motivo 7
 
 ### Dependência de ASE
+
 - Depende do(s) ASE(s) 043 ou 337 ativo(s)
 - Depende dos ASEs 027 (motivo/forma 2)
 
 ### Comando Duplo
+
 - Permitido
 
 ### Situação da Inscrição
+
 - A inscrição deve estar em alguma da(s) situação(ões): CANCELADA, SUSPENSA
 
 ### Permissão Comando
+
 - **Manual:** Somente pela zona eleitoral da inscrição
 
 ### Contra ASE
+
 - Será registrado com a situação "inativo"
 
 ### Data de Ocorrência
+
 - Deve ser igual ou anterior à data atual
 - Deve ser:
   - A data do licenciamento ou do engajamento: se for relativa ao código de ASE 043, ou
@@ -129,7 +153,9 @@ Utilizado para registrar a verificação de homonímia no caso de inscrição ca
   - A data da decisão da autoridade judiciária eleitoral: se for relativa à identificação de homonímia
 
 ### Complemento
+
 Informação seguindo as seguintes regras, no formato: `Proc. nº/ano-órgão/local/UF` ou `Of. nº/ano-órgão/local/UF`:
+
 - Número do documento que comunicou/comprovou a regularização da situação militar do eleitor (no caso de recusa ou de conscrição), ou
 - Número do processo que declarou o fim da incapacidade civil absoluta, ou
 - Número do processo em que houve a condenação criminal, ou
@@ -138,15 +164,18 @@ Informação seguindo as seguintes regras, no formato: `Proc. nº/ano-órgão/lo
 - Número do processo em que verificada a homonímia
 
 ### Motivo/Forma
+
 Indica a cessação do impedimento:
 
 - **1** - Extinção da causa de restrição
 - **2** - Eleitor diverso
 
 ### ASE a ser Inativado
+
 - Deve ser indicado o ASE que será inativado, através da listagem com os ASEs 027 (motivo2), 043 e 337 ativos
 
 ### Observação
+
 - O comando do código de ASE 370 ensejará tão somente a inativação dos códigos de ASE 337, 043 ou 027 correspondentes à sequência informada
 - O código de ASE 370 deverá ser comandado para cada uma das ocorrências indicadoras de suspensão de direitos políticos registradas no histórico da inscrição
 - O Sistema Elo não permitirá o comando do ASE 370, motivo/forma 1, com data de ocorrência anterior à data do primeiro código de restrição dos direitos políticos
@@ -157,44 +186,56 @@ Indica a cessação do impedimento:
 ## ASE 540 - OCORRÊNCIA A SER EXAMINADA EM PEDIDO DE REGISTRO DE CANDIDATURA
 
 ### Descrição
+
 Registro das comunicações enviadas pelos órgãos competentes relativamente a situações fáticas previstas no art. 1º, inciso I, da Lei Complementar nº 64/1990.
 
 ### Efeitos no Eleitor
+
 - Não altera a situação da inscrição
 
 ### Efeitos em Outro ASE
+
 - Não ativa/inativa outro ASE
 
 ### Dependência de ASE
+
 - Não depende de outro ASE
 
 ### Dependência de RAE
+
 - A inscrição que possui RAE pendente de processamento não pode receber este ASE
 
 ### Comando Duplo
+
 - A inscrição não pode ter duplicidade deste ASE ativo com a mesma data de ocorrência, complemento e motivo/forma
 
 ### Situação da Inscrição
+
 - A inscrição deve estar em alguma da(s) situação(ões): CANCELADA, REGULAR, SUSPENSA
 
 ### Permissão Comando
+
 - **Manual:** Somente pela zona eleitoral da inscrição
 - **Automático:** Pelo sistema quando no lançamento do ASE 370 com motivo 1 para inativação do ASE 337 com motivo 7 (a data de ocorrência e complemento devem ser iguais a do ASE 370 e o motivo deve ser o 4)
 
 ### Contra ASE
+
 - Será inativado pelo ASE 558 indicado
 
 ### Data de Ocorrência
+
 - Deve ser igual ou anterior à data atual
 - O eleitor deve possuir 18 anos completos até a data de ocorrência
 - Deve ser a data da decisão que reconheceu a situação fática prevista na Lei Complementar nº 64/1990 ou do ou do trânsito em julgado, quando a lei assim o exigir
 - Deve ser a data em que foi firmado ou homologado o acordo (para os motivos 10 e 11)
 
 ### Complemento
+
 - Informação com o número do processo ou do ato em que foi reconhecida a situação ensejadora do registro, no formato: `Proc. ou ato nº/ano-órgão/local/UF`
 - Informação com o número do processo/procedimento em que foi firmado o acordo e o prazo de duração (para os motivos 10 e 11)
 
 ### Motivo/Forma
+
 Indica a natureza da ocorrência:
 
 - **1** - LC 64/90, art. 1º, I, b (Perda de mandato de Deputado Federal, Estadual, Distrital e Vereador)
@@ -210,6 +251,7 @@ Indica a natureza da ocorrência:
 - **11** - Inelegibilidade- Acordo de não persecução cível (art. 17, § 1º, da Lei nº 8.429/1992)
 
 ### Observação
+
 - O comando do ASE 540 não configura inelegibilidade, cujo reconhecimento somente se fará por ocasião do exame, pela autoridade competente, de eventual pedido de registro de candidatura
 - O comando do ASE 540 é anotação de situação fática que possa se enquadrar nas hipóteses previstas no art. 1º, inciso I Lei Complementar 64/90
 - O comando não importa declaração de inelegibilidade, ante seu caráter meramente informativo
@@ -222,41 +264,52 @@ Indica a natureza da ocorrência:
 ## ASE 019 - CANCELAMENTO - FALECIMENTO
 
 ### Descrição
+
 Registrar a ocorrência de falecimento de eleitor.
 
 ### Efeitos no Eleitor
+
 - Altera a situação da inscrição para: CANCELADA
 - Impede o exercício do voto
 - Descaracteriza os débitos relativos à ausência às urnas e aos trabalhos eleitorais entre a data de ocorrência e a data de lançamento deste ASE
 - A inscrição cancelada pelo ASE 019 pode ser regularizada por: Operação de RAE (transferência ou revisão), inexistindo outra inscrição liberada, não liberada, regular ou suspensa para o eleitor; ou por ASE 361
 
 ### Efeitos em Outro ASE
+
 - Inativa o(s) ASE(s): 094, 442 com data de ocorrência igual ou posterior a este ASE
 
 ### Dependência de ASE
+
 - Não depende de outro ASE
 
 ### Comando Duplo
+
 - A inscrição não pode ter duplicidade deste ASE ativo
 
 ### Situação da Inscrição
+
 - A inscrição deve estar em alguma da(s) situação(ões): CANCELADA, REGULAR, SUSPENSA
 
 ### Permissão Comando
+
 - **Manual:** Somente pela zona eleitoral da inscrição
 - **Automático:** Pelo sistema, quando por meio de convênio com o INSS ou outros órgãos, a Justiça Eleitoral tomar conhecimento de óbito de eleitor
 
 ### Contra ASE
+
 - Será inativado pelo ASE 361 indicado
 - Será inativado por uma operação de RAE (revisão ou transferência) com data posterior a este ASE
 
 ### Data de Ocorrência
+
 - Deve ser igual ou anterior à data atual
 - Deve ser posterior à última operação de RAE do eleitor
 - Deve ser a data do óbito: Na hipótese excepcional de a data do óbito estar ausente ou incompleta no documento que atesta o falecimento do eleitor, a data de ocorrência a ser utilizada será a do registro do óbito no Cartório de Registro Civil
 
 ### Complemento
+
 Informação com indicação do documento de registro do óbito, no formato:
+
 - `Certidão (ou Termo) nº/seu emissor/Município/UF`
 - Documento que comunicou a ocorrência à zona eleitoral, no formato: `Of. nº/ano-órgão/local/UF`
 - Processo em que foi determinado o comando, no formato: `Proc. nº/ano-ZE/UF`
@@ -273,4 +326,4 @@ Informação com indicação do documento de registro do óbito, no formato:
 ---
 
 **Documento de Referência - Uso Interno**  
-**Fonte:** Manual do Sistema Eleitoral  
+**Fonte:** Manual do Sistema Eleitoral

@@ -61,12 +61,15 @@ Toda vez que você envia código para a `main`, o workflow `.github/workflows/ci
 ## 🩺 Monitoramento & Manutenção
 
 ### Logs
+
 Para ver logs em tempo real:
+
 ```bash
 docker-compose logs -f app
 ```
 
 ### Manutenção de Dados
+
 A limpeza de dados é feita via endpoint `/api/maintenance` (Serverless Function), geralmente acionado por um Cron Job externo.
 
 ---

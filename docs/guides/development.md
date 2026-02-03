@@ -16,7 +16,7 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 
 ## 🚀 Execução e Desenvolvimento
 
-- **Configuração**: 
+- **Configuração**:
   1. Copie `.env.example` para `.env.local`.
   2. Preencha as chaves do Supabase.
   3. Execute `npm run supabase:config` para gerar o arquivo de config do cliente.
@@ -39,18 +39,22 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 ### Módulos Principais
 
 **[services/validator-service.js](../../src/js/services/validator-service.js)**
+
 - `init()`: Inicializa o cliente Supabase.
 - `verifyEligibility()`: Chama a RPC `verificar_elegibilidade` no banco.
 - `getLaws()` / `getArticlesByLaw()`: Consome as tabelas de normas.
 
 **[services/search-history.js](../../src/js/services/search-history.js)**
+
 - Gerencia o histórico do usuário sincronizado com Supabase.
 - Calcula estatísticas locais para performance (Top Leis/Artigos).
 
 **[utils/sanitizer.js](../../src/js/utils/sanitizer.js)**
+
 - Proteção contra XSS e inserção segura de conteúdo dinâmico.
 
 **[ui/validator-ui.js](../../src/js/ui/validator-ui.js)**
+
 - Controla o fluxo "Lei -> Artigo" com selects em cascata.
 
 ---
@@ -65,12 +69,12 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 
 ## 🔧 Scripts Úteis
 
-| Script | Descrição |
-|--------|-----------|
-| `npm run dev` | Inicia servidor local com sync de assets. |
-| `npm run check` | Valida Lint, Testes e integridade do Build. |
-| `npm run supabase:config` | Sincroniza chaves do `.env.local` com o frontend. |
-| `npm run test:unit` | Executa testes de lógica de negócio (formatters, etc). |
+| Script                    | Descrição                                              |
+| ------------------------- | ------------------------------------------------------ |
+| `npm run dev`             | Inicia servidor local com sync de assets.              |
+| `npm run check`           | Valida Lint, Testes e integridade do Build.            |
+| `npm run supabase:config` | Sincroniza chaves do `.env.local` com o frontend.      |
+| `npm run test:unit`       | Executa testes de lógica de negócio (formatters, etc). |
 
 ---
 
@@ -91,4 +95,3 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 ---
 
 _Atualizado em: 03/02/2026_
-
