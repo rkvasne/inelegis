@@ -34,6 +34,9 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
   - Automatizada geração de `supabase-config.js` durante o processo de build/deploy.
   - Suporte a variáveis de ambiente (`process.env`) no script de configuração para compatibilidade com Vercel/CI/CD.
   - Corrigido erro de sintaxe (`SyntaxError: export`) em arquivos carregados no navegador (`formatters.js`, `exceptions.js`).
+- **Segurança & PWA**:
+  - Atualizada a política de segurança (**CSP**) no `vercel.json` para permitir conexões com o Supabase (`connect-src`).
+  - Corrigidos caminhos de assets no **Service Worker** e incrementada versão do cache para resolver falhas de `addAll` no PWA.
 - **Limpeza de Código Morto**:
   - Removidos arquivos obsoletos: `constants.js`, `core-utils.js`, `search-logic.test.mjs`.
   - Removidas referências a scripts inexistentes nos arquivos HTML (`data-normalizado.js`).
