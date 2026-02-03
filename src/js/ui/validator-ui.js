@@ -221,6 +221,26 @@ export class ValidatorUI {
         // Buscar resultado (agora via Supabase RPC incluindo todos os complementos)
         const result = await validatorService.verifyEligibility(this.selectedLaw, artigoNum, paragrafo, inciso, alinea);
 
+        // Registrar no Histórico e Analytics
+        if (typeof SearchHistory !== 'undefined') {
+            SearchHistory.add({
+                lei: this.selectedLaw,
+                artigo: artigoNum,
+                resultado: result.resultado.toLowerCase(),
+                tipoCrime: result.tipo_crime,
+                observacoes: result.observacoes || result.motivo
+            });
+        }
+
+        if (typeof Analytics !== 'undefined') {
+            Analytics.trackSearch({
+                lei: this.selectedLaw,
+                artigo: artigoNum,
+                resultado: result.resultado.toLowerCase(),
+                temExcecao: result.resultado === 'ELEGIVEL'
+            });
+        }
+
         this.renderResult(result, artigoNum);
     }
 

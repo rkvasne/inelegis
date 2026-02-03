@@ -1,4 +1,12 @@
 -- 007_create_analytics.sql
+DROP VIEW IF EXISTS analytics_stats CASCADE;
+DROP VIEW IF EXISTS analytics_top_artigos CASCADE;
+DROP VIEW IF EXISTS analytics_result_distribution CASCADE;
+DROP VIEW IF EXISTS analytics_timeline CASCADE;
+DROP TABLE IF EXISTS analytics_events CASCADE;
+DROP FUNCTION IF EXISTS insert_analytics_event;
+DROP FUNCTION IF EXISTS get_dashboard_stats;
+
 -- Tabela para analytics (substitui Redis analytics)
 
 CREATE TABLE IF NOT EXISTS analytics_events (

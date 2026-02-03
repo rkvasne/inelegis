@@ -21,13 +21,16 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 ## [0.3.1] - 02/02/2026
 
 ### 🧹 Limpeza & Refatoração (Deep Cleaning)
-- **Remoção de ETL Legado**:
-  - Excluídos scripts de processamento de DOCX (`etl-complete.js`, `etl-generate-json.js`, `data-refresh.js`).
-  - Removido arquivo de dados brutos (`legal-database.json`) e estáticos (`data-normalizado.js`). A fonte única de verdade agora é estritamente o Supabase.
-- **ValidatorService**:
-  - Integrado `InputValidator` para sanitização de dados antes de chamadas ao Supabase.
-  - Removida lógica de fallback estático ("modo offline" parcial). O serviço agora falha graciosamente se não houver conexão com Supabase.
-  - Simplificação métodos para depender apenas de chamadas RPC e Queries do banco.
+- **Remoção de Legado de Dados**:
+  - Excluídos diretórios de dados locais (`src/data`) e scripts de ETL/migração obsoletos (`migrate.js`, `rollback.js`, `optimize.js`).
+  - Removidos arquivos de cache do frontend (`data-search-index.js`, `consulta-normalizado.js`). A aplicação agora é 100% dependente do Supabase em tempo real.
+- **Serviço de Histórico & Analytics**:
+  - Refatoração do `search-history.js` para suportar sincronização proativa e cálculo local de estatísticas avançadas (Top Leis/Artigos).
+  - Integração automática de rastreamento de consultas (Analytics + Histórico) nos componentes `ValidatorUI` e `AnalyzerUI`.
+  - Mapeamento consistente de campos do banco (`observacoes`, `motivo`) para a interface do usuário.
+- **Estabilidade**:
+  - Correção na função RPC `verificar_elegibilidade` para garantir nomes de colunas consistentes e evitar ambiguidades de alias.
+  - Implementação do método `init()` nos serviços core para garantir persistência de UID desde o primeiro acesso.
 
 ### ⚙️ Build & Infraestrutura
 - **Build System**:

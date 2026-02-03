@@ -1,11 +1,19 @@
 # 🧠 Memória do Projeto: Ineleg App
 
-**Status Atual:** Stable / Polishing
-**Última Atualização:** 02/02/2026
+**Status Atual:** Stable / Integrated
+**Última Atualização:** 03/02/2026
 
 ---
 
 ## Log de Sessão / Últimas Atualizações
+
+### 03/02/2026 - Data Cleanup & Services Integration
+- **Feito:**
+  - **Limpeza de Legado**: Remoção de `src/data` e scripts de migração antigos (`migrate.js`, `rollback.js`). A aplicação agora é 100% dinâmica com Supabase.
+  - **Analytics & Histórico**: Integração completa nos componentes `ValidatorUI` e `AnalyzerUI`.
+  - **Refatoração de Serviços**: `SearchHistory` agora possui estatísticas calculadas localmente a partir de dados sincronizados.
+  - **Estabilidade de Banco**: Correção de nomes de colunas e aliases no RPC `verificar_elegibilidade`.
+  - **Documentação**: `CHANGELOG.md` e `README.md` atualizados para refletir a arquitetura "Supabase-only".
 
 ### 02/02/2026 - UX Pack (Busca Detalhada & Visual)
 - **Feito:**
