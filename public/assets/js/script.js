@@ -1,6 +1,7 @@
 'use strict';
 
 import { ValidatorUI } from './ui/validator-ui.js';
+import { AnalyzerUI } from './ui/analyzer-ui.js';
 import { setupRadioButtons } from './ui/ui-events.js';
 
 // Entrypoint Principal da Página de Consulta
@@ -12,6 +13,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. Inicializar a Nova UI de Validação Estruturada
     const validatorUI = new ValidatorUI();
     validatorUI.init();
+
+    // 3. Inicializar Analisador de Sentença
+    const analyzerUI = new AnalyzerUI();
+    analyzerUI.init();
 
     // 3. Configurar Elementos Auxiliares (Estado Civil da Consulta)
     const radioCondenacao = document.getElementById('condenacao');

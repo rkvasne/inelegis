@@ -4307,3 +4307,21 @@ textarea:focus-visible {
   color: var(--text-secondary);
 }
 
+
+/* ========================================
+   TABS & ANALYZER STYLES
+   ======================================== */
+.tabs { display: flex; gap: var(--space-2); border-bottom: 2px solid var(--border-color); padding-bottom: 2px; }
+.tab-btn { padding: var(--space-3) var(--space-5); border: none; background: none; color: var(--text-secondary); cursor: pointer; font-weight: 600; display: flex; items-center: center; gap: var(--space-2); border-radius: var(--radius-md) var(--radius-md) 0 0; transition: all var(--transition-fast); border-bottom: 2px solid transparent; margin-bottom: -4px; }
+.tab-btn:hover { background: var(--bg-secondary); color: var(--primary-600); }
+.tab-btn.active { color: var(--primary-600); border-bottom: 4px solid var(--primary-600); background: var(--primary-50); }
+
+.analyzer-table { border-collapse: collapse; width: 100%; }
+.analyzer-table th { background: var(--bg-tertiary); color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.75rem; text-align: left; padding: var(--space-4); border-bottom: 1px solid var(--border-color); }
+.analyzer-table td { padding: var(--space-4); border-bottom: 1px solid var(--border-color); vertical-align: middle; }
+.analyzer-table tr:hover { background: var(--bg-secondary); }
+.analyzer-badge { display: inline-flex; align-items: center; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; }
+.analyzer-badge.danger { background: var(--danger-bg); color: var(--danger-text); }
+.analyzer-badge.success { background: var(--success-bg); color: var(--success-text); }
+.analyzer-badge.warning { background: var(--warning-bg); color: var(--warning-text); }
+

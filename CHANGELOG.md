@@ -34,6 +34,10 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
   - Automatizada geração de `supabase-config.js` durante o processo de build/deploy.
   - Suporte a variáveis de ambiente (`process.env`) no script de configuração para compatibilidade com Vercel/CI/CD.
   - Corrigido erro de sintaxe (`SyntaxError: export`) em arquivos carregados no navegador (`formatters.js`, `exceptions.js`).
+- **Novas Funcionalidades**:
+  - Introduzida a **Análise de Dispositivo de Sentença (BETA)**: permite colar o texto de sentenças para extração automática de artigos.
+  - Parser inteligente com detecção de contexto legal e suporte a combinações (ex: Art. 121 c/c Art. 14).
+  - Sugestão inteligente de códigos **ASE (337 e 370)** baseada na análise do texto da decisão.
 - **Segurança & PWA**:
   - Atualizada a política de segurança (**CSP**) no `vercel.json` para permitir conexões com o Supabase (`connect-src`).
   - Corrigidos caminhos de assets no **Service Worker** e incrementada versão do cache para resolver falhas de `addAll` no PWA.
