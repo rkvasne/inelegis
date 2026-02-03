@@ -25,10 +25,18 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
   - Excluídos scripts de processamento de DOCX (`etl-complete.js`, `etl-generate-json.js`, `data-refresh.js`).
   - Removido arquivo de dados brutos (`legal-database.json`) e estáticos (`data-normalizado.js`). A fonte única de verdade agora é estritamente o Supabase.
 - **ValidatorService**:
+  - Integrado `InputValidator` para sanitização de dados antes de chamadas ao Supabase.
   - Removida lógica de fallback estático ("modo offline" parcial). O serviço agora falha graciosamente se não houver conexão com Supabase.
   - Simplificação métodos para depender apenas de chamadas RPC e Queries do banco.
-- **Docker**:
-  - Removido serviço `redis` do `docker-compose.yml`. Configuração simplificada para apenas App.
+
+### ⚙️ Build & Infraestrutura
+- **Build System**:
+  - Automatizada geração de `supabase-config.js` durante o processo de build/deploy.
+  - Suporte a variáveis de ambiente (`process.env`) no script de configuração para compatibilidade com Vercel/CI/CD.
+  - Corrigido erro de sintaxe (`SyntaxError: export`) em arquivos carregados no navegador (`formatters.js`, `exceptions.js`).
+- **Limpeza de Código Morto**:
+  - Removidos arquivos obsoletos: `constants.js`, `core-utils.js`, `search-logic.test.mjs`.
+  - Removidas referências a scripts inexistentes nos arquivos HTML (`data-normalizado.js`).
 
 ## [0.3.0] - 02/02/2026
 

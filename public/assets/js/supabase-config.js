@@ -1,22 +1,12 @@
 /**
- * Supabase Configuration Injector
- * Este script deve ser carregado ANTES dos outros scripts
- * para injetar as credenciais do Supabase no window
- * 
- * Em produção, este arquivo é gerado pelo build process
- * com as variáveis de ambiente substituídas.
+ * Supabase Configuration (Auto-generated)
+ * Gerado em: 2026-02-03T00:21:37.625Z
+ * NÃO EDITE MANUALMENTE - use: npm run build:supabase-config
  */
 
-// Configuração do Supabase (será substituída em build/deploy)
 window.__SUPABASE_CONFIG__ = {
-    // Em desenvolvimento, use valores do .env.local via processo de build
-    // Em produção, estes valores vêm das variáveis de ambiente do Vercel
-    url: '__NEXT_PUBLIC_SUPABASE_URL__',
-    anonKey: '__NEXT_PUBLIC_SUPABASE_ANON_KEY__'
+    url: 'https://btdbfspuazgerdbmurza.supabase.co',
+    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ0ZGJmc3B1YXpnZXJkYm11cnphIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAwNDc0NjQsImV4cCI6MjA4NTYyMzQ2NH0.gf2rhAGYLedOy2m8YcucdQzBU6ehcoTWvePSBvV81vA'
 };
 
-// Validação básica
-if (window.__SUPABASE_CONFIG__.url.includes('__NEXT')) {
-    console.warn('[Supabase] Config não substituída. Usando fallback para dados estáticos.');
-    window.__SUPABASE_CONFIG__ = null;
-}
+console.log('[Supabase] Configurado para:', window.__SUPABASE_CONFIG__.url);

@@ -35,6 +35,7 @@
             flex-direction: column;
             gap: 10px;
         }
+
         .toast {
             padding: 12px 20px;
             border-radius: var(--radius-lg, 8px);
@@ -47,19 +48,47 @@
             animation: slideIn 0.3s ease;
             max-width: 350px;
         }
-        .toast.success { border-left: 4px solid var(--success-500); }
-        .toast.error { border-left: 4px solid var(--danger-500); }
-        .toast.warning { border-left: 4px solid var(--warning-500); }
-        .toast.info { border-left: 4px solid var(--primary-500); }
+
+        .toast.success {
+            border-left: 4px solid var(--success-500);
+        }
+
+        .toast.error {
+            border-left: 4px solid var(--danger-500);
+        }
+
+        .toast.warning {
+            border-left: 4px solid var(--warning-500);
+        }
+
+        .toast.info {
+            border-left: 4px solid var(--primary-500);
+        }
+
         @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
+
         @keyframes slideOut {
-            from { transform: translateX(0); opacity: 1; }
-            to { transform: translateX(100%); opacity: 0; }
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
         }
-        
+
         /* Modal Styles */
         .modal-overlay {
             position: fixed;
@@ -76,10 +105,12 @@
             visibility: hidden;
             transition: all 0.3s ease;
         }
+
         .modal-overlay.active {
             opacity: 1;
             visibility: visible;
         }
+
         .modal-content {
             background: var(--bg-primary);
             border-radius: var(--radius-xl, 12px);
@@ -91,15 +122,18 @@
             transition: transform 0.3s ease;
             z-index: var(--z-modal);
         }
+
         .modal-overlay.active .modal-content {
             transform: scale(1);
         }
+
         .modal-header {
             display: flex;
             align-items: center;
             gap: 12px;
             margin-bottom: 16px;
         }
+
         .modal-icon {
             width: 48px;
             height: 48px;
@@ -108,24 +142,35 @@
             align-items: center;
             justify-content: center;
         }
-        .modal-icon.warning { background: var(--warning-bg); color: var(--warning-500); }
-        .modal-icon.info { background: var(--info-bg); color: var(--primary-500); }
+
+        .modal-icon.warning {
+            background: var(--warning-bg);
+            color: var(--warning-500);
+        }
+
+        .modal-icon.info {
+            background: var(--info-bg);
+            color: var(--primary-500);
+        }
+
         .modal-title {
             font-size: 1.25rem;
             font-weight: 600;
             color: var(--text-primary);
         }
+
         .modal-body {
             color: var(--text-secondary);
             line-height: 1.6;
             margin-bottom: 24px;
         }
+
         .modal-footer {
             display: flex;
             gap: 12px;
             justify-content: flex-end;
         }
-        
+
         /* Landing Link */
         .landing-link {
             display: inline-flex;
@@ -136,21 +181,24 @@
             font-weight: 500;
             transition: color 0.2s;
         }
+
         .landing-link:hover {
             color: var(--primary-700);
             text-decoration: underline;
         }
+
         .landing-link:focus {
             outline: 2px solid var(--primary-600);
             outline-offset: 2px;
             border-radius: var(--radius-sm);
         }
+
         .landing-link:focus-visible {
             outline: 2px solid var(--primary-600);
             outline-offset: 2px;
             border-radius: var(--radius-sm);
         }
-        
+
         .checkbox-wrapper {
             display: flex;
             align-items: flex-start;
@@ -160,6 +208,7 @@
             border-radius: var(--radius-lg);
             border: 1px solid var(--border-color);
         }
+
         .checkbox-input {
             flex-shrink: 0;
             margin-top: 3px;
@@ -167,14 +216,16 @@
             height: 18px;
             cursor: pointer;
         }
+
         .checkbox-label {
             line-height: 1.5;
             cursor: pointer;
         }
+
         .arrow-indicator.hide {
             display: none !important;
         }
-        
+
         /* Hero Section - Clean */
         .hero-section {
             background: var(--bg-secondary);
@@ -182,11 +233,12 @@
             padding: var(--space-10) 0 var(--space-8);
             text-align: center;
         }
-        
+
         .hero-content {
             max-width: 600px;
             margin: 0 auto;
         }
+
         .hero-badge {
             display: inline-flex;
             align-items: center;
@@ -200,15 +252,18 @@
             color: var(--primary-700);
             margin-bottom: var(--space-4);
         }
+
         .dark-theme .hero-badge {
             background: var(--primary-900);
             border-color: var(--primary-700);
             color: var(--primary-300);
         }
+
         .hero-badge svg {
             width: 14px;
             height: 14px;
         }
+
         .hero-title {
             font-size: 1.875rem;
             font-weight: 700;
@@ -216,55 +271,62 @@
             margin-bottom: var(--space-3);
             line-height: 1.2;
         }
+
         .hero-subtitle {
             font-size: 1rem;
             color: var(--text-secondary);
             line-height: 1.6;
             margin: 0;
         }
-        
+
         @media (max-width: 640px) {
             .hero-section {
                 padding: var(--space-8) 0 var(--space-6);
             }
+
             .hero-title {
                 font-size: 1.5rem;
             }
+
             .hero-subtitle {
                 font-size: 0.9375rem;
             }
         }
-        
+
         /* Main Content Spacing */
         .main-content {
             padding-top: var(--space-8);
             padding-bottom: var(--space-12);
         }
-        
+
         /* Card Hierarchy */
         .card-primary {
             border: 2px solid var(--primary-200);
             box-shadow: var(--shadow-md);
         }
+
         .card-primary .card-header {
             background: var(--primary-50);
             border-bottom: 1px solid var(--primary-100);
         }
+
         .dark-theme .card-primary {
             border-color: var(--primary-800);
         }
+
         .dark-theme .card-primary .card-header {
             background: var(--primary-900);
             border-bottom-color: var(--primary-800);
         }
-        
+
         .card-secondary {
             opacity: var(--opacity-high);
         }
+
         .card-secondary .card-header h2 {
             font-size: 1.125rem;
         }
-        
+
         /* Info text with icon */
         .info-text {
             display: flex;
@@ -272,25 +334,28 @@
             gap: var(--space-2);
             margin-bottom: var(--space-3);
         }
+
         .info-icon {
             flex-shrink: 0;
             color: var(--primary-500);
             margin-top: 2px;
         }
-        
+
         /* Larger button */
         .btn-lg {
             padding: 0.75rem 1.25rem;
             font-size: 1rem;
         }
-        
+
         @media (max-width: 640px) {
             .hero-title {
                 font-size: 1.5rem;
             }
+
             .hero-subtitle {
                 font-size: 1rem;
             }
+
             .hero-section {
                 padding: var(--space-8) 0 var(--space-6);
             }
@@ -310,12 +375,15 @@
             <div class="hero-content">
                 <span class="hero-badge">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
+                        </path>
                     </svg>
                     Sistema Não Oficial
                 </span>
                 <h1 class="hero-title">Consulta de Inelegibilidade Eleitoral</h1>
-                <p class="hero-subtitle">Consulte crimes que ensejam inelegibilidade eleitoral com base na tabela do TRE-SP (outubro/2024), revisada pela CRE-RO (junho/2025)</p>
+                <p class="hero-subtitle">Consulte crimes que ensejam inelegibilidade eleitoral com base na tabela do
+                    TRE-SP (outubro/2024), revisada pela CRE-RO (junho/2025)</p>
             </div>
         </div>
     </section>
@@ -332,7 +400,7 @@
                     <div class="checkbox-wrapper">
                         <span id="arrow-indicator" class="arrow-indicator" aria-hidden="true">
                             <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8z"/>
+                                <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8z" />
                             </svg>
                         </span>
                         <input type="checkbox" id="confirmacao" class="checkbox-input">
@@ -345,9 +413,12 @@
                 </div>
 
                 <div class="flex justify-center">
-                    <button id="acessarBtn" class="btn btn-primary btn-lg" type="button" disabled aria-describedby="confirmacao">
-                        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                    <button id="acessarBtn" class="btn btn-primary btn-lg" type="button" disabled
+                        aria-describedby="confirmacao">
+                        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                         </svg>
                         Acessar Consulta
                     </button>
@@ -364,14 +435,17 @@
             <div class="card-body">
                 <p class="info-text">
                     <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" class="info-icon">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
-                    Tabela exemplificativa do <strong>TRE-SP</strong> (outubro/2024), revisada pela <strong>CRE-RO</strong> em 02/06/2025.
+                    Tabela exemplificativa do <strong>TRE-SP</strong> (outubro/2024), revisada pela
+                    <strong>CRE-RO</strong> em 02/06/2025.
                 </p>
                 <div class="flex justify-center mt-4">
                     <a href="landing.html" class="btn btn-secondary">
                         <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
                         Conheça mais sobre o Inelegis
                     </a>
@@ -388,11 +462,14 @@
 
     <!-- Modal de Aviso -->
     <div id="modal-overlay" class="modal-overlay">
-        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-body">
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title"
+            aria-describedby="modal-body">
             <div class="modal-header">
                 <div class="modal-icon warning">
                     <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z">
+                        </path>
                     </svg>
                 </div>
                 <h3 class="modal-title" id="modal-title">Atenção</h3>
@@ -412,45 +489,45 @@
         window.addEventListener('DOMContentLoaded', () => {
             // Toast function
             function showToast(message, type = 'info', duration = 3000) {
-            const container = document.getElementById('toast-container');
-            const toast = document.createElement('div');
-            toast.className = `toast ${type}`;
-            toast.innerHTML = `
+                const container = document.getElementById('toast-container');
+                const toast = document.createElement('div');
+                toast.className = `toast ${type}`;
+                toast.innerHTML = `
                 <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     ${type === 'success' ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>' :
-                      type === 'error' ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>' :
-                      type === 'warning' ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>' :
-                      '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>'}
+                        type === 'error' ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>' :
+                            type === 'warning' ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>' :
+                                '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>'}
                 </svg>
                 <span>${message}</span>
             `;
-            container.appendChild(toast);
-            
-            setTimeout(() => {
-                toast.style.animation = 'slideOut 0.3s ease forwards';
-                setTimeout(() => toast.remove(), 300);
-            }, duration);
+                container.appendChild(toast);
+
+                setTimeout(() => {
+                    toast.style.animation = 'slideOut 0.3s ease forwards';
+                    setTimeout(() => toast.remove(), 300);
+                }, duration);
             }
-            
+
             // Modal functions
             const modalOverlay = document.getElementById('modal-overlay');
             const modalTitle = document.getElementById('modal-title');
             const modalBody = document.getElementById('modal-body');
             const modalCancel = document.getElementById('modal-cancel');
             const modalConfirm = document.getElementById('modal-confirm');
-            
+
             function showModal(title, message, onConfirm, showCancel = true) {
-            modalTitle.textContent = title;
-            modalBody.textContent = message;
-            modalCancel.style.display = showCancel ? 'block' : 'none';
-            modalOverlay.classList.add('active');
-            
-            modalConfirm.onclick = () => {
-                modalOverlay.classList.remove('active');
-                if (onConfirm) onConfirm();
-            };
+                modalTitle.textContent = title;
+                modalBody.textContent = message;
+                modalCancel.style.display = showCancel ? 'block' : 'none';
+                modalOverlay.classList.add('active');
+
+                modalConfirm.onclick = () => {
+                    modalOverlay.classList.remove('active');
+                    if (onConfirm) onConfirm();
+                };
             }
-            
+
             modalCancel.onclick = () => modalOverlay.classList.remove('active');
             modalOverlay.onclick = (e) => {
                 if (e.target === modalOverlay) modalOverlay.classList.remove('active');
@@ -587,7 +664,7 @@
                     );
                 }, 300);
             }
-            
+
             // Expor função para o components.js
             window.showCheckboxArrow = showArrow;
 
@@ -623,16 +700,11 @@
         });
     </script>
     <!-- Módulos de Segurança e Utilidades -->
-        <script src="/assets/js/utils/sanitizer.js"></script>
-        <script src="/assets/js/services/storage.js"></script>
-        <script src="/assets/js/utils/formatters.js"></script>
-        <script src="/assets/js/utils/exceptions.js"></script>
-        <script src="/assets/js/components/modal-manager.js"></script>
-        <!-- Dados normalizados e fonte única de verdade -->
-        <script src="/assets/js/data-normalizado.js"></script>
-        <script src="/assets/js/consulta-normalizado.js"></script>
+    <script src="/assets/js/utils/sanitizer.js?v=0.3.0"></script>
+    <script src="/assets/js/services/storage.js?v=0.3.0"></script>
+    <script src="/assets/js/components/modal-manager.js?v=0.3.0"></script>
 
-        <!-- Scripts Principais -->
+    <!-- Scripts Principais -->
 
 </body>
 
