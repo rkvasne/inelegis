@@ -36,6 +36,9 @@ jobs:
 
     - name: 🧪 Run Tests (Unit & Components)
       run: npm run test:all
+      env:
+        NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+        NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
 
     - name: 📚 Documentation Check
       run: npm run doc:check
@@ -60,6 +63,9 @@ jobs:
 
     - name: 🏗️ Build Project
       run: npm run build
+      env:
+        NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+        NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
 
     - name: 🐳 Docker Build Check
       run: docker build . --file Dockerfile --tag inelegis:latest
