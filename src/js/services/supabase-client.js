@@ -28,6 +28,7 @@ export const supabaseClient = {
      * @returns {Promise<object>}
      */
     async from(table, options = {}) {
+        if (!this.isConfigured()) throw new Error('Supabase Client not configured');
         const { select = '*', filter = {}, limit, order } = options;
 
         let url = `${this.url}/rest/v1/${table}?select=${encodeURIComponent(select)}`;
@@ -65,6 +66,7 @@ export const supabaseClient = {
      * @returns {Promise<object>}
      */
     async insert(table, data) {
+        if (!this.isConfigured()) throw new Error('Supabase Client not configured');
         const url = `${this.url}/rest/v1/${table}`;
 
         const response = await fetch(url, {
@@ -93,6 +95,7 @@ export const supabaseClient = {
      * @returns {Promise<object>}
      */
     async rpc(functionName, params = {}) {
+        if (!this.isConfigured()) throw new Error('Supabase Client not configured');
         const url = `${this.url}/rest/v1/rpc/${functionName}`;
 
         const response = await fetch(url, {

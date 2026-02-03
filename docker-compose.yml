@@ -7,27 +7,12 @@ services:
       - "3000:3000"
     environment:
       - PORT=3000
-      - REDIS_URL=redis://redis:6379
       - NODE_ENV=production
-    depends_on:
-      - redis
-    networks:
-      - inelegis-net
-
-  redis:
-    image: redis:7-alpine
-    container_name: inelegis-redis
-    restart: unless-stopped
-    volumes:
-      - redis_data:/data
-    ports:
-      - "6379:6379"
+      - NEXT_PUBLIC_SUPABASE_URL=${NEXT_PUBLIC_SUPABASE_URL}
+      - NEXT_PUBLIC_SUPABASE_ANON_KEY=${NEXT_PUBLIC_SUPABASE_ANON_KEY}
     networks:
       - inelegis-net
 
 networks:
   inelegis-net:
     driver: bridge
-
-volumes:
-  redis_data:

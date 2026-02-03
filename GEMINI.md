@@ -6,7 +6,7 @@ trigger: always_on
 
 > This file defines how the AI behaves in this workspace.
 
----
+> 🛰️ **Hub Conectado:** Este projeto utiliza o motor central em `.agent/hub`.
 
 ## CRITICAL: AGENT & SKILL PROTOCOL (START HERE)
 

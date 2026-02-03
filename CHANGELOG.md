@@ -18,6 +18,18 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
 
+## [0.3.1] - 02/02/2026
+
+### 🧹 Limpeza & Refatoração (Deep Cleaning)
+- **Remoção de ETL Legado**:
+  - Excluídos scripts de processamento de DOCX (`etl-complete.js`, `etl-generate-json.js`, `data-refresh.js`).
+  - Removido arquivo de dados brutos (`legal-database.json`) e estáticos (`data-normalizado.js`). A fonte única de verdade agora é estritamente o Supabase.
+- **ValidatorService**:
+  - Removida lógica de fallback estático ("modo offline" parcial). O serviço agora falha graciosamente se não houver conexão com Supabase.
+  - Simplificação métodos para depender apenas de chamadas RPC e Queries do banco.
+- **Docker**:
+  - Removido serviço `redis` do `docker-compose.yml`. Configuração simplificada para apenas App.
+
 ## [0.3.0] - 02/02/2026
 
 ### 🚀 Infraestrutura (Supabase Migration)
@@ -37,8 +49,6 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 - **Documentação**:
   - Novo guia `docs/guides/setup-supabase.md`.
   - Atualização de `.env.example` e remoção de scripts `redis-*`.
-
-## [Unreleased]
 
 ### 🎨 UI/UX - Validação Estruturada
 - **Fluxo de Decisão**: Substituição da busca textual por seleção hierárquica (Wizard):
@@ -83,7 +93,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
   - Movido e renomeado `deploy.sh` da raiz para `scripts/deploy-server.sh` (organização).
 - **Documentação**: Criado guia `docs/guides/devops.md` detalhando o pipeline de automação.
 
-### 📚 Documentation
+### 📚 Documentação
 - Unificação de documentação: remoção de arquivos `release-notes-*` (conteúdo consolidado no CHANGELOG).
 - Padronização de metadados (front matter) em `README.md`, `docs/README.md`, `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md` e `SECURITY.md`.
 - Atualização de links internos e índice central em `docs/README.md`.
@@ -290,7 +300,8 @@ Pequeno hotfix de UI/UX:
   - Ajuste de tipografia do modal para alinhar com o sistema de design (fontes menores e mais equilibradas).
   - Melhoria de contraste no disclaimer de exceções.
 
-### 📚 Documentation
+### 📚 Documentação
+
 - Unificação e limpeza de toda a documentação do projeto.
 - Atualização de versão para `0.1.4` em todos os arquivos (`package.json`, HTMLs, CHANGELOG).
 

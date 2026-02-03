@@ -30,7 +30,9 @@ Thumbs.db
 !.vscode/extensions.json
 
 
-.vercel
+
+# Agent System
+.agent/hub
 
 # Environment variables
 .env

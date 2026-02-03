@@ -109,10 +109,10 @@ class TestRunner {
   async runIntegrationTests() {
     this.log('Executando testes de integração...', 'info');
 
-    // Teste 1: Dados normalizados
-    this.test('Existência de dados normalizados', () => {
-      const dataPath = path.join(paths.js.public, 'data-normalizado.js');
-      return fs.existsSync(dataPath);
+    // Teste 1: Supabase client configurado
+    this.test('Supabase Client disponível', () => {
+      const clientPath = path.join(this.projectRoot, 'src', 'js', 'services', 'supabase-client.js');
+      return fs.existsSync(clientPath);
     });
   }
 
@@ -156,15 +156,7 @@ class TestRunner {
 
   async runDataTests() {
     this.log('Executando testes de dados...', 'info');
-
-    // Teste 1: Verificar integridade dos dados normalizados
-    this.test('Dados normalizados válidos', () => {
-      const dataPath = path.join(paths.js.public, 'data-normalizado.js');
-      if (!fs.existsSync(dataPath)) return false;
-      
-      const content = fs.readFileSync(dataPath, 'utf8');
-      return content.includes('window.__INELEG_NORMALIZADO__');
-    });
+    this.log('Skipping data tests (Supabase-only mode)', 'skip');
   }
 
   test(name, testFn) {
@@ -228,11 +220,11 @@ class TestRunner {
 
     const serverInfo = await this.startStaticServer(paths.publicDir);
     let browser;
-    
+
     try {
-      browser = await puppeteer.launch({ 
+      browser = await puppeteer.launch({
         headless: "new",
-        args: ['--no-sandbox', '--disable-setuid-sandbox'] 
+        args: ['--no-sandbox', '--disable-setuid-sandbox']
       });
     } catch (error) {
       this.skip('Layout: validação via Puppeteer', `Falha ao iniciar browser: ${error.message.split('\n')[0]}`);
@@ -366,7 +358,7 @@ class TestRunner {
         ];
 
         const page = await browser.newPage();
-        
+
         // Simular desktop largo
         await page.setViewport({ width: 1920, height: 1080 });
 
@@ -379,7 +371,7 @@ class TestRunner {
             try {
               await page.goto(candidateUrl, { waitUntil: 'domcontentloaded', timeout: 15000 });
               selectedUrl = candidateUrl;
-              
+
               reference = await page.evaluate(() => {
                 // Tenta pegar container principal do referência visual
                 // Baseado na análise manual: max-width ~1312px
@@ -389,15 +381,15 @@ class TestRunner {
                   const width = parseFloat(style.width);
                   return width > 1000 && width < 1400 && style.marginLeft !== '0px';
                 });
-                
+
                 const mainContainer = candidates[0];
                 if (!mainContainer) return null;
-                
+
                 return {
-                   maxWidth: 1312 // Valor conhecido/medido
+                  maxWidth: 1312 // Valor conhecido/medido
                 };
               });
-              
+
               if (reference) break;
             } catch (error) {
               lastError = error;
@@ -405,10 +397,10 @@ class TestRunner {
           }
 
           if (!reference) {
-             // Fallback se não conseguir medir dinamicamente (site mudou ou bloqueio)
-             // Usamos o valor medido anteriormente como "golden standard"
-             reference = { maxWidth: 1312 };
-             this.log('Layout: usando referência estática do referência visual (1312px)', 'info');
+            // Fallback se não conseguir medir dinamicamente (site mudou ou bloqueio)
+            // Usamos o valor medido anteriormente como "golden standard"
+            reference = { maxWidth: 1312 };
+            this.log('Layout: usando referência estática do referência visual (1312px)', 'info');
           }
 
           // Verificar nosso app
@@ -423,18 +415,18 @@ class TestRunner {
 
           const tolerance = 5; // px
           const diff = Math.abs(appMetrics.maxWidth - reference.maxWidth);
-          
+
           if (diff > tolerance) {
             throw new Error(`Container difere da referência (${selectedUrl || 'static'}): app≈${appMetrics.maxWidth}px vs ref≈${reference.maxWidth}px`);
           }
 
         } catch (error) {
-           // Se falhar por rede/timeout, avisar mas não falhar o teste (opcional)
-           if (error.message.includes('net::') || error.message.includes('timeout')) {
-             this.skip('Layout: referência referência visual', `Indisponível: ${error.message}`);
-             return true;
-           }
-           throw error;
+          // Se falhar por rede/timeout, avisar mas não falhar o teste (opcional)
+          if (error.message.includes('net::') || error.message.includes('timeout')) {
+            this.skip('Layout: referência referência visual', `Indisponível: ${error.message}`);
+            return true;
+          }
+          throw error;
         } finally {
           await page.close();
         }
@@ -562,8 +554,8 @@ class TestRunner {
 
     // Exibir resumo
     console.log('\n' + '='.repeat(60));
-      console.log('📊 RELATÓRIO DE TESTES - INELEG-APP v0.3.0');
-      console.log('='.repeat(60));
+    console.log('📊 RELATÓRIO DE TESTES - INELEG-APP v0.3.0');
+    console.log('='.repeat(60));
     console.log(`Total de testes: ${this.results.total}`);
     console.log(`Passou: ${this.results.passed}`);
     console.log(`Falhou: ${this.results.failed}`);

@@ -1,4 +1,12 @@
-# AI Configuration
+# AGENTS.md - Instruções de Zeladoria
+
+## 🚫 READ-ONLY ZONE
+Este projeto está conectado ao Hub de Inteligência. Referências obrigatórias:
+- **Personas:** `.agent/hub/brain/personas/`
+- **Capacidades:** `.agent/hub/capabilities/`
+- **Workflows:** `.agent/hub/system/workflows/`
+
+---
 
 > **Note**: This project is a node of the Solo Dev Hub.
 > **Hub Location**: `.agent/hub/` (Junction to `E:\Agents`)
