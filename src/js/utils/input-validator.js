@@ -15,7 +15,7 @@ export const InputValidator = {
     if (!code || typeof code !== "string") return null;
     // Permite apenas letras, números e underscores, max 20 caracteres
     const sanitized = code.trim().toUpperCase();
-    return /^[A-Z0-0_]{1,20}$/.test(sanitized) ? sanitized : null;
+    return /^[A-Z0-9_]{1,20}$/.test(sanitized) ? sanitized : null;
   },
 
   /**
