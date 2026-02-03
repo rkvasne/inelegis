@@ -5,7 +5,7 @@ COPY package*.json ./
 
 # Estágio 2: Instalação de Dependências (Produção)
 FROM base AS dependencies
-RUN npm ci --only=production
+RUN npm ci --only=production --ignore-scripts
 
 # Estágio 3: Build & Otimização
 FROM base AS build
