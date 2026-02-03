@@ -47,29 +47,28 @@ export class ValidatorService {
         return this.normasCache;
       }
 
-      // Consulta adaptada para a nova tabela unificada
-      // Busca leias únicas baseadas no código e nome descritivo
-      const { data, error } = await supabaseClient
-        .from("crimes_inelegibilidade")
-        .select("codigo,lei");
-
-      if (error) throw error;
-
-      // Remover duplicatas via JS (Supabase select distinct nem sempre é direto via SDK simples)
-      const uniqueLaws = new Map();
-      data.forEach((item) => {
-        if (!uniqueLaws.has(item.codigo)) {
-          uniqueLaws.set(item.codigo, {
-            codigo: item.codigo,
-            nome: item.lei, // O campo 'lei' agora contem o nome descritivo
-            nome_completo: item.lei,
-          });
-        }
+      // Consulta adaptada para a nova tabela unificada usando o cliente leve customizado
+      const data = await supabaseClient.from("crimes_inelegibilidade", {
+        select: "codigo,lei"
       });
 
-      this.normasCache = Array.from(uniqueLaws.values()).sort((a, b) =>
-        a.codigo.localeCompare(b.codigo),
-      );
+      // Remover duplicatas via JS
+      const uniqueLaws = new Map();
+
+      // O cliente customizado retorna array direto ou lança erro, não retorna { maximize }
+      if (Array.isArray(data)) {
+        data.forEach(item => {
+          if (!uniqueLaws.has(item.codigo)) {
+            uniqueLaws.set(item.codigo, {
+              codigo: item.codigo,
+              nome: item.lei,
+              nome_completo: item.lei
+            });
+          }
+        });
+      }
+
+      this.normasCache = Array.from(uniqueLaws.values()).sort((a, b) => a.codigo.localeCompare(b.codigo));
 
       console.log(
         "[ValidatorService] Carregadas",
@@ -101,27 +100,26 @@ export class ValidatorService {
     }
 
     try {
-      // Busca direta na nova tabela
-      const { data: artigos, error } = await supabaseClient
-        .from("crimes_inelegibilidade")
-        .select("artigo")
-        .eq("codigo", sanitizedLaw)
-        .order("artigo", { ascending: true });
+      // Busca direta na nova tabela usando cliente leve
+      const artigos = await supabaseClient.from("crimes_inelegibilidade", {
+        select: "artigo",
+        filter: { codigo: sanitizedLaw },
+        order: "artigo.asc"
+      });
 
-      if (error) throw error;
+      if (!Array.isArray(artigos)) return [];
 
       // Remover duplicatas e nulos
-      const uniqueArtigos = [
-        ...new Set(artigos.map((a) => a.artigo).filter((a) => a)),
-      ];
+      const uniqueArtigos = [...new Set(artigos.map((a) => a.artigo).filter(a => a))];
 
-      // Ordenação numérica inteligente (ex: 1, 2, 10, 10-A)
+      // Ordenação numérica inteligente
       return uniqueArtigos.sort((a, b) => {
-        const numA = parseInt(a.replace(/\D/g, "")) || 0;
-        const numB = parseInt(b.replace(/\D/g, "")) || 0;
+        const numA = parseInt(a.replace(/\D/g, '')) || 0;
+        const numB = parseInt(b.replace(/\D/g, '')) || 0;
         if (numA === numB) return a.localeCompare(b);
         return numA - numB;
       });
+
     } catch (error) {
       console.error("[ValidatorService] Erro ao buscar artigos:", error);
       return [];
