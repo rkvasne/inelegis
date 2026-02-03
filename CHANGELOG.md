@@ -29,6 +29,8 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
   - Limpeza de scripts de migração antigos fragmentados.
 - **Correção de Integridade**:
   - Ajuste na constraint `NOT NULL` para leis que definem crimes de forma genérica (ex: Lei 12.850/13 - Organização Criminosa), garantindo inserção correta.
+  - Adicionados casts explícitos de tipo (`::TEXT`) na função RPC `verificar_elegibilidade` para sanar erros de compatibilidade de tipos no Retorno de Tabela.
+  - Transformação da migração `001` em script idempotente (safe drop) para facilitar reconstruções de schema.
 
 ### 🛡️ Segurança & Frontend
 
