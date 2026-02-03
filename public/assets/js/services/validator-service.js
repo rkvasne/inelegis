@@ -52,7 +52,8 @@ export class ValidatorService {
 
             this.normasCache = normas.map(n => ({
                 codigo: n.codigo,
-                nome: n.nome_curto || n.nome_completo
+                nome: n.nome_curto || n.nome_completo,
+                nome_completo: n.nome_completo // Expose full name for UI
             }));
 
             console.log('[ValidatorService] Carregadas', this.normasCache.length, 'normas do Supabase');

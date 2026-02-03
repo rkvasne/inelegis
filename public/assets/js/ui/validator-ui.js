@@ -73,7 +73,9 @@ export class ValidatorUI {
         laws.forEach(law => {
             const option = document.createElement('option');
             option.value = law.codigo;
-            option.textContent = law.nome;
+            // Melhoria: Mostrar Código + Nome Completo
+            const displayName = law.nome === law.nome_completo ? law.nome : `${law.nome} - ${law.nome_completo}`;
+            option.textContent = displayName;
             this.leiSelect.appendChild(option);
         });
 
@@ -96,6 +98,31 @@ export class ValidatorUI {
                 this.artigoSelect.innerHTML = '<option value="" selected>Selecione primeiro a lei...</option>';
                 this.artigoSelect.disabled = true;
                 this.hideResult();
+            }
+        });
+
+        // Setup dos campos complementares (Parágrafo, Inciso, Alínea)
+        this.setupComplementaryFields();
+    }
+
+    /**
+     * Configura listeners para os campos complementares (se existirem)
+     */
+    setupComplementaryFields() {
+        const fields = ['paragrafoInput', 'incisoInput', 'alineaInput'];
+        fields.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                el.addEventListener('input', () => {
+                    // Debounce para não validar a cada tecla loucamente
+                    if (this._debounceTimer) clearTimeout(this._debounceTimer);
+                    this._debounceTimer = setTimeout(() => {
+                        const artigoNum = this.artigoSelect.value;
+                        if (artigoNum && this.selectedLaw) {
+                            this.validateSelection(artigoNum);
+                        }
+                    }, 500);
+                });
             }
         });
     }
@@ -162,19 +189,26 @@ export class ValidatorUI {
      * @param {string} artigoNum Número do artigo selecionado
      */
     async validateSelection(artigoNum) {
+        // Coletar complementos
+        const paragrafo = document.getElementById('paragrafoInput')?.value || null;
+        // Nota: A RPC atual suporta apenas 'paragrafo', mas vamos preparar a coleta
+        // const inciso = document.getElementById('incisoInput')?.value || null;
+        // const alinea = document.getElementById('alineaInput')?.value || null;
+
         // Mostrar loading no resultado
         if (this.resultContainer) {
             this.resultContainer.innerHTML = `
                 <div class="p-6 text-center text-neutral-500">
                     <div class="animate-spin inline-block w-8 h-8 border-4 border-primary-200 border-t-primary-600 rounded-full mb-2"></div>
                     <p>Verificando elegibilidade...</p>
+                    ${paragrafo ? `<p class="text-xs text-neutral-400 mt-1">Filtrando por Parágrafo ${paragrafo}</p>` : ''}
                 </div>
             `;
             this.resultContainer.classList.remove('hidden');
         }
 
-        // Buscar resultado (agora via Supabase RPC)
-        const result = await validatorService.verifyEligibility(this.selectedLaw, artigoNum);
+        // Buscar resultado (agora via Supabase RPC incluindo parágrafo)
+        const result = await validatorService.verifyEligibility(this.selectedLaw, artigoNum, paragrafo);
 
         this.renderResult(result, artigoNum);
     }
@@ -247,8 +281,12 @@ export class ValidatorUI {
                         </div>
                     </div>
                 </div>
-                <div class="mt-4 pt-4 border-t border-dashed ${isInelegivel ? 'border-danger-200' : isElegivel ? 'border-success-200' : 'border-warning-200'} text-xs text-neutral-500 text-right">
-                    Fonte: Tabela CRE-RO/TRE-SP via Supabase
+                <!-- Melhoria: Botão para limpar a consulta -->
+                <div class="mt-4 pt-4 border-t border-dashed ${isInelegivel ? 'border-danger-200' : isElegivel ? 'border-success-200' : 'border-warning-200'} text-xs text-neutral-500 flex justify-between items-center">
+                    <span>Fonte: Tabela CRE-RO/TRE-SP via Supabase</span>
+                    <button class="text-primary-600 hover:text-primary-800 font-medium" onclick="document.getElementById('artigoSelect').value=''; document.getElementById('validator-result').classList.add('hidden');">
+                        Nova Consulta
+                    </button>
                 </div>
             </div>
         `;
