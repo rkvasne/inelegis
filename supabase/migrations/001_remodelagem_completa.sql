@@ -679,15 +679,15 @@ BEGIN
         SELECT 
           'ELEGIVEL'::VARCHAR, 
           NULL::TEXT, 
-          v_record.observacoes, 
-          'Artigo consta como exceção na tabela (Item ' || COALESCE(v_record.item_alinea_e, '?') || ')';
+          v_record.observacoes::TEXT, 
+          ('Artigo consta como exceção na tabela (Item ' || COALESCE(v_record.item_alinea_e, '?') || ')')::TEXT;
     ELSE
         RETURN QUERY 
         SELECT 
           'INELEGIVEL'::VARCHAR, 
-          v_record.tipo_crime, 
-          v_record.observacoes, 
-          'Artigo consta na tabela de inelegibilidade (Item ' || COALESCE(v_record.item_alinea_e, '?') || ')';
+          v_record.tipo_crime::TEXT, 
+          v_record.observacoes::TEXT, 
+          ('Artigo consta na tabela de inelegibilidade (Item ' || COALESCE(v_record.item_alinea_e, '?') || ')')::TEXT;
     END IF;
 END;
 $$;
