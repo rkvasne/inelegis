@@ -168,7 +168,7 @@ export class ValidatorService {
       console.error("[ValidatorService] Erro na verificação:", error);
       return {
         resultado: "ERRO",
-        motivo: `Erro interno: ${error.message || String(error)}`
+        motivo: `Erro interno: ${error.message || String(error)}`,
       };
     }
   }
