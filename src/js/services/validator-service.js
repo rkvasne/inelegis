@@ -49,7 +49,7 @@ export class ValidatorService {
 
       // Consulta adaptada para a nova tabela unificada usando o cliente leve customizado
       const data = await supabaseClient.from("crimes_inelegibilidade", {
-        select: "codigo,lei"
+        select: "codigo,lei",
       });
 
       // Remover duplicatas via JS
@@ -57,18 +57,20 @@ export class ValidatorService {
 
       // O cliente customizado retorna array direto ou lança erro, não retorna { maximize }
       if (Array.isArray(data)) {
-        data.forEach(item => {
+        data.forEach((item) => {
           if (!uniqueLaws.has(item.codigo)) {
             uniqueLaws.set(item.codigo, {
               codigo: item.codigo,
               nome: item.lei,
-              nome_completo: item.lei
+              nome_completo: item.lei,
             });
           }
         });
       }
 
-      this.normasCache = Array.from(uniqueLaws.values()).sort((a, b) => a.codigo.localeCompare(b.codigo));
+      this.normasCache = Array.from(uniqueLaws.values()).sort((a, b) =>
+        a.codigo.localeCompare(b.codigo),
+      );
 
       console.log(
         "[ValidatorService] Carregadas",
@@ -104,22 +106,23 @@ export class ValidatorService {
       const artigos = await supabaseClient.from("crimes_inelegibilidade", {
         select: "artigo",
         filter: { codigo: sanitizedLaw },
-        order: "artigo.asc"
+        order: "artigo.asc",
       });
 
       if (!Array.isArray(artigos)) return [];
 
       // Remover duplicatas e nulos
-      const uniqueArtigos = [...new Set(artigos.map((a) => a.artigo).filter(a => a))];
+      const uniqueArtigos = [
+        ...new Set(artigos.map((a) => a.artigo).filter((a) => a)),
+      ];
 
       // Ordenação numérica inteligente
       return uniqueArtigos.sort((a, b) => {
-        const numA = parseInt(a.replace(/\D/g, '')) || 0;
-        const numB = parseInt(b.replace(/\D/g, '')) || 0;
+        const numA = parseInt(a.replace(/\D/g, "")) || 0;
+        const numB = parseInt(b.replace(/\D/g, "")) || 0;
         if (numA === numB) return a.localeCompare(b);
         return numA - numB;
       });
-
     } catch (error) {
       console.error("[ValidatorService] Erro ao buscar artigos:", error);
       return [];
