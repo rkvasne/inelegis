@@ -8,37 +8,43 @@
 const fs = require('fs');
 const path = require('path');
 
-// 1. Tentar pegar de process.env (CI/CD / Vercel)
+// Tentar carregar dotenv se disponível
+try {
+    require('dotenv').config({ path: path.join(__dirname, '../.env.local') });
+} catch (e) {
+    // Silencioso se não houver dotenv (pode estar em CI)
+}
+
+// 1. Pegar das variáveis de ambiente (carregadas via dotenv ou setadas no OS/Vercel)
 let supabaseUrl = process.env['NEXT_PUBLIC_SUPABASE_URL'];
 let supabaseAnonKey = process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY'];
 
-// 2. Tentar carregar de .env.local se estiver local e variáveis não estiverem setadas
+// Fallback: parser manual simplificado se dotenv falhou/não existia e variáveis estão vazias
 if (!supabaseUrl || !supabaseAnonKey) {
     const envPath = path.join(__dirname, '../.env.local');
     if (fs.existsSync(envPath)) {
         const envContent = fs.readFileSync(envPath, 'utf8');
-        envContent.split('\n').forEach(line => {
-            const match = line.match(/^([^#=]+)=(.*)$/);
-            if (match) {
-                const key = match[1].trim();
-                let value = match[2].trim();
-                // Remover aspas
-                if ((value.startsWith('"') && value.endsWith('"')) ||
-                    (value.startsWith("'") && value.endsWith("'"))) {
-                    value = value.slice(1, -1);
-                }
-                if (key === 'NEXT_PUBLIC_SUPABASE_URL') supabaseUrl = value;
-                if (key === 'NEXT_PUBLIC_SUPABASE_ANON_KEY') supabaseAnonKey = value;
-            }
+        envContent.split(/\r?\n/).forEach(line => {
+            const trimmedLine = line.trim();
+            if (!trimmedLine || trimmedLine.startsWith('#')) return;
+
+            const [key, ...valueParts] = trimmedLine.split('=');
+            const value = valueParts.join('=').trim().replace(/^["'](.*)["']$/, '$1');
+
+            if (key.trim() === 'NEXT_PUBLIC_SUPABASE_URL') supabaseUrl = value;
+            if (key.trim() === 'NEXT_PUBLIC_SUPABASE_ANON_KEY') supabaseAnonKey = value;
         });
     }
 }
 
 if (!supabaseUrl || !supabaseAnonKey) {
-    console.error('❌ ERRO: Variáveis do Supabase não encontradas no .env.local');
-    console.log('   Adicione:');
-    console.log('   NEXT_PUBLIC_SUPABASE_URL=https://seu-projeto.supabase.co');
-    console.log('   NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJ...');
+    console.error('❌ ERRO: Variáveis do Supabase não encontradas no .env.local ou no ambiente.');
+    console.log('   Siga os seguintes passos:');
+    console.log('   1. Verifique se o arquivo .env.local existe na raiz do projeto.');
+    console.log('   2. Certifique-se que ele contém as seguintes chaves:');
+    console.log('      NEXT_PUBLIC_SUPABASE_URL=seu_url');
+    console.log('      NEXT_PUBLIC_SUPABASE_ANON_KEY=sua_anon_key');
+    console.log('   3. Se estiver em CI/CD, configure as Secret Variables correspondentes.');
     process.exit(1);
 }
 

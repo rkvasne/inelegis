@@ -13,7 +13,8 @@
   - **Analytics & Histórico**: Integração completa nos componentes `ValidatorUI` e `AnalyzerUI`.
   - **Refatoração de Serviços**: `SearchHistory` agora possui estatísticas calculadas localmente a partir de dados sincronizados.
   - **Estabilidade de Banco**: Correção de nomes de colunas e aliases no RPC `verificar_elegibilidade`.
-  - **Documentação**: `CHANGELOG.md` e `README.md` atualizados para refletir a arquitetura "Supabase-only".
+  - **Configuração do Ambiente**: Refatoração do `build-supabase-config.js` para usar `dotenv` e suportar quebras de linha Windows/Unix.
+  - **Documentação Master**: Revisão e atualização completa de `docs/guides/` para refletir a arquitetura Supabase-First, removendo referências obsoletas ao Redis e scripts ETL manuais.
 
 ### 02/02/2026 - UX Pack (Busca Detalhada & Visual)
 - **Feito:**

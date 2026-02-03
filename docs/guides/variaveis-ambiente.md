@@ -1,14 +1,6 @@
----
-docStatus: reference
-docScope: guide
-lastReviewed: 14/01/2026
----
 # 🔐 Variáveis de Ambiente
 
----
-
-**Versão:** 0.3.0  
-**Data:** 02/12/2025
+Este documento descreve as variáveis necessárias para a operação do Inelegis com o Supabase.
 
 ---
 
@@ -16,117 +8,65 @@ lastReviewed: 14/01/2026
 
 | Arquivo | Propósito | Git |
 |---------|-----------|-----|
-| `.env.example` | Exemplo | ✅ Commitado |
-| `.env.local` | Desenvolvimento | ❌ Ignorado |
+| `.env.example` | Template de exemplo | ✅ Commitado |
+| `.env.local` | Variáveis locais (Desenvolvimento) | ❌ Ignorado |
 
 ---
 
-## 🔑 Variáveis
+## 🔑 Variáveis Principais
 
-### REDIS_URL (obrigatório)
+### Supabase (Obrigatório)
 
-URL de conexão com o Redis.
+Diferente do Redis, o Supabase utiliza três chaves fundamentais:
 
-```bash
-REDIS_URL="redis://default:senha@host:porta"
-```
+```env
+# URL do Projeto (API Externa)
+NEXT_PUBLIC_SUPABASE_URL="https://xxxxxxxx.supabase.co"
 
-**Obter:** Vercel Dashboard → Storage → seu database → Show secret
+# Chave Pública (Usada no frontend pelo SDK)
+NEXT_PUBLIC_SUPABASE_ANON_KEY="eyJhbGci..."
 
-### ANALYTICS_ADMIN_TOKEN (obrigatório)
-
-Token para acessar a API de dashboard.
-
-```bash
-ANALYTICS_ADMIN_TOKEN="seu_token_aqui"
-```
-
-**Gerar:** `npm run generate-token`
-
-### NODE_ENV (opcional)
-
-Ambiente de execução.
-
-```bash
-NODE_ENV=development  # ou production
-```
-
-### CRON_SECRET (recomendado em produção)
-
-Protege o endpoint `/api/redis-maintenance`. Obrigatório se a rotina for exposta publicamente.
-
-```bash
-CRON_SECRET="token_super_secreto"
-```
-
-### REDIS_RETENTION_DAYS (opcional)
-
-Número de dias mantidos em cada lista `history:*`. Usado pela rotina automática (`scripts/redis-maintenance.js`).
-
-```bash
-REDIS_RETENTION_DAYS=30
-```
-
-### REDIS_MAX_HISTORY (opcional)
-
-Limite de entradas por usuário tanto na API quanto no job de limpeza.
-
-```bash
-REDIS_MAX_HISTORY=100
-```
-
-### REDIS_HISTORY_TTL (opcional)
-
-TTL aplicado às listas (segundos). Padrão: 31.536.000s (~365 dias).
-
-```bash
-REDIS_HISTORY_TTL=31536000
-```
-
-### REDIS_METRICS_TTL_DAYS (opcional)
-
-Tempo (em dias) que o hash `history:metrics:weekly` permanece no Redis.
-
-```bash
-REDIS_METRICS_TTL_DAYS=120
-```
-
-### REDIS_WEEKLY_METRICS_KEY (opcional)
-
-Nome do hash onde os snapshots semanais são registrados.
-
-```bash
-REDIS_WEEKLY_METRICS_KEY="history:metrics:weekly"
+# Chave Privada (APENAS para scripts de build/seed)
+SUPABASE_SERVICE_ROLE_KEY="eyJhbGci..."
 ```
 
 ---
 
-## 🚀 Setup
+## 🔑 Segurança e Analytics
 
-O passo a passo completo de ambiente e Redis fica em [setup-redis.md](setup-redis.md).
+### ANALYTICS_ADMIN_TOKEN 
 
----
+Token para acessar o dashboard de estatísticas e auditoria.
 
-## 🔒 Segurança
+```env
+ANALYTICS_ADMIN_TOKEN="seo_token_gerado_via_script"
+```
 
-### ✅ Fazer
+### CRON_SECRET
 
-- Usar `.env.local` para desenvolvimento
-- Rotacionar tokens periodicamente
-- Manter `.env.local` no `.gitignore`
+Token para proteger operações de manutenção programada (Limpeza de histórico).
 
-### ❌ Evitar
-
-- Commitar valores reais
-- Compartilhar tokens
-- Hardcoded tokens no código
+```env
+CRON_SECRET="token_para_jobs_de_limpeza"
+```
 
 ---
 
-## 🐛 Troubleshooting
+## 🚀 Como Configurar
 
-| Erro | Solução |
-|------|---------|
-| `REDIS_URL is not defined` | Verificar `.env.local` existe |
-| `Unauthorized` | Verificar token está correto |
-| Variáveis não carregam | Reiniciar servidor |
+1.  Crie o arquivo `.env.local`.
+2.  Preencha as variáveis do Supabase.
+3.  Execute `npm run supabase:config`.
+    *   Este script injeta as variáveis de ambiente no arquivo `public/assets/js/supabase-config.js` para que o frontend possa ler em runtime.
+
+---
+
+## 🔒 Boas Práticas
+
+- **NUNCA** commite o arquivo `.env.local`.
+- **NUNCA** use a `SERVICE_ROLE_KEY` em arquivos de frontend (dentro de `src/js`).
+- Utilize o Vercel Dashboard para configurar as variáveis em produção.
+
+---
+
+_Atualizado em: 03/02/2026_
