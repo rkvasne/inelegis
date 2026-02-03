@@ -38,9 +38,14 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
   - Introduzida a **Análise de Dispositivo de Sentença (BETA)**: permite colar o texto de sentenças para extração automática de artigos.
   - Parser inteligente com detecção de contexto legal e suporte a combinações (ex: Art. 121 c/c Art. 14).
   - Sugestão inteligente de códigos **ASE (337 e 370)** baseada na análise do texto da decisão.
+  - **Busca Simples "Pro"**: Adicionados campos opcionais para **Parágrafo**, **Inciso** e **Alínea** com layout ergonômico (Grid 1-2-1).
+  - **Feedback Visual**: Exibição explícita dos filtros aplicados durante a validação.
 - **Segurança & PWA**:
   - Atualizada a política de segurança (**CSP**) no `vercel.json` para permitir conexões com o Supabase (`connect-src`).
   - Corrigidos caminhos de assets no **Service Worker** e incrementada versão do cache para resolver falhas de `addAll` no PWA.
+- **Melhorias de Visualização**:
+  - Dropsdowns de Lei agora mostram "Código - Nome Completo" (ex: "LEI_9504 - Lei das Eleições").
+  - Tabela do Analisador exibe o nome da lei por extenso e o Tipo de Crime (se inelegível) diretamente na lista.
 - **Limpeza de Código Morto**:
   - Removidos arquivos obsoletos: `constants.js`, `core-utils.js`, `search-logic.test.mjs`.
   - Removidas referências a scripts inexistentes nos arquivos HTML (`data-normalizado.js`).
