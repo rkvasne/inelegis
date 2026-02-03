@@ -47,21 +47,32 @@ export class ValidatorService {
         return this.normasCache;
       }
 
-      const normas = await supabaseClient.from("normas", {
-        select: "codigo,nome_curto,nome_completo",
-        order: "nome_curto.asc",
+      // Consulta adaptada para a nova tabela unificada
+      // Busca leias únicas baseadas no código e nome descritivo
+      const { data, error } = await supabaseClient
+        .from("crimes_inelegibilidade")
+        .select("codigo,lei");
+
+      if (error) throw error;
+
+      // Remover duplicatas via JS (Supabase select distinct nem sempre é direto via SDK simples)
+      const uniqueLaws = new Map();
+      data.forEach(item => {
+        if (!uniqueLaws.has(item.codigo)) {
+          uniqueLaws.set(item.codigo, {
+            codigo: item.codigo,
+            nome: item.lei, // O campo 'lei' agora contem o nome descritivo
+            nome_completo: item.lei
+          });
+        }
       });
 
-      this.normasCache = normas.map((n) => ({
-        codigo: n.codigo,
-        nome: n.nome_curto || n.nome_completo,
-        nome_completo: n.nome_completo, // Expose full name for UI
-      }));
+      this.normasCache = Array.from(uniqueLaws.values()).sort((a, b) => a.codigo.localeCompare(b.codigo));
 
       console.log(
         "[ValidatorService] Carregadas",
         this.normasCache.length,
-        "normas do Supabase",
+        "normas do Supabase (Schema V2)",
       );
       return this.normasCache;
     } catch (error) {
@@ -88,26 +99,26 @@ export class ValidatorService {
     }
 
     try {
-      // Primeiro buscar o ID da norma
-      const normas = await supabaseClient.from("normas", {
-        select: "id",
-        filter: { codigo: sanitizedLaw },
+      // Busca direta na nova tabela
+      const { data: artigos, error } = await supabaseClient
+        .from("crimes_inelegibilidade")
+        .select("artigo")
+        .eq("codigo", sanitizedLaw)
+        .order("artigo", { ascending: true });
+
+      if (error) throw error;
+
+      // Remover duplicatas e nulos
+      const uniqueArtigos = [...new Set(artigos.map((a) => a.artigo).filter(a => a))];
+
+      // Ordenação numérica inteligente (ex: 1, 2, 10, 10-A)
+      return uniqueArtigos.sort((a, b) => {
+        const numA = parseInt(a.replace(/\D/g, '')) || 0;
+        const numB = parseInt(b.replace(/\D/g, '')) || 0;
+        if (numA === numB) return a.localeCompare(b);
+        return numA - numB;
       });
 
-      if (!normas.length) return [];
-
-      const normaId = normas[0].id;
-
-      // Buscar artigos inelegíveis dessa norma
-      const artigos = await supabaseClient.from("artigos_inelegiveis", {
-        select: "artigo",
-        filter: { norma_id: normaId },
-        order: "artigo.asc",
-      });
-
-      // Remover duplicatas e ordenar numericamente
-      const uniqueArtigos = [...new Set(artigos.map((a) => a.artigo))];
-      return uniqueArtigos.sort((a, b) => parseInt(a) - parseInt(b));
     } catch (error) {
       console.error("[ValidatorService] Erro ao buscar artigos:", error);
       return [];
