@@ -1,34 +1,37 @@
 ﻿# 📊 Project Status & Context
 
-> **Last Updated:** 2026-02-01
-> **Current Phase:** Development / Bootstrap
+> **Last Updated:** 2026-02-02
+> **Current Phase:** Stabilization / Production-Ready
+> **Status:** Stable
 
-## 🎯 Objetivos Atuais
+## 🎯 Objetivos Concluídos (Sessão Atual)
 
-- [x] Conexão Mecânica (Junction)
-- [x] Configuração de Governança (AGENTS.md)
-- [x] Sincronização de Inteligência (Prompts da IDE)
-- [x] Ajuste de Referências (GEMINI.md)
-- [x] Validação Final (Realizada via `.agent/scripts/validate-node-bootstrap.ps1`)
+- [x] **Migração Supabase:** Transição completa para arquitetura sem arquivos locais de dados.
+- [x] **Seguridade de Dados:** Implementação de `InputValidator` e guardas de inicialização no cliente.
+- [x] **Correção de Build:** Automação da geração de configuração para Vercel/CI/CD.
+- [x] **Zeladoria Técnica:** Remoção de 4 arquivos de código morto e 1 base de dados legada.
+- [x] **Correção de Compatibilidade:** Resolução de `SyntaxError: export` em scripts carregados via HTML.
 
 ## 🏗️ Arquitetura Atual
 
-- **Frontend:** HTML5, CSS3, Vanilla JavaScript (Ineleg App)
-- **Backend:** N/A (Static/Client-side)
-- **Database:** LocalStorage / JSON (Mock)
-- **AI Stack:** Solo Dev Hub (Junction-based)
+- **Frontend:** HTML5, CSS3, Vanilla JavaScript (Módulos ES6 + Scripts Globais)
+- **Backend/Database:** Supabase (PostgreSQL + RPC Functions)
+- **Infra:** Vercel (Deployment) + Solo Dev Hub (Governance)
+- **Segurança:** Sanitização de inputs no cliente + RLS no banco.
 
-## 🔄 Tarefas em Aberto (High Level)
+## 🔄 Tarefas em Aberto (Próximos Passos)
 
-1. Executar geradores de scripts (`generator-prompt-manifests.ps1`)
-2. Validar integridade do link com o Hub
-3. Consolidar documentação de arquitetura
+1. Monitorar logs do Vercel após o push para confirmar estabilidade 100%.
+2. Investigar reativação de testes de layout via Puppeteer (configuração de Chrome em CI).
+3. Revisar permissões de RPC no Supabase para auditoria automatizada.
 
 ## ⚠️ Riscos e Bloqueios
 
-- Dependência do caminho absoluto `E:\Agents`.
-- Estrutura do Hub deve permanecer estável.
-31: 
-32: ---
-33: **Log de Governança:**
-34: - Hub Plugado em 02/02/2026.
+- **Credenciais CI:** Dependência das Secret Keys (`NEXT_PUBLIC_SUPABASE_*`) estarem corretas no Vercel.
+- **Cache de Browser:** Mudanças agressivas em JS podem exigir invalidar cache de usuários antigos (implementado via `v=0.3.1`).
+
+---
+
+**Log de Governança/Sessão:**
+- 01/02/2026: Início da integração com Solo Dev Hub.
+- 02/02/2026: Consolidação Supabase-only, sanitização de dados e correção de infraestrutura de build.

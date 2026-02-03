@@ -8,29 +8,31 @@
 const fs = require('fs');
 const path = require('path');
 
-// Carregar .env.local
-const envPath = path.join(__dirname, '../.env.local');
-const envVars = {};
+// 1. Tentar pegar de process.env (CI/CD / Vercel)
+let supabaseUrl = process.env['NEXT_PUBLIC_SUPABASE_URL'];
+let supabaseAnonKey = process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY'];
 
-if (fs.existsSync(envPath)) {
-    const envContent = fs.readFileSync(envPath, 'utf8');
-    envContent.split('\n').forEach(line => {
-        const match = line.match(/^([^#=]+)=(.*)$/);
-        if (match) {
-            const key = match[1].trim();
-            let value = match[2].trim();
-            // Remover aspas
-            if ((value.startsWith('"') && value.endsWith('"')) ||
-                (value.startsWith("'") && value.endsWith("'"))) {
-                value = value.slice(1, -1);
+// 2. Tentar carregar de .env.local se estiver local e variáveis não estiverem setadas
+if (!supabaseUrl || !supabaseAnonKey) {
+    const envPath = path.join(__dirname, '../.env.local');
+    if (fs.existsSync(envPath)) {
+        const envContent = fs.readFileSync(envPath, 'utf8');
+        envContent.split('\n').forEach(line => {
+            const match = line.match(/^([^#=]+)=(.*)$/);
+            if (match) {
+                const key = match[1].trim();
+                let value = match[2].trim();
+                // Remover aspas
+                if ((value.startsWith('"') && value.endsWith('"')) ||
+                    (value.startsWith("'") && value.endsWith("'"))) {
+                    value = value.slice(1, -1);
+                }
+                if (key === 'NEXT_PUBLIC_SUPABASE_URL') supabaseUrl = value;
+                if (key === 'NEXT_PUBLIC_SUPABASE_ANON_KEY') supabaseAnonKey = value;
             }
-            envVars[key] = value;
-        }
-    });
+        });
+    }
 }
-
-const supabaseUrl = envVars['NEXT_PUBLIC_SUPABASE_URL'] || '';
-const supabaseAnonKey = envVars['NEXT_PUBLIC_SUPABASE_ANON_KEY'] || '';
 
 if (!supabaseUrl || !supabaseAnonKey) {
     console.error('❌ ERRO: Variáveis do Supabase não encontradas no .env.local');

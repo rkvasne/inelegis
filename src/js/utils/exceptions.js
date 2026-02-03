@@ -139,5 +139,3 @@ if (typeof window !== 'undefined') {
   window.ExceptionValidator = ExceptionValidator;
 }
 
-export { ExceptionValidator };
-

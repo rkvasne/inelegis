@@ -1,11 +1,13 @@
 'use strict';
 
 /**
- * Setup Radio Buttons behavior
- * @param {HTMLElement} radioCondenacao 
- * @param {HTMLElement} radioExtincao 
- * @param {HTMLElement} dataOcorrenciaCondenacao 
- * @param {HTMLElement} dataOcorrenciaExtincao 
+ * Configura o comportamento de exibição condicional dos campos de data
+ * baseados na seleção dos Radio Buttons (Condenação vs Extinção).
+ * 
+ * @param {HTMLElement} radioCondenacao - Elemento Input Radio para "Condenação"
+ * @param {HTMLElement} radioExtincao - Elemento Input Radio para "Extinção da Punibilidade"
+ * @param {HTMLElement} dataOcorrenciaCondenacao - Container do campo de data de condenação
+ * @param {HTMLElement} dataOcorrenciaExtincao - Container do campo de data de extinção
  */
 export function setupRadioButtons(radioCondenacao, radioExtincao, dataOcorrenciaCondenacao, dataOcorrenciaExtincao) {
     if (radioCondenacao) {
