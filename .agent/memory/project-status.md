@@ -1,11 +1,18 @@
 # 🧠 Memória do Projeto: Ineleg App
 
-**Status Atual:** Refactoring / Stable
-**Última Atualização:** 01/02/2026
+**Status Atual:** Stable / Polishing
+**Última Atualização:** 02/02/2026
 
 ---
 
 ## Log de Sessão / Últimas Atualizações
+
+### 02/02/2026 - UX Pack (Busca Detalhada & Visual)
+- **Feito:**
+  - **Busca Simples**: Adicionados campos opcionais (Parágrafo, Inciso, Alínea) com validação reativa e layout 1-2-1.
+  - **Identidade Legal**: Dropdowns e tabelas agora exibem nomes completos das leis ("Lei 9.504 - Lei das Eleições") em vez de códigos.
+  - **Análise de Sentença**: Melhoria na densidade de informações da tabela de resultados (Tipo de Crime in-line).
+  - **Documentação**: Atualização do `ux-improvements.md` marcando todas as tarefas como concluídas.
 
 ### 02/02/2026 - Migração de Infraestrutura (Supabase)
 - **Feito:**
