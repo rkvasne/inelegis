@@ -138,6 +138,27 @@ export class AnalyzerUI {
                 '<span class="text-warning-700 font-medium">ASE 370?</span><br><small>Verificar se há condenação criminal</small>' :
                 'Verificar Manualmente';
         }
+
+        // Registrar no Histórico e Analytics (Análise Automática)
+        if (typeof SearchHistory !== 'undefined') {
+            SearchHistory.add({
+                lei: item.lei,
+                artigo: item.artigo,
+                resultado: result.resultado.toLowerCase(),
+                tipoCrime: result.tipo_crime,
+                observacoes: `[Análise Automática] ${result.observacoes || result.motivo || ''}`
+            });
+        }
+
+        if (typeof Analytics !== 'undefined') {
+            Analytics.trackSearch({
+                lei: item.lei,
+                artigo: item.artigo,
+                resultado: result.resultado.toLowerCase(),
+                temExcecao: result.resultado === 'ELEGIVEL',
+                context: 'sentence_analyzer'
+            });
+        }
     }
 
     /**

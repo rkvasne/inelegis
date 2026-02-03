@@ -10,11 +10,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // 1. Verificação de Segurança (Gatekeeper)
     if (!verificarAcessoConsulta()) return;
 
-    // 2. Inicializar a Nova UI de Validação Estruturada
+    // 2. Inicializar Serviços Core
+    if (typeof Analytics !== 'undefined') Analytics.init();
+    if (typeof SearchHistory !== 'undefined') SearchHistory.init();
+
+    // 3. Inicializar a Nova UI de Validação Estruturada
     const validatorUI = new ValidatorUI();
     validatorUI.init();
 
-    // 3. Inicializar Analisador de Sentença
+    // 4. Inicializar Analisador de Sentença
     const analyzerUI = new AnalyzerUI();
     analyzerUI.init();
 

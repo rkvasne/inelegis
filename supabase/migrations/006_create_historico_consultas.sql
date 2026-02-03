@@ -1,4 +1,9 @@
 -- 006_create_historico_consultas.sql
+DROP TABLE IF EXISTS historico_consultas CASCADE;
+DROP FUNCTION IF EXISTS get_user_history(varchar, integer);
+DROP FUNCTION IF EXISTS add_to_history(varchar, varchar, varchar, varchar, text, text);
+DROP FUNCTION IF EXISTS get_user_stats(varchar);
+
 -- Tabela para armazenar histórico de consultas (substitui Redis)
 
 CREATE TABLE IF NOT EXISTS historico_consultas (

@@ -49,6 +49,47 @@ const SearchHistory = (() => {
         cachedHistory = Array.isArray(entries) ? entries.slice(0, MAX_HISTORY) : [];
     }
 
+    /**
+     * Calcula estatísticas baseadas em um array de histórico
+     */
+    function calculateStats(history) {
+        const stats = {
+            total: history.length,
+            inelegiveis: 0,
+            elegiveis: 0,
+            leisMaisConsultadas: {},
+            artigosMaisConsultados: {}
+        };
+
+        history.forEach(search => {
+            if (search.resultado === 'inelegivel') {
+                stats.inelegiveis++;
+            } else if (search.resultado === 'elegivel') {
+                stats.elegiveis++;
+            }
+
+            stats.leisMaisConsultadas[search.lei] =
+                (stats.leisMaisConsultadas[search.lei] || 0) + 1;
+
+            const key = `${search.lei} - Art. ${search.artigo}`;
+            stats.artigosMaisConsultados[key] =
+                (stats.artigosMaisConsultados[key] || 0) + 1;
+        });
+
+        // Formatar rankings
+        stats.leisMaisConsultadas = Object.entries(stats.leisMaisConsultadas)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 5)
+            .reduce((obj, [key, value]) => ({ ...obj, [key]: value }), {});
+
+        stats.artigosMaisConsultados = Object.entries(stats.artigosMaisConsultados)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 10)
+            .reduce((obj, [key, value]) => ({ ...obj, [key]: value }), {});
+
+        return stats;
+    }
+
     function readCookie(name) {
         if (typeof document === 'undefined') {
             return null;
@@ -415,18 +456,33 @@ const SearchHistory = (() => {
     async function getStatsAsync() {
         const supabaseStats = await fetchStatsFromSupabase();
 
+        // Sempre buscar o histórico para calcular as listas de Top Leis/Artigos
+        const history = await getHistoryAsync();
+
         if (supabaseStats) {
+            const localStats = calculateStats(history);
             return {
-                total: supabaseStats.total,
-                inelegiveis: supabaseStats.inelegiveis,
-                elegiveis: supabaseStats.elegiveis,
-                naoConsta: supabaseStats.nao_consta,
+                total: parseInt(supabaseStats.total) || 0,
+                inelegiveis: parseInt(supabaseStats.inelegiveis) || 0,
+                elegiveis: parseInt(supabaseStats.elegiveis) || 0,
+                naoConsta: parseInt(supabaseStats.nao_consta) || 0,
                 primeiraConsulta: supabaseStats.primeira_consulta,
-                ultimaConsulta: supabaseStats.ultima_consulta
+                ultimaConsulta: supabaseStats.ultima_consulta,
+                leisMaisConsultadas: localStats.leisMaisConsultadas,
+                artigosMaisConsultados: localStats.artigosMaisConsultados
             };
         }
 
         return getStats();
+    }
+
+    /**
+     * Inicializa o histórico sincronizando com a nuvem
+     */
+    async function init() {
+        historyDebugLog('Inicializando histórico...');
+        getUserId(); // Garantir que UID existe
+        return getHistoryAsync();
     }
 
     /**
@@ -454,6 +510,7 @@ const SearchHistory = (() => {
 
     // API pública
     return {
+        init,
         add: addSearch,
         getAll: getHistory,
         getAllAsync: getHistoryAsync,
