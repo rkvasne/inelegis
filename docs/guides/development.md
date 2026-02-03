@@ -1,307 +1,94 @@
----
-docStatus: active
-docScope: guide
-lastReviewed: 14/01/2026
----
 # Guia de Desenvolvimento
 
 Este arquivo fornece orientações técnicas para desenvolvedores trabalhando neste repositório.
-
-**⚠️ Nota:** Para uma visão completa da documentação, consulte [README.md](../README.md).
 
 ---
 
 ## 💻 Visão Geral do Projeto
 
-**Inelegis** é um conjunto de páginas estáticas integradas (index, consulta, sobre, faq, landing) **não oficial** para Consulta de Inelegibilidade Eleitoral. Ela auxilia servidores da Justiça Eleitoral a determinar se condenações criminais geram inelegibilidade com base na Lei Complementar nº 64/1990 (atualizada pela LC 135/2010).
+**Inelegis** é uma aplicação web para Consulta de Inelegibilidade Eleitoral. Ela auxilia na determinação de inelegibilidade com base na Lei Complementar nº 64/1990.
 
-- **Desenvolvimento**: Criado por um servidor para uso por servidores.
-- **Fonte de Dados**: Dados oficiais do TRE-SP (Outubro 2024) revisados pela CRE-RO (02/06/2025).
-- **Status**: Ferramenta auxiliar não oficial.
-- **Tecnologia**: Vanilla JavaScript com sistema de build (sem dependências externas de runtime).
-- **Deploy**: Build com `npm run build` (scripts/build.js) e deploy da pasta `dist/`.
+- **Arquitetura**: Frontend Vanilla JavaScript (Módulos ES6) integrado ao Supabase.
+- **Fonte de Dados**: Banco de Dados PostgreSQL (Supabase) com lógica via RPC.
+- **Deploy**: Build com `npm run build` e deploy da pasta `public/` (Vercel).
 
 ---
 
 ## 🚀 Execução e Desenvolvimento
 
-Como esta é uma aplicação frontend com sistema de build:
-
-- **Desenvolvimento**: Execute `npm run dev` (ou `node scripts/serve.js`) para o servidor local.
-  - Requer `REDIS_URL` configurada no `.env` para funcionamento do Histórico de Consultas.
-- **Produção**: Execute `npm run build` (ou `node scripts/build.js`) para gerar a versão otimizada.
-- **Deploy**: O conteúdo da pasta `dist/` é o que deve ser publicado.
+- **Configuração**: 
+  1. Copie `.env.example` para `.env.local`.
+  2. Preencha as chaves do Supabase.
+  3. Execute `npm run supabase:config` para gerar o arquivo de config do cliente.
+- **Desenvolvimento**: Execute `npm run dev` para o servidor local com Live Reload.
+- **Produção**: O projeto é otimizado via `scripts/build.js`.
 
 ---
 
 ## 🏗 Arquitetura do Código
 
-### Arquivos Principais
+### Estrutura de Pastas (v0.3.1)
 
-**[index.html](../../public/index.html)** - Estrutura HTML contendo:
-- Formulário de busca com alternância de tipo de comunicação (Condenação/Extinção).
-- Dropdown de leis e campo de artigo.
-- Modal de exibição de resultados.
-- Painéis de informação e avisos legais.
-- Legenda explicando os tipos de resultado.
+- `public/assets/js/`: Código distribuído (runtime).
+- `src/js/`: Código fonte original organizado por camadas:
+  - `services/`: Comunicação com APIs (Supabase, Analytics).
+  - `ui/`: Gerenciamento de interface e eventos.
+  - `utils/`: Formatadores, sanitizadores e lógica de exceções.
+  - `components/`: Componentes reutilizáveis (Header, Footer, Modais).
 
-**[script.js](../../src/js/script.js)** - Lógica da aplicação (fonte) organizada em grupos funcionais:
-1. **Lógica de Busca**: `realizarBusca()` - Núcleo da consulta (usa `DataNormalizer.query`).
-2. **Gerenciamento de UI**: `exibirResultado()` - Exibição de resultados (usa ModalManager).
-3. **Sugestões**: `mostrarSugestoes()`, `obterSugestoesPorLei()` - Sugestões em tempo real.
+### Módulos Principais
 
-### Módulos JavaScript (v0.0.7+)
+**[services/validator-service.js](../../src/js/services/validator-service.js)**
+- `init()`: Inicializa o cliente Supabase.
+- `verifyEligibility()`: Chama a RPC `verificar_elegibilidade` no banco.
+- `getLaws()` / `getArticlesByLaw()`: Consome as tabelas de normas.
 
-**[modules/sanitizer.js](../../src/js/modules/sanitizer.js)** - Segurança:
-- `escapeHtml()` - Previne XSS
-- `safeInnerHTML()` - Inserção segura de HTML
-- `sanitizeAttributes()` - Remove atributos perigosos
+**[services/search-history.js](../../src/js/services/search-history.js)**
+- Gerencia o histórico do usuário sincronizado com Supabase.
+- Calcula estatísticas locais para performance (Top Leis/Artigos).
 
-**[modules/storage.js](../../src/js/modules/storage.js)** - Armazenamento:
-- `setItem()` - Salva com validação e expiração
-- `getItem()` - Recupera com validação
-- `cleanExpired()` - Limpeza automática
+**[utils/sanitizer.js](../../src/js/utils/sanitizer.js)**
+- Proteção contra XSS e inserção segura de conteúdo dinâmico.
 
-**[modules/formatters.js](../../src/js/modules/formatters.js)** - Formatação:
-- `formatar()` - Auto-correção (§1 → §1º, cc → c/c)
-- `processar()` - Parse de notação complexa
-- `extrairArtigos()` - Extração de números
-
-**[modules/exceptions.js](../../src/js/modules/exceptions.js)** - Validação:
-- `verificar()` - Verifica exceções aplicáveis
-- `filtrarPorArtigo()` - Filtra exceções relevantes
-
-**[modules/modal-manager.js](../../src/js/modules/modal-manager.js)** - Interface:
-- `open()` - Abre modal com conteúdo
-- `close()` - Fecha modal
-- `exportContent()` - Exporta resultado
-
-**modules/search-index.js (removido)** - Módulo legado substituído por `data-normalizado.js`. Consultas devem usar apenas `DataNormalizer.query` e índices gerados por `DataNormalizer.getItensPorLei`.
-
-**[modules/search-history.js](../../src/js/modules/search-history.js)** - Histórico (v0.1.0):
-- `add()` - Adiciona consulta (com detecção de duplicatas)
-- `getRecent()` - Obtém consultas recentes
-- `getFrequent()` - Obtém consultas frequentes
-- `getStats()` - Estatísticas de uso
-- `clear()` / `remove()` - Intencionalmente desabilitados (logam um aviso e retornam `false`)
-- Persistência: histórico fica somente no Redis via `/api/search-history`; o front guarda apenas um `userId` em cookie (`inelegis_uid`) para correlacionar sessões, sem gravar dados sensíveis no `localStorage`.
-
-**[modules/history-page.js](../../src/js/modules/history-page.js)** - Tela de Histórico/Admin (v0.1.0):
-- `init()` - Inicializa página dedicada (`historico.html`).
-- `loadData()` - Sincroniza registros e estatísticas via `SearchHistory`/Redis.
-- `renderSummary()` / `renderTable()` - Exibe cards, listas (recentes/frequentes) e tabela com filtro.
-- `exportHistory()` - Copia para clipboard ou baixa `.txt` com todos os registros.
-> 📎 A tela não aparece na navegação: acesse diretamente `/historico.html` (link interno restrito).
-
-**[modules/theme-manager.js](../../src/js/modules/theme-manager.js)** - Gerenciamento de Tema (v0.0.7):
-- `init()` - Inicializa tema (detecta preferência do sistema)
-- `toggle()` - Alterna entre claro/escuro
-- `apply()` - Aplica tema específico
-- `getCurrent()` - Obtém tema atual
-
-**[modules/components.js](../../src/js/modules/components.js)** - Componentes Reutilizáveis (v0.0.7):
-- `init()` - Inicializa componentes na página
-- `renderHeader()` - Renderiza header com tema toggle
-- `renderNav()` - Renderiza navegação
-- `renderFooter()` - Renderiza footer
-- `renderCard()` - Renderiza cards customizáveis
-- `renderButton()` - Renderiza botões
-- `renderAlert()` - Renderiza alertas
-6. **Atalhos de Teclado**: Implementação de hotkeys (Ctrl+L, Ctrl+A, Ctrl+Enter, F1, Esc).
-
-**[data-normalizado.js](../../public/assets/js/data-normalizado.js)** - Fonte de dados normalizados:
-1. `window.__INELEG_NORMALIZADO__` - Estrutura gerada a partir do XML oficial.
-2. Cada item contém: `codigo`, `norma`, `excecoes[]`, `crime`, `observacao`, `estruturado.artigos[]`.
-
-**[styles.css](../../public/styles/styles.css)** - Sistema de design CSS profissional:
-- Paleta de cores corporativa e tokens de design.
-- Layout responsivo com componentes modernos.
-- Efeitos de glassmorphism e animações.
-- Estilização acessível e media queries para impressão.
-
-### Exemplo de Estrutura de Dados
-
-Cada item de `window.__INELEG_NORMALIZADO__` segue este padrão:
-```javascript
-{
-  norma: "Arts. 121, 121-A, 122, §1º a § 7º, 123 a 127",
-  excecoes: ["Art. 121, § 3º", "Art. 122, caput"],
-  crime: "Crimes contra a vida (9)",
-  codigo: "CP",
-  observacao: "campo opcional"
-}
-```
-
-### Feature Chave: Parse de Artigos Complexos
-
-A aplicação suporta notação de artigos jurídicos brasileiros:
-- Simples: `121`
-- Com parágrafos: `121, §2º`
-- Com incisos: `121, §2º, I`
-- Com alíneas: `121, §2º, I, "a"`
-- Citações concorrentes: `121 c/c 312`
-- Combinado: `121, §2º, I, "a" c/c 312 c/c 213`
-
-O parse é feito em `ArtigoFormatter` e a correspondência é realizada exclusivamente sobre dados pré-normalizados via `DataNormalizer`.
+**[ui/validator-ui.js](../../src/js/ui/validator-ui.js)**
+- Controla o fluxo "Lei -> Artigo" com selects em cascata.
 
 ---
 
-## 📏 Padrões Importantes
+## 📏 Padrões de Código
 
-### Tipos de Resultado de Busca
-
-Três resultados possíveis exibidos no modal:
-1. **GERA INELEGIBILIDADE** (vermelho) - Artigo gera inelegibilidade, use notação ASE 337.
-2. **NÃO GERA INELEGIBILIDADE** (verde) - Não gera inelegibilidade.
-3. **NÃO ENCONTRADO** (cinza) - Artigo não consta na tabela de referência.
-
-### Tipos de Comunicação
-
-- **Condenação (ASE 337)**: Suspensão de direitos políticos devido a condenação.
-- **Extinção (ASE 370)**: Extinção de punibilidade/suspensão.
-
-Alternância entre estes com botões de rádio ou atalho F1.
-
-### Formatação Automática
-
-A entrada do usuário é formatada automaticamente para padrões legais:
-- `§1` torna-se `§1º`
-- `cc` torna-se `c/c`
-- `a` torna-se `"a"` (em contexto de alínea)
-- Espaços e vírgulas normalizados
+- **Clean Code**: Funções pequenas e responsabilidade única.
+- **Sanitização**: Obrigatório o uso de `Sanitizer.safeInnerHTML()` em qualquer dado vindo do banco.
+- **Async/Await**: Padrão para todas as operações de rede e inicialização.
 
 ---
 
-## 🔧 Manutenção de Dados
+## 🔧 Scripts Úteis
 
-O procedimento canônico de atualização de dados e validação está em [maintenance.md](maintenance.md).
-
----
-
-## 📚 Referências de Documentação
-
-- **[README.md](../README.md)** - Funcionalidades, atalhos, exemplos de uso.
-- **[manual-ase.md](../references/manual-ase.md)** - Manual do sistema eleitoral com explicações de códigos ASE.
-- **Tabelas PDF/XML** - Dados oficiais de referência do TRE-SP em `docs/references/`.
-
----
-
-## 🌐 Compatibilidade de Navegador
-
-- Navegadores modernos apenas (Chrome, Firefox, Safari, Edge).
-- Requer suporte a ES6+.
-- Usa Clipboard API e Flexbox CSS.
-- Design responsivo para desktop/mobile.
-
----
-
-## 📝 Tarefas Comuns
-
-**Entender validação de artigos**: Veja `buscarInelegibilidadePorLeiEArtigo()` em `src/js/script.js` - faz o parse da notação e busca apenas em dados normalizados (`DataNormalizer.query`).
-
-**Adicionar nova lei**: Siga o procedimento em [maintenance.md](maintenance.md).
-
-**Modificar exibição de resultado**: Edite `exibirResultado()` em `src/js/script.js` - controla o conteúdo e estilo do modal.
-
-**Alterar atalhos**: Busque por `addEventListener('keydown'` em `src/js/script.js`.
-
-**Atualizar estilos**: Cores e layout estão em `public/styles/styles.css`.
-
-**Atualizar tabela de inelegibilidade**: Siga o procedimento em [maintenance.md](maintenance.md).
-
-
----
-
-## Validação de Temas
-
-A documentação canônica do validador fica em [theme-validator.md](../design/theme-validator.md).
-
-```bash
-npm run validate:theme
-npm run validate:theme:fix
-npm run validate:theme:strict
-```
-
-> **Observação**: o validador pode indicar que `public/styles/styles.css` “não suporta dark mode”. O app aplica o modo escuro via classe `dark-theme` em runtime; a mensagem é informativa.
-
----
-
-## 🧪 Testes
-
-### Testes Unitários
-
-O projeto possui testes automatizados para os módulos principais:
-
-```bash
-# Executar todos os testes unitários
-npm run test:unit
-
-# Executar teste específico
-node tests/formatters.test.js
-node tests/exceptions.test.js
-```
-
-### Cobertura de Testes
-
-- **formatters.test.js**: 10 testes para formatação de artigos
-- **exceptions.test.js**: 10 testes para validação de exceções
-- **theme-manager.test.js**: 10 testes para gerenciamento de tema
-- **components.test.js**: 25 testes para componentes reutilizáveis
-- **Cobertura total**: ~80% dos módulos críticos
-
-### Adicionar Novos Testes
-
-1. Criar arquivo em `tests/` com sufixo `.test.js`
-2. Seguir padrão dos testes existentes
-3. Adicionar ao script `test:unit` no package.json
+| Script | Descrição |
+|--------|-----------|
+| `npm run dev` | Inicia servidor local com sync de assets. |
+| `npm run check` | Valida Lint, Testes e integridade do Build. |
+| `npm run supabase:config` | Sincroniza chaves do `.env.local` com o frontend. |
+| `npm run test:unit` | Executa testes de lógica de negócio (formatters, etc). |
 
 ---
 
 ## 🔒 Segurança
 
-### Práticas Implementadas
-
-- **CSP (Content Security Policy)**: Configurado em `vercel.json`
-- **Sanitização de HTML**: Uso de `Sanitizer.safeInnerHTML()`
-- **Validação de localStorage**: Timestamp e expiração automática
-- **Sem innerHTML direto**: Sempre usar módulos de sanitização
-
-### Checklist de Segurança
-
-- [ ] Nunca usar `innerHTML` diretamente
-- [ ] Sempre sanitizar entrada do usuário
-- [ ] Validar dados do localStorage
-- [ ] Usar `SecureStorage` para persistência
-- [ ] Testar contra XSS
+- **CSP**: Configurada no `vercel.json`.
+- **Secrets**: Chaves privadas (`SERVICE_ROLE`) nunca devem ser usadas em `src/js/`.
+- **UID**: Identificação anônima via Cookies/LocalStorage para conformidade com LGPD.
 
 ---
 
-## ⚡ Performance
+## 🛠 Ferramentas Recomendadas
 
-### Otimizações Implementadas
-
-- **Índices de Busca**: Cache pré-construído por lei
-- **Busca O(1)**: Acesso direto via índice
-- **Cache Inteligente**: Validade de 1 hora
-- **Pré-processamento**: Artigos extraídos ao construir índice
-
-### Métricas
-
-- Busca: ~5ms (antes: ~50ms)
-- Cache hit rate: >90%
-- Tamanho total: ~227KB
+- **Node.js**: 22.x
+- **Supabase CLI**: Para gerenciamento de migrations.
+- **ESLint/Prettier**: Para padronização de código.
 
 ---
 
-## 🛠 Ferramentas e Versões Recomendadas
-
-- Node.js: 22.x (engine do projeto)
-- ESLint: 9.39.x (estável)
-- Prettier: 3.8.x
-- HTML-validate: 10.6.x (requer Node 20+)
-- Puppeteer: 24.35.x
-- ioredis: 5.9.x
-- dotenv: 17.2.x
-
-> As versões acima refletem o estado estável em jan/2026 e são alinhadas com os requisitos atuais do projeto.
+_Atualizado em: 03/02/2026_
 

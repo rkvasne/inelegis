@@ -52,6 +52,7 @@ SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6...
    - `supabase/migrations/005_insert_leis_especiais.sql`
    - `supabase/migrations/006_create_historico_consultas.sql`
    - `supabase/migrations/007_create_analytics.sql`
+   - `supabase/migrations/008_insert_todos_artigos_tre.sql` (Carga massiva oficial)
 
 #### Via CLI (Opcional)
 
