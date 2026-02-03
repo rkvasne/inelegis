@@ -1,9 +1,9 @@
 /**
- * Supabase Maintenance API (antes: Redis Maintenance)
- * Endpoint para tarefas de manutenção e limpeza
+ * Supabase Maintenance API
+ * Endpoint para tarefas de manutenção e limpeza (Retenção de dados)
  * 
  * Deploy: Vercel Serverless Function
- * @version 2.0.0
+ * @version 2.1.0
  */
 
 import { createClient } from '@supabase/supabase-js';
