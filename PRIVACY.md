@@ -60,8 +60,8 @@ O frontend pode sincronizar histórico de consultas com:
 ## Retenção
 
 Os tempos abaixo refletem o comportamento padrão do código:
-- Eventos de analytics no Redis: TTL de 90 dias (por evento)
-- Histórico no Redis: TTL configurável por `REDIS_HISTORY_TTL` (padrão: 365 dias)
+- Eventos de analytics no Banco de Dados: Retenção definida por política de limpeza (padrão: 90 dias)
+- Histórico no Banco de Dados: Armazenamento permanente até solicitação de exclusão ou limpeza automática (365 dias)
 - Cookie `inelegis_uid`: max-age típico de 12 meses
 
 ---

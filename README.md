@@ -27,21 +27,23 @@ O **Inelegis** é uma aplicação web para consulta de inelegibilidade eleitoral
 
 ## 🗄️ Arquitetura de Dados
 
-O projeto utiliza um pipeline ETL para garantir a integridade das normas jurídicas:
+O projeto utiliza **Supabase** como única fonte de verdade (Single Source of Truth), eliminando dependências de arquivos locais ou cache temporário.
 
-1.  **Fonte:** `docs/references/tabela-oficial.docx` (Fonte Primária).
-2.  **Processamento:** `npm run data:refresh` executa o pipeline completo:
-    *   **Extração:** DOCX -> JSON Bruto (`legal-database-docx.json`).
-    *   **Normalização:** Expansão de intervalos de artigos (ex: "121 a 125" -> [121...125]).
-    *   **Publicação:** Gera `public/assets/js/data-normalizado.js` consumido pelo Frontend.
-3.  **Redis:** `npm run load:redis` sincroniza o cache de backend (opcional para dev).
+1.  **Backend (Supabase):**
+    *   **Tabelas:** `normas`, `artigos_inelegiveis` (Base jurídica).
+    *   **Validação:** RPCs (`verificar_elegibilidade`) garantem lógica segura no lado do servidor.
+    *   **Analytics:** Eventos de uso armazenados diretamente em tabelas dedicadas.
+
+2.  **Frontend (Vanilla JS):**
+    *   Consome dados via `@supabase/supabase-js`.
+    *   Sem cache estático (removido na v0.3.1 para garantir integridade).
 
 ---
 
 ## 🛠️ Scripts Disponíveis
 
 *   `npm run serve`: Inicia servidor de desenvolvimento.
-*   `npm run data:refresh`: Regenera a base de dados a partir do DOCX.
+*   `npm run check`: Roda lint e testes (Sanity check).
 
 ---
 

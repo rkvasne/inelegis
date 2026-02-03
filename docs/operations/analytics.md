@@ -1,14 +1,14 @@
 ---
 docStatus: reference
 docScope: operations
-lastReviewed: 14/01/2026
+lastReviewed: 02/02/2026
 ---
 # 📊 Sistema de Analytics
 
 ---
 
-**Versão:** 0.3.0  
-**Data:** 02/12/2025
+**Versão:** 0.3.1 (Migrado para Supabase)  
+**Data:** 02/02/2026
 
 ---
 
@@ -43,15 +43,15 @@ Para detalhes consolidados (cookies, armazenamento local, retenção e controles
 ## 🏗️ Arquitetura
 
 ```
-Frontend (`public/assets/js/modules/analytics.js`)
+Frontend (`public/assets/js/services/analytics.js`)
     ↓
 Coleta eventos em batch
     ↓
 POST /api/analytics
     ↓
-Backend salva no Redis (ioredis)
+Backend salva no Supabase (PostgreSQL)
     ↓
-Dashboard consulta via API
+Dashboard consulta via RPC/Views
 ```
 
 ---
@@ -60,7 +60,7 @@ Dashboard consulta via API
 
 ### POST /api/analytics
 
-Recebe eventos do frontend.
+Recebe eventos do frontend e os persiste na tabela `analytics_events`.
 
 ```json
 {
@@ -79,7 +79,7 @@ Recebe eventos do frontend.
 
 ### GET /api/dashboard
 
-Retorna estatísticas (requer token).
+Retorna estatísticas (requer token `ANALYTICS_ADMIN_TOKEN`).
 
 ```bash
 curl -H "Authorization: Bearer TOKEN" \
@@ -90,33 +90,13 @@ curl -H "Authorization: Bearer TOKEN" \
 
 ### POST /api/search-history
 
-Salva histórico de busca do usuário.
-
-```json
-{
-  "userId": "user_123",
-  "search": {
-    "lei": "CP",
-    "artigo": "155",
-    "resultado": "inelegivel"
-  }
-}
-```
-
-### GET /api/search-history
-
-Obtém histórico do usuário.
-
-```
-/api/search-history?userId=user_123&limit=50
-/api/search-history?userId=user_123&stats=true
-```
+Salva histórico de busca do usuário na tabela `historico_consultas` (protegida por RLS).
 
 ---
 
 ## 💻 Frontend
 
-### Métodos Disponíveis
+### Métodos Disponíveis (`services/analytics.js`)
 
 ```javascript
 // Inicializar
@@ -131,76 +111,48 @@ Analytics.trackSearch({
 
 // Rastrear erro
 Analytics.trackError({ message: 'Erro', stack: '...' });
-
-// Rastrear ação
-Analytics.trackAction('export_history', { count: 25 });
-
-// Desabilitar/Habilitar (LGPD)
-Analytics.disable();
-Analytics.enable();
 ```
 
-### Histórico de Buscas
+### Histórico de Buscas (`services/search-history.js`)
 
 ```javascript
-// Adicionar (cache em memória + Redis)
+// Adicionar (Sincroniza com Supabase via RPC add_to_history)
 SearchHistory.add({ lei: 'CP', artigo: '155', resultado: 'inelegivel' });
 
-// Obter local
+// Obter (Cache Local + Sync Supabase)
 SearchHistory.getAll();
-SearchHistory.getRecent(10);
-
-// Obter do Redis (async)
-await SearchHistory.getAllAsync();
-await SearchHistory.getStatsAsync();
+SearchHistory.getAllAsync(); // Busca remota
 ```
 
 ---
 
-## 💾 Banco de Dados
+## 💾 Banco de Dados (Supabase)
 
-### Redis (via ioredis)
+### Tabelas Principais
 
-```javascript
-import Redis from 'ioredis';
+1. **`analytics_events`**: Armazena eventos brutos.
+2. **`historico_consultas`**: Armazena histórico do usuário com RLS (cada usuário vê apenas o seu).
 
-const redis = new Redis(process.env.REDIS_URL);
+### SQL Functions (RPC)
 
-// Salvar evento
-await redis.setex(key, TTL, JSON.stringify(event));
+- `get_analytics_summary()`: Retorna totais agregados.
+- `get_top_searches()`: Lista leis mais buscadas.
+- `get_daily_activity()`: Timeline de uso.
 
-// Incrementar contador
-await redis.incr('analytics:total');
-
-// Top leis
-await redis.zincrby('analytics:top:leis', 1, lei);
-```
-
-**Configuração:** Ver [setup-redis.md](../guides/setup-redis.md)
-
----
-
-## 📈 Métricas
-
-- Total de buscas e usuários
-- Top leis e artigos consultados
-- Distribuição inelegível/elegível
-- Timeline por dia
-- Erros recentes
+**Configuração:** Ver [setup-supabase.md](../guides/setup-supabase.md)
 
 ---
 
 ## 🔐 Segurança
 
-- CORS restrito a origens permitidas (analytics, dashboard, search-history)
-- Dashboard protegido por token
-- Dados anônimos (sem PII)
-- TTL de 90 dias nos eventos
-- Sugestões no frontend são sanitizadas via `Sanitizer.safeInnerHTML`
+- **RLS (Row Level Security):** Ativado em todas as tabelas. Scripts server-side usam `SERVICE_ROLE_KEY` apenas quando necessário bypass (analytics agg).
+- **CORS:** Restrito a origens permitidas.
+- **Dashboard:** Protegido por token Bearer.
+- **Dados Anônimos:** Validação de payload rigorosa antes da inserção.
 
 ---
 
 ## 📚 Referências
 
-- [setup-redis.md](../guides/setup-redis.md) - Configuração do Redis
+- [setup-supabase.md](../guides/setup-supabase.md) - Configuração do Supabase
 - [variaveis-ambiente.md](../guides/variaveis-ambiente.md) - Variáveis necessárias

@@ -3,7 +3,7 @@
 /**
  * Gerador de Token de Admin para Analytics Dashboard
  * 
- * Gera um token seguro para configurar o Redis/Analytics.
+ * Gera um token seguro para configurar o Analytics (Supabase).
  * NÃO cria ou modifica nenhum arquivo.
  * Apenas exibe o token para você copiar e configurar manualmente.
  * 
@@ -120,7 +120,7 @@ function main() {
     console.log('📚 DOCUMENTAÇÃO');
     console.log('═'.repeat(70));
     console.log('');
-    console.log('   • Setup Redis: docs/guides/SETUP-REDIS.md');
+    console.log('   • Setup Supabase: docs/guides/setup-supabase.md');
     console.log('   • Variáveis: docs/guides/VARIAVEIS-AMBIENTE.md');
     console.log('   • Analytics: docs/operations/ANALYTICS.md');
     console.log('');
