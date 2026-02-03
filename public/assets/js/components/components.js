@@ -5,31 +5,60 @@
  */
 
 const Components = (() => {
-    const IMAGE_BASE_PATH = '/assets/images/';
-    /**
-     * Renderiza o header do sistema com menu integrado
-     * @param {string} currentPage - Página atual para destacar no menu
-     */
-    function renderHeader(currentPage = '') {
-        // Verificar se termos foram aceitos
-        const termosAceitos = (typeof window !== 'undefined' && window.SecureStorage && window.SecureStorage.getItem('termos_aceitos') === true) || (typeof localStorage !== 'undefined' && localStorage.getItem('ineleg_termos_aceitos') === 'true');
-        
-        const pages = [
-            { id: 'index', href: './', label: 'Início', icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
-            { id: 'consulta', href: 'consulta', label: 'Consulta', icon: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z', requiresTerms: true },
-            { id: 'sobre', href: 'sobre', label: 'Sobre', icon: 'M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z' },
-            { id: 'faq', href: 'faq', label: 'FAQ', icon: 'M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z' }
-        ];
+  const IMAGE_BASE_PATH = "/assets/images/";
+  /**
+   * Renderiza o header do sistema com menu integrado
+   * @param {string} currentPage - Página atual para destacar no menu
+   */
+  function renderHeader(currentPage = "") {
+    // Verificar se termos foram aceitos
+    const termosAceitos =
+      (typeof window !== "undefined" &&
+        window.SecureStorage &&
+        window.SecureStorage.getItem("termos_aceitos") === true) ||
+      (typeof localStorage !== "undefined" &&
+        localStorage.getItem("ineleg_termos_aceitos") === "true");
 
-        const navLinks = pages.map(page => {
-            const isActive = currentPage === page.id;
-            const activeClass = isActive ? ' active' : '';
-            const ariaCurrent = isActive ? ' aria-current="page"' : '';
-            const isDisabled = page.requiresTerms && !termosAceitos;
-            const disabledClass = isDisabled ? ' disabled' : '';
-            const disabledAttr = isDisabled ? ' aria-disabled="true" onclick="event.preventDefault(); if(window.showCheckboxArrow) { window.showCheckboxArrow(); } else { sessionStorage.setItem(\'ineleg_redirect_reason\', \'terms_not_accepted\'); window.location.href=\'./\'; }"' : '';
-            
-            return `
+    const pages = [
+      {
+        id: "index",
+        href: "./",
+        label: "Início",
+        icon: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6",
+      },
+      {
+        id: "consulta",
+        href: "consulta",
+        label: "Consulta",
+        icon: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z",
+        requiresTerms: true,
+      },
+      {
+        id: "sobre",
+        href: "sobre",
+        label: "Sobre",
+        icon: "M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
+      },
+      {
+        id: "faq",
+        href: "faq",
+        label: "FAQ",
+        icon: "M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
+      },
+    ];
+
+    const navLinks = pages
+      .map((page) => {
+        const isActive = currentPage === page.id;
+        const activeClass = isActive ? " active" : "";
+        const ariaCurrent = isActive ? ' aria-current="page"' : "";
+        const isDisabled = page.requiresTerms && !termosAceitos;
+        const disabledClass = isDisabled ? " disabled" : "";
+        const disabledAttr = isDisabled
+          ? " aria-disabled=\"true\" onclick=\"event.preventDefault(); if(window.showCheckboxArrow) { window.showCheckboxArrow(); } else { sessionStorage.setItem('ineleg_redirect_reason', 'terms_not_accepted'); window.location.href='./'; }\""
+          : "";
+
+        return `
                 <a href="${page.href}" class="header-nav-link${activeClass}${disabledClass}"${ariaCurrent}${disabledAttr}>
                     <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${page.icon}"></path>
@@ -37,17 +66,21 @@ const Components = (() => {
                     <span>${page.label}</span>
                 </a>
             `;
-        }).join('');
+      })
+      .join("");
 
-        const isLandingPage = currentPage === 'landing';
-        const isDarkTheme = document.documentElement.classList.contains('dark-theme');
-        // Usar lógica baseada no tema para todas as páginas
-        // Se for landing, segue o tema. Se for interna, também deve seguir o tema (dark mode pede logo claro)
-        const logoSrc = `${IMAGE_BASE_PATH}${isDarkTheme ? 'logo-claro.png' : 'logo-dark.png'}`;
-        const logoLockAttr = isLandingPage ? '' : ' data-logo-lock="false"';
+    const isLandingPage = currentPage === "landing";
+    const isDarkTheme =
+      document.documentElement.classList.contains("dark-theme");
+    // Usar lógica baseada no tema para todas as páginas
+    // Se for landing, segue o tema. Se for interna, também deve seguir o tema (dark mode pede logo claro)
+    const logoSrc = `${IMAGE_BASE_PATH}${isDarkTheme ? "logo-claro.png" : "logo-dark.png"}`;
+    const logoLockAttr = isLandingPage ? "" : ' data-logo-lock="false"';
 
-        const wrapperClass = isLandingPage ? 'header-wrapper landing-nav' : 'header-wrapper';
-        return `
+    const wrapperClass = isLandingPage
+      ? "header-wrapper landing-nav"
+      : "header-wrapper";
+    return `
             <header class="system-header">
                 <div class="${wrapperClass}">
                     <div class="system-brand">
@@ -79,20 +112,19 @@ const Components = (() => {
                 </div>
             </header>
         `;
-    }
+  }
 
+  /**
+   * Renderiza o footer
+   */
+  function renderFooter(currentPage = "") {
+    const currentYear = new Date().getFullYear();
+    const isLandingPage = currentPage === "landing";
+    const isDarkTheme =
+      document.documentElement.classList.contains("dark-theme");
+    const logoSrc = `${IMAGE_BASE_PATH}${isDarkTheme ? "logo-claro.png" : "logo-dark.png"}`;
 
-
-    /**
-     * Renderiza o footer
-     */
-    function renderFooter(currentPage = '') {
-        const currentYear = new Date().getFullYear();
-        const isLandingPage = currentPage === 'landing';
-        const isDarkTheme = document.documentElement.classList.contains('dark-theme');
-        const logoSrc = `${IMAGE_BASE_PATH}${isDarkTheme ? 'logo-claro.png' : 'logo-dark.png'}`;
-        
-        return `
+    return `
             <footer class="main-footer">
                 <div class="footer-content">
                     <div class="footer-brand">
@@ -144,74 +176,99 @@ const Components = (() => {
                 </div>
             </footer>
         `;
-    }
+  }
 
-    /**
-     * Renderiza um card
-     * @param {Object} options - Opções do card
-     */
-    function renderCard({ title, subtitle, content, icon, className = '' }) {
-        return `
+  /**
+   * Renderiza um card
+   * @param {Object} options - Opções do card
+   */
+  function renderCard({ title, subtitle, content, icon, className = "" }) {
+    return `
             <div class="card ${className}">
-                ${title ? `
+                ${
+                  title
+                    ? `
                     <div class="card-header">
-                        ${icon ? `
+                        ${
+                          icon
+                            ? `
                             <div class="card-icon">
                                 <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${icon}"></path>
                                 </svg>
                             </div>
-                        ` : ''}
+                        `
+                            : ""
+                        }
                         <div>
                             <h2>${title}</h2>
-                            ${subtitle ? `<p>${subtitle}</p>` : ''}
+                            ${subtitle ? `<p>${subtitle}</p>` : ""}
                         </div>
                     </div>
-                ` : ''}
-                ${content ? `
+                `
+                    : ""
+                }
+                ${
+                  content
+                    ? `
                     <div class="card-body">
                         ${content}
                     </div>
-                ` : ''}
+                `
+                    : ""
+                }
             </div>
         `;
-    }
+  }
 
-    /**
-     * Renderiza um botão
-     * @param {Object} options - Opções do botão
-     */
-    function renderButton({ text, type = 'primary', icon, onClick, disabled = false, className = '' }) {
-        const buttonClass = `btn btn-${type} ${className}`;
-        const disabledAttr = disabled ? ' disabled' : '';
-        const onClickAttr = onClick ? ` onclick="${onClick}"` : '';
-        
-        return `
+  /**
+   * Renderiza um botão
+   * @param {Object} options - Opções do botão
+   */
+  function renderButton({
+    text,
+    type = "primary",
+    icon,
+    onClick,
+    disabled = false,
+    className = "",
+  }) {
+    const buttonClass = `btn btn-${type} ${className}`;
+    const disabledAttr = disabled ? " disabled" : "";
+    const onClickAttr = onClick ? ` onclick="${onClick}"` : "";
+
+    return `
             <button class="${buttonClass}"${disabledAttr}${onClickAttr}>
-                ${icon ? `
+                ${
+                  icon
+                    ? `
                     <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${icon}"></path>
                     </svg>
-                ` : ''}
+                `
+                    : ""
+                }
                 ${text}
             </button>
         `;
-    }
+  }
 
-    /**
-     * Renderiza um alerta
-     * @param {Object} options - Opções do alerta
-     */
-    function renderAlert({ type = 'info', title, message, dismissible = false }) {
-        const alertClass = `alert alert-${type}`;
-        const icons = {
-            success: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z',
-            warning: 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z',
-            danger: 'M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z',
-            info: 'M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z'
-        };
+  /**
+   * Renderiza um alerta
+   * @param {Object} options - Opções do alerta
+   */
+  function renderAlert({ type = "info", title, message, dismissible = false }) {
+    const alertClass = `alert alert-${type}`;
+    const icons = {
+      success: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z",
+      warning:
+        "M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z",
+      danger:
+        "M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z",
+      info: "M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
+    };
 
-        return `
+    return `
             <div class="${alertClass}" role="alert">
                 <div class="alert-icon">
                     <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -219,55 +276,59 @@ const Components = (() => {
                     </svg>
                 </div>
                 <div class="alert-content">
-                    ${title ? `<strong>${title}</strong>` : ''}
-                    ${message ? `<p>${message}</p>` : ''}
+                    ${title ? `<strong>${title}</strong>` : ""}
+                    ${message ? `<p>${message}</p>` : ""}
                 </div>
-                ${dismissible ? `
+                ${
+                  dismissible
+                    ? `
                     <button class="alert-close" aria-label="Fechar alerta" title="Fechar alerta">
                         <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                         </svg>
                     </button>
-                ` : ''}
+                `
+                    : ""
+                }
             </div>
         `;
+  }
+
+  /**
+   * Inicializa os componentes na página
+   * @param {string} currentPage - Página atual
+   */
+  function init(currentPage = "") {
+    // Renderizar header se houver placeholder
+    const headerPlaceholder = document.getElementById("header-placeholder");
+    if (headerPlaceholder) {
+      headerPlaceholder.outerHTML = renderHeader(currentPage);
     }
 
-    /**
-     * Inicializa os componentes na página
-     * @param {string} currentPage - Página atual
-     */
-    function init(currentPage = '') {
-        // Renderizar header se houver placeholder
-        const headerPlaceholder = document.getElementById('header-placeholder');
-        if (headerPlaceholder) {
-            headerPlaceholder.outerHTML = renderHeader(currentPage);
-        }
-
-        // Renderizar footer se houver placeholder
-        const footerPlaceholder = document.getElementById('footer-placeholder');
-        if (footerPlaceholder) {
-            footerPlaceholder.outerHTML = renderFooter(currentPage);
-        }
-
-        // Inicializar tema após renderizar componentes
-        if (typeof ThemeManager !== 'undefined') {
-            ThemeManager.init();
-        }
+    // Renderizar footer se houver placeholder
+    const footerPlaceholder = document.getElementById("footer-placeholder");
+    if (footerPlaceholder) {
+      footerPlaceholder.outerHTML = renderFooter(currentPage);
     }
 
-    // API pública
-    return {
-        init,
-        renderHeader,
-        renderFooter,
-        renderCard,
-        renderButton,
-        renderAlert
-    };
+    // Inicializar tema após renderizar componentes
+    if (typeof ThemeManager !== "undefined") {
+      ThemeManager.init();
+    }
+  }
+
+  // API pública
+  return {
+    init,
+    renderHeader,
+    renderFooter,
+    renderCard,
+    renderButton,
+    renderAlert,
+  };
 })();
 
 // Exportar para uso global
-if (typeof window !== 'undefined') {
-    window.Components = Components;
+if (typeof window !== "undefined") {
+  window.Components = Components;
 }

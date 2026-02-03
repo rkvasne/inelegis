@@ -3,6 +3,7 @@ docStatus: historical
 docScope: design
 lastReviewed: 14/01/2026
 ---
+
 # 🎨 Decisões de Design - Inelegis
 
 **Versão:** 0.0.7
@@ -21,12 +22,15 @@ Foi considerado o uso de Shadcn UI, Radix UI ou outros frameworks modernos para 
 **Análise das Opções:**
 
 #### 1. Shadcn UI
+
 **Prós:**
+
 - ✅ Componentes prontos e acessíveis
 - ✅ Design system completo
 - ✅ Baseado em Radix + Tailwind
 
 **Contras:**
+
 - ❌ Requer Tailwind CSS (reescrita completa do CSS)
 - ❌ Requer React ou adaptação significativa
 - ❌ Aumenta bundle size (~100KB+)
@@ -34,19 +38,24 @@ Foi considerado o uso de Shadcn UI, Radix UI ou outros frameworks modernos para 
 - ❌ Overhead de framework
 
 #### 2. Radix UI
+
 **Prós:**
+
 - ✅ Primitivos acessíveis
 - ✅ Unstyled (você estiliza)
 - ✅ Foco em acessibilidade
 
 **Contras:**
+
 - ❌ Requer React
 - ❌ Overhead de framework (~50KB+)
 - ❌ Curva de aprendizado
 - ❌ Complexidade adicional
 
 #### 3. Vanilla JS (Escolhido) ✅
+
 **Prós:**
+
 - ✅ Zero dependências de runtime
 - ✅ Bundle size mínimo (~5KB)
 - ✅ Performance máxima
@@ -57,6 +66,7 @@ Foi considerado o uso de Shadcn UI, Radix UI ou outros frameworks modernos para 
 - ✅ Carregamento instantâneo
 
 **Contras:**
+
 - ⚠️ Requer implementação manual de componentes
 - ⚠️ Mais código para escrever inicialmente
 
@@ -94,15 +104,15 @@ Foi considerado o uso de Shadcn UI, Radix UI ou outros frameworks modernos para 
 
 ```css
 :root {
-    --bg-primary: #ffffff;
-    --text-primary: #111827;
-    /* ... */
+  --bg-primary: #ffffff;
+  --text-primary: #111827;
+  /* ... */
 }
 
 .dark-theme {
-    --bg-primary: #0f172a;
-    --text-primary: #f1f5f9;
-    /* ... */
+  --bg-primary: #0f172a;
+  --text-primary: #f1f5f9;
+  /* ... */
 }
 ```
 
@@ -133,7 +143,7 @@ Foi considerado o uso de Shadcn UI, Radix UI ou outros frameworks modernos para 
 
 ```javascript
 function renderCard({ title, content }) {
-    return `
+  return `
         <div class="card">
             <h2>${title}</h2>
             <div>${content}</div>
@@ -163,35 +173,39 @@ function renderCard({ title, content }) {
 
 ## 📊 Comparação de Bundle Size
 
-| Solução | Bundle Size | Tempo de Carregamento* |
-|---------|-------------|------------------------|
-| **Vanilla JS (atual)** | ~5KB | ~50ms |
-| Shadcn + React | ~120KB | ~800ms |
-| Radix + React | ~80KB | ~600ms |
-| Vue 3 | ~50KB | ~400ms |
+| Solução                | Bundle Size | Tempo de Carregamento\* |
+| ---------------------- | ----------- | ----------------------- |
+| **Vanilla JS (atual)** | ~5KB        | ~50ms                   |
+| Shadcn + React         | ~120KB      | ~800ms                  |
+| Radix + React          | ~80KB       | ~600ms                  |
+| Vue 3                  | ~50KB       | ~400ms                  |
 
-*Estimativas em rede 3G
+\*Estimativas em rede 3G
 
 ---
 
 ## 🎯 Princípios de Design
 
 ### 1. Performance First
+
 - Cada byte conta
 - Carregamento instantâneo
 - Sem bloqueios
 
 ### 2. Simplicidade
+
 - Código legível
 - Fácil manutenção
 - Sem magia
 
 ### 3. Acessibilidade
+
 - Semântica HTML
 - ARIA quando necessário
 - Contraste adequado
 
 ### 4. Sustentabilidade
+
 - Código que dura
 - Sem dependências frágeis
 - Fácil de entender
@@ -285,6 +299,7 @@ Considere migrar para um framework SE:
 **A decisão de usar Vanilla JS foi adequada ao objetivo do projeto.**
 
 Resultados:
+
 - ✅ Simplicidade de deploy (páginas estáticas)
 - ✅ Menos dependências no runtime
 - ✅ Debugging direto no navegador

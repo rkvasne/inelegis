@@ -5,9 +5,9 @@
  * Verifica qualidade de código, padrões e boas práticas
  */
 
-const fs = require('fs');
-const path = require('path');
-const paths = require('./project-paths');
+const fs = require("fs");
+const path = require("path");
+const paths = require("./project-paths");
 
 class Linter {
   constructor() {
@@ -15,24 +15,27 @@ class Linter {
     this.errors = [];
     this.warnings = [];
     this.suggestions = [];
-    this.fixMode = process.argv.includes('--fix');
+    this.fixMode = process.argv.includes("--fix");
   }
 
-  log(message, type = 'info') {
+  log(message, type = "info") {
     const timestamp = new Date().toISOString();
-    const prefix = {
-      info: '🔍',
-      success: '✅',
-      warning: '⚠️',
-      error: '❌',
-      fix: '🔧'
-    }[type] || 'ℹ️';
+    const prefix =
+      {
+        info: "🔍",
+        success: "✅",
+        warning: "⚠️",
+        error: "❌",
+        fix: "🔧",
+      }[type] || "ℹ️";
 
-    console.log(`${prefix} [${timestamp.split('T')[1].split('.')[0]}] ${message}`);
+    console.log(
+      `${prefix} [${timestamp.split("T")[1].split(".")[0]}] ${message}`,
+    );
   }
 
   async lint() {
-    this.log('Iniciando lint do Inelegis v0.3.0', 'info');
+    this.log("Iniciando lint do Inelegis v0.3.0", "info");
 
     try {
       // 1. Lint HTML
@@ -58,40 +61,39 @@ class Linter {
 
       // 8. Gerar relatório
       this.generateReport();
-
     } catch (error) {
-      this.log(`Lint falhou: ${error.message}`, 'error');
+      this.log(`Lint falhou: ${error.message}`, "error");
       process.exit(1);
     }
   }
 
   async lintHTML() {
-    this.log('Verificando HTML...', 'info');
+    this.log("Verificando HTML...", "info");
 
-    const content = fs.readFileSync(paths.pages.index, 'utf8');
+    const content = fs.readFileSync(paths.pages.index, "utf8");
 
     // Verificações de estrutura HTML
     const htmlChecks = [
       {
-        test: () => content.includes('<!DOCTYPE html>'),
-        message: 'DOCTYPE HTML5 presente',
-        type: 'error',
-        fix: () => '<!DOCTYPE html> deve estar no início do arquivo'
+        test: () => content.includes("<!DOCTYPE html>"),
+        message: "DOCTYPE HTML5 presente",
+        type: "error",
+        fix: () => "<!DOCTYPE html> deve estar no início do arquivo",
       },
       {
         test: () => content.includes('lang="pt-BR"'),
-        message: 'Atributo lang definido corretamente',
-        type: 'error'
+        message: "Atributo lang definido corretamente",
+        type: "error",
       },
       {
         test: () => content.includes('charset="UTF-8"'),
-        message: 'Charset UTF-8 definido',
-        type: 'error'
+        message: "Charset UTF-8 definido",
+        type: "error",
       },
       {
-        test: () => content.includes('viewport'),
-        message: 'Meta viewport presente para responsividade',
-        type: 'error'
+        test: () => content.includes("viewport"),
+        message: "Meta viewport presente para responsividade",
+        type: "error",
       },
       /*
       {
@@ -101,217 +103,223 @@ class Linter {
       },
       */
       {
-        test: () => content.includes('apple-touch-icon'),
-        message: 'Ícone Apple Touch definido',
-        type: 'warning'
+        test: () => content.includes("apple-touch-icon"),
+        message: "Ícone Apple Touch definido",
+        type: "warning",
       },
       {
-        test: () => !content.includes('style='),
-        message: 'Sem estilos inline (boas práticas)',
-        type: 'suggestion'
+        test: () => !content.includes("style="),
+        message: "Sem estilos inline (boas práticas)",
+        type: "suggestion",
       },
       {
-        test: () => content.includes('alt='),
-        message: 'Atributos alt em imagens para acessibilidade',
-        type: 'warning'
+        test: () => content.includes("alt="),
+        message: "Atributos alt em imagens para acessibilidade",
+        type: "warning",
       },
       {
-        test: () => content.includes('aria-'),
-        message: 'Atributos ARIA para acessibilidade',
-        type: 'suggestion'
+        test: () => content.includes("aria-"),
+        message: "Atributos ARIA para acessibilidade",
+        type: "suggestion",
       },
       {
-        test: () => content.includes('role='),
-        message: 'Atributos role para semântica',
-        type: 'suggestion'
-      }
+        test: () => content.includes("role="),
+        message: "Atributos role para semântica",
+        type: "suggestion",
+      },
     ];
 
-    this.runChecks('HTML', htmlChecks);
+    this.runChecks("HTML", htmlChecks);
   }
 
   async lintCSS() {
-    this.log('Verificando CSS...', 'info');
+    this.log("Verificando CSS...", "info");
 
-    const content = fs.readFileSync(paths.styles.main, 'utf8');
+    const content = fs.readFileSync(paths.styles.main, "utf8");
 
     const cssChecks = [
       {
-        test: () => content.includes(':root'),
-        message: 'Variáveis CSS definidas em :root',
-        type: 'suggestion'
+        test: () => content.includes(":root"),
+        message: "Variáveis CSS definidas em :root",
+        type: "suggestion",
       },
       {
-        test: () => content.includes('--'),
-        message: 'Custom properties utilizadas',
-        type: 'suggestion'
+        test: () => content.includes("--"),
+        message: "Custom properties utilizadas",
+        type: "suggestion",
       },
       {
-        test: () => content.includes('@media'),
-        message: 'Media queries para responsividade',
-        type: 'warning'
+        test: () => content.includes("@media"),
+        message: "Media queries para responsividade",
+        type: "warning",
       },
       {
-        test: () => content.includes('transition'),
-        message: 'Transições CSS para UX suave',
-        type: 'suggestion'
+        test: () => content.includes("transition"),
+        message: "Transições CSS para UX suave",
+        type: "suggestion",
       },
       {
-        test: () => content.includes('@keyframes'),
-        message: 'Animações CSS definidas',
-        type: 'suggestion'
+        test: () => content.includes("@keyframes"),
+        message: "Animações CSS definidas",
+        type: "suggestion",
       },
       {
-        test: () => content.includes('backdrop-filter'),
-        message: 'Efeitos modernos (glassmorphism)',
-        type: 'suggestion'
+        test: () => content.includes("backdrop-filter"),
+        message: "Efeitos modernos (glassmorphism)",
+        type: "suggestion",
       },
       {
-        test: () => !content.includes('!important'),
-        message: 'Evitar !important (boas práticas)',
-        type: 'warning'
+        test: () => !content.includes("!important"),
+        message: "Evitar !important (boas práticas)",
+        type: "warning",
       },
       {
-        test: () => content.includes('box-sizing: border-box'),
-        message: 'Box-sizing border-box definido',
-        type: 'suggestion'
+        test: () => content.includes("box-sizing: border-box"),
+        message: "Box-sizing border-box definido",
+        type: "suggestion",
       },
       {
-        test: () => content.includes('font-display'),
-        message: 'Font-display para performance',
-        type: 'suggestion'
-      }
+        test: () => content.includes("font-display"),
+        message: "Font-display para performance",
+        type: "suggestion",
+      },
     ];
 
-    this.runChecks('CSS', cssChecks);
+    this.runChecks("CSS", cssChecks);
 
     // Verificar tamanho do arquivo CSS
-    const sizeKB = Buffer.byteLength(content, 'utf8') / 1024;
+    const sizeKB = Buffer.byteLength(content, "utf8") / 1024;
     if (sizeKB > 100) {
-      this.warnings.push(`CSS: Arquivo grande (${sizeKB.toFixed(1)}KB) - considere otimização`);
+      this.warnings.push(
+        `CSS: Arquivo grande (${sizeKB.toFixed(1)}KB) - considere otimização`,
+      );
     } else {
-      this.log(`CSS: Tamanho otimizado (${sizeKB.toFixed(1)}KB)`, 'success');
+      this.log(`CSS: Tamanho otimizado (${sizeKB.toFixed(1)}KB)`, "success");
     }
   }
 
   async lintJavaScript() {
-    this.log('Verificando JavaScript...', 'info');
+    this.log("Verificando JavaScript...", "info");
 
     const jsFiles = [
-      { label: 'script.js', filePath: paths.js.main },
-      { label: 'data.js', filePath: paths.js.data }
+      { label: "script.js", filePath: paths.js.main },
+      { label: "data.js", filePath: paths.js.data },
     ];
 
     for (const { label, filePath } of jsFiles) {
       if (!fs.existsSync(filePath)) continue;
 
-      const content = fs.readFileSync(filePath, 'utf8');
+      const content = fs.readFileSync(filePath, "utf8");
 
       const jsChecks = [
         {
-          test: () => content.includes('use strict') || content.includes("'use strict'"),
+          test: () =>
+            content.includes("use strict") || content.includes("'use strict'"),
           message: `${label}: Modo strict habilitado`,
-          type: 'suggestion'
+          type: "suggestion",
         },
         {
           test: () => !/\bvar\s/.test(content),
           message: `${label}: Usar let/const em vez de var`,
-          type: 'warning'
+          type: "warning",
         },
         {
-          test: () => content.includes('const ') || content.includes('let '),
+          test: () => content.includes("const ") || content.includes("let "),
           message: `${label}: Declarações modernas (let/const)`,
-          type: 'suggestion'
+          type: "suggestion",
         },
         {
-          test: () => content.includes('=>'),
+          test: () => content.includes("=>"),
           message: `${label}: Arrow functions utilizadas`,
-          type: 'suggestion'
+          type: "suggestion",
         },
         {
-          test: () => !content.includes('eval('),
+          test: () => !content.includes("eval("),
           message: `${label}: Evitar eval() (segurança)`,
-          type: 'error'
+          type: "error",
         },
         {
-          test: () => content.includes('addEventListener'),
+          test: () => content.includes("addEventListener"),
           message: `${label}: Event listeners modernos`,
-          type: 'suggestion'
+          type: "suggestion",
         },
         {
-          test: () => content.includes('try {') && content.includes('catch'),
+          test: () => content.includes("try {") && content.includes("catch"),
           message: `${label}: Tratamento de erros implementado`,
-          type: 'suggestion'
+          type: "suggestion",
         },
         {
-          test: () => content.includes('//') || content.includes('/*'),
+          test: () => content.includes("//") || content.includes("/*"),
           message: `${label}: Código comentado`,
-          type: 'suggestion'
-        }
+          type: "suggestion",
+        },
       ];
 
-      this.runChecks('JavaScript', jsChecks);
+      this.runChecks("JavaScript", jsChecks);
 
       // Verificar tamanho do arquivo JS
-      const sizeKB = Buffer.byteLength(content, 'utf8') / 1024;
+      const sizeKB = Buffer.byteLength(content, "utf8") / 1024;
       if (sizeKB > 200) {
-        this.warnings.push(`${label}: Arquivo grande (${sizeKB.toFixed(1)}KB) - considere modularização`);
+        this.warnings.push(
+          `${label}: Arquivo grande (${sizeKB.toFixed(1)}KB) - considere modularização`,
+        );
       }
     }
 
     // Verificar módulos JS
     const moduleDirs = [
-      { name: 'services', path: paths.js.services },
-      { name: 'utils', path: paths.js.utils },
-      { name: 'components', path: paths.js.components },
-      { name: 'ui', path: paths.js.ui }
+      { name: "services", path: paths.js.services },
+      { name: "utils", path: paths.js.utils },
+      { name: "components", path: paths.js.components },
+      { name: "ui", path: paths.js.ui },
     ];
 
     let totalModules = 0;
 
     for (const dirObj of moduleDirs) {
       if (dirObj.path && fs.existsSync(dirObj.path)) {
-        const modules = fs.readdirSync(dirObj.path).filter(f => f.endsWith('.js'));
+        const modules = fs
+          .readdirSync(dirObj.path)
+          .filter((f) => f.endsWith(".js"));
         totalModules += modules.length;
 
         for (const module of modules) {
           const modulePath = path.join(dirObj.path, module);
-          const content = fs.readFileSync(modulePath, 'utf8');
+          const content = fs.readFileSync(modulePath, "utf8");
 
-          if (content.includes('window.App')) {
-            this.log(`${module}: Namespace global definido`, 'success');
+          if (content.includes("window.App")) {
+            this.log(`${module}: Namespace global definido`, "success");
           }
         }
       }
     }
 
     if (totalModules > 0) {
-      this.log(`Módulos JS encontrados: ${totalModules}`, 'success');
+      this.log(`Módulos JS encontrados: ${totalModules}`, "success");
     }
   }
 
   async lintJSON() {
-    this.log('Verificando arquivos JSON...', 'info');
+    this.log("Verificando arquivos JSON...", "info");
 
-    const jsonFiles = ['manifest.json', 'package.json'];
+    const jsonFiles = ["manifest.json", "package.json"];
 
     for (const file of jsonFiles) {
       const jsonPath = path.join(this.projectRoot, file);
       if (!fs.existsSync(jsonPath)) continue;
 
       try {
-        const content = fs.readFileSync(jsonPath, 'utf8');
+        const content = fs.readFileSync(jsonPath, "utf8");
         const parsed = JSON.parse(content);
 
-        this.log(`${file}: JSON válido ✓`, 'success');
+        this.log(`${file}: JSON válido ✓`, "success");
 
         // Verificações específicas por arquivo
-        if (file === 'manifest.json') {
+        if (file === "manifest.json") {
           this.lintManifest(parsed);
-        } else if (file === 'package.json') {
+        } else if (file === "package.json") {
           this.lintPackageJson(parsed);
         }
-
       } catch (error) {
         this.errors.push(`${file}: JSON inválido - ${error.message}`);
       }
@@ -322,90 +330,114 @@ class Linter {
     const manifestChecks = [
       {
         test: () => manifest.name && manifest.name.length > 0,
-        message: 'Manifest: Nome da aplicação definido',
-        type: 'error'
+        message: "Manifest: Nome da aplicação definido",
+        type: "error",
       },
       {
         test: () => manifest.short_name && manifest.short_name.length > 0,
-        message: 'Manifest: Nome curto definido',
-        type: 'warning'
+        message: "Manifest: Nome curto definido",
+        type: "warning",
       },
       {
         test: () => manifest.start_url,
-        message: 'Manifest: URL de início definida',
-        type: 'error'
+        message: "Manifest: URL de início definida",
+        type: "error",
       },
       {
-        test: () => manifest.display === 'standalone',
-        message: 'Manifest: Modo standalone para PWA',
-        type: 'suggestion'
+        test: () => manifest.display === "standalone",
+        message: "Manifest: Modo standalone para PWA",
+        type: "suggestion",
       },
       {
         test: () => manifest.theme_color,
-        message: 'Manifest: Cor do tema definida',
-        type: 'suggestion'
+        message: "Manifest: Cor do tema definida",
+        type: "suggestion",
       },
       {
         test: () => manifest.background_color,
-        message: 'Manifest: Cor de fundo definida',
-        type: 'suggestion'
+        message: "Manifest: Cor de fundo definida",
+        type: "suggestion",
       },
       {
         test: () => manifest.icons && manifest.icons.length > 0,
-        message: 'Manifest: Ícones definidos',
-        type: 'warning'
-      }
+        message: "Manifest: Ícones definidos",
+        type: "warning",
+      },
     ];
 
-    this.runChecks('Manifest', manifestChecks);
+    this.runChecks("Manifest", manifestChecks);
   }
 
   lintPackageJson(pkg) {
     const packageChecks = [
       {
         test: () => pkg.name && pkg.name.length > 0,
-        message: 'Package.json: Nome do projeto definido',
-        type: 'error'
+        message: "Package.json: Nome do projeto definido",
+        type: "error",
       },
       {
         test: () => pkg.version && /^\d+\.\d+\.\d+/.test(pkg.version),
-        message: 'Package.json: Versão semântica válida',
-        type: 'error'
+        message: "Package.json: Versão semântica válida",
+        type: "error",
       },
       {
         test: () => pkg.description && pkg.description.length > 0,
-        message: 'Package.json: Descrição definida',
-        type: 'suggestion'
+        message: "Package.json: Descrição definida",
+        type: "suggestion",
       },
       {
         test: () => pkg.scripts && Object.keys(pkg.scripts).length > 0,
-        message: 'Package.json: Scripts definidos',
-        type: 'suggestion'
+        message: "Package.json: Scripts definidos",
+        type: "suggestion",
       },
       {
         test: () => pkg.keywords && pkg.keywords.length > 0,
-        message: 'Package.json: Palavras-chave definidas',
-        type: 'suggestion'
-      }
+        message: "Package.json: Palavras-chave definidas",
+        type: "suggestion",
+      },
     ];
 
-    this.runChecks('Package.json', packageChecks);
+    this.runChecks("Package.json", packageChecks);
   }
 
   async lintFileStructure() {
-    this.log('Verificando estrutura de arquivos...', 'info');
+    this.log("Verificando estrutura de arquivos...", "info");
 
     const expectedStructure = [
-      { label: 'public/index.html', path: paths.pages.index, level: 'error' },
-      { label: 'public/styles/styles.css', path: paths.styles.main, level: 'error' },
-      { label: 'src/js/script.js', path: paths.js.main, level: 'error' },
-      { label: 'public/assets/js/', path: paths.js.public, level: 'warning' },
-      { label: 'src/js/services/', path: paths.js.services, level: 'suggestion' },
-      { label: 'src/js/utils/', path: paths.js.utils, level: 'suggestion' },
-      { label: 'README.md', path: path.join(this.projectRoot, 'README.md'), level: 'suggestion' },
-      { label: 'scripts/', path: path.join(this.projectRoot, 'scripts'), level: 'suggestion' },
-      { label: 'tests/', path: path.join(this.projectRoot, 'tests'), level: 'suggestion' },
-      { label: 'public/assets/icons/', path: path.join(paths.publicDir, 'assets', 'icons'), level: 'warning' }
+      { label: "public/index.html", path: paths.pages.index, level: "error" },
+      {
+        label: "public/styles/styles.css",
+        path: paths.styles.main,
+        level: "error",
+      },
+      { label: "src/js/script.js", path: paths.js.main, level: "error" },
+      { label: "public/assets/js/", path: paths.js.public, level: "warning" },
+      {
+        label: "src/js/services/",
+        path: paths.js.services,
+        level: "suggestion",
+      },
+      { label: "src/js/utils/", path: paths.js.utils, level: "suggestion" },
+      {
+        label: "README.md",
+        path: path.join(this.projectRoot, "README.md"),
+        level: "suggestion",
+      },
+      {
+        label: "scripts/",
+        path: path.join(this.projectRoot, "scripts"),
+        level: "suggestion",
+      },
+      {
+        label: "tests/",
+        path: path.join(this.projectRoot, "tests"),
+        level: "suggestion",
+      },
+      {
+        label: "public/assets/icons/",
+        path: path.join(paths.publicDir, "assets", "icons"),
+        level: "warning",
+      },
     ];
 
     for (const item of expectedStructure) {
@@ -413,95 +445,96 @@ class Linter {
 
       if (!exists) {
         const message = `Estrutura: ${item.label} não encontrado`;
-        if (item.level === 'error') {
+        if (item.level === "error") {
           this.errors.push(message);
-        } else if (item.level === 'warning') {
+        } else if (item.level === "warning") {
           this.warnings.push(message);
         } else {
           this.suggestions.push(message);
         }
       } else {
-        this.log(`Estrutura: ${item.label} ✓`, 'success');
+        this.log(`Estrutura: ${item.label} ✓`, "success");
       }
     }
   }
 
   async lintAccessibility() {
-    this.log('Verificando acessibilidade...', 'info');
+    this.log("Verificando acessibilidade...", "info");
 
-    const content = fs.readFileSync(paths.pages.index, 'utf8');
+    const content = fs.readFileSync(paths.pages.index, "utf8");
 
     const a11yChecks = [
       {
-        test: () => content.includes('alt='),
-        message: 'A11y: Atributos alt em imagens',
-        type: 'warning'
+        test: () => content.includes("alt="),
+        message: "A11y: Atributos alt em imagens",
+        type: "warning",
       },
       {
-        test: () => content.includes('aria-label'),
-        message: 'A11y: Labels ARIA para elementos',
-        type: 'suggestion'
+        test: () => content.includes("aria-label"),
+        message: "A11y: Labels ARIA para elementos",
+        type: "suggestion",
       },
       {
-        test: () => content.includes('role='),
-        message: 'A11y: Roles semânticos definidos',
-        type: 'suggestion'
+        test: () => content.includes("role="),
+        message: "A11y: Roles semânticos definidos",
+        type: "suggestion",
       },
       {
-        test: () => content.includes('tabindex'),
-        message: 'A11y: Navegação por teclado configurada',
-        type: 'suggestion'
+        test: () => content.includes("tabindex"),
+        message: "A11y: Navegação por teclado configurada",
+        type: "suggestion",
       },
       {
-        test: () => content.includes('aria-live'),
-        message: 'A11y: Regiões dinâmicas anunciadas',
-        type: 'suggestion'
+        test: () => content.includes("aria-live"),
+        message: "A11y: Regiões dinâmicas anunciadas",
+        type: "suggestion",
       },
       {
-        test: () => content.includes(':focus') || content.includes('focus-visible'),
-        message: 'A11y: Estados de foco visíveis',
-        type: 'suggestion'
-      }
+        test: () =>
+          content.includes(":focus") || content.includes("focus-visible"),
+        message: "A11y: Estados de foco visíveis",
+        type: "suggestion",
+      },
     ];
 
-    this.runChecks('Acessibilidade', a11yChecks);
+    this.runChecks("Acessibilidade", a11yChecks);
   }
 
   async lintPerformance() {
-    this.log('Verificando performance...', 'info');
+    this.log("Verificando performance...", "info");
 
-    const content = fs.readFileSync(paths.pages.index, 'utf8');
+    const content = fs.readFileSync(paths.pages.index, "utf8");
 
     const perfChecks = [
       {
-        test: () => content.includes('preconnect'),
-        message: 'Performance: Preconnect para recursos externos',
-        type: 'suggestion'
+        test: () => content.includes("preconnect"),
+        message: "Performance: Preconnect para recursos externos",
+        type: "suggestion",
       },
       {
-        test: () => content.includes('defer') || content.includes('async'),
-        message: 'Performance: Scripts com defer/async',
-        type: 'suggestion'
+        test: () => content.includes("defer") || content.includes("async"),
+        message: "Performance: Scripts com defer/async",
+        type: "suggestion",
       },
       {
         test: () => content.includes('loading="lazy"'),
-        message: 'Performance: Lazy loading de imagens',
-        type: 'suggestion'
+        message: "Performance: Lazy loading de imagens",
+        type: "suggestion",
       },
       {
-        test: () => content.includes('serviceWorker'),
-        message: 'Performance: Service Worker para cache',
-        type: 'suggestion'
-      }
+        test: () => content.includes("serviceWorker"),
+        message: "Performance: Service Worker para cache",
+        type: "suggestion",
+      },
     ];
 
-    this.runChecks('Performance', perfChecks);
+    this.runChecks("Performance", perfChecks);
 
     // Verificar tamanhos de arquivos
     const files = [
-      { label: 'styles.css', filePath: paths.styles.main },
-      { label: 'script.js', filePath: paths.js.main },
-      { label: 'data.js', filePath: paths.js.data }
+      { label: "styles.css", filePath: paths.styles.main },
+      { label: "script.js", filePath: paths.js.main },
+      { label: "data.js", filePath: paths.js.data },
     ];
     let totalSize = 0;
 
@@ -512,12 +545,17 @@ class Linter {
         totalSize += sizeKB;
 
         if (sizeKB > 100) {
-          this.warnings.push(`Performance: ${label} é grande (${sizeKB.toFixed(1)}KB)`);
+          this.warnings.push(
+            `Performance: ${label} é grande (${sizeKB.toFixed(1)}KB)`,
+          );
         }
       }
     }
 
-    this.log(`Performance: Tamanho total dos arquivos principais: ${totalSize.toFixed(1)}KB`, 'info');
+    this.log(
+      `Performance: Tamanho total dos arquivos principais: ${totalSize.toFixed(1)}KB`,
+      "info",
+    );
   }
 
   runChecks(category, checks) {
@@ -531,9 +569,9 @@ class Linter {
       } else {
         const message = `${category}: ${check.message}`;
 
-        if (check.type === 'error') {
+        if (check.type === "error") {
           this.errors.push(message);
-        } else if (check.type === 'warning') {
+        } else if (check.type === "warning") {
           this.warnings.push(message);
         } else {
           this.suggestions.push(message);
@@ -541,78 +579,81 @@ class Linter {
 
         // Aplicar fix se disponível e modo fix ativo
         if (this.fixMode && check.fix) {
-          this.log(`Aplicando fix: ${check.fix()}`, 'fix');
+          this.log(`Aplicando fix: ${check.fix()}`, "fix");
         }
       }
     }
 
-    this.log(`${category}: ${passed}/${checks.length} verificações passaram`, 'success');
+    this.log(
+      `${category}: ${passed}/${checks.length} verificações passaram`,
+      "success",
+    );
   }
 
   generateReport() {
     const report = {
       timestamp: new Date().toISOString(),
-      version: '0.3.0',
+      version: "0.3.0",
       summary: {
         errors: this.errors.length,
         warnings: this.warnings.length,
         suggestions: this.suggestions.length,
-        status: this.errors.length === 0 ? 'PASS' : 'FAIL'
+        status: this.errors.length === 0 ? "PASS" : "FAIL",
       },
       details: {
         errors: this.errors,
         warnings: this.warnings,
-        suggestions: this.suggestions
-      }
+        suggestions: this.suggestions,
+      },
     };
 
     // Salvar relatório
     fs.writeFileSync(
-      path.join(this.projectRoot, 'lint-report.json'),
-      JSON.stringify(report, null, 2)
+      path.join(this.projectRoot, "lint-report.json"),
+      JSON.stringify(report, null, 2),
     );
 
     // Exibir resumo
-    console.log('\n' + '='.repeat(60));
-    console.log('🔍 RELATÓRIO DE LINT - INELEG-APP v0.3.0');
-    console.log('='.repeat(60));
+    console.log("\n" + "=".repeat(60));
+    console.log("🔍 RELATÓRIO DE LINT - INELEG-APP v0.3.0");
+    console.log("=".repeat(60));
     console.log(`Status: ${report.summary.status}`);
     console.log(`Erros: ${this.errors.length}`);
     console.log(`Avisos: ${this.warnings.length}`);
     console.log(`Sugestões: ${this.suggestions.length}`);
 
     if (this.errors.length > 0) {
-      console.log('\n❌ ERROS (devem ser corrigidos):');
+      console.log("\n❌ ERROS (devem ser corrigidos):");
       this.errors.forEach((error, i) => {
         console.log(`  ${i + 1}. ${error}`);
       });
     }
 
     if (this.warnings.length > 0) {
-      console.log('\n⚠️ AVISOS (recomendado corrigir):');
+      console.log("\n⚠️ AVISOS (recomendado corrigir):");
       this.warnings.forEach((warning, i) => {
         console.log(`  ${i + 1}. ${warning}`);
       });
     }
 
     if (this.suggestions.length > 0) {
-      console.log('\n💡 SUGESTÕES (melhorias opcionais):');
+      console.log("\n💡 SUGESTÕES (melhorias opcionais):");
       this.suggestions.forEach((suggestion, i) => {
         console.log(`  ${i + 1}. ${suggestion}`);
       });
     }
 
-    console.log('\n' + '='.repeat(60));
+    console.log("\n" + "=".repeat(60));
 
     if (this.errors.length === 0) {
-      this.log('Lint concluído com sucesso! 🎉', 'success');
+      this.log("Lint concluído com sucesso! 🎉", "success");
 
       if (this.warnings.length === 0 && this.suggestions.length === 0) {
-        console.log('\n🏆 Código perfeito! Nenhum problema encontrado.');
+        console.log("\n🏆 Código perfeito! Nenhum problema encontrado.");
       }
     } else {
-      this.log('Lint falhou devido a erros críticos', 'error');
-      console.log('\n💡 Execute com --fix para tentar correções automáticas');
+      this.log("Lint falhou devido a erros críticos", "error");
+      console.log("\n💡 Execute com --fix para tentar correções automáticas");
       process.exit(1);
     }
   }
@@ -621,8 +662,8 @@ class Linter {
 // Executar lint se chamado diretamente
 if (require.main === module) {
   const linter = new Linter();
-  linter.lint().catch(error => {
-    console.error('❌ Erro fatal no lint:', error);
+  linter.lint().catch((error) => {
+    console.error("❌ Erro fatal no lint:", error);
     process.exit(1);
   });
 }

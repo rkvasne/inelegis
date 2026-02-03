@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-const fs = require('fs');
-const path = require('path');
-const paths = require('./project-paths');
+const fs = require("fs");
+const path = require("path");
+const paths = require("./project-paths");
 
 // Arquivos que NÃO devem ser copiados para public/assets/js
 const EXCLUDE_FILES = new Set([]);
@@ -32,14 +32,16 @@ function copyDirectory(src, dest) {
 
 function main() {
   copyDirectory(paths.js.src, paths.js.public);
-  console.log(`📦 Sincronizado src/js → ${path.relative(paths.root, paths.js.public)} (preservando destino, excluindo: ${Array.from(EXCLUDE_FILES).join(', ')})`);
+  console.log(
+    `📦 Sincronizado src/js → ${path.relative(paths.root, paths.js.public)} (preservando destino, excluindo: ${Array.from(EXCLUDE_FILES).join(", ")})`,
+  );
 }
 
 if (require.main === module) {
   try {
     main();
   } catch (error) {
-    console.error('❌ Falha ao sincronizar JS:', error.message);
+    console.error("❌ Falha ao sincronizar JS:", error.message);
     process.exit(1);
   }
 }

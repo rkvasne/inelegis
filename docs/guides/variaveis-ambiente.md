@@ -6,10 +6,10 @@ Este documento descreve as variáveis necessárias para a operação do Inelegis
 
 ## 🗂️ Arquivos
 
-| Arquivo | Propósito | Git |
-|---------|-----------|-----|
-| `.env.example` | Template de exemplo | ✅ Commitado |
-| `.env.local` | Variáveis locais (Desenvolvimento) | ❌ Ignorado |
+| Arquivo        | Propósito                          | Git          |
+| -------------- | ---------------------------------- | ------------ |
+| `.env.example` | Template de exemplo                | ✅ Commitado |
+| `.env.local`   | Variáveis locais (Desenvolvimento) | ❌ Ignorado  |
 
 ---
 
@@ -34,7 +34,7 @@ SUPABASE_SERVICE_ROLE_KEY="eyJhbGci..."
 
 ## 🔑 Segurança e Analytics
 
-### ANALYTICS_ADMIN_TOKEN 
+### ANALYTICS_ADMIN_TOKEN
 
 Token para acessar o dashboard de estatísticas e auditoria.
 
@@ -57,7 +57,7 @@ CRON_SECRET="token_para_jobs_de_limpeza"
 1.  Crie o arquivo `.env.local`.
 2.  Preencha as variáveis do Supabase.
 3.  Execute `npm run supabase:config`.
-    *   Este script injeta as variáveis de ambiente no arquivo `public/assets/js/supabase-config.js` para que o frontend possa ler em runtime.
+    - Este script injeta as variáveis de ambiente no arquivo `public/assets/js/supabase-config.js` para que o frontend possa ler em runtime.
 
 ---
 

@@ -18,7 +18,7 @@ Diferente das versões anteriores, o Inelegis não utiliza arquivos JSON ou JS e
 
 ### Via SQL Migrations (Recomendado)
 
-As atualizações devem ser versionadas em `supabase/migrations/`. 
+As atualizações devem ser versionadas em `supabase/migrations/`.
 
 1.  Crie um novo arquivo `.sql` (Ex: `009_update_law_X.sql`).
 2.  Utilize o `INSERT INTO ... ON CONFLICT DO NOTHING` para garantir idempotência.
@@ -27,6 +27,7 @@ As atualizações devem ser versionadas em `supabase/migrations/`.
 ### Via Supabase Dashboard
 
 Para correções emergenciais ou in-line:
+
 1.  Acesse o **Table Editor** no Dashboard do Supabase.
 2.  Selecione a tabela `artigos_inelegiveis` ou `artigos_excecoes`.
 3.  Edite os registros diretamente na interface.

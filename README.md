@@ -5,7 +5,7 @@
 <img src="public/assets/images/logo-dark.png" alt="Logo do Inelegis" width="256" height="256">
 
 **Sistema de Consulta de Inelegibilidade Eleitoral.**  
-*Uma ferramenta moderna, rápida e precisa para análise jurídica eleitoral.*
+_Uma ferramenta moderna, rápida e precisa para análise jurídica eleitoral._
 
 [![Version](https://img.shields.io/badge/version-0.3.1-blue.svg?style=for-the-badge)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-orange.svg?style=for-the-badge)](LICENSE.md)
@@ -30,26 +30,27 @@ O **Inelegis** é uma aplicação web para consulta de inelegibilidade eleitoral
 O projeto utiliza **Supabase** como única fonte de verdade (Single Source of Truth), eliminando dependências de arquivos locais ou cache temporário.
 
 1.  **Backend (Supabase):**
-    *   **Tabelas:** `normas`, `artigos_inelegiveis` (Base jurídica).
-    *   **Validação:** RPCs (`verificar_elegibilidade`) garantem lógica segura no lado do servidor.
-    *   **Analytics:** Eventos de uso armazenados diretamente em tabelas dedicadas.
+    - **Tabelas:** `normas`, `artigos_inelegiveis` (Base jurídica).
+    - **Validação:** RPCs (`verificar_elegibilidade`) garantem lógica segura no lado do servidor.
+    - **Analytics:** Eventos de uso armazenados diretamente em tabelas dedicadas.
 
 2.  **Frontend (Vanilla JS):**
-    *   Consome dados via `@supabase/supabase-js`.
-    *   Sem cache estático (removido na v0.3.1 para garantir integridade).
+    - Consome dados via `@supabase/supabase-js`.
+    - Sem cache estático (removido na v0.3.1 para garantir integridade).
 
 ---
 
 ## 🛠️ Scripts Disponíveis
 
-*   `npm run serve`: Inicia servidor de desenvolvimento.
-*   `npm run check`: Roda lint e testes (Sanity check).
+- `npm run serve`: Inicia servidor de desenvolvimento.
+- `npm run check`: Roda lint e testes (Sanity check).
 
 ---
 
 ## ✨ Funcionalidades
 
 ### 🚀 Produtividade
+
 - **Validação Estruturada:** Fluxo de seleção "Lei -> Artigo" à prova de erros (Drop-down dinâmico).
 - **Feedback Imediato:** Status de inelegibilidade exibido instantaneamente ao selecionar o artigo.
 - **Base Oficial:** Dados sincronizados diretamente com a tabela do TRE/CRE (DOCX).
@@ -57,6 +58,7 @@ O projeto utiliza **Supabase** como única fonte de verdade (Single Source of Tr
 - **Histórico de Consultas:** Rastreio de pesquisas com estatísticas.
 
 ### 🎨 Interface
+
 - **Design Responsivo:** Interface adaptada para desktop, tablet e mobile.
 - **Tema Escuro:** Alternância automática com persistência de preferência.
 - **Componentes Reutilizáveis:** sistema modular de componentes para manutenção.
@@ -71,7 +73,7 @@ Consulte [CONTRIBUTING.md](CONTRIBUTING.md) para pré-requisitos, instalação e
 
 ---
 
-##  Estrutura
+## Estrutura
 
 ```text
 inelegis-app/

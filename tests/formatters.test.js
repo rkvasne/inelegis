@@ -14,27 +14,29 @@ const assert = {
     const actualStr = JSON.stringify(actual);
     const expectedStr = JSON.stringify(expected);
     if (actualStr !== expectedStr) {
-      throw new Error(`${message}\nEsperado: ${expectedStr}\nRecebido: ${actualStr}`);
+      throw new Error(
+        `${message}\nEsperado: ${expectedStr}\nRecebido: ${actualStr}`,
+      );
     }
   },
   ok: (value, message) => {
     if (!value) {
       throw new Error(message);
     }
-  }
+  },
 };
 
 // Carregar módulo
-const fs = require('fs');
-const path = require('path');
-const vm = require('vm');
+const fs = require("fs");
+const path = require("path");
+const vm = require("vm");
 
 let formatterCode = fs.readFileSync(
-  path.join(__dirname, '../src/js/utils/formatters.js'),
-  'utf8'
+  path.join(__dirname, "../src/js/utils/formatters.js"),
+  "utf8",
 );
 // Remove ES6 export for VM execution
-formatterCode = formatterCode.replace(/export\s+\{.*?\};?/g, '');
+formatterCode = formatterCode.replace(/export\s+\{.*?\};?/g, "");
 
 const sandbox = { window: {}, console };
 vm.createContext(sandbox);
@@ -57,100 +59,100 @@ function test(name, fn) {
   }
 }
 
-console.log('\n🧪 Executando testes do ArtigoFormatter...\n');
+console.log("\n🧪 Executando testes do ArtigoFormatter...\n");
 
 // Teste 1: Formatação de parágrafo
-test('Deve formatar parágrafo corretamente', () => {
-  const input = '121, §1';
-  const expected = '121, §1º';
+test("Deve formatar parágrafo corretamente", () => {
+  const input = "121, §1";
+  const expected = "121, §1º";
   const result = ArtigoFormatter.formatar(input);
-  assert.equal(result, expected, 'Formatação de parágrafo');
+  assert.equal(result, expected, "Formatação de parágrafo");
 });
 
 // Teste 2: Normalização de espaços
-test('Deve normalizar espaços', () => {
-  const input = '121,    §1';
+test("Deve normalizar espaços", () => {
+  const input = "121,    §1";
   const result = ArtigoFormatter.formatar(input);
-  assert.ok(result.includes('121, §1º'), 'Deve normalizar espaços e formatar');
+  assert.ok(result.includes("121, §1º"), "Deve normalizar espaços e formatar");
 });
 
 // Teste 3: Formatação de alínea
-test('Deve formatar alínea com aspas', () => {
-  const input = '121, a';
+test("Deve formatar alínea com aspas", () => {
+  const input = "121, a";
   const result = ArtigoFormatter.formatar(input);
-  assert.ok(result.includes('"a"'), 'Alínea deve ter aspas');
+  assert.ok(result.includes('"a"'), "Alínea deve ter aspas");
 });
 
 // Teste 4: Processamento de artigo simples
-test('Deve processar artigo simples', () => {
-  const input = '121';
+test("Deve processar artigo simples", () => {
+  const input = "121";
   const result = ArtigoFormatter.processar(input);
-  assert.equal(result.artigo, '121', 'Número do artigo');
-  assert.equal(result.paragrafo, '', 'Sem parágrafo');
+  assert.equal(result.artigo, "121", "Número do artigo");
+  assert.equal(result.paragrafo, "", "Sem parágrafo");
 });
 
 // Teste 5: Processamento de artigo completo
-test('Deve processar artigo completo', () => {
+test("Deve processar artigo completo", () => {
   const input = '121, §2º, I, "a"';
   const result = ArtigoFormatter.processar(input);
-  assert.equal(result.artigo, '121', 'Número do artigo');
-  assert.equal(result.paragrafo, '2', 'Parágrafo');
-  assert.equal(result.inciso, 'I', 'Inciso');
-  assert.equal(result.alinea, 'a', 'Alínea');
+  assert.equal(result.artigo, "121", "Número do artigo");
+  assert.equal(result.paragrafo, "2", "Parágrafo");
+  assert.equal(result.inciso, "I", "Inciso");
+  assert.equal(result.alinea, "a", "Alínea");
 });
 
 // Teste 6: Processamento com concomitante
-test('Deve processar artigo com c/c', () => {
-  const input = '121 c/c 122';
+test("Deve processar artigo com c/c", () => {
+  const input = "121 c/c 122";
   const result = ArtigoFormatter.processar(input);
-  assert.equal(result.artigo, '121', 'Artigo principal');
-  assert.equal(result.concomitante.length, 1, 'Deve ter 1 concomitante');
-  assert.equal(result.concomitante[0].artigo, '122', 'Artigo concomitante');
+  assert.equal(result.artigo, "121", "Artigo principal");
+  assert.equal(result.concomitante.length, 1, "Deve ter 1 concomitante");
+  assert.equal(result.concomitante[0].artigo, "122", "Artigo concomitante");
 });
 
 // Teste 7: Extração de artigos
-test('Deve extrair artigos de string', () => {
-  const input = 'Arts. 121, 122, 123 a 127';
+test("Deve extrair artigos de string", () => {
+  const input = "Arts. 121, 122, 123 a 127";
   const result = ArtigoFormatter.extrairArtigos(input);
-  assert.ok(result.includes('121'), 'Deve incluir 121');
-  assert.ok(result.includes('122'), 'Deve incluir 122');
-  assert.ok(result.includes('123'), 'Deve incluir 123');
+  assert.ok(result.includes("121"), "Deve incluir 121");
+  assert.ok(result.includes("122"), "Deve incluir 122");
+  assert.ok(result.includes("123"), "Deve incluir 123");
 });
 
 // Teste 8: Normalização
-test('Deve normalizar texto', () => {
-  const input = 'Artigo 121, §1º';
+test("Deve normalizar texto", () => {
+  const input = "Artigo 121, §1º";
   const result = ArtigoFormatter.normalizar(input);
-  assert.equal(result, 'artigo 121, §1º', 'Deve estar em minúsculas');
+  assert.equal(result, "artigo 121, §1º", "Deve estar em minúsculas");
 });
 
 // Teste 9: Formatação completa
-test('Deve formatar artigo completo', () => {
+test("Deve formatar artigo completo", () => {
   const artigo = {
-    artigo: '121',
-    paragrafo: '2',
-    inciso: 'I',
-    alinea: 'a',
-    concomitante: []
+    artigo: "121",
+    paragrafo: "2",
+    inciso: "I",
+    alinea: "a",
+    concomitante: [],
   };
   const result = ArtigoFormatter.formatarCompleto(artigo);
-  assert.equal(result, '121, §2º, I, "a"', 'Formatação completa');
+  assert.equal(result, '121, §2º, I, "a"', "Formatação completa");
 });
 
 // Teste 10: Entrada inválida
-test('Deve lidar com entrada inválida', () => {
+test("Deve lidar com entrada inválida", () => {
   const result1 = ArtigoFormatter.formatar(null);
-  const result2 = ArtigoFormatter.formatar('');
+  const result2 = ArtigoFormatter.formatar("");
   const result3 = ArtigoFormatter.processar(undefined);
 
-  assert.ok(result1 === null || result1 === '', 'Null deve retornar vazio');
-  assert.ok(result2 === '', 'String vazia deve retornar vazia');
-  assert.ok(result3.artigo === '', 'Undefined deve retornar objeto vazio');
+  assert.ok(result1 === null || result1 === "", "Null deve retornar vazio");
+  assert.ok(result2 === "", "String vazia deve retornar vazia");
+  assert.ok(result3.artigo === "", "Undefined deve retornar objeto vazio");
 });
 
 // Resumo
-console.log('\n' + '='.repeat(50));
+console.log("\n" + "=".repeat(50));
 console.log(`📊 Resultados: ${passed} passou, ${failed} falhou`);
-console.log('='.repeat(50) + '\n');
+console.log("=".repeat(50) + "\n");
 
 process.exit(failed > 0 ? 1 : 0);

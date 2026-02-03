@@ -41,7 +41,7 @@
       });
 
       console.log(
-        `\n📊 Resultados: ${this.results.passed}/${this.results.total} testes passaram`
+        `\n📊 Resultados: ${this.results.passed}/${this.results.total} testes passaram`,
       );
 
       if (this.results.failed > 0) {
@@ -61,7 +61,7 @@
       TestRunner.assertEqual(
         result,
         "121, §1º",
-        "Deve adicionar º ao parágrafo"
+        "Deve adicionar º ao parágrafo",
       );
     }
   });
@@ -72,7 +72,7 @@
       TestRunner.assertEqual(
         result,
         "121 c/c 312",
-        "Deve formatar cc para c/c"
+        "Deve formatar cc para c/c",
       );
     }
   });
@@ -83,7 +83,7 @@
       TestRunner.assertEqual(
         result,
         '121, "a"',
-        "Deve adicionar aspas à alínea"
+        "Deve adicionar aspas à alínea",
       );
     }
   });
@@ -95,7 +95,7 @@
       TestRunner.assertEqual(
         result.artigo,
         "121",
-        "Deve extrair artigo corretamente"
+        "Deve extrair artigo corretamente",
       );
       TestRunner.assertEqual(result.paragrafo, "", "Não deve ter parágrafo");
     }
@@ -132,11 +132,11 @@
     if (typeof tabelaInelegibilidade !== "undefined") {
       TestRunner.assert(
         Array.isArray(tabelaInelegibilidade),
-        "Tabela deve ser array"
+        "Tabela deve ser array",
       );
       TestRunner.assert(
         tabelaInelegibilidade.length > 0,
-        "Tabela não deve estar vazia"
+        "Tabela não deve estar vazia",
       );
 
       const item = tabelaInelegibilidade[0];
@@ -151,7 +151,7 @@
       TestRunner.assert(Array.isArray(leisDisponiveis), "Leis deve ser array");
       TestRunner.assert(
         leisDisponiveis.length > 0,
-        "Leis não deve estar vazio"
+        "Leis não deve estar vazio",
       );
 
       const lei = leisDisponiveis[0];

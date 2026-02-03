@@ -3,6 +3,7 @@ docStatus: active
 docScope: setup-guide
 lastReviewed: 02/02/2026
 ---
+
 # 🗄️ Setup Supabase
 
 > Configuração do banco de dados Supabase para o Inelegis.
@@ -70,6 +71,7 @@ node scripts/test-supabase.js
 ```
 
 Resultado esperado:
+
 ```
 ✅ CONEXÃO SUPABASE OK!
 📊 Normas encontradas: X
@@ -84,32 +86,32 @@ Resultado esperado:
 
 ### Tabelas Principais
 
-| Tabela | Descrição |
-|--------|-----------|
-| `normas` | Leis e códigos (CP, CPM, LE, etc) |
-| `artigos_inelegiveis` | Artigos que geram inelegibilidade |
-| `artigos_excecoes` | Exceções que removem inelegibilidade |
-| `historico_consultas` | Histórico de consultas dos usuários |
-| `analytics_events` | Eventos de analytics |
+| Tabela                | Descrição                            |
+| --------------------- | ------------------------------------ |
+| `normas`              | Leis e códigos (CP, CPM, LE, etc)    |
+| `artigos_inelegiveis` | Artigos que geram inelegibilidade    |
+| `artigos_excecoes`    | Exceções que removem inelegibilidade |
+| `historico_consultas` | Histórico de consultas dos usuários  |
+| `analytics_events`    | Eventos de analytics                 |
 
 ### Views (para Dashboard)
 
-| View | Descrição |
-|------|-----------|
-| `analytics_stats` | Estatísticas gerais |
-| `analytics_top_artigos` | Artigos mais consultados |
+| View                            | Descrição                  |
+| ------------------------------- | -------------------------- |
+| `analytics_stats`               | Estatísticas gerais        |
+| `analytics_top_artigos`         | Artigos mais consultados   |
 | `analytics_result_distribution` | Distribuição de resultados |
-| `analytics_timeline` | Timeline de consultas |
+| `analytics_timeline`            | Timeline de consultas      |
 
 ### Funções RPC
 
-| Função | Descrição |
-|--------|-----------|
+| Função                      | Descrição                               |
+| --------------------------- | --------------------------------------- |
 | `verificar_elegibilidade()` | Verifica se artigo gera inelegibilidade |
-| `get_user_history()` | Obtém histórico do usuário |
-| `add_to_history()` | Adiciona consulta ao histórico |
-| `get_user_stats()` | Estatísticas do usuário |
-| `get_dashboard_stats()` | Estatísticas para dashboard |
+| `get_user_history()`        | Obtém histórico do usuário              |
+| `add_to_history()`          | Adiciona consulta ao histórico          |
+| `get_user_stats()`          | Estatísticas do usuário                 |
+| `get_dashboard_stats()`     | Estatísticas para dashboard             |
 
 ---
 
@@ -127,11 +129,11 @@ O Supabase usa Row Level Security (RLS) para proteger os dados:
 
 No Vercel Dashboard → Seu Projeto → **Settings** → **Environment Variables**:
 
-| Variável | Ambiente |
-|----------|----------|
-| `NEXT_PUBLIC_SUPABASE_URL` | Production, Preview |
+| Variável                        | Ambiente            |
+| ------------------------------- | ------------------- |
+| `NEXT_PUBLIC_SUPABASE_URL`      | Production, Preview |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Production, Preview |
-| `SUPABASE_SERVICE_ROLE_KEY` | Production, Preview |
+| `SUPABASE_SERVICE_ROLE_KEY`     | Production, Preview |
 
 ---
 

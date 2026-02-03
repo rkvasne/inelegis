@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /**
  * Gerenciador de Modal
@@ -11,19 +11,19 @@ const ModalManager = {
     isOpen: false,
     lastFocusedElement: null,
     trapHandler: null,
-    currentContent: ''
+    currentContent: "",
   },
 
   /**
    * Abre o modal com conteúdo
    */
   open(tipoResultado, status, conteudo) {
-    const modal = document.getElementById('modalResultado');
-    const modalContent = modal.querySelector('.modal-content');
-    const modalBody = document.getElementById('modalBody');
+    const modal = document.getElementById("modalResultado");
+    const modalContent = modal.querySelector(".modal-content");
+    const modalBody = document.getElementById("modalBody");
 
     if (!modal || !modalContent || !modalBody) {
-      console.error('Elementos do modal não encontrados');
+      console.error("Elementos do modal não encontrados");
       return;
     }
 
@@ -42,15 +42,15 @@ const ModalManager = {
     }
 
     // Mostrar modal com animação
-    modal.classList.remove('hidden');
+    modal.classList.remove("hidden");
     requestAnimationFrame(() => {
-      modal.classList.add('show');
-      modalContent.style.opacity = '1';
-      modalContent.style.transform = 'translateY(0) scale(1)';
+      modal.classList.add("show");
+      modalContent.style.opacity = "1";
+      modalContent.style.transform = "translateY(0) scale(1)";
     });
 
     // Prevenir scroll do body
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden";
 
     // Configurar foco e trap
     this._setupFocusTrap(modalContent);
@@ -60,20 +60,20 @@ const ModalManager = {
    * Fecha o modal
    */
   close() {
-    const modal = document.getElementById('modalResultado');
-    const modalContent = modal.querySelector('.modal-content');
+    const modal = document.getElementById("modalResultado");
+    const modalContent = modal.querySelector(".modal-content");
 
     if (!modal || !modalContent) return;
 
     // Animar saída
-    modalContent.style.opacity = '0';
-    modalContent.style.transform = 'scale(0.95)';
+    modalContent.style.opacity = "0";
+    modalContent.style.transform = "scale(0.95)";
 
     // Aguardar animação
     setTimeout(() => {
-      modal.classList.add('hidden');
-      modal.classList.remove('show');
-      document.body.style.overflow = 'auto';
+      modal.classList.add("hidden");
+      modal.classList.remove("show");
+      document.body.style.overflow = "auto";
 
       // Limpar estado
       this._state.isOpen = false;
@@ -99,13 +99,13 @@ const ModalManager = {
    * Exporta conteúdo do modal
    */
   exportContent() {
-    const modalBody = document.getElementById('modalBody');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalSubtitle = document.getElementById('modalSubtitle');
+    const modalBody = document.getElementById("modalBody");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalSubtitle = document.getElementById("modalSubtitle");
 
     if (!modalBody) return null;
 
-    let textoExportar = '';
+    let textoExportar = "";
 
     // Adicionar título
     if (modalTitle) {
@@ -114,43 +114,43 @@ const ModalManager = {
     if (modalSubtitle) {
       textoExportar += `${modalSubtitle.textContent}\n`;
     }
-    textoExportar += '='.repeat(50) + '\n\n';
+    textoExportar += "=".repeat(50) + "\n\n";
 
     // Extrair texto do corpo
-    const statusCard = modalBody.querySelector('.modal-status-card');
+    const statusCard = modalBody.querySelector(".modal-status-card");
     if (statusCard) {
-      const statusLabel = statusCard.querySelector('.status-label');
-      const statusValue = statusCard.querySelector('.status-value');
+      const statusLabel = statusCard.querySelector(".status-label");
+      const statusValue = statusCard.querySelector(".status-value");
       if (statusLabel && statusValue) {
         textoExportar += `${statusLabel.textContent}: ${statusValue.textContent}\n\n`;
       }
     }
 
     // Extrair informações do grid
-    const infoItems = modalBody.querySelectorAll('.info-item');
-    infoItems.forEach(item => {
-      const label = item.querySelector('.info-label');
-      const value = item.querySelector('.info-value');
+    const infoItems = modalBody.querySelectorAll(".info-item");
+    infoItems.forEach((item) => {
+      const label = item.querySelector(".info-label");
+      const value = item.querySelector(".info-value");
       if (label && value) {
         textoExportar += `${label.textContent}: ${value.textContent}\n`;
       }
     });
-    textoExportar += '\n';
+    textoExportar += "\n";
 
     // Extrair ASE info
-    const aseInfo = modalBody.querySelector('.modal-ase-info');
+    const aseInfo = modalBody.querySelector(".modal-ase-info");
     if (aseInfo) {
       textoExportar += `${aseInfo.textContent.trim()}\n\n`;
     }
 
     // Extrair seções
-    const sections = modalBody.querySelectorAll('.modal-section');
-    sections.forEach(section => {
-      const header = section.querySelector('.section-header');
-      const content = section.querySelector('.section-content');
+    const sections = modalBody.querySelectorAll(".modal-section");
+    sections.forEach((section) => {
+      const header = section.querySelector(".section-header");
+      const content = section.querySelector(".section-content");
       if (header) {
         textoExportar += `${header.textContent.trim()}\n`;
-        textoExportar += '-'.repeat(30) + '\n';
+        textoExportar += "-".repeat(30) + "\n";
       }
       if (content) {
         textoExportar += `${content.textContent.trim()}\n\n`;
@@ -158,10 +158,11 @@ const ModalManager = {
     });
 
     // Adicionar rodapé
-    textoExportar += '='.repeat(50) + '\n';
-    textoExportar += 'Inelegis - Sistema de Consulta de Inelegibilidade Eleitoral\n';
-    textoExportar += 'Base de dados: TRE-SP (Out/2024) - CRE-RO (02/06/2025)\n';
-    textoExportar += `Exportado em: ${new Date().toLocaleString('pt-BR')}\n`;
+    textoExportar += "=".repeat(50) + "\n";
+    textoExportar +=
+      "Inelegis - Sistema de Consulta de Inelegibilidade Eleitoral\n";
+    textoExportar += "Base de dados: TRE-SP (Out/2024) - CRE-RO (02/06/2025)\n";
+    textoExportar += `Exportado em: ${new Date().toLocaleString("pt-BR")}\n`;
 
     return textoExportar;
   },
@@ -174,18 +175,19 @@ const ModalManager = {
     this._state.lastFocusedElement = document.activeElement;
 
     // Focar no modal
-    modalContent.setAttribute('tabindex', '-1');
+    modalContent.setAttribute("tabindex", "-1");
     modalContent.focus();
 
     // Criar handler de trap
-    const focusableSelectors = 'a, button, input, select, textarea, [tabindex]:not([tabindex="-1"])';
-    
+    const focusableSelectors =
+      'a, button, input, select, textarea, [tabindex]:not([tabindex="-1"])';
+
     this._state.trapHandler = (e) => {
-      if (e.key !== 'Tab') return;
+      if (e.key !== "Tab") return;
 
       const focusableElements = Array.from(
-        modalContent.querySelectorAll(focusableSelectors)
-      ).filter(el => !el.hasAttribute('disabled'));
+        modalContent.querySelectorAll(focusableSelectors),
+      ).filter((el) => !el.hasAttribute("disabled"));
 
       if (focusableElements.length === 0) return;
 
@@ -205,7 +207,7 @@ const ModalManager = {
       }
     };
 
-    modalContent.addEventListener('keydown', this._state.trapHandler);
+    modalContent.addEventListener("keydown", this._state.trapHandler);
   },
 
   /**
@@ -213,26 +215,28 @@ const ModalManager = {
    */
   _cleanupFocusTrap(modalContent) {
     if (this._state.trapHandler && modalContent) {
-      modalContent.removeEventListener('keydown', this._state.trapHandler);
+      modalContent.removeEventListener("keydown", this._state.trapHandler);
       this._state.trapHandler = null;
     }
 
     // Restaurar foco
-    if (this._state.lastFocusedElement && 
-        typeof this._state.lastFocusedElement.focus === 'function') {
+    if (
+      this._state.lastFocusedElement &&
+      typeof this._state.lastFocusedElement.focus === "function"
+    ) {
       this._state.lastFocusedElement.focus();
     }
     this._state.lastFocusedElement = null;
-  }
+  },
 };
 
 // Exportar para uso global
-if (typeof window !== 'undefined') {
+if (typeof window !== "undefined") {
   window.ModalManager = ModalManager;
 
   // Fechar modal com ESC
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && ModalManager.isOpen()) {
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && ModalManager.isOpen()) {
       ModalManager.close();
     }
   });

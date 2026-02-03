@@ -1,18 +1,18 @@
 ﻿# 📊 Project Status & Context
 
-> **Last Updated:** 2026-02-02
-> **Current Phase:** Stabilization / Production-Ready
+> **Last Updated:** 2026-02-03
+> **Current Phase:** Compliance / Maintenance
 > **Status:** Stable
 
 ## 🎯 Objetivos Concluídos (Sessão Atual)
 
+- [x] **Governança Hub:** Atualização de `AGENTS.md` e `GEMINI.md` para v0.4.7 (SSoT).
+- [x] **Git Hooks:** Instalação e configuração de Husky + Lint-staged.
+- [x] **Scripts de Manutenção:** Padronização de scripts npm conforme regras do Hub.
 - [x] **Migração Supabase:** Transição completa para arquitetura sem arquivos locais de dados.
 - [x] **Seguridade de Dados:** Implementação de `InputValidator` e guardas de inicialização no cliente.
-- [x] **Correção de Segurança (CSP):** Liberada conexão com Supabase no `vercel.json` (resolvido erro de bloqueio de conexão).
+- [x] **Correção de Segurança (CSP):** Liberada conexão com Supabase no `vercel.json`.
 - [x] **Resiliência PWA:** Atualizado Service Worker com caminhos corretos e nova versão de cache.
-- [x] **Correção de Build:** Automação da geração de configuração para Vercel/CI/CD.
-- [x] **Zeladoria Técnica:** Remoção de 4 arquivos de código morto e 1 base de dados legada.
-- [x] **Correção de Compatibilidade:** Resolução de `SyntaxError: export` em scripts carregados via HTML.
 
 ## 🏗️ Arquitetura Atual
 
@@ -23,17 +23,19 @@
 
 ## 🔄 Tarefas em Aberto (Próximos Passos)
 
-1. Monitorar logs do Vercel após o push para confirmar estabilidade 100%.
+1. Monitorar logs de execução dos novos hooks em commits futuros.
 2. Investigar reativação de testes de layout via Puppeteer (configuração de Chrome em CI).
 3. Revisar permissões de RPC no Supabase para auditoria automatizada.
 
 ## ⚠️ Riscos e Bloqueios
 
 - **Credenciais CI:** Dependência das Secret Keys (`NEXT_PUBLIC_SUPABASE_*`) estarem corretas no Vercel.
-- **Cache de Browser:** Mudanças agressivas em JS podem exigir invalidar cache de usuários antigos (implementado via `v=0.3.1`).
+- **Cache de Browser:** Mudanças agressivas em JS podem exigir invalidar cache de usuários antigos.
 
 ---
 
 **Log de Governança/Sessão:**
+
 - 01/02/2026: Início da integração com Solo Dev Hub.
 - 02/02/2026: Consolidação Supabase-only, sanitização de dados e correção de infraestrutura de build.
+- 03/02/2026: Conformidade total com Solo Dev Hub v0.4.7, configuração de Husky/Lint-Staged e atualização de AGENTS/GEMINI.md.

@@ -17,11 +17,13 @@ Nós, como membros, contribuidores e mantenedores, nos comprometemos a tornar a 
 ## Padrões
 
 Exemplos de comportamento que contribuem para um ambiente positivo:
+
 - Tratar todos com respeito
 - Dar e receber feedback de forma construtiva
 - Manter o foco no conteúdo técnico e no objetivo da conversa
 
 Exemplos de comportamento inaceitável:
+
 - Assédio, discriminação ou ataques pessoais
 - Publicação de informações privadas de terceiros
 - Condutas deliberadamente hostis em espaços do projeto

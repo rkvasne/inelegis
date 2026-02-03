@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /**
  * Módulo de formatação de artigos
@@ -10,11 +10,11 @@ const ArtigoFormatter = {
    * Normaliza texto removendo acentos e caracteres especiais
    */
   normalizar(texto) {
-    if (!texto || typeof texto !== 'string') return '';
+    if (!texto || typeof texto !== "string") return "";
     try {
       return texto
-        .normalize('NFD')
-        .replace(/\p{Diacritic}/gu, '')
+        .normalize("NFD")
+        .replace(/\p{Diacritic}/gu, "")
         .toLowerCase()
         .trim();
     } catch {
@@ -27,25 +27,25 @@ const ArtigoFormatter = {
    * Versão consolidada e otimizada
    */
   formatar(valor) {
-    if (!valor || typeof valor !== 'string') return valor;
+    if (!valor || typeof valor !== "string") return valor;
 
     let formatado = valor.trim();
 
     // 1. Normalizar espaços
-    formatado = formatado.replace(/\s+/g, ' ');
+    formatado = formatado.replace(/\s+/g, " ");
 
     // 2. Formatar parágrafo: §1 -> §1º
     formatado = formatado.replace(
       /(?:§|\u00A7|\uFFFD)\s*(\d+)(?!\s*(?:º|\u00BA|\uFFFD))/g,
-      '§$1º'
+      "§$1º",
     );
-    formatado = formatado.replace(/\bpar[aá]grafo\s*(\d+)/gi, '§$1º');
+    formatado = formatado.replace(/\bpar[aá]grafo\s*(\d+)/gi, "§$1º");
 
     // 3. Normalizar c/c
-    formatado = formatado.replace(/(?<!\/)(cc|CC|C\/c|c\/C)(?!\/)/g, 'c/c');
+    formatado = formatado.replace(/(?<!\/)(cc|CC|C\/c|c\/C)(?!\/)/g, "c/c");
 
     // 4. Normalizar vírgulas
-    formatado = formatado.replace(/\s*,\s*/g, ', ');
+    formatado = formatado.replace(/\s*,\s*/g, ", ");
 
     // 5. Formatar alíneas: a -> "a"
     formatado = formatado.replace(
@@ -53,7 +53,7 @@ const ArtigoFormatter = {
       (match, letra) => {
         if (/["']/.test(letra)) return match;
         return `"${letra.toLowerCase()}"`;
-      }
+      },
     );
 
     return formatado;
@@ -63,16 +63,16 @@ const ArtigoFormatter = {
    * Processa artigo completo em componentes estruturados
    */
   processar(artigo) {
-    const artigoLimpo = String(artigo || '').trim();
+    const artigoLimpo = String(artigo || "").trim();
 
     const resultado = {
       original: artigoLimpo,
-      artigo: '',
-      paragrafo: '',
-      inciso: '',
-      alinea: '',
+      artigo: "",
+      paragrafo: "",
+      inciso: "",
+      alinea: "",
       concomitante: [],
-      formatado: ''
+      formatado: "",
     };
 
     // Verificar artigos concomitantes (c/c)
@@ -85,7 +85,9 @@ const ArtigoFormatter = {
 
       // Processar artigos concomitantes
       for (let i = 1; i < partesConcomitantes.length; i++) {
-        resultado.concomitante.push(this.processarParte(partesConcomitantes[i]));
+        resultado.concomitante.push(
+          this.processarParte(partesConcomitantes[i]),
+        );
       }
     } else {
       // Processar artigo simples
@@ -102,17 +104,17 @@ const ArtigoFormatter = {
    */
   processarParte(parte) {
     const resultado = {
-      artigo: '',
-      paragrafo: '',
-      inciso: '',
-      alinea: ''
+      artigo: "",
+      paragrafo: "",
+      inciso: "",
+      alinea: "",
     };
 
-    if (!parte || typeof parte !== 'string') {
+    if (!parte || typeof parte !== "string") {
       return resultado;
     }
 
-    let texto = parte.trim().replace(/\s+/g, ' ');
+    let texto = parte.trim().replace(/\s+/g, " ");
     if (!texto) return resultado;
 
     // Extrair artigo (número inicial)
@@ -126,14 +128,14 @@ const ArtigoFormatter = {
     const matchParagrafo = texto.match(/[,\s]*§\s*(\d+)[º°]?/i);
     if (matchParagrafo) {
       resultado.paragrafo = matchParagrafo[1];
-      texto = texto.replace(matchParagrafo[0], '').trim();
+      texto = texto.replace(matchParagrafo[0], "").trim();
     }
 
     // Extrair inciso
     const matchInciso = texto.match(/[,\s]*(I{1,3}|IV|V|VI{0,3}|IX|X{1,3})/i);
     if (matchInciso) {
       resultado.inciso = matchInciso[1].toUpperCase();
-      texto = texto.replace(matchInciso[0], '').trim();
+      texto = texto.replace(matchInciso[0], "").trim();
     }
 
     // Extrair alínea
@@ -166,8 +168,8 @@ const ArtigoFormatter = {
     // Adicionar artigos concomitantes
     if (artigo.concomitante && artigo.concomitante.length > 0) {
       const concomitantes = artigo.concomitante
-        .map(c => this.formatarParte(c))
-        .join(' c/c ');
+        .map((c) => this.formatarParte(c))
+        .join(" c/c ");
       formatado += ` c/c ${concomitantes}`;
     }
 
@@ -205,11 +207,13 @@ const ArtigoFormatter = {
     const artigos = [];
 
     // Padrão para encontrar "Art. NNN" ou "Arts. NNN, NNN, ..."
-    const matchArts = norma.match(/art\.?s?\.?\s+([\d\-\s,;"'a-z§º°àáäâãèéëêìíïîòóöôùúüûçñ.e-]+)/gi);
+    const matchArts = norma.match(
+      /art\.?s?\.?\s+([\d\-\s,;"'a-z§º°àáäâãèéëêìíïîòóöôùúüûçñ.e-]+)/gi,
+    );
 
     if (matchArts) {
       for (const match of matchArts) {
-        const semaRtigo = match.replace(/^art\.?s?\.?\s+/i, '');
+        const semaRtigo = match.replace(/^art\.?s?\.?\s+/i, "");
         const numeroMatches = semaRtigo.match(/\b(\d+)(?:-[a-z])?\b/gi);
 
         if (numeroMatches) {
@@ -221,10 +225,10 @@ const ArtigoFormatter = {
     }
 
     return [...new Set(artigos)]; // Remove duplicatas
-  }
+  },
 };
 
 // Exportar para uso global
-if (typeof window !== 'undefined') {
+if (typeof window !== "undefined") {
   window.ArtigoFormatter = ArtigoFormatter;
 }

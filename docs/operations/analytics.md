@@ -3,6 +3,7 @@ docStatus: reference
 docScope: operations
 lastReviewed: 02/02/2026
 ---
+
 # 📊 Sistema de Analytics
 
 ---
@@ -15,6 +16,7 @@ lastReviewed: 02/02/2026
 ## 🎯 Objetivo
 
 Coleta dados anônimos de uso para:
+
 - Validar resultados de buscas
 - Identificar artigos mais consultados
 - Detectar erros
@@ -27,12 +29,14 @@ Coleta dados anônimos de uso para:
 Para detalhes consolidados (cookies, armazenamento local, retenção e controles), veja a [Política de Privacidade](../../PRIVACY.md).
 
 ### Dados Coletados (Anônimos)
+
 - Lei e artigo consultados
 - Resultado (inelegível/elegível)
 - Tempo de resposta
 - Navegador e idioma
 
 ### Dados NÃO Coletados
+
 - Nome, email, IP
 - Localização precisa
 - Dados pessoais
@@ -64,16 +68,18 @@ Recebe eventos do frontend e os persiste na tabela `analytics_events`.
 
 ```json
 {
-  "events": [{
-    "type": "search",
-    "userId": "user_123",
-    "timestamp": "2025-12-02T10:00:00Z",
-    "data": {
-      "lei": "CP",
-      "artigo": "155",
-      "resultado": "inelegivel"
+  "events": [
+    {
+      "type": "search",
+      "userId": "user_123",
+      "timestamp": "2025-12-02T10:00:00Z",
+      "data": {
+        "lei": "CP",
+        "artigo": "155",
+        "resultado": "inelegivel"
+      }
     }
-  }]
+  ]
 }
 ```
 
@@ -104,20 +110,20 @@ Analytics.init();
 
 // Rastrear busca
 Analytics.trackSearch({
-  lei: 'CP',
-  artigo: '155',
-  resultado: 'inelegivel'
+  lei: "CP",
+  artigo: "155",
+  resultado: "inelegivel",
 });
 
 // Rastrear erro
-Analytics.trackError({ message: 'Erro', stack: '...' });
+Analytics.trackError({ message: "Erro", stack: "..." });
 ```
 
 ### Histórico de Buscas (`services/search-history.js`)
 
 ```javascript
 // Adicionar (Sincroniza com Supabase via RPC add_to_history)
-SearchHistory.add({ lei: 'CP', artigo: '155', resultado: 'inelegivel' });
+SearchHistory.add({ lei: "CP", artigo: "155", resultado: "inelegivel" });
 
 // Obter (Cache Local + Sync Supabase)
 SearchHistory.getAll();
