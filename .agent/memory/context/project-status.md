@@ -8,6 +8,8 @@
 
 - [x] **Migração Supabase:** Transição completa para arquitetura sem arquivos locais de dados.
 - [x] **Seguridade de Dados:** Implementação de `InputValidator` e guardas de inicialização no cliente.
+- [x] **Correção de Segurança (CSP):** Liberada conexão com Supabase no `vercel.json` (resolvido erro de bloqueio de conexão).
+- [x] **Resiliência PWA:** Atualizado Service Worker com caminhos corretos e nova versão de cache.
 - [x] **Correção de Build:** Automação da geração de configuração para Vercel/CI/CD.
 - [x] **Zeladoria Técnica:** Remoção de 4 arquivos de código morto e 1 base de dados legada.
 - [x] **Correção de Compatibilidade:** Resolução de `SyntaxError: export` em scripts carregados via HTML.
