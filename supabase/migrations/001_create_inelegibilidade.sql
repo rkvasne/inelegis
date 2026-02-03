@@ -2,6 +2,7 @@
 DROP TABLE IF EXISTS artigos_excecoes CASCADE;
 DROP TABLE IF EXISTS artigos_inelegiveis CASCADE;
 DROP TABLE IF EXISTS normas CASCADE;
+DROP FUNCTION IF EXISTS public.verificar_elegibilidade(character varying, character varying, character varying, character varying, character varying);
 DROP FUNCTION IF EXISTS public.verificar_elegibilidade(text, text, text, text, text);
 
 -- Tabelas base
