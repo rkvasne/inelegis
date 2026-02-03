@@ -191,24 +191,29 @@ export class ValidatorUI {
     async validateSelection(artigoNum) {
         // Coletar complementos
         const paragrafo = document.getElementById('paragrafoInput')?.value || null;
-        // Nota: A RPC atual suporta apenas 'paragrafo', mas vamos preparar a coleta
-        // const inciso = document.getElementById('incisoInput')?.value || null;
-        // const alinea = document.getElementById('alineaInput')?.value || null;
+        const inciso = document.getElementById('incisoInput')?.value || null;
+        const alinea = document.getElementById('alineaInput')?.value || null;
 
         // Mostrar loading no resultado
         if (this.resultContainer) {
+            const filters = [];
+            if (paragrafo) filters.push(`Parágrafo ${paragrafo}`);
+            if (inciso) filters.push(`Inciso ${inciso}`);
+            if (alinea) filters.push(`Alínea ${alinea}`);
+            const filterText = filters.length > 0 ? `Filtrando por: ${filters.join(', ')}` : '';
+
             this.resultContainer.innerHTML = `
                 <div class="p-6 text-center text-neutral-500">
                     <div class="animate-spin inline-block w-8 h-8 border-4 border-primary-200 border-t-primary-600 rounded-full mb-2"></div>
                     <p>Verificando elegibilidade...</p>
-                    ${paragrafo ? `<p class="text-xs text-neutral-400 mt-1">Filtrando por Parágrafo ${paragrafo}</p>` : ''}
+                    ${filterText ? `<p class="text-xs text-neutral-400 mt-1">${filterText}</p>` : ''}
                 </div>
             `;
             this.resultContainer.classList.remove('hidden');
         }
 
-        // Buscar resultado (agora via Supabase RPC incluindo parágrafo)
-        const result = await validatorService.verifyEligibility(this.selectedLaw, artigoNum, paragrafo);
+        // Buscar resultado (agora via Supabase RPC incluindo todos os complementos)
+        const result = await validatorService.verifyEligibility(this.selectedLaw, artigoNum, paragrafo, inciso, alinea);
 
         this.renderResult(result, artigoNum);
     }
