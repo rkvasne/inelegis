@@ -152,6 +152,12 @@ export class ValidatorUI {
         // Buscar artigos (agora é async)
         const articles = await validatorService.getArticlesByLaw(lawCode);
 
+        if (articles.length === 0) {
+            this.artigoSelect.innerHTML = '<option value="" disabled selected>Lei sem artigos restritivos mapeados</option>';
+            this.artigoSelect.disabled = true;
+            return;
+        }
+
         this.artigoSelect.innerHTML = '<option value="" selected>Selecione o artigo...</option>';
 
         articles.forEach(art => {
