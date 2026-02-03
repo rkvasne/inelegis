@@ -1,4 +1,4 @@
--- 006_create_historico_consultas.sql
+-- 002_create_historico_consultas.sql
 DROP TABLE IF EXISTS historico_consultas CASCADE;
 DROP FUNCTION IF EXISTS get_user_history(varchar, integer);
 DROP FUNCTION IF EXISTS add_to_history(varchar, varchar, varchar, varchar, text, text);

@@ -31,17 +31,7 @@ CREATE INDEX IF NOT EXISTS idx_crimes_artigo ON crimes_inelegibilidade(artigo);
 -- Baseado na Tabela Oficial da Corregedoria Regional Eleitoral de São Paulo
 -- LC 64/90, atualizada pela LC 135/2010
 
--- Criação da tabela
-    lei VARCHAR(100) NOT NULL,
-    artigo VARCHAR(50) NOT NULL,
-    paragrafo VARCHAR(50),
-    inciso VARCHAR(50),
-    alinea VARCHAR(50),
-    combinacao VARCHAR(100),
-    eh_excecao BOOLEAN DEFAULT FALSE,
-    tipo_crime VARCHAR(200),
-    item_alinea_e VARCHAR(50),
-    observacoes TEXT,
+
 
 -- CÓDIGO PENAL (Decreto-Lei 2.848/40)
 

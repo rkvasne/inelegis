@@ -1,4 +1,4 @@
--- 007_create_analytics.sql
+-- 003_create_analytics.sql
 DROP VIEW IF EXISTS analytics_stats CASCADE;
 DROP VIEW IF EXISTS analytics_top_artigos CASCADE;
 DROP VIEW IF EXISTS analytics_result_distribution CASCADE;
