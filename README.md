@@ -7,7 +7,7 @@
 **Sistema de Consulta de Inelegibilidade Eleitoral.**  
 _Uma ferramenta moderna, rápida e precisa para análise jurídica eleitoral._
 
-[![Version](https://img.shields.io/badge/version-0.3.1-blue.svg?style=for-the-badge)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-0.3.3-blue.svg?style=for-the-badge)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-orange.svg?style=for-the-badge)](LICENSE.md)
 [![Status](https://img.shields.io/badge/status-active-success.svg?style=for-the-badge)](CHANGELOG.md)
 
@@ -30,7 +30,7 @@ O **Inelegis** é uma aplicação web para consulta de inelegibilidade eleitoral
 O projeto utiliza **Supabase** como única fonte de verdade (Single Source of Truth), eliminando dependências de arquivos locais ou cache temporário.
 
 1.  **Backend (Supabase):**
-    - **Tabelas:** `normas`, `artigos_inelegiveis` (Base jurídica).
+    - **Tabelas:** `crimes_inelegibilidade` (Base jurídica unificada - Schema V2).
     - **Validação:** RPCs (`verificar_elegibilidade`) garantem lógica segura no lado do servidor.
     - **Analytics:** Eventos de uso armazenados diretamente em tabelas dedicadas.
 
