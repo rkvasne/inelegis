@@ -112,9 +112,11 @@ export class ValidatorService {
      * @param {string} lawCode Código da norma
      * @param {string} article Número do artigo
      * @param {string} [paragraph] Parágrafo (opcional)
+     * @param {string} [inciso] Inciso (opcional)
+     * @param {string} [alinea] Alínea (opcional)
      * @returns {Promise<object>} Resultado da verificação
      */
-    async verifyEligibility(lawCode, article, paragraph = null) {
+    async verifyEligibility(lawCode, article, paragraph = null, inciso = null, alinea = null) {
         if (!this.initialized) {
             return { resultado: 'ERRO', motivo: 'Serviço não inicializado' };
         }
@@ -134,7 +136,9 @@ export class ValidatorService {
             const result = await supabaseClient.rpc('verificar_elegibilidade', {
                 p_codigo_norma: sanitizedLaw,
                 p_artigo: sanitizedArticle,
-                p_paragrafo: paragraph ? InputValidator.validateText(paragraph, 50) : null
+                p_paragrafo: paragraph ? InputValidator.validateText(paragraph, 50) : null,
+                p_inciso: inciso ? InputValidator.validateText(inciso, 20) : null,
+                p_alinea: alinea ? InputValidator.validateText(alinea, 10) : null
             });
 
             if (result && result.length > 0) {
