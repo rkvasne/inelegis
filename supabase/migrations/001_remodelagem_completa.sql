@@ -39,16 +39,16 @@ CREATE INDEX IF NOT EXISTS idx_crimes_artigo ON crimes_inelegibilidade(artigo);
 -- Crimes contra a vida (9)
 INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, alinea, combinacao, eh_excecao, tipo_crime, item_alinea_e, observacoes) VALUES
 ('CP', 'Código Penal (DL 2.848/40)', '121', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a vida', '9', NULL),
-('CP', 'Código Penal (DL 2.848/40)', '121', '§ 3º', NULL, NULL, NULL, TRUE, 'Crimes contra a vida', '9', 'Exceção - Crime culposo'),
+('CP', 'Código Penal (DL 2.848/40)', '121', '3', NULL, NULL, NULL, TRUE, 'Crimes contra a vida', '9', 'Exceção - Crime culposo'),
 ('CP', 'Código Penal (DL 2.848/40)', '121-A', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a vida', '9', NULL),
 ('CP', 'Código Penal (DL 2.848/40)', '122', 'caput', NULL, NULL, NULL, TRUE, 'Crimes contra a vida', '9', 'Exceção - Crime de ação penal privada'),
-('CP', 'Código Penal (DL 2.848/40)', '122', '§ 1º', NULL, NULL, NULL, FALSE, 'Crimes contra a vida', '9', NULL),
-('CP', 'Código Penal (DL 2.848/40)', '122', '§ 2º', NULL, NULL, NULL, FALSE, 'Crimes contra a vida', '9', NULL),
-('CP', 'Código Penal (DL 2.848/40)', '122', '§ 3º', NULL, NULL, NULL, FALSE, 'Crimes contra a vida', '9', NULL),
-('CP', 'Código Penal (DL 2.848/40)', '122', '§ 4º', NULL, NULL, NULL, FALSE, 'Crimes contra a vida', '9', NULL),
-('CP', 'Código Penal (DL 2.848/40)', '122', '§ 5º', NULL, NULL, NULL, FALSE, 'Crimes contra a vida', '9', NULL),
-('CP', 'Código Penal (DL 2.848/40)', '122', '§ 6º', NULL, NULL, NULL, FALSE, 'Crimes contra a vida', '9', NULL),
-('CP', 'Código Penal (DL 2.848/40)', '122', '§ 7º', NULL, NULL, NULL, FALSE, 'Crimes contra a vida', '9', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '122', '1', NULL, NULL, NULL, FALSE, 'Crimes contra a vida', '9', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '122', '2', NULL, NULL, NULL, FALSE, 'Crimes contra a vida', '9', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '122', '3', NULL, NULL, NULL, FALSE, 'Crimes contra a vida', '9', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '122', '4', NULL, NULL, NULL, FALSE, 'Crimes contra a vida', '9', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '122', '5', NULL, NULL, NULL, FALSE, 'Crimes contra a vida', '9', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '122', '6', NULL, NULL, NULL, FALSE, 'Crimes contra a vida', '9', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '122', '7', NULL, NULL, NULL, FALSE, 'Crimes contra a vida', '9', NULL),
 ('CP', 'Código Penal (DL 2.848/40)', '123', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a vida', '9', NULL),
 ('CP', 'Código Penal (DL 2.848/40)', '124', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a vida', '9', NULL),
 ('CP', 'Código Penal (DL 2.848/40)', '125', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a vida', '9', NULL),
@@ -57,12 +57,12 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, alin
 
 -- Crime hediondo (7) - Lesão corporal
 INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, alinea, combinacao, eh_excecao, tipo_crime, item_alinea_e, observacoes) VALUES
-('CP', 'Código Penal (DL 2.848/40)', '129', '§ 2º', NULL, NULL, '§ 12', FALSE, 'Crime hediondo', '7', 'Crime definido como hediondo pela Lei 13.142/2015 e Lei 14.811/2024'),
-('CP', 'Código Penal (DL 2.848/40)', '129', '§ 3º', NULL, NULL, '§ 12', FALSE, 'Crime hediondo', '7', 'Crime definido como hediondo pela Lei 13.142/2015 e Lei 14.811/2024');
+('CP', 'Código Penal (DL 2.848/40)', '129', '2', NULL, NULL, '§ 12', FALSE, 'Crime hediondo', '7', 'Crime definido como hediondo pela Lei 13.142/2015 e Lei 14.811/2024'),
+('CP', 'Código Penal (DL 2.848/40)', '129', '3', NULL, NULL, '§ 12', FALSE, 'Crime hediondo', '7', 'Crime definido como hediondo pela Lei 13.142/2015 e Lei 14.811/2024');
 
 -- Crime de redução à condição análoga à de escravo e contra dignidade sexual (8 e 9)
 INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, alinea, combinacao, eh_excecao, tipo_crime, item_alinea_e, observacoes) VALUES
-('CP', 'Código Penal (DL 2.848/40)', '148', '§ 1º', 'IV', NULL, NULL, FALSE, 'Crime de redução à condição análoga à de escravo e contra dignidade sexual', '8 e 9', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '148', '1', 'IV', NULL, NULL, FALSE, 'Crime de redução à condição análoga à de escravo e contra dignidade sexual', '8 e 9', NULL),
 ('CP', 'Código Penal (DL 2.848/40)', '149', NULL, NULL, NULL, NULL, FALSE, 'Crime de redução à condição análoga à de escravo e contra dignidade sexual', '8 e 9', NULL);
 
 -- Crime hediondo (7) - Tráfico de pessoas
@@ -82,7 +82,7 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, alin
 ('CP', 'Código Penal (DL 2.848/40)', '160', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra o patrimônio', '1 e 2', 'Entendimento firmado pelo TSE no REsp Eleitoral nº 145-94.2016.6.24.0074/SC'),
 ('CP', 'Código Penal (DL 2.848/40)', '162', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra o patrimônio', '1 e 2', 'Entendimento firmado pelo TSE no REsp Eleitoral nº 145-94.2016.6.24.0074/SC'),
 ('CP', 'Código Penal (DL 2.848/40)', '163', 'caput', NULL, NULL, NULL, TRUE, 'Crimes contra o patrimônio', '1 e 2', 'Exceção - Crime de menor potencial ofensivo'),
-('CP', 'Código Penal (DL 2.848/40)', '163', 'parágrafo único', 'IV', NULL, NULL, TRUE, 'Crimes contra o patrimônio', '1 e 2', 'Exceção - Crime de menor potencial ofensivo'),
+('CP', 'Código Penal (DL 2.848/40)', '163', 'unico', 'IV', NULL, NULL, TRUE, 'Crimes contra o patrimônio', '1 e 2', 'Exceção - Crime de menor potencial ofensivo'),
 ('CP', 'Código Penal (DL 2.848/40)', '163', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra o patrimônio', '1 e 2', 'Entendimento firmado pelo TSE no REsp Eleitoral nº 145-94.2016.6.24.0074/SC'),
 ('CP', 'Código Penal (DL 2.848/40)', '168', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra o patrimônio', '1 e 2', 'Entendimento firmado pelo TSE no REsp Eleitoral nº 145-94.2016.6.24.0074/SC'),
 ('CP', 'Código Penal (DL 2.848/40)', '168-A', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra o patrimônio', '1 e 2', 'Entendimento firmado pelo TSE no REsp Eleitoral nº 145-94.2016.6.24.0074/SC'),
@@ -94,13 +94,13 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, alin
 ('CP', 'Código Penal (DL 2.848/40)', '175', NULL, 'I', NULL, NULL, TRUE, 'Crimes contra o patrimônio', '1 e 2', 'Exceção - Crime de menor potencial ofensivo'),
 ('CP', 'Código Penal (DL 2.848/40)', '175', NULL, 'II', NULL, NULL, TRUE, 'Crimes contra o patrimônio', '1 e 2', 'Exceção - Crime de menor potencial ofensivo'),
 ('CP', 'Código Penal (DL 2.848/40)', '175', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra o patrimônio', '1 e 2', 'Entendimento firmado pelo TSE no REsp Eleitoral nº 145-94.2016.6.24.0074/SC'),
-('CP', 'Código Penal (DL 2.848/40)', '177', '§ 2º', NULL, NULL, NULL, TRUE, 'Crimes contra o patrimônio', '1 e 2', 'Exceção - Crime de menor potencial ofensivo'),
+('CP', 'Código Penal (DL 2.848/40)', '177', '2', NULL, NULL, NULL, TRUE, 'Crimes contra o patrimônio', '1 e 2', 'Exceção - Crime de menor potencial ofensivo'),
 ('CP', 'Código Penal (DL 2.848/40)', '177', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra o patrimônio', '1 e 2', 'Entendimento firmado pelo TSE no REsp Eleitoral nº 145-94.2016.6.24.0074/SC'),
 ('CP', 'Código Penal (DL 2.848/40)', '178', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra o patrimônio', '1 e 2', 'Entendimento firmado pelo TSE no REsp Eleitoral nº 145-94.2016.6.24.0074/SC'),
-('CP', 'Código Penal (DL 2.848/40)', '180', '§ 3º', NULL, NULL, NULL, TRUE, 'Crimes contra o patrimônio', '1 e 2', 'Exceção - Crime de menor potencial ofensivo'),
+('CP', 'Código Penal (DL 2.848/40)', '180', '3', NULL, NULL, NULL, TRUE, 'Crimes contra o patrimônio', '1 e 2', 'Exceção - Crime de menor potencial ofensivo'),
 ('CP', 'Código Penal (DL 2.848/40)', '180', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra o patrimônio', '1 e 2', 'Entendimento firmado pelo TSE no REsp Eleitoral nº 145-94.2016.6.24.0074/SC'),
 ('CP', 'Código Penal (DL 2.848/40)', '180-A', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra o patrimônio', '1 e 2', 'Entendimento firmado pelo TSE no REsp Eleitoral nº 145-94.2016.6.24.0074/SC'),
-('CP', 'Código Penal (DL 2.848/40)', '184', '§ 4º', NULL, NULL, NULL, TRUE, 'Crimes contra o patrimônio', '1 e 2', 'Exceção - Crime de menor potencial ofensivo'),
+('CP', 'Código Penal (DL 2.848/40)', '184', '4', NULL, NULL, NULL, TRUE, 'Crimes contra o patrimônio', '1 e 2', 'Exceção - Crime de menor potencial ofensivo'),
 ('CP', 'Código Penal (DL 2.848/40)', '184', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra o patrimônio', '1 e 2', 'Entendimento firmado pelo TSE no REsp Eleitoral nº 145-94.2016.6.24.0074/SC');
 
 -- Crimes contra a dignidade sexual (9)
@@ -123,23 +123,23 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, alin
 -- Crimes contra a saúde pública (3)
 INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, alinea, combinacao, eh_excecao, tipo_crime, item_alinea_e, observacoes) VALUES
 ('CP', 'Código Penal (DL 2.848/40)', '267', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a saúde pública', '3', NULL),
-('CP', 'Código Penal (DL 2.848/40)', '267', '§ 2º', NULL, NULL, NULL, TRUE, 'Crimes contra a saúde pública', '3', 'Exceção - Crime culposo'),
+('CP', 'Código Penal (DL 2.848/40)', '267', '2', NULL, NULL, NULL, TRUE, 'Crimes contra a saúde pública', '3', 'Exceção - Crime culposo'),
 ('CP', 'Código Penal (DL 2.848/40)', '270', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a saúde pública', '3', NULL),
-('CP', 'Código Penal (DL 2.848/40)', '270', '§ 2º', NULL, NULL, NULL, TRUE, 'Crimes contra a saúde pública', '3', 'Exceção - Crime culposo'),
+('CP', 'Código Penal (DL 2.848/40)', '270', '2', NULL, NULL, NULL, TRUE, 'Crimes contra a saúde pública', '3', 'Exceção - Crime culposo'),
 ('CP', 'Código Penal (DL 2.848/40)', '271', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a saúde pública', '3', NULL),
-('CP', 'Código Penal (DL 2.848/40)', '271', 'parágrafo único', NULL, NULL, NULL, TRUE, 'Crimes contra a saúde pública', '3', 'Exceção - Crime culposo'),
+('CP', 'Código Penal (DL 2.848/40)', '271', 'unico', NULL, NULL, NULL, TRUE, 'Crimes contra a saúde pública', '3', 'Exceção - Crime culposo'),
 ('CP', 'Código Penal (DL 2.848/40)', '272', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a saúde pública', '3', NULL),
-('CP', 'Código Penal (DL 2.848/40)', '272', '§ 2º', NULL, NULL, NULL, TRUE, 'Crimes contra a saúde pública', '3', 'Exceção - Crime culposo'),
+('CP', 'Código Penal (DL 2.848/40)', '272', '2', NULL, NULL, NULL, TRUE, 'Crimes contra a saúde pública', '3', 'Exceção - Crime culposo'),
 ('CP', 'Código Penal (DL 2.848/40)', '273', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a saúde pública', '3', NULL),
-('CP', 'Código Penal (DL 2.848/40)', '273', '§ 2º', NULL, NULL, NULL, TRUE, 'Crimes contra a saúde pública', '3', 'Exceção - Crime culposo'),
+('CP', 'Código Penal (DL 2.848/40)', '273', '2', NULL, NULL, NULL, TRUE, 'Crimes contra a saúde pública', '3', 'Exceção - Crime culposo'),
 ('CP', 'Código Penal (DL 2.848/40)', '274', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a saúde pública', '3', NULL),
 ('CP', 'Código Penal (DL 2.848/40)', '275', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a saúde pública', '3', NULL),
 ('CP', 'Código Penal (DL 2.848/40)', '276', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a saúde pública', '3', NULL),
 ('CP', 'Código Penal (DL 2.848/40)', '277', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a saúde pública', '3', NULL),
 ('CP', 'Código Penal (DL 2.848/40)', '278', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a saúde pública', '3', NULL),
-('CP', 'Código Penal (DL 2.848/40)', '278', 'parágrafo único', NULL, NULL, NULL, TRUE, 'Crimes contra a saúde pública', '3', 'Exceção - Crime culposo'),
+('CP', 'Código Penal (DL 2.848/40)', '278', 'unico', NULL, NULL, NULL, TRUE, 'Crimes contra a saúde pública', '3', 'Exceção - Crime culposo'),
 ('CP', 'Código Penal (DL 2.848/40)', '280', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a saúde pública', '3', NULL),
-('CP', 'Código Penal (DL 2.848/40)', '280', 'parágrafo único', NULL, NULL, NULL, TRUE, 'Crimes contra a saúde pública', '3', 'Exceção - Crime culposo');
+('CP', 'Código Penal (DL 2.848/40)', '280', 'unico', NULL, NULL, NULL, TRUE, 'Crimes contra a saúde pública', '3', 'Exceção - Crime culposo');
 
 -- Crimes praticados por quadrilha ou bando (10)
 INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, alinea, combinacao, eh_excecao, tipo_crime, item_alinea_e, observacoes) VALUES
@@ -149,11 +149,11 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, alin
 -- Crimes contra a fé pública (1)
 INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, alinea, combinacao, eh_excecao, tipo_crime, item_alinea_e, observacoes) VALUES
 ('CP', 'Código Penal (DL 2.848/40)', '289', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a fé pública', '1', NULL),
-('CP', 'Código Penal (DL 2.848/40)', '289', '§ 2º', NULL, NULL, NULL, TRUE, 'Crimes contra a fé pública', '1', 'Exceção - Crime culposo'),
+('CP', 'Código Penal (DL 2.848/40)', '289', '2', NULL, NULL, NULL, TRUE, 'Crimes contra a fé pública', '1', 'Exceção - Crime culposo'),
 ('CP', 'Código Penal (DL 2.848/40)', '290', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a fé pública', '1', NULL),
 ('CP', 'Código Penal (DL 2.848/40)', '291', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a fé pública', '1', NULL),
 ('CP', 'Código Penal (DL 2.848/40)', '293', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a fé pública', '1', NULL),
-('CP', 'Código Penal (DL 2.848/40)', '293', '§ 4º', NULL, NULL, NULL, TRUE, 'Crimes contra a fé pública', '1', 'Exceção - Crime culposo'),
+('CP', 'Código Penal (DL 2.848/40)', '293', '4', NULL, NULL, NULL, TRUE, 'Crimes contra a fé pública', '1', 'Exceção - Crime culposo'),
 ('CP', 'Código Penal (DL 2.848/40)', '294', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a fé pública', '1', NULL),
 ('CP', 'Código Penal (DL 2.848/40)', '296', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a fé pública', '1', NULL),
 ('CP', 'Código Penal (DL 2.848/40)', '297', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a fé pública', '1', NULL),
@@ -173,20 +173,20 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, alin
 -- Crimes contra a administração pública (1)
 INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, alinea, combinacao, eh_excecao, tipo_crime, item_alinea_e, observacoes) VALUES
 ('CP', 'Código Penal (DL 2.848/40)', '312', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
-('CP', 'Código Penal (DL 2.848/40)', '312', '§ 2º', NULL, NULL, NULL, TRUE, 'Crimes contra a administração pública', '1', 'Exceção - Crime culposo'),
+('CP', 'Código Penal (DL 2.848/40)', '312', '2', NULL, NULL, NULL, TRUE, 'Crimes contra a administração pública', '1', 'Exceção - Crime culposo'),
 ('CP', 'Código Penal (DL 2.848/40)', '313', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
 ('CP', 'Código Penal (DL 2.848/40)', '313-A', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
 ('CP', 'Código Penal (DL 2.848/40)', '314', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
 ('CP', 'Código Penal (DL 2.848/40)', '316', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
 ('CP', 'Código Penal (DL 2.848/40)', '317', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
-('CP', 'Código Penal (DL 2.848/40)', '317', '§ 2º', NULL, NULL, NULL, TRUE, 'Crimes contra a administração pública', '1', 'Exceção - Crime culposo'),
+('CP', 'Código Penal (DL 2.848/40)', '317', '2', NULL, NULL, NULL, TRUE, 'Crimes contra a administração pública', '1', 'Exceção - Crime culposo'),
 ('CP', 'Código Penal (DL 2.848/40)', '318', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
 ('CP', 'Código Penal (DL 2.848/40)', '322', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
 ('CP', 'Código Penal (DL 2.848/40)', '323', 'caput', NULL, NULL, NULL, TRUE, 'Crimes contra a administração pública', '1', 'Exceção - Crime culposo'),
-('CP', 'Código Penal (DL 2.848/40)', '323', '§ 1º', NULL, NULL, NULL, TRUE, 'Crimes contra a administração pública', '1', 'Exceção - Crime culposo'),
+('CP', 'Código Penal (DL 2.848/40)', '323', '1', NULL, NULL, NULL, TRUE, 'Crimes contra a administração pública', '1', 'Exceção - Crime culposo'),
 ('CP', 'Código Penal (DL 2.848/40)', '323', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
 ('CP', 'Código Penal (DL 2.848/40)', '325', 'caput', NULL, NULL, NULL, TRUE, 'Crimes contra a administração pública', '1', 'Exceção - Crime de menor potencial ofensivo'),
-('CP', 'Código Penal (DL 2.848/40)', '325', '§ 1º', NULL, NULL, NULL, TRUE, 'Crimes contra a administração pública', '1', 'Exceção - Crime de menor potencial ofensivo'),
+('CP', 'Código Penal (DL 2.848/40)', '325', '1', NULL, NULL, NULL, TRUE, 'Crimes contra a administração pública', '1', 'Exceção - Crime de menor potencial ofensivo'),
 ('CP', 'Código Penal (DL 2.848/40)', '325', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
 ('CP', 'Código Penal (DL 2.848/40)', '328', 'caput', NULL, NULL, NULL, TRUE, 'Crimes contra a administração pública', '1', 'Exceção - Crime de menor potencial ofensivo'),
 ('CP', 'Código Penal (DL 2.848/40)', '328', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
@@ -204,9 +204,9 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, alin
 ('CP', 'Código Penal (DL 2.848/40)', '343', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
 ('CP', 'Código Penal (DL 2.848/40)', '344', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
 ('CP', 'Código Penal (DL 2.848/40)', '347', 'caput', NULL, NULL, NULL, TRUE, 'Crimes contra a administração pública', '1', 'Exceção - Crime de menor potencial ofensivo'),
-('CP', 'Código Penal (DL 2.848/40)', '347', 'parágrafo único', NULL, NULL, NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '347', 'unico', NULL, NULL, NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
 ('CP', 'Código Penal (DL 2.848/40)', '351', 'caput', NULL, NULL, NULL, TRUE, 'Crimes contra a administração pública', '1', 'Exceção - Crime culposo'),
-('CP', 'Código Penal (DL 2.848/40)', '351', '§ 4º', NULL, NULL, NULL, TRUE, 'Crimes contra a administração pública', '1', 'Exceção - Crime culposo'),
+('CP', 'Código Penal (DL 2.848/40)', '351', '4', NULL, NULL, NULL, TRUE, 'Crimes contra a administração pública', '1', 'Exceção - Crime culposo'),
 ('CP', 'Código Penal (DL 2.848/40)', '351', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
 ('CP', 'Código Penal (DL 2.848/40)', '353', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
 ('CP', 'Código Penal (DL 2.848/40)', '355', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
@@ -274,15 +274,15 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, alin
 ('CPM', 'Código Penal Militar (DL 1.001/69)', '290', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra o meio ambiente e a saúde pública', '3', 'Conceito de crime de menor potencial ofensivo não se aplica - art. 90-A, Lei 9.099/95'),
 ('CPM', 'Código Penal Militar (DL 1.001/69)', '291', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra o meio ambiente e a saúde pública', '3', 'Conceito de crime de menor potencial ofensivo não se aplica - art. 90-A, Lei 9.099/95'),
 ('CPM', 'Código Penal Militar (DL 1.001/69)', '292', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra o meio ambiente e a saúde pública', '3', 'Conceito de crime de menor potencial ofensivo não se aplica - art. 90-A, Lei 9.099/95'),
-('CPM', 'Código Penal Militar (DL 1.001/69)', '292', '§ 2º', NULL, NULL, NULL, TRUE, 'Crimes contra o meio ambiente e a saúde pública', '3', 'Exceção - Crime culposo'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '292', '2', NULL, NULL, NULL, TRUE, 'Crimes contra o meio ambiente e a saúde pública', '3', 'Exceção - Crime culposo'),
 ('CPM', 'Código Penal Militar (DL 1.001/69)', '293', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra o meio ambiente e a saúde pública', '3', 'Conceito de crime de menor potencial ofensivo não se aplica - art. 90-A, Lei 9.099/95'),
-('CPM', 'Código Penal Militar (DL 1.001/69)', '293', '§ 3º', NULL, NULL, NULL, TRUE, 'Crimes contra o meio ambiente e a saúde pública', '3', 'Exceção - Crime culposo'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '293', '3', NULL, NULL, NULL, TRUE, 'Crimes contra o meio ambiente e a saúde pública', '3', 'Exceção - Crime culposo'),
 ('CPM', 'Código Penal Militar (DL 1.001/69)', '294', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra o meio ambiente e a saúde pública', '3', 'Conceito de crime de menor potencial ofensivo não se aplica - art. 90-A, Lei 9.099/95'),
-('CPM', 'Código Penal Militar (DL 1.001/69)', '294', 'parágrafo único', NULL, NULL, NULL, TRUE, 'Crimes contra o meio ambiente e a saúde pública', '3', 'Exceção - Crime culposo'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '294', 'unico', NULL, NULL, NULL, TRUE, 'Crimes contra o meio ambiente e a saúde pública', '3', 'Exceção - Crime culposo'),
 ('CPM', 'Código Penal Militar (DL 1.001/69)', '295', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra o meio ambiente e a saúde pública', '3', 'Conceito de crime de menor potencial ofensivo não se aplica - art. 90-A, Lei 9.099/95'),
-('CPM', 'Código Penal Militar (DL 1.001/69)', '295', 'parágrafo único', NULL, NULL, NULL, TRUE, 'Crimes contra o meio ambiente e a saúde pública', '3', 'Exceção - Crime culposo'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '295', 'unico', NULL, NULL, NULL, TRUE, 'Crimes contra o meio ambiente e a saúde pública', '3', 'Exceção - Crime culposo'),
 ('CPM', 'Código Penal Militar (DL 1.001/69)', '296', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra o meio ambiente e a saúde pública', '3', 'Conceito de crime de menor potencial ofensivo não se aplica - art. 90-A, Lei 9.099/95'),
-('CPM', 'Código Penal Militar (DL 1.001/69)', '296', 'parágrafo único', NULL, NULL, NULL, TRUE, 'Crimes contra o meio ambiente e a saúde pública', '3', 'Exceção - Crime culposo'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '296', 'unico', NULL, NULL, NULL, TRUE, 'Crimes contra o meio ambiente e a saúde pública', '3', 'Exceção - Crime culposo'),
 ('CPM', 'Código Penal Militar (DL 1.001/69)', '297', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra o meio ambiente e a saúde pública', '3', 'Conceito de crime de menor potencial ofensivo não se aplica - art. 90-A, Lei 9.099/95');
 
 -- Crimes contra a administração pública e a fé pública (1) - CPM
@@ -293,7 +293,7 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, alin
 ('CPM', 'Código Penal Militar (DL 1.001/69)', '301', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a administração pública e a fé pública', '1', 'Conceito de crime de menor potencial ofensivo não se aplica - art. 90-A, Lei 9.099/95'),
 ('CPM', 'Código Penal Militar (DL 1.001/69)', '302', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a administração pública e a fé pública', '1', 'Conceito de crime de menor potencial ofensivo não se aplica - art. 90-A, Lei 9.099/95'),
 ('CPM', 'Código Penal Militar (DL 1.001/69)', '303', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a administração pública e a fé pública', '1', 'Conceito de crime de menor potencial ofensivo não se aplica - art. 90-A, Lei 9.099/95'),
-('CPM', 'Código Penal Militar (DL 1.001/69)', '303', '§ 3º', NULL, NULL, NULL, TRUE, 'Crimes contra a administração pública e a fé pública', '1', 'Exceção - Crime culposo'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '303', '3', NULL, NULL, NULL, TRUE, 'Crimes contra a administração pública e a fé pública', '1', 'Exceção - Crime culposo'),
 ('CPM', 'Código Penal Militar (DL 1.001/69)', '304', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a administração pública e a fé pública', '1', 'Conceito de crime de menor potencial ofensivo não se aplica - art. 90-A, Lei 9.099/95'),
 ('CPM', 'Código Penal Militar (DL 1.001/69)', '305', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a administração pública e a fé pública', '1', 'Conceito de crime de menor potencial ofensivo não se aplica - art. 90-A, Lei 9.099/95'),
 ('CPM', 'Código Penal Militar (DL 1.001/69)', '306', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a administração pública e a fé pública', '1', 'Conceito de crime de menor potencial ofensivo não se aplica - art. 90-A, Lei 9.099/95'),
@@ -322,7 +322,7 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, alin
 ('CPM', 'Código Penal Militar (DL 1.001/69)', '330', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a administração pública e a fé pública', '1', 'Conceito de crime de menor potencial ofensivo não se aplica - art. 90-A, Lei 9.099/95'),
 ('CPM', 'Código Penal Militar (DL 1.001/69)', '331', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a administração pública e a fé pública', '1', 'Conceito de crime de menor potencial ofensivo não se aplica - art. 90-A, Lei 9.099/95'),
 ('CPM', 'Código Penal Militar (DL 1.001/69)', '332', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a administração pública e a fé pública', '1', 'Conceito de crime de menor potencial ofensivo não se aplica - art. 90-A, Lei 9.099/95'),
-('CPM', 'Código Penal Militar (DL 1.001/69)', '332', '§ 2º', NULL, NULL, NULL, TRUE, 'Crimes contra a administração pública e a fé pública', '1', 'Exceção - Crime culposo'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '332', '2', NULL, NULL, NULL, TRUE, 'Crimes contra a administração pública e a fé pública', '1', 'Exceção - Crime culposo'),
 ('CPM', 'Código Penal Militar (DL 1.001/69)', '333', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a administração pública e a fé pública', '1', 'Conceito de crime de menor potencial ofensivo não se aplica - art. 90-A, Lei 9.099/95'),
 ('CPM', 'Código Penal Militar (DL 1.001/69)', '334', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a administração pública e a fé pública', '1', 'Conceito de crime de menor potencial ofensivo não se aplica - art. 90-A, Lei 9.099/95'),
 ('CPM', 'Código Penal Militar (DL 1.001/69)', '335', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a administração pública e a fé pública', '1', 'Conceito de crime de menor potencial ofensivo não se aplica - art. 90-A, Lei 9.099/95'),
@@ -343,7 +343,7 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, alin
 ('CPM', 'Código Penal Militar (DL 1.001/69)', '350', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a administração pública e a fé pública', '1', 'Conceito de crime de menor potencial ofensivo não se aplica - art. 90-A, Lei 9.099/95'),
 ('CPM', 'Código Penal Militar (DL 1.001/69)', '351', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a administração pública e a fé pública', '1', 'Conceito de crime de menor potencial ofensivo não se aplica - art. 90-A, Lei 9.099/95'),
 ('CPM', 'Código Penal Militar (DL 1.001/69)', '352', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a administração pública e a fé pública', '1', 'Conceito de crime de menor potencial ofensivo não se aplica - art. 90-A, Lei 9.099/95'),
-('CPM', 'Código Penal Militar (DL 1.001/69)', '352', 'parágrafo único', NULL, NULL, NULL, TRUE, 'Crimes contra a administração pública e a fé pública', '1', 'Exceção - Crime culposo'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '352', 'unico', NULL, NULL, NULL, TRUE, 'Crimes contra a administração pública e a fé pública', '1', 'Exceção - Crime culposo'),
 ('CPM', 'Código Penal Militar (DL 1.001/69)', '353', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a administração pública e a fé pública', '1', 'Conceito de crime de menor potencial ofensivo não se aplica - art. 90-A, Lei 9.099/95'),
 ('CPM', 'Código Penal Militar (DL 1.001/69)', '354', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a administração pública e a fé pública', '1', 'Conceito de crime de menor potencial ofensivo não se aplica - art. 90-A, Lei 9.099/95');
 
@@ -440,7 +440,7 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, alin
 
 -- Lei 4.898/65
 INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, alinea, combinacao, eh_excecao, tipo_crime, item_alinea_e, observacoes) VALUES
-('lei_4898_65', 'Lei 4.898/65', '6º', '§ 3º', NULL, 'c', NULL, FALSE, 'Crimes de abuso de autoridade', '5', NULL);
+('lei_4898_65', 'Lei 4.898/65', '6º', '3', NULL, 'c', NULL, FALSE, 'Crimes de abuso de autoridade', '5', NULL);
 
 -- Lei 6.091/74
 INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, alinea, combinacao, eh_excecao, tipo_crime, item_alinea_e, observacoes) VALUES
@@ -527,7 +527,7 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, alin
 ('lei_8137_90', 'Lei 8.137/90', '5º', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a economia popular', '1', 'Revogado pela Lei 12.529/2011'),
 ('lei_8137_90', 'Lei 8.137/90', '6º', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a economia popular', '1', 'Revogado pela Lei 12.529/2011'),
 ('lei_8137_90', 'Lei 8.137/90', '7º', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra a economia popular', '1', NULL),
-('lei_8137_90', 'Lei 8.137/90', '7º', 'parágrafo único', NULL, NULL, NULL, TRUE, 'Crimes contra a economia popular', '1', 'Exceção');
+('lei_8137_90', 'Lei 8.137/90', '7º', 'unico', NULL, NULL, NULL, TRUE, 'Crimes contra a economia popular', '1', 'Exceção');
 
 -- Lei 8.176/91
 INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, alinea, combinacao, eh_excecao, tipo_crime, item_alinea_e, observacoes) VALUES
@@ -549,7 +549,7 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, alin
 
 -- Lei 9.504/97
 INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, alinea, combinacao, eh_excecao, tipo_crime, item_alinea_e, observacoes) VALUES
-('lei_9504_97', 'Lei das Eleições (9.504/97)', '57-H', '§ 1º', NULL, NULL, NULL, FALSE, 'Crimes eleitorais', '4', NULL),
+('lei_9504_97', 'Lei das Eleições (9.504/97)', '57-H', '1', NULL, NULL, NULL, FALSE, 'Crimes eleitorais', '4', NULL),
 ('lei_9504_97', 'Lei das Eleições (9.504/97)', '72', NULL, NULL, NULL, NULL, FALSE, 'Crimes eleitorais', '4', NULL);
 
 -- Lei 9.605/98 - Lei Ambiental
@@ -559,32 +559,32 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, alin
 ('lei_9605_98', 'Lei 9.605/98', '34', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra o meio ambiente', '3', NULL),
 ('lei_9605_98', 'Lei 9.605/98', '35', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra o meio ambiente', '3', NULL),
 ('lei_9605_98', 'Lei 9.605/98', '38', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra o meio ambiente', '3', NULL),
-('lei_9605_98', 'Lei 9.605/98', '38', 'parágrafo único', NULL, NULL, NULL, TRUE, 'Crimes contra o meio ambiente', '3', 'Exceção - Crime culposo'),
+('lei_9605_98', 'Lei 9.605/98', '38', 'unico', NULL, NULL, NULL, TRUE, 'Crimes contra o meio ambiente', '3', 'Exceção - Crime culposo'),
 ('lei_9605_98', 'Lei 9.605/98', '38-A', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra o meio ambiente', '3', NULL),
-('lei_9605_98', 'Lei 9.605/98', '38-A', 'parágrafo único', NULL, NULL, NULL, TRUE, 'Crimes contra o meio ambiente', '3', 'Exceção - Crime culposo'),
+('lei_9605_98', 'Lei 9.605/98', '38-A', 'unico', NULL, NULL, NULL, TRUE, 'Crimes contra o meio ambiente', '3', 'Exceção - Crime culposo'),
 ('lei_9605_98', 'Lei 9.605/98', '39', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra o meio ambiente', '3', NULL),
 ('lei_9605_98', 'Lei 9.605/98', '40', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra o meio ambiente', '3', NULL),
-('lei_9605_98', 'Lei 9.605/98', '40', '§ 3º', NULL, NULL, NULL, TRUE, 'Crimes contra o meio ambiente', '3', 'Exceção - Crime culposo'),
+('lei_9605_98', 'Lei 9.605/98', '40', '3', NULL, NULL, NULL, TRUE, 'Crimes contra o meio ambiente', '3', 'Exceção - Crime culposo'),
 ('lei_9605_98', 'Lei 9.605/98', '41', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra o meio ambiente', '3', NULL),
-('lei_9605_98', 'Lei 9.605/98', '41', 'parágrafo único', NULL, NULL, NULL, TRUE, 'Crimes contra o meio ambiente', '3', 'Exceção - Crime culposo'),
+('lei_9605_98', 'Lei 9.605/98', '41', 'unico', NULL, NULL, NULL, TRUE, 'Crimes contra o meio ambiente', '3', 'Exceção - Crime culposo'),
 ('lei_9605_98', 'Lei 9.605/98', '42', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra o meio ambiente', '3', NULL),
 ('lei_9605_98', 'Lei 9.605/98', '50-A', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra o meio ambiente', '3', NULL),
 ('lei_9605_98', 'Lei 9.605/98', '54', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra o meio ambiente', '3', NULL),
-('lei_9605_98', 'Lei 9.605/98', '54', '§ 1º', NULL, NULL, NULL, TRUE, 'Crimes contra o meio ambiente', '3', 'Exceção - Crime culposo'),
+('lei_9605_98', 'Lei 9.605/98', '54', '1', NULL, NULL, NULL, TRUE, 'Crimes contra o meio ambiente', '3', 'Exceção - Crime culposo'),
 ('lei_9605_98', 'Lei 9.605/98', '56', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra o meio ambiente', '3', NULL),
-('lei_9605_98', 'Lei 9.605/98', '56', '§ 3º', NULL, NULL, NULL, TRUE, 'Crimes contra o meio ambiente', '3', 'Exceção - Crime culposo'),
+('lei_9605_98', 'Lei 9.605/98', '56', '3', NULL, NULL, NULL, TRUE, 'Crimes contra o meio ambiente', '3', 'Exceção - Crime culposo'),
 ('lei_9605_98', 'Lei 9.605/98', '61', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra o meio ambiente', '3', NULL),
 ('lei_9605_98', 'Lei 9.605/98', '62', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra o meio ambiente', '3', NULL),
-('lei_9605_98', 'Lei 9.605/98', '62', 'parágrafo único', NULL, NULL, NULL, TRUE, 'Crimes contra o meio ambiente', '3', 'Exceção - Crime culposo'),
+('lei_9605_98', 'Lei 9.605/98', '62', 'unico', NULL, NULL, NULL, TRUE, 'Crimes contra o meio ambiente', '3', 'Exceção - Crime culposo'),
 ('lei_9605_98', 'Lei 9.605/98', '63', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra o meio ambiente', '3', NULL),
 ('lei_9605_98', 'Lei 9.605/98', '66', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra o meio ambiente', '3', NULL),
 ('lei_9605_98', 'Lei 9.605/98', '67', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra o meio ambiente', '3', NULL),
-('lei_9605_98', 'Lei 9.605/98', '67', 'parágrafo único', NULL, NULL, NULL, TRUE, 'Crimes contra o meio ambiente', '3', 'Exceção - Crime culposo'),
+('lei_9605_98', 'Lei 9.605/98', '67', 'unico', NULL, NULL, NULL, TRUE, 'Crimes contra o meio ambiente', '3', 'Exceção - Crime culposo'),
 ('lei_9605_98', 'Lei 9.605/98', '68', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra o meio ambiente', '3', NULL),
-('lei_9605_98', 'Lei 9.605/98', '68', 'parágrafo único', NULL, NULL, NULL, TRUE, 'Crimes contra o meio ambiente', '3', 'Exceção - Crime culposo'),
+('lei_9605_98', 'Lei 9.605/98', '68', 'unico', NULL, NULL, NULL, TRUE, 'Crimes contra o meio ambiente', '3', 'Exceção - Crime culposo'),
 ('lei_9605_98', 'Lei 9.605/98', '69', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra o meio ambiente', '3', NULL),
 ('lei_9605_98', 'Lei 9.605/98', '69-A', NULL, NULL, NULL, NULL, FALSE, 'Crimes contra o meio ambiente', '3', NULL),
-('lei_9605_98', 'Lei 9.605/98', '69-A', '§ 1º', NULL, NULL, NULL, TRUE, 'Crimes contra o meio ambiente', '3', 'Exceção - Crime culposo');
+('lei_9605_98', 'Lei 9.605/98', '69-A', '1', NULL, NULL, NULL, TRUE, 'Crimes contra o meio ambiente', '3', 'Exceção - Crime culposo');
 
 -- Lei 9.613/98 - Lavagem de dinheiro
 INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, alinea, combinacao, eh_excecao, tipo_crime, item_alinea_e, observacoes) VALUES
@@ -592,8 +592,8 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, alin
 
 -- Lei 10.826/03 - Armas de Fogo
 INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, alinea, combinacao, eh_excecao, tipo_crime, item_alinea_e, observacoes) VALUES
-('lei_10826_03', 'Estatuto do Desarmamento', '16', 'caput', NULL, NULL, '§ 2º', FALSE, 'Crime hediondo', '7', 'Alterações promovidas pela Lei 13.964/2019'),
-('lei_10826_03', 'Estatuto do Desarmamento', '16', '§ 1º', NULL, NULL, '§ 2º', FALSE, 'Crime hediondo', '7', 'Alterações promovidas pela Lei 13.964/2019'),
+('lei_10826_03', 'Estatuto do Desarmamento', '16', 'caput', NULL, NULL, '2', FALSE, 'Crime hediondo', '7', 'Alterações promovidas pela Lei 13.964/2019'),
+('lei_10826_03', 'Estatuto do Desarmamento', '16', '1', NULL, NULL, '2', FALSE, 'Crime hediondo', '7', 'Alterações promovidas pela Lei 13.964/2019'),
 ('lei_10826_03', 'Estatuto do Desarmamento', '17', NULL, NULL, NULL, NULL, FALSE, 'Crime hediondo', '7', 'Alterações promovidas pela Lei 13.964/2019'),
 ('lei_10826_03', 'Estatuto do Desarmamento', '18', NULL, NULL, NULL, NULL, FALSE, 'Crime hediondo', '7', 'Alterações promovidas pela Lei 13.964/2019');
 
@@ -613,7 +613,7 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, alin
 -- Lei 11.343/06 - Lei de Drogas
 INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, alinea, combinacao, eh_excecao, tipo_crime, item_alinea_e, observacoes) VALUES
 ('lei_11343_06', 'Lei de Drogas (11.343/06)', '33', NULL, NULL, NULL, NULL, FALSE, 'Crimes de tráfico de entorpecentes', '7', NULL),
-('lei_11343_06', 'Lei de Drogas (11.343/06)', '33', '§ 3º', NULL, NULL, NULL, TRUE, 'Crimes de tráfico de entorpecentes', '7', 'Exceção'),
+('lei_11343_06', 'Lei de Drogas (11.343/06)', '33', '3', NULL, NULL, NULL, TRUE, 'Crimes de tráfico de entorpecentes', '7', 'Exceção'),
 ('lei_11343_06', 'Lei de Drogas (11.343/06)', '34', NULL, NULL, NULL, NULL, FALSE, 'Crimes de tráfico de entorpecentes', '7', NULL),
 ('lei_11343_06', 'Lei de Drogas (11.343/06)', '35', NULL, NULL, NULL, NULL, FALSE, 'Crimes de tráfico de entorpecentes', '7', NULL),
 ('lei_11343_06', 'Lei de Drogas (11.343/06)', '36', NULL, NULL, NULL, NULL, FALSE, 'Crimes de tráfico de entorpecentes', '7', NULL),
