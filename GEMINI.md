@@ -16,7 +16,7 @@ Este projeto consome inteligência centralizada do Solo Dev Hub através de Junc
 Classifique antes de agir:
 
 - **SIMPLE:** Fix/Change pontual -> Edição Direta.
-- **COMPLEX:** Build/Feature/Refactor -> Exige Plano (	ask-slug.md).
+- **COMPLEX:** Build/Feature/Refactor -> Exige Plano ( ask-slug.md).
 
 ## 🛑 SOCRATIC GATE (Obrigatório)
 
