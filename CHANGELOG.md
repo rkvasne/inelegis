@@ -31,6 +31,8 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
   - Ajuste na constraint `NOT NULL` para leis que definem crimes de forma genérica (ex: Lei 12.850/13 - Organização Criminosa), garantindo inserção correta.
   - Adicionados casts explícitos de tipo (`::TEXT`) na função RPC `verificar_elegibilidade` para sanar erros de compatibilidade de tipos no Retorno de Tabela.
   - Transformação da migração `001` em script idempotente (safe drop) para facilitar reconstruções de schema.
+  - **Priorização de Regras (Hotfix)**: Refinado `ORDER BY` no RPC para garantir que a regra geral (Inelegível) prevaleça sobre exceções específicas quando detalhes (parágrafo/inciso) não são selecionados pelo usuário.
+  - **Nomenclatura Amigável**: Atualização de todos os nomes de leis na base para formatos humanos (ex: 'Código Penal') e remoção de lógica redundante de string no Frontend.
 
 ### 🛡️ Segurança & Frontend
 
