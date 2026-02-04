@@ -57,23 +57,24 @@ export class AnalyzerUI {
         const lawDisplayName = lawInfo ? lawInfo.nome : item.lei;
 
         const row = document.createElement("tr");
+        row.style.borderBottom = "1px solid var(--border-color)";
         row.innerHTML = `
-                    <td class="p-4">
-                        <div class="flex flex-col">
-                            <span class="font-bold text-neutral-800 text-sm">${lawDisplayName}</span>
-                            <span class="text-xs text-neutral-500 font-mono">Art. ${item.artigo}</span>
+                    <td class="p-4 align-top">
+                        <div class="flex flex-col gap-1">
+                            <span class="font-bold text-neutral-900 text-sm">${lawDisplayName}</span>
+                            <span class="text-sm text-neutral-600 font-mono">Art. ${item.artigo}</span>
                         </div>
                     </td>
-                    <td class="p-4" id="status-${item.uid}">
+                    <td class="p-4 align-top" id="status-${item.uid}">
                         <div class="flex items-center gap-2">
                             <div class="w-4 h-4 rounded-full border-2 border-neutral-200 border-t-neutral-400 animate-spin"></div>
                             <span class="text-neutral-400 text-sm">Verificando...</span>
                         </div>
                     </td>
-                    <td class="p-4" id="ase-${item.uid}">
+                    <td class="p-4 align-top" id="ase-${item.uid}">
                         <span class="text-neutral-300">-</span>
                     </td>
-                    <td class="p-4 text-right">
+                    <td class="p-4 align-top text-right">
                         <button class="btn btn-secondary btn-sm" onclick="window.viewDetails('${item.lei}', '${item.artigo}')" title="Ver detalhes completos">
                             Ver
                         </button>
@@ -121,23 +122,23 @@ export class AnalyzerUI {
     if (result.resultado === "INELEGIVEL") {
       statusCell.innerHTML =
         '<span class="analyzer-badge danger">INELEGÍVEL</span>';
-      const itemE = result.item_alinea_e || "?";
+      const itemE = result.item_alinea_e ? `Item ${result.item_alinea_e}` : "";
       const tipoCrime = result.tipo_crime
-        ? `<div class="text-xs text-neutral-800 font-medium mt-1 border-t border-neutral-100 pt-1">${result.tipo_crime}</div>`
+        ? `<div class="text-sm text-neutral-900 font-medium mt-1 pt-1">${result.tipo_crime}</div>`
         : "";
 
       if (temIndicador370) {
         aseCell.innerHTML = `
-                    <div class="flex flex-col">
-                        <span class="font-bold text-danger-700 text-sm">ASE 370 / 337</span>
-                        <span class="text-xs text-neutral-500">Motivo 7 + Inabilitação</span>
+                    <div class="flex flex-col gap-1">
+                        <span class="font-bold text-danger-700 text-sm">ASE 370 / 337 (Motivo 7)</span>
                         ${tipoCrime}
+                        <span class="text-xs text-neutral-500">Com inabilitação de direitos</span>
                     </div>`;
       } else {
         aseCell.innerHTML = `
-                    <div class="flex flex-col">
+                    <div class="flex flex-col gap-1">
                         <span class="font-bold text-danger-700 text-sm">ASE 337 (Motivo 7)</span>
-                        <div class="text-xs text-neutral-500">Alínea "e", Item ${itemE}</div>
+                        <div class="text-xs text-neutral-600">Alínea "e", ${itemE}</div>
                         ${tipoCrime}
                     </div>`;
       }

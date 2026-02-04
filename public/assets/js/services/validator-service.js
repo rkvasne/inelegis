@@ -47,21 +47,35 @@ export class ValidatorService {
         return this.normasCache;
       }
 
-      const normas = await supabaseClient.from("normas", {
-        select: "codigo,nome_curto,nome_completo",
-        order: "nome_curto.asc",
+      // Consulta adaptada para a nova tabela unificada usando o cliente leve customizado
+      const data = await supabaseClient.from("crimes_inelegibilidade", {
+        select: "codigo,lei",
       });
 
-      this.normasCache = normas.map((n) => ({
-        codigo: n.codigo,
-        nome: n.nome_curto || n.nome_completo,
-        nome_completo: n.nome_completo, // Expose full name for UI
-      }));
+      // Remover duplicatas via JS
+      const uniqueLaws = new Map();
+
+      // O cliente customizado retorna array direto ou lança erro, não retorna { maximize }
+      if (Array.isArray(data)) {
+        data.forEach((item) => {
+          if (!uniqueLaws.has(item.codigo)) {
+            uniqueLaws.set(item.codigo, {
+              codigo: item.codigo,
+              nome: item.lei,
+              nome_completo: item.lei,
+            });
+          }
+        });
+      }
+
+      this.normasCache = Array.from(uniqueLaws.values()).sort((a, b) =>
+        a.codigo.localeCompare(b.codigo),
+      );
 
       console.log(
         "[ValidatorService] Carregadas",
         this.normasCache.length,
-        "normas do Supabase",
+        "normas do Supabase (Schema V2)",
       );
       return this.normasCache;
     } catch (error) {
@@ -88,26 +102,27 @@ export class ValidatorService {
     }
 
     try {
-      // Primeiro buscar o ID da norma
-      const normas = await supabaseClient.from("normas", {
-        select: "id",
-        filter: { codigo: sanitizedLaw },
-      });
-
-      if (!normas.length) return [];
-
-      const normaId = normas[0].id;
-
-      // Buscar artigos inelegíveis dessa norma
-      const artigos = await supabaseClient.from("artigos_inelegiveis", {
+      // Busca direta na nova tabela usando cliente leve
+      const artigos = await supabaseClient.from("crimes_inelegibilidade", {
         select: "artigo",
-        filter: { norma_id: normaId },
+        filter: { codigo: sanitizedLaw },
         order: "artigo.asc",
       });
 
-      // Remover duplicatas e ordenar numericamente
-      const uniqueArtigos = [...new Set(artigos.map((a) => a.artigo))];
-      return uniqueArtigos.sort((a, b) => parseInt(a) - parseInt(b));
+      if (!Array.isArray(artigos)) return [];
+
+      // Remover duplicatas e nulos
+      const uniqueArtigos = [
+        ...new Set(artigos.map((a) => a.artigo).filter((a) => a)),
+      ];
+
+      // Ordenação numérica inteligente
+      return uniqueArtigos.sort((a, b) => {
+        const numA = parseInt(a.replace(/\D/g, "")) || 0;
+        const numB = parseInt(b.replace(/\D/g, "")) || 0;
+        if (numA === numB) return a.localeCompare(b);
+        return numA - numB;
+      });
     } catch (error) {
       console.error("[ValidatorService] Erro ao buscar artigos:", error);
       return [];
@@ -150,10 +165,10 @@ export class ValidatorService {
         p_codigo_norma: sanitizedLaw,
         p_artigo: sanitizedArticle,
         p_paragrafo: paragraph
-          ? InputValidator.validateText(paragraph, 50)
+          ? InputValidator.normalizeDetail(paragraph)
           : null,
-        p_inciso: inciso ? InputValidator.validateText(inciso, 20) : null,
-        p_alinea: alinea ? InputValidator.validateText(alinea, 10) : null,
+        p_inciso: inciso ? InputValidator.normalizeDetail(inciso) : null,
+        p_alinea: alinea ? InputValidator.normalizeDetail(alinea) : null,
       });
 
       if (result && result.length > 0) {
@@ -166,7 +181,10 @@ export class ValidatorService {
       };
     } catch (error) {
       console.error("[ValidatorService] Erro na verificação:", error);
-      return { resultado: "ERRO", motivo: "Erro interno de verificação" };
+      return {
+        resultado: "ERRO",
+        motivo: `Erro interno: ${error.message || String(error)}`,
+      };
     }
   }
 

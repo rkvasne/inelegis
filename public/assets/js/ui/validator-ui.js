@@ -16,6 +16,8 @@ export class ValidatorUI {
 
     /** @type {string|null} Código da lei selecionada */
     this.selectedLaw = null;
+    /** @type {string|null} Nome amigável da lei selecionada */
+    this.selectedLawName = null;
 
     console.log(
       "[ValidatorUI] Constructor - leiSelect:",
@@ -105,7 +107,9 @@ export class ValidatorUI {
       const nome = e.target.options[e.target.selectedIndex].text;
 
       if (codigo) {
-        await this.selectLaw(codigo, nome);
+        // Agora usamos o texto completo do option, confiando no nome amigável vindo do banco
+        const lawName = e.target.options[e.target.selectedIndex].textContent;
+        await this.selectLaw(codigo, lawName);
         // Esconder a setinha indicadora após primeira seleção
         const arrowIndicator = document.getElementById("leiArrowIndicator");
         if (arrowIndicator) {
@@ -120,30 +124,91 @@ export class ValidatorUI {
       }
     });
 
-    // Setup dos campos complementares (Parágrafo, Inciso, Alínea)
-    this.setupComplementaryFields();
+    // Setup Checkbox Parágrafo Único
+    const checkUnico = document.getElementById("paragrafoUnicoCheck");
+    const inputParagrafo = document.getElementById("paragrafoInput");
+    if (checkUnico && inputParagrafo) {
+        checkUnico.addEventListener("change", (e) => {
+            inputParagrafo.disabled = e.target.checked;
+            if (e.target.checked) inputParagrafo.value = "";
+        });
+    }
+
+    // Setup dos botões de ação (Pesquisar / Limpar)
+    this.setupActionButtons();
   }
 
   /**
-   * Configura listeners para os campos complementares (se existirem)
+   * Configura listeners para os botões de ação.
    */
-  setupComplementaryFields() {
-    const fields = ["paragrafoInput", "incisoInput", "alineaInput"];
-    fields.forEach((id) => {
+  setupActionButtons() {
+    // Listener para o botão Limpar
+    const btnClear = document.getElementById("btnClearSearch");
+    if (btnClear) {
+      btnClear.addEventListener("click", () => this.clearSearch());
+    }
+
+    // Listener para o botão Pesquisar
+    const btnPesquisar = document.getElementById("btnPesquisar");
+    if (btnPesquisar) {
+      btnPesquisar.addEventListener("click", () => {
+        const artigoNum = this.artigoSelect?.value;
+        if (this.selectedLaw && artigoNum) {
+          this.validateSelection(artigoNum);
+        } else {
+          // Feedback visual se tentar pesquisar sem selecionar
+          if (!this.selectedLaw && this.leiSelect) {
+            this.leiSelect.classList.add("ring-2", "ring-red-500");
+            setTimeout(
+              () => this.leiSelect.classList.remove("ring-2", "ring-red-500"),
+              1000,
+            );
+          } else if (!artigoNum && this.artigoSelect) {
+            this.artigoSelect.classList.add("ring-2", "ring-red-500");
+            setTimeout(
+              () =>
+                this.artigoSelect.classList.remove("ring-2", "ring-red-500"),
+              1000,
+            );
+          }
+        }
+      });
+    }
+  }
+
+  /**
+   * Reseta todos os campos de busca e resultados
+   */
+  clearSearch() {
+    // Reset Selects
+    if (this.leiSelect) this.leiSelect.value = "";
+    if (this.artigoSelect) {
+      this.artigoSelect.innerHTML =
+        '<option value="" selected>Selecione primeiro a lei...</option>';
+      this.artigoSelect.disabled = true;
+    }
+
+    // Reset Inputs de Refinamento
+    ["paragrafoInput", "incisoInput", "alineaInput"].forEach((id) => {
       const el = document.getElementById(id);
-      if (el) {
-        el.addEventListener("input", () => {
-          // Debounce para não validar a cada tecla loucamente
-          if (this._debounceTimer) clearTimeout(this._debounceTimer);
-          this._debounceTimer = setTimeout(() => {
-            const artigoNum = this.artigoSelect.value;
-            if (artigoNum && this.selectedLaw) {
-              this.validateSelection(artigoNum);
-            }
-          }, 500);
-        });
-      }
+      if (el) el.value = "";
     });
+
+    const checkUnico = document.getElementById("paragrafoUnicoCheck");
+    if (checkUnico) checkUnico.checked = false;
+
+    // Reset Estado Interno
+    this.selectedLaw = null;
+    this.selectedLawName = null;
+
+    // Esconder resultados
+    this.hideResult();
+
+    // Mostrar seta indicadora novamente
+    const arrowIndicator = document.getElementById("leiArrowIndicator");
+    if (arrowIndicator) arrowIndicator.classList.add("show");
+
+    console.log("[ValidatorUI] Busca limpa com sucesso");
   }
 
   /**
@@ -153,6 +218,7 @@ export class ValidatorUI {
    */
   async selectLaw(codigo, nome) {
     this.selectedLaw = codigo;
+    this.selectedLawName = nome;
     await this.populateArtigoSelect(codigo);
     this.hideResult();
   }
@@ -206,12 +272,8 @@ export class ValidatorUI {
     if (!this.artigoSelect) return;
 
     this.artigoSelect.addEventListener("change", async (e) => {
-      const artigoNum = e.target.value;
-      if (artigoNum) {
-        await this.validateSelection(artigoNum);
-      } else {
-        this.hideResult();
-      }
+      // Apenas esconde resultado anterior se houver mudança, mas não dispara busca
+      this.hideResult();
     });
   }
 
@@ -221,155 +283,176 @@ export class ValidatorUI {
    */
   async validateSelection(artigoNum) {
     // Coletar complementos
-    const paragrafo = document.getElementById("paragrafoInput")?.value || null;
+    const paragrafoUnico = document.getElementById(
+      "paragrafoUnicoCheck",
+    )?.checked;
+    const paragrafo = paragrafoUnico
+      ? "unico"
+      : document.getElementById("paragrafoInput")?.value || null;
     const inciso = document.getElementById("incisoInput")?.value || null;
     const alinea = document.getElementById("alineaInput")?.value || null;
 
     // Mostrar loading no resultado
     if (this.resultContainer) {
-      const filters = [];
-      if (paragrafo) filters.push(`Parágrafo ${paragrafo}`);
-      if (inciso) filters.push(`Inciso ${inciso}`);
-      if (alinea) filters.push(`Alínea ${alinea}`);
-      const filterText =
-        filters.length > 0 ? `Filtrando por: ${filters.join(", ")}` : "";
-
-      this.resultContainer.innerHTML = `
-                <div class="p-6 text-center text-neutral-500">
-                    <div class="animate-spin inline-block w-8 h-8 border-4 border-primary-200 border-t-primary-600 rounded-full mb-2"></div>
-                    <p>Verificando elegibilidade...</p>
-                    ${filterText ? `<p class="text-xs text-neutral-400 mt-1">${filterText}</p>` : ""}
-                </div>
-            `;
-      this.resultContainer.classList.remove("hidden");
+      this.resultContainer.innerHTML = ""; // Limpar qualquer resquício fixo
+      this.resultContainer.classList.add("hidden");
     }
 
-    // Buscar resultado (agora via Supabase RPC incluindo todos os complementos)
-    const result = await validatorService.verifyEligibility(
-      this.selectedLaw,
-      artigoNum,
-      paragrafo,
-      inciso,
-      alinea,
-    );
+    // Feedback visual opcional (silencioso) se necessário, mas removemos o texto fixo "Verificando..."
+    // Chamar o serviço
+    try {
+      const result = await validatorService.verifyEligibility(
+        this.selectedLaw,
+        artigoNum,
+        paragrafo,
+        inciso,
+        alinea,
+      );
 
-    // Registrar no Histórico e Analytics
-    if (typeof SearchHistory !== "undefined") {
-      SearchHistory.add({
-        lei: this.selectedLaw,
-        artigo: artigoNum,
-        resultado: result.resultado.toLowerCase(),
-        tipoCrime: result.tipo_crime,
-        observacoes: result.observacoes || result.motivo,
-      });
+      this.renderResult(result, artigoNum, paragrafo, inciso, alinea);
+    } catch (error) {
+      console.error("[ValidatorUI] Erro ao validar:", error);
     }
-
-    if (typeof Analytics !== "undefined") {
-      Analytics.trackSearch({
-        lei: this.selectedLaw,
-        artigo: artigoNum,
-        resultado: result.resultado.toLowerCase(),
-        temExcecao: result.resultado === "ELEGIVEL",
-      });
-    }
-
-    this.renderResult(result, artigoNum);
   }
 
   /**
    * Renderiza o resultado da verificação
    * @param {object} result Resultado da verificação
    * @param {string} artigoNum Número do artigo
+   * @param {string} p Parágrafo
+   * @param {string} i Inciso
+   * @param {string} a Alínea
    */
-  renderResult(result, artigoNum) {
-    if (!this.resultContainer) return;
-
+  renderResult(result, artigoNum, p, i, a) {
     const isInelegivel = result.resultado === "INELEGIVEL";
     const isElegivel = result.resultado === "ELEGIVEL";
     const naoConsta = result.resultado === "NAO_CONSTA";
 
-    let cardClass, iconPath, statusText, statusClass;
+    // Coletar tipo de comunicação para ASE
+    const tipoComunicacao = document.querySelector(
+      'input[name="tipoComunicacao"]:checked',
+    )?.value;
+
+    // Configurações visuais baseadas no resultado
+    let statusClass = "";
+    let statusText = "";
+    let statusIcon = "";
 
     if (isInelegivel) {
-      cardClass = "border-danger-500 bg-red-50";
-      statusClass = "bg-danger-200 text-danger-800";
-      statusText = "GERA INELEGIBILIDADE";
-      iconPath =
-        "M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z";
+      statusClass = "ineligible";
+      statusText = "INELEGÍVEL";
+      statusIcon = `<svg width="24" height="24" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>`;
     } else if (isElegivel) {
-      cardClass = "border-success-500 bg-green-50";
-      statusClass = "bg-success-200 text-success-800";
-      statusText = "NÃO GERA INELEGIBILIDADE";
-      iconPath = "M5 13l4 4L19 7";
+      statusClass = "eligible";
+      statusText = "ELEGÍVEL";
+      statusIcon = `<svg width="24" height="24" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>`;
     } else {
-      cardClass = "border-warning-500 bg-yellow-50";
-      statusClass = "bg-warning-200 text-warning-800";
-      statusText = "NÃO CONSTA NA TABELA";
-      iconPath =
-        "M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z";
+      statusClass = "not-found";
+      statusText = "NÃO ENCONTRADO";
+      statusIcon = `<svg width="24" height="24" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>`;
     }
 
-    const html = `
-            <div class="validator-card border-l-4 ${cardClass} p-6 rounded-lg shadow-sm animate-fade-in">
-                <div class="flex items-start gap-4">
-                    <div class="flex-shrink-0 mt-1">
-                        <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-sm ${isInelegivel ? "text-danger-600" : isElegivel ? "text-success-600" : "text-warning-600"}">
-                            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${iconPath}"></path>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="flex-1">
-                        <span class="inline-block px-3 py-1 text-xs font-bold tracking-wider uppercase rounded-full mb-2 ${statusClass}">
-                            ${statusText}
-                        </span>
-                        <h3 class="text-xl font-bold ${isInelegivel ? "text-danger-900" : isElegivel ? "text-success-900" : "text-warning-900"} mb-2">
-                            ${this.selectedLaw} - Art. ${artigoNum}
-                        </h3>
-                        <div class="space-y-3">
-                            ${
-                              result.tipo_crime
-                                ? `
-                            <div>
-                                <span class="text-xs font-semibold text-neutral-500 uppercase">Tipo de Crime</span>
-                                <p class="text-neutral-800 font-medium">${result.tipo_crime}</p>
-                            </div>
-                            `
-                                : ""
-                            }
-                            <div>
-                                <span class="text-xs font-semibold text-neutral-500 uppercase">Fundamentação</span>
-                                <p class="text-neutral-700 text-sm">${result.motivo || "Consulte a tabela oficial para mais detalhes."}</p>
-                            </div>
-                            ${
-                              result.observacoes
-                                ? `
-                            <div class="mt-3 p-3 bg-white/50 rounded border border-neutral-200">
-                                <span class="text-xs font-semibold text-neutral-500 uppercase">Observações</span>
-                                <p class="text-neutral-600 text-sm">${result.observacoes}</p>
-                            </div>
-                            `
-                                : ""
-                            }
-                        </div>
-                    </div>
-                </div>
-                <!-- Melhoria: Botão para limpar a consulta -->
-                <div class="mt-4 pt-4 border-t border-dashed ${isInelegivel ? "border-danger-200" : isElegivel ? "border-success-200" : "border-warning-200"} text-xs text-neutral-500 flex justify-between items-center">
-                    <span>Fonte: Tabela CRE-RO/TRE-SP via Supabase</span>
-                    <button class="text-primary-600 hover:text-primary-800 font-medium" onclick="document.getElementById('artigoSelect').value=''; document.getElementById('validator-result').classList.add('hidden');">
-                        Nova Consulta
-                    </button>
-                </div>
-            </div>
-        `;
+    // Formatar incidência
+    let incidencia = `Art. ${artigoNum}`;
+    if (p) incidencia += `, § ${p}`;
+    if (i) incidencia += `, Inc. ${i}`;
+    if (a) incidencia += `, Alínea ${a}`;
 
-    this.resultContainer.innerHTML = html;
-    this.resultContainer.classList.remove("hidden");
-    this.resultContainer.scrollIntoView({
-      behavior: "smooth",
-      block: "nearest",
-    });
+    // Construir Conteúdo do Modal
+    const bodyHTML = `
+      <div class="result-modal-v3">
+        <!-- Card de Status Principal -->
+        <div class="modal-status-card ${statusClass} mb-4">
+          <div class="flex items-center gap-4">
+            <div class="legend-icon text-white flex items-center justify-center ${statusClass === 'ineligible' ? 'bg-danger-500' : statusClass === 'eligible' ? 'bg-success-500' : 'bg-warning-500'}" style="width: 2.5rem; height: 2.5rem; border-radius: 0.5rem;">
+              ${statusIcon}
+            </div>
+            <div>
+              <span class="status-label">RESULTADO</span>
+              <h2 class="status-value">${statusText}</h2>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grid de Informações Técnicas -->
+        <div class="grid grid-cols-2 gap-4 mb-4">
+          <div class="info-card">
+            <span class="info-label">CRIME/DELITO</span>
+            <p class="info-value">
+              ${result.tipo_crime || "Não consta crime impeditivo"}
+              ${result.item_alinea_e ? `<strong>(${result.item_alinea_e})</strong>` : ""}
+            </p>
+            <p class="info-subtext text-[10px] text-neutral-400 mt-1 italic">
+              (Conforme elencados no Art. 1º, I, “e” da LC 64/90, alterada pela LC 135 de 4.6.2010)
+            </p>
+          </div>
+          <div class="info-card">
+            <span class="info-label">NORMA/INCIDÊNCIA</span>
+            <p class="info-value">${incidencia}</p>
+            <p class="info-subtext text-xs text-neutral-500 mt-1">${this.selectedLawName}</p>
+          </div>
+        </div>
+
+        <!-- ASE e Datas -->
+        <div class="ase-card mb-4 bg-neutral-800 text-neutral-100 p-4 rounded-xl border border-neutral-700 shadow-sm">
+          <div class="grid grid-cols-1 gap-3">
+            <div>
+              <span class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest block mb-1">ASE DE ANOTAÇÃO</span>
+              <p class="text-sm font-bold">
+                ${
+                  tipoComunicacao === "condenacao"
+                    ? `ASE 337 - Motivo ${isInelegivel ? "7" : "2"}: Condenação criminal`
+                    : "Consulte o manual para este tipo de comunicação"
+                }
+              </p>
+            </div>
+            <div class="pt-2 border-t border-neutral-700">
+              <span class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest block mb-1">DADOS CRONOLÓGICOS RELEVANTES</span>
+              <p class="text-sm">
+                <span class="font-bold">Data de Ocorrência:</span> 
+                <span class="text-neutral-300 italic">Trânsito em julgado da sentença condenatória</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Disclaimer de Exceções -->
+        ${
+          result.excecoes_detalhes
+            ? `
+        <div class="exception-alert-card border-2 border-warning-200 bg-warning-50 p-4 rounded-xl">
+          <div class="flex items-start gap-3">
+            <div class="text-warning-600 mt-0.5">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+            </div>
+            <div>
+              <h4 class="text-sm font-black text-warning-900 uppercase mb-1">Atenção: Exceções Existentes</h4>
+              <p class="text-xs text-warning-800 leading-normal">
+                Este artigo possui exceções que podem <strong>NÃO gerar inelegibilidade</strong> caso o condenado se enquadre em uma delas:
+              </p>
+              <div class="mt-2 p-3 bg-white/60 rounded-lg text-[11px] font-medium text-warning-900 border border-warning-100">
+                ${result.excecoes_detalhes}
+              </div>
+            </div>
+          </div>
+        </div>
+        `
+            : ""
+        }
+      </div>
+    `;
+
+    // Abrir Modal
+    if (window.ModalManager) {
+      // Atualizar subtítulo do modal com a lei
+      const subtitle = document.getElementById("modalSubtitle");
+      if (subtitle) subtitle.textContent = this.selectedLawName;
+
+      const title = document.getElementById("modalTitle");
+      if (title) title.textContent = "Resultado da Consulta";
+
+      window.ModalManager.open(statusClass, statusText, bodyHTML);
+    }
   }
 
   /** Oculta o container de resultados */

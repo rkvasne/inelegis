@@ -15,7 +15,7 @@ export const InputValidator = {
     if (!code || typeof code !== "string") return null;
     // Permite apenas letras, números e underscores, max 20 caracteres
     const sanitized = code.trim().toUpperCase();
-    return /^[A-Z0-0_]{1,20}$/.test(sanitized) ? sanitized : null;
+    return /^[A-Z0-9_]{1,20}$/.test(sanitized) ? sanitized : null;
   },
 
   /**
@@ -28,6 +28,30 @@ export const InputValidator = {
     const sanitized = String(article).trim();
     // Permite números, hífens e letras (ex: "1", "121-A"), max 10 caracteres
     return /^[0-9a-zA-Z-]{1,10}$/.test(sanitized) ? sanitized : null;
+  },
+
+  /**
+   * Normaliza detalhes (parágrafo, inciso, alínea) para busca
+   * @param {string} text
+   * @returns {string|null}
+   */
+  normalizeDetail(text) {
+    if (!text || typeof text !== "string") return null;
+    let normalized = text.trim().toLowerCase();
+
+    // Remover símbolos e ordinais comuns
+    normalized = normalized.replace(/[§º°ª]/g, "").trim();
+
+    // Mapeamentos comuns
+    if (
+      normalized === "parágrafo único" ||
+      normalized === "p. único" ||
+      normalized === "p.u"
+    ) {
+      return "unico";
+    }
+
+    return normalized || null;
   },
 
   /**
