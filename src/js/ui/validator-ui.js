@@ -159,6 +159,46 @@ export class ValidatorUI {
         }
       });
     }
+    // Listener para o botão Limpar
+    const btnClear = document.getElementById("btnClearSearch");
+    if (btnClear) {
+      btnClear.addEventListener("click", () => this.clearSearch());
+    }
+  }
+
+  /**
+   * Reseta todos os campos de busca e resultados
+   */
+  clearSearch() {
+    // Reset Selects
+    if (this.leiSelect) this.leiSelect.value = "";
+    if (this.artigoSelect) {
+      this.artigoSelect.innerHTML =
+        '<option value="" selected>Selecione primeiro a lei...</option>';
+      this.artigoSelect.disabled = true;
+    }
+
+    // Reset Inputs de Refinamento
+    ["paragrafoInput", "incisoInput", "alineaInput"].forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) el.value = "";
+    });
+
+    const checkUnico = document.getElementById("paragrafoUnicoCheck");
+    if (checkUnico) checkUnico.checked = false;
+
+    // Reset Estado Interno
+    this.selectedLaw = null;
+    this.selectedLawName = null;
+
+    // Esconder resultados
+    this.hideResult();
+
+    // Mostrar seta indicadora novamente
+    const arrowIndicator = document.getElementById("leiArrowIndicator");
+    if (arrowIndicator) arrowIndicator.classList.add("show");
+
+    console.log("[ValidatorUI] Busca limpa com sucesso");
   }
 
   /**
