@@ -124,6 +124,16 @@ export class ValidatorUI {
       }
     });
 
+    // Setup Checkbox Parágrafo Único
+    const checkUnico = document.getElementById("paragrafoUnicoCheck");
+    const inputParagrafo = document.getElementById("paragrafoInput");
+    if (checkUnico && inputParagrafo) {
+        checkUnico.addEventListener("change", (e) => {
+            inputParagrafo.disabled = e.target.checked;
+            if (e.target.checked) inputParagrafo.value = "";
+        });
+    }
+
     // Setup dos botões de ação (Pesquisar / Limpar)
     this.setupActionButtons();
   }
@@ -354,7 +364,7 @@ export class ValidatorUI {
         <!-- Card de Status Principal -->
         <div class="modal-status-card ${statusClass} mb-4">
           <div class="flex items-center gap-4">
-            <div class="status-icon-container">
+            <div class="legend-icon text-white flex items-center justify-center ${statusClass === 'ineligible' ? 'bg-danger-500' : statusClass === 'eligible' ? 'bg-success-500' : 'bg-warning-500'}" style="width: 2.5rem; height: 2.5rem; border-radius: 0.5rem;">
               ${statusIcon}
             </div>
             <div>
