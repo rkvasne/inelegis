@@ -3194,22 +3194,47 @@ html:not(.dark-theme) .main-footer .footer-bottom {
   border: 1px solid;
 }
 
-.modal-status-card.inelegivel {
+.modal-status-card.ineligible {
   background: var(--danger-bg);
   border-color: var(--danger-border);
-  color: var(--danger-text);
+  color: var(--text-primary);
 }
 
-.modal-status-card.elegivel {
+.modal-status-card.eligible {
   background: var(--success-bg);
   border-color: var(--success-border);
-  color: var(--success-text);
+  color: var(--text-primary);
 }
 
-.modal-status-card.nao-encontrado {
+.modal-status-card.not-found {
   background: var(--warning-bg);
   border-color: var(--warning-border);
-  color: var(--warning-text);
+  color: var(--text-primary);
+}
+
+.modal-result-icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: var(--radius-lg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.modal-status-card.ineligible .modal-result-icon {
+  background: rgba(239, 68, 68, 0.25);
+  color: var(--danger-border);
+}
+
+.modal-status-card.eligible .modal-result-icon {
+  background: rgba(34, 197, 94, 0.25);
+  color: var(--success-border);
+}
+
+.modal-status-card.not-found .modal-result-icon {
+  background: rgba(245, 158, 11, 0.25);
+  color: var(--warning-border);
 }
 
 .status-icon-wrapper {
@@ -5049,46 +5074,29 @@ textarea:focus-visible {
   gap: 1rem;
 }
 
-.modal-status-card {
-  padding: 1.75rem 2rem;
-  border-radius: var(--radius-xl);
-  border: 1px solid transparent;
+/* Override base to match legend style */
+.result-modal-v3 .modal-status-card {
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
   display: flex;
   align-items: center;
-  position: relative;
-  overflow: hidden;
-  box-shadow: var(--shadow-md);
+  gap: var(--space-4);
+  box-shadow: none;
 }
 
-/* Vibrancy states with better glassmorphism and contrast */
-.modal-status-card.ineligible {
-  background: linear-gradient(
-    135deg,
-    rgba(239, 68, 68, 0.15) 0%,
-    rgba(153, 27, 27, 0.05) 100%
-  );
-  border-color: rgba(239, 68, 68, 0.4);
-  box-shadow: 0 0 20px rgba(239, 68, 68, 0.1);
+.result-modal-v3 .modal-status-card.ineligible {
+  background: var(--danger-bg);
+  border: 1px solid var(--danger-border);
 }
 
-.modal-status-card.eligible {
-  background: linear-gradient(
-    135deg,
-    rgba(34, 197, 94, 0.15) 0%,
-    rgba(21, 128, 61, 0.05) 100%
-  );
-  border-color: rgba(34, 197, 94, 0.4);
-  box-shadow: 0 0 20px rgba(34, 197, 94, 0.1);
+.result-modal-v3 .modal-status-card.eligible {
+  background: var(--success-bg);
+  border: 1px solid var(--success-border);
 }
 
-.modal-status-card.not-found {
-  background: linear-gradient(
-    135deg,
-    rgba(245, 158, 11, 0.15) 0%,
-    rgba(180, 83, 9, 0.05) 100%
-  );
-  border-color: rgba(245, 158, 11, 0.4);
-  box-shadow: 0 0 20px rgba(245, 158, 11, 0.1);
+.result-modal-v3 .modal-status-card.not-found {
+  background: var(--warning-bg);
+  border: 1px solid var(--warning-border);
 }
 
 .status-icon-container {
@@ -5111,6 +5119,7 @@ textarea:focus-visible {
     transform: scale(1);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   }
+
 
   50% {
     transform: scale(1.05);
@@ -5170,15 +5179,15 @@ textarea:focus-visible {
 }
 
 .info-card {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
   padding: 1.5rem;
   border-radius: var(--radius-xl);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .info-card:hover {
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--bg-tertiary);
   border-color: var(--primary-500);
   transform: translateY(-2px);
 }

@@ -75,7 +75,7 @@ export class AnalyzerUI {
                         <span class="text-neutral-300">-</span>
                     </td>
                     <td class="p-4 align-top text-right">
-                        <button class="btn btn-secondary btn-sm" onclick="window.viewDetails('${item.lei}', '${item.artigo}')" title="Ver detalhes completos">
+                        <button class="btn btn-secondary btn-sm" data-uid="${item.uid}" disabled title="Aguardando verificação...">
                             Ver
                         </button>
                     </td>
@@ -142,18 +142,28 @@ export class AnalyzerUI {
                         ${tipoCrime}
                     </div>`;
       }
+
+      // Atualizar botão Ver para abrir modal INELEGÍVEL
+      this.updateViewButton(item, result, "INELEGIVEL");
     } else if (result.resultado === "ELEGIVEL") {
       statusCell.innerHTML =
         '<span class="analyzer-badge success">ELEGÍVEL</span>';
       aseCell.textContent = temIndicador370
         ? "ASE 370 (Suspensão)"
         : "Não gera restrição";
+
+      // Abrir modal ELEGÍVEL automaticamente ao clicar no Ver
+      this.updateViewButton(item, result, "ELEGIVEL");
     } else {
+      // NAO_CONSTA = Elegível (artigo não encontrado na base)
       statusCell.innerHTML =
-        '<span class="analyzer-badge warning">NÃO CONSTA</span>';
+        '<span class="analyzer-badge success">ELEGÍVEL</span>';
       aseCell.innerHTML = temIndicador370
         ? '<span class="text-warning-700 font-medium">ASE 370?</span><br><small>Verificar se há condenação criminal</small>'
-        : "Verificar Manualmente";
+        : "Não gera restrição";
+
+      // Abrir modal ELEGÍVEL (não consta = elegível)
+      this.updateViewButton(item, { ...result, resultado: "ELEGIVEL" }, "ELEGIVEL");
     }
 
     // Registrar no Histórico e Analytics (Análise Automática)
@@ -176,6 +186,38 @@ export class AnalyzerUI {
         context: "sentence_analyzer",
       });
     }
+  }
+
+  /**
+   * Atualiza o botão "Ver" para abrir o modal correto
+   * @param {object} item - Item analisado
+   * @param {object} result - Resultado da verificação
+   * @param {string} tipo - Tipo do resultado (INELEGIVEL, ELEGIVEL)
+   */
+  updateViewButton(item, result, tipo) {
+    // Encontrar a row e o botão
+    const row = document.querySelector(`#status-${item.uid}`)?.closest("tr");
+    if (!row) return;
+
+    const btn = row.querySelector(`button[data-uid="${item.uid}"]`);
+    if (!btn) return;
+
+    // Habilitar botão
+    btn.disabled = false;
+    btn.title = "Ver detalhes completos";
+
+    // Armazenar dados no dataset do botão
+    btn.dataset.lei = item.lei;
+    btn.dataset.artigo = item.artigo;
+    btn.dataset.resultado = tipo;
+    btn.dataset.tipoCrime = result.tipo_crime || "";
+    btn.dataset.itemAlineaE = result.item_alinea_e || "";
+    btn.dataset.excecoes = result.excecoes_detalhes || "";
+
+    // Adicionar evento de clique
+    btn.addEventListener("click", () => {
+      window.openAnalyzerResultModal(btn.dataset);
+    });
   }
 
   /**
@@ -297,5 +339,123 @@ window.viewDetails = function (lei, artigo) {
         artigoSelect.dispatchEvent(new Event("change"));
       }
     }, 500);
+  }
+};
+
+/**
+ * Abre o modal de resultado a partir da análise de dispositivo
+ * @param {object} data - Dados do resultado
+ */
+window.openAnalyzerResultModal = async function (data) {
+  const isInelegivel = data.resultado === "INELEGIVEL";
+  const isElegivel = data.resultado === "ELEGIVEL";
+
+  // Buscar nome da lei
+  const lawInfo = (await validatorService.getLaws()).find(
+    (l) => l.codigo === data.lei,
+  );
+  const lawDisplayName = lawInfo ? lawInfo.nome : data.lei;
+
+  // Configurações visuais
+  let statusClass, statusText, statusIcon;
+
+  if (isInelegivel) {
+    statusClass = "ineligible";
+    statusText = "INELEGÍVEL";
+    statusIcon = `<svg width="24" height="24" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>`;
+  } else {
+    statusClass = "eligible";
+    statusText = "ELEGÍVEL";
+    statusIcon = `<svg width="24" height="24" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>`;
+  }
+
+  const incidencia = `Art. ${data.artigo}`;
+
+  const bodyHTML = `
+    <div class="result-modal-v3">
+      <!-- Card de Status Principal -->
+      <div class="modal-status-card ${statusClass}">
+        <div class="modal-result-icon">
+          ${statusIcon}
+        </div>
+        <div>
+          <span class="status-label">RESULTADO</span>
+          <h2 class="status-value">${statusText}</h2>
+        </div>
+      </div>
+
+      <!-- Grid de Informações Técnicas -->
+      <div class="grid grid-cols-2 gap-4 mb-4">
+        <div class="info-card">
+          <span class="info-label">CRIME/DELITO</span>
+          <p class="info-value">
+            ${data.tipoCrime || "Não consta crime impeditivo"}
+            ${data.itemAlineaE ? `<strong>(${data.itemAlineaE})</strong>` : ""}
+          </p>
+          <p class="info-subtext text-[10px] text-neutral-400 mt-1 italic">
+            (Conforme elencados no Art. 1º, I, "e" da LC 64/90, alterada pela LC 135 de 4.6.2010)
+          </p>
+        </div>
+        <div class="info-card">
+          <span class="info-label">NORMA/INCIDÊNCIA</span>
+          <p class="info-value">${incidencia}</p>
+          <p class="info-subtext text-xs text-neutral-500 mt-1">${lawDisplayName}</p>
+        </div>
+      </div>
+
+      <!-- ASE e Datas -->
+      <div class="ase-card mb-4 bg-neutral-800 text-neutral-100 p-4 rounded-xl border border-neutral-700 shadow-sm">
+        <div class="grid grid-cols-1 gap-3">
+          <div>
+            <span class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest block mb-1">ASE DE ANOTAÇÃO</span>
+            <p class="text-sm font-bold">
+              ${isInelegivel ? "ASE 337 - Motivo 7: Condenação criminal" : "Não gera restrição eleitoral"}
+            </p>
+          </div>
+          <div class="pt-2 border-t border-neutral-700">
+            <span class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest block mb-1">DADOS CRONOLÓGICOS RELEVANTES</span>
+            <p class="text-sm">
+              <span class="font-bold">Data de Ocorrência:</span> 
+              <span class="text-neutral-300 italic">Trânsito em julgado da sentença condenatória</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Disclaimer de Exceções -->
+      ${
+        data.excecoes
+          ? `
+      <div class="exception-alert-card border-2 border-warning-200 bg-warning-50 p-4 rounded-xl">
+        <div class="flex items-start gap-3">
+          <div class="text-warning-600 mt-0.5">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+          </div>
+          <div>
+            <h4 class="text-sm font-black text-warning-900 uppercase mb-1">Atenção: Exceções Existentes</h4>
+            <p class="text-xs text-warning-800 leading-normal">
+              Este artigo possui exceções que podem <strong>NÃO gerar inelegibilidade</strong> caso o condenado se enquadre em uma delas:
+            </p>
+            <div class="mt-2 p-3 bg-white/60 rounded-lg text-[11px] font-medium text-warning-900 border border-warning-100">
+              ${data.excecoes}
+            </div>
+          </div>
+        </div>
+      </div>
+      `
+          : ""
+      }
+    </div>
+  `;
+
+  // Abrir Modal
+  if (window.ModalManager) {
+    const subtitle = document.getElementById("modalSubtitle");
+    if (subtitle) subtitle.textContent = lawDisplayName;
+
+    const title = document.getElementById("modalTitle");
+    if (title) title.textContent = "Resultado da Consulta";
+
+    window.ModalManager.open(statusClass, statusText, bodyHTML);
   }
 };
