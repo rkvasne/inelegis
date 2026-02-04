@@ -119,26 +119,14 @@
                     <div class="grid grid-cols-2 gap-4">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                             <div>
-                                <label class="form-label flex justify-between items-center" for="leiSelect">
-                                    <span class="flex items-center gap-2">
-                                        <svg width="16" height="16" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24" aria-hidden="true">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253Z">
-                                            </path>
-                                        </svg>
-                                        Lei/Código Aplicável
-                                    </span>
-                                    <button type="button" id="btnClearSearch"
-                                        class="text-[10px] font-bold text-primary-400 hover:text-primary-300 uppercase tracking-widest transition-colors flex items-center gap-1">
-                                        <svg width="12" height="12" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
-                                            </path>
-                                        </svg>
-                                        Limpar
-                                    </button>
+                                <label class="form-label" for="leiSelect">
+                                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                        aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253Z">
+                                        </path>
+                                    </svg>
+                                    Lei/Código Aplicável
                                 </label>
                                 <div class="indicator-container">
                                     <select id="leiSelect" class="form-select w-full" aria-label="Selecione a lei">
@@ -154,382 +142,405 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- Campo de Artigo (Validação Estruturada) -->
-                            <div class="form-group">
-                                <label class="form-label">
-                                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                        aria-hidden="true">
+                        </div>
+
+                        <!-- Campo de Artigo (Movido para cá) -->
+                        <div class="form-group">
+                            <label class="form-label">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                    </path>
+                                </svg>
+                                Artigo (Tabela de Inelegibilidade)
+                            </label>
+                            <div class="indicator-container">
+                                <select id="artigoSelect" class="form-select w-full" disabled
+                                    aria-label="Selecione o artigo">
+                                    <option value="" selected>Selecione primeiro a lei...</option>
+                                </select>
+                            </div>
+                            <p class="text-[10px] text-neutral-500 mt-1.5 leading-tight">
+                                A lista carrega apenas artigos da tabela oficial. Se não estiver listado, <strong>não
+                                    gera inelegibilidade</strong>.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-span-2 mt-2">
+                        <details
+                            class="group bg-[#1A1A1A] rounded-xl border border-neutral-700 shadow-lg transition-all overflow-hidden [&_summary::-webkit-details-marker]:hidden">
+                            <summary
+                                class="flex items-center justify-between gap-2 p-4 cursor-pointer hover:bg-neutral-800 transition-colors">
+                                <div class="flex items-center gap-3">
+                                    <div
+                                        class="p-1.5 bg-neutral-800 rounded-lg text-primary-400 border border-neutral-700">
+                                        <svg width="18" height="18" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <h4 class="text-sm font-bold text-neutral-100 uppercase tracking-tight">
+                                            Refinamento de Busca
+                                        </h4>
+                                        <span class="text-[10px] text-neutral-400 font-medium">Parágrafo, Inciso e
+                                            Alínea</span>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center gap-3">
+                                    <button type="button" id="btnClearSearch"
+                                        class="px-3 py-1.5 rounded-md bg-neutral-800 hover:bg-red-500/10 hover:text-red-400 border border-neutral-700 hover:border-red-500/30 text-[10px] font-bold text-neutral-400 transition-all flex items-center gap-1.5 group-btn">
+                                        <svg width="12" height="12" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                                            </path>
+                                        </svg>
+                                        LIMPAR
+                                    </button>
+                                    <div class="text-neutral-500 group-open:rotate-180 transition-transform">
+                                        <svg width="20" height="20" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M19 9l-7 7-7-7"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </summary>
+
+                            <div class="px-6 pb-6 pt-2">
+                                <div class="flex flex-col md:flex-row gap-4 items-end">
+                                    <!-- Parágrafo -->
+                                    <div class="flex-1 w-full">
+                                        <div class="flex justify-between items-center mb-1.5">
+                                            <label
+                                                class="text-xs font-bold text-neutral-400 uppercase tracking-wider">Parágrafo</label>
+                                            <label class="flex items-center gap-2 cursor-pointer select-none">
+                                                <input type="checkbox" id="paragrafoUnicoCheck"
+                                                    class="w-4 h-4 accent-primary-500">
+                                                <span
+                                                    class="text-[10px] font-bold text-neutral-400 uppercase">Único</span>
+                                            </label>
+                                        </div>
+                                        <input type="text" id="paragrafoInput"
+                                            class="form-input w-full text-sm border-neutral-700 bg-neutral-900/50 text-neutral-100 focus:border-primary-500 focus:ring-primary-500"
+                                            placeholder="Ex: 3"
+                                            oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                                    </div>
+
+                                    <!-- Inciso -->
+                                    <div class="flex-1 w-full">
+                                        <label
+                                            class="text-xs font-bold text-neutral-400 uppercase tracking-wider mb-1.5 block">Inciso</label>
+                                        <input type="text" id="incisoInput"
+                                            class="form-input w-full text-sm border-neutral-700 bg-neutral-900/50 text-neutral-100 focus:border-primary-500 focus:ring-primary-500"
+                                            placeholder="Ex: IX"
+                                            oninput="this.value = this.value.toUpperCase().replace(/[^IVXLCDM]/g, '')">
+                                    </div>
+
+                                    <!-- Alínea -->
+                                    <div class="flex-1 w-full">
+                                        <label
+                                            class="text-xs font-bold text-neutral-400 uppercase tracking-wider mb-1.5 block">Alínea</label>
+                                        <input type="text" id="alineaInput"
+                                            class="form-input w-full text-sm border-neutral-700 bg-neutral-900/50 text-neutral-100 focus:border-primary-500 focus:ring-primary-500"
+                                            placeholder="Ex: a"
+                                            oninput="this.value = this.value.toLowerCase().replace(/[^a-z]/g, '')">
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="mt-4 p-3 bg-neutral-900/80 rounded-lg border border-neutral-700/50 flex gap-2 items-start">
+                                    <svg class="text-primary-500 mt-0.5 shrink-0" width="14" height="14" fill="none"
+                                        stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
                                         </path>
                                     </svg>
-                                    Artigo (Tabela de Inelegibilidade)
-                                </label>
-                                <div class="indicator-container">
-                                    <select id="artigoSelect" class="form-select w-full" disabled
-                                        aria-label="Selecione o artigo">
-                                        <option value="" selected>Selecione primeiro a lei...</option>
-                                    </select>
+                                    <p class="text-[10px] text-neutral-400 italic leading-relaxed">
+                                        Utilize estes campos para refinar sua busca por dispositivos específicos
+                                        da
+                                        norma. O sistema verificará se o trecho informado consta na tabela de
+                                        inelegibilidades ou exceções.
+                                    </p>
                                 </div>
                             </div>
-
-                            <!-- Refinamento de Busca (Para qualquer consulta) -->
-                            <div class="col-span-2 mt-2">
-                                <details
-                                    class="group bg-neutral-800/50 rounded-xl border-2 border-neutral-700/50 shadow-sm transition-all overflow-hidden [&_summary::-webkit-details-marker]:hidden">
-                                    <summary
-                                        class="flex items-center justify-between gap-2 p-5 cursor-pointer hover:bg-neutral-800 transition-colors">
-                                        <div class="flex items-center gap-2">
-                                            <div class="p-1.5 bg-primary-900/30 rounded-lg text-primary-400">
-                                                <svg width="18" height="18" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4">
-                                                    </path>
-                                                </svg>
-                                            </div>
-                                            <h4 class="text-sm font-black text-neutral-100 uppercase tracking-tight">
-                                                Refinamento de Busca (Parágrafo, Inciso e Alínea)
-                                            </h4>
-                                        </div>
-                                        <div class="text-neutral-500 group-open:rotate-180 transition-transform">
-                                            <svg width="20" height="20" fill="none" stroke="currentColor"
-                                                viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M19 9l-7 7-7-7"></path>
-                                            </svg>
-                                        </div>
-                                    </summary>
-
-                                    <div class="px-6 pb-6 pt-2">
-                                        <div class="flex flex-col md:flex-row gap-4 items-end">
-                                            <!-- Parágrafo -->
-                                            <div class="flex-1 w-full">
-                                                <div class="flex justify-between items-center mb-1.5">
-                                                    <label
-                                                        class="text-xs font-bold text-neutral-400 uppercase tracking-wider">Parágrafo</label>
-                                                    <label class="flex items-center gap-2 cursor-pointer select-none">
-                                                        <input type="checkbox" id="paragrafoUnicoCheck"
-                                                            class="w-4 h-4 accent-primary-500">
-                                                        <span
-                                                            class="text-[10px] font-bold text-neutral-400 uppercase">Único</span>
-                                                    </label>
-                                                </div>
-                                                <input type="text" id="paragrafoInput"
-                                                    class="form-input w-full text-sm border-neutral-700 bg-neutral-900/50 text-neutral-100 focus:border-primary-500 focus:ring-primary-500"
-                                                    placeholder="Ex: 3"
-                                                    oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-                                            </div>
-
-                                            <!-- Inciso -->
-                                            <div class="flex-1 w-full">
-                                                <label
-                                                    class="text-xs font-bold text-neutral-400 uppercase tracking-wider mb-1.5 block">Inciso</label>
-                                                <input type="text" id="incisoInput"
-                                                    class="form-input w-full text-sm border-neutral-700 bg-neutral-900/50 text-neutral-100 focus:border-primary-500 focus:ring-primary-500"
-                                                    placeholder="Ex: IX"
-                                                    oninput="this.value = this.value.toUpperCase().replace(/[^IVXLCDM]/g, '')">
-                                            </div>
-
-                                            <!-- Alínea -->
-                                            <div class="flex-1 w-full">
-                                                <label
-                                                    class="text-xs font-bold text-neutral-400 uppercase tracking-wider mb-1.5 block">Alínea</label>
-                                                <input type="text" id="alineaInput"
-                                                    class="form-input w-full text-sm border-neutral-700 bg-neutral-900/50 text-neutral-100 focus:border-primary-500 focus:ring-primary-500"
-                                                    placeholder="Ex: a"
-                                                    oninput="this.value = this.value.toLowerCase().replace(/[^a-z]/g, '')">
-                                            </div>
-                                        </div>
-
-                                        <div
-                                            class="mt-4 p-3 bg-neutral-900/80 rounded-lg border border-neutral-700/50 flex gap-2 items-start">
-                                            <svg class="text-primary-500 mt-0.5 shrink-0" width="14" height="14"
-                                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
-                                                </path>
-                                            </svg>
-                                            <p class="text-[10px] text-neutral-400 italic leading-relaxed">
-                                                Utilize estes campos para refinar sua busca por dispositivos específicos
-                                                da
-                                                norma. O sistema verificará se o trecho informado consta na tabela de
-                                                inelegibilidades ou exceções.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </details>
-                            </div>
-                        </div>
-
-                        <p id="ajudaArtigo" class="text-sm text-neutral-600 mt-4">
-                            A lista carrega apenas os artigos que constam na tabela oficial.
-                            Se o artigo não estiver na lista, ele <strong>não gera inelegibilidade</strong>.
-                        </p>
-
-                        <!-- Resultado Imediato (Validador) -->
-                        <div id="validator-result" class="mt-6 hidden">
-                            <!-- Injetado via JS -->
-                        </div>
+                        </details>
                     </div>
+                </div>
 
-                    <!-- Construtor Removido em favor da Validação Estruturada -->
+                <p id="ajudaArtigo" class="text-sm text-neutral-600 mt-4">
+                    A lista carrega apenas os artigos que constam na tabela oficial.
+                    Se o artigo não estiver na lista, ele <strong>não gera inelegibilidade</strong>.
+                </p>
+
+                <!-- Resultado Imediato (Validador) -->
+                <div id="validator-result" class="mt-6 hidden">
+                    <!-- Injetado via JS -->
                 </div>
             </div>
 
-            <!-- Modo Análise Avançada -->
-            <div id="advanced-mode-content" class="hidden">
-                <div class="card mb-6">
-                    <div class="card-header">
-                        <div class="flex items-center gap-3">
-                            <div
-                                class="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center text-primary-600">
-                                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-                                    </path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h2>Análise de Dispositivo de Sentença</h2>
-                                <p>Cole o texto da sentença ou decisão para extração automatizada de artigos</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group">
-                            <label class="form-label" for="dispositivoText"
-                                style="margin-bottom: var(--space-2); display: block;">Dispositivo / Trecho da
-                                Decisão</label>
-                            <textarea id="dispositivoText" class="form-select w-full p-4" rows="6"
-                                style="height: auto; min-height: 150px;"
-                                placeholder="Ex: Condeno o réu por infração ao Art. 121, inciso I e Art. 288 do Código Penal c/c Art. 1, I, 'e' da LC 64/90..."></textarea>
-                        </div>
-                        <div class="flex justify-end mt-4">
-                            <button id="btnAnalisarDispositivo" class="btn btn-primary">
-                                <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                                </svg>
-                                Analisar Dispositivo
-                            </button>
-                        </div>
-                    </div>
-                </div>
+            <!-- Construtor Removido em favor da Validação Estruturada -->
+        </div>
+        </div>
 
-                <!-- Resultados da Análise em Lote -->
-                <div id="analyzer-results" class="hidden">
-                    <div class="card mb-6">
-                        <div class="card-header" style="border-bottom: 1px solid var(--border-color);">
-                            <h2>Resultados da Extração</h2>
-                            <p id="analyzer-stats">Identificamos X artigos no texto fornecido</p>
-                        </div>
-                        <div class="card-body p-0">
-                            <div class="overflow-x-auto">
-                                <table class="analyzer-table w-full">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-left p-4 bg-neutral-50 font-semibold text-sm">Norma / Artigo
-                                            </th>
-                                            <th class="text-left p-4 bg-neutral-50 font-semibold text-sm">Status</th>
-                                            <th class="text-left p-4 bg-neutral-50 font-semibold text-sm">ASE / Motivo
-                                            </th>
-                                            <th class="text-right p-4 bg-neutral-50 font-semibold text-sm">Ação</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="analyzer-tbody">
-                                        <!-- Preenchido via JS -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Seções Dinâmicas -->
-            <div id="secoesDinamicas" class="hidden">
-                <!-- Seção ASE 337 -->
-                <div id="secaoASE337" class="card mb-6 hidden">
-                    <div class="card-header">
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 bg-danger-100 rounded-lg flex items-center justify-center">
-                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                    class="text-danger-600">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z">
-                                    </path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h2>ASE 337 - Motivo 7</h2>
-                                <p>Verificação de condições específicas</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="alert alert-danger">
-                            <div class="alert-icon" aria-hidden="true">
-                                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M12 9v2m0 4h.01M10.29 3.86l-7.4 12.84A2 2 0 004.53 20h14.94a2 2 0 001.74-3.3L13.81 3.86a2 2 0 00-3.52 0z">
-                                    </path>
-                                </svg>
-                            </div>
-                            <div class="alert-content">
-                                <h3>ATENÇÃO</h3>
-                                <p>Este artigo está relacionado ao ASE 337 - Motivo 7. Verifique
-                                    as condições específicas
-                                    para este caso.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Seção ASE 370 -->
-                <div id="secaoASE370" class="card mb-6 hidden">
-                    <div class="card-header">
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 bg-warning-100 rounded-lg flex items-center justify-center">
-                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                    class="text-warning-600">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
-                                    </path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h2>ASE 370 - Motivo 8</h2>
-                                <p>Orientações específicas</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="alert alert-warning">
-                            <div class="alert-icon" aria-hidden="true">
-                                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
-                                    </path>
-                                </svg>
-                            </div>
-                            <div class="alert-content">
-                                <h3>INFORMAÇÃO</h3>
-                                <p>Este artigo está relacionado ao ASE 370 - Motivo 8. Consulte
-                                    as orientações específicas.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Resultado da Busca -->
-            <div id="resultado" class="hidden"></div>
-            <div id="suggestions" class="hidden"></div>
-
-            <!-- Card de Ajuda -->
-            <div class="card">
+        <!-- Modo Análise Avançada -->
+        <div id="advanced-mode-content" class="hidden">
+            <div class="card mb-6">
                 <div class="card-header">
-                    <h2>Guia de Uso</h2>
-                    <p>Como utilizar o sistema de consulta</p>
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center text-primary-600">
+                            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h2>Análise de Dispositivo de Sentença</h2>
+                            <p>Cole o texto da sentença ou decisão para extração automatizada de artigos</p>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
-                    <div class="usage-guide">
-                        <div class="guide-step">
-                            <div class="step-icon">
-                                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-                                    </path>
-                                </svg>
-                            </div>
-                            <div class="step-content">
-                                <h3>1. Selecione o Tipo</h3>
-                                <p>Escolha entre "Condenação" ou "Extinção da Punibilidade"
-                                    conforme o caso</p>
-                            </div>
-                        </div>
-                        <div class="guide-step">
-                            <div class="step-icon">
-                                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253Z">
-                                    </path>
-                                </svg>
-                            </div>
-                            <div class="step-content">
-                                <h3>2. Escolha a Lei</h3>
-                                <p>Selecione o código ou lei aplicável ao caso específico</p>
-                            </div>
-                        </div>
-                        <div class="guide-step">
-                            <div class="step-icon">
-                                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z">
-                                    </path>
-                                </svg>
-                            </div>
-                            <div class="step-content">
-                                <h3>3. Digite o Artigo</h3>
-                                <p>Informe o artigo completo ou use o construtor para facilitar
-                                </p>
-                            </div>
+                    <div class="form-group">
+                        <label class="form-label" for="dispositivoText"
+                            style="margin-bottom: var(--space-2); display: block;">Dispositivo / Trecho da
+                            Decisão</label>
+                        <textarea id="dispositivoText" class="form-select w-full p-4" rows="6"
+                            style="height: auto; min-height: 150px;"
+                            placeholder="Ex: Condeno o réu por infração ao Art. 121, inciso I e Art. 288 do Código Penal c/c Art. 1, I, 'e' da LC 64/90..."></textarea>
+                    </div>
+                    <div class="flex justify-end mt-4">
+                        <button id="btnAnalisarDispositivo" class="btn btn-primary">
+                            <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                            Analisar Dispositivo
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Resultados da Análise em Lote -->
+            <div id="analyzer-results" class="hidden">
+                <div class="card mb-6">
+                    <div class="card-header" style="border-bottom: 1px solid var(--border-color);">
+                        <h2>Resultados da Extração</h2>
+                        <p id="analyzer-stats">Identificamos X artigos no texto fornecido</p>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="overflow-x-auto">
+                            <table class="analyzer-table w-full">
+                                <thead>
+                                    <tr>
+                                        <th class="text-left p-4 bg-neutral-50 font-semibold text-sm">Norma / Artigo
+                                        </th>
+                                        <th class="text-left p-4 bg-neutral-50 font-semibold text-sm">Status</th>
+                                        <th class="text-left p-4 bg-neutral-50 font-semibold text-sm">ASE / Motivo
+                                        </th>
+                                        <th class="text-right p-4 bg-neutral-50 font-semibold text-sm">Ação</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="analyzer-tbody">
+                                    <!-- Preenchido via JS -->
+                                </tbody>
+                            </table>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
 
-                    <!-- Legenda de Resultados -->
-                    <div class="results-legend">
-                        <h3>Legenda de Resultados</h3>
-                        <div class="legend-items">
-                            <div class="legend-item ineligible">
-                                <div class="legend-icon">
-                                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd"
-                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                                            clip-rule="evenodd"></path>
-                                    </svg>
-                                </div>
-                                <div class="legend-content">
-                                    <span class="legend-title">INELEGÍVEL</span>
-                                    <span class="legend-description">Enseja anotação de
-                                        inelegibilidade</span>
-                                </div>
+        <!-- Seções Dinâmicas -->
+        <div id="secoesDinamicas" class="hidden">
+            <!-- Seção ASE 337 -->
+            <div id="secaoASE337" class="card mb-6 hidden">
+                <div class="card-header">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 bg-danger-100 rounded-lg flex items-center justify-center">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                class="text-danger-600">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h2>ASE 337 - Motivo 7</h2>
+                            <p>Verificação de condições específicas</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-danger">
+                        <div class="alert-icon" aria-hidden="true">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 9v2m0 4h.01M10.29 3.86l-7.4 12.84A2 2 0 004.53 20h14.94a2 2 0 001.74-3.3L13.81 3.86a2 2 0 00-3.52 0z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div class="alert-content">
+                            <h3>ATENÇÃO</h3>
+                            <p>Este artigo está relacionado ao ASE 337 - Motivo 7. Verifique
+                                as condições específicas
+                                para este caso.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seção ASE 370 -->
+            <div id="secaoASE370" class="card mb-6 hidden">
+                <div class="card-header">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 bg-warning-100 rounded-lg flex items-center justify-center">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                class="text-warning-600">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h2>ASE 370 - Motivo 8</h2>
+                            <p>Orientações específicas</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-warning">
+                        <div class="alert-icon" aria-hidden="true">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div class="alert-content">
+                            <h3>INFORMAÇÃO</h3>
+                            <p>Este artigo está relacionado ao ASE 370 - Motivo 8. Consulte
+                                as orientações específicas.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resultado da Busca -->
+        <div id="resultado" class="hidden"></div>
+        <div id="suggestions" class="hidden"></div>
+
+        <!-- Card de Ajuda -->
+        <div class="card">
+            <div class="card-header">
+                <h2>Guia de Uso</h2>
+                <p>Como utilizar o sistema de consulta</p>
+            </div>
+            <div class="card-body">
+                <div class="usage-guide">
+                    <div class="guide-step">
+                        <div class="step-icon">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div class="step-content">
+                            <h3>1. Selecione o Tipo</h3>
+                            <p>Escolha entre "Condenação" ou "Extinção da Punibilidade"
+                                conforme o caso</p>
+                        </div>
+                    </div>
+                    <div class="guide-step">
+                        <div class="step-icon">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253Z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div class="step-content">
+                            <h3>2. Escolha a Lei</h3>
+                            <p>Selecione o código ou lei aplicável ao caso específico</p>
+                        </div>
+                    </div>
+                    <div class="guide-step">
+                        <div class="step-icon">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div class="step-content">
+                            <h3>3. Digite o Artigo</h3>
+                            <p>Informe o artigo completo ou use o construtor para facilitar
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Legenda de Resultados -->
+                <div class="results-legend">
+                    <h3>Legenda de Resultados</h3>
+                    <div class="legend-items">
+                        <div class="legend-item ineligible">
+                            <div class="legend-icon">
+                                <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
                             </div>
-                            <div class="legend-item eligible">
-                                <div class="legend-icon">
-                                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd"
-                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                            clip-rule="evenodd"></path>
-                                    </svg>
-                                </div>
-                                <div class="legend-content">
-                                    <span class="legend-title">ELEGÍVEL</span>
-                                    <span class="legend-description">Não enseja anotação de
-                                        inelegibilidade</span>
-                                </div>
+                            <div class="legend-content">
+                                <span class="legend-title">INELEGÍVEL</span>
+                                <span class="legend-description">Enseja anotação de
+                                    inelegibilidade</span>
                             </div>
-                            <div class="legend-item not-found">
-                                <div class="legend-icon">
-                                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd"
-                                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
-                                            clip-rule="evenodd"></path>
-                                    </svg>
-                                </div>
-                                <div class="legend-content">
-                                    <span class="legend-title">NÃO ENCONTRADO</span>
-                                    <span class="legend-description">Artigo não encontrado na
-                                        base de dados</span>
-                                </div>
+                        </div>
+                        <div class="legend-item eligible">
+                            <div class="legend-icon">
+                                <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                            <div class="legend-content">
+                                <span class="legend-title">ELEGÍVEL</span>
+                                <span class="legend-description">Não enseja anotação de
+                                    inelegibilidade</span>
+                            </div>
+                        </div>
+                        <div class="legend-item not-found">
+                            <div class="legend-icon">
+                                <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                            <div class="legend-content">
+                                <span class="legend-title">NÃO ENCONTRADO</span>
+                                <span class="legend-description">Artigo não encontrado na
+                                    base de dados</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
     </main>
 
     <!-- Footer será renderizado aqui -->

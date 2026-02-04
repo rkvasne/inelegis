@@ -393,10 +393,11 @@ export class ValidatorUI {
             <div>
               <span class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest block mb-1">ASE DE ANOTAÇÃO</span>
               <p class="text-sm font-bold">
-                ${tipoComunicacao === "condenacao"
-        ? `ASE 337 - Motivo ${isInelegivel ? "7" : "2"}: Condenação criminal`
-        : "Consulte o manual para este tipo de comunicação"
-      }
+                ${
+                  tipoComunicacao === "condenacao"
+                    ? `ASE 337 - Motivo ${isInelegivel ? "7" : "2"}: Condenação criminal`
+                    : "Consulte o manual para este tipo de comunicação"
+                }
               </p>
             </div>
             <div class="pt-2 border-t border-neutral-700">
@@ -410,8 +411,9 @@ export class ValidatorUI {
         </div>
 
         <!-- Disclaimer de Exceções -->
-        ${result.excecoes_detalhes
-        ? `
+        ${
+          result.excecoes_detalhes
+            ? `
         <div class="exception-alert-card border-2 border-warning-200 bg-warning-50 p-4 rounded-xl">
           <div class="flex items-start gap-3">
             <div class="text-warning-600 mt-0.5">
@@ -429,8 +431,8 @@ export class ValidatorUI {
           </div>
         </div>
         `
-        : ""
-      }
+            : ""
+        }
       </div>
     `;
 
