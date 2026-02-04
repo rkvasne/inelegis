@@ -16,6 +16,8 @@ export class ValidatorUI {
 
     /** @type {string|null} Código da lei selecionada */
     this.selectedLaw = null;
+    /** @type {string|null} Nome amigável da lei selecionada */
+    this.selectedLawName = null;
 
     console.log(
       "[ValidatorUI] Constructor - leiSelect:",
@@ -105,7 +107,9 @@ export class ValidatorUI {
       const nome = e.target.options[e.target.selectedIndex].text;
 
       if (codigo) {
-        await this.selectLaw(codigo, nome);
+        // Agora usamos o texto completo do option, confiando no nome amigável vindo do banco
+        const lawName = e.target.options[e.target.selectedIndex].textContent;
+        await this.selectLaw(codigo, lawName);
         // Esconder a setinha indicadora após primeira seleção
         const arrowIndicator = document.getElementById("leiArrowIndicator");
         if (arrowIndicator) {
@@ -153,6 +157,7 @@ export class ValidatorUI {
    */
   async selectLaw(codigo, nome) {
     this.selectedLaw = codigo;
+    this.selectedLawName = nome;
     await this.populateArtigoSelect(codigo);
     this.hideResult();
   }
@@ -324,33 +329,31 @@ export class ValidatorUI {
                             ${statusText}
                         </span>
                         <h3 class="text-xl font-bold ${isInelegivel ? "text-danger-900" : isElegivel ? "text-success-900" : "text-warning-900"} mb-2">
-                            ${this.selectedLaw} - Art. ${artigoNum}
+                            ${this.selectedLawName} - Art. ${artigoNum}
                         </h3>
                         <div class="space-y-3">
-                            ${
-                              result.tipo_crime
-                                ? `
+                            ${result.tipo_crime
+        ? `
                             <div>
                                 <span class="text-xs font-semibold text-neutral-500 uppercase">Tipo de Crime</span>
                                 <p class="text-neutral-800 font-medium">${result.tipo_crime}</p>
                             </div>
                             `
-                                : ""
-                            }
+        : ""
+      }
                             <div>
                                 <span class="text-xs font-semibold text-neutral-500 uppercase">Fundamentação</span>
                                 <p class="text-neutral-700 text-sm">${result.motivo || "Consulte a tabela oficial para mais detalhes."}</p>
                             </div>
-                            ${
-                              result.observacoes
-                                ? `
+                            ${result.observacoes
+        ? `
                             <div class="mt-3 p-3 bg-white/50 rounded border border-neutral-200">
                                 <span class="text-xs font-semibold text-neutral-500 uppercase">Observações</span>
                                 <p class="text-neutral-600 text-sm">${result.observacoes}</p>
                             </div>
                             `
-                                : ""
-                            }
+        : ""
+      }
                         </div>
                     </div>
                 </div>
