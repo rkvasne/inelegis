@@ -124,45 +124,45 @@ export class ValidatorUI {
       }
     });
 
-    // Setup dos campos complementares (Parágrafo, Inciso, Alínea)
-    this.setupComplementaryFields();
+    // Setup dos botões de ação (Pesquisar / Limpar)
+    this.setupActionButtons();
   }
 
   /**
-   * Configura listeners para os campos complementares (se existirem)
+   * Configura listeners para os botões de ação.
    */
-  setupComplementaryFields() {
-    const fields = ["paragrafoInput", "incisoInput", "alineaInput"];
-    fields.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) {
-        el.addEventListener("input", () => {
-          // Debounce para não validar a cada tecla loucamente
-          if (this._debounceTimer) clearTimeout(this._debounceTimer);
-          this._debounceTimer = setTimeout(() => {
-            const artigoNum = this.artigoSelect.value;
-            if (artigoNum && this.selectedLaw) {
-              this.validateSelection(artigoNum);
-            }
-          }, 500);
-        });
-      }
-    });
-
-    // Listener para o Checkbox do Parágrafo Único
-    const checkUnico = document.getElementById("paragrafoUnicoCheck");
-    if (checkUnico) {
-      checkUnico.addEventListener("change", () => {
-        const artigoNum = this.artigoSelect.value;
-        if (artigoNum && this.selectedLaw) {
-          this.validateSelection(artigoNum);
-        }
-      });
-    }
+  setupActionButtons() {
     // Listener para o botão Limpar
     const btnClear = document.getElementById("btnClearSearch");
     if (btnClear) {
       btnClear.addEventListener("click", () => this.clearSearch());
+    }
+
+    // Listener para o botão Pesquisar
+    const btnPesquisar = document.getElementById("btnPesquisar");
+    if (btnPesquisar) {
+      btnPesquisar.addEventListener("click", () => {
+        const artigoNum = this.artigoSelect?.value;
+        if (this.selectedLaw && artigoNum) {
+          this.validateSelection(artigoNum);
+        } else {
+          // Feedback visual se tentar pesquisar sem selecionar
+          if (!this.selectedLaw && this.leiSelect) {
+            this.leiSelect.classList.add("ring-2", "ring-red-500");
+            setTimeout(
+              () => this.leiSelect.classList.remove("ring-2", "ring-red-500"),
+              1000,
+            );
+          } else if (!artigoNum && this.artigoSelect) {
+            this.artigoSelect.classList.add("ring-2", "ring-red-500");
+            setTimeout(
+              () =>
+                this.artigoSelect.classList.remove("ring-2", "ring-red-500"),
+              1000,
+            );
+          }
+        }
+      });
     }
   }
 
@@ -262,12 +262,8 @@ export class ValidatorUI {
     if (!this.artigoSelect) return;
 
     this.artigoSelect.addEventListener("change", async (e) => {
-      const artigoNum = e.target.value;
-      if (artigoNum) {
-        await this.validateSelection(artigoNum);
-      } else {
-        this.hideResult();
-      }
+      // Apenas esconde resultado anterior se houver mudança, mas não dispara busca
+      this.hideResult();
     });
   }
 
@@ -393,11 +389,10 @@ export class ValidatorUI {
             <div>
               <span class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest block mb-1">ASE DE ANOTAÇÃO</span>
               <p class="text-sm font-bold">
-                ${
-                  tipoComunicacao === "condenacao"
-                    ? `ASE 337 - Motivo ${isInelegivel ? "7" : "2"}: Condenação criminal`
-                    : "Consulte o manual para este tipo de comunicação"
-                }
+                ${tipoComunicacao === "condenacao"
+        ? `ASE 337 - Motivo ${isInelegivel ? "7" : "2"}: Condenação criminal`
+        : "Consulte o manual para este tipo de comunicação"
+      }
               </p>
             </div>
             <div class="pt-2 border-t border-neutral-700">
@@ -411,9 +406,8 @@ export class ValidatorUI {
         </div>
 
         <!-- Disclaimer de Exceções -->
-        ${
-          result.excecoes_detalhes
-            ? `
+        ${result.excecoes_detalhes
+        ? `
         <div class="exception-alert-card border-2 border-warning-200 bg-warning-50 p-4 rounded-xl">
           <div class="flex items-start gap-3">
             <div class="text-warning-600 mt-0.5">
@@ -431,8 +425,8 @@ export class ValidatorUI {
           </div>
         </div>
         `
-            : ""
-        }
+        : ""
+      }
       </div>
     `;
 
