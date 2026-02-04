@@ -226,59 +226,32 @@ export class ValidatorUI {
    */
   async validateSelection(artigoNum) {
     // Coletar complementos
-    const paragrafo = document.getElementById("paragrafoInput")?.value || null;
+    const paragrafoUnico = document.getElementById("paragrafoUnicoCheck")?.checked;
+    const paragrafo = paragrafoUnico ? "unico" : (document.getElementById("paragrafoInput")?.value || null);
     const inciso = document.getElementById("incisoInput")?.value || null;
     const alinea = document.getElementById("alineaInput")?.value || null;
 
     // Mostrar loading no resultado
     if (this.resultContainer) {
-      const filters = [];
-      if (paragrafo) filters.push(`Parágrafo ${paragrafo}`);
-      if (inciso) filters.push(`Inciso ${inciso}`);
-      if (alinea) filters.push(`Alínea ${alinea}`);
-      const filterText =
-        filters.length > 0 ? `Filtrando por: ${filters.join(", ")}` : "";
-
-      this.resultContainer.innerHTML = `
-                <div class="p-6 text-center text-neutral-500">
-                    <div class="animate-spin inline-block w-8 h-8 border-4 border-primary-200 border-t-primary-600 rounded-full mb-2"></div>
-                    <p>Verificando elegibilidade...</p>
-                    ${filterText ? `<p class="text-xs text-neutral-400 mt-1">${filterText}</p>` : ""}
-                </div>
-            `;
-      this.resultContainer.classList.remove("hidden");
+      this.resultContainer.innerHTML = ""; // Limpar qualquer resquício fixo
+      this.resultContainer.classList.add("hidden");
     }
 
-    // Buscar resultado (agora via Supabase RPC incluindo todos os complementos)
-    const result = await validatorService.verifyEligibility(
-      this.selectedLaw,
-      artigoNum,
-      paragrafo,
-      inciso,
-      alinea,
-    );
+    // Feedback visual opcional (silencioso) se necessário, mas removemos o texto fixo "Verificando..."
+    // Chamar o serviço
+    try {
+      const result = await validatorService.verifyEligibility(
+        this.selectedLaw,
+        artigoNum,
+        paragrafo,
+        inciso,
+        alinea
+      );
 
-    // Registrar no Histórico e Analytics
-    if (typeof SearchHistory !== "undefined") {
-      SearchHistory.add({
-        lei: this.selectedLaw,
-        artigo: artigoNum,
-        resultado: result.resultado.toLowerCase(),
-        tipoCrime: result.tipo_crime,
-        observacoes: result.observacoes || result.motivo,
-      });
+      this.renderResult(result, artigoNum, paragrafo, inciso, alinea);
+    } catch (error) {
+      console.error("[ValidatorUI] Erro ao validar:", error);
     }
-
-    if (typeof Analytics !== "undefined") {
-      Analytics.trackSearch({
-        lei: this.selectedLaw,
-        artigo: artigoNum,
-        resultado: result.resultado.toLowerCase(),
-        temExcecao: result.resultado === "ELEGIVEL",
-      });
-    }
-
-    this.renderResult(result, artigoNum, paragrafo, inciso, alinea);
   }
 
   /**
@@ -365,11 +338,10 @@ export class ValidatorUI {
             <div>
               <span class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest block mb-1">ASE DE ANOTAÇÃO</span>
               <p class="text-sm font-bold">
-                ${
-                  tipoComunicacao === "condenacao"
-                    ? `ASE 337 - Motivo ${isInelegivel ? "7" : "2"}: Condenação criminal`
-                    : "Consulte o manual para este tipo de comunicação"
-                }
+                ${tipoComunicacao === "condenacao"
+        ? `ASE 337 - Motivo ${isInelegivel ? "7" : "2"}: Condenação criminal`
+        : "Consulte o manual para este tipo de comunicação"
+      }
               </p>
             </div>
             <div class="pt-2 border-t border-neutral-700">
@@ -383,9 +355,8 @@ export class ValidatorUI {
         </div>
 
         <!-- Disclaimer de Exceções -->
-        ${
-          result.excecoes_detalhes
-            ? `
+        ${result.excecoes_detalhes
+        ? `
         <div class="exception-alert-card border-2 border-warning-200 bg-warning-50 p-4 rounded-xl">
           <div class="flex items-start gap-3">
             <div class="text-warning-600 mt-0.5">
@@ -403,8 +374,8 @@ export class ValidatorUI {
           </div>
         </div>
         `
-            : ""
-        }
+        : ""
+      }
       </div>
     `;
 
