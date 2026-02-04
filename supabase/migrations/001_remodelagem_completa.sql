@@ -634,7 +634,7 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, alin
 -- Fim do script
 
 
--- Nova Função RPC otimizada para tabela flat
+-- Nova Função RPC otimizada com metadados de exceção
 CREATE OR REPLACE FUNCTION public.verificar_elegibilidade(
     p_codigo_norma TEXT,
     p_artigo TEXT,
@@ -646,20 +646,18 @@ RETURNS TABLE (
     resultado VARCHAR,
     tipo_crime TEXT,
     observacoes TEXT,
-    motivo TEXT
+    motivo TEXT,
+    item_alinea_e VARCHAR,
+    excecoes_detalhes TEXT
 ) 
 LANGUAGE plpgsql
 SECURITY DEFINER
 AS $$
 DECLARE
     v_record record;
+    v_excecoes_list TEXT;
 BEGIN
-    -- Buscar registro exato ou mais específico
-    -- Prioridade: Verificar se é EXCEÇÃO primeiro ou INELEGIVEL
-    -- Logica: Se encontrar registro com eh_excecao = TRUE -> ELEGIVEL
-    --         Se encontrar registro com eh_excecao = FALSE -> INELEGIVEL
-    --         Se não encontrar -> NAO_CONSTA
-    
+    -- 1. Buscar o registro mais específico (priorizando exatidão)
     SELECT * INTO v_record
     FROM public.crimes_inelegibilidade
     WHERE codigo = p_codigo_norma 
@@ -674,8 +672,29 @@ BEGIN
       eh_excecao ASC 
     LIMIT 1;
 
+    -- 2. Buscar TODAS as exceções para este artigo para o disclaimer
+    SELECT string_agg(
+        CASE 
+            WHEN paragrafo IS NOT NULL THEN 'Parágrafo ' || paragrafo 
+            WHEN inciso IS NOT NULL THEN 'Inciso ' || inciso 
+            WHEN alinea IS NOT NULL THEN 'Alínea ' || alinea 
+            ELSE 'Artigo/Caput'
+        END || COALESCE(' (' || observacoes || ')', ''), 
+        '; '
+    ) INTO v_excecoes_list
+    FROM public.crimes_inelegibilidade
+    WHERE codigo = p_codigo_norma 
+      AND artigo = p_artigo 
+      AND eh_excecao = TRUE;
+
     IF v_record IS NULL THEN
-        RETURN QUERY SELECT 'NAO_CONSTA'::VARCHAR, NULL::TEXT, NULL::TEXT, 'Artigo não mapeado como impeditivo.'::TEXT;
+        RETURN QUERY SELECT 
+            'NAO_CONSTA'::VARCHAR, 
+            NULL::TEXT, 
+            NULL::TEXT, 
+            'Artigo não mapeado como impeditivo.'::TEXT,
+            NULL::VARCHAR,
+            NULL::TEXT;
         RETURN;
     END IF;
 
@@ -685,14 +704,18 @@ BEGIN
           'ELEGIVEL'::VARCHAR, 
           NULL::TEXT, 
           v_record.observacoes::TEXT, 
-          ('Artigo consta como exceção na tabela (Item ' || COALESCE(v_record.item_alinea_e, '?') || ')')::TEXT;
+          ('Artigo consta como exceção na tabela (Item ' || COALESCE(v_record.item_alinea_e, '?') || ')')::TEXT,
+          v_record.item_alinea_e::VARCHAR,
+          v_excecoes_list::TEXT;
     ELSE
         RETURN QUERY 
         SELECT 
           'INELEGIVEL'::VARCHAR, 
           v_record.tipo_crime::TEXT, 
           v_record.observacoes::TEXT, 
-          ('Artigo consta na tabela de inelegibilidade (Item ' || COALESCE(v_record.item_alinea_e, '?') || ')')::TEXT;
+          ('Artigo consta na tabela de inelegibilidade (Item ' || COALESCE(v_record.item_alinea_e, '?') || ')')::TEXT,
+          v_record.item_alinea_e::VARCHAR,
+          v_excecoes_list::TEXT;
     END IF;
 END;
 $$;
