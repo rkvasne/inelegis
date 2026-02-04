@@ -337,18 +337,26 @@ export class ValidatorUI {
     let statusClass = "";
     let statusText = "";
     let statusIcon = "";
+    let iconBgClass = "";
+    let iconColorClass = "";
 
     if (isInelegivel) {
       statusClass = "ineligible";
       statusText = "INELEGÍVEL";
+      iconBgClass = "legend-icon-ineligible";
+      iconColorClass = "text-danger";
       statusIcon = `<svg width="24" height="24" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>`;
     } else if (isElegivel) {
       statusClass = "eligible";
       statusText = "ELEGÍVEL";
+      iconBgClass = "legend-icon-eligible";
+      iconColorClass = "text-success";
       statusIcon = `<svg width="24" height="24" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>`;
     } else {
       statusClass = "not-found";
       statusText = "NÃO ENCONTRADO";
+      iconBgClass = "legend-icon-not-found";
+      iconColorClass = "text-warning";
       statusIcon = `<svg width="24" height="24" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>`;
     }
 
@@ -362,15 +370,13 @@ export class ValidatorUI {
     const bodyHTML = `
       <div class="result-modal-v3">
         <!-- Card de Status Principal -->
-        <div class="modal-status-card ${statusClass} mb-4">
-          <div class="flex items-center gap-4">
-            <div class="legend-icon text-white flex items-center justify-center ${statusClass === "ineligible" ? "bg-danger-500" : statusClass === "eligible" ? "bg-success-500" : "bg-warning-500"}" style="width: 2.5rem; height: 2.5rem; border-radius: 0.5rem;">
-              ${statusIcon}
-            </div>
-            <div>
-              <span class="status-label">RESULTADO</span>
-              <h2 class="status-value">${statusText}</h2>
-            </div>
+        <div class="modal-status-card ${statusClass}">
+          <div class="modal-result-icon">
+            ${statusIcon}
+          </div>
+          <div>
+            <span class="status-label">RESULTADO</span>
+            <h2 class="status-value">${statusText}</h2>
           </div>
         </div>
 
