@@ -634,7 +634,10 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, alin
 -- Fim do script
 
 
--- Nova Função RPC otimizada com metadados de exceção
+-- Drop function antiga ANTES de recriar (evita erro de mudança de retorno)
+DROP FUNCTION IF EXISTS public.verificar_elegibilidade(text, text, text, text, text);
+
+-- Nova Função RPC otimizada com metadados de exceção para UI V3
 CREATE OR REPLACE FUNCTION public.verificar_elegibilidade(
     p_codigo_norma TEXT,
     p_artigo TEXT,
@@ -672,7 +675,7 @@ BEGIN
       eh_excecao ASC 
     LIMIT 1;
 
-    -- 2. Buscar TODAS as exceções para este artigo para o disclaimer
+    -- 2. Buscar TODAS as exceções para este artigo para o disclaimer (Coluna central no UI V3)
     SELECT string_agg(
         CASE 
             WHEN paragrafo IS NOT NULL THEN 'Parágrafo ' || paragrafo 
@@ -698,25 +701,15 @@ BEGIN
         RETURN;
     END IF;
 
-    IF v_record.eh_excecao THEN
-        RETURN QUERY 
-        SELECT 
-          'ELEGIVEL'::VARCHAR, 
-          NULL::TEXT, 
-          v_record.observacoes::TEXT, 
-          ('Artigo consta como exceção na tabela (Item ' || COALESCE(v_record.item_alinea_e, '?') || ')')::TEXT,
-          v_record.item_alinea_e::VARCHAR,
-          v_excecoes_list::TEXT;
-    ELSE
-        RETURN QUERY 
-        SELECT 
-          'INELEGIVEL'::VARCHAR, 
-          v_record.tipo_crime::TEXT, 
-          v_record.observacoes::TEXT, 
-          ('Artigo consta na tabela de inelegibilidade (Item ' || COALESCE(v_record.item_alinea_e, '?') || ')')::TEXT,
-          v_record.item_alinea_e::VARCHAR,
-          v_excecoes_list::TEXT;
-    END IF;
+    -- 3. Retornar os dados estruturados para o Modal V3
+    RETURN QUERY 
+    SELECT 
+      (CASE WHEN v_record.eh_excecao THEN 'ELEGIVEL' ELSE 'INELEGIVEL' END)::VARCHAR, 
+      v_record.tipo_crime::TEXT, 
+      v_record.observacoes::TEXT, 
+      ('Artigo consta na tabela de inelegibilidade (Item ' || COALESCE(v_record.item_alinea_e, '?') || ')')::TEXT,
+      v_record.item_alinea_e::VARCHAR,
+      v_excecoes_list::TEXT;
 END;
 $$;
 
