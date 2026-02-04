@@ -278,92 +278,114 @@ export class ValidatorUI {
       });
     }
 
-    this.renderResult(result, artigoNum);
+    this.renderResult(result, artigoNum, paragrafo, inciso, alinea);
   }
 
   /**
    * Renderiza o resultado da verificação
    * @param {object} result Resultado da verificação
    * @param {string} artigoNum Número do artigo
+   * @param {string} p Parágrafo
+   * @param {string} i Inciso
+   * @param {string} a Alínea
    */
-  renderResult(result, artigoNum) {
+  renderResult(result, artigoNum, p, i, a) {
     if (!this.resultContainer) return;
 
     const isInelegivel = result.resultado === "INELEGIVEL";
     const isElegivel = result.resultado === "ELEGIVEL";
     const naoConsta = result.resultado === "NAO_CONSTA";
 
-    let cardClass, iconPath, statusText, statusClass;
+    let cardClass, statusText, statusClass, iconColor;
 
     if (isInelegivel) {
-      cardClass = "border-danger-500 bg-red-50";
-      statusClass = "bg-danger-200 text-danger-800";
-      statusText = "GERA INELEGIBILIDADE";
-      iconPath =
-        "M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z";
+      cardClass = "border-danger-500 bg-white";
+      statusClass = "bg-danger-600 text-white";
+      statusText = "INELEGÍVEL";
+      iconColor = "text-danger-600";
     } else if (isElegivel) {
-      cardClass = "border-success-500 bg-green-50";
-      statusClass = "bg-success-200 text-success-800";
-      statusText = "NÃO GERA INELEGIBILIDADE";
-      iconPath = "M5 13l4 4L19 7";
+      cardClass = "border-success-500 bg-white";
+      statusClass = "bg-success-600 text-white";
+      statusText = "ELEGÍVEL (EXCEÇÃO)";
+      iconColor = "text-success-600";
     } else {
-      cardClass = "border-warning-500 bg-yellow-50";
-      statusClass = "bg-warning-200 text-warning-800";
-      statusText = "NÃO CONSTA NA TABELA";
-      iconPath =
-        "M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z";
+      cardClass = "border-warning-500 bg-white";
+      statusClass = "bg-warning-500 text-white";
+      statusText = "NÃO CONSTA";
+      iconColor = "text-warning-600";
     }
 
+    // Formatar incidência
+    let incidencia = `Art. ${artigoNum}`;
+    if (p) incidencia += `, § ${p}`;
+    if (i) incidencia += `, Inc. ${i}`;
+    if (a) incidencia += `, Alínea ${a}`;
+
     const html = `
-            <div class="validator-card border-l-4 ${cardClass} p-6 rounded-lg shadow-sm animate-fade-in">
-                <div class="flex items-start gap-4">
-                    <div class="flex-shrink-0 mt-1">
-                        <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-sm ${isInelegivel ? "text-danger-600" : isElegivel ? "text-success-600" : "text-warning-600"}">
-                            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${iconPath}"></path>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="flex-1">
-                        <span class="inline-block px-3 py-1 text-xs font-bold tracking-wider uppercase rounded-full mb-2 ${statusClass}">
-                            ${statusText}
-                        </span>
-                        <h3 class="text-xl font-bold ${isInelegivel ? "text-danger-900" : isElegivel ? "text-success-900" : "text-warning-900"} mb-2">
-                            ${this.selectedLawName} - Art. ${artigoNum}
-                        </h3>
-                        <div class="space-y-3">
-                            ${
-                              result.tipo_crime
-                                ? `
-                            <div>
-                                <span class="text-xs font-semibold text-neutral-500 uppercase">Tipo de Crime</span>
-                                <p class="text-neutral-800 font-medium">${result.tipo_crime}</p>
-                            </div>
-                            `
-                                : ""
-                            }
-                            <div>
-                                <span class="text-xs font-semibold text-neutral-500 uppercase">Fundamentação</span>
-                                <p class="text-neutral-700 text-sm">${result.motivo || "Consulte a tabela oficial para mais detalhes."}</p>
-                            </div>
-                            ${
-                              result.observacoes
-                                ? `
-                            <div class="mt-3 p-3 bg-white/50 rounded border border-neutral-200">
-                                <span class="text-xs font-semibold text-neutral-500 uppercase">Observações</span>
-                                <p class="text-neutral-600 text-sm">${result.observacoes}</p>
-                            </div>
-                            `
-                                : ""
-                            }
-                        </div>
-                    </div>
+            <div class="validator-card border-t-8 ${cardClass} p-0 rounded-xl shadow-lg animate-fade-in overflow-hidden">
+                <div class="px-6 py-4 border-b border-neutral-100 flex justify-between items-center bg-neutral-50/50">
+                    <span class="inline-block px-4 py-1.5 text-xs font-bold tracking-widest uppercase rounded-lg ${statusClass} shadow-sm">
+                        ${statusText}
+                    </span>
+                    <span class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">Resultado da Análise Digital</span>
                 </div>
-                <!-- Melhoria: Botão para limpar a consulta -->
-                <div class="mt-4 pt-4 border-t border-dashed ${isInelegivel ? "border-danger-200" : isElegivel ? "border-success-200" : "border-warning-200"} text-xs text-neutral-500 flex justify-between items-center">
-                    <span>Fonte: Tabela CRE-RO/TRE-SP via Supabase</span>
-                    <button class="text-primary-600 hover:text-primary-800 font-medium" onclick="document.getElementById('artigoSelect').value=''; document.getElementById('validator-result').classList.add('hidden');">
-                        Nova Consulta
+                
+                <div class="p-0">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-neutral-100/80">
+                                <th class="p-4 text-[10px] font-black text-neutral-600 uppercase tracking-tighter border-r border-neutral-200 w-1/3">NORMA / INCIDÊNCIA</th>
+                                <th class="p-4 text-[10px] font-black text-neutral-600 uppercase tracking-tighter border-r border-neutral-200 w-1/3">EXCEÇÕES</th>
+                                <th class="p-4 text-[10px] font-black text-neutral-600 uppercase tracking-tighter w-1/3">CRIMES (LC 64/90, 1º, I, "e")</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="p-5 align-top border-r border-neutral-100">
+                                    <h4 class="text-sm font-bold text-neutral-900 mb-1">${this.selectedLawName}</h4>
+                                    <p class="text-lg font-black text-primary-700 leading-tight">${incidencia}</p>
+                                </td>
+                                <td class="p-5 align-top border-r border-neutral-100">
+                                    ${isElegivel
+        ? `<div class="flex items-start gap-2 text-success-700 bg-success-50 p-2 rounded border border-success-100">
+                                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" class="mt-0.5">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                            </svg>
+                                            <div>
+                                                <p class="text-xs font-bold uppercase tracking-tight">Consta como Exceção</p>
+                                                <p class="text-[11px] leading-tight mt-1">${result.observacoes || "Este dispositivo é uma exceção à regra de inelegibilidade."}</p>
+                                            </div>
+                                           </div>`
+        : `<p class="text-xs text-neutral-400 italic">Nenhuma exceção aplicada para este dispositivo.</p>`
+      }
+                                </td>
+                                <td class="p-5 align-top">
+                                    <p class="text-sm font-bold text-neutral-800 leading-snug">${result.tipo_crime || "---"}</p>
+                                    ${result.motivo ? `<p class="text-[10px] text-neutral-500 mt-2 leading-tight bg-neutral-50 p-2 rounded">${result.motivo}</p>` : ""}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                ${result.observacoes && !isElegivel
+        ? `
+                    <div class="px-6 py-4 bg-neutral-50/50 border-t border-neutral-100">
+                        <span class="text-[10px] font-bold text-neutral-400 uppercase block mb-1">Notas Adicionais / Jurisprudência</span>
+                        <p class="text-xs text-neutral-600 leading-relaxed">${result.observacoes}</p>
+                    </div>
+                    `
+        : ""
+      }
+
+                <div class="px-6 py-3 border-t border-neutral-100 bg-white flex justify-between items-center">
+                    <div class="flex items-center gap-2">
+                        <div class="w-1.5 h-1.5 rounded-full ${isInelegivel ? "bg-danger-500" : isElegivel ? "bg-success-500" : "bg-warning-500"} animate-pulse"></div>
+                        <span class="text-[10px] text-neutral-400 font-medium">Fonte Corregedoria-Geral Eleitoral • Base Supabase</span>
+                    </div>
+                    <button class="text-xs font-bold text-primary-600 hover:text-primary-800 transition-colors uppercase tracking-widest" 
+                            onclick="document.getElementById('artigoSelect').value=''; document.getElementById('validator-result').classList.add('hidden'); window.scrollTo({top: 0, behavior: 'smooth'});">
+                        Refazer Consulta
                     </button>
                 </div>
             </div>

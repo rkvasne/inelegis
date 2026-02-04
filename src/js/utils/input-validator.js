@@ -31,6 +31,26 @@ export const InputValidator = {
   },
 
   /**
+   * Normaliza detalhes (parágrafo, inciso, alínea) para busca
+   * @param {string} text
+   * @returns {string|null}
+   */
+  normalizeDetail(text) {
+    if (!text || typeof text !== "string") return null;
+    let normalized = text.trim().toLowerCase();
+
+    // Remover símbolos e ordinais comuns
+    normalized = normalized.replace(/[§º°ª]/g, "").trim();
+
+    // Mapeamentos comuns
+    if (normalized === "parágrafo único" || normalized === "p. único" || normalized === "p.u") {
+      return "unico";
+    }
+
+    return normalized || null;
+  },
+
+  /**
    * Valida parâmetros de busca genéricos
    * @param {string} text
    * @param {number} maxLength
