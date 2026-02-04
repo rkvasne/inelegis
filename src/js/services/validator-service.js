@@ -164,7 +164,9 @@ export class ValidatorService {
       const result = await supabaseClient.rpc("verificar_elegibilidade", {
         p_codigo_norma: sanitizedLaw,
         p_artigo: sanitizedArticle,
-        p_paragrafo: paragraph ? InputValidator.normalizeDetail(paragraph) : null,
+        p_paragrafo: paragraph
+          ? InputValidator.normalizeDetail(paragraph)
+          : null,
         p_inciso: inciso ? InputValidator.normalizeDetail(inciso) : null,
         p_alinea: alinea ? InputValidator.normalizeDetail(alinea) : null,
       });

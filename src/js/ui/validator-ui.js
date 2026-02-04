@@ -346,8 +346,9 @@ export class ValidatorUI {
                                     <p class="text-lg font-black text-primary-700 leading-tight">${incidencia}</p>
                                 </td>
                                 <td class="p-5 align-top border-r border-neutral-100">
-                                    ${isElegivel
-        ? `<div class="flex items-start gap-2 text-success-700 bg-success-50 p-2 rounded border border-success-100">
+                                    ${
+                                      isElegivel
+                                        ? `<div class="flex items-start gap-2 text-success-700 bg-success-50 p-2 rounded border border-success-100">
                                             <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" class="mt-0.5">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                             </svg>
@@ -356,8 +357,8 @@ export class ValidatorUI {
                                                 <p class="text-[11px] leading-tight mt-1">${result.observacoes || "Este dispositivo é uma exceção à regra de inelegibilidade."}</p>
                                             </div>
                                            </div>`
-        : `<p class="text-xs text-neutral-400 italic">Nenhuma exceção aplicada para este dispositivo.</p>`
-      }
+                                        : `<p class="text-xs text-neutral-400 italic">Nenhuma exceção aplicada para este dispositivo.</p>`
+                                    }
                                 </td>
                                 <td class="p-5 align-top">
                                     <p class="text-sm font-bold text-neutral-800 leading-snug">${result.tipo_crime || "---"}</p>
@@ -368,15 +369,16 @@ export class ValidatorUI {
                     </table>
                 </div>
 
-                ${result.observacoes && !isElegivel
-        ? `
+                ${
+                  result.observacoes && !isElegivel
+                    ? `
                     <div class="px-6 py-4 bg-neutral-50/50 border-t border-neutral-100">
                         <span class="text-[10px] font-bold text-neutral-400 uppercase block mb-1">Notas Adicionais / Jurisprudência</span>
                         <p class="text-xs text-neutral-600 leading-relaxed">${result.observacoes}</p>
                     </div>
                     `
-        : ""
-      }
+                    : ""
+                }
 
                 <div class="px-6 py-3 border-t border-neutral-100 bg-white flex justify-between items-center">
                     <div class="flex items-center gap-2">
