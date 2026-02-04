@@ -148,6 +148,17 @@ export class ValidatorUI {
         });
       }
     });
+
+    // Listener para o Checkbox do Parágrafo Único
+    const checkUnico = document.getElementById("paragrafoUnicoCheck");
+    if (checkUnico) {
+      checkUnico.addEventListener("change", () => {
+        const artigoNum = this.artigoSelect.value;
+        if (artigoNum && this.selectedLaw) {
+          this.validateSelection(artigoNum);
+        }
+      });
+    }
   }
 
   /**
@@ -226,8 +237,12 @@ export class ValidatorUI {
    */
   async validateSelection(artigoNum) {
     // Coletar complementos
-    const paragrafoUnico = document.getElementById("paragrafoUnicoCheck")?.checked;
-    const paragrafo = paragrafoUnico ? "unico" : (document.getElementById("paragrafoInput")?.value || null);
+    const paragrafoUnico = document.getElementById(
+      "paragrafoUnicoCheck",
+    )?.checked;
+    const paragrafo = paragrafoUnico
+      ? "unico"
+      : document.getElementById("paragrafoInput")?.value || null;
     const inciso = document.getElementById("incisoInput")?.value || null;
     const alinea = document.getElementById("alineaInput")?.value || null;
 
@@ -245,7 +260,7 @@ export class ValidatorUI {
         artigoNum,
         paragrafo,
         inciso,
-        alinea
+        alinea,
       );
 
       this.renderResult(result, artigoNum, paragrafo, inciso, alinea);
