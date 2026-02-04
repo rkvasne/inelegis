@@ -163,7 +163,11 @@ export class AnalyzerUI {
         : "Não gera restrição";
 
       // Abrir modal ELEGÍVEL (não consta = elegível)
-      this.updateViewButton(item, { ...result, resultado: "ELEGIVEL" }, "ELEGIVEL");
+      this.updateViewButton(
+        item,
+        { ...result, resultado: "ELEGIVEL" },
+        "ELEGIVEL",
+      );
     }
 
     // Registrar no Histórico e Analytics (Análise Automática)
@@ -384,42 +388,33 @@ window.openAnalyzerResultModal = async function (data) {
         </div>
       </div>
 
-      <!-- Grid de Informações Técnicas -->
-      <div class="grid grid-cols-2 gap-4 mb-4">
-        <div class="info-card">
+      <!-- Grid de Informações Técnicas - 3 colunas -->
+      <div class="grid grid-cols-3 gap-3 mb-3">
+        <div class="info-card info-card-compact">
           <span class="info-label">CRIME/DELITO</span>
           <p class="info-value">
             ${data.tipoCrime || "Não consta crime impeditivo"}
-            ${data.itemAlineaE ? `<strong>(${data.itemAlineaE})</strong>` : ""}
-          </p>
-          <p class="info-subtext text-[10px] text-neutral-400 mt-1 italic">
-            (Conforme elencados no Art. 1º, I, "e" da LC 64/90, alterada pela LC 135 de 4.6.2010)
+            ${data.itemAlineaE ? ` (${data.itemAlineaE})` : ""}
           </p>
         </div>
-        <div class="info-card">
+        <div class="info-card info-card-compact">
           <span class="info-label">NORMA/INCIDÊNCIA</span>
           <p class="info-value">${incidencia}</p>
-          <p class="info-subtext text-xs text-neutral-500 mt-1">${lawDisplayName}</p>
+          <p class="info-subtext">${lawDisplayName}</p>
+        </div>
+        <div class="info-card info-card-compact">
+          <span class="info-label">DATA DE OCORRÊNCIA</span>
+          <p class="info-value">Trânsito em Julgado</p>
+          <p class="info-subtext">Da sentença condenatória</p>
         </div>
       </div>
 
-      <!-- ASE e Datas -->
-      <div class="ase-card mb-4 bg-neutral-800 text-neutral-100 p-4 rounded-xl border border-neutral-700 shadow-sm">
-        <div class="grid grid-cols-1 gap-3">
-          <div>
-            <span class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest block mb-1">ASE DE ANOTAÇÃO</span>
-            <p class="text-sm font-bold">
-              ${isInelegivel ? "ASE 337 - Motivo 7: Condenação criminal" : "Não gera restrição eleitoral"}
-            </p>
-          </div>
-          <div class="pt-2 border-t border-neutral-700">
-            <span class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest block mb-1">DADOS CRONOLÓGICOS RELEVANTES</span>
-            <p class="text-sm">
-              <span class="font-bold">Data de Ocorrência:</span> 
-              <span class="text-neutral-300 italic">Trânsito em julgado da sentença condenatória</span>
-            </p>
-          </div>
-        </div>
+      <!-- ASE -->
+      <div class="ase-card-compact">
+        <span class="ase-label">ASE DE ANOTAÇÃO</span>
+        <span class="ase-value">
+          ${isInelegivel ? "ASE 337 - Motivo 7: Condenação criminal" : "Não gera restrição eleitoral"}
+        </span>
       </div>
 
       <!-- Disclaimer de Exceções -->

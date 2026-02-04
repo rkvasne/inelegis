@@ -163,7 +163,11 @@ export class AnalyzerUI {
         : "Não gera restrição";
 
       // Abrir modal ELEGÍVEL (não consta = elegível)
-      this.updateViewButton(item, { ...result, resultado: "ELEGIVEL" }, "ELEGIVEL");
+      this.updateViewButton(
+        item,
+        { ...result, resultado: "ELEGIVEL" },
+        "ELEGIVEL",
+      );
     }
 
     // Registrar no Histórico e Analytics (Análise Automática)
