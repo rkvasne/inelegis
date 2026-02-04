@@ -332,28 +332,30 @@ export class ValidatorUI {
                             ${this.selectedLawName} - Art. ${artigoNum}
                         </h3>
                         <div class="space-y-3">
-                            ${result.tipo_crime
-        ? `
+                            ${
+                              result.tipo_crime
+                                ? `
                             <div>
                                 <span class="text-xs font-semibold text-neutral-500 uppercase">Tipo de Crime</span>
                                 <p class="text-neutral-800 font-medium">${result.tipo_crime}</p>
                             </div>
                             `
-        : ""
-      }
+                                : ""
+                            }
                             <div>
                                 <span class="text-xs font-semibold text-neutral-500 uppercase">Fundamentação</span>
                                 <p class="text-neutral-700 text-sm">${result.motivo || "Consulte a tabela oficial para mais detalhes."}</p>
                             </div>
-                            ${result.observacoes
-        ? `
+                            ${
+                              result.observacoes
+                                ? `
                             <div class="mt-3 p-3 bg-white/50 rounded border border-neutral-200">
                                 <span class="text-xs font-semibold text-neutral-500 uppercase">Observações</span>
                                 <p class="text-neutral-600 text-sm">${result.observacoes}</p>
                             </div>
                             `
-        : ""
-      }
+                                : ""
+                            }
                         </div>
                     </div>
                 </div>
