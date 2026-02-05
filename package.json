@@ -25,6 +25,7 @@
     "dev": "npm run check && npm run serve",
     "check": "npm run lint && npm run test && node scripts/build.js --dry-run",
     "audit:docs": "node scripts/hub-tools/doc-auditor.js",
+    "doc:check": "npm run audit:docs",
     "generate-token": "node scripts/generate-admin-token.js",
     "start": "npm run serve",
     "prebuild": "npm run check",
