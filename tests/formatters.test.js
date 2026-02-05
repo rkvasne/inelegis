@@ -27,15 +27,19 @@ const assert = {
 };
 
 // Carregar módulo
-const fs = require("fs");
-const path = require("path");
-const vm = require("vm");
+import fs from "fs";
+import path from "path";
+import vm from "vm";
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 let formatterCode = fs.readFileSync(
   path.join(__dirname, "../src/js/utils/formatters.js"),
   "utf8",
 );
-// Remove ES6 export for VM execution
+// Remove ES6 export for VM execution (just in case, though file doesn't seem to have it)
 formatterCode = formatterCode.replace(/export\s+\{.*?\};?/g, "");
 
 const sandbox = { window: {}, console };
