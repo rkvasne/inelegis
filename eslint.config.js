@@ -17,15 +17,15 @@ export default [
         FormData: "readonly",
         Headers: "readonly",
         Request: "readonly",
-        Response: "readonly"
-      }
+        Response: "readonly",
+      },
     },
     rules: {
       "no-unused-vars": "off",
       "no-console": "off",
       "no-alert": "warn",
-      "no-debugger": "error"
+      "no-debugger": "error",
     },
-    files: ["src/**/*.js", "public/assets/js/**/*.js"]
-  }
+    files: ["src/**/*.js", "public/assets/js/**/*.js"],
+  },
 ];

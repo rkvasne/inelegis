@@ -9,27 +9,27 @@ import fs from "fs";
 import path from "path";
 import http from "http";
 import url from "url";
-import { fileURLToPath } from 'url';
+import { fileURLToPath } from "url";
 import pathsConfig from "./project-paths.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Import paths
-const projectRoot = path.resolve(__dirname, '..');
+const projectRoot = path.resolve(__dirname, "..");
 
 // Create paths object for compatibility
 const paths = {
   pages: {
-    index: path.join(projectRoot, "public", "index.html")
+    index: path.join(projectRoot, "public", "index.html"),
   },
   styles: {
-    main: path.join(projectRoot, "public", "styles", "styles.css")
+    main: path.join(projectRoot, "public", "styles", "styles.css"),
   },
   js: {
-    main: path.join(projectRoot, "public", "assets", "js", "script.js")
+    main: path.join(projectRoot, "public", "assets", "js", "script.js"),
   },
-  publicDir: path.join(projectRoot, "public")
+  publicDir: path.join(projectRoot, "public"),
 };
 
 class TestRunner {
