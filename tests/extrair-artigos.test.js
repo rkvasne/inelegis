@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import vm from "vm";
-import { fileURLToPath } from 'url';
+import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -27,7 +27,7 @@ const code = fs.readFileSync(
 
 const sandbox = {
   window: {},
-  document: { getElementById: () => null, addEventListener: () => { } },
+  document: { getElementById: () => null, addEventListener: () => {} },
   navigator: {},
   console,
 };
