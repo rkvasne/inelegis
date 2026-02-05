@@ -11,6 +11,7 @@
     "lint:theme": "node .agent/hub/capabilities/design/frontend-design/scripts/theme-linter.js",
     "lint:theme:fix": "node .agent/hub/capabilities/design/frontend-design/scripts/theme-linter.js --fix",
     "lint:theme:strict": "node .agent/hub/capabilities/design/frontend-design/scripts/theme-linter.js --strict",
+    "validate:theme": "npm run lint:theme",
     "test": "node scripts/test.js",
     "test:coverage": "node scripts/test.js --coverage",
     "test:unit": "node tests/formatters.test.js && node tests/exceptions.test.js",
