@@ -47,13 +47,13 @@ A pasta `.agent/hub/` é uma **Junction (Link)** do Hub Central `E:\Agents`.
 
 ## 🛠️ Scripts Disponíveis (Hub-Powered)
 
-| Comando | Descrição |
-|---------|-----------|
-| `npm run verify` | Validação de integridade do projeto |
-| `npm run lint:theme` | Linter de consistência de temas CSS |
-| `npm run audit:docs` | Auditoria de documentação |
+| Comando                  | Descrição                                   |
+| ------------------------ | ------------------------------------------- |
+| `npm run verify`         | Validação de integridade do projeto         |
+| `npm run lint:theme`     | Linter de consistência de temas CSS         |
+| `npm run audit:docs`     | Auditoria de documentação                   |
 | `npm run test:standards` | Validação de padrões web (links, SEO, A11y) |
-| `npm run format` | Formata código com Prettier |
+| `npm run format`         | Formata código com Prettier                 |
 
 ---
 

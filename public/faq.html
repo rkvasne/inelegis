@@ -648,7 +648,7 @@
                 <p>Entre em contato ou consulte a documentação completa</p>
             </div>
             <div class="card-body">
-                <div class="flex gap-3 justify-center" style="flex-wrap: wrap;">
+                <div class="flex gap-3 justify-center u-flex-wrap">
                     <a href="https://github.com/rkvasne/inelegis/blob/main/docs/README.md" class="btn btn-primary"
                         target="_blank" rel="noopener noreferrer" title="Ver documentação completa">
                         <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -701,21 +701,23 @@
                     const answerText = item.querySelector('.faq-answer-content').textContent.toLowerCase();
 
                     if (questionText.includes(searchTerm) || answerText.includes(searchTerm)) {
-                        item.style.display = 'block';
+                        item.classList.add('is-visible');
+                        item.classList.remove('is-hidden');
 
                         // Abre automaticamente se houver busca
                         if (searchTerm.length > 2) {
                             item.classList.add('active');
                         }
                     } else {
-                        item.style.display = 'none';
+                        item.classList.remove('is-visible');
+                        item.classList.add('is-hidden');
                     }
                 });
 
                 // Mostra/esconde seções vazias
                 document.querySelectorAll('.faq-section').forEach(section => {
-                    const visibleItems = section.querySelectorAll('.faq-item[style="display: block;"]');
-                    section.style.display = visibleItems.length > 0 ? 'block' : 'none';
+                    const visibleItems = section.querySelectorAll('.faq-item.is-visible');
+                    section.classList.toggle('is-hidden', visibleItems.length === 0);
                 });
             });
 

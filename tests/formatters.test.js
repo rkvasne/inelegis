@@ -150,6 +150,32 @@ test("Deve lidar com entrada inválida", () => {
   assert.ok(result3.artigo === "", "Undefined deve retornar objeto vazio");
 });
 
+// Teste 11: Extração de caput
+test("Deve extrair caput como parágrafo", () => {
+  const result = ArtigoFormatter.processarParte("122, caput");
+  assert.equal(result.artigo, "122", "Deve extrair artigo 122");
+  assert.equal(
+    result.paragrafo,
+    "caput",
+    "Deve extrair parágrafo como 'caput'",
+  );
+});
+
+// Teste 12: Caput com artigo complexo
+test("Deve extrair caput mesmo com espaços e variações", () => {
+  const result1 = ArtigoFormatter.processarParte("122 caput");
+  const result2 = ArtigoFormatter.processarParte("122, Caput");
+  const result3 = ArtigoFormatter.processarParte("122,caput");
+
+  assert.equal(result1.paragrafo, "caput", "Deve extrair caput sem vírgula");
+  assert.equal(result2.paragrafo, "caput", "Deve extrair Caput maiúsculo");
+  assert.equal(
+    result3.paragrafo,
+    "caput",
+    "Deve extrair caput colado à vírgula",
+  );
+});
+
 // Resumo
 console.log("\n" + "=".repeat(50));
 console.log(`📊 Resultados: ${passed} passou, ${failed} falhou`);

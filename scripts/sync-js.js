@@ -1,10 +1,14 @@
 #!/usr/bin/env node
-const fs = require("fs");
-const path = require("path");
-const paths = require("./project-paths");
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from 'url';
+import pathsConfig from "./project-paths.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Arquivos que NÃO devem ser copiados para public/assets/js
-const EXCLUDE_FILES = new Set([]);
+const EXCLUDE_FILES = new Set(["README.md"]);
 
 function copyDirectory(src, dest) {
   if (!fs.existsSync(src)) {
@@ -31,13 +35,14 @@ function copyDirectory(src, dest) {
 }
 
 function main() {
-  copyDirectory(paths.js.src, paths.js.public);
+  copyDirectory(pathsConfig.js.src, pathsConfig.js.public);
   console.log(
-    `📦 Sincronizado src/js → ${path.relative(paths.root, paths.js.public)} (preservando destino, excluindo: ${Array.from(EXCLUDE_FILES).join(", ")})`,
+    `📦 Sincronizado src/js → ${path.relative(pathsConfig.root, pathsConfig.js.public)} (preservando destino, excluindo: ${Array.from(EXCLUDE_FILES).join(", ")})`,
   );
 }
 
-if (require.main === module) {
+// ES Module compatibility
+if (import.meta.url === `file://${process.argv[1]}`) {
   try {
     main();
   } catch (error) {
@@ -46,4 +51,4 @@ if (require.main === module) {
   }
 }
 
-module.exports = { copyDirectory };
+export { copyDirectory };

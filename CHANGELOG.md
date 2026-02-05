@@ -10,7 +10,7 @@ lastReviewed: 21/01/2026
 
 ---
 
-**Versão atual:** 0.3.0
+**Versão atual:** 0.3.4
 
 Todas as alterações notáveis neste projeto serão documentadas neste arquivo.
 
@@ -18,6 +18,58 @@ O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
+
+## [0.3.4] - 05/02/2026
+
+### 🔧 Correções Críticas
+
+- **Inconsistência Massiva na Base de Dados**:
+  - **Problema Identificado**: A tabela `crimes_inelegibilidade` continha dados incorretos em VÁRIOS artigos, não apenas no Art. 122 CP.
+  - **Descoberta**: Art. 122 CP caput retornava INELEGÍVEL (errado) em vez de ELEGÍVEL foi apenas o sintoma inicial que revelou o problema maior.
+  - **Auditoria Completa**: Comparação com a Tabela Oficial revelou divergências em centenas de artigos do CP, CPM, CE e leis especiais.
+  - **Causa Raiz Dupla**:
+    1. **Dados Incorretos**: Tabela original não seguia a fonte oficial da Corregedoria Regional Eleitoral SP.
+    2. **Bug na Função SQL**: `verificar_elegibilidade` usava lógica `(p_paragrafo IS NULL OR t.paragrafo = p_paragrafo)` que casava qualquer parágrafo quando null era passado, mascarando ainda mais os erros de dados.
+  - **Solução**: Reconstrução total da tabela (migration 002) + correção da lógica SQL para busca exata de caput.
+
+### 🗄️ Banco de Dados (Migration 002)
+
+- **Reconstrução Completa da Tabela de Crimes**:
+  - Criada migration `002_tabela_oficial_completa.sql` baseada 100% na Tabela Exemplificativa oficial da Corregedoria Regional Eleitoral de São Paulo (LC 64/90 atualizada pela LC 135/2010, Outubro 2024).
+  - **Motivo**: Tabela anterior tinha erros em múltiplos artigos (não apenas Art. 122), com dados não condizentes com a fonte oficial.
+  - **Estrutura Melhorada**:
+    - Removido campo `combinacao` (redundante).
+    - Adicionados campos de auditoria: `created_at`, `updated_at`.
+    - Criados 4 índices otimizados: `idx_crimes_codigo`, `idx_crimes_artigo`, `idx_crimes_codigo_artigo`, `idx_crimes_excecao`.
+    - Adicionada documentação SQL completa (COMMENT ON TABLE/COLUMN/FUNCTION).
+  - **Dados Inseridos** (~850+ registros, TODOS revisados):
+    - Código Penal (CP): ~200 artigos (CORRIGIDOS: Art. 122 caput, crimes contra dignidade sexual, e outros)
+    - Código Penal Militar (CPM): ~140 artigos (VALIDADOS contra tabela oficial)
+    - Código Eleitoral (CE): ~76 artigos (289-364A)
+    - Leis Especiais (40+ leis): CLT, Lei Falimentar, Racismo, ECA, Crimes Tributários, Licitações, Tortura, CTB, Crimes Ambientais, Lavagem de Dinheiro, Desarmamento, Drogas, Organização Criminosa, Terrorismo, entre outras.
+  - **Exemplos de Correções Aplicadas**:
+    - Art. 122 CP: caput marcado como exceção (ELEGÍVEL), §1º-7º como impeditivos (INELEGÍVEL).
+    - Crimes contra dignidade sexual: 216-A e 216-B corretamente marcados como exceções.
+    - Lei 9.605/98 (Meio Ambiente): 41 artigos com 10 exceções mapeadas (antes estava incorreto).
+    - CPM, CE e leis especiais: diversos artigos que estavam ausentes ou marcados incorretamente foram corrigidos.
+
+### ⚙️ Frontend
+
+- **Detecção de Caput**:
+  - Adicionado regex `/[,\s]*\bcaput\b/i` em `formatters.js` para extrair palavra-chave "caput" do input do usuário.
+  - Suporte a variações: "122 caput", "122, Caput", "122,caput", etc.
+  - Prioridade: detecção de "caput" ocorre antes da extração de parágrafos numéricos.
+
+### ✅ Testes
+
+- **Testes de Caput**: Adicionados 2 novos casos de teste em `formatters.test.js`:
+  - Test 11: Extração básica de caput.
+  - Test 12: Variações de formatação (espaços, capitalização).
+- **Resultado**: 12/12 testes passando (100% success rate).
+
+### 📚 Documentação
+
+- **Migration Scripts**: DROP FUNCTION adicionado para evitar conflito "function name not unique" ao aplicar migration 002.
 
 ## [0.3.3] - 03/02/2026
 

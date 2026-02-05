@@ -124,11 +124,20 @@ const ArtigoFormatter = {
       texto = texto.substring(matchArtigo[0].length).trim();
     }
 
-    // Extrair parágrafo
-    const matchParagrafo = texto.match(/[,\s]*§\s*(\d+)[º°]?/i);
-    if (matchParagrafo) {
-      resultado.paragrafo = matchParagrafo[1];
-      texto = texto.replace(matchParagrafo[0], "").trim();
+    // Extrair caput (deve vir antes do parágrafo numérico)
+    const matchCaput = texto.match(/[,\s]*\bcaput\b/i);
+    if (matchCaput) {
+      resultado.paragrafo = "caput";
+      texto = texto.replace(matchCaput[0], "").trim();
+    }
+
+    // Extrair parágrafo numérico (só se não for caput)
+    if (!resultado.paragrafo) {
+      const matchParagrafo = texto.match(/[,\s]*§\s*(\d+)[º°]?/i);
+      if (matchParagrafo) {
+        resultado.paragrafo = matchParagrafo[1];
+        texto = texto.replace(matchParagrafo[0], "").trim();
+      }
     }
 
     // Extrair inciso

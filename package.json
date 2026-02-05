@@ -1,7 +1,8 @@
 {
   "name": "inelegis",
-  "version": "0.3.0",
+  "version": "0.3.4",
   "description": "Sistema de Consulta de Inelegibilidade Eleitoral",
+  "type": "module",
   "main": "index.html",
   "scripts": {
     "build": "npm run supabase:config && node scripts/build.js",
