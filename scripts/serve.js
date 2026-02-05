@@ -5,13 +5,15 @@
  * Servidor HTTP simples com live reload e hot reload
  */
 
-const http = require("http");
-const fs = require("fs");
-const path = require("path");
-const { execSync } = require("child_process");
-const paths = require("./project-paths");
-const { copyDirectory } = require("./sync-js");
-require("dotenv").config();
+import http from "http";
+import fs from "fs";
+import path from "path";
+import { execSync } from "child_process";
+import paths from "./project-paths.js";
+import { copyDirectory } from "./sync-js.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 class DevServer {
   constructor() {

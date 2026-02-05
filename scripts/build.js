@@ -7,24 +7,24 @@
 
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from 'url';
+import { fileURLToPath } from "url";
 import { copyDirectory } from "./sync-js.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const projectRoot = path.resolve(__dirname, '..');
+const projectRoot = path.resolve(__dirname, "..");
 
 // Create paths object for compatibility (using absolute paths)
 const paths = {
   pages: {
-    index: path.join(projectRoot, "public", "index.html")
+    index: path.join(projectRoot, "public", "index.html"),
   },
   styles: {
-    main: path.join(projectRoot, "public", "styles", "styles.css")
+    main: path.join(projectRoot, "public", "styles", "styles.css"),
   },
   js: {
-    main: path.join(projectRoot, "public", "assets", "js", "script.js")
-  }
+    main: path.join(projectRoot, "public", "assets", "js", "script.js"),
+  },
 };
 
 class Builder {
@@ -397,7 +397,7 @@ class Builder {
 }
 
 // Executar build se chamado diretamente
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (process.argv[1] === __filename) {
   const builder = new Builder();
   builder.build().catch((error) => {
     console.error("❌ Erro fatal no build:", error);
@@ -405,4 +405,4 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   });
 }
 
-module.exports = Builder;
+export default Builder;

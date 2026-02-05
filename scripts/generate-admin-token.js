@@ -10,7 +10,7 @@
  * Uso: npm run generate-token
  */
 
-const crypto = require("crypto");
+import crypto from "crypto";
 
 const MAX_TOKENS = 10;
 const DEFAULT_TOKENS = 1;

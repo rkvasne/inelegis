@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from 'url';
+import { fileURLToPath } from "url";
 import pathsConfig from "./project-paths.js";
 
 const __filename = fileURLToPath(import.meta.url);
