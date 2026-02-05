@@ -85,7 +85,7 @@ const Components = (() => {
                 <div class="${wrapperClass}">
                     <div class="system-brand">
                         <div class="brand-icon">
-                            <img id="header-logo"${logoLockAttr} src="${logoSrc}" alt="Inelegis Logo" class="theme-aware-logo" width="32" height="32" loading="lazy" style="border-radius: 4px;">
+                            <img id="header-logo"${logoLockAttr} src="${logoSrc}" alt="Inelegis Logo" class="theme-aware-logo u-rounded" width="32" height="32" loading="lazy">
                         </div>
                         <div class="brand-text">
                             <h1>Inelegis <span class="version-badge">v0.3.0</span></h1>

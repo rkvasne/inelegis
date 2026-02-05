@@ -443,8 +443,8 @@ gap: 40px;
 
 - [development.md](../guides/development.md) - Guia técnico completo
 - [README.md](../README.md) - Visão geral do projeto
-- [src/js/modules/components.js](../../src/js/modules/components.js) - Fonte dos componentes
-- [public/assets/js/modules/components.js](../../public/assets/js/modules/components.js) - Runtime (sincronizado)
+- [src/js/components/components.js](../../src/js/components/components.js) - Fonte dos componentes
+- [public/assets/js/components/components.js](../../public/assets/js/components/components.js) - Runtime (sincronizado)
 
 ---
 

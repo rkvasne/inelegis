@@ -1,12 +1,16 @@
-const path = require("path");
+import path from "path";
+import { fileURLToPath } from 'url';
 
-const ROOT = path.join(__dirname, "..");
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const ROOT = path.join(__dirname, ".");
 const PUBLIC_DIR = path.join(ROOT, "public");
 const SRC_DIR = path.join(ROOT, "src");
 const JS_SRC_DIR = path.join(SRC_DIR, "js");
 const JS_PUBLIC_DIR = path.join(PUBLIC_DIR, "assets", "js");
 
-module.exports = {
+export default {
   root: ROOT,
   publicDir: PUBLIC_DIR,
   srcDir: SRC_DIR,

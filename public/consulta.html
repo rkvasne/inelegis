@@ -155,9 +155,9 @@
                     </div>
 
                     <!-- Refinamento de Busca (Opcional) -->
-                    <details class="refinement-details" style="margin-top: 1rem;">
+                    <details class="refinement-details u-mt-4">
                         <summary class="refinement-summary">
-                            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                            <div class="u-flex-center-gap">
                                 <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--primary-500); flex-shrink: 0;">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4">
@@ -166,8 +166,8 @@
                                 <span style="font-size: 0.8125rem; font-weight: 600; color: var(--text-primary);">Refinamento de Busca</span>
                                 <span style="font-size: 0.6875rem; color: var(--text-muted); margin-left: 0.25rem;">(Parágrafo, Inciso e Alínea)</span>
                             </div>
-                            <div style="display: flex; align-items: center; gap: 0.75rem;">
-                                <button type="button" id="btnClearSearch" class="btn btn-secondary btn-sm" style="font-size: 0.6875rem; padding: 0.25rem 0.5rem;">
+                            <div class="u-flex-center-gap">
+                                <button type="button" id="btnClearSearch" class="btn btn-secondary btn-sm u-refinement-tag">
                                     <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
@@ -186,8 +186,8 @@
                             <div class="fields-row-3">
                                 <!-- Parágrafo -->
                                 <div>
-                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.375rem;">
-                                        <label class="form-label" style="margin-bottom: 0; font-size: 0.75rem;">Parágrafo</label>
+                                    <div class="u-flex-between u-mb-1">
+                                        <label class="form-label u-mb-0 u-text-xs">Parágrafo</label>
                                         <label style="display: flex; align-items: center; gap: 0.375rem; cursor: pointer; font-size: 0.625rem; color: var(--text-muted);">
                                             <input type="checkbox" id="paragrafoUnicoCheck" style="width: 0.875rem; height: 0.875rem; accent-color: var(--primary-500);">
                                             Único
@@ -199,14 +199,14 @@
 
                                 <!-- Inciso -->
                                 <div>
-                                    <label class="form-label" style="margin-bottom: 0.375rem; font-size: 0.75rem;">Inciso</label>
+                                    <label class="form-label u-refinement-label">Inciso</label>
                                     <input type="text" id="incisoInput" class="form-input" placeholder="Ex: IX"
                                         oninput="this.value = this.value.toUpperCase().replace(/[^IVXLCDM]/g, '')">
                                 </div>
 
                                 <!-- Alínea -->
                                 <div>
-                                    <label class="form-label" style="margin-bottom: 0.375rem; font-size: 0.75rem;">Alínea</label>
+                                    <label class="form-label u-refinement-label">Alínea</label>
                                     <input type="text" id="alineaInput" class="form-input" placeholder="Ex: a"
                                         oninput="this.value = this.value.toLowerCase().replace(/[^a-z]/g, '')">
                                 </div>
@@ -215,8 +215,8 @@
                     </details>
 
                     <!-- Botão de Ação -->
-                    <div style="display: flex; justify-content: flex-end; margin-top: 1.5rem;">
-                        <button type="button" id="btnPesquisar" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 0.5rem;">
+                    <div class="u-flex-end u-mt-6">
+                        <button type="button" id="btnPesquisar" class="btn btn-primary u-inline-flex u-flex-center-gap-sm">
                             <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -257,8 +257,7 @@
                         <label class="form-label" for="dispositivoText"
                             style="margin-bottom: var(--space-2); display: block;">Dispositivo / Trecho da
                             Decisão</label>
-                        <textarea id="dispositivoText" class="form-select w-full p-4" rows="6"
-                            style="height: auto; min-height: 150px;"
+                        <textarea id="dispositivoText" class="form-select w-full p-4 u-textarea-auto" rows="6"
                             placeholder="Ex: Condeno o réu por infração ao Art. 121, inciso I e Art. 288 do Código Penal c/c Art. 1, I, 'e' da LC 64/90..."></textarea>
                     </div>
                     <div class="flex justify-end mt-4">

@@ -5,19 +5,36 @@
  * Valida, otimiza e prepara o projeto para produção
  */
 
-const fs = require("fs");
-const path = require("path");
-const paths = require("./project-paths");
-const { copyDirectory } = require("./sync-js");
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from 'url';
+import { copyDirectory } from "./sync-js.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const projectRoot = path.resolve(__dirname, '..');
+
+// Create paths object for compatibility (using absolute paths)
+const paths = {
+  pages: {
+    index: path.join(projectRoot, "public", "index.html")
+  },
+  styles: {
+    main: path.join(projectRoot, "public", "styles", "styles.css")
+  },
+  js: {
+    main: path.join(projectRoot, "public", "assets", "js", "script.js")
+  }
+};
 
 class Builder {
   constructor() {
-    this.projectRoot = paths.root;
+    this.projectRoot = projectRoot;
     this.buildDir = path.join(this.projectRoot, "dist");
-    this.publicDir = paths.publicDir;
-    this.stylesPath = paths.styles.main;
-    this.jsSrcDir = paths.js.src;
-    this.jsPublicDir = paths.js.public;
+    this.publicDir = path.join(projectRoot, "public");
+    this.stylesPath = path.join(projectRoot, "public", "styles", "styles.css");
+    this.jsSrcDir = path.join(projectRoot, "src", "js");
+    this.jsPublicDir = path.join(projectRoot, "public", "assets", "js");
     this.errors = [];
     this.warnings = [];
     this.isDryRun = process.argv.includes("--dry-run");
@@ -380,7 +397,7 @@ class Builder {
 }
 
 // Executar build se chamado diretamente
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   const builder = new Builder();
   builder.build().catch((error) => {
     console.error("❌ Erro fatal no build:", error);

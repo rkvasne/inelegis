@@ -140,31 +140,31 @@ button:focus-visible,
   align-items: center;
 }
 
-/* Fix System Header Logo Alignment */
-.header-wrapper.landing-nav .brand-icon {
-  width: 36px !important;
-  height: 36px !important;
+/* Fix System Header Logo Alignment - Specificity Override */
+html body .header-wrapper.landing-nav .brand-icon {
+  width: 36px;
+  height: 36px;
   background: transparent;
   border: none;
-  display: block !important;
-  padding: 0 !important;
-  margin: 0 !important;
+  display: block;
+  padding: 0;
+  margin: 0;
   flex-shrink: 0;
 }
 
-.header-wrapper.landing-nav .brand-icon img {
-  width: 100% !important;
-  height: 100% !important;
+html body .header-wrapper.landing-nav .brand-icon img {
+  width: 100%;
+  height: 100%;
   border-radius: 8px;
-  display: block !important;
-  margin: 0 !important;
-  padding: 0 !important;
+  display: block;
+  margin: 0;
+  padding: 0;
 }
 
-.header-wrapper.landing-nav .system-brand {
-  gap: 0.5rem !important;
-  margin-left: 0 !important;
-  padding-left: 0 !important;
+html body .header-wrapper.landing-nav .system-brand {
+  gap: 0.5rem;
+  margin-left: 0;
+  padding-left: 0;
 }
 
 .brand {

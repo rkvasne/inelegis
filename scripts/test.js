@@ -5,15 +5,36 @@
  * Executa testes unitários e de integração
  */
 
-const fs = require("fs");
-const path = require("path");
-const http = require("http");
-const url = require("url");
-const paths = require("./project-paths");
+import fs from "fs";
+import path from "path";
+import http from "http";
+import url from "url";
+import { fileURLToPath } from 'url';
+import pathsConfig from "./project-paths.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Import paths
+const projectRoot = path.resolve(__dirname, '..');
+
+// Create paths object for compatibility
+const paths = {
+  pages: {
+    index: path.join(projectRoot, "public", "index.html")
+  },
+  styles: {
+    main: path.join(projectRoot, "public", "styles", "styles.css")
+  },
+  js: {
+    main: path.join(projectRoot, "public", "assets", "js", "script.js")
+  },
+  publicDir: path.join(projectRoot, "public")
+};
 
 class TestRunner {
   constructor() {
-    this.projectRoot = paths.root;
+    this.projectRoot = projectRoot;
     this.testsDir = path.join(this.projectRoot, "tests");
     this.results = {
       total: 0,
@@ -653,7 +674,7 @@ class TestRunner {
 }
 
 // Executar testes se chamado diretamente
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   const runner = new TestRunner();
   runner.runTests().catch((error) => {
     console.error("❌ Erro fatal nos testes:", error);
@@ -661,4 +682,4 @@ if (require.main === module) {
   });
 }
 
-module.exports = TestRunner;
+export default TestRunner;

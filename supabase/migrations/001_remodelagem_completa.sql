@@ -662,13 +662,21 @@ DECLARE
     v_excecoes_list TEXT;
 BEGIN
     -- 1. Buscar o registro mais específico (usando alias 't' para evitar conflito com parâmetros de retorno)
+    -- REGRA: se usuário não especificou parágrafo, buscar o CAPUT (não qualquer parágrafo)
+    -- Isso segue a tabela oficial onde "Art. X" sem especificação = caput
     SELECT 
         t.eh_excecao, t.tipo_crime, t.observacoes, t.item_alinea_e
     INTO v_record
     FROM public.crimes_inelegibilidade t
     WHERE t.codigo = p_codigo_norma 
       AND t.artigo = p_artigo
-      AND (p_paragrafo IS NULL OR t.paragrafo = p_paragrafo)
+      AND (
+          -- Se parágrafo especificado: buscar exatamente esse parágrafo
+          (p_paragrafo IS NOT NULL AND t.paragrafo = p_paragrafo)
+          OR
+          -- Se parágrafo NÃO especificado: buscar o caput (paragrafo NULL ou 'caput')
+          (p_paragrafo IS NULL AND (t.paragrafo IS NULL OR LOWER(t.paragrafo) = 'caput'))
+      )
       AND (p_inciso IS NULL OR t.inciso = p_inciso)
       AND (p_alinea IS NULL OR t.alinea = p_alinea)
     ORDER BY 
