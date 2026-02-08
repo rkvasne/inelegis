@@ -1,4 +1,5 @@
 import { validatorService } from "../services/validator-service.js";
+import { showToast } from "../utils/toast.js";
 
 /**
  * Controller para Análise de Dispositivo de Sentença.
@@ -25,7 +26,7 @@ export class AnalyzerUI {
   async analisar() {
     const texto = this.textarea.value.trim();
     if (!texto) {
-      alert("Por favor, insira o texto do dispositivo da sentença.");
+      showToast("Por favor, insira o texto do dispositivo da sentença.", "warning");
       return;
     }
 
@@ -38,8 +39,9 @@ export class AnalyzerUI {
       const extraidos = this.extrairArtigosCompletos(texto);
 
       if (extraidos.length === 0) {
-        alert(
+        showToast(
           "Não conseguimos identificar nenhuma citação de artigo/lei no texto. Verifique o formato.",
+          "warning"
         );
         return;
       }
@@ -418,9 +420,8 @@ window.openAnalyzerResultModal = async function (data) {
       </div>
 
       <!-- Disclaimer de Exceções -->
-      ${
-        data.excecoes
-          ? `
+      ${data.excecoes
+      ? `
       <div class="exception-alert-card border-2 border-warning-200 bg-warning-50 p-4 rounded-xl">
         <div class="flex items-start gap-3">
           <div class="text-warning-600 mt-0.5">
@@ -438,8 +439,8 @@ window.openAnalyzerResultModal = async function (data) {
         </div>
       </div>
       `
-          : ""
-      }
+      : ""
+    }
     </div>
   `;
 
