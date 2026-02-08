@@ -2,7 +2,7 @@
 
 > **Link do Hub:** `.agent/hub/` (Obrigatório)
 > **Modo:** Hub-First & SSoT (Single Source of Truth)
-> **Hub Version:** v0.4.9
+> **Hub Version:** v0.5.3
 
 Este projeto integra o ecossistema Solo Dev Hub. O Agente de IA deve priorizar as definições centralizadas no Hub para comportamento e governança.
 
@@ -68,4 +68,4 @@ Ao finalizar uma tarefa:
 
 ---
 
-_Configurado via Solo Dev Hub Layout (v0.4.9)_
+_Configurado via Solo Dev Hub Layout (v0.5.3)_

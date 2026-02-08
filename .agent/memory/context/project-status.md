@@ -1,18 +1,15 @@
 ﻿# 📊 Project Status & Context
 
-> **Last Updated:** 2026-02-03
+> **Last Updated:** 2026-02-08
 > **Current Phase:** Compliance / Maintenance
 > **Status:** Stable
 
 ## 🎯 Objetivos Concluídos (Sessão Atual)
 
-- [x] **Governança Hub:** Atualização de `AGENTS.md` e `GEMINI.md` para v0.4.7 (SSoT).
-- [x] **Git Hooks:** Instalação e configuração de Husky + Lint-staged.
-- [x] **Scripts de Manutenção:** Padronização de scripts npm conforme regras do Hub.
-- [x] **Migração Supabase:** Transição completa para arquitetura sem arquivos locais de dados.
-- [x] **Seguridade de Dados:** Implementação de `InputValidator` e guardas de inicialização no cliente.
-- [x] **Correção de Segurança (CSP):** Liberada conexão com Supabase no `vercel.json`.
-- [x] **Resiliência PWA:** Atualizado Service Worker com caminhos corretos e nova versão de cache.
+- [x] **Sincronização Hub v0.5.3:** Atualização de `AGENTS.md` e `GEMINI.md` para versão atual do Hub Central.
+- [x] **Limpeza de Raiz:** Remoção de arquivos órfãos (`ui-refinement-modal-icons.md`, `ux-improvements.md`).
+- [x] **Validação de Integridade:** Execução do `validator-integrity.js` com 3 avisos residuais.
+- [x] **Bootstrap Hub Check:** Verificação completa do estado da Junction e governança.
 
 ## 🏗️ Arquitetura Atual
 
@@ -43,3 +40,4 @@
 - 03/02/2026 (Encerramento): Remoção definitiva de scripts legados e referências ao Redis. Documentação central (README) atualizada para v0.3.3.
 - 03/02/2026 (Hotfix RPC): Resolvido erro 400 no Supabase via casts de tipagem explícita e migração 001 tornada idempotente.
 - 03/02/2026 (Ajuste Precisão): Corrigida prioridade de busca no RPC (Art. 121) e implementada exibição de Nomes Amigáveis de leis via Banco de Dados. Projeto 100% funcional e documentado.
+- 08/02/2026: Sincronização com Hub Central v0.5.3 (era v0.4.9). Limpeza de arquivos órfãos na raiz. Bootstrap Hub validado.
