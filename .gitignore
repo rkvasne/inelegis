@@ -33,6 +33,7 @@ Thumbs.db
 
 # Agent System
 .agent/hub
+.agent/telemetry
 
 # Environment variables
 .env
