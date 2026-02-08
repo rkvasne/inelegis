@@ -1,7 +1,7 @@
 # 🔍 Relatório de Auditoria Técnica (Deep Dive)
 
 > **Data:** 08/02/2026
-> **Responsável:** Gemini 2.5 Pro (Agent)
+> **Responsável:** Claude 4.6 Opus (Agent)
 > **Escopo:** Completo (Gov, Code, Ops)
 > **Versão do Relatório:** 2.0.0
 > **Hub Version:** v0.5.3
