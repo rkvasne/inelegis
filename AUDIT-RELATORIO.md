@@ -4,7 +4,7 @@
 > **Responsável:** Claude 4.6 Opus (Agent)
 > **Escopo:** Completo (Gov, Code, Ops)
 > **Versão do Relatório:** 2.0.0
-> **Hub Version:** v0.5.3
+> **Hub Version:** v0.5.4
 
 ---
 
@@ -12,7 +12,7 @@
 
 **Saúde Geral do Projeto:** 🟢 **EXCELENTE (94/100)**
 
-O projeto **Inelegis** encontra-se em estado de alta conformidade técnica. A estrutura de governança foi atualizada para o padrão **Solo Dev Hub v0.5.3**, operando corretamente em modo Satélite. A base de código é limpa, sem dependências de frameworks pesados no frontend ("Vanilla JS"), o que garante performance e simplicidade.
+O projeto **Inelegis** encontra-se em estado de alta conformidade técnica. A estrutura de governança foi atualizada para o padrão **Solo Dev Hub v0.5.4**, operando corretamente em modo Satélite. A base de código é limpa, sem dependências de frameworks pesados no frontend ("Vanilla JS"), o que garante performance e simplicidade.
 
 ### ✅ Pontos Fortes
 
@@ -39,7 +39,7 @@ O projeto **Inelegis** encontra-se em estado de alta conformidade técnica. A es
 | Item | Status | Detalhes |
 |------|--------|----------|
 | **Modo de Operação** | ✅ Satélite | Linkado a `E:\Agents` via Junction |
-| **Padrão de Agente** | ✅ v0.5.3 | `AGENTS.md` e `GEMINI.md` sincronizados |
+| **Padrão de Agente** | ✅ v0.5.4 | `AGENTS.md` e `GEMINI.md` sincronizados |
 | **Stack Principal** | ✅ Otimizada | Vanilla JS + Supabase (Client-side focus) |
 | **Estrutura de Pastas** | ✅ Padronizada | `src`, `public`, `docs`, `tests`, `supabase` |
 | **SSoT Memory** | ✅ Corrigido | Apenas `.agent/memory/context/project-status.md` (único) |
@@ -136,7 +136,7 @@ src/js/ui/history-page.js:41            warning  no-alert
 | Métrica | 04/02/2026 | 08/02/2026 | Delta |
 |---------|------------|------------|-------|
 | Score Geral | 92/100 | **94/100** | +2 |
-| Hub Version | v0.4.8 | **v0.5.3** | ⬆️ |
+| Hub Version | v0.4.8 | **v0.5.4** | ⬆️ |
 | Arquivos Órfãos | 3 | **0** | ✅ Resolvido |
 | Vulnerabilidades | 0 | 0 | = |
 | Warnings Lint | N/A | 6 | (novo check) |

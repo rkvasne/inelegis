@@ -3,41 +3,38 @@
 > **Last Updated:** 2026-02-08
 > **Current Phase:** Compliance / Maintenance
 > **Status:** Stable
+> **Hub Version:** v0.5.4
 
 ## 🎯 Objetivos Concluídos (Sessão Atual)
 
-- [x] **Sincronização Hub v0.5.3:** Atualização de `AGENTS.md` e `GEMINI.md` para versão atual do Hub Central.
-- [x] **Limpeza de Raiz:** Remoção de arquivos órfãos (`ui-refinement-modal-icons.md`, `ux-improvements.md`).
-- [x] **Validação de Integridade:** Execução do `validator-integrity.js` com 3 avisos residuais.
-- [x] **Bootstrap Hub Check:** Verificação completa do estado da Junction e governança.
+- [x] **Sincronização Hub v0.5.4:** Atualização total de governança e manifestos para o padrão mais recente.
+- [x] **Sistema de Toast:** Substituição de `alert()` nativo por notificações modernas em `analyzer-ui.js`.
+- [x] **Limpeza de Raiz:** Remoção de arquivos órfãos e consolidação de documentos de status.
+- [x] **Hygiene Git:** Telemetria local do Hub devidamente ignorada no versionamento.
+- [x] **Badge Sync:** Sincronização de versão visual no README para `0.3.4`.
 
 ## 🏗️ Arquitetura Atual
 
-- **Frontend:** HTML5, CSS3, Vanilla JavaScript (Módulos ES6 + Scripts Globais)
-- **Backend/Database:** Supabase (PostgreSQL + RPC Functions)
-- **Infra:** Vercel (Deployment) + Solo Dev Hub (Governance)
-- **Segurança:** Sanitização de inputs no cliente + RLS no banco.
+- **Frontend:** HTML5, CSS3, Vanilla JavaScript (Módulos ES6 + Scripts Globais) + Toast Notification System.
+- **Backend/Database:** Supabase (PostgreSQL + RPC Functions) - Schema V2.
+- **Infra:** Vercel (Deployment) + Solo Dev Hub (Governance).
+- **Segurança:** 0 Vulnerabilidades detectadas, CSP ativo, RLS habilitado.
 
 ## 🔄 Tarefas em Aberto (Próximos Passos)
 
-1. Monitorar logs de execução dos novos hooks em commits futuros.
-2. Investigar reativação de testes de layout via Puppeteer (configuração de Chrome em CI).
-3. Revisar permissões de RPC no Supabase para auditoria automatizada.
+1. Substituir os `alert()` restantes em `history-page.js` (atualmente com fallback funcional).
+2. Investigar reativação de testes de layout via Puppeteer (resolvendo dependência de Chrome em CI).
+3. Implementar Dashboard de Performance via Sentry (Backlog).
 
 ## ⚠️ Riscos e Bloqueios
 
-- **Credenciais CI:** Dependência das Secret Keys (`NEXT_PUBLIC_SUPABASE_*`) estarem corretas no Vercel.
-- **Cache de Browser:** Mudanças agressivas em JS podem exigir invalidar cache de usuários antigos.
+- **Credenciais CI:** Dependência das Secret Keys no Vercel.
+- **Conexão Hub:** Manter a integridade da Junction `.agent/hub` (ReadOnly).
 
 ---
 
 **Log de Governança/Sessão:**
 
-- 01/02/2026: Início da integração com Solo Dev Hub.
-- 02/02/2026: Consolidação Supabase-only, sanitização de dados e correção de infraestrutura de build.
-- 03/02/2026: Conformidade total com Solo Dev Hub v0.4.7, configuração de Husky/Lint-Staged e atualização de AGENTS/GEMINI.md.
-- 03/02/2026 (Sessão Tarde): Refatoração completa do Banco de Dados (Schema V2 Flat), correção de bugs de integração Frontend/DB e mitigação de vulnerabilidades de segurança.
-- 03/02/2026 (Encerramento): Remoção definitiva de scripts legados e referências ao Redis. Documentação central (README) atualizada para v0.3.3.
-- 03/02/2026 (Hotfix RPC): Resolvido erro 400 no Supabase via casts de tipagem explícita e migração 001 tornada idempotente.
-- 03/02/2026 (Ajuste Precisão): Corrigida prioridade de busca no RPC (Art. 121) e implementada exibição de Nomes Amigáveis de leis via Banco de Dados. Projeto 100% funcional e documentado.
-- 08/02/2026: Sincronização com Hub Central v0.5.3 (era v0.4.9). Limpeza de arquivos órfãos na raiz. Bootstrap Hub validado.
+- 01-03/02/2026: Migração para Supabase, governança v0.4.7, conformidade total e limpeza de legado Redis.
+- 05/02/2026: Auditoria de base de dados e reconstrução da tabela de crimes (Migration 002).
+- 08/02/2026: **Upgrade para Hub v0.5.4.** Implementação de sistema de Toast, limpeza de raiz e auditoria Deep-Dive (Claude Opus). Sincronização de versões.

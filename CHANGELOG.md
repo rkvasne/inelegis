@@ -19,9 +19,22 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
 
-## [0.3.4] - 05/02/2026
+## [0.3.4] - 08/02/2026
 
-### 🔧 Correções Críticas
+### 🎨 UI/UX (Modernização)
+
+- **Sistema de Toast**: Implementado novo sistema de notificações visuais elegantes (`toast.js`) substituindo o `alert()` nativo.
+- **Feedback Acessível**: Toasts com suporte a ARIA-live e variações contextuais (success, error, warning, info).
+- **Estilização**: Design compacto e responsivo integrado ao tema corporativo.
+
+### 🛡️ Compliance & Governança
+
+- **Solo Dev Hub v0.5.4**: Sincronização completa de manifestos (`AGENTS.md`, `GEMINI.md`) e auditoria profunda.
+- **Badge de Versão**: Sincronizado badge do README com `package.json` (`0.3.4`).
+- **Limpeza de Raiz**: Removidos arquivos órfãos e scripts temporários.
+- **Git Hygiene**: Adicionado `.agent/telemetry` ao `.gitignore`.
+
+### 🔧 Correções Críticas (Base de Dados)
 
 - **Inconsistência Massiva na Base de Dados**:
   - **Problema Identificado**: A tabela `crimes_inelegibilidade` continha dados incorretos em VÁRIOS artigos, não apenas no Art. 122 CP.

@@ -6,7 +6,7 @@ trigger: always_on
 
 > **Hub Link:** `.agent/hub/`
 > **Priority:** P0 (GEMINI.md) > P1 (Persona) > P2 (Skill)
-> **Hub Version:** v0.5.3
+> **Hub Version:** v0.5.4
 
 Este projeto consome inteligência centralizada do Solo Dev Hub através de Junctions.
 
