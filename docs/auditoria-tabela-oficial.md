@@ -92,23 +92,29 @@ A migration `002_tabela_oficial_completa.sql` está **substancialmente alinhada*
 ## ⚠️ Ressalvas e Observações
 
 ### 1. **Atualização de Outubro/2024**
+
 A tabela oficial menciona que houve atualização em outubro/2024, incluindo:
+
 - ✅ Art. 121-A do Código Penal (Feminicídio) - **PRESENTE na migration**
 - ✅ Art. 2º-A da Lei 7.716/89 - **PRESENTE na migration** (mapeado como '2-A')
 - ✅ Arts. 216-A e 216-B do Código Penal alterados para exceções - **PRESENTE na migration**
 
 ### 2. **Nomenclatura dos Artigos**
+
 - **Tabela Oficial:** Usa notação com "º" (ex: "2º", "3º")
 - **Migration:** Usa notação sem "º" (ex: "2", "3")
 - **Impacto:** ⚠️ **BAIXO** - A função `verificar_elegibilidade` trata isso corretamente, mas pode causar confusão na entrada de dados manual.
 
 ### 3. **Artigo 2º-A da Lei 7.716/89**
+
 - **Tabela Oficial:** "2º-A"
 - **Migration:** "2-A"
 - **Impacto:** ⚠️ **MÉDIO** - Usuários podem digitar "2º-A" e não encontrar o registro. **RECOMENDAÇÃO:** Adicionar normalização no frontend.
 
 ### 4. **Observações Adicionais**
+
 A migration inclui observações detalhadas sobre:
+
 - ✅ Leis revogadas (ex: DL 7.661/45, Lei 6.368/76)
 - ✅ Entendimentos do TSE (ex: Recurso Especial Eleitoral nº 145-94.2016.6.24.0074/SC)
 - ✅ Alterações legislativas recentes (ex: Lei 13.142/2015, Lei 14.811/2024)
