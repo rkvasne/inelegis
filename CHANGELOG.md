@@ -10,12 +10,35 @@ lastReviewed: 21/01/2026
 
 ---
 
-**Versão atual:** 0.3.4
+**Versão atual:** 0.3.5
 
 Todas as alterações notáveis neste projeto serão documentadas neste arquivo.
 
 O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/),
 e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
+
+---
+
+## [0.3.5] - 09/02/2026
+
+### 🐛 Correções de Interface
+
+- **Página de Consulta**: Corrigido problema de população do dropdown de leis causado por incompatibilidade com o novo schema da tabela `crimes_inelegibilidade`.
+  - **Problema**: JavaScript tentava acessar colunas `nome` e `nome_completo` que não existem mais após a migration 002.
+  - **Solução**: Atualizado `validator-service.js` e `validator-ui.js` para usar apenas a coluna `lei` que contém o nome completo.
+- **CSS**: Melhorado alinhamento da seta do refinamento de busca com `margin-left: 0.5rem`.
+
+### 📊 Auditoria e Documentação
+
+- **Auditoria Completa**: Verificação detalhada da migration 002 contra a tabela oficial da Corregedoria Regional Eleitoral de São Paulo (outubro/2024).
+  - **Resultado**: ✅ **100% CONFORME** - Todos os artigos, exceções e categorias estão corretamente mapeados.
+  - **Documento**: Criado `docs/auditoria-tabela-oficial.md` com análise completa.
+  - **Cobertura**: Código Penal, Código Penal Militar, Código Eleitoral e 28 leis especiais verificadas.
+
+### 🔧 Melhorias Técnicas
+
+- **Sincronização**: Arquivos JavaScript sincronizados entre `src/` e `public/`.
+- **Estrutura de Dados**: Confirmada consistência entre frontend e backend após refatoração do banco de dados.
 
 ---
 

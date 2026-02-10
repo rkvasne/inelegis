@@ -61,8 +61,7 @@ export class ValidatorService {
           if (!uniqueLaws.has(item.codigo)) {
             uniqueLaws.set(item.codigo, {
               codigo: item.codigo,
-              nome: item.lei,
-              nome_completo: item.lei,
+              lei: item.lei, // Nome completo da lei já vem pronto do banco
             });
           }
         });
