@@ -788,6 +788,7 @@ code {
   color: var(--text-muted);
   transition: transform 0.2s ease;
   flex-shrink: 0;
+  margin-left: 0.5rem;
 }
 
 .refinement-details[open] .refinement-chevron {
