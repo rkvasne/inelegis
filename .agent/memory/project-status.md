@@ -1,19 +1,18 @@
 ﻿# 📊 Project Status & Context
 
-> **Last Updated:** 2026-02-08
+> **Last Updated:** 2026-02-09
 > **Current Phase:** Compliance / Maintenance
 > **Status:** Stable
 > **Hub Version:** v0.5.4
 
-## 🎯 Objetivos Concluídos (Sessão 08/02/2026)
+## 🎯 Objetivos Concluídos (Sessão 09/02/2026)
 
-- [x] **Sincronização Hub v0.5.4:** Atualização total de governança e manifestos para o padrão mais recente.
-- [x] **Sistema de Toast:** Substituição completa de `alert()` por notificações modernas (`toast.js`).
-- [x] **Testes Automatizados:** Criados testes unitários e de integração para o sistema de Toast (6 novos testes, 100% passou).
-- [x] **Limpeza de Raiz:** Remoção de arquivos órfãos e consolidação de documentos de status.
-- [x] **Hygiene Git:** Telemetria local do Hub devidamente ignorada no versionamento.
-- [x] **Badge Sync:** Sincronização de versão visual no README para `0.3.4`.
-- [x] **Estrutura de Memória:** Corrigida para `.agent/memory/project-status.md` (padrão Hub v0.5.4).
+- [x] **Auditoria Tabela Oficial:** Verificação completa da Migration 002 contra tabela da Corregedoria SP (Outubro/2024). 100% conforme.
+- [x] **Correção Dropdown Leis:** Resolvida incompatibilidade do JS com o schema V2 da base de dados.
+- [x] **Acessibilidade Visual:** Corrigido contraste do input de leis (texto invisível nas opções do select).
+- [x] **Sincronia src/public:** Garantida paridade total de scripts entre desenvolvimento e produção.
+- [x] **Upgrade de Versão:** Incremento para `0.3.5` refletido no CHANGELOG e package.json.
+- [x] **Documentação Técnica:** Criado `docs/auditoria-tabela-oficial.md` como artefato de auditoria.
 
 ## 🏗️ Arquitetura Atual
 
@@ -41,3 +40,4 @@
 - 01-03/02/2026: Migração para Supabase, governança v0.4.7, conformidade total e limpeza de legado Redis.
 - 05/02/2026: Auditoria de base de dados e reconstrução da tabela de crimes (Migration 002).
 - 08/02/2026: **Upgrade para Hub v0.5.4.** Implementação de sistema de Toast, limpeza de raiz e auditoria Deep-Dive (Claude Opus). Sincronização de versões.
+- 09/02/2026: **Correção UI & Auditoria Legal.** Resolvido bug de população de leis, corrigido contraste visual (select option) e auditoria 100% conforme com a Corregedoria SP (Out/24). Versão 0.3.5.
