@@ -1118,6 +1118,31 @@ code {
   color: var(--text-muted);
 }
 
+/* Select options styling */
+.form-select option {
+  background: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+  padding: var(--space-2);
+}
+
+.form-select option:checked,
+.form-select option:hover {
+  background: var(--primary-100) !important;
+  color: var(--text-primary) !important;
+}
+
+.dark-theme .form-select option {
+  background: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+}
+
+.dark-theme .form-select option:checked,
+.dark-theme .form-select option:hover {
+  background: var(--primary-900) !important;
+  color: var(--text-primary) !important;
+}
+
+
 /* Checkbox */
 .checkbox-group {
   display: flex;
