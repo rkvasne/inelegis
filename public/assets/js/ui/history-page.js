@@ -130,8 +130,8 @@ const HistoryPage = (() => {
     const html = `
             <div class="features-grid">
                 ${cards
-        .map(
-          (card) => `
+                  .map(
+                    (card) => `
                     <div class="feature-card">
                         <div class="feature-icon">${getSummaryIcon(card.key)}</div>
                         <div class="feature-content">
@@ -140,8 +140,8 @@ const HistoryPage = (() => {
                         </div>
                     </div>
                 `,
-        )
-        .join("")}
+                  )
+                  .join("")}
             </div>
         `;
 
@@ -213,8 +213,8 @@ const HistoryPage = (() => {
     const totalsHtml = `
             <div class="features-grid stats-grid-3">
                 ${totals
-        .map(
-          (t) => `
+                  .map(
+                    (t) => `
                     <div class=\"feature-card\">
                         <div class=\"feature-icon\">${getStatIcon(t.key === "total" ? "" : t.key)}</div>
                         <div class=\"feature-content\">
@@ -223,8 +223,8 @@ const HistoryPage = (() => {
                         </div>
                     </div>
                 `,
-        )
-        .join("")}
+                  )
+                  .join("")}
             </div>
         `;
 
@@ -237,8 +237,8 @@ const HistoryPage = (() => {
       ? `
             <div class=\"features-grid mt-4\">
                 ${leisEntries
-        .map(
-          ([lei, count]) => `
+                  .map(
+                    ([lei, count]) => `
                     <div class=\"feature-card\">
                         <div class=\"feature-icon\">${getStatIcon("")}</div>
                         <div class=\"feature-content\">
@@ -247,8 +247,8 @@ const HistoryPage = (() => {
                         </div>
                     </div>
                 `,
-        )
-        .join("")}
+                  )
+                  .join("")}
             </div>
         `
       : '<div class="empty-state">Sem dados suficientes</div>';
@@ -257,8 +257,8 @@ const HistoryPage = (() => {
       ? `
             <div class=\"features-grid mt-4\">
                 ${artigosEntries
-        .map(
-          ([art, count]) => `
+                  .map(
+                    ([art, count]) => `
                     <div class=\"feature-card\">
                         <div class=\"feature-icon\">${getStatIcon("")}</div>
                         <div class=\"feature-content\">
@@ -267,8 +267,8 @@ const HistoryPage = (() => {
                         </div>
                     </div>
                 `,
-        )
-        .join("")}
+                  )
+                  .join("")}
             </div>
         `
       : '<div class="empty-state">Sem dados suficientes</div>';
@@ -355,20 +355,20 @@ const HistoryPage = (() => {
     const cardsHtml = `
             <div class="features-grid">
                 ${data
-        .map((entry) => {
-          const meta =
-            typeof metaFactory === "function"
-              ? metaFactory(entry)
-              : null;
-          const icon =
-            entry.resultado === "inelegivel"
-              ? getStatIcon("inelegivel")
-              : getStatIcon("elegivel");
-          const subtitle =
-            meta && meta.text
-              ? `<p class=\"text-sm text-neutral-600\">${meta.text}</p>`
-              : "";
-          return `
+                  .map((entry) => {
+                    const meta =
+                      typeof metaFactory === "function"
+                        ? metaFactory(entry)
+                        : null;
+                    const icon =
+                      entry.resultado === "inelegivel"
+                        ? getStatIcon("inelegivel")
+                        : getStatIcon("elegivel");
+                    const subtitle =
+                      meta && meta.text
+                        ? `<p class=\"text-sm text-neutral-600\">${meta.text}</p>`
+                        : "";
+                    return `
                         <div class=\"feature-card\">
                             <div class=\"feature-icon\">${icon}</div>
                             <div class=\"feature-content\">
@@ -378,8 +378,8 @@ const HistoryPage = (() => {
                             </div>
                         </div>
                     `;
-        })
-        .join("")}
+                  })
+                  .join("")}
             </div>
         `;
 

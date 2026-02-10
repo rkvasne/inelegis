@@ -25,25 +25,25 @@ O projeto **Inelegis** encontra-se em estado de alta conformidade técnica. A es
 
 ### ⚠️ Pontos de Atenção
 
-| Item | Severidade | Detalhes |
-|------|------------|----------|
-| **Warnings de Lint** | 🟡 Baixa | 6 warnings `no-alert` em 3 arquivos (uso intencional de `alert()`) |
-| **Cobertura E2E** | 🟡 Baixa | Puppeteer desabilitado no CI (Chrome não disponível em serverless) |
-| **Monitoramento** | 🟡 Baixa | Sem Sentry/LogRocket configurado para tracking de erros em produção |
-| **Versão README** | 🟡 Baixa | Badge mostra `0.3.3`, package.json tem `0.3.4` |
+| Item                 | Severidade | Detalhes                                                            |
+| -------------------- | ---------- | ------------------------------------------------------------------- |
+| **Warnings de Lint** | 🟡 Baixa   | 6 warnings `no-alert` em 3 arquivos (uso intencional de `alert()`)  |
+| **Cobertura E2E**    | 🟡 Baixa   | Puppeteer desabilitado no CI (Chrome não disponível em serverless)  |
+| **Monitoramento**    | 🟡 Baixa   | Sem Sentry/LogRocket configurado para tracking de erros em produção |
+| **Versão README**    | 🟡 Baixa   | Badge mostra `0.3.3`, package.json tem `0.3.4`                      |
 
 ---
 
 ## 🏗️ 1. Análise de Estrutura & Padrões
 
-| Item | Status | Detalhes |
-|------|--------|----------|
-| **Modo de Operação** | ✅ Satélite | Linkado a `E:\Agents` via Junction |
-| **Padrão de Agente** | ✅ v0.5.4 | `AGENTS.md` e `GEMINI.md` sincronizados |
-| **Stack Principal** | ✅ Otimizada | Vanilla JS + Supabase (Client-side focus) |
-| **Estrutura de Pastas** | ✅ Padronizada | `src`, `public`, `docs`, `tests`, `supabase` |
-| **SSoT Memory** | ✅ Corrigido | Apenas `.agent/memory/context/project-status.md` (único) |
-| **Telemetria** | ✅ Ignorada | `.agent/telemetry/` adicionado ao `.gitignore` |
+| Item                    | Status         | Detalhes                                                 |
+| ----------------------- | -------------- | -------------------------------------------------------- |
+| **Modo de Operação**    | ✅ Satélite    | Linkado a `E:\Agents` via Junction                       |
+| **Padrão de Agente**    | ✅ v0.5.4      | `AGENTS.md` e `GEMINI.md` sincronizados                  |
+| **Stack Principal**     | ✅ Otimizada   | Vanilla JS + Supabase (Client-side focus)                |
+| **Estrutura de Pastas** | ✅ Padronizada | `src`, `public`, `docs`, `tests`, `supabase`             |
+| **SSoT Memory**         | ✅ Corrigido   | Apenas `.agent/memory/context/project-status.md` (único) |
+| **Telemetria**          | ✅ Ignorada    | `.agent/telemetry/` adicionado ao `.gitignore`           |
 
 ### Arquitetura de Dados
 
@@ -59,24 +59,24 @@ Supabase (PostgreSQL)
 
 ## 🛡️ 2. Segurança & Dependências
 
-| Item | Status | Detalhes |
-|------|--------|----------|
-| **Secrets** | ✅ Seguro | `.env.local` não commitado |
-| **npm audit** | ✅ Limpo | 0 vulnerabilidades encontradas |
-| **Husky** | ✅ Ativo | Pre-commit hooks configurados |
-| **CSP** | ✅ Configurado | `vercel.json` com headers de segurança |
-| **RLS (Supabase)** | ✅ Ativo | Row Level Security habilitado |
+| Item               | Status         | Detalhes                               |
+| ------------------ | -------------- | -------------------------------------- |
+| **Secrets**        | ✅ Seguro      | `.env.local` não commitado             |
+| **npm audit**      | ✅ Limpo       | 0 vulnerabilidades encontradas         |
+| **Husky**          | ✅ Ativo       | Pre-commit hooks configurados          |
+| **CSP**            | ✅ Configurado | `vercel.json` com headers de segurança |
+| **RLS (Supabase)** | ✅ Ativo       | Row Level Security habilitado          |
 
 ---
 
 ## ⚙️ 3. DevOps & Qualidade
 
-| Item | Status | Detalhes |
-|------|--------|----------|
-| **CI/CD** | ✅ Ativo | `.github/workflows/ci-cd.yml` |
-| **Lint** | ⚠️ 6 Warnings | `no-alert` em arquivos de UI (uso proposital) |
-| **Testes** | ✅ Passando | Scripts funcionais (`npm test`) |
-| **Build** | ✅ Funcional | `npm run build` executa sem erros |
+| Item       | Status        | Detalhes                                      |
+| ---------- | ------------- | --------------------------------------------- |
+| **CI/CD**  | ✅ Ativo      | `.github/workflows/ci-cd.yml`                 |
+| **Lint**   | ⚠️ 6 Warnings | `no-alert` em arquivos de UI (uso proposital) |
+| **Testes** | ✅ Passando   | Scripts funcionais (`npm test`)               |
+| **Build**  | ✅ Funcional  | `npm run build` executa sem erros             |
 | **Docker** | ✅ Disponível | `Dockerfile` e `docker-compose.yml` presentes |
 
 ### Warnings de Lint (Detalhes)
@@ -95,12 +95,12 @@ src/js/ui/history-page.js:41            warning  no-alert
 
 ## 📝 4. Documentação & Interface
 
-| Item | Status | Detalhes |
-|------|--------|----------|
-| **README.md** | ✅ Atualizado | Versão 0.3.3 (ajustar para 0.3.4) |
-| **CHANGELOG.md** | ✅ Excelente | 450+ linhas, histórico completo |
-| **docs/README.md** | ✅ Presente | Índice central de documentação |
-| **Setup Instructions** | ✅ Funcional | CONTRIBUTING.md com passos claros |
+| Item                   | Status        | Detalhes                          |
+| ---------------------- | ------------- | --------------------------------- |
+| **README.md**          | ✅ Atualizado | Versão 0.3.3 (ajustar para 0.3.4) |
+| **CHANGELOG.md**       | ✅ Excelente  | 450+ linhas, histórico completo   |
+| **docs/README.md**     | ✅ Presente   | Índice central de documentação    |
+| **Setup Instructions** | ✅ Funcional  | CONTRIBUTING.md com passos claros |
 
 ---
 
@@ -133,13 +133,13 @@ src/js/ui/history-page.js:41            warning  no-alert
 
 ## 📊 Comparativo com Auditoria Anterior
 
-| Métrica | 04/02/2026 | 08/02/2026 | Delta |
-|---------|------------|------------|-------|
-| Score Geral | 92/100 | **94/100** | +2 |
-| Hub Version | v0.4.8 | **v0.5.4** | ⬆️ |
-| Arquivos Órfãos | 3 | **0** | ✅ Resolvido |
-| Vulnerabilidades | 0 | 0 | = |
-| Warnings Lint | N/A | 6 | (novo check) |
+| Métrica          | 04/02/2026 | 08/02/2026 | Delta        |
+| ---------------- | ---------- | ---------- | ------------ |
+| Score Geral      | 92/100     | **94/100** | +2           |
+| Hub Version      | v0.4.8     | **v0.5.4** | ⬆️           |
+| Arquivos Órfãos  | 3          | **0**      | ✅ Resolvido |
+| Vulnerabilidades | 0          | 0          | =            |
+| Warnings Lint    | N/A        | 6          | (novo check) |
 
 ---
 

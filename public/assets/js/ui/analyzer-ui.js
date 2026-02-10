@@ -26,7 +26,10 @@ export class AnalyzerUI {
   async analisar() {
     const texto = this.textarea.value.trim();
     if (!texto) {
-      showToast("Por favor, insira o texto do dispositivo da sentença.", "warning");
+      showToast(
+        "Por favor, insira o texto do dispositivo da sentença.",
+        "warning",
+      );
       return;
     }
 
@@ -41,7 +44,7 @@ export class AnalyzerUI {
       if (extraidos.length === 0) {
         showToast(
           "Não conseguimos identificar nenhuma citação de artigo/lei no texto. Verifique o formato.",
-          "warning"
+          "warning",
         );
         return;
       }
@@ -420,8 +423,9 @@ window.openAnalyzerResultModal = async function (data) {
       </div>
 
       <!-- Disclaimer de Exceções -->
-      ${data.excecoes
-      ? `
+      ${
+        data.excecoes
+          ? `
       <div class="exception-alert-card border-2 border-warning-200 bg-warning-50 p-4 rounded-xl">
         <div class="flex items-start gap-3">
           <div class="text-warning-600 mt-0.5">
@@ -439,8 +443,8 @@ window.openAnalyzerResultModal = async function (data) {
         </div>
       </div>
       `
-      : ""
-    }
+          : ""
+      }
     </div>
   `;
 
