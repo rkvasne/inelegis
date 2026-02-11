@@ -354,63 +354,99 @@ export class AnalyzerUI {
       }
     }
 
-    // Regex para blocos de artigos (Art. 1, 2 e 3 ou Art. 1 c/c Art. 2)
-    // Captura o artigo e um "clipping" do contexto posterior para identificar a lei próxima
-    const regexBloco =
-      /(?:art\.?s?\.?\s+)([\d\-\.]+)(?:\s*,?\s*([\d\-\.]+))?(?:\s*,?\s*([\d\-\.]+))?([^.;\n]{0,150})/gi;
+    // Dividir por sentenças ou novas linhas para manter contextos curtos e precisos
+    const clausulas = texto.split(/[;\n]+/);
 
-    let match;
-    while ((match = regexBloco.exec(texto)) !== null) {
-      const contextoTotal = (match[4] || "").toLowerCase();
+    clausulas.forEach((clausula) => {
+      if (!clausula.trim()) return;
 
-      // Tenta achar a lei no contexto imediato (clipping)
-      let leiDoBloco = null;
+      let leiDaClausula = null;
       for (const [key, code] of Object.entries(lawKeywords)) {
-        if (contextoTotal.includes(key)) {
-          leiDoBloco = code;
+        if (clausula.toLowerCase().includes(key)) {
+          leiDaClausula = code;
           break;
         }
       }
+      const currentLaw = leiDaClausula || primaryLaw;
 
-      const currentLaw = leiDoBloco || primaryLaw;
+      // Regex para blocos de artigos (Art. 1, 2 e 3)
+      const regexArt =
+        /(?:art\.?s?\.?\s+)([\d\w\-\.]+)(?:\s*(?:,|e|ou|c\/c)\s*(?!art)([\d\w\-\.]+))?(?:\s*(?:,|e|ou|c\/c)\s*(?!art)([\d\w\-\.]+))?/gi;
 
-      // Tentar extrair complementos (parágrafo, inciso, alínea) do contexto imediato
-      const paragrafoMatch = contextoTotal.match(
-        /(?:§+|parágrafo|paragrafo|par\.?)\s*([\w\d\-]+)/i,
-      );
-      const incisoMatch = contextoTotal.match(
-        /(?:inciso|inc\.?)\s*([ivxlcdm]+|\d+)/i,
-      );
-      const alineaMatch = contextoTotal.match(
-        /(?:alínea|alinea|al\.?)\s*["']?([a-z])["']?/i,
-      );
+      let m;
+      while ((m = regexArt.exec(clausula)) !== null) {
+        // Contexto: do fim do match atual até o próximo "Art." ou fim da cláusula
+        const start = regexArt.lastIndex;
+        const preview = clausula.slice(start);
+        const nextArtMatch = preview.match(/art\.?s?\.?/i);
+        const contextEnd = nextArtMatch ? nextArtMatch.index : preview.length;
+        const context = preview.slice(0, contextEnd).toLowerCase();
 
-      const paragrafo = paragrafoMatch
-        ? paragrafoMatch[1].replace(/[º°ª]/g, "")
-        : null;
-      const inciso = incisoMatch ? incisoMatch[1].toUpperCase() : null;
-      const alinea = alineaMatch ? alineaMatch[1].toLowerCase() : null;
+        // Extração Múltipla (Parágrafos, Incisos, Alíneas)
+        const extractMulti = (ctx, single, plural, valuePattern) => {
+          const allMarkers = (plural + "|" + single)
+            .split("|")
+            .sort((a, b) => b.length - a.length)
+            .map((marker) => marker.replace(".", "\\."));
 
-      // Processar os 3 possíveis grupos de captura de números
-      [match[1], match[2], match[3]].forEach((artValue) => {
-        if (artValue) {
-          const sanitizedArt = artValue.replace(/\.$/, "").trim();
-          if (/^\d/.test(sanitizedArt)) {
-            resultados.push({
-              lei: currentLaw,
-              artigo: sanitizedArt,
-              paragrafo: paragrafo,
-              inciso: inciso,
-              alinea: alinea,
-              uid: Math.random().toString(36).substring(2, 9),
-              contexto: contextoTotal,
+          const pattern = `(?:${allMarkers.join("|")})\\s*((?:${valuePattern})(?:\\s*(?:,|e|ou)\\s*(?:${valuePattern}))*)`;
+          const regex = new RegExp(pattern, "i");
+          const matchVal = ctx.match(regex);
+
+          if (!matchVal) return [null];
+
+          const clean = matchVal[1]
+            .split(/\s*(?:,|e|ou)\s*/)
+            .map((v) => v.replace(/[º°ª'"'']/g, "").trim())
+            .filter((v) => v && !/^(caput)$/i.test(v));
+
+          return clean.length > 0 ? clean : [null];
+        };
+
+        const paragrafos = extractMulti(
+          context,
+          "§|parágrafo|paragrafo|par",
+          "§§|parágrafos|paragrafos",
+          "\\d+|único|unico|caput",
+        );
+        const incisos = extractMulti(
+          context,
+          "inciso|inc",
+          "incisos|incs",
+          "[ivxlcdm]+|\\d+|único|unico",
+        );
+        const alineas = extractMulti(
+          context,
+          "alínea|alinea|al",
+          "alíneas|alineas|als",
+          "['\"]?[a-z]['\"]?",
+        );
+
+        const articlesFound = [m[1], m[2], m[3]]
+          .filter((v) => v && /^\d/.test(v))
+          .map((v) => v.replace(/\.$/, "").trim());
+
+        articlesFound.forEach((art) => {
+          paragrafos.forEach((p) => {
+            incisos.forEach((inc) => {
+              alineas.forEach((al) => {
+                resultados.push({
+                  lei: currentLaw,
+                  artigo: art,
+                  paragrafo: p,
+                  inciso: inc ? inc.toUpperCase() : null,
+                  alinea: al ? al.toLowerCase() : null,
+                  uid: Math.random().toString(36).substring(2, 9),
+                  contexto: context,
+                });
+              });
             });
-          }
-        }
-      });
-    }
+          });
+        });
+      }
+    });
 
-    // Post-process: remoção de duplicatas exatas (Lei+Artigo+Paragrafo+Inciso)
+    // Post-process: remoção de duplicatas exatas
     return resultados.filter(
       (v, i, a) =>
         a.findIndex(
@@ -418,7 +454,8 @@ export class AnalyzerUI {
             t.artigo === v.artigo &&
             t.lei === v.lei &&
             t.paragrafo === v.paragrafo &&
-            t.inciso === v.inciso,
+            t.inciso === v.inciso &&
+            t.alinea === v.alinea,
         ) === i,
     );
   }

@@ -399,15 +399,17 @@ export class ValidatorUI {
         <!-- ASE -->
         <div class="ase-card-compact">
           <span class="ase-label">ASE DE ANOTAÇÃO</span>
-          <span class="ase-value">${tipoComunicacao === "condenacao"
-        ? `ASE 337 - Motivo ${isInelegivel ? "7" : "2"}: Condenação criminal`
-        : "Consulte o manual para este tipo de comunicação"
-      }</span>
+          <span class="ase-value">${
+            tipoComunicacao === "condenacao"
+              ? `ASE 337 - Motivo ${isInelegivel ? "7" : "2"}: Condenação criminal`
+              : "Consulte o manual para este tipo de comunicação"
+          }</span>
         </div>
 
         <!-- Disclaimer de Exceções -->
-        ${result.excecoes_detalhes
-        ? `
+        ${
+          result.excecoes_detalhes
+            ? `
         <div class="exception-alert-card border-2 border-warning-200 bg-warning-50 p-4 rounded-xl">
           <div class="flex items-start gap-3">
             <div class="text-warning-600 mt-0.5">
@@ -425,8 +427,8 @@ export class ValidatorUI {
           </div>
         </div>
         `
-        : ""
-      }
+            : ""
+        }
       </div>
     `;
 
