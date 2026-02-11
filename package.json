@@ -1,6 +1,6 @@
 {
   "name": "inelegis",
-  "version": "0.3.8",
+  "version": "0.3.9",
   "description": "Sistema de Consulta de Inelegibilidade Eleitoral",
   "type": "module",
   "main": "index.html",
