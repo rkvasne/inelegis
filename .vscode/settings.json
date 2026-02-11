@@ -1,1 +1,7 @@
-{}
+{
+  "github-actions.workflows.pinnedSecrets": [
+    "HUB_ACCESS_TOKEN",
+    "NEXT_PUBLIC_SUPABASE_URL",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY"
+  ]
+}
