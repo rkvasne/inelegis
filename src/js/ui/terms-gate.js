@@ -16,4 +16,3 @@
     window.location.href = "index.html#termos";
   }
 })();
-

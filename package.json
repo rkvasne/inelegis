@@ -34,7 +34,7 @@
     "reinstall": "npm run clean:all && npm install",
     "update-deps": "npm update && npm audit fix",
     "size": "node -e \"const fs=require('fs'); const path=require('path'); const getSize=d=>fs.readdirSync(d).reduce((s,f)=>{const p=path.join(d,f); return s+(fs.statSync(p).isDirectory()?getSize(p):fs.statSync(p).size)},0); console.log('Tamanho do projeto:', Math.round(getSize('.')/1024)+'KB');\"",
-    "verify": "node .agent/hub/system/validators/validator-integrity.js",
+    "verify": "npm run sync:js && node .agent/hub/system/validators/validator-integrity.js",
     "context": "node .agent/hub/system/generators/build-context.js",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,css,md,json}\"",
     "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,css,md,json}\"",

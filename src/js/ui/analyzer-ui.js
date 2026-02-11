@@ -69,7 +69,13 @@ export class AnalyzerUI {
         const lawInfo = (await validatorService.getLaws()).find(
           (l) => l.codigo === item.lei,
         );
-        const lawDisplayName = lawInfo ? lawInfo.nome : item.lei;
+        const lawDisplayName = lawInfo ? (lawInfo.lei || lawInfo.nome) : item.lei;
+
+        const detailText = [];
+        if (item.paragrafo) detailText.push(`§ ${item.paragrafo}`);
+        if (item.inciso) detailText.push(`Inc. ${item.inciso}`);
+        if (item.alinea) detailText.push(`Al. ${item.alinea}`);
+        const fullDetail = detailText.length > 0 ? ` (${detailText.join(", ")})` : "";
 
         const row = document.createElement("tr");
         row.style.borderBottom = "1px solid var(--border-color)";
@@ -77,7 +83,7 @@ export class AnalyzerUI {
                     <td class="p-4 align-top">
                         <div class="flex flex-col gap-1">
                             <span class="font-bold text-neutral-900 text-sm">${lawDisplayName}</span>
-                            <span class="text-sm text-neutral-600 font-mono">Art. ${item.artigo}</span>
+                            <span class="text-sm text-neutral-600 font-mono">Art. ${item.artigo}${fullDetail}</span>
                         </div>
                     </td>
                     <td class="p-4 align-top" id="status-${item.uid}">
@@ -121,6 +127,9 @@ export class AnalyzerUI {
     const result = await validatorService.verifyEligibility(
       item.lei,
       item.artigo,
+      item.paragrafo,
+      item.inciso,
+      item.alinea
     );
     const statusCell = document.getElementById(`status-${item.uid}`);
     const aseCell = document.getElementById(`ase-${item.uid}`);
@@ -228,6 +237,9 @@ export class AnalyzerUI {
     // Armazenar dados no dataset do botão
     btn.dataset.lei = item.lei;
     btn.dataset.artigo = item.artigo;
+    btn.dataset.paragrafo = item.paragrafo || "";
+    btn.dataset.inciso = item.inciso || "";
+    btn.dataset.alinea = item.alinea || "";
     btn.dataset.resultado = tipo;
     btn.dataset.tipoCrime = result.tipo_crime || "";
     btn.dataset.itemAlineaE = result.item_alinea_e || "";
@@ -281,16 +293,16 @@ export class AnalyzerUI {
     // Regex para blocos de artigos (Art. 1, 2 e 3 ou Art. 1 c/c Art. 2)
     // Captura o artigo e um "clipping" do contexto posterior para identificar a lei próxima
     const regexBloco =
-      /(?:art\.?s?\.?\s+)([\d\-\.]+)(?:\s*,?\s*([\d\-\.]+))?(?:\s*,?\s*([\d\-\.]+))?([^.;\n]{0,100})/gi;
+      /(?:art\.?s?\.?\s+)([\d\-\.]+)(?:\s*,?\s*([\d\-\.]+))?(?:\s*,?\s*([\d\-\.]+))?([^.;\n]{0,150})/gi;
 
     let match;
     while ((match = regexBloco.exec(texto)) !== null) {
-      const contexto = match[4].toLowerCase();
+      const contextoTotal = (match[4] || "").toLowerCase();
 
       // Tenta achar a lei no contexto imediato (clipping)
       let leiDoBloco = null;
       for (const [key, code] of Object.entries(lawKeywords)) {
-        if (contexto.includes(key)) {
+        if (contextoTotal.includes(key)) {
           leiDoBloco = code;
           break;
         }
@@ -298,7 +310,16 @@ export class AnalyzerUI {
 
       const currentLaw = leiDoBloco || primaryLaw;
 
-      // Processar os 3 possíveis grupos de captura de números (limitado a 3 por regex por performance/simplicidade)
+      // Tentar extrair complementos (parágrafo, inciso, alínea) do contexto imediato
+      const paragrafoMatch = contextoTotal.match(/(?:§|parágrafo|par\.?)\s*([\w\-]+)/i);
+      const incisoMatch = contextoTotal.match(/(?:inciso|inc\.?)\s*([ivxlcdm]+|\d+)/i);
+      const alineaMatch = contextoTotal.match(/(?:alínea|alinea|al\.?)\s*["']?([a-z])["']?/i);
+
+      const paragrafo = paragrafoMatch ? paragrafoMatch[1].replace(/[º°ª]/g, "") : null;
+      const inciso = incisoMatch ? incisoMatch[1].toUpperCase() : null;
+      const alinea = alineaMatch ? alineaMatch[1].toLowerCase() : null;
+
+      // Processar os 3 possíveis grupos de captura de números
       [match[1], match[2], match[3]].forEach((artValue) => {
         if (artValue) {
           const sanitizedArt = artValue.replace(/\.$/, "").trim();
@@ -306,18 +327,27 @@ export class AnalyzerUI {
             resultados.push({
               lei: currentLaw,
               artigo: sanitizedArt,
+              paragrafo: paragrafo,
+              inciso: inciso,
+              alinea: alinea,
               uid: Math.random().toString(36).substring(2, 9),
-              contexto: contexto,
+              contexto: contextoTotal,
             });
           }
         }
       });
     }
 
-    // Post-process: remoção de duplicatas exatas (Lei+Artigo)
+    // Post-process: remoção de duplicatas exatas (Lei+Artigo+Paragrafo+Inciso)
     return resultados.filter(
       (v, i, a) =>
-        a.findIndex((t) => t.artigo === v.artigo && t.lei === v.lei) === i,
+        a.findIndex(
+          (t) =>
+            t.artigo === v.artigo &&
+            t.lei === v.lei &&
+            t.paragrafo === v.paragrafo &&
+            t.inciso === v.inciso,
+        ) === i,
     );
   }
 }
@@ -373,7 +403,7 @@ window.openAnalyzerResultModal = async function (data) {
   const lawInfo = (await validatorService.getLaws()).find(
     (l) => l.codigo === data.lei,
   );
-  const lawDisplayName = lawInfo ? lawInfo.nome : data.lei;
+  const lawDisplayName = lawInfo ? (lawInfo.lei || lawInfo.nome) : data.lei;
 
   // Configurações visuais
   let statusClass, statusText, statusIcon;
@@ -388,7 +418,10 @@ window.openAnalyzerResultModal = async function (data) {
     statusIcon = `<svg width="24" height="24" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>`;
   }
 
-  const incidencia = `Art. ${data.artigo}`;
+  let incidencia = `Art. ${data.artigo}`;
+  if (data.paragrafo) incidencia += `, § ${data.paragrafo}`;
+  if (data.inciso) incidencia += `, Inc. ${data.inciso}`;
+  if (data.alinea) incidencia += `, Al. ${data.alinea}`;
 
   const bodyHTML = `
     <div class="result-modal-v3">
@@ -433,9 +466,8 @@ window.openAnalyzerResultModal = async function (data) {
       </div>
 
       <!-- Disclaimer de Exceções -->
-      ${
-        data.excecoes
-          ? `
+      ${data.excecoes
+      ? `
       <div class="exception-alert-card border-2 border-warning-200 bg-warning-50 p-4 rounded-xl">
         <div class="flex items-start gap-3">
           <div class="text-warning-600 mt-0.5">
@@ -453,8 +485,8 @@ window.openAnalyzerResultModal = async function (data) {
         </div>
       </div>
       `
-          : ""
-      }
+      : ""
+    }
     </div>
   `;
 
@@ -469,4 +501,3 @@ window.openAnalyzerResultModal = async function (data) {
     window.ModalManager.open(statusClass, statusText, bodyHTML);
   }
 };
-

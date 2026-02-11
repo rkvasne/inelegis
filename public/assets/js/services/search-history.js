@@ -541,4 +541,3 @@ const SearchHistory = (() => {
 if (typeof window !== "undefined") {
   window.SearchHistory = SearchHistory;
 }
-

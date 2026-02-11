@@ -145,4 +145,3 @@ if (typeof window !== "undefined") {
   window.SecureStorage = SecureStorage;
   SecureStorage.cleanExpired();
 }
-

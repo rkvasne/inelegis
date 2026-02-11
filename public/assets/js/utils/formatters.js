@@ -241,4 +241,3 @@ const ArtigoFormatter = {
 if (typeof window !== "undefined") {
   window.ArtigoFormatter = ArtigoFormatter;
 }
-

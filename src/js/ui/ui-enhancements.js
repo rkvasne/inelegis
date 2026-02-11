@@ -348,4 +348,3 @@
     initFAQSearch,
   };
 })();
-

@@ -453,4 +453,3 @@ export class ValidatorUI {
     }
   }
 }
-

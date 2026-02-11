@@ -68,4 +68,3 @@ function verificarAcessoConsulta() {
   }
   return true;
 }
-

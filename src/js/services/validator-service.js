@@ -232,4 +232,3 @@ export const validatorService = new ValidatorService();
 if (typeof window !== "undefined") {
   window.validatorService = validatorService;
 }
-

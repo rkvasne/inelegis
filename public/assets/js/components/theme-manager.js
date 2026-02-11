@@ -270,4 +270,3 @@ const ThemeManager = (() => {
 if (typeof window !== "undefined") {
   window.ThemeManager = ThemeManager;
 }
-
