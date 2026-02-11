@@ -10,7 +10,7 @@ lastReviewed: 21/01/2026
 
 ---
 
-**Versão atual:** 0.3.5
+**Versão atual:** 0.3.6
 
 Todas as alterações notáveis neste projeto serão documentadas neste arquivo.
 
@@ -18,6 +18,21 @@ O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
+
+## [0.3.6] - 10/02/2026
+
+### 🏛️ Governança e Hub (SSoT)
+
+- **Solo Dev Hub CI Strategy**: Adotada a estratégia oficial v0.5.4 para integração contínua.
+  - Implementado checkout explícito do repositório do Hub (`.agent/hub`) no workflow de CI/CD.
+  - Adotado o uso de `HUB_ACCESS_TOKEN` (Secret) para autenticação com o repositório privado do Hub.
+- **Limpeza de Core**: Removidos scripts locais redundantes (`doc-auditor.js`, `validator-web-standards.js`) em favor de chamadas diretas à fonte da verdade no Hub.
+- **Theme Linter**: Identificado e documentado bug no linter oficial do Hub. Mantido fork local temporário com correção de suporte a comentários de ignore.
+- **Documentação**: Criado `docs/HUB-BUG-REPORT-THEME-LINTER.md` para rastreio de correção upstream.
+
+### ⚙️ Backend & Infraestrutura
+
+- **Supabase Service**: Adicionado tratamento de erros robusto (`try/catch`) e injeção de configuração dinâmica no `validator-service.js` para melhor estabilidade em ambiente local e CI.
 
 ## [0.3.5] - 09/02/2026
 
