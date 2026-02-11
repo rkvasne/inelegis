@@ -2,7 +2,6 @@
 
 > **Link do Hub:** `.agent/hub/` (Obrigatório)
 > **Modo:** Hub-First & SSoT (Single Source of Truth)
-> **Hub Version:** v0.5.4
 
 Este projeto integra o ecossistema Solo Dev Hub. O Agente de IA deve priorizar as definições centralizadas no Hub para comportamento e governança.
 
@@ -34,26 +33,54 @@ Para garantir a qualidade e o nível sênior de execução, siga as regras do Hu
 
 ---
 
-## 🚫 READ-ONLY HUB ZONE (CRITICAL)
+## 🚫 READ-ONLY HUB ZONE (CRITICAL - VIOLAÇÃO GRAVE)
 
 A pasta `.agent/hub/` é uma **Junction (Link)** do Hub Central `E:\Agents`.
 
-- ❌ **VIOLAÇÃO DE MEMÓRIA:** Modificar o Hub a partir daqui é proibido.
-- ❌ **PROIBIDO EDITAR:** Nunca crie, altere ou delete arquivos dentro de `.agent/hub/`.
-- ✅ **SSoT:** Mudanças nas regras globais devem ser feitas apenas no repositório do Hub Original.
-- ✅ **MEMÓRIA LOCAL:** Use `.agent/memory/` para persistir o histórico e status **deste** projeto.
+### ⛔ PROIBIÇÕES ABSOLUTAS
 
----
+| Ação                                       | Status      | Consequência                  |
+| ------------------------------------------ | ----------- | ----------------------------- |
+| Editar arquivos em `.agent/hub/`           | ❌ PROIBIDO | VIOLAÇÃO DE MEMÓRIA           |
+| Criar arquivos em `.agent/hub/`            | ❌ PROIBIDO | VIOLAÇÃO DE MEMÓRIA           |
+| Deletar arquivos em `.agent/hub/`          | ❌ PROIBIDO | VIOLAÇÃO DE MEMÓRIA           |
+| Commitar `.agent/hub/`                     | ❌ PROIBIDO | Corrompe o submodule/junction |
+| Sugerir `git checkout --` em `.agent/hub/` | ❌ PROIBIDO | Comando destrutivo            |
 
-## 🛠️ Scripts Disponíveis (Hub-Powered)
+### ✅ AÇÕES PERMITIDAS
 
-| Comando                  | Descrição                                   |
-| ------------------------ | ------------------------------------------- |
-| `npm run verify`         | Validação de integridade do projeto         |
-| `npm run lint:theme`     | Linter de consistência de temas CSS         |
-| `npm run audit:docs`     | Auditoria de documentação                   |
-| `npm run test:standards` | Validação de padrões web (links, SEO, A11y) |
-| `npm run format`         | Formata código com Prettier                 |
+- **LER** arquivos do Hub para consulta de regras
+- **USAR** personas e skills do Hub
+- **REFERENCIAR** documentação do Hub
+
+### 🔴 Exemplos de VIOLAÇÕES (NUNCA FAÇA ISSO)
+
+```bash
+# ❌ VIOLAÇÃO: Editar arquivo do Hub
+edit .agent/hub/brain/personas/mode-backend.md
+
+# ❌ VIOLAÇÃO: Commitar o Hub
+git add .agent/hub/
+git commit -m "atualizar hub"
+
+# ❌ VIOLAÇÃO: Comandos destrutivos no Hub
+git checkout -- .agent/hub/
+git restore .agent/hub/
+```
+
+### ✅ Como Alterar Regras do Hub
+
+1. **Navegue** até o repositório original: `E:\Agents`
+2. **Faça** as alterações lá
+3. **Commit e push** no repositório do Hub
+4. **Sincronize** nos satélites (se necessário)
+
+### 📁 Memória Local
+
+Use `.agent/memory/` para armazenar informações **deste** projeto:
+
+- `project-status.md` - Estado atual do projeto
+- `tasks/` - Planejamento de tarefas
 
 ---
 
@@ -68,4 +95,26 @@ Ao finalizar uma tarefa:
 
 ---
 
-_Configurado via Solo Dev Hub Layout (v0.5.3)_
+## 🏷️ Assinatura de Edição (Doc Signature)
+
+Ao alterar qualquer documento Markdown neste projeto, o agente DEVE adicionar/atualizar a assinatura no footer:
+
+```markdown
+_Última atualização: DD/MM/AAAA • vX.X.X_
+_Editado via: [IDE] | Modelo: [LLM] | OS: [Sistema]_
+```
+
+Para docs com frontmatter YAML, usar campos no frontmatter (sem duplicar no footer):
+
+```yaml
+last-edited: DD/MM/AAAA
+last-edited-via: [IDE]
+last-edited-model: [LLM]
+last-edited-os: [Sistema]
+```
+
+---
+
+_Última atualização: 11/02/2026 • v0.5.4_
+_Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_
+
