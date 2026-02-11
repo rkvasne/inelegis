@@ -1118,30 +1118,36 @@ code {
   color: var(--text-muted);
 }
 
-/* Select options styling */
+/* Select options styling - FORCED COLORS */
 .form-select option {
-  background: var(--bg-primary) !important;
-  color: var(--text-primary) !important;
-  padding: var(--space-2);
-}
-
-.form-select option:checked,
-.form-select option:hover {
-  background: var(--primary-100) !important;
-  color: var(--text-primary) !important;
+  background-color: #ffffff !important;
+  color: #1f2937 !important;
+  /* gray-800 */
+  padding: 8px;
 }
 
 .dark-theme .form-select option {
-  background: var(--bg-secondary) !important;
-  color: var(--text-primary) !important;
+  background-color: #1f2937 !important;
+  /* gray-800 */
+  color: #f3f4f6 !important;
+  /* gray-100 */
+}
+
+/* Hover/Checked states - Best effort as browsers limit this */
+.form-select option:checked,
+.form-select option:hover {
+  background-color: #e0f2fe !important;
+  /* light blue */
+  color: #0369a1 !important;
+  /* dark blue */
 }
 
 .dark-theme .form-select option:checked,
 .dark-theme .form-select option:hover {
-  background: var(--primary-900) !important;
-  color: var(--text-primary) !important;
+  background-color: #0369a1 !important;
+  /* dark blue */
+  color: #ffffff !important;
 }
-
 
 /* Checkbox */
 .checkbox-group {
