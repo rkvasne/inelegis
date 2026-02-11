@@ -87,8 +87,10 @@ export class ValidatorUI {
     laws.forEach((law) => {
       const option = document.createElement("option");
       option.value = law.codigo;
-      // A coluna 'lei' já contém o nome completo (ex: "Código Penal (DL 2.848/40)")
-      option.textContent = law.lei;
+      // Melhoria: Mostrar Código + Nome (propriedade 'lei' do serviço)
+      // O serviço retorna { codigo, lei }
+      const displayName = law.lei || `${law.codigo} - ${law.nome || ""}`;
+      option.textContent = displayName;
       this.leiSelect.appendChild(option);
     });
 
