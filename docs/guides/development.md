@@ -27,7 +27,7 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 
 ## 🏗 Arquitetura do Código
 
-### Estrutura de Pastas (v0.3.7)
+### Estrutura de Pastas (v0.3.8)
 
 - `public/assets/js/`: Código distribuído (runtime).
 - `src/js/`: Código fonte original organizado por camadas:
@@ -57,6 +57,11 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 
 - Controla o fluxo "Lei -> Artigo" com selects em cascata.
 
+**[ui/analyzer-ui.js](../../src/js/ui/analyzer-ui.js)**
+
+- Motor de extração de artigos de textos brutos (Sentenças).
+- **Validação de Sanidade**: Camada de proteção que descarta capturas inconclusivas e fornece feedback instrutivo (v0.3.8).
+
 ---
 
 ## 📏 Padrões de Código
@@ -73,7 +78,7 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 | ------------------------- | ------------------------------------------------------ |
 | `npm run dev`             | Inicia servidor local com sync de assets.              |
 | `npm run check`           | Valida Lint, Testes e integridade do Build.            |
-| `npm run supabase:config` | Sincroniza chaves do `.env.local` com o frontend.      |
+| `npm run supabase:config` | Sincroniza chaves do `.env.local` con o frontend.      |
 | `npm run test:unit`       | Executa testes de lógica de negócio (formatters, etc). |
 
 ---
@@ -94,4 +99,4 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 
 ---
 
-_Atualizado em: 03/02/2026_
+_Atualizado em: 11/02/2026_

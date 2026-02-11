@@ -1,7 +1,7 @@
 ---
 docStatus: active
 docScope: docs-index
-lastReviewed: 15/01/2026
+lastReviewed: 11/02/2026
 ---
 
 # 📚 Documentação do Inelegis
@@ -52,7 +52,7 @@ Bem-vindo à documentação oficial do projeto **Inelegis**.
 
 ---
 
-## 📂 Estrutura da Documentação
+## 📂 Estrutura da Documentação (v0.3.8)
 
 ```
 docs/
