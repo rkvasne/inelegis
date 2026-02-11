@@ -27,8 +27,8 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
   - Implementado checkout explícito do repositório do Hub (`.agent/hub`) no workflow de CI/CD.
   - Adotado o uso de `HUB_ACCESS_TOKEN` (Secret) para autenticação com o repositório privado do Hub.
 - **Limpeza de Core**: Removidos scripts locais redundantes (`doc-auditor.js`, `validator-web-standards.js`) em favor de chamadas diretas à fonte da verdade no Hub.
-- **Theme Linter**: Identificado e documentado bug no linter oficial do Hub. Mantido fork local temporário com correção de suporte a comentários de ignore.
-- **Documentação**: Criado `docs/HUB-BUG-REPORT-THEME-LINTER.md` para rastreio de correção upstream.
+- **Theme Linter**: Identificado e documentado bug no linter oficial do Hub. **Resolvido Upstream**: As correções foram incorporadas ao núcleo do Hub e o fork local foi deletado.
+- **Documentação**: Sincronização global da versão 0.3.6 em todos os guias técnicos e frontend (cache-busting).
 
 ### ⚙️ Backend & Infraestrutura
 

@@ -1,6 +1,6 @@
 ﻿# 📊 Project Status & Context
 
-> **Last Updated:** 2026-02-10
+> **Last Updated:** 2026-02-11
 > **Current Phase:** Maintenance / Governance Integration
 > **Status:** Stable / Hub-First
 > **Hub Version:** v0.5.4 (CI Strategy v0.5.4 adopted)
@@ -41,4 +41,5 @@
 - 01-03/02/2026: Migração para Supabase, governança v0.4.7, conformidade total e limpeza de legado Redis.
 - 05/02/2026: Auditoria de base de dados e reconstrução da tabela de crimes (Migration 002).
 - 08/02/2026: **Upgrade para Hub v0.5.4.** Implementação de sistema de Toast, limpeza de raiz e auditoria Deep-Dive (Claude Opus). Sincronização de versões.
-- 09/02/2026: **Correção UI & Auditoria Legal.** Resolvido bug de população de leis, corrigido contraste visual (select option) e auditoria 100% conforme com a Corregedoria SP (Out/24). Versão 0.3.5.
+- 09-10/02/2026: **Refatoração v0.3.6 & Governança.** Correção CI/CD (GitHub Secrets), limpeza de SSoT (Scripts centralizados no Hub), tratamento de erros Supabase. Resolvido bug no linter upstream e removido fork local.
+- 11/02/2026: **Unificação e Estabilização.** Sincronização global da versão 0.3.6 em docs, frontend e scripts. Ambiente local otimizado (PATH). Projeto 100% Hub-First.
