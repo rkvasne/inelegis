@@ -18,6 +18,16 @@ export class AnalyzerUI {
     if (!this.btnAnalisar) return;
 
     this.btnAnalisar.addEventListener("click", () => this.analisar());
+
+    // Tecla Enter para disparar análise
+    if (this.textarea) {
+      this.textarea.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+          e.preventDefault();
+          this.analisar();
+        }
+      });
+    }
   }
 
   /**

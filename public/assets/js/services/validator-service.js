@@ -48,9 +48,21 @@ export class ValidatorService {
       }
 
       // Consulta adaptada para a nova tabela unificada usando o cliente leve customizado
-      const data = await supabaseClient.from("crimes_inelegibilidade", {
-        select: "codigo,lei",
-      });
+      console.log("[DEBUG] Buscando leis no Supabase...");
+      let data;
+
+      try {
+        data = await supabaseClient.from("crimes_inelegibilidade", {
+          select: "codigo,lei",
+        });
+        console.log("[DEBUG] Dados recebidos:", data?.length || 0, "registros");
+      } catch (err) {
+        console.error("[DEBUG] Erro fatal ao buscar leis:", err);
+        return [];
+      }
+
+      // Cliente customizado lança exceção em erro, então se chegou aqui é sucesso.
+      // E retorna o array diretamente, não { data, error }
 
       // Remover duplicatas via JS
       const uniqueLaws = new Map();
@@ -67,9 +79,11 @@ export class ValidatorService {
         });
       }
 
-      this.normasCache = Array.from(uniqueLaws.values()).sort((a, b) =>
+      const result = Array.from(uniqueLaws.values()).sort((a, b) =>
         a.codigo.localeCompare(b.codigo),
       );
+      console.log("[DEBUG] ValidatorService.getLaws result:", result);
+      this.normasCache = result;
 
       console.log(
         "[ValidatorService] Carregadas",
