@@ -1,7 +1,7 @@
 /**
  * Reusable Components
  * Componentes reutilizáveis para todas as páginas
- * @version 0.3.0
+ * @version 0.3.6
  */
 
 const Components = (() => {
@@ -88,7 +88,7 @@ const Components = (() => {
                             <img id="header-logo"${logoLockAttr} src="${logoSrc}" alt="Inelegis Logo" class="theme-aware-logo u-rounded" width="32" height="32" loading="lazy">
                         </div>
                         <div class="brand-text">
-                            <h1>Inelegis <span class="version-badge">v0.3.0</span></h1>
+                            <h1>Inelegis <span class="version-badge">v0.3.6</span></h1>
                             <p>Consulta de Inelegibilidade Eleitoral</p>
                         </div>
                     </div>
@@ -185,38 +185,35 @@ const Components = (() => {
   function renderCard({ title, subtitle, content, icon, className = "" }) {
     return `
             <div class="card ${className}">
-                ${
-                  title
-                    ? `
+                ${title
+        ? `
                     <div class="card-header">
-                        ${
-                          icon
-                            ? `
+                        ${icon
+          ? `
                             <div class="card-icon">
                                 <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${icon}"></path>
                                 </svg>
                             </div>
                         `
-                            : ""
-                        }
+          : ""
+        }
                         <div>
                             <h2>${title}</h2>
                             ${subtitle ? `<p>${subtitle}</p>` : ""}
                         </div>
                     </div>
                 `
-                    : ""
-                }
-                ${
-                  content
-                    ? `
+        : ""
+      }
+                ${content
+        ? `
                     <div class="card-body">
                         ${content}
                     </div>
                 `
-                    : ""
-                }
+        : ""
+      }
             </div>
         `;
   }
@@ -239,15 +236,14 @@ const Components = (() => {
 
     return `
             <button class="${buttonClass}"${disabledAttr}${onClickAttr}>
-                ${
-                  icon
-                    ? `
+                ${icon
+        ? `
                     <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${icon}"></path>
                     </svg>
                 `
-                    : ""
-                }
+        : ""
+      }
                 ${text}
             </button>
         `;
@@ -279,17 +275,16 @@ const Components = (() => {
                     ${title ? `<strong>${title}</strong>` : ""}
                     ${message ? `<p>${message}</p>` : ""}
                 </div>
-                ${
-                  dismissible
-                    ? `
+                ${dismissible
+        ? `
                     <button class="alert-close" aria-label="Fechar alerta" title="Fechar alerta">
                         <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                         </svg>
                     </button>
                 `
-                    : ""
-                }
+        : ""
+      }
             </div>
         `;
   }
