@@ -4,7 +4,7 @@
 > **Current Phase:** UI/UX & Quality Refinement
 > **Status:** Stable / High Performance
 > **Hub Version:** v0.5.4
-> **App Version:** v0.3.8
+> **App Version:** v0.3.9
 
 ## 🎯 Objetivos Concluídos (Sessão 11/02/2026)
 
@@ -27,7 +27,7 @@
 ## 🔄 Tarefas em Aberto (Próximos Passos)
 
 1. Adicionar exportação de PDF para os resultados do analisador.
-2. Suporte a múltiplos parágrafos/incisos na mesma citação (ex: "Art. 121, §§ 1º e 2º").
+2. Suporte a múltiplos parágrafos/incisos na mesma citação (CONCLUÍDO).
 3. Roadmap para v0.4.0: Suporte a IA generativa local para resumos de sentenças.
 
 ## ⚠️ Riscos e Bloqueios
@@ -41,3 +41,4 @@
 - 01-10/02/2026: Consolidação de infraestrutura, migração Supabase, Governança Hub v0.5.4 e estabilização de CI/CD.
 - 11/02/2026 (Checkpoint 1): **Refactor & UI Refinement (v0.3.7).** Foco em UX e Qualidade. Reativação dos testes de layout automatizados via Puppeteer (resolvendo incompatibilidade com Windows). Refatoração do módulo `AnalyzerUI` com busca inteligente (law context awareness).
 - 11/02/2026 (Checkpoint 2 - **v0.3.8**): **Security, Sanity & Legal Clarity.** Introdução de filtros de sanidade no Analisador para evitar falsos positivos de extração. Implementação de ajuda contextual (Dicas de Formato) e avisos Toasts instrutivos. **Inaugurada a sinalização explícita de exceções legais** ("ELEGÍVEL (EXCEÇÃO)") tanto na busca simples quanto avançada, garantindo que o usuário saiba quando um artigo possui ressalvas. Projeto 100% CONFORME após `npm run verify`.
+- 11/02/2026 (Checkpoint 3 - **v0.3.9**): **Multi-Value Extraction.** Implementado suporte nativo para múltiplos parágrafos, incisos e alíneas em uma única oração legal. Refatoração do motor de análise para processamento segmentado por cláusulas, elevando a precisão da extração de contexto. Projeto 100% CONFORME.

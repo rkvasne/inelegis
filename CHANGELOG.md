@@ -11,7 +11,7 @@ lastReviewed: 11/02/2026
 
 ---
 
-**Versão atual:** 0.3.8
+**Versão atual:** 0.3.9
 
 Todas as alterações notáveis neste projeto serão documentadas neste arquivo.
 
@@ -19,6 +19,13 @@ O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
+
+## [0.3.9] - 11/02/2026
+
+### 🔍 Inteligência de Busca (Analisador)
+
+- **Suporte a Múltiplas Citações**: Implementada extração avançada que suporta pluralidade em um único bloco (ex: "Art. 121, §§ 1º, 2º e 3º" ou "Arts. 1, 2 e 3, inciso I"). O sistema agora multiplica automaticamente as combinações para validação individual.
+- **Análise por Cláusula**: Refatoração do motor de extração para operar por sentenças (cláusulas), permitindo contextos mais precisos e evitando "vazamento" de parâmetros entre artigos distantes no texto.
 
 ## [0.3.8] - 11/02/2026
 
