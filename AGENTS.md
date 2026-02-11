@@ -117,4 +117,3 @@ last-edited-os: [Sistema]
 
 _Última atualização: 11/02/2026 • v0.5.4_
 _Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_
-

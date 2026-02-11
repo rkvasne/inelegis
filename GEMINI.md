@@ -122,4 +122,3 @@ Ao finalizar uma tarefa:
 _Configurado via Solo Dev Hub Layout (v0.5.4)_
 _Última atualização: 11/02/2026_
 _Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_
-
