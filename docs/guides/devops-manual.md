@@ -1,6 +1,6 @@
 # 🐳 Manual de DevOps & Deploy - Inelegis
 
-> **Status:** Otimizado (v0.3.6)
+> **Status:** Otimizado (v0.3.7)
 > **Stack:** Node.js 22, Supabase, Docker
 
 Este guia detalha como operar, implantar e manter a aplicação Inelegis em qualquer ambiente compatível com containers.

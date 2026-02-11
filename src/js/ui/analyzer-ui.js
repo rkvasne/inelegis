@@ -18,6 +18,16 @@ export class AnalyzerUI {
     if (!this.btnAnalisar) return;
 
     this.btnAnalisar.addEventListener("click", () => this.analisar());
+
+    // Tecla Enter para disparar análise
+    if (this.textarea) {
+      this.textarea.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+          e.preventDefault();
+          this.analisar();
+        }
+      });
+    }
   }
 
   /**
@@ -423,9 +433,8 @@ window.openAnalyzerResultModal = async function (data) {
       </div>
 
       <!-- Disclaimer de Exceções -->
-      ${
-        data.excecoes
-          ? `
+      ${data.excecoes
+      ? `
       <div class="exception-alert-card border-2 border-warning-200 bg-warning-50 p-4 rounded-xl">
         <div class="flex items-start gap-3">
           <div class="text-warning-600 mt-0.5">
@@ -443,8 +452,8 @@ window.openAnalyzerResultModal = async function (data) {
         </div>
       </div>
       `
-          : ""
-      }
+      : ""
+    }
     </div>
   `;
 

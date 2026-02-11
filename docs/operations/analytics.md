@@ -8,7 +8,7 @@ lastReviewed: 02/02/2026
 
 ---
 
-**Versão:** 0.3.6 (Migrado para Supabase)  
+**Versão:** 0.3.7 (Migrado para Supabase)  
 **Data:** 02/02/2026
 
 ---

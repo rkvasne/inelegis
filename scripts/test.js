@@ -10,31 +10,19 @@ import path from "path";
 import http from "http";
 import url from "url";
 import { fileURLToPath } from "url";
+import { createRequire } from "module";
 import pathsConfig from "./project-paths.js";
+
+const require = createRequire(import.meta.url);
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Import paths
-const projectRoot = path.resolve(__dirname, "..");
-
-// Create paths object for compatibility
-const paths = {
-  pages: {
-    index: path.join(projectRoot, "public", "index.html"),
-  },
-  styles: {
-    main: path.join(projectRoot, "public", "styles", "styles.css"),
-  },
-  js: {
-    main: path.join(projectRoot, "public", "assets", "js", "script.js"),
-  },
-  publicDir: path.join(projectRoot, "public"),
-};
+const paths = pathsConfig;
 
 class TestRunner {
   constructor() {
-    this.projectRoot = projectRoot;
+    this.projectRoot = pathsConfig.root;
     this.testsDir = path.join(this.projectRoot, "tests");
     this.results = {
       total: 0,
@@ -674,7 +662,7 @@ class TestRunner {
 }
 
 // Executar testes se chamado diretamente
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (url.fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {
   const runner = new TestRunner();
   runner.runTests().catch((error) => {
     console.error("❌ Erro fatal nos testes:", error);

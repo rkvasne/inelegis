@@ -4,7 +4,7 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const ROOT = path.join(__dirname, ".");
+const ROOT = path.join(__dirname, "..");
 const PUBLIC_DIR = path.join(ROOT, "public");
 const SRC_DIR = path.join(ROOT, "src");
 const JS_SRC_DIR = path.join(SRC_DIR, "js");

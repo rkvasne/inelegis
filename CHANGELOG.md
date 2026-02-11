@@ -10,12 +10,43 @@ lastReviewed: 21/01/2026
 
 ---
 
-**Versão atual:** 0.3.6
+**Versão atual:** 0.3.7
 
 Todas as alterações notáveis neste projeto serão documentadas neste arquivo.
 
 O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/),
 e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
+
+---
+
+## [0.3.7] - 11/02/2026
+
+### 🔍 Inteligência de Busca (Analisador)
+
+- **Extração Robusta**: Melhorado algoritmo de captura de dispositivos legais.
+  - Suporte a numerais por extenso ("primeiro", "segundo", "1º").
+  - Extração inteligente de parágrafos (`§`), incisos e alíneas.
+  - Detecção dinâmica de contexto: o sistema agora identifica se um artigo se refere a uma lei citada anteriormente ou no contexto imediato.
+- **UX de Entrada**:
+  - Implementado gatilho de busca ao pressionar `Enter` no campo de texto.
+  - Suporte a `Shift + Enter` para quebras de linha manuais sem disparar a análise.
+
+### 🎨 UI/UX Premium (Feedback & Layout)
+
+- **Resultados Individuais**:
+  - Implementados badges de status semânticos (Sucesso/Perigo/Neutro) com design compacto.
+  - **Skeleton Loaders**: Adicionada animação de pulso durante a verificação assíncrona dos artigos, melhorando a percepção de performance.
+- **Higiene de Tabela**:
+  - Adicionado utilitário `line-clamp-2` para evitar que nomes de crimes longos quebrem o alinhamento da tabela.
+  - Adicionado feedback visual de hover nas linhas de resultado.
+  - Corrigido alinhamento e dimensionamento de colunas para evitar truncamento indesejado de botões.
+
+### 🧪 QA & DevOps (Windows Compatibility)
+
+- **Puppeteer E2E**: Reativada a suíte de testes de layout automatizados.
+  - Corrigido carregamento do Puppeteer em módulos ESM via `createRequire`.
+  - Refatorada detecção de execução do script (`import.meta.url`) para compatibilidade com caminhos de arquivo do Windows.
+- **Estabilidade**: Garantia de 100% de sucesso em testes unitários, funcionais e de layout em ambiente PowerShell/Windows.
 
 ---
 
