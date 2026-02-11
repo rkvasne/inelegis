@@ -1,7 +1,8 @@
+```
 ---
 docStatus: active
 docScope: release-history
-lastReviewed: 21/01/2026
+lastReviewed: 11/02/2026
 ---
 
 # Changelog
@@ -23,9 +24,10 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ### 🛡️ Validação & UX (Segurança de Entrada)
 
+- **Sinalização de Exceções**: Resultados que se enquadram em exceções legais agora são exibidos explicitamente como "ELEGÍVEL (EXCEÇÃO)" tanto na busca simples quanto na análise de dispositivo, evitando confusões sobre a natureza do artigo.
 - **Filtro de Extração**: Implementada camada de sanidade que ignora capturas "lixo" (falsos positivos) como termos técnicos ("agrafo", "inciso") detectados erroneamente no lugar de valores.
 - **Feedback Instrutivo**: Adicionado sistema de Toasts de aviso que bloqueia consultas inconclusivas e instrui o usuário sobre o padrão esperado.
-- **Guia de Formato**: Adicionado box de ajuda rápida com exemplos reais diretamente na interface de Análise de Dispositivo.
+- **Guia de Formato (UX)**: Adicionado box de ajuda rápida com exemplos reais diretamente na interface de Análise de Dispositivo.
 - **Prevenção de Erros**: O sistema agora prefere não mostrar resultado do que mostrar um resultado errado baseado em extração parcial.
 
 ## [0.3.7] - 11/02/2026

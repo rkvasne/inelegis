@@ -190,8 +190,10 @@ export class AnalyzerUI {
       // Atualizar botão Ver para abrir modal INELEGÍVEL
       this.updateViewButton(item, result, "INELEGIVEL");
     } else if (result.resultado === "ELEGIVEL") {
-      statusCell.innerHTML =
-        '<span class="analyzer-badge success">ELEGÍVEL</span>';
+      const isExcecao = result.eh_excecao;
+      statusCell.innerHTML = isExcecao
+        ? '<span class="analyzer-badge warning">ELEGÍVEL (EXCEÇÃO)</span>'
+        : '<span class="analyzer-badge success">ELEGÍVEL</span>';
       aseCell.textContent = temIndicador370
         ? "ASE 370 (Suspensão)"
         : "Não gera restrição";
@@ -264,6 +266,7 @@ export class AnalyzerUI {
     btn.dataset.tipoCrime = result.tipo_crime || "";
     btn.dataset.itemAlineaE = result.item_alinea_e || "";
     btn.dataset.excecoes = result.excecoes_detalhes || "";
+    btn.dataset.ehExcecao = result.eh_excecao ? "true" : "false";
 
     // Adicionar evento de clique
     btn.addEventListener("click", () => {
@@ -482,8 +485,8 @@ window.openAnalyzerResultModal = async function (data) {
     statusText = "INELEGÍVEL";
     statusIcon = `<svg width="24" height="24" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>`;
   } else {
-    statusClass = "eligible";
-    statusText = "ELEGÍVEL";
+    statusClass = data.ehExcecao === "true" ? "warning" : "eligible";
+    statusText = data.ehExcecao === "true" ? "ELEGÍVEL (EXCEÇÃO)" : "ELEGÍVEL";
     statusIcon = `<svg width="24" height="24" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>`;
   }
 
@@ -535,9 +538,8 @@ window.openAnalyzerResultModal = async function (data) {
       </div>
 
       <!-- Disclaimer de Exceções -->
-      ${
-        data.excecoes
-          ? `
+      ${data.excecoes
+      ? `
       <div class="exception-alert-card border-2 border-warning-200 bg-warning-50 p-4 rounded-xl">
         <div class="flex items-start gap-3">
           <div class="text-warning-600 mt-0.5">
@@ -555,8 +557,8 @@ window.openAnalyzerResultModal = async function (data) {
         </div>
       </div>
       `
-          : ""
-      }
+      : ""
+    }
     </div>
   `;
 
