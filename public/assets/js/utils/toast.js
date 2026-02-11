@@ -107,4 +107,3 @@ if (typeof window !== "undefined") {
     showToast(message, type === "error" ? "error" : "success");
   };
 }
-

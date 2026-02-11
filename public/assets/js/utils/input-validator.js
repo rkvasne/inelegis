@@ -73,4 +73,3 @@ export const InputValidator = {
 if (typeof window !== "undefined") {
   window.InputValidator = InputValidator;
 }
-

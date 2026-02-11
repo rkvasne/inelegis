@@ -136,4 +136,3 @@ if (typeof window !== "undefined") {
 }
 
 export default supabaseClient;
-
