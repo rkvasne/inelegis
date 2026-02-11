@@ -10,7 +10,7 @@ lastReviewed: 21/01/2026
 
 ---
 
-**Versão atual:** 0.3.7
+**Versão atual:** 0.3.8
 
 Todas as alterações notáveis neste projeto serão documentadas neste arquivo.
 
@@ -18,6 +18,15 @@ O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
+
+## [0.3.8] - 11/02/2026
+
+### 🛡️ Validação & UX (Segurança de Entrada)
+
+- **Filtro de Extração**: Implementada camada de sanidade que ignora capturas "lixo" (falsos positivos) como termos técnicos ("agrafo", "inciso") detectados erroneamente no lugar de valores.
+- **Feedback Instrutivo**: Adicionado sistema de Toasts de aviso que bloqueia consultas inconclusivas e instrui o usuário sobre o padrão esperado.
+- **Guia de Formato**: Adicionado box de ajuda rápida com exemplos reais diretamente na interface de Análise de Dispositivo.
+- **Prevenção de Erros**: O sistema agora prefere não mostrar resultado do que mostrar um resultado errado baseado em extração parcial.
 
 ## [0.3.7] - 11/02/2026
 

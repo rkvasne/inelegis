@@ -124,8 +124,7 @@
                                     <option value="" selected>Selecione a lei ou código...</option>
                                 </select>
                                 <div id="leiArrowIndicator" class="arrow-indicator show" aria-hidden="true">
-                                    <svg width="20" height="20" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
+                                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
                                     </svg>
@@ -148,8 +147,10 @@
                                 aria-label="Selecione o artigo">
                                 <option value="" selected>Selecione primeiro a lei...</option>
                             </select>
-                            <p style="font-size: 0.65rem; color: var(--text-muted); margin-top: 0.375rem; line-height: 1.4;">
-                                A lista carrega apenas artigos da tabela oficial. Se não estiver listado, <strong>não gera inelegibilidade</strong>.
+                            <p
+                                style="font-size: 0.65rem; color: var(--text-muted); margin-top: 0.375rem; line-height: 1.4;">
+                                A lista carrega apenas artigos da tabela oficial. Se não estiver listado, <strong>não
+                                    gera inelegibilidade</strong>.
                             </p>
                         </div>
                     </div>
@@ -158,16 +159,22 @@
                     <details class="refinement-details u-mt-4">
                         <summary class="refinement-summary">
                             <div class="u-flex-center-gap">
-                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--primary-500); flex-shrink: 0;">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    style="color: var(--primary-500); flex-shrink: 0;">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4">
                                     </path>
                                 </svg>
-                                <span style="font-size: 0.8125rem; font-weight: 600; color: var(--text-primary);">Refinamento de Busca</span>
-                                <span style="font-size: 0.6875rem; color: var(--text-muted); margin-left: 0.25rem;">(Parágrafo, Inciso e Alínea)</span>
+                                <span
+                                    style="font-size: 0.8125rem; font-weight: 600; color: var(--text-primary);">Refinamento
+                                    de Busca</span>
+                                <span
+                                    style="font-size: 0.6875rem; color: var(--text-muted); margin-left: 0.25rem;">(Parágrafo,
+                                    Inciso e Alínea)</span>
                             </div>
                             <div class="u-flex-center-gap">
-                                <button type="button" id="btnClearSearch" class="btn btn-secondary btn-sm u-refinement-tag">
+                                <button type="button" id="btnClearSearch"
+                                    class="btn btn-secondary btn-sm u-refinement-tag">
                                     <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
@@ -175,8 +182,10 @@
                                     </svg>
                                     Limpar
                                 </button>
-                                <svg class="refinement-chevron" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                <svg class="refinement-chevron" width="16" height="16" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </div>
                         </summary>
@@ -188,8 +197,10 @@
                                 <div>
                                     <div class="u-flex-between u-mb-1">
                                         <label class="form-label u-mb-0 u-text-xs">Parágrafo</label>
-                                        <label style="display: flex; align-items: center; gap: 0.375rem; cursor: pointer; font-size: 0.625rem; color: var(--text-muted);">
-                                            <input type="checkbox" id="paragrafoUnicoCheck" style="width: 0.875rem; height: 0.875rem; accent-color: var(--primary-500);">
+                                        <label
+                                            style="display: flex; align-items: center; gap: 0.375rem; cursor: pointer; font-size: 0.625rem; color: var(--text-muted);">
+                                            <input type="checkbox" id="paragrafoUnicoCheck"
+                                                style="width: 0.875rem; height: 0.875rem; accent-color: var(--primary-500);">
                                             Único
                                         </label>
                                     </div>
@@ -216,7 +227,8 @@
 
                     <!-- Botão de Ação -->
                     <div class="u-flex-end u-mt-6">
-                        <button type="button" id="btnPesquisar" class="btn btn-primary u-inline-flex u-flex-center-gap-sm">
+                        <button type="button" id="btnPesquisar"
+                            class="btn btn-primary u-inline-flex u-flex-center-gap-sm">
                             <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -259,6 +271,26 @@
                             Decisão</label>
                         <textarea id="dispositivoText" class="form-select w-full p-4 u-textarea-auto" rows="6"
                             placeholder="Ex: Condeno o réu por infração ao Art. 121, inciso I e Art. 288 do Código Penal c/c Art. 1, I, 'e' da LC 64/90..."></textarea>
+                    </div>
+
+                    <!-- Guia de Ajuda Rápida -->
+                    <div class="bg-primary-50 border border-primary-100 rounded-lg p-3 mt-3">
+                        <div class="flex items-start gap-2">
+                            <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                class="text-primary-600 mt-0.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <div>
+                                <h4 class="text-xs font-bold text-primary-900 uppercase mb-1">Dica de Formato</h4>
+                                <p class="text-[11px] text-primary-800 leading-normal">
+                                    Para melhor precisão, use formatos padrão: <br>
+                                    • <strong>Art. 121, § 3º CP</strong> (Parágrafo) <br>
+                                    • <strong>Art. 1, inciso I, "e" lei 64</strong> (Inciso e Alínea) <br>
+                                    • <strong>Art. 121 e 288 Código Penal</strong> (Múltiplos)
+                                </p>
+                            </div>
+                        </div>
                     </div>
                     <div class="flex justify-end mt-4">
                         <button id="btnAnalisarDispositivo" class="btn btn-primary">
