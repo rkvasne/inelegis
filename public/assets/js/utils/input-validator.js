@@ -2,7 +2,7 @@
  * Input Validator
  * Utilitário para validação estrutural de dados antes de chamadas de API.
  * Protege o backend (Supabase) contra inputs malformatados ou inesperados.
- * @version 1.0.0
+ * @version 0.3.7
  */
 
 export const InputValidator = {
@@ -73,3 +73,4 @@ export const InputValidator = {
 if (typeof window !== "undefined") {
   window.InputValidator = InputValidator;
 }
+

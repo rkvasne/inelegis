@@ -631,3 +631,4 @@ const HistoryPage = (() => {
 if (typeof window !== "undefined") {
   window.HistoryPage = HistoryPage;
 }
+

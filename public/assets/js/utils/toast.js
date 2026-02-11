@@ -1,7 +1,7 @@
 /**
  * @file toast.js
  * @description Sistema de notificações toast leves e acessíveis
- * @version 1.0.0
+ * @version 0.3.7
  */
 
 /**
@@ -107,3 +107,4 @@ if (typeof window !== "undefined") {
     showToast(message, type === "error" ? "error" : "success");
   };
 }
+

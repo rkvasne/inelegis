@@ -11,3 +11,4 @@ window.__SUPABASE_CONFIG__ = {
 };
 
 console.log("[Supabase] Configurado para:", window.__SUPABASE_CONFIG__.url);
+

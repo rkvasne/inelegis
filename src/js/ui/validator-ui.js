@@ -3,7 +3,7 @@ import { validatorService } from "../services/validator-service.js";
 /**
  * Controller da Interface de Validação.
  * Gerencia os Dropdowns (Leis e Artigos) e a exibição de resultados.
- * @version 2.0.0 - Supabase Edition
+ * @version 0.3.7
  */
 export class ValidatorUI {
   constructor() {
@@ -453,3 +453,4 @@ export class ValidatorUI {
     }
   }
 }
+

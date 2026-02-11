@@ -82,3 +82,4 @@ const Sanitizer = {
 if (typeof window !== "undefined") {
   window.Sanitizer = Sanitizer;
 }
+

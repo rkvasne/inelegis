@@ -54,3 +54,4 @@ export const LEIS_DISPONIVEIS = [
   { value: "LEI_12850", text: "Lei 12.850/13 (Organização Criminosa)" },
   { value: "LEI_13260", text: "Lei 13.260/16 (Terrorismo)" },
 ];
+
