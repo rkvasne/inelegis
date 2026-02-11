@@ -50,7 +50,9 @@ export class AnalyzerUI {
 
     try {
       const extraidosRaw = this.extrairArtigosCompletos(texto);
-      const extraidos = extraidosRaw.filter(item => this.validarExtracao(item));
+      const extraidos = extraidosRaw.filter((item) =>
+        this.validarExtracao(item),
+      );
       const falhas = extraidosRaw.length - extraidos.length;
 
       if (extraidos.length === 0) {
@@ -58,12 +60,12 @@ export class AnalyzerUI {
           showToast(
             "Detectamos citações, mas o formato está confuso ou fora do padrão. A consulta não será realizada para evitar erros. Use os exemplos de ajuda.",
             "warning",
-            6000
+            6000,
           );
         } else {
           showToast(
             "Não conseguimos identificar nenhuma citação de artigo/lei no texto. Verifique o formato.",
-            "warning"
+            "warning",
           );
         }
         return;
@@ -72,7 +74,7 @@ export class AnalyzerUI {
       if (falhas > 0) {
         showToast(
           `Identificamos ${extraidos.length} artigos válidos, mas ignoramos ${falhas} trechos confusos para garantir sua segurança.`,
-          "info"
+          "info",
         );
       }
 
@@ -276,26 +278,34 @@ export class AnalyzerUI {
    */
   validarExtracao(item) {
     // Lista de palavras proibidas ou fragmentos de regex que indicam falha
-    const junkWords = ["agrafo", "inciso", "alinea", "paragrafo", "artigo", "lei"];
+    const junkWords = [
+      "agrafo",
+      "inciso",
+      "alinea",
+      "paragrafo",
+      "artigo",
+      "lei",
+    ];
 
     // Validar parágrafo (deve ser número, "unico" ou nulo)
     if (item.paragrafo) {
       const p = item.paragrafo.toLowerCase();
-      if (junkWords.some(word => p.includes(word))) return false;
+      if (junkWords.some((word) => p.includes(word))) return false;
       if (!/^\d+$/.test(p) && p !== "unico" && p !== "único") return false;
     }
 
     // Validar inciso (deve ser Romano ou número)
     if (item.inciso) {
       const i = item.inciso.toUpperCase();
-      if (junkWords.some(word => i.includes(word.toUpperCase()))) return false;
+      if (junkWords.some((word) => i.includes(word.toUpperCase())))
+        return false;
       if (!/^[IVXLCDM]+$/.test(i) && !/^\d+$/.test(i)) return false;
     }
 
     // Validar alínea (deve ser uma letra única)
     if (item.alinea) {
       const a = item.alinea.toLowerCase();
-      if (junkWords.some(word => a.includes(word))) return false;
+      if (junkWords.some((word) => a.includes(word))) return false;
       if (!/^[a-z]$/.test(a)) return false;
     }
 
@@ -362,9 +372,15 @@ export class AnalyzerUI {
       const currentLaw = leiDoBloco || primaryLaw;
 
       // Tentar extrair complementos (parágrafo, inciso, alínea) do contexto imediato
-      const paragrafoMatch = contextoTotal.match(/(?:§+|parágrafo|paragrafo|par\.?)\s*([\w\d\-]+)/i);
-      const incisoMatch = contextoTotal.match(/(?:inciso|inc\.?)\s*([ivxlcdm]+|\d+)/i);
-      const alineaMatch = contextoTotal.match(/(?:alínea|alinea|al\.?)\s*["']?([a-z])["']?/i);
+      const paragrafoMatch = contextoTotal.match(
+        /(?:§+|parágrafo|paragrafo|par\.?)\s*([\w\d\-]+)/i,
+      );
+      const incisoMatch = contextoTotal.match(
+        /(?:inciso|inc\.?)\s*([ivxlcdm]+|\d+)/i,
+      );
+      const alineaMatch = contextoTotal.match(
+        /(?:alínea|alinea|al\.?)\s*["']?([a-z])["']?/i,
+      );
 
       const paragrafo = paragrafoMatch
         ? paragrafoMatch[1].replace(/[º°ª]/g, "")
@@ -519,8 +535,9 @@ window.openAnalyzerResultModal = async function (data) {
       </div>
 
       <!-- Disclaimer de Exceções -->
-      ${data.excecoes
-      ? `
+      ${
+        data.excecoes
+          ? `
       <div class="exception-alert-card border-2 border-warning-200 bg-warning-50 p-4 rounded-xl">
         <div class="flex items-start gap-3">
           <div class="text-warning-600 mt-0.5">
@@ -538,8 +555,8 @@ window.openAnalyzerResultModal = async function (data) {
         </div>
       </div>
       `
-      : ""
-    }
+          : ""
+      }
     </div>
   `;
 
