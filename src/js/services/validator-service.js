@@ -48,16 +48,16 @@ export class ValidatorService {
       }
 
       // Consulta adaptada para a nova tabela unificada usando o cliente leve customizado
-      console.log('[DEBUG] Buscando leis no Supabase...');
+      console.log("[DEBUG] Buscando leis no Supabase...");
       let data;
 
       try {
         data = await supabaseClient.from("crimes_inelegibilidade", {
           select: "codigo,lei",
         });
-        console.log('[DEBUG] Dados recebidos:', data?.length || 0, 'registros');
+        console.log("[DEBUG] Dados recebidos:", data?.length || 0, "registros");
       } catch (err) {
-        console.error('[DEBUG] Erro fatal ao buscar leis:', err);
+        console.error("[DEBUG] Erro fatal ao buscar leis:", err);
         return [];
       }
 
@@ -82,7 +82,7 @@ export class ValidatorService {
       const result = Array.from(uniqueLaws.values()).sort((a, b) =>
         a.codigo.localeCompare(b.codigo),
       );
-      console.log('[DEBUG] ValidatorService.getLaws result:', result);
+      console.log("[DEBUG] ValidatorService.getLaws result:", result);
       this.normasCache = result;
 
       console.log(

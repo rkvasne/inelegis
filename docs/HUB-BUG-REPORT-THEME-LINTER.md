@@ -20,8 +20,8 @@ O script local foi modificado para verificar a linha **anterior**:
 // scripts/hub-tools/theme-linter.js (Linha ~948)
 
 // NOVO: Suporte explícito a diretivas de ignore (atual ou linha anterior)
-if (line.includes('theme-ignore')) return;
-if (index > 0 && lines[index-1].includes('theme-ignore')) return;
+if (line.includes("theme-ignore")) return;
+if (index > 0 && lines[index - 1].includes("theme-ignore")) return;
 ```
 
 ## ✅ Ação Requerida no Hub
@@ -29,10 +29,12 @@ if (index > 0 && lines[index-1].includes('theme-ignore')) return;
 Para eliminar o script duplicado localmente, o Hub precisa incorporar essa lógica ou uma equivalente.
 
 **Passos:**
+
 1. Atualizar o `theme-linter.js` no repositório central (`Agents`).
 2. Adicionar suporte oficial a `/* theme-ignore */` na linha anterior.
 3. Sincronizar o Hub (`git submodule update`).
 4. Excluir `scripts/hub-tools/theme-linter.js` local e apontar `package.json` para o Hub.
 
 ---
-*Este documento deve ser mantido até a resolução do problema upstream.*
+
+_Este documento deve ser mantido até a resolução do problema upstream._
