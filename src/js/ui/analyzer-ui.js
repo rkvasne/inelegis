@@ -49,14 +49,31 @@ export class AnalyzerUI {
       '<span class="animate-spin inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2"></span> Analisando...';
 
     try {
-      const extraidos = this.extrairArtigosCompletos(texto);
+      const extraidosRaw = this.extrairArtigosCompletos(texto);
+      const extraidos = extraidosRaw.filter(item => this.validarExtracao(item));
+      const falhas = extraidosRaw.length - extraidos.length;
 
       if (extraidos.length === 0) {
-        showToast(
-          "Não conseguimos identificar nenhuma citação de artigo/lei no texto. Verifique o formato.",
-          "warning",
-        );
+        if (falhas > 0) {
+          showToast(
+            "Detectamos citações, mas o formato está confuso ou fora do padrão. A consulta não será realizada para evitar erros. Use os exemplos de ajuda.",
+            "warning",
+            6000
+          );
+        } else {
+          showToast(
+            "Não conseguimos identificar nenhuma citação de artigo/lei no texto. Verifique o formato.",
+            "warning"
+          );
+        }
         return;
+      }
+
+      if (falhas > 0) {
+        showToast(
+          `Identificamos ${extraidos.length} artigos válidos, mas ignoramos ${falhas} trechos confusos para garantir sua segurança.`,
+          "info"
+        );
       }
 
       this.resultsContainer.classList.remove("hidden");
@@ -69,13 +86,14 @@ export class AnalyzerUI {
         const lawInfo = (await validatorService.getLaws()).find(
           (l) => l.codigo === item.lei,
         );
-        const lawDisplayName = lawInfo ? (lawInfo.lei || lawInfo.nome) : item.lei;
+        const lawDisplayName = lawInfo ? lawInfo.lei || lawInfo.nome : item.lei;
 
         const detailText = [];
         if (item.paragrafo) detailText.push(`§ ${item.paragrafo}`);
         if (item.inciso) detailText.push(`Inc. ${item.inciso}`);
         if (item.alinea) detailText.push(`Al. ${item.alinea}`);
-        const fullDetail = detailText.length > 0 ? ` (${detailText.join(", ")})` : "";
+        const fullDetail =
+          detailText.length > 0 ? ` (${detailText.join(", ")})` : "";
 
         const row = document.createElement("tr");
         row.style.borderBottom = "1px solid var(--border-color)";
@@ -129,7 +147,7 @@ export class AnalyzerUI {
       item.artigo,
       item.paragrafo,
       item.inciso,
-      item.alinea
+      item.alinea,
     );
     const statusCell = document.getElementById(`status-${item.uid}`);
     const aseCell = document.getElementById(`ase-${item.uid}`);
@@ -252,6 +270,39 @@ export class AnalyzerUI {
   }
 
   /**
+   * Valida se a extração de um item parece legítima ou se é "lixo" de processamento.
+   * @param {object} item
+   * @returns {boolean}
+   */
+  validarExtracao(item) {
+    // Lista de palavras proibidas ou fragmentos de regex que indicam falha
+    const junkWords = ["agrafo", "inciso", "alinea", "paragrafo", "artigo", "lei"];
+
+    // Validar parágrafo (deve ser número, "unico" ou nulo)
+    if (item.paragrafo) {
+      const p = item.paragrafo.toLowerCase();
+      if (junkWords.some(word => p.includes(word))) return false;
+      if (!/^\d+$/.test(p) && p !== "unico" && p !== "único") return false;
+    }
+
+    // Validar inciso (deve ser Romano ou número)
+    if (item.inciso) {
+      const i = item.inciso.toUpperCase();
+      if (junkWords.some(word => i.includes(word.toUpperCase()))) return false;
+      if (!/^[IVXLCDM]+$/.test(i) && !/^\d+$/.test(i)) return false;
+    }
+
+    // Validar alínea (deve ser uma letra única)
+    if (item.alinea) {
+      const a = item.alinea.toLowerCase();
+      if (junkWords.some(word => a.includes(word))) return false;
+      if (!/^[a-z]$/.test(a)) return false;
+    }
+
+    return true;
+  }
+
+  /**
    * Extrai artigos e tenta identificar a lei correspondente de forma robusta.
    * @param {string} texto
    */
@@ -311,11 +362,13 @@ export class AnalyzerUI {
       const currentLaw = leiDoBloco || primaryLaw;
 
       // Tentar extrair complementos (parágrafo, inciso, alínea) do contexto imediato
-      const paragrafoMatch = contextoTotal.match(/(?:§|parágrafo|par\.?)\s*([\w\-]+)/i);
+      const paragrafoMatch = contextoTotal.match(/(?:§+|parágrafo|paragrafo|par\.?)\s*([\w\d\-]+)/i);
       const incisoMatch = contextoTotal.match(/(?:inciso|inc\.?)\s*([ivxlcdm]+|\d+)/i);
       const alineaMatch = contextoTotal.match(/(?:alínea|alinea|al\.?)\s*["']?([a-z])["']?/i);
 
-      const paragrafo = paragrafoMatch ? paragrafoMatch[1].replace(/[º°ª]/g, "") : null;
+      const paragrafo = paragrafoMatch
+        ? paragrafoMatch[1].replace(/[º°ª]/g, "")
+        : null;
       const inciso = incisoMatch ? incisoMatch[1].toUpperCase() : null;
       const alinea = alineaMatch ? alineaMatch[1].toLowerCase() : null;
 
@@ -403,7 +456,7 @@ window.openAnalyzerResultModal = async function (data) {
   const lawInfo = (await validatorService.getLaws()).find(
     (l) => l.codigo === data.lei,
   );
-  const lawDisplayName = lawInfo ? (lawInfo.lei || lawInfo.nome) : data.lei;
+  const lawDisplayName = lawInfo ? lawInfo.lei || lawInfo.nome : data.lei;
 
   // Configurações visuais
   let statusClass, statusText, statusIcon;
