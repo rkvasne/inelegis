@@ -1,7 +1,7 @@
 # Hub Bug Report: Theme Linter Ignore Logic
 
-> **Status:** Fork Local Ativo
-> **Arquivo Local:** `scripts/hub-tools/theme-linter.js`
+> **Status:** Resolvido Upstream ✅ (Correções integradas ao Hub Central)
+> **Arquivo Local:** DELETADO (Apontando agora para o Hub)
 > **Arquivo Hub:** `.agent/hub/capabilities/design/frontend-design/scripts/theme-linter.js`
 > **Data do Report:** 10/02/2026
 
