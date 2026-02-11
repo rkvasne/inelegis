@@ -62,6 +62,12 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 - Motor de extração de artigos de textos brutos (Sentenças).
 - **Validação de Sanidade**: Camada de proteção que descarta capturas inconclusivas e fornece feedback instrutivo (v0.3.8).
 
+### 🛡️ Segurança e UX (v0.3.8+)
+
+- **Sinalização de Exceções**: Quando o banco de dados retorna `eh_excecao: true`, a UI deve exibir "ELEGÍVEL (EXCEÇÃO)" para diferenciar de artigos que simplesmente não constam na base (mas são elegíveis).
+- **Filtro de Extração (Analyzer)**: O sistema utiliza o método `validarExtracao()` para descartar fragmentos capturados por regex que não contenham números reais ou que incluam termos técnicos como "agrafo" no lugar do valor, prevenindo Toasts de erro desnecessários.
+- **Guia de Formatos**: A interface de análise avançada deve conter um box de ajuda visual com exemplos explícitos para guiar o input do usuário.
+
 ---
 
 ## 📏 Padrões de Código
