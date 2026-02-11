@@ -1119,33 +1119,36 @@ code {
 }
 
 /* Select options styling - FORCED COLORS */
+/* Select options styling - FORCED COLORS */
 .form-select option {
+  /* --theme-ignore: */
   background-color: #ffffff !important;
+  /* --theme-ignore: */
   color: #1f2937 !important;
-  /* gray-800 */
   padding: 8px;
 }
 
 .dark-theme .form-select option {
+  /* --theme-ignore: */
   background-color: #1f2937 !important;
-  /* gray-800 */
+  /* --theme-ignore: */
   color: #f3f4f6 !important;
-  /* gray-100 */
 }
 
 /* Hover/Checked states - Best effort as browsers limit this */
 .form-select option:checked,
 .form-select option:hover {
+  /* --theme-ignore: */
   background-color: #e0f2fe !important;
-  /* light blue */
+  /* --theme-ignore: */
   color: #0369a1 !important;
-  /* dark blue */
 }
 
 .dark-theme .form-select option:checked,
 .dark-theme .form-select option:hover {
+  /* --theme-ignore: */
   background-color: #0369a1 !important;
-  /* dark blue */
+  /* --theme-ignore: */
   color: #ffffff !important;
 }
 

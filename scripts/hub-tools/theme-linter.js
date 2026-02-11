@@ -696,29 +696,29 @@ function getArgValue(flag) {
 
 const colors = options.noColor
   ? {
-      reset: "",
-      red: "",
-      green: "",
-      yellow: "",
-      blue: "",
-      magenta: "",
-      cyan: "",
-      gray: "",
-      bold: "",
-      dim: "",
-    }
+    reset: "",
+    red: "",
+    green: "",
+    yellow: "",
+    blue: "",
+    magenta: "",
+    cyan: "",
+    gray: "",
+    bold: "",
+    dim: "",
+  }
   : {
-      reset: "\x1b[0m",
-      red: "\x1b[31m",
-      green: "\x1b[32m",
-      yellow: "\x1b[33m",
-      blue: "\x1b[34m",
-      magenta: "\x1b[35m",
-      cyan: "\x1b[36m",
-      gray: "\x1b[90m",
-      bold: "\x1b[1m",
-      dim: "\x1b[2m",
-    };
+    reset: "\x1b[0m",
+    red: "\x1b[31m",
+    green: "\x1b[32m",
+    yellow: "\x1b[33m",
+    blue: "\x1b[34m",
+    magenta: "\x1b[35m",
+    cyan: "\x1b[36m",
+    gray: "\x1b[90m",
+    bold: "\x1b[1m",
+    dim: "\x1b[2m",
+  };
 
 // ============================================================================
 // HELP
@@ -946,6 +946,10 @@ function analyzeFile(filePath) {
 
     // Pular contextos permitidos (comentários, imports, etc)
     if (CONFIG.allowedContexts.some((regex) => regex.test(line))) return;
+
+    // NOVO: Suporte explícito a diretivas de ignore (atual ou linha anterior)
+    if (line.includes('theme-ignore')) return;
+    if (index > 0 && lines[index - 1].includes('theme-ignore')) return;
 
     // 1. Detectar Hex Colors Hardcoded
     checkHexColors(filePath, line, lineNum);
