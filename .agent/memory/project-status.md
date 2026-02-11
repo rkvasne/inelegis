@@ -1,18 +1,19 @@
 ﻿# 📊 Project Status & Context
 
-> **Last Updated:** 2026-02-09
-> **Current Phase:** Compliance / Maintenance
-> **Status:** Stable
-> **Hub Version:** v0.5.4
+> **Last Updated:** 2026-02-10
+> **Current Phase:** Maintenance / Governance Integration
+> **Status:** Stable / Hub-First
+> **Hub Version:** v0.5.4 (CI Strategy v0.5.4 adopted)
+> **App Version:** v0.3.6
 
 ## 🎯 Objetivos Concluídos (Sessão 09/02/2026)
 
-- [x] **Auditoria Tabela Oficial:** Verificação completa da Migration 002 contra tabela da Corregedoria SP (Outubro/2024). 100% conforme.
+- [x] **Solo Dev Hub CI Strategy:** Adotada estratégia oficial v0.5.4 com checkout via `HUB_ACCESS_TOKEN`.
+- [x] **Eliminação de Redundância:** Scripts `doc-auditor.js` e `validator-web-standards.js` removidos em favor do Hub (SSoT).
+- [x] **Relatório de Bug Upstream:** Documentado erro do `theme-linter` do Hub em `docs/HUB-BUG-REPORT-THEME-LINTER.md`.
+- [x] **Tratamento de Erros Supabase:** Implementado try/catch e injeção de config dinâmica no `validator-service.js`.
 - [x] **Correção Dropdown Leis:** Resolvida incompatibilidade do JS com o schema V2 da base de dados.
 - [x] **Acessibilidade Visual:** Corrigido contraste do input de leis (texto invisível nas opções do select).
-- [x] **Sincronia src/public:** Garantida paridade total de scripts entre desenvolvimento e produção.
-- [x] **Upgrade de Versão:** Incremento para `0.3.5` refletido no CHANGELOG e package.json.
-- [x] **Documentação Técnica:** Criado `docs/auditoria-tabela-oficial.md` como artefato de auditoria.
 
 ## 🏗️ Arquitetura Atual
 
