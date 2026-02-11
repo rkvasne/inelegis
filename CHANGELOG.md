@@ -11,7 +11,7 @@ lastReviewed: 11/02/2026
 
 ---
 
-**Versão atual:** 0.3.9
+**Versão atual:** 0.3.10
 
 Todas as alterações notáveis neste projeto serão documentadas neste arquivo.
 
@@ -19,6 +19,14 @@ O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.
 e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
+
+## [0.3.10] - 11/02/2026
+
+### ⚙️ Infraestrutura & Persistência
+
+- **Keepalive System**: Implementação do padrão Zappy v2 para evitar a suspensão automática por inatividade do banco de dados Supabase (Tier Free).
+- **Heartbeat do Cliente**: Sistema de sinal de vida automático acionado a cada 5 minutos durante o uso da aplicação.
+- **Upsert Support**: Atualização do cliente Supabase (`supabase-client.js`) para suportar operações de atualização atômica (upsert).
 
 ## [0.3.9] - 11/02/2026
 

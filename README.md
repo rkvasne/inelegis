@@ -7,7 +7,7 @@
 **Sistema de Consulta de Inelegibilidade Eleitoral.**  
 _Uma ferramenta moderna, rápida e precisa para análise jurídica eleitoral._
 
-[![Version](https://img.shields.io/badge/version-0.3.9-blue.svg?style=for-the-badge)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-0.3.10-blue.svg?style=for-the-badge)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-orange.svg?style=for-the-badge)](LICENSE.md)
 [![Status](https://img.shields.io/badge/status-active-success.svg?style=for-the-badge)](CHANGELOG.md)
 
