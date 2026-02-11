@@ -3,6 +3,7 @@
 import { ValidatorUI } from "./ui/validator-ui.js";
 import { AnalyzerUI } from "./ui/analyzer-ui.js";
 import { setupRadioButtons } from "./ui/ui-events.js";
+import { keepaliveService } from "./services/keepalive-service.js";
 
 // Entrypoint Principal da Página de Consulta
 document.addEventListener("DOMContentLoaded", () => {
@@ -12,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // 2. Inicializar Serviços Core
   if (typeof Analytics !== "undefined") Analytics.init();
   if (typeof SearchHistory !== "undefined") SearchHistory.init();
+  if (keepaliveService) keepaliveService.init();
 
   // 3. Inicializar a Nova UI de Validação Estruturada
   const validatorUI = new ValidatorUI();
