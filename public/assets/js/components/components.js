@@ -185,35 +185,38 @@ const Components = (() => {
   function renderCard({ title, subtitle, content, icon, className = "" }) {
     return `
             <div class="card ${className}">
-                ${title
-        ? `
+                ${
+                  title
+                    ? `
                     <div class="card-header">
-                        ${icon
-          ? `
+                        ${
+                          icon
+                            ? `
                             <div class="card-icon">
                                 <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${icon}"></path>
                                 </svg>
                             </div>
                         `
-          : ""
-        }
+                            : ""
+                        }
                         <div>
                             <h2>${title}</h2>
                             ${subtitle ? `<p>${subtitle}</p>` : ""}
                         </div>
                     </div>
                 `
-        : ""
-      }
-                ${content
-        ? `
+                    : ""
+                }
+                ${
+                  content
+                    ? `
                     <div class="card-body">
                         ${content}
                     </div>
                 `
-        : ""
-      }
+                    : ""
+                }
             </div>
         `;
   }
@@ -236,14 +239,15 @@ const Components = (() => {
 
     return `
             <button class="${buttonClass}"${disabledAttr}${onClickAttr}>
-                ${icon
-        ? `
+                ${
+                  icon
+                    ? `
                     <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${icon}"></path>
                     </svg>
                 `
-        : ""
-      }
+                    : ""
+                }
                 ${text}
             </button>
         `;
@@ -275,16 +279,17 @@ const Components = (() => {
                     ${title ? `<strong>${title}</strong>` : ""}
                     ${message ? `<p>${message}</p>` : ""}
                 </div>
-                ${dismissible
-        ? `
+                ${
+                  dismissible
+                    ? `
                     <button class="alert-close" aria-label="Fechar alerta" title="Fechar alerta">
                         <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                         </svg>
                     </button>
                 `
-        : ""
-      }
+                    : ""
+                }
             </div>
         `;
   }

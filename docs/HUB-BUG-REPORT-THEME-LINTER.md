@@ -11,17 +11,28 @@ O script `theme-linter.js` original do Hub possui uma falha na lógica de ignora
 
 1. **Quebra com Formatadores:** O linter verifica apenas a linha atual (`line`). Quando formatadores automáticos (Prettier) movem o comentário de ignore para a linha seguinte ou anterior, o linter falha em ignorar a infração.
 2. **Contexto Limitado:** Não há suporte nativo para `theme-ignore-next-line` ou verificação de linhas adjacentes.
+3. **Escaneamento Indesejado:** O linter tenta escanear pastas de infraestrutura (como `.agent` e `scripts`) por padrão. No CI, isso resulta em centenas de falso-positivos ao tentar validar o próprio código do Hub e scripts auxiliares.
 
 ## 🛠️ Correção Aplicada (Localmente)
 
-O script local foi modificado para verificar a linha **anterior**:
+O script local foi modificado em dois pontos:
+
+1. **Lógica de Ignore por Comentário:** Verificação da linha anterior.
+2. **Exclusão de Diretórios:** Adição de `.agent` e `scripts` à lista `ignoreDirs`.
 
 ```javascript
-// scripts/hub-tools/theme-linter.js (Linha ~948)
+// scripts/hub-tools/theme-linter.js
 
-// NOVO: Suporte explícito a diretivas de ignore (atual ou linha anterior)
+// 1. Suporte a ignore na linha anterior (Linha ~948)
 if (line.includes("theme-ignore")) return;
 if (index > 0 && lines[index - 1].includes("theme-ignore")) return;
+
+// 2. Exclusão de pastas (Linha ~105)
+ignoreDirs: [
+  // ...
+  ".agent",
+  "scripts",
+];
 ```
 
 ## ✅ Ação Requerida no Hub
