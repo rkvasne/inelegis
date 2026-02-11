@@ -134,8 +134,17 @@ class DevServer {
         // Sucesso
         res.writeHead(200, { "Content-Type": contentType });
 
-        // Injetar script de live reload em arquivos HTML
+        // Injetar script de live reload e configuração do Supabase em arquivos HTML
         if (contentType === "text/html") {
+          const supabaseConfig = `
+            <script>
+              window.__SUPABASE_CONFIG__ = {
+                url: "${process.env.NEXT_PUBLIC_SUPABASE_URL || ''}",
+                anonKey: "${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''}"
+              };
+            </script>
+          `;
+
           const liveReloadScript = `
             <script>
               (function() {
@@ -152,7 +161,7 @@ class DevServer {
               })();
             </script>
           `;
-          res.end(content + liveReloadScript, "utf-8");
+          res.end(content + supabaseConfig + liveReloadScript, "utf-8");
         } else {
           res.end(content, "utf-8");
         }
