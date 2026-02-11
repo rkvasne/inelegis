@@ -469,3 +469,4 @@ window.openAnalyzerResultModal = async function (data) {
     window.ModalManager.open(statusClass, statusText, bodyHTML);
   }
 };
+

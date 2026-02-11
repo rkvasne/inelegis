@@ -2,7 +2,7 @@
  * Search History Manager - Supabase Edition
  * Gerencia histórico de consultas do usuário
  * Sincroniza com Supabase via REST API
- * @version 2.0.0
+ * @version 0.3.7
  */
 
 const SEARCH_HISTORY_DEBUG_ENABLED = (() => {
@@ -541,3 +541,4 @@ const SearchHistory = (() => {
 if (typeof window !== "undefined") {
   window.SearchHistory = SearchHistory;
 }
+

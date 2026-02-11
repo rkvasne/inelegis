@@ -1,7 +1,7 @@
 /**
  * Supabase Client
  * Cliente centralizado para todas as operações Supabase
- * @version 1.0.0
+ * @version 0.3.7
  */
 
 // Configuração via variáveis de ambiente
@@ -136,3 +136,4 @@ if (typeof window !== "undefined") {
 }
 
 export default supabaseClient;
+
