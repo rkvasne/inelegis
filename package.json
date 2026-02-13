@@ -38,6 +38,13 @@
     "context": "node .agent/hub/system/generators/build-context.js",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,css,md,json}\"",
     "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,css,md,json}\"",
+    "db:extract": "npm run db:extract:diag && npm run db:extract:all && npm run db:extract:tables && npm run db:extract:functions && npm run db:extract:rls && npm run db:extract:triggers",
+    "db:extract:all": "node supabase/structure/adapter.js db-structure",
+    "db:extract:tables": "node supabase/structure/adapter.js tables",
+    "db:extract:functions": "node supabase/structure/adapter.js functions",
+    "db:extract:rls": "node supabase/structure/adapter.js rls-policies",
+    "db:extract:triggers": "node supabase/structure/adapter.js triggers",
+    "db:extract:diag": "node supabase/structure/adapter.js diagnostico",
     "prepare": "husky"
   },
   "keywords": [
@@ -47,7 +54,8 @@
   "author": "Inelegis",
   "license": "MIT",
   "dependencies": {
-    "@supabase/supabase-js": "^2.93.3"
+    "@supabase/supabase-js": "^2.93.3",
+    "pg": "^8.18.0"
   },
   "devDependencies": {
     "dotenv": "^17.2.3",

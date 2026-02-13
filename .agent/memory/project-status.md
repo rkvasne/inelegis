@@ -11,6 +11,7 @@
 - [x] **Sincronização Documental:** README, Guias (Development, Maintenance, Setup, DevOps) e CHANGELOG 100% atualizados para a v0.3.11 e padrões do Hub v0.5.5.
 - [x] **Doc Health Check:** Resolução de links quebrados e redundâncias na documentação detectadas pelo `doc-auditor.js`.
 - [x] **Eliminação de Nomenclatura Legada:** Remoção definitiva de referências a "Zappy Pattern" no Inelegis, adotando o termo universal do ecossistema.
+- [x] **Supabase Structure (Bridge Mode):** Implementação do sistema de extração de metadados centralizado no Hub, com adaptador local para isolamento de resultados e injeção de contexto.
 
 ---
 
