@@ -35,9 +35,8 @@
 
 ## 🔄 Tarefas em Aberto (Próximos Passos)
 
-1. Adicionar exportação de PDF para os resultados do analisador.
-2. Roadmap para v0.4.0: Suporte a IA generativa local para resumos de sentenças.
-3. Dashboards de Auditoria: Interface administrativa para visualização de logs (v0.3.12).
+1. Monitoramento de logs de auditoria para identificação de novos casos de uso.
+2. Refinamento contínuo das regras de governança e segurança.
 
 ## ⚠️ Riscos e Bloqueios
 
@@ -53,8 +52,9 @@
 - 13/02/2026: **Blindagem de Governança**: Implementação de Husky pre-commit hooks, correção de CSP para CDNs, limpeza de cores hardcoded (Theme Linter Compliance) e atualização final de documentação técnica. Estabelecido padrão de **Arquivamento de Documentação Histórica** (`docs/archive/`) para manter arquivos abaixo do limite de 600 linhas. Projeto 100% CONFORME.
 - 13/02/2026: **Estabilidade de Infraestrutura (Hub Bridge)**: Resolução de bloqueio técnico (loop infinito) no servidor MCP através de correção no boot robusto e resolução de caminhos Junction. Acesso a skills e regras do Hub restaurado. Checkpoint Prompt 19.
 - 13/02/2026: **Zeladoria Técnica (Code Janitor)**: Execução de limpeza técnica (Prompt #20). Remoção de código morto em `constants.js`, migração de `console.log` para `debugLog` em serviços e controladores, adição de JSDoc em métodos estruturais. Integridade validada com lint 100% OK.
+- 13/02/2026: **Dashboard v0.3.12 (Refined)**: Implementação de filtros dinâmicos de auditoria, modal de fundamentação jurídica detalhada e otimização de performance via Supabase View (`analytics_top_leis`). Projeto 100% CONFORME.
 
 ---
 
-_Última atualização: 13/02/2026 • v0.3.11 (Hub v0.5.5)_
+_Última atualização: 13/02/2026 • v0.3.12 (Hub v0.5.6)_
 _Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_
