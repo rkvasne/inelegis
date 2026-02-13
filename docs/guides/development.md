@@ -85,14 +85,23 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 
 ---
 
-## 🔧 Scripts Úteis
-
 | Script                    | Descrição                                              |
 | ------------------------- | ------------------------------------------------------ |
 | `npm run dev`             | Inicia servidor local com sync de assets.              |
 | `npm run check`           | Valida Lint, Testes e integridade do Build.            |
 | `npm run supabase:config` | Sincroniza chaves do `.env.local` con o frontend.      |
 | `npm run test:unit`       | Executa testes de lógica de negócio (formatters, etc). |
+| `npm run verify`          | Executa a auditoria completa de integridade do Hub.    |
+
+### 🛡️ Blindagem de Commits (Husky)
+
+O projeto está configurado com **Git Hooks (Husky)** para impedir commits que violem padrões de qualidade. Toda tentativa de `git commit` dispara automaticamente:
+1. `npm run format`: Garante que o código segue o padrão do Prettier.
+2. `npm run validate:theme`: Bloqueia cores hardcoded ou estilos inline inapropriados.
+3. `npm run check`: Valida sintaxe (Lint), roda a suíte de testes e simula o Build.
+4. `npm run verify`: Executa a auditoria final de integridade e links do Solo Dev Hub.
+
+**Não é possível realizar commits se qualquer uma dessas validações falhar.** Caso precise pular em uma emergência técnica (não recomendado), use `--no-verify`.
 
 ---
 

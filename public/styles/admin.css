@@ -24,7 +24,11 @@ body {
     system-ui,
     -apple-system,
     sans-serif;
-  background: radial-gradient(circle at top right, var(--bg-gradient-start), var(--bg-main));
+  background: radial-gradient(
+    circle at top right,
+    var(--bg-gradient-start),
+    var(--bg-main)
+  );
   color: var(--text-main);
   min-height: 100vh;
   overflow-x: hidden;
