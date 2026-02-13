@@ -1,8 +1,11 @@
 -- 20260211195000_enhance_audit_history.sql
--- Melhora a estrutura de histórico para fins de auditoria e precisão técnica.
--- Author: Antigravity
+-- Objetivo: Refinar a estrutura de Auditoria Jurídica do Inelegis.
+-- Foco: Rastreabilidade de veredictos e fundamentação legal.
 
--- 1. Adicionar novas colunas para auditoria detalhada
+-- 1. Limpeza para atualização de contrato (Remove versão antiga de 6 argumentos)
+DROP FUNCTION IF EXISTS public.add_to_history(VARCHAR, VARCHAR, VARCHAR, VARCHAR, TEXT, TEXT);
+
+-- 2. Expansão da Tabela de Auditoria
 ALTER TABLE public.historico_consultas 
 ADD COLUMN IF NOT EXISTS inciso VARCHAR(50),
 ADD COLUMN IF NOT EXISTS alinea VARCHAR(50),
@@ -11,7 +14,7 @@ ADD COLUMN IF NOT EXISTS motivo_detalhado TEXT,
 ADD COLUMN IF NOT EXISTS excecoes_citadas TEXT,
 ADD COLUMN IF NOT EXISTS metadata JSONB DEFAULT '{}'::jsonb;
 
--- 2. Atualizar a função RPC para suportar os novos campos
+-- 3. Implementação do novo Processador de Auditoria
 CREATE OR REPLACE FUNCTION public.add_to_history(
   p_user_id VARCHAR,
   p_lei VARCHAR,
@@ -46,5 +49,5 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
--- 3. Garantir permissões
+-- 4. Controle de Acesso
 GRANT EXECUTE ON FUNCTION public.add_to_history TO anon, authenticated, service_role;

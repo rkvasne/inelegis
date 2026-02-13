@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Admin - Inelegis</title>
+    <link rel="stylesheet" href="../styles/admin.css">
+    <link rel="icon" href="../favicon.ico">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+    <div class="auth-container">
+        <div class="auth-card glass-panel">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <img src="../favicon.ico" alt="Inelegis" width="64"
+                    style="filter: drop-shadow(0 0 10px var(--primary));">
+                <h1 style="margin-top: 1rem; color: var(--text-main);">Auditoria Portal</h1>
+                <p style="color: var(--text-muted);">Acesse as métricas de inteligência</p>
+            </div>
+
+            <form id="loginForm">
+                <label for="email" style="display: block; margin-bottom: 0.5rem; font-size: 0.875rem;">E-mail
+                    Administrativo</label>
+                <input type="email" id="email" placeholder="admin@inelegis.com.br" required>
+
+                <label for="password" style="display: block; margin-bottom: 0.5rem; font-size: 0.875rem;">Senha</label>
+                <input type="password" id="password" placeholder="••••••••" required>
+
+                <button type="submit" class="btn btn-primary"
+                    style="width: 100%; justify-content: center; margin-top: 1rem;">
+                    Entrar no Dashboard
+                </button>
+            </form>
+
+            <div id="errorMessage"
+                style="margin-top: 1rem; color: var(--danger); font-size: 0.875rem; text-align: center; display: none;">
+                Credenciais inválidas ou acesso negado.
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts de Configuração e Auth -->
+    <script src="../assets/js/supabase-config.js"></script>
+    <script src="../assets/js/admin/supabase-admin-init.js"></script>
+    <script type="module">
+        import { authService } from '../assets/js/admin/auth-service.js';
+
+        const loginForm = document.getElementById('loginForm');
+        const errorMessage = document.getElementById('errorMessage');
+
+        // Check se já está logado
+        window.addEventListener('DOMContentLoaded', async () => {
+            if (await authService.isAuthenticated()) {
+                window.location.href = 'dashboard.html';
+            }
+        });
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            errorMessage.style.display = 'none';
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const { user, error } = await authService.login(email, password);
+                if (error) throw error;
+                window.location.href = 'dashboard.html';
+            } catch (err) {
+                console.error(err);
+                errorMessage.textContent = err.message || 'Erro ao realizar login.';
+                errorMessage.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+
+</html>

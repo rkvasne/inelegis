@@ -40,23 +40,21 @@ Os logs de auditoria são mantidos por **90 dias** (configurável via `HISTORY_R
 ## 🏗️ Arquitetura de Monitoramento
 
 ```
-Fluxo de Auditoria:
-UI (Validator/Analyzer)
-    ↓
-SearchHistory.add()
-    ↓
-Supabase RPC (add_to_history)
-    ↓
-Tabela historico_consultas (PostgreSQL)
+Fluxo de Auditoria e Visualização:
+UI (Validator/Analyzer) → SearchHistory.add() → Supabase RPC (add_to_history)
+                                              ↓
+                                      Tabela historico_consultas
+                                              ↓
+                                      Painel Admin (/admin) ← Chart.js
 ```
 
 ```
 Fluxo de Status (Keepalive):
 KeepaliveService (Browser) / Cloudflare Worker (External)
     ↓
-Supabase Edge Function (keepalive)
+    Supabase Edge Function (keepalive)
     ↓
-Tabela keepalive (Status Centralizado)
+    Tabela keepalive (Exibido no Dashboard Admin)
 ```
 
 ---
