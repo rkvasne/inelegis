@@ -232,8 +232,26 @@ const ArtigoFormatter = {
         }
       }
     }
-
     return [...new Set(artigos)]; // Remove duplicatas
+  },
+
+  /**
+   * Formata o dispositivo legal completo (Art, Parag, Inc, Al) de forma amigável
+   * Centralizado para uso em toda a aplicação (Admin/UI)
+   */
+  formatLegalDevice(log) {
+    if (!log) return "";
+    const parts = [`Art. ${log.artigo}`];
+    if (log.paragrafo) {
+      const p = log.paragrafo;
+      // Tratar "caput" e "único" de forma amigável
+      if (p.toLowerCase() === "caput") parts.push("caput");
+      else if (p.toLowerCase() === "unico") parts.push("parágrafo único");
+      else parts.push(`§ ${p}º`);
+    }
+    if (log.inciso) parts.push(`inc. ${log.inciso}`);
+    if (log.alinea) parts.push(`al. ${log.alinea}`);
+    return parts.join(", ");
   },
 };
 
