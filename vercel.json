@@ -10,6 +10,16 @@
     "enabled": true,
     "autoAlias": true
   },
+  "rewrites": [
+    {
+      "source": "/admin",
+      "destination": "/admin/index.html"
+    },
+    {
+      "source": "/dashboard",
+      "destination": "/admin/dashboard.html"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",

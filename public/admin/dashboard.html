@@ -231,7 +231,7 @@
         // Middleware de autenticação
         window.addEventListener('DOMContentLoaded', async () => {
             if (!(await authService.isAuthenticated())) {
-                window.location.href = 'index.html';
+                window.location.href = './index.html';
                 return;
             }
 
