@@ -118,3 +118,8 @@ Se encontrou uma vulnerabilidade, siga o [SECURITY.md](SECURITY.md).
 ## 📄 Licença
 
 Ao contribuir, você concorda com a licença descrita em [LICENSE.md](LICENSE.md).
+
+---
+
+_Última atualização: 12/02/2026 • v0.3.11 (Hub v0.5.5)_
+_Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_

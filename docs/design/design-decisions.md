@@ -1,12 +1,11 @@
 ---
-docStatus: historical
-docScope: design
-lastReviewed: 14/01/2026
+category: design
+scope: architecture
+status: stable
+version: 0.3.11
 ---
 
 # 🎨 Decisões de Design - Inelegis
-
-**Versão:** 0.0.7
 
 Este documento explica as principais decisões de design e arquitetura do projeto.
 
@@ -308,4 +307,10 @@ Para medir tamanho e artefatos localmente, use os scripts do projeto (ex.: `npm 
 
 ---
 
-**Dúvidas?** Consulte a [documentação completa](../README.md) ou abra uma [issue no GitHub](https://github.com/rkvasne/inelegis/issues).
+- Issues: https://github.com/rkvasne/inelegis/issues
+- Docs: https://github.com/rkvasne/inelegis/blob/main/docs/
+
+---
+
+_Última atualização: 11/02/2026 • v0.3.11 (Hub v0.5.5)_
+_Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_

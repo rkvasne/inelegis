@@ -182,6 +182,12 @@ const SearchHistory = (() => {
           p_resultado: search.resultado,
           p_tipo_crime: search.tipoCrime || null,
           p_observacoes: search.observacoes || null,
+          p_inciso: search.inciso || null,
+          p_alinea: search.alinea || null,
+          p_paragrafo: search.paragrafo || null,
+          p_motivo_detalhado: search.motivoDetalhado || null,
+          p_excecoes_citadas: search.excecoesCitadas || null,
+          p_metadata: search.metadata || {},
         }),
       });
 

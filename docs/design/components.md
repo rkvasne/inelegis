@@ -1,7 +1,8 @@
 ---
-docStatus: reference
-docScope: design
-lastReviewed: 15/01/2026
+category: design
+scope: components
+status: reference
+version: 0.3.11
 ---
 
 # 🧩 Guia de Componentes Reutilizáveis
@@ -448,4 +449,5 @@ gap: 40px;
 
 ---
 
-**Dúvidas?** Consulte a [documentação completa](../README.md) ou abra uma [issue no GitHub](https://github.com/rkvasne/inelegis/issues).
+_Última atualização: 12/02/2026 • v0.3.11 (Hub v0.5.5)_
+_Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_

@@ -182,6 +182,12 @@ const SearchHistory = (() => {
           p_resultado: search.resultado,
           p_tipo_crime: search.tipoCrime || null,
           p_observacoes: search.observacoes || null,
+          p_inciso: search.inciso || null,
+          p_alinea: search.alinea || null,
+          p_paragrafo: search.paragrafo || null,
+          p_motivo_detalhado: search.motivoDetalhado || null,
+          p_excecoes_citadas: search.excecoesCitadas || null,
+          p_metadata: search.metadata || {},
         }),
       });
 
@@ -190,7 +196,7 @@ const SearchHistory = (() => {
       }
 
       const result = await response.json();
-      historyDebugLog("Histórico sincronizado com Supabase");
+      historyDebugLog("Histórico sincronizado com Supabase (Audit Ready)");
       return result;
     } catch (error) {
       console.warn("⚠️ Falha ao sincronizar com Supabase:", error.message);
@@ -241,6 +247,12 @@ const SearchHistory = (() => {
         timestamp: item.timestamp,
         tipoCrime: item.tipo_crime,
         observacoes: item.observacoes,
+        inciso: item.inciso,
+        alinea: item.alinea,
+        paragrafo: item.paragrafo,
+        motivoDetalhado: item.motivo_detalhado,
+        excecoesCitadas: item.excecoes_citadas,
+        metadata: item.metadata,
       }));
     } catch (error) {
       console.warn("⚠️ Falha ao buscar do Supabase:", error.message);

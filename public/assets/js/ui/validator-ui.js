@@ -307,6 +307,27 @@ export class ValidatorUI {
         alinea,
       );
 
+      // Registrar no Histórico para Auditoria
+      if (typeof window.SearchHistory !== "undefined") {
+        window.SearchHistory.add({
+          lei: this.selectedLaw,
+          artigo: artigoNum,
+          resultado: result.resultado.toLowerCase(),
+          tipoCrime: result.tipo_crime,
+          observacoes: result.observacoes,
+          inciso: inciso,
+          alinea: alinea,
+          paragrafo: paragrafo,
+          motivoDetalhado: result.motivo,
+          excecoesCitadas: result.excecoes_detalhes,
+          metadata: {
+            lawName: this.selectedLawName,
+            source: "validator_ui",
+            timestamp: new Date().toISOString(),
+          },
+        });
+      }
+
       this.renderResult(result, artigoNum, paragrafo, inciso, alinea);
     } catch (error) {
       console.error("[ValidatorUI] Erro ao validar:", error);

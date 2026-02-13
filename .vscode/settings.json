@@ -3,5 +3,12 @@
     "HUB_ACCESS_TOKEN",
     "NEXT_PUBLIC_SUPABASE_URL",
     "NEXT_PUBLIC_SUPABASE_ANON_KEY"
-  ]
+  ],
+  "deno.enable": false,
+  "deno.enablePaths": ["supabase/functions"],
+  "deno.lint": true,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.validate.enable": true,
+  "javascript.validate.enable": true,
+  "typescript.referencesCodeLens.enabled": true
 }

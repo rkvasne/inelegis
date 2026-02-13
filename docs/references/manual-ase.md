@@ -1,7 +1,8 @@
 ---
-docStatus: reference
-docScope: references
-lastReviewed: 14/01/2026
+category: reference
+scope: manual-ase
+status: active
+version: 0.3.11
 ---
 
 # 📘 Manual ASE - Sistema Eleitoral
@@ -327,3 +328,8 @@ Informação com indicação do documento de registro do óbito, no formato:
 
 **Documento de Referência - Uso Interno**  
 **Fonte:** Manual do Sistema Eleitoral
+
+---
+
+_Última atualização: 12/02/2026 • v0.3.11 (Hub v0.5.5)_
+_Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_

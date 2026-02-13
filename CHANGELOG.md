@@ -1,17 +1,8 @@
-```
----
-docStatus: active
-docScope: release-history
-lastReviewed: 11/02/2026
----
-
 # Changelog
 
 > Navegação: [README do projeto](README.md) • [Documentação](docs/README.md)
 
 ---
-
-**Versão atual:** 0.3.10
 
 Todas as alterações notáveis neste projeto serão documentadas neste arquivo.
 
@@ -20,13 +11,26 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
 
+## [0.3.11] - 12/02/2026
+
+### 📡 Monitoramento & Uptime (Keepalive)
+
+- **Hub Keepalive Pattern**: Implementação completa do sistema de monitoramento para reduzir o risco de suspensão do Supabase por inatividade.
+- **Protocolo de Disparo**: Configuração do Cloudflare Worker como único pinger externo oficial, operando a cada 30 minutos.
+- **Receptor Supabase**: Criação da Edge Function `keepalive` com validação de JWT para registro de sinais de vida e eventos.
+- **Heartbeat do Cliente**: Sistema de ping nativo no navegador que atua enquanto a aplicação está em uso.
+- **Hardenização de Padrão**: Documentação técnica e prompt de governança atualizados para proibir o uso de métodos alternativos (GitHub/Vercel Cron) em favor da uniformidade do ecossistema.
+
+### 🛡️ Auditoria & Governança (Zeladoria)
+
+- **Audit-Ready History**: Expansão do sistema de histórico para registrar o "veredicto" completo de cada consulta, incluindo parágrafos, incisos, alíneas e a fundamentação legal detalhada (motivo).
+- **Rastreabilidade**: Integração da gravação de histórico na interface de **Consulta Manual** (Dropdowns), garantindo que 100% das buscas realizadas na plataforma sejam auditáveis.
+- **Metadados de Contexto**: Inclusão de metadados técnicos (origem da busca, lawName, timestamp preciso) para permitir análise de precisão e auditoria de resultados.
+- **Higiene de Ambiente**: Padronização global dos arquivos `.env` entre Inelegis e Zappy seguindo o padrão Solo Dev Hub v0.5.5.
+- **Limpeza de Código**: Depreciação do módulo `analytics.js` legado em favor do sistema de Histórico e Keepalive nativo no Supabase.
+- **Padronização de Documentação**: Implementação do novo sistema híbrido de metadados do Solo Dev Hub v0.5.5 (Frontmatter estrutural + Assinatura técnica no rodapé) em toda a base de conhecimento.
+
 ## [0.3.10] - 11/02/2026
-
-### ⚙️ Infraestrutura & Persistência
-
-- **Keepalive System**: Implementação do padrão Zappy v2 para evitar a suspensão automática por inatividade do banco de dados Supabase (Tier Free).
-- **Heartbeat do Cliente**: Sistema de sinal de vida automático acionado a cada 5 minutos durante o uso da aplicação.
-- **Upsert Support**: Atualização do cliente Supabase (`supabase-client.js`) para suportar operações de atualização atômica (upsert).
 
 ## [0.3.9] - 11/02/2026
 
@@ -561,4 +565,11 @@ Pequeno hotfix de UI/UX:
 ## [0.1.3] - 04/12/2025
 
 ...
+
+```
+
+---
+
+_Última atualização: 11/02/2026 • v0.3.11 (Hub v0.5.5)_
+_Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_
 ```

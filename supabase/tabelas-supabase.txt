@@ -1,0 +1,44 @@
+create table public.analytics_events (
+  id bigserial not null,
+  type character varying(20) not null,
+  user_id character varying(100) not null,
+  timestamp timestamp with time zone null default now(),
+  lei character varying(50) null,
+  artigo character varying(20) null,
+  resultado character varying(20) null,
+  tem_excecao boolean null,
+  tempo_resposta integer null,
+  browser text null,
+  version character varying(20) null,
+  data jsonb null,
+  constraint analytics_events_pkey primary key (id)
+) TABLESPACE pg_default;
+
+create index IF not exists idx_analytics_type on public.analytics_events using btree (type) TABLESPACE pg_default;
+
+create index IF not exists idx_analytics_timestamp on public.analytics_events using btree ("timestamp" desc) TABLESPACE pg_default;
+
+create index IF not exists idx_analytics_user on public.analytics_events using btree (user_id) TABLESPACE pg_default;
+
+create index IF not exists idx_analytics_lei on public.analytics_events using btree (lei) TABLESPACE pg_default
+where
+  (lei is not null);
+
+  ---
+
+  analytics_result_distribution
+
+  ---
+
+  temos algumas situações ainda nao resolvidas completamente:
+KEEPALIVE:
+iniciamos e implementamos as APIs e demais funcionalidades necessárias?
+tudo está no padrao do hub e do projeto zappy-app?
+ainda nao configurei o cloudflare nem as variaveis necessárias. 
+mas já rodei a migration E:\Ineleg\ineleg-app\supabase\migrations\20260211164500_create_keepalive_system.sql no supabase.
+o que ainda precisa fazer para deixar o keepalive funcionando no projeto inelegis?
+
+ANALITICS/HISTORICO
+lembro que foram removidos scripts relacionados ao analitics anterior.
+foi criado migration E:\Ineleg\ineleg-app\supabase\migrations\20260211195000_enhance_audit_history.sql, mas ainda nao executei.
+atualmente essas sao as tabelas....

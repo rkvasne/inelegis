@@ -27,7 +27,7 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 
 ## 🏗 Arquitetura do Código
 
-### Estrutura de Pastas (v0.3.8)
+### Estrutura de Pastas (v0.3.11)
 
 - `public/assets/js/`: Código distribuído (runtime).
 - `src/js/`: Código fonte original organizado por camadas:
@@ -48,6 +48,11 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 
 - Gerencia o histórico do usuário sincronizado com Supabase.
 - Calcula estatísticas locais para performance (Top Leis/Artigos).
+
+**[services/keepalive-service.js](../../src/js/services/keepalive-service.js)**
+
+- Implementa o **Hub Keepalive Pattern**.
+- Mantém o banco de dados ativo através de heartbeats periódicos (Client Heartbeat).
 
 **[utils/sanitizer.js](../../src/js/utils/sanitizer.js)**
 
@@ -107,4 +112,5 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 
 ---
 
-_Atualizado em: 11/02/2026_
+_Última atualização: 12/02/2026 • v0.3.11 (Hub v0.5.5)_
+_Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_

@@ -1,8 +1,9 @@
-# 📋 Auditoria: Tabela Oficial vs Migration 002
+# 📋 Auditoria: Tabela Oficial vs Migration (v0.3.11)
 
 **Data da Auditoria:** 09/02/2026  
 **Tabela de Referência:** Corregedoria Regional Eleitoral de São Paulo (outubro/2024)  
-**Migration Analisada:** `002_tabela_oficial_completa.sql`  
+**Migration Analisada:** `20260121000000_tabela_oficial_completa.sql`
+  
 **Status:** ✅ **CONFORME COM RESSALVAS**
 
 ---
@@ -134,6 +135,5 @@ A migration `002_tabela_oficial_completa.sql` está **CONFORME** com a tabela of
 
 ---
 
-**Auditado por:** Antigravity (Claude Sonnet 4.5)  
-**Modelo:** claude-sonnet-4.5  
-**OS:** Windows 11
+_Última atualização: 12/02/2026 • v0.3.11 (Hub v0.5.5)_
+_Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_

@@ -1,3 +1,10 @@
+---
+category: operations
+scope: security
+status: active
+version: 0.3.11
+---
+
 # 🔒 Guia de Proteção Contra Corrupção de Código
 
 Este documento explica como o projeto está protegido contra corrupção acidental de HTML e fornece diretrizes para edições seguras.
@@ -183,5 +190,5 @@ Adicione validação no build:
 
 ---
 
-**Versão deste documento:** 1.0  
-**Status:** ✅ Ativo
+_Última atualização: 12/02/2026 • v0.3.11 (Hub v0.5.5)_
+_Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_

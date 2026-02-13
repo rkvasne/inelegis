@@ -143,5 +143,9 @@ Canal privado (GitHub Security Advisories):
 
 ## 12) Revisão e Governança
 
-- Revisão trimestral deste documento.
 - Alterações relevantes devem ser aprovadas por engenharia.
+
+---
+
+_Última atualização: 12/02/2026 • v0.3.11 (Hub v0.5.5)_
+_Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_

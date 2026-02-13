@@ -1,8 +1,5 @@
 # 🐳 Manual de DevOps & Deploy - Inelegis
 
-> **Status:** Otimizado (v0.3.7)
-> **Stack:** Node.js 22, Supabase, Docker
-
 Este guia detalha como operar, implantar e manter a aplicação Inelegis em qualquer ambiente compatível com containers.
 
 ---
@@ -74,4 +71,5 @@ A limpeza de dados é feita via endpoint `/api/maintenance` (Serverless Function
 
 ---
 
-_Atualizado em: 03/02/2026_
+_Última atualização: 11/02/2026 • v0.3.11 (Hub v0.5.5)_
+_Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_

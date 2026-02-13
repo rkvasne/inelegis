@@ -9,9 +9,9 @@ Este projeto integra o ecossistema Solo Dev Hub. O Agente de IA deve priorizar a
 
 ## 🖥️ Identidade & Ambiente Local
 
-- **Objetivo:** Sistema de Consulta de Inelegibilidade Eleitoral
-- **Stack:** HTML5, Vanilla JS, CSS3, Supabase
-- **OS Context:** Windows 11 (PowerShell Core)
+- **Objetivo:** Sistema de Consulta de Inelegibilidade Eleitoral para análise jurídica rápida e precisa.
+- **Stack:** HTML/JS + CSS + Supabase.
+- **OS Context:** Windows 11
 - **Documentação Local:** `README.md`, `CHANGELOG.md` e `docs/`
 
 ---
@@ -115,5 +115,5 @@ last-edited-os: [Sistema]
 
 ---
 
-_Última atualização: 11/02/2026 • v0.5.4_
+_Última atualização: 12/02/2026 • v0.3.11 (Hub v0.5.5)_
 _Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_

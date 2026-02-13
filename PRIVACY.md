@@ -87,5 +87,9 @@ Você pode:
 
 Para dúvidas sobre privacidade e dados:
 
-- Issues: https://github.com/rkvasne/inelegis/issues
 - Segurança (canal privado): https://github.com/rkvasne/inelegis/security/advisories/new
+
+---
+
+_Última atualização: 12/02/2026 • v0.3.11 (Hub v0.5.5)_
+_Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_

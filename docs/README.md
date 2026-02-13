@@ -1,9 +1,3 @@
----
-docStatus: active
-docScope: docs-index
-lastReviewed: 11/02/2026
----
-
 # 📚 Documentação do Inelegis
 
 > Navegação: [README do projeto](../README.md) • [Documentação](README.md)
@@ -30,8 +24,9 @@ Bem-vindo à documentação oficial do projeto **Inelegis**.
 
 ### ⚙️ Operações e Segurança
 
-- **[Analytics](operations/analytics.md)** – coleta, estrutura e monitoramento
+- **[Auditoria e Monitoramento](operations/auditoria-e-monitoramento.md)** – rastreabilidade, fundamentação e Keepalive
 - **[Proteção](operations/protection.md)** – estratégias de edição segura e hardening
+- **[Keepalive (Hub Keepalive Pattern)](guides/keepalive-setup.md)** – monitoramento de uptime do banco de dados
 
 ### 🎨 Design System
 
@@ -52,7 +47,7 @@ Bem-vindo à documentação oficial do projeto **Inelegis**.
 
 ---
 
-## 📂 Estrutura da Documentação (v0.3.8)
+## 📂 Estrutura da Documentação
 
 ```
 docs/
@@ -69,8 +64,8 @@ docs/
 │   ├── setup-supabase.md
 │   └── variaveis-ambiente.md
 │
-├── operations/              # Operações, segurança e analytics
-│   ├── analytics.md
+├── operations/              # Operações, segurança e monitoramento
+│   ├── auditoria-e-monitoramento.md
 │   └── protection.md
 │
 ├── history/                 # Releases e marcos do projeto
@@ -97,3 +92,8 @@ Para manter consistência entre todos os documentos, siga o padrão centralizado
 - [Licença](../LICENSE.md)
 - [🤖 Instruções para Copilotos](../.github/copilot-instructions.md)
 - Regras para Agentes: repositório `e:\Agents`
+
+---
+
+_Última atualização: 12/02/2026 • v0.3.11 (Hub v0.5.5)_
+_Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_

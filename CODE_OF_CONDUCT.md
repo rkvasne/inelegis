@@ -42,4 +42,5 @@ Este Código de Conduta é adaptado do [Contributor Covenant](https://www.contri
 
 ---
 
-**Versão:** 0.3.0
+_Última atualização: 12/02/2026 • v0.3.11 (Hub v0.5.5)_
+_Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_

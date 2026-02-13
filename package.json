@@ -1,6 +1,6 @@
 {
   "name": "inelegis",
-  "version": "0.3.10",
+  "version": "0.3.11",
   "description": "Sistema de Consulta de Inelegibilidade Eleitoral",
   "type": "module",
   "main": "index.html",
@@ -26,7 +26,7 @@
     "check": "npm run lint && npm run test && node scripts/build.js --dry-run",
     "audit:docs": "node .agent/hub/capabilities/management/doc-writing/scripts/doc-auditor.js",
     "doc:check": "npm run audit:docs",
-    "generate-token": "node scripts/generate-admin-token.js",
+    "generate-token": "node .agent/hub/system/generators/generate-secure-token.js --prefix inelegis_admin --var-name ANALYTICS_ADMIN_TOKEN",
     "start": "npm run serve",
     "prebuild": "npm run check",
     "clean": "rimraf dist dist-optimized deploy",

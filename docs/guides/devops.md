@@ -54,3 +54,8 @@ O projeto segue [Semantic Versioning](https://semver.org/).
 - **Patch (0.0.X)**: Correções de bugs.
 
 O histórico de versões é mantido estritamente no [CHANGELOG.md](../../CHANGELOG.md).
+
+---
+
+_Última atualização: 12/02/2026 • v0.3.11 (Hub v0.5.5)_
+_Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_

@@ -7,7 +7,7 @@
 **Sistema de Consulta de Inelegibilidade Eleitoral.**  
 _Uma ferramenta moderna, rápida e precisa para análise jurídica eleitoral._
 
-[![Version](https://img.shields.io/badge/version-0.3.10-blue.svg?style=for-the-badge)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-0.3.11-blue.svg?style=for-the-badge)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-orange.svg?style=for-the-badge)](LICENSE.md)
 [![Status](https://img.shields.io/badge/status-active-success.svg?style=for-the-badge)](CHANGELOG.md)
 
@@ -30,9 +30,10 @@ O **Inelegis** é uma aplicação web para consulta de inelegibilidade eleitoral
 O projeto utiliza **Supabase** como única fonte de verdade (Single Source of Truth), eliminando dependências de arquivos locais ou cache temporário.
 
 1.  **Backend (Supabase):**
-    - **Tabelas:** `crimes_inelegibilidade` (Base jurídica unificada - Schema V2).
+    - **Tabelas:** `normas`, `artigos_inelegiveis`, `artigos_excecoes` (Base jurídica multi-tabela - Schema V2).
     - **Validação:** RPCs (`verificar_elegibilidade`) garantem lógica segura no lado do servidor.
-    - **Analytics:** Eventos de uso armazenados diretamente em tabelas dedicadas.
+    - **Audit Trail:** Sistema de histórico detalhado que registra o veredicto jurídico completo e metadados de consulta.
+    - **Keepalive:** Sistema de monitoramento baseado no **Hub Keepalive Pattern** para garantir disponibilidade.
 
 2.  **Frontend (Vanilla JS):**
     - Consome dados via `@supabase/supabase-js`.
@@ -44,6 +45,7 @@ O projeto utiliza **Supabase** como única fonte de verdade (Single Source of Tr
 
 - `npm run serve`: Inicia servidor de desenvolvimento.
 - `npm run check`: Roda lint e testes (Sanity check).
+- `npm run verify`: Valida a integridade do projeto e conformidade com o Hub.
 
 ---
 
@@ -54,8 +56,8 @@ O projeto utiliza **Supabase** como única fonte de verdade (Single Source of Tr
 - **Validação Estruturada:** Fluxo de seleção "Lei -> Artigo" à prova de erros (Drop-down dinâmico).
 - **Feedback Imediato:** Status de inelegibilidade exibido instantaneamente ao selecionar o artigo.
 - **Base Oficial:** Dados sincronizados diretamente com a tabela do TRE/CRE (DOCX).
-- **Cópia Rápida:** Resultados claros e objetivos.
-- **Histórico de Consultas:** Rastreio de pesquisas com estatísticas.
+- **Cópia Rápida:** Resultados claros e objetivos com fundamentação legal inclusa.
+- **Histórico e Auditoria:** Rastreio detalhado de pesquisas com estatísticas e verificação de fundamentação jurídica.
 
 ### 🎨 Interface
 
@@ -127,3 +129,8 @@ Contribuições são bem-vindas! Veja [CONTRIBUTING.md](CONTRIBUTING.md) para sa
 ## 📄 Licença
 
 Este projeto está sob a licença MIT. Veja o arquivo [LICENSE.md](LICENSE.md) para mais detalhes.
+
+---
+
+_Última atualização: 12/02/2026 • v0.3.11 (Hub v0.5.5)_
+_Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_
