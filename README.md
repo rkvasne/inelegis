@@ -7,7 +7,7 @@
 **Sistema de Consulta de Inelegibilidade Eleitoral.**  
 _Uma ferramenta moderna, rápida e precisa para análise jurídica eleitoral._
 
-[![Version](https://img.shields.io/badge/version-0.3.11-blue.svg?style=for-the-badge)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-0.3.12-blue.svg?style=for-the-badge)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-orange.svg?style=for-the-badge)](LICENSE.md)
 [![Status](https://img.shields.io/badge/status-active-success.svg?style=for-the-badge)](CHANGELOG.md)
 
@@ -57,7 +57,8 @@ O projeto utiliza **Supabase** como única fonte de verdade (Single Source of Tr
 - **Feedback Imediato:** Status de inelegibilidade exibido instantaneamente ao selecionar o artigo.
 - **Base Oficial:** Dados sincronizados diretamente com a tabela do TRE/CRE (DOCX).
 - **Cópia Rápida:** Resultados claros e objetivos com fundamentação legal inclusa.
-- **Histórico e Auditoria:** Rastreio detalhado de pesquisas com estatísticas e verificação de fundamentação jurídica.
+- **Histórico e Auditoria:** Rastreio detalhado de pesquisas com estatísticas e verificação de fundamentação jurídica (v0.3.12).
+- **Analytics Server-side:** Dashboard administrativo com gráficos de tendências otimizados via views SQL.
 
 ### 🎨 Interface
 
@@ -132,5 +133,5 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE.md](LICENSE.md) p
 
 ---
 
-_Última atualização: 12/02/2026 • v0.3.11 (Hub v0.5.5)_
+_Última atualização: 13/02/2026 • v0.3.12 (Hub v0.5.6)_
 _Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_
