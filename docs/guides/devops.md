@@ -1,4 +1,4 @@
-# 🚀 CI/CD e DevOps
+﻿# 🚀 CI/CD e DevOps
 
 Este documento descreve o pipeline de integração e entrega contínua (CI/CD) do Inelegis, implementado via GitHub Actions.
 

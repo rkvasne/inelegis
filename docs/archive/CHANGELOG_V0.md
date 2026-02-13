@@ -1,4 +1,4 @@
-# Changelog Archive (Version 0.1.x)
+﻿# Changelog Archive (Version 0.1.x)
 
 Todas as alterações notáveis do projeto Inelegis durante a fase inicial (v0.1.x).
 

@@ -1,4 +1,4 @@
----
+﻿---
 trigger: always_on
 ---
 
@@ -6,7 +6,7 @@ trigger: always_on
 
 > **Hub Link:** `.agent/hub/` (READ-ONLY)
 > **Priority:** P0 (GEMINI.md) > P1 (Persona) > P2 (Skill)
-> **Hub Version:** v0.5.5
+> **Hub Version:** v0.5.6
 > **Isolamento:** Hub ↔ Satélite (Governança Bidirecional)
 
 Este projeto consome inteligência centralizada do Solo Dev Hub através de Junctions.
@@ -119,6 +119,6 @@ Ao finalizar uma tarefa:
 
 ---
 
-_Configurado via Solo Dev Hub Layout (v0.5.5)_
-_Última atualização: 12/02/2026_
+_Configurado via Solo Dev Hub Layout (v0.5.6)_
+_Última atualização: 13/02/2026_
 _Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_

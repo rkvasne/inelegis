@@ -1,4 +1,4 @@
-# 🔐 Variáveis de Ambiente
+﻿# 🔐 Variáveis de Ambiente
 
 Este documento descreve as variáveis necessárias para a operação do Inelegis com o Supabase, organizadas por camadas de responsabilidade técnica.
 

@@ -1,4 +1,4 @@
-# 📚 Documentação do Inelegis
+﻿# 📚 Documentação do Inelegis
 
 > Navegação: [README do projeto](../README.md) • [Documentação](README.md)
 

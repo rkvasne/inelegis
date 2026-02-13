@@ -8,7 +8,7 @@
 
 - [x] **Hub Keepalive Pattern:** Implementação oficial do sistema de monitoramento de uptime, com Cloudflare Worker (Pinger), Supabase Edge Function (Receptor) e Heartbeat do Cliente.
 - [x] **Blindagem de Commits (Security):** Implementação de pre-commit hooks via Husky que validam Temas, Build, Sintaxe e Integridade do Hub antes de permitir persistência.
-- [x] **Zeladoria Técnica:** Correção de vulnerabilidades de CSP (Content-Security-Policy) e eliminação de cores hardcoded para conformidade 100% com o Theme Linter.
+- [x] **Zeladoria Técnica (Janitor):** Limpeza global de dead code (constants, vars), migração de logs para debugLog, adição de JSDoc e restauração de métodos estruturais.
 - [x] **Supabase Structure (Bridge Mode):** Implementação do sistema de extração de metadados centralizado no Hub, com adaptador local para isolamento de resultados e injeção de contexto.
 
 ---
@@ -51,6 +51,7 @@
 - 12/02/2026: Implementação do **Dashboard Administrativo v1** (/admin) com visual Glassmorphism, integração com **Chart.js** (Timeline e Distribuição) e proteção via **RLS (Row Level Security)** no Supabase. Projeto 100% CONFORME.
 - 13/02/2026: **Blindagem de Governança**: Implementação de Husky pre-commit hooks, correção de CSP para CDNs, limpeza de cores hardcoded (Theme Linter Compliance) e atualização final de documentação técnica. Estabelecido padrão de **Arquivamento de Documentação Histórica** (`docs/archive/`) para manter arquivos abaixo do limite de 600 linhas. Projeto 100% CONFORME.
 - 13/02/2026: **Estabilidade de Infraestrutura (Hub Bridge)**: Resolução de bloqueio técnico (loop infinito) no servidor MCP através de correção no boot robusto e resolução de caminhos Junction. Acesso a skills e regras do Hub restaurado. Checkpoint Prompt 19.
+- 13/02/2026: **Zeladoria Técnica (Code Janitor)**: Execução de limpeza técnica (Prompt #20). Remoção de código morto em `constants.js`, migração de `console.log` para `debugLog` em serviços e controladores, adição de JSDoc em métodos estruturais. Integridade validada com lint 100% OK.
 
 ---
 

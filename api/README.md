@@ -1,4 +1,4 @@
----
+﻿---
 docStatus: reference
 docScope: api
 lastReviewed: 12/02/2026

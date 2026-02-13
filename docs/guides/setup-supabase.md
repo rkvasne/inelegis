@@ -1,4 +1,4 @@
-# 🗄️ Setup Supabase
+﻿# 🗄️ Setup Supabase
 
 > Configuração do banco de dados Supabase para o Inelegis.
 

@@ -1,4 +1,4 @@
-# 🛠️ Guia de Configuração: Keepalive (Hub Keepalive Pattern)
+﻿# 🛠️ Guia de Configuração: Keepalive (Hub Keepalive Pattern)
 
 Este guia detalha como configurar o sistema de monitoramento externo (Hub Keepalive Pattern) para **reduzir o risco** de o Supabase suspender seu banco de dados por inatividade.
 

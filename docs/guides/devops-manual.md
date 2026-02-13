@@ -1,4 +1,4 @@
-# 🐳 Manual de DevOps & Deploy - Inelegis
+﻿# 🐳 Manual de DevOps & Deploy - Inelegis
 
 Este guia detalha como operar, implantar e manter a aplicação Inelegis em qualquer ambiente compatível com containers.
 

@@ -1,4 +1,4 @@
-# ⚖️ Licença MIT - Inelegis
+﻿# ⚖️ Licença MIT - Inelegis
 
 > Navegação: [README do projeto](README.md) • [Documentação](docs/README.md)
 

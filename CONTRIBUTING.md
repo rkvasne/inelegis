@@ -1,4 +1,4 @@
-# 🤝 Contribuindo - Inelegis
+﻿# 🤝 Contribuindo - Inelegis
 
 > Navegação: [README do projeto](README.md) • [Documentação](docs/README.md)
 

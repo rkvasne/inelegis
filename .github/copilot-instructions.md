@@ -1,4 +1,4 @@
----
+﻿---
 docStatus: governance
 docScope: copilot-instructions
 lastReviewed: 14/01/2026

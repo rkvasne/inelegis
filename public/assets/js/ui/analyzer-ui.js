@@ -14,6 +14,9 @@ export class AnalyzerUI {
     this.statsText = document.getElementById("analyzer-stats");
   }
 
+  /**
+   * Inicializa os listeners de evento do analisador.
+   */
   init() {
     if (!this.btnAnalisar) return;
 
@@ -320,7 +323,10 @@ export class AnalyzerUI {
   }
 }
 
-// Funções globais para suporte ao HTML
+/**
+ * Alterna entre abas de consulta (Simples vs Analisador)
+ * @param {string} mode - 'simple' ou 'advanced'
+ */
 window.switchTab = function (mode) {
   const simpleBtn = document.getElementById("tab-simple");
   const advancedBtn = document.getElementById("tab-advanced");

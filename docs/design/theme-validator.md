@@ -1,4 +1,4 @@
----
+﻿---
 category: design
 scope: theme-validator
 status: active

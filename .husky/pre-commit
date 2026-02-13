@@ -1,3 +1,29 @@
+
+echo "🔒 Executando verificações de pré-commit..."
+
+# 1. PROTEÇÃO DO HUB (CRÍTICO)
+# Bloquear commits em .agent/hub/
+if git diff --cached --name-only | grep -q "^\.agent/hub/"; then
+  echo ""
+  echo "❌ ERRO: VIOLAÇÃO DE HUB DETECTADA!"
+  echo ""
+  echo "   Você está tentando commitar arquivos em .agent/hub/"
+  echo "   Esta pasta é READ-ONLY (apenas leitura)."
+  echo ""
+  echo "   Para corrigir:"
+  echo "   git restore --staged .agent/hub/"
+  echo ""
+  echo "   Se você precisa alterar regras do Hub:"
+  echo "   1. Navegue até E:\\Agents"
+  echo "   2. Faça as alterações lá"
+  echo "   3. Commit e push no repositório do Hub"
+  echo ""
+  exit 1
+fi
+
+echo "✅ Proteção do Hub: OK"
+
+npx lint-staged
 npm run validate:theme
 npm run check
 npm run verify
