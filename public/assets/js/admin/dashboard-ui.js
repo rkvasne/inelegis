@@ -16,6 +16,13 @@ export const dashboardUI = {
     this.setupEventListeners();
   },
 
+  /**
+   * Helper para obter variáveis do tema CSS
+   */
+  getThemeColor(name) {
+    return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  },
+
   setupEventListeners() {
     const filterLei = document.getElementById("filterLei");
     const filterResultado = document.getElementById("filterResultado");
@@ -76,24 +83,12 @@ export const dashboardUI = {
    */
   async loadCharts() {
     const chartColors = {
-      primary: getComputedStyle(document.documentElement)
-        .getPropertyValue("--primary")
-        .trim(),
-      success: getComputedStyle(document.documentElement)
-        .getPropertyValue("--success")
-        .trim(),
-      danger: getComputedStyle(document.documentElement)
-        .getPropertyValue("--danger")
-        .trim(),
-      warning: getComputedStyle(document.documentElement)
-        .getPropertyValue("--warning")
-        .trim(),
-      muted: getComputedStyle(document.documentElement)
-        .getPropertyValue("--text-muted")
-        .trim(),
-      glass: getComputedStyle(document.documentElement)
-        .getPropertyValue("--glass")
-        .trim(),
+      primary: this.getThemeColor("--primary"),
+      success: this.getThemeColor("--success"),
+      danger: this.getThemeColor("--danger"),
+      warning: this.getThemeColor("--warning"),
+      muted: this.getThemeColor("--text-muted"),
+      glass: this.getThemeColor("--glass"),
     };
 
     // 1. Timeline Chart
@@ -138,31 +133,18 @@ export const dashboardUI = {
       });
     }
 
-    // 2. Top 5 Laws Chart (Client-side grouping for v0.3.12)
-    const { data: logData } = await window.supabase
-      .from("historico_consultas")
-      .select("lei");
-    if (logData) {
-      const lawCounts = logData.reduce((acc, curr) => {
-        acc[curr.lei] = (acc[curr.lei] || 0) + 1;
-        return acc;
-      }, {});
-
-      const sortedLaws = Object.entries(lawCounts)
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, 5);
-
+    // 2. Top 5 Laws Chart (Optimized via View in v0.3.12)
+    const { data: topLawsData } = await window.supabase.from("analytics_top_leis").select("*");
+    if (topLawsData) {
       new Chart(document.getElementById("lawsChart"), {
         type: "bar",
         data: {
-          labels: sortedLaws.map((l) => l[0].substring(0, 10) + "..."),
-          datasets: [
-            {
-              data: sortedLaws.map((l) => l[1]),
-              backgroundColor: chartColors.primary,
-              borderRadius: 5,
-            },
-          ],
+          labels: topLawsData.map(l => (l.lei?.substring(0, 10) || "Desconhecido") + "..."),
+          datasets: [{
+            data: topLawsData.map(l => l.count),
+            backgroundColor: chartColors.primary,
+            borderRadius: 5,
+          }]
         },
         options: {
           responsive: true,
@@ -170,12 +152,9 @@ export const dashboardUI = {
           plugins: { legend: { display: false } },
           scales: {
             y: { display: false },
-            x: {
-              grid: { display: false },
-              ticks: { color: chartColors.muted },
-            },
-          },
-        },
+            x: { grid: { display: false }, ticks: { color: chartColors.muted } }
+          }
+        }
       });
     }
 
@@ -267,8 +246,8 @@ export const dashboardUI = {
             ? "badge-success"
             : "badge-warning";
 
-      // Formatação concatenada do dispositivo
-      const device = `Art. ${log.artigo}${log.paragrafo ? `, § ${log.paragrafo}` : ""}${log.inciso ? `, inc. ${log.inciso}` : ""}${log.alinea ? `, al. ${log.alinea}` : ""}`;
+      // Formatação centralizada via utilitário
+      const device = window.ArtigoFormatter?.formatLegalDevice(log) || `Art. ${log.artigo}`;
 
       tr.innerHTML = `
                 <td style="font-size: 0.75rem; color: var(--text-muted);">
@@ -299,10 +278,9 @@ export const dashboardUI = {
 
   showModalDetails(log) {
     const modal = document.getElementById("detailsModal");
-    const device = `Art. ${log.artigo}${log.paragrafo ? `, § ${log.paragrafo}` : ""}${log.inciso ? `, inc. ${log.inciso}` : ""}${log.alinea ? `, al. ${log.alinea}` : ""}`;
+    const device = window.ArtigoFormatter?.formatLegalDevice(log) || `Art. ${log.artigo}`;
 
-    document.getElementById("modalLegal").textContent =
-      `${log.lei} - ${device}`;
+    document.getElementById("modalLegal").textContent = `${log.lei} - ${device}`;
     document.getElementById("modalVerdict").innerHTML =
       `<span class="badge ${log.resultado === "inelegivel" ? "badge-danger" : log.resultado === "elegivel" ? "badge-success" : "badge-warning"}">${log.resultado}</span>`;
     document.getElementById("modalCrime").textContent =
