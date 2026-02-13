@@ -2,8 +2,8 @@
 
 Este guia detalha como configurar o sistema de monitoramento externo (Hub Keepalive Pattern) para **reduzir o risco** de o Supabase suspender seu banco de dados por inatividade.
 
-> **Importante:** O Hub define o **Cloudflare Worker com Cron Trigger** como o único pinger oficial. 
-> 
+> **Importante:** O Hub define o **Cloudflare Worker com Cron Trigger** como o único pinger oficial.
+>
 > **Limitação Crítica:** Nenhum pinger (inclusive o Cloudflare) é capaz de acordar um banco de dados que **já foi suspenso**. O objetivo deste sistema é gerar tráfego externo regular para evitar que a suspensão ocorra. Caso o projeto seja suspenso, a reativação deve ser manual via Dashboard do Supabase.
 
 ---
@@ -33,6 +33,7 @@ supabase functions deploy keepalive
 O Cloudflare Worker atua como o **pinger externo**. Ele é o único método aprovado pelo Hub para manter a uniformidade entre os projetos satélites.
 
 **Por que somente Cloudflare?**
+
 - **Supabase pg_cron:** É executado internamente; o Supabase não o considera "tráfego externo", portanto não evita a suspensão por inatividade.
 - **Vercel Cron / GitHub Actions:** São descontinuados do padrão para garantir que todos os satélites usem a mesma infraestrutura atômica e independente (Cloudflare), facilitando a manutenção global do ecossistema.
 
@@ -59,11 +60,11 @@ A aplicação já possui um serviço em `public/assets/js/services/keepalive-ser
 
 Para que o heartbeat do cliente (executado no navegador) funcione em produção, você deve configurar as seguintes variáveis no painel da **Vercel** (ou seu provedor de hosting):
 
-| Variável | Valor Recomendado |
-| :--- | :--- |
-| `KEEPALIVE_TOKEN` | O mesmo segredo usado no Supabase/Cloudflare. |
-| `KEEPALIVE_PROJECT_SLUG` | `inelegis` |
-| `KEEPALIVE_ENVIRONMENT` | `production` |
+| Variável                 | Valor Recomendado                             |
+| :----------------------- | :-------------------------------------------- |
+| `KEEPALIVE_TOKEN`        | O mesmo segredo usado no Supabase/Cloudflare. |
+| `KEEPALIVE_PROJECT_SLUG` | `inelegis`                                    |
+| `KEEPALIVE_ENVIRONMENT`  | `production`                                  |
 
 ---
 

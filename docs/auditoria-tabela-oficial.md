@@ -3,7 +3,7 @@
 **Data da Auditoria:** 09/02/2026  
 **Tabela de Referência:** Corregedoria Regional Eleitoral de São Paulo (outubro/2024)  
 **Migration Analisada:** `20260121000000_tabela_oficial_completa.sql`
-  
+
 **Status:** ✅ **CONFORME COM RESSALVAS**
 
 ---

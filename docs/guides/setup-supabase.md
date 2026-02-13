@@ -78,11 +78,11 @@ Resultado esperado:
 
 ### Tabelas Principais
 
-| Tabela                | Descrição                            |
-| --------------------- | ------------------------------------ |
-| `normas`              | Leis e códigos (CP, CPM, LE, etc)    |
-| `artigos_inelegiveis` | Artigos que geram inelegibilidade    |
-| `artigos_excecoes`    | Exceções que removem inelegibilidade |
+| Tabela                | Descrição                                       |
+| --------------------- | ----------------------------------------------- |
+| `normas`              | Leis e códigos (CP, CPM, LE, etc)               |
+| `artigos_inelegiveis` | Artigos que geram inelegibilidade               |
+| `artigos_excecoes`    | Exceções que removem inelegibilidade            |
 | `historico_consultas` | Histórico de consultas dos usuários (Auditoria) |
 | `keepalive`           | Status de disponibilidade (Singleton)           |
 | `keepalive_events`    | Logs de eventos de heartbeat                    |
@@ -99,13 +99,13 @@ Resultado esperado:
 
 ### Funções RPC
 
-| Função                      | Descrição                               |
-| --------------------------- | --------------------------------------- |
-| `verificar_elegibilidade()` | Verifica se artigo gera inelegibilidade |
-| `get_user_history()`        | Obtém histórico do usuário              |
+| Função                      | Descrição                                                    |
+| --------------------------- | ------------------------------------------------------------ |
+| `verificar_elegibilidade()` | Verifica se artigo gera inelegibilidade                      |
+| `get_user_history()`        | Obtém histórico do usuário                                   |
 | `add_to_history()`          | Adiciona consulta ao histórico (com fundamentação detalhada) |
-| `get_user_stats()`          | Estatísticas do usuário (Top Leis/Artigos)                 |
-| `get_dashboard_stats()`     | Estatísticas para dashboard             |
+| `get_user_stats()`          | Estatísticas do usuário (Top Leis/Artigos)                   |
+| `get_dashboard_stats()`     | Estatísticas para dashboard                                  |
 
 ---
 
