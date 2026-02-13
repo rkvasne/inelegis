@@ -1,4 +1,4 @@
----
+﻿---
 description: "Versionamento, convenções de commit (Conventional Commits), estratégias de branching, merges e resolução de conflitos"
 ---
 

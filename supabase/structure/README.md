@@ -1,4 +1,4 @@
-# 🛰️ Supabase Structure (Hub Bridge)
+﻿# 🛰️ Supabase Structure (Hub Bridge)
 
 Este diretório contém os resultados da extração da estrutura do banco de dados (metadados).
 

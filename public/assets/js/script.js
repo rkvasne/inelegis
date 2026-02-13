@@ -4,6 +4,7 @@ import { ValidatorUI } from "./ui/validator-ui.js";
 import { AnalyzerUI } from "./ui/analyzer-ui.js";
 import { setupRadioButtons } from "./ui/ui-events.js";
 import { keepaliveService } from "./services/keepalive-service.js";
+import { debugLog } from "./utils/core-utils.js";
 
 // Entrypoint Principal da Página de Consulta
 document.addEventListener("DOMContentLoaded", () => {
@@ -39,12 +40,13 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   }
 
-  console.log("Inelegis Validator UI Initialized 🚀");
+  debugLog("Inelegis Validator UI Initialized 🚀");
 });
 
 /**
- * Verifica se o usuário aceitou os termos de uso.
- * Redireciona para home se não autenticado.
+ * Verifica se o usuário aceitou os termos de uso na sessão atual.
+ * Redireciona para a home (index.html) se o termo não foi aceito.
+ * @returns {boolean} True se o acesso for permitido.
  */
 function verificarAcessoConsulta() {
   // Apenas executa na página de consulta

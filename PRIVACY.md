@@ -1,4 +1,4 @@
-# 🔎 Política de Privacidade - Inelegiss
+﻿# 🔎 Política de Privacidade - Inelegiss
 
 > Navegação: [README do projeto](README.md) • [Documentação](docs/README.md)
 

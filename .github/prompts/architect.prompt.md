@@ -1,4 +1,4 @@
----
+﻿---
 description: "Planejamento técnico, design de sistemas, arquitetura e quebra de tarefas"
 ---
 

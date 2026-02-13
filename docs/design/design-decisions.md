@@ -1,4 +1,4 @@
----
+﻿---
 category: design
 scope: architecture
 status: stable

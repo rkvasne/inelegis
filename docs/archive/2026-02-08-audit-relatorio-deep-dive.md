@@ -1,4 +1,4 @@
-# 🔍 Relatório de Auditoria Técnica (Deep Dive)
+﻿# 🔍 Relatório de Auditoria Técnica (Deep Dive)
 
 > **Data:** 08/02/2026
 > **Responsável:** Claude 4.6 Opus (Agent)

@@ -1,4 +1,4 @@
-# 🤖 AI Agents - Inelegis
+﻿# 🤖 AI Agents - Inelegis
 
 > **Link do Hub:** `.agent/hub/` (Obrigatório)
 > **Modo:** Hub-First & SSoT (Single Source of Truth)
@@ -115,5 +115,5 @@ last-edited-os: [Sistema]
 
 ---
 
-_Última atualização: 12/02/2026 • v0.3.11 (Hub v0.5.5)_
+_Última atualização: 13/02/2026 • v0.3.11 (Hub v0.5.6)_
 _Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_

@@ -1,4 +1,4 @@
-# JavaScript Core (src/js)
+﻿# JavaScript Core (src/js)
 
 Este diretório contém o código fonte da aplicação Inelegis. A arquitetura segue o padrão modular com separação de responsabilidades.
 

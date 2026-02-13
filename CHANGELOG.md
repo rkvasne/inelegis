@@ -1,4 +1,4 @@
-# Changelog
+﻿# Changelog
 
 > Navegação: [README do projeto](README.md) • [Documentação](docs/README.md)
 
@@ -59,6 +59,14 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
   - **Satellite Adapter**: Implementação do `adapter.js` com suporte a injeção de contexto (`.env.local`), `--preserve-symlinks` e saída controlada via `--outDir`.
   - **Snapshot de Auditoria**: Geração automatizada de JSONs modulares (`tables`, `functions`, `rls`, `triggers`) e consolidados para documentação técnica do banco.
   - **Comando Mestre**: Adição do script `npm run db:extract` no `package.json` para zeladoria completa da estrutura em um único comando.
+
+### 🧹 Zeladoria Técnica (Code Janitor)
+
+- **Dead Code Cleanup**: Remoção de lista de leis obsoleta em `constants.js` e variáveis não utilizadas em `validator-ui.js`.
+- **Nomenclatura**: Padronização de classes (PascalCase), variáveis (camelCase) e arquivos (kebab-case).
+- **Logging Profissional**: Migração massiva de `console.log` para `debugLog` em todos os serviços e controladores, permitindo controle centralizado de verbosidade.
+- **Documentação Interna**: Adição de JSDoc em métodos estruturais do `AnalyerUI`, `ValidatorUI` e funções utilitárias globais para melhor suporte ao IntelliSense.
+- **Restauração de Integridade**: Correção de corrupção acidental no `ValidatorUI` durante o processo de refatoração, validada com 100% de passagem no lint.
 
 ## [0.3.10] - 11/02/2026
 

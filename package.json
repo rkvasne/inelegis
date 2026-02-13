@@ -76,5 +76,11 @@
   "bugs": {
     "url": "https://github.com/rkvasne/inelegis/issues"
   },
-  "homepage": "https://github.com/rkvasne/inelegis#readme"
+  "homepage": "https://github.com/rkvasne/inelegis#readme",
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx,css,md,json}": [
+      "prettier --write",
+      "node .agent/hub/system/validators/validator-encoding.js --fix"
+    ]
+  }
 }

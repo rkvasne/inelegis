@@ -1,4 +1,4 @@
-# Manutenção e Validação de Dados
+﻿# Manutenção e Validação de Dados
 
 Este guia descreve como manter os dados jurídicos e validar a integridade do sistema Inelegis utilizando a infraestrutura do Supabase.
 

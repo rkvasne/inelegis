@@ -1,4 +1,4 @@
-# Guia de Desenvolvimento
+﻿# Guia de Desenvolvimento
 
 Este arquivo fornece orientações técnicas para desenvolvedores trabalhando neste repositório.
 
@@ -96,6 +96,7 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 ### 🛡️ Blindagem de Commits (Husky)
 
 O projeto está configurado com **Git Hooks (Husky)** para impedir commits que violem padrões de qualidade. Toda tentativa de `git commit` dispara automaticamente:
+
 1. `npm run format`: Garante que o código segue o padrão do Prettier.
 2. `npm run validate:theme`: Bloqueia cores hardcoded ou estilos inline inapropriados.
 3. `npm run check`: Valida sintaxe (Lint), roda a suíte de testes e simula o Build.
@@ -106,6 +107,7 @@ O projeto está configurado com **Git Hooks (Husky)** para impedir commits que v
 ### 📦 Estratégia de Arquivamento (Maintenance)
 
 Para garantir a eficiência de leitura por agentes de IA e conformidade com o **Doc Auditor** (limite de 600 linhas):
+
 - **Changelog**: Ao atingir 550+ linhas, as versões mais antigas (Major/Minor anteriores) devem ser movidas para `docs/archive/CHANGELOG_VX.md`.
 - **Logs de Auditoria**: Documentos históricos de auditoria não operacional devem ser movidos para a pasta `docs/archive/` trimestralmente.
 - **SSoT**: O `CHANGELOG.md` principal deve sempre manter um link para os arquivos de arquivo para preservação da rastreabilidade.

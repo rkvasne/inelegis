@@ -1,4 +1,4 @@
-# 📋 Auditoria: Tabela Oficial vs Migration (v0.3.11)
+﻿# 📋 Auditoria: Tabela Oficial vs Migration (v0.3.11)
 
 **Data da Auditoria:** 09/02/2026  
 **Tabela de Referência:** Corregedoria Regional Eleitoral de São Paulo (outubro/2024)  

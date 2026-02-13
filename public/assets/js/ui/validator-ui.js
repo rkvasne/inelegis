@@ -1,4 +1,5 @@
 import { validatorService } from "../services/validator-service.js";
+import { debugLog } from "../utils/core-utils.js";
 
 /**
  * Controller da Interface de Validação.
@@ -19,8 +20,8 @@ export class ValidatorUI {
     /** @type {string|null} Nome amigável da lei selecionada */
     this.selectedLawName = null;
 
-    console.log(
-      "[ValidatorUI] Constructor - leiSelect:",
+    debugLog(
+      "Constructor - leiSelect:",
       !!this.leiSelect,
       "artigoSelect:",
       !!this.artigoSelect,
@@ -32,7 +33,7 @@ export class ValidatorUI {
    * Aguarda inicialização do serviço (agora async para Supabase).
    */
   async init() {
-    console.log("[ValidatorUI] init() chamado");
+    debugLog("init() chamado");
 
     // Mostrar loading
     if (this.leiSelect) {
@@ -54,29 +55,23 @@ export class ValidatorUI {
       return;
     }
 
-    console.log("[ValidatorUI] Service OK. Carregando leis...");
+    debugLog("Service OK. Carregando leis...");
 
     await this.setupLeiSelect();
     this.setupArtigoSelect();
 
-    console.log("[ValidatorUI] Inicialização COMPLETA");
+    debugLog("Inicialização COMPLETA");
   }
 
-  /**
-   * Configura o Dropdown de Leis com os dados do serviço.
-   */
   async setupLeiSelect() {
     if (!this.leiSelect) {
-      console.error("[ValidatorUI] ERRO: #leiSelect não encontrado no DOM!");
+      debugLog("ERRO: #leiSelect não encontrado no DOM!");
       return;
     }
 
     // Buscar leis (agora é async)
     const laws = await validatorService.getLaws();
-    console.log(
-      "[ValidatorUI] setupLeiSelect - laws encontradas:",
-      laws.length,
-    );
+    debugLog("setupLeiSelect - laws encontradas:", laws.length);
 
     // Limpa opções
     this.leiSelect.innerHTML =
@@ -87,25 +82,18 @@ export class ValidatorUI {
     laws.forEach((law) => {
       const option = document.createElement("option");
       option.value = law.codigo;
-      // Melhoria: Mostrar Código + Nome (propriedade 'lei' do serviço)
-      // O serviço retorna { codigo, lei }
       const displayName = law.lei || `${law.codigo} - ${law.nome || ""}`;
       option.textContent = displayName;
       this.leiSelect.appendChild(option);
     });
 
-    console.log(
-      "[ValidatorUI] Opções adicionadas ao select:",
-      this.leiSelect.options.length,
-    );
+    debugLog("Opções adicionadas ao select:", this.leiSelect.options.length);
 
     // Evento de Mudança
     this.leiSelect.addEventListener("change", async (e) => {
       const codigo = e.target.value;
-      const nome = e.target.options[e.target.selectedIndex].text;
 
       if (codigo) {
-        // Agora usamos o texto completo do option, confiando no nome amigável vindo do banco
         const lawName = e.target.options[e.target.selectedIndex].textContent;
         await this.selectLaw(codigo, lawName);
         // Esconder a setinha indicadora após primeira seleção
@@ -206,7 +194,7 @@ export class ValidatorUI {
     const arrowIndicator = document.getElementById("leiArrowIndicator");
     if (arrowIndicator) arrowIndicator.classList.add("show");
 
-    console.log("[ValidatorUI] Busca limpa com sucesso");
+    debugLog("Busca limpa com sucesso");
   }
 
   /**
