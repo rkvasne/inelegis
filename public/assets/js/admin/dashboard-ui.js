@@ -52,8 +52,8 @@ export const dashboardUI = {
             {
               label: "Consultas",
               data: values,
-              borderColor: "#6366f1",
-              backgroundColor: "rgba(99, 102, 241, 0.1)",
+              borderColor: getComputedStyle(document.documentElement).getPropertyValue("--primary").trim(),
+              backgroundColor: getComputedStyle(document.documentElement).getPropertyValue("--glass").trim(),
               fill: true,
               tension: 0.4,
             },
@@ -65,7 +65,10 @@ export const dashboardUI = {
           plugins: { legend: { display: false } },
           scales: {
             y: { display: false },
-            x: { grid: { display: false }, ticks: { color: "#94a3b8" } },
+            x: {
+              grid: { display: false },
+              ticks: { color: getComputedStyle(document.documentElement).getPropertyValue("--text-muted").trim() }
+            },
           },
         },
       });
@@ -86,7 +89,12 @@ export const dashboardUI = {
           datasets: [
             {
               data: values,
-              backgroundColor: ["#22c55e", "#ef4444", "#f59e0b", "#6366f1"],
+              backgroundColor: [
+                getComputedStyle(document.documentElement).getPropertyValue("--success").trim(),
+                getComputedStyle(document.documentElement).getPropertyValue("--danger").trim(),
+                getComputedStyle(document.documentElement).getPropertyValue("--warning").trim(),
+                getComputedStyle(document.documentElement).getPropertyValue("--primary").trim()
+              ],
               borderWidth: 0,
             },
           ],
@@ -97,7 +105,10 @@ export const dashboardUI = {
           plugins: {
             legend: {
               position: "bottom",
-              labels: { color: "#94a3b8", boxWidth: 10 },
+              labels: {
+                color: getComputedStyle(document.documentElement).getPropertyValue("--text-muted").trim(),
+                boxWidth: 10
+              },
             },
           },
         },
