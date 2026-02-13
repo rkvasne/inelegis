@@ -52,8 +52,12 @@ export const dashboardUI = {
             {
               label: "Consultas",
               data: values,
-              borderColor: getComputedStyle(document.documentElement).getPropertyValue("--primary").trim(),
-              backgroundColor: getComputedStyle(document.documentElement).getPropertyValue("--glass").trim(),
+              borderColor: getComputedStyle(document.documentElement)
+                .getPropertyValue("--primary")
+                .trim(),
+              backgroundColor: getComputedStyle(document.documentElement)
+                .getPropertyValue("--glass")
+                .trim(),
               fill: true,
               tension: 0.4,
             },
@@ -67,7 +71,11 @@ export const dashboardUI = {
             y: { display: false },
             x: {
               grid: { display: false },
-              ticks: { color: getComputedStyle(document.documentElement).getPropertyValue("--text-muted").trim() }
+              ticks: {
+                color: getComputedStyle(document.documentElement)
+                  .getPropertyValue("--text-muted")
+                  .trim(),
+              },
             },
           },
         },
@@ -90,10 +98,18 @@ export const dashboardUI = {
             {
               data: values,
               backgroundColor: [
-                getComputedStyle(document.documentElement).getPropertyValue("--success").trim(),
-                getComputedStyle(document.documentElement).getPropertyValue("--danger").trim(),
-                getComputedStyle(document.documentElement).getPropertyValue("--warning").trim(),
-                getComputedStyle(document.documentElement).getPropertyValue("--primary").trim()
+                getComputedStyle(document.documentElement)
+                  .getPropertyValue("--success")
+                  .trim(),
+                getComputedStyle(document.documentElement)
+                  .getPropertyValue("--danger")
+                  .trim(),
+                getComputedStyle(document.documentElement)
+                  .getPropertyValue("--warning")
+                  .trim(),
+                getComputedStyle(document.documentElement)
+                  .getPropertyValue("--primary")
+                  .trim(),
               ],
               borderWidth: 0,
             },
@@ -106,8 +122,10 @@ export const dashboardUI = {
             legend: {
               position: "bottom",
               labels: {
-                color: getComputedStyle(document.documentElement).getPropertyValue("--text-muted").trim(),
-                boxWidth: 10
+                color: getComputedStyle(document.documentElement)
+                  .getPropertyValue("--text-muted")
+                  .trim(),
+                boxWidth: 10,
               },
             },
           },
