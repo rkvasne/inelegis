@@ -21,6 +21,12 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 - **Inteligência de Filtragem**:
   - Barra de filtros dinâmica no log de auditoria (por Lei, Veredicto e busca textual por Artigo/Crime).
   - Contador de registros encontrados em tempo real.
+- **Otimização de Performance (Server-side Grouping)**:
+  - Migração da lógica do gráfico "Top 5 Leis" para uma View SQL no Supabase (`analytics_top_leis`).
+  - Redução drástica de latência e consumo de banda ao processar agrupamentos no banco de dados.
+- **Centralização Jurídica (Clean Code)**:
+  - Criação do utilitário `ArtigoFormatter.formatLegalDevice` para padronização de citações em todo o sistema.
+  - Refatoração do dashboard para eliminação de lógica duplicada e uso de CSS variables via JavaScript helper.
 - **Visual Analytics**:
   - Novo gráfico "Top 5 Leis" para identificação de tendências de consulta.
   - Aprimoramento estético dos gráficos com degradês lineares e animações de entrada (Staggered Animations).
