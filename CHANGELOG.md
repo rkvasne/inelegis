@@ -11,7 +11,12 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
 
-## [0.3.11] - 12/02/2026
+## [0.3.11] - 13/02/2026
+
+### 🛡️ Blindagem de Governança (Novo)
+
+- **Git Armor (Husky)**: Implementação de pre-commit hooks que impedem a entrada de código sem validação de tema (Theme Linter), build (scripts/build.js) e integridade do Hub (verify).
+- **Zeladoria Automatizada**: Integração de `npm run format` e `npm run check` no fluxo de commit para garantir dívida técnica zero no repositório.
 
 ### 📊 Dashboard Administrativo (Novo)
 
