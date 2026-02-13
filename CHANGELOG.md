@@ -17,7 +17,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 - **Portal de Auditoria (`/admin`)**: Implementação de interface administrativa "oculta" para monitoramento técnico e jurídico.
 - **Visual Compliance**: Design system baseado em Glassmorphism e Dark Mode premium.
-- **Gráficos de Inteligência (Chart.js)**: 
+- **Gráficos de Inteligência (Chart.js)**:
   - Timeline de consultas com média móvel.
   - Distribuição de veredictos (Doughnut Chart).
 - **Log de Auditoria Profissional**: Tabela detalhada com visualização de fundamentação jurídica atômica (Artigo, Parágrafo, Inciso).
