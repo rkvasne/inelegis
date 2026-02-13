@@ -4,14 +4,17 @@
   --primary-hover: #4f46e5;
   --secondary: #ec4899;
   --bg-main: #0f172a;
+  --bg-gradient-start: #1e1b4b;
   --bg-card: rgba(30, 41, 59, 0.7);
   --border-color: rgba(255, 255, 255, 0.1);
   --text-main: #f8fafc;
   --text-muted: #94a3b8;
+  --text-white: #ffffff;
   --success: #22c55e;
   --danger: #ef4444;
   --warning: #f59e0b;
   --glass: rgba(255, 255, 255, 0.03);
+  --shadow-primary: rgba(99, 102, 241, 0.4);
 }
 
 body {
@@ -21,7 +24,7 @@ body {
     system-ui,
     -apple-system,
     sans-serif;
-  background: radial-gradient(circle at top right, #1e1b4b, #0f172a);
+  background: radial-gradient(circle at top right, var(--bg-gradient-start), var(--bg-main));
   color: var(--text-main);
   min-height: 100vh;
   overflow-x: hidden;
@@ -98,12 +101,12 @@ body {
 
 .btn-primary {
   background: linear-gradient(135deg, var(--primary), var(--secondary));
-  color: white;
+  color: var(--text-white);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+  box-shadow: 0 4px 12px var(--shadow-primary);
 }
 
 input {
@@ -112,7 +115,7 @@ input {
   border: 1px solid var(--border-color);
   padding: 0.75rem 1rem;
   border-radius: 0.5rem;
-  color: white;
+  color: var(--text-white);
   margin-bottom: 1.25rem;
   box-sizing: border-box;
 }
