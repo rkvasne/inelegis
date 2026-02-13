@@ -20,7 +20,7 @@ export const authService = {
    */
   async logout() {
     const { error } = await window.supabase.auth.signOut();
-    window.location.href = "index.html";
+    window.location.href = "./index.html";
     return { error };
   },
 
