@@ -13,6 +13,17 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ## [0.3.11] - 12/02/2026
 
+### 📊 Dashboard Administrativo (Novo)
+
+- **Portal de Auditoria (`/admin`)**: Implementação de interface administrativa "oculta" para monitoramento técnico e jurídico.
+- **Visual Compliance**: Design system baseado em Glassmorphism e Dark Mode premium.
+- **Gráficos de Inteligência (Chart.js)**: 
+  - Timeline de consultas com média móvel.
+  - Distribuição de veredictos (Doughnut Chart).
+- **Log de Auditoria Profissional**: Tabela detalhada com visualização de fundamentação jurídica atômica (Artigo, Parágrafo, Inciso).
+- **Monitor de Disponibilidade**: Indicador visual pulsante sincronizado com o sistema de Keepalive.
+- **Segurança Robusta (RLS)**: Proteção de dados sensíveis permitindo acesso apenas a usuários administrativos via Supabase Auth.
+
 ### 📡 Monitoramento & Uptime (Keepalive)
 
 - **Hub Keepalive Pattern**: Implementação completa do sistema de monitoramento para reduzir o risco de suspensão do Supabase por inatividade.

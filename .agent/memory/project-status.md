@@ -49,7 +49,8 @@
 **Log de Governança/Sessão:**
 
 - 01-11/02/2026: Consolidação de infraestrutura, Auditoria Detalhada, Sanitização e Padronização v0.5.5.
-- 12/02/2026: Implementação completa do **Hub Keepalive Pattern**, reorganização de variáveis `.env`, sincronização final de documentação técnica e correção de integridade de links (Doc Audit). Projeto 100% CONFORME.
+- 12/02/2026: Implementação completa do **Hub Keepalive Pattern**, reorganização de variáveis `.env`, sincronização final de documentação técnica e correção de integridade de links (Doc Audit).
+- 12/02/2026: Implementação do **Dashboard Administrativo v1** (/admin) com visual Glassmorphism, integração com **Chart.js** (Timeline e Distribuição) e proteção via **RLS (Row Level Security)** no Supabase. Projeto 100% CONFORME.
 - 13/02/2026: **Supabase Structure Bridge v2** no Inelegis: adapter simplificado para `--outDir` (sem pós-movimentação de arquivos), injeção explícita de `.env.local/.env` no processo filho para blindar contexto do satélite e atualização de documentação (`CHANGELOG` + `supabase/structure/README.md`).
 
 ---

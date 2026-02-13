@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Auditoria - Inelegis</title>
+    <link rel="stylesheet" href="../styles/admin.css">
+    <link rel="icon" href="../favicon.ico">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chart-container {
+            max-height: 300px;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div style="margin-bottom: 3rem;">
+                <img src="../favicon.ico" alt="Inelegis" width="40" style="vertical-align: middle;">
+                <span
+                    style="font-size: 1.25rem; font-weight: 700; margin-left: 0.5rem; color: var(--text-main);">Auditoria</span>
+            </div>
+
+            <nav>
+                <div
+                    style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1rem; margin-bottom: 1rem;">
+                    Menu</div>
+                <a href="#" class="btn"
+                    style="width: 100%; justify-content: flex-start; background: rgba(255, 255, 255, 0.05);">
+                    📉 Visão Geral
+                </a>
+                <a href="../index.html" class="btn"
+                    style="width: 100%; justify-content: flex-start; margin-top: 0.5rem; color: var(--text-muted);">
+                    🏠 Voltar ao Site
+                </a>
+            </nav>
+
+            <div style="position: absolute; bottom: 2rem; left: 2rem; right: 2rem;">
+                <button id="logoutBtn" class="btn"
+                    style="width: 100%; color: var(--danger); justify-content: center; background: rgba(239, 68, 68, 0.05); border: 1px solid rgba(239, 68, 68, 0.2);">
+                    Encerrar Sessão
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <div>
+                    <h1 style="margin: 0; font-size: 1.75rem;">Status de Inteligência</h1>
+                    <p style="color: var(--text-muted); margin: 0.25rem 0 0 0;">Análise em tempo real do ecossistema
+                        Inelegis</p>
+                </div>
+                <div class="glass-panel"
+                    style="padding: 0.5rem 1rem; display: flex; align-items: center; gap: 0.75rem;">
+                    <div class="pulse-indicator"></div>
+                    <span id="uptimeStatus" style="font-size: 0.875rem;">Keepalive: Ativo</span>
+                </div>
+            </header>
+
+            <div class="stats-grid">
+                <div class="stat-card glass-panel">
+                    <div style="color: var(--text-muted); font-size: 0.875rem;">Total de Consultas</div>
+                    <div id="totalSearches" style="font-size: 2rem; font-weight: 700; margin-top: 0.5rem;">--</div>
+                    <div style="color: var(--success); font-size: 0.75rem; margin-top: 0.5rem;">Sincronizado com
+                        Supabase</div>
+                </div>
+                <div class="stat-card glass-panel">
+                    <div style="color: var(--text-muted); font-size: 0.875rem;">Veredictos Inelegíveis</div>
+                    <div id="inelegiveisCount"
+                        style="font-size: 2rem; font-weight: 700; margin-top: 0.5rem; color: var(--danger);">--</div>
+                </div>
+                <div class="stat-card glass-panel">
+                    <div style="color: var(--text-muted); font-size: 0.875rem;">Veredictos Elegíveis</div>
+                    <div id="elegiveisCount"
+                        style="font-size: 2rem; font-weight: 700; margin-top: 0.5rem; color: var(--success);">--</div>
+                </div>
+            </div>
+
+            <div class="stats-grid" style="grid-template-columns: 2fr 1fr;">
+                <div class="glass-panel" style="padding: 1.5rem;">
+                    <h3 style="margin: 0;">Timeline de Auditoria</h3>
+                    <div class="chart-container">
+                        <canvas id="timelineChart"></canvas>
+                    </div>
+                </div>
+                <div class="glass-panel" style="padding: 1.5rem;">
+                    <h3 style="margin: 0;">Resumo Jurídico</h3>
+                    <div class="chart-container">
+                        <canvas id="distributionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-panel data-table-container">
+                <div
+                    style="padding: 1.5rem; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+                    <h3 style="margin: 0;">Log de Auditoria Detalhado</h3>
+                    <span style="color: var(--text-muted); font-size: 0.875rem;">Últimas 50 consultas</span>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table id="auditTable">
+                        <thead>
+                            <tr>
+                                <th>Timestamp</th>
+                                <th>Dispositivo Legal</th>
+                                <th>Veredicto</th>
+                                <th>Ação/Causa</th>
+                                <th>Detalhes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Preenchido via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modais e Overlays -->
+    <div id="loadingOverlay"
+        style="position: fixed; inset: 0; background: var(--bg-main); display: flex; align-items: center; justify-content: center; z-index: 9999;">
+        <div style="text-align: center;">
+            <div class="pulse-indicator" style="width: 40px; height: 40px;"></div>
+            <p style="margin-top: 1rem; color: var(--text-muted);">Sincronizando com o Hub...</p>
+        </div>
+    </div>
+
+    <script src="../assets/js/supabase-config.js"></script>
+    <script src="../assets/js/admin/supabase-admin-init.js"></script>
+    <script type="module">
+        import { authService } from '../assets/js/admin/auth-service.js';
+        import { dashboardUI } from '../assets/js/admin/dashboard-ui.js';
+
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        const logoutBtn = document.getElementById('logoutBtn');
+
+        // Middleware de autenticação
+        window.addEventListener('DOMContentLoaded', async () => {
+            if (!(await authService.isAuthenticated())) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            try {
+                await dashboardUI.init();
+                loadingOverlay.style.opacity = '0';
+                setTimeout(() => loadingOverlay.style.display = 'none', 300);
+            } catch (err) {
+                console.error('Erro ao inicializar dashboard:', err);
+                alert('Falha ao carregar dados do Supabase. Verifique a conexão.');
+            }
+        });
+
+        logoutBtn.addEventListener('click', async () => {
+            if (confirm('Deseja encerrar a sessão administrativa?')) {
+                await authService.logout();
+            }
+        });
+    </script>
+</body>
+
+</html>
