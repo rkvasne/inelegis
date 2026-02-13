@@ -11,6 +11,23 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
 
+## [0.3.12] - 13/02/2026
+
+### 📊 Dashboard Administrativo (Refinamento)
+
+- **Detailed Audit Modal**: Substituição do `alert()` por um Modal Premium customizado.
+  - Visualização completa da fundamentação jurídica.
+  - Exibição de exceções citadas, observações e metadados técnicos (ID, Timestamp).
+- **Inteligência de Filtragem**:
+  - Barra de filtros dinâmica no log de auditoria (por Lei, Veredicto e busca textual por Artigo/Crime).
+  - Contador de registros encontrados em tempo real.
+- **Visual Analytics**:
+  - Novo gráfico "Top 5 Leis" para identificação de tendências de consulta.
+  - Aprimoramento estético dos gráficos com degradês lineares e animações de entrada (Staggered Animations).
+- **Higiene Visual (Glass) e UX**:
+  - Implementação de bordas luminosas nos badges e painéis de vidro.
+  - Otimização de micro-transições e scrollbars customizadas para o painel administrativo.
+
 ## [0.3.11] - 13/02/2026
 
 ### 🛡️ Blindagem de Governança (Novo)

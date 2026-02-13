@@ -5,19 +5,60 @@
 
 export const dashboardUI = {
   async init() {
+    this.allLogs = [];
     await Promise.all([
       this.loadKPIs(),
       this.loadCharts(),
       this.loadAuditLog(),
       this.loadUptime(),
     ]);
+
+    this.setupEventListeners();
+  },
+
+  setupEventListeners() {
+    const filterLei = document.getElementById("filterLei");
+    const filterResultado = document.getElementById("filterResultado");
+    const searchArtigo = document.getElementById("searchArtigo");
+    const closeModal = document.getElementById("closeModal");
+    const modalOverlay = document.getElementById("detailsModal");
+
+    const applyFilters = () => {
+      const lei = filterLei.value;
+      const res = filterResultado.value;
+      const term = searchArtigo.value.toLowerCase();
+
+      const filtered = this.allLogs.filter((log) => {
+        const matchLei = !lei || log.lei === lei;
+        const matchRes = !res || log.resultado === res;
+        const matchArt =
+          !term ||
+          log.artigo?.toLowerCase().includes(term) ||
+          log.tipo_crime?.toLowerCase().includes(term);
+        return matchLei && matchRes && matchArt;
+      });
+
+      this.renderLogTable(filtered);
+    };
+
+    filterLei.addEventListener("change", applyFilters);
+    filterResultado.addEventListener("change", applyFilters);
+    searchArtigo.addEventListener("input", applyFilters);
+
+    closeModal.addEventListener("click", () => {
+      modalOverlay.classList.remove("active");
+    });
+
+    modalOverlay.addEventListener("click", (e) => {
+      if (e.target === modalOverlay) modalOverlay.classList.remove("active");
+    });
   },
 
   /**
    * Carrega os indicadores principais (KPIs)
    */
   async loadKPIs() {
-    const { data, error } = await window.supabase.rpc("get_dashboard_stats");
+    const { data } = await window.supabase.rpc("get_dashboard_stats");
 
     if (data && data.length > 0) {
       const stats = data[0];
@@ -34,6 +75,27 @@ export const dashboardUI = {
    * Carrega e inicializa os gráficos do Chart.js
    */
   async loadCharts() {
+    const chartColors = {
+      primary: getComputedStyle(document.documentElement)
+        .getPropertyValue("--primary")
+        .trim(),
+      success: getComputedStyle(document.documentElement)
+        .getPropertyValue("--success")
+        .trim(),
+      danger: getComputedStyle(document.documentElement)
+        .getPropertyValue("--danger")
+        .trim(),
+      warning: getComputedStyle(document.documentElement)
+        .getPropertyValue("--warning")
+        .trim(),
+      muted: getComputedStyle(document.documentElement)
+        .getPropertyValue("--text-muted")
+        .trim(),
+      glass: getComputedStyle(document.documentElement)
+        .getPropertyValue("--glass")
+        .trim(),
+    };
+
     // 1. Timeline Chart
     const { data: timelineData } = await window.supabase
       .from("analytics_timeline")
@@ -52,14 +114,12 @@ export const dashboardUI = {
             {
               label: "Consultas",
               data: values,
-              borderColor: getComputedStyle(document.documentElement)
-                .getPropertyValue("--primary")
-                .trim(),
-              backgroundColor: getComputedStyle(document.documentElement)
-                .getPropertyValue("--glass")
-                .trim(),
+              borderColor: chartColors.primary,
+              backgroundColor: "rgba(99, 102, 241, 0.1)",
               fill: true,
               tension: 0.4,
+              pointRadius: 4,
+              pointBackgroundColor: chartColors.primary,
             },
           ],
         },
@@ -71,18 +131,55 @@ export const dashboardUI = {
             y: { display: false },
             x: {
               grid: { display: false },
-              ticks: {
-                color: getComputedStyle(document.documentElement)
-                  .getPropertyValue("--text-muted")
-                  .trim(),
-              },
+              ticks: { color: chartColors.muted },
             },
           },
         },
       });
     }
 
-    // 2. Distribution Chart
+    // 2. Top 5 Laws Chart (Client-side grouping for v0.3.12)
+    const { data: logData } = await window.supabase
+      .from("historico_consultas")
+      .select("lei");
+    if (logData) {
+      const lawCounts = logData.reduce((acc, curr) => {
+        acc[curr.lei] = (acc[curr.lei] || 0) + 1;
+        return acc;
+      }, {});
+
+      const sortedLaws = Object.entries(lawCounts)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 5);
+
+      new Chart(document.getElementById("lawsChart"), {
+        type: "bar",
+        data: {
+          labels: sortedLaws.map((l) => l[0].substring(0, 10) + "..."),
+          datasets: [
+            {
+              data: sortedLaws.map((l) => l[1]),
+              backgroundColor: chartColors.primary,
+              borderRadius: 5,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            y: { display: false },
+            x: {
+              grid: { display: false },
+              ticks: { color: chartColors.muted },
+            },
+          },
+        },
+      });
+    }
+
+    // 3. Distribution Chart
     const { data: distData } = await window.supabase
       .from("analytics_result_distribution")
       .select("*");
@@ -98,20 +195,13 @@ export const dashboardUI = {
             {
               data: values,
               backgroundColor: [
-                getComputedStyle(document.documentElement)
-                  .getPropertyValue("--success")
-                  .trim(),
-                getComputedStyle(document.documentElement)
-                  .getPropertyValue("--danger")
-                  .trim(),
-                getComputedStyle(document.documentElement)
-                  .getPropertyValue("--warning")
-                  .trim(),
-                getComputedStyle(document.documentElement)
-                  .getPropertyValue("--primary")
-                  .trim(),
+                chartColors.success,
+                chartColors.danger,
+                chartColors.warning,
+                chartColors.primary,
               ],
               borderWidth: 0,
+              hoverOffset: 4,
             },
           ],
         },
@@ -121,14 +211,10 @@ export const dashboardUI = {
           plugins: {
             legend: {
               position: "bottom",
-              labels: {
-                color: getComputedStyle(document.documentElement)
-                  .getPropertyValue("--text-muted")
-                  .trim(),
-                boxWidth: 10,
-              },
+              labels: { color: chartColors.muted, boxWidth: 10, padding: 15 },
             },
           },
+          cutout: "70%",
         },
       });
     }
@@ -138,48 +224,107 @@ export const dashboardUI = {
    * Carrega o log de auditoria detalhado
    */
   async loadAuditLog() {
-    const { data, error } = await window.supabase
+    const { data } = await window.supabase
       .from("historico_consultas")
       .select("*")
       .order("timestamp", { ascending: false })
-      .limit(50);
-
-    const tbody = document.querySelector("#auditTable tbody");
-    tbody.innerHTML = "";
+      .limit(100);
 
     if (data) {
-      data.forEach((log) => {
-        const tr = document.createElement("tr");
-        const badgeClass =
-          log.resultado === "inelegivel"
-            ? "badge-danger"
-            : log.resultado === "elegivel"
-              ? "badge-success"
-              : "badge-warning";
-
-        tr.innerHTML = `
-                    <td style="font-size: 0.75rem; color: var(--text-muted);">
-                        ${new Date(log.timestamp).toLocaleString("pt-BR")}
-                    </td>
-                    <td style="font-weight: 500;">
-                        ${log.lei} - Art. ${log.artigo}
-                    </td>
-                    <td>
-                        <span class="badge ${badgeClass}">${log.resultado}</span>
-                    </td>
-                    <td style="font-size: 0.875rem;">
-                        ${log.tipo_crime || "Busca Manual"}
-                    </td>
-                    <td>
-                        <button class="btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem; background: var(--glass);" 
-                                onclick="alert('${log.motivo_detalhado || "Sem detalhes técnicos"}')">
-                            🔍 Ver Fundamentação
-                        </button>
-                    </td>
-                `;
-        tbody.appendChild(tr);
-      });
+      this.allLogs = data;
+      this.populateLeiFilter(data);
+      this.renderLogTable(data);
     }
+  },
+
+  populateLeiFilter(logs) {
+    const filterLei = document.getElementById("filterLei");
+    const uniqueLeis = [...new Set(logs.map((l) => l.lei))].sort();
+
+    uniqueLeis.forEach((lei) => {
+      const opt = document.createElement("option");
+      opt.value = lei;
+      opt.textContent = lei;
+      filterLei.appendChild(opt);
+    });
+  },
+
+  renderLogTable(logs) {
+    const tbody = document.querySelector("#auditTable tbody");
+    document.getElementById("logCount").textContent =
+      `${logs.length} registros encontrados`;
+    tbody.innerHTML = "";
+
+    logs.forEach((log, index) => {
+      const tr = document.createElement("tr");
+      tr.className = "stagger-in";
+      tr.style.animationDelay = `${index * 0.05}s`;
+
+      const badgeClass =
+        log.resultado === "inelegivel"
+          ? "badge-danger"
+          : log.resultado === "elegivel"
+            ? "badge-success"
+            : "badge-warning";
+
+      // Formatação concatenada do dispositivo
+      const device = `Art. ${log.artigo}${log.paragrafo ? `, § ${log.paragrafo}` : ""}${log.inciso ? `, inc. ${log.inciso}` : ""}${log.alinea ? `, al. ${log.alinea}` : ""}`;
+
+      tr.innerHTML = `
+                <td style="font-size: 0.75rem; color: var(--text-muted);">
+                    ${new Date(log.timestamp).toLocaleString("pt-BR")}
+                </td>
+                <td style="font-weight: 500;">
+                    <div style="font-size: 0.7rem; opacity: 0.6;">${log.lei}</div>
+                    ${device}
+                </td>
+                <td>
+                    <span class="badge ${badgeClass}">${log.resultado}</span>
+                </td>
+                <td style="font-size: 0.875rem;">
+                    ${log.tipo_crime || "Busca Manual"}
+                </td>
+                <td>
+                    <button class="btn show-details" style="padding: 0.25rem 0.5rem; font-size: 0.75rem; background: var(--glass);" data-id="${log.id}">
+                        🔍 Ver Fundamentação
+                    </button>
+                </td>
+            `;
+
+      tr.querySelector(".show-details").onclick = () =>
+        this.showModalDetails(log);
+      tbody.appendChild(tr);
+    });
+  },
+
+  showModalDetails(log) {
+    const modal = document.getElementById("detailsModal");
+    const device = `Art. ${log.artigo}${log.paragrafo ? `, § ${log.paragrafo}` : ""}${log.inciso ? `, inc. ${log.inciso}` : ""}${log.alinea ? `, al. ${log.alinea}` : ""}`;
+
+    document.getElementById("modalLegal").textContent =
+      `${log.lei} - ${device}`;
+    document.getElementById("modalVerdict").innerHTML =
+      `<span class="badge ${log.resultado === "inelegivel" ? "badge-danger" : log.resultado === "elegivel" ? "badge-success" : "badge-warning"}">${log.resultado}</span>`;
+    document.getElementById("modalCrime").textContent =
+      log.tipo_crime || "Não especificado";
+    document.getElementById("modalReason").textContent =
+      log.motivo_detalhado || "Sem detalhes da fundamentação jurídica.";
+    document.getElementById("modalObs").textContent =
+      log.observacoes || "Nenhuma observação cadastrada.";
+    document.getElementById("modalTimestamp").textContent = new Date(
+      log.timestamp,
+    ).toLocaleString("pt-BR");
+    document.getElementById("modalId").textContent = `ID: ${log.id}`;
+
+    if (log.excecoes_citadas) {
+      document.getElementById("modalExcecoesGroup").style.display = "block";
+      document.getElementById("modalExcecoes").textContent =
+        log.excecoes_citadas;
+    } else {
+      document.getElementById("modalExcecoesGroup").style.display = "none";
+    }
+
+    modal.classList.add("active");
   },
 
   /**
@@ -201,7 +346,7 @@ export const dashboardUI = {
         statusEl.textContent = `Keepalive: Online (${diffMin}m atrás)`;
         statusEl.parentElement.style.color = "var(--success)";
       } else {
-        statusEl.textContent = `Keepalive: Atencao (${diffMin}m atrás)`;
+        statusEl.textContent = `Keepalive: Atenção (${diffMin}m atrás)`;
         statusEl.parentElement.style.color = "var(--warning)";
       }
     }

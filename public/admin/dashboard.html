@@ -80,11 +80,17 @@
                 </div>
             </div>
 
-            <div class="stats-grid" style="grid-template-columns: 2fr 1fr;">
+            <div class="stats-grid" style="grid-template-columns: 1fr 1fr 1fr;">
                 <div class="glass-panel" style="padding: 1.5rem;">
                     <h3 style="margin: 0;">Timeline de Auditoria</h3>
                     <div class="chart-container">
                         <canvas id="timelineChart"></canvas>
+                    </div>
+                </div>
+                <div class="glass-panel" style="padding: 1.5rem;">
+                    <h3 style="margin: 0;">Top 5 Leis</h3>
+                    <div class="chart-container">
+                        <canvas id="lawsChart"></canvas>
                     </div>
                 </div>
                 <div class="glass-panel" style="padding: 1.5rem;">
@@ -99,7 +105,33 @@
                 <div
                     style="padding: 1.5rem; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
                     <h3 style="margin: 0;">Log de Auditoria Detalhado</h3>
-                    <span style="color: var(--text-muted); font-size: 0.875rem;">Últimas 50 consultas</span>
+                    <div style="display: flex; gap: 1rem; align-items: center;">
+                        <span id="logCount" style="color: var(--text-muted); font-size: 0.875rem;">Carregando...</span>
+                    </div>
+                </div>
+
+                <!-- Barra de Filtros -->
+                <div class="filter-bar">
+                    <div class="filter-group">
+                        <label style="font-size: 0.75rem; color: var(--text-muted);">Lei:</label>
+                        <select id="filterLei" class="filter-select">
+                            <option value="">Todas</option>
+                            <!-- Populado via JS -->
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label style="font-size: 0.75rem; color: var(--text-muted);">Veredicto:</label>
+                        <select id="filterResultado" class="filter-select">
+                            <option value="">Todos</option>
+                            <option value="inelegivel">Inelegível</option>
+                            <option value="elegivel">Elegível</option>
+                            <option value="nao_encontrado">Não Encontrado</option>
+                        </select>
+                    </div>
+                    <div class="filter-group" style="flex: 1;">
+                        <input type="text" id="searchArtigo" class="filter-input"
+                            placeholder="Buscar por artigo ou tipo de crime..." style="margin-bottom: 0;">
+                    </div>
                 </div>
                 <div style="overflow-x: auto;">
                     <table id="auditTable">
@@ -127,6 +159,63 @@
         <div style="text-align: center;">
             <div class="pulse-indicator" style="width: 40px; height: 40px;"></div>
             <p style="margin-top: 1rem; color: var(--text-muted);">Sincronizando com o Hub...</p>
+        </div>
+    </div>
+
+    <!-- Modal de Detalhes -->
+    <div id="detailsModal" class="modal-overlay">
+        <div class="modal-content glass-panel">
+            <button class="close-modal" id="closeModal">&times;</button>
+            <h2 id="modalTitle" style="margin-top: 0; color: var(--primary);">Detalhes da Consulta</h2>
+            <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 1.5rem 0;">
+
+            <div id="modalBody">
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase;">Dispositivo
+                        Legal</label>
+                    <div id="modalLegal" style="font-size: 1.25rem; font-weight: 600; margin-top: 0.25rem;">--</div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                    <div>
+                        <label
+                            style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase;">Resultado</label>
+                        <div id="modalVerdict" style="margin-top: 0.25rem;">--</div>
+                    </div>
+                    <div>
+                        <label style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase;">Tipo de
+                            Crime</label>
+                        <div id="modalCrime" style="margin-top: 0.25rem; font-weight: 500;">--</div>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 1.5rem;">
+                    <label
+                        style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase;">Fundamentação
+                        Jurídica</label>
+                    <div id="modalReason" class="glass-panel modal-reason-box">
+                        --</div>
+                </div>
+
+                <div id="modalExcecoesGroup" style="margin-bottom: 1.5rem; display: none;">
+                    <label style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase;">Exceções
+                        Citadas</label>
+                    <div id="modalExcecoes" style="margin-top: 0.25rem; font-style: italic; color: var(--warning);">--
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 1.5rem;">
+                    <label
+                        style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase;">Observações</label>
+                    <div id="modalObs" style="margin-top: 0.25rem; font-size: 0.875rem;">--</div>
+                </div>
+
+                <div
+                    style="padding-top: 1rem; border-top: 1px solid var(--border-color); font-size: 0.7rem; color: var(--text-muted); display: flex; justify-content: space-between;">
+                    <span id="modalTimestamp">--</span>
+                    <span id="modalId">ID: --</span>
+                </div>
+            </div>
         </div>
     </div>
 
