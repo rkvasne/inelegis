@@ -49,7 +49,7 @@
 - 01-11/02/2026: Consolidação de infraestrutura, Auditoria Detalhada, Sanitização e Padronização v0.5.5.
 - 12/02/2026: Implementação completa do **Hub Keepalive Pattern**, reorganização de variáveis `.env`, sincronização final de documentação técnica e correção de integridade de links (Doc Audit).
 - 12/02/2026: Implementação do **Dashboard Administrativo v1** (/admin) com visual Glassmorphism, integração com **Chart.js** (Timeline e Distribuição) e proteção via **RLS (Row Level Security)** no Supabase. Projeto 100% CONFORME.
-- 13/02/2026: **Blindagem de Governança**: Implementação de Husky pre-commit hooks, correção de CSP para CDNs, limpeza de cores hardcoded (Theme Linter Compliance) e atualização final de documentação técnica. Projeto 100% CONFORME.
+- 13/02/2026: **Blindagem de Governança**: Implementação de Husky pre-commit hooks, correção de CSP para CDNs, limpeza de cores hardcoded (Theme Linter Compliance) e atualização final de documentação técnica. Estabelecido padrão de **Arquivamento de Documentação Histórica** (`docs/archive/`) para manter arquivos abaixo do limite de 600 linhas. Projeto 100% CONFORME.
 
 ---
 
