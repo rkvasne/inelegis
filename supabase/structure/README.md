@@ -1,6 +1,6 @@
 # 🛰️ Supabase Structure (Hub Bridge)
 
-Este diretório contém os resultados da extração da estrutura do banco de dados (metadados). 
+Este diretório contém os resultados da extração da estrutura do banco de dados (metadados).
 
 ## 🎯 Padrão Ponteiro (Zero Duplicação)
 
@@ -24,6 +24,15 @@ npm run db:extract:diag
 npm run db:extract:tables
 ```
 
+## ⚙️ Evolução do Adapter (Bridge v2)
+
+O `adapter.js` foi simplificado para usar o padrão nativo do Hub:
+
+- Executa os scripts centralizados via `.agent/hub/system/supabase-structure/*`.
+- Define `--outDir supabase/structure` para gravação local dos `.json`.
+- Injeta variáveis de `.env.local`/`.env` do satélite no processo filho para reforçar isolamento de contexto.
+- Removeu a lógica antiga de mover arquivos após execução.
+
 ## 📂 Resultados
 
 Os arquivos `.json` gerados são salvos diretamente nesta pasta (`supabase/structure/`). Eles servem como documentação técnica da versão atual do seu banco no Supabase.
@@ -31,3 +40,8 @@ Os arquivos `.json` gerados são salvos diretamente nesta pasta (`supabase/struc
 ---
 
 _A lógica destes scripts é mantida no Hub Central para garantir que todos os projetos satélites usem as mesmas ferramentas e padrões de auditoria._
+
+---
+
+_Última atualização: 13/02/2026 • v0.3.11 (Hub v0.5.5)_
+_Editado via: Cursor | Modelo: gpt-5.3-codex | OS: Windows 11_

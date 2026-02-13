@@ -21,6 +21,15 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 - **Heartbeat do Cliente**: Sistema de ping nativo no navegador que atua enquanto a aplicação está em uso.
 - **Hardenização de Padrão**: Documentação técnica e prompt de governança atualizados para proibir o uso de métodos alternativos (GitHub/Vercel Cron) em favor da uniformidade do ecossistema.
 
+### 🛰️ Supabase Structure (Bridge Mode)
+
+- **Adapter simplificado (`supabase/structure/adapter.js`)**:
+  - Removida a lógica de mover/copiar `.json` após execução.
+  - Adotado `--outDir supabase/structure` para saída local nativa dos extractors do Hub.
+  - Injeção explícita de variáveis de `.env.local`/`.env` do satélite no processo filho para reforçar isolamento de contexto.
+- **Documentação local do Bridge**:
+  - Atualizado `supabase/structure/README.md` com seção "Bridge v2" e fluxo atual de execução.
+
 ### 🛡️ Auditoria & Governança (Zeladoria)
 
 - **Audit-Ready History**: Expansão do sistema de histórico para registrar o "veredicto" completo de cada consulta, incluindo parágrafos, incisos, alíneas e a fundamentação legal detalhada (motivo).
