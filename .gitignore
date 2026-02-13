@@ -12,6 +12,8 @@ build-report.json
 lint-report.json
 test-report.json
 *.log
+supabase/structure/*.json
+telemetry/
 
 # Backups e temporários
 *.backup
