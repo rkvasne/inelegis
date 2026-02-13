@@ -103,6 +103,13 @@ O projeto está configurado com **Git Hooks (Husky)** para impedir commits que v
 
 **Não é possível realizar commits se qualquer uma dessas validações falhar.** Caso precise pular em uma emergência técnica (não recomendado), use `--no-verify`.
 
+### 📦 Estratégia de Arquivamento (Maintenance)
+
+Para garantir a eficiência de leitura por agentes de IA e conformidade com o **Doc Auditor** (limite de 600 linhas):
+- **Changelog**: Ao atingir 550+ linhas, as versões mais antigas (Major/Minor anteriores) devem ser movidas para `docs/archive/CHANGELOG_VX.md`.
+- **Logs de Auditoria**: Documentos históricos de auditoria não operacional devem ser movidos para a pasta `docs/archive/` trimestralmente.
+- **SSoT**: O `CHANGELOG.md` principal deve sempre manter um link para os arquivos de arquivo para preservação da rastreabilidade.
+
 ---
 
 ## 🔒 Segurança
