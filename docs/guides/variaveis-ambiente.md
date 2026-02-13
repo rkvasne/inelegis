@@ -53,9 +53,11 @@ KEEPALIVE_ENVIRONMENT="prod"
 Variáveis que controlam as tarefas de "faxina" automática e retenção de dados históricos.
 
 #### `CRON_SECRET`
+
 Este é o "token da faxina". Ele protege o endpoint de manutenção (`/api/maintenance`) contra chamadas não autorizadas. Quando configurado um agendamento automático (Vercel Cron ou externo), este token deve ser enviado no cabeçalho de autorização.
 
 #### `HISTORY_RETENTION_DAYS`
+
 Define o limite de idade dos registros de histórico de consulta antes de serem deletados pelo script de manutenção (Padrão: 90 dias).
 
 ```env
@@ -68,6 +70,7 @@ HISTORY_RETENTION_DAYS=90
 ### 4. 🔐 Governança e Hub (Scripts)
 
 #### `HUB_ACCESS_TOKEN`
+
 O "crachá de acesso" ao Hub. Como o repositório **Solo Dev Hub Central** é privado, este token (GitHub GHP) garante que o Inelegis consiga ler scripts de validação, regras de agentes e geradores centralizados durante o desenvolvimento ou auditoria.
 
 ```env
