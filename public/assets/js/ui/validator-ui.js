@@ -63,6 +63,10 @@ export class ValidatorUI {
     debugLog("Inicialização COMPLETA");
   }
 
+  /**
+   * Configura o dropdown de leis e seus eventos
+   * @async
+   */
   async setupLeiSelect() {
     if (!this.leiSelect) {
       debugLog("ERRO: #leiSelect não encontrado no DOM!");
