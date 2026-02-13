@@ -29,6 +29,11 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 - **Higiene de Ambiente**: Padronização global dos arquivos `.env` entre Inelegis e Zappy seguindo o padrão Solo Dev Hub v0.5.5.
 - **Limpeza de Código**: Depreciação do módulo `analytics.js` legado em favor do sistema de Histórico e Keepalive nativo no Supabase.
 - **Padronização de Documentação**: Implementação do novo sistema híbrido de metadados do Solo Dev Hub v0.5.5 (Frontmatter estrutural + Assinatura técnica no rodapé) em toda a base de conhecimento.
+- **Estrutura do Banco de Dados (Supabase Structure)**: Integração do sistema de extração de metadados do Solo Dev Hub via **Bridge Mode**.
+  - **Logic-as-a-Service**: O projeto agora consome a lógica de extração centralizada no Hub, eliminando duplicação de scripts `.js` e `.sql`.
+  - **Satellite Adapter**: Implementação do `adapter.js` com suporte a injeção de contexto (`.env.local`), `--preserve-symlinks` e saída controlada via `--outDir`.
+  - **Snapshot de Auditoria**: Geração automatizada de JSONs modulares (`tables`, `functions`, `rls`, `triggers`) e consolidados para documentação técnica do banco.
+  - **Comando Mestre**: Adição do script `npm run db:extract` no `package.json` para zeladoria completa da estrutura em um único comando.
 
 ## [0.3.10] - 11/02/2026
 
