@@ -7,10 +7,15 @@ import { showToast } from "../utils/toast.js";
  */
 export class AnalyzerUI {
   constructor() {
+    /** @type {HTMLTextAreaElement} */
     this.textarea = document.getElementById("dispositivoText");
+    /** @type {HTMLButtonElement} */
     this.btnAnalisar = document.getElementById("btnAnalisarDispositivo");
+    /** @type {HTMLElement} */
     this.resultsContainer = document.getElementById("analyzer-results");
+    /** @type {HTMLElement} */
     this.tbody = document.getElementById("analyzer-tbody");
+    /** @type {HTMLElement} */
     this.statsText = document.getElementById("analyzer-stats");
   }
 
@@ -35,6 +40,7 @@ export class AnalyzerUI {
 
   /**
    * Executa a análise do texto fornecido
+   * @async
    */
   async analisar() {
     const texto = this.textarea.value.trim();
@@ -118,7 +124,9 @@ export class AnalyzerUI {
   }
 
   /**
-   * Valida um item individualmente e atualiza a linha
+   * Valida um item individualmente e atualiza a linha correspondente na tabela
+   * @async
+   * @param {Object} item - Item extraído do texto
    */
   async validarIndividual(item) {
     const result = await validatorService.verifyEligibility(
@@ -242,7 +250,8 @@ export class AnalyzerUI {
 
   /**
    * Extrai artigos e tenta identificar a lei correspondente de forma robusta.
-   * @param {string} texto
+   * @param {string} texto - Texto bruto do dispositivo da sentença
+   * @returns {Object[]} Lista de objetos com lei, artigo e contexto
    */
   extrairArtigosCompletos(texto) {
     const resultados = [];

@@ -61,6 +61,8 @@ const ArtigoFormatter = {
 
   /**
    * Processa artigo completo em componentes estruturados
+   * @param {string} artigo - Texto do artigo para processar
+   * @returns {Object} Objeto com partes estruturadas e versão formatada
    */
   processar(artigo) {
     const artigoLimpo = String(artigo || "").trim();
@@ -100,7 +102,9 @@ const ArtigoFormatter = {
   },
 
   /**
-   * Processa uma parte do artigo
+   * Processa uma parte individual do artigo (número, parágrafo, inciso, alínea)
+   * @param {string} parte - Fragmento do texto legal
+   * @returns {Object} Estrutura com campos separados
    */
   processarParte(parte) {
     const resultado = {
@@ -157,7 +161,9 @@ const ArtigoFormatter = {
   },
 
   /**
-   * Formata artigo completo para exibição
+   * Formata artigo completo para exibição legível
+   * @param {Object} artigo - Objeto estruturado do artigo
+   * @returns {string} Texto formatado
    */
   formatarCompleto(artigo) {
     let formatado = artigo.artigo;
@@ -186,7 +192,9 @@ const ArtigoFormatter = {
   },
 
   /**
-   * Formata parte do artigo
+   * Formata parte do artigo (helper para formatarCompleto)
+   * @param {Object} parte - Parte do dispositivo legal
+   * @returns {string} Texto formatado
    */
   formatarParte(parte) {
     let formatado = parte.artigo;
@@ -207,7 +215,9 @@ const ArtigoFormatter = {
   },
 
   /**
-   * Extrai números de artigos de uma string
+   * Extrai números de artigos de uma string de texto livre
+   * @param {string} texto - Conteúdo para análise
+   * @returns {string[]} Lista de números de artigos encontrados
    */
   extrairArtigos(texto) {
     if (!texto) return [];
@@ -238,6 +248,8 @@ const ArtigoFormatter = {
   /**
    * Formata o dispositivo legal completo (Art, Parag, Inc, Al) de forma amigável
    * Centralizado para uso em toda a aplicação (Admin/UI)
+   * @param {Object} log - Objeto com campos artigo, paragrafo, inciso, alinea
+   * @returns {string} Texto amigável (ex: Art. 121, § 3º, inc. I)
    */
   formatLegalDevice(log) {
     if (!log) return "";
