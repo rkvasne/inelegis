@@ -94,6 +94,35 @@ export const supabaseClient = {
   },
 
   /**
+   * Atualiza ou insere dados (upsert)
+   * @param {string} table - Nome da tabela
+   * @param {object|array} data - Dados para upsert
+   * @returns {Promise<object>}
+   */
+  async upsert(table, data) {
+    if (!this.isConfigured()) throw new Error("Supabase Client not configured");
+    const url = `${this.url}/rest/v1/${table}`;
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        apikey: this.anonKey,
+        Authorization: `Bearer ${this.anonKey}`,
+        "Content-Type": "application/json",
+        Prefer: "resolution=merge-duplicates,return=representation",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      const error = await response.text();
+      throw new Error(`Supabase upsert error: ${error}`);
+    }
+
+    return response.json();
+  },
+
+  /**
    * Chama uma função RPC (stored procedure)
    * @param {string} functionName - Nome da função
    * @param {object} params - Parâmetros da função

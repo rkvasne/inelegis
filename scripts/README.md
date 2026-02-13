@@ -1,7 +1,8 @@
 ---
-docStatus: active
-docScope: scripts
-lastReviewed: 14/01/2026
+category: operations
+scope: scripts
+status: active
+version: 0.3.11
 ---
 
 # 📜 Scripts do Projeto
@@ -32,3 +33,8 @@ node scripts/extrair_normalizado_xml.js
 ```
 
 Todos os scripts assumem Windows 11 como ambiente padrão.
+
+---
+
+_Última atualização: 12/02/2026 • v0.3.11 (Hub v0.5.5)_
+_Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_

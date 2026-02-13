@@ -574,7 +574,7 @@
     <script src="/assets/js/components/components.js?v=0.3.7" defer></script>
     <script src="/assets/js/components/theme-manager.js?v=0.3.7" defer></script>
     <script src="/assets/js/ui/ui-enhancements.js?v=0.3.7" defer></script>
-    <script src="/assets/js/services/analytics.js?v=0.3.7" defer></script>
+
 
     <!-- Scripts Principais -->
     <!-- Supabase Config (deve carregar PRIMEIRO) -->
@@ -599,9 +599,6 @@
         window.addEventListener('DOMContentLoaded', () => {
             if (window.Components) {
                 Components.init('consulta');
-            }
-            if (window.Analytics) {
-                Analytics.init();
             }
         });
     </script>

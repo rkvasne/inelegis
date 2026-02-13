@@ -11,7 +11,6 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!verificarAcessoConsulta()) return;
 
   // 2. Inicializar Serviços Core
-  if (typeof Analytics !== "undefined") Analytics.init();
   if (typeof SearchHistory !== "undefined") SearchHistory.init();
   if (keepaliveService) keepaliveService.init();
 

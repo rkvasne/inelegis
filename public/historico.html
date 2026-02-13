@@ -31,7 +31,8 @@
         </div>
     </section>
 
-    <main class="container container--wide history-page" style="padding-top: var(--space-6); padding-bottom: var(--space-12);" aria-labelledby="history-title">
+    <main class="container container--wide history-page"
+        style="padding-top: var(--space-6); padding-bottom: var(--space-12);" aria-labelledby="history-title">
         <!-- Breadcrumbs -->
         <nav class="breadcrumbs" aria-label="Navegação">
             <a href="index.html" class="breadcrumb-link">Início</a>
@@ -55,13 +56,15 @@
                     <div class="history-hero-actions">
                         <button id="historyRefreshBtn" class="btn btn-secondary" type="button">
                             <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9M20 20v-5h-.581m-15.357-2a8.003 8.003 0 0015.938 2" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9M20 20v-5h-.581m-15.357-2a8.003 8.003 0 0015.938 2" />
                             </svg>
                             Sincronizar
                         </button>
                         <button id="historyExportBtn" class="btn btn-primary" type="button">
                             <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M12 12v9m0 0l-3-3m3 3l3-3M12 3v9m0 0l3-3m-3 3L9 9" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M12 12v9m0 0l-3-3m3 3l3-3M12 3v9m0 0l3-3m-3 3L9 9" />
                             </svg>
                             Exportar TXT
                         </button>
@@ -105,11 +108,13 @@
             <div class="card-header history-table-header">
                 <div>
                     <h2>Registros Detalhados</h2>
-                    <p class="text-sm text-neutral-600">Pesquise por lei, artigo ou resultado. Dados ordenados por data mais recente.</p>
+                    <p class="text-sm text-neutral-600">Pesquise por lei, artigo ou resultado. Dados ordenados por data
+                        mais recente.</p>
                 </div>
                 <div class="history-table-actions">
                     <label for="historyFilterInput" class="sr-only">Filtrar histórico</label>
-                    <input id="historyFilterInput" type="search" class="form-input" placeholder="Filtrar por lei, artigo ou resultado..." autocomplete="off">
+                    <input id="historyFilterInput" type="search" class="form-input"
+                        placeholder="Filtrar por lei, artigo ou resultado..." autocomplete="off">
                 </div>
             </div>
             <div class="card-body">
@@ -140,7 +145,7 @@
     <script src="/assets/js/services/storage.js?v=0.3.7" defer></script>
     <script src="/assets/js/services/search-history.js?v=0.3.7" defer></script>
     <script src="/assets/js/ui/history-page.js?v=0.3.7" defer></script>
-    <script src="/assets/js/services/analytics.js?v=0.3.7" defer></script>
+
 
     <script>
         window.addEventListener('DOMContentLoaded', () => {
@@ -149,9 +154,6 @@
             }
             if (window.HistoryPage) {
                 HistoryPage.init();
-            }
-            if (window.Analytics) {
-                Analytics.init();
             }
         });
     </script>

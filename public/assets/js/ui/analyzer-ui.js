@@ -192,17 +192,15 @@ export class AnalyzerUI {
         artigo: item.artigo,
         resultado: result.resultado.toLowerCase(),
         tipoCrime: result.tipo_crime,
-        observacoes: `[Análise Automática] ${result.observacoes || result.motivo || ""}`,
-      });
-    }
-
-    if (typeof Analytics !== "undefined") {
-      Analytics.trackSearch({
-        lei: item.lei,
-        artigo: item.artigo,
-        resultado: result.resultado.toLowerCase(),
-        temExcecao: result.resultado === "ELEGIVEL",
-        context: "sentence_analyzer",
+        observacoes: `[Análise Automática] ${result.observacoes || ""}`,
+        motivoDetalhado: result.motivo,
+        excecoesCitadas: result.excecoes_detalhes,
+        metadata: {
+          context: item.contexto,
+          source: "analyzer_ui",
+          originalText: this.textarea.value.substring(0, 500), // Amostra do texto original
+          timestamp: new Date().toISOString(),
+        },
       });
     }
   }

@@ -38,17 +38,16 @@ Para correções emergenciais ou in-line:
 
 - [ ] **Sincronização**: Verificar se houve nova publicação da "Tabela de Inelegibilidade" pelo TRE-SP ou TSE.
 - [ ] **Integridade**: Executar `npm run check` para garantir que o build e os testes de formatação estão OK.
-- [ ] **Analytics**: Revisar a View `analytics_top_artigos` no Supabase para identificar termos de busca não encontrados (indicativo de dados faltantes).
+- [ ] **Analytics/Audit**: Revisar a tabela `historico_consultas` no Supabase para identificar termos de busca não encontrados ou erros de fundamentação.
+- [ ] **Monitoramento**: Verificar no Dashboard do Supabase o status do **Hub Keepalive Pattern** (tabela `keepalive`).
 - [ ] **Segurança**: Auditar as chaves API e permissões RLS no painel do Supabase.
 
 ---
 
-## ⚡ Rotina de Limpeza
+O histórico de consultas é persistido na tabela `historico_consultas`. A limpeza e retenção de dados são protegidas pelo `CRON_SECRET`.
 
-O histórico de consultas é persistido na tabela `historico_consultas`. A limpeza e retenção de dados agora podem ser configuradas via **Supabase Edge Functions** ou **PG Cron** diretamente no banco de dados.
-
-- **Retenção Padrão**: 90 dias.
-- **Configuração**: Ver variável `HISTORY_RETENTION_DAYS` no `.env.local`.
+- **Retenção Padrão**: 90 dias (configurável via `HISTORY_RETENTION_DAYS`).
+- **Monitoramento**: O sistema de **Keepalive** (padrão do Hub) garante que o banco permaneça ativo através de disparos externos do Cloudflare a cada 30 minutos.
 
 ---
 
@@ -59,4 +58,5 @@ O histórico de consultas é persistido na tabela `historico_consultas`. A limpe
 
 ---
 
-_Atualizado em: 03/02/2026_
+_Última atualização: 12/02/2026 • v0.3.11 (Hub v0.5.5)_
+_Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_

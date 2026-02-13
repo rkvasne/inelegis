@@ -1,7 +1,7 @@
 /**
  * Keepalive Service
  * Responsável por manter o banco de dados do Supabase ativo
- * @version 0.3.9 (Padrão Zappy v2)
+ * @version 0.3.9 (Hub Keepalive Pattern)
  */
 
 import supabaseClient from "./supabase-client.js";

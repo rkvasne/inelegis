@@ -1,9 +1,3 @@
----
-docStatus: active
-docScope: setup-guide
-lastReviewed: 02/02/2026
----
-
 # 🗄️ Setup Supabase
 
 > Configuração do banco de dados Supabase para o Inelegis.
@@ -46,14 +40,12 @@ SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6...
 
 1. Acesse **SQL Editor** no Supabase Dashboard
 2. Execute cada arquivo em ordem:
-   - `supabase/migrations/001_create_inelegibilidade.sql`
-   - `supabase/migrations/002_seed_normas.sql`
-   - `supabase/migrations/003_seed_artigos_inelegiveis.sql`
-   - `supabase/migrations/004_seed_artigos_excecoes.sql`
-   - `supabase/migrations/005_insert_leis_especiais.sql`
-   - `supabase/migrations/006_create_historico_consultas.sql`
-   - `supabase/migrations/007_create_analytics.sql`
-   - `supabase/migrations/008_insert_todos_artigos_tre.sql` (Carga massiva oficial)
+   - `supabase/migrations/20260115000000_remodelagem_completa.sql`
+   - `supabase/migrations/20260120000000_create_historico_consultas.sql`
+   - `supabase/migrations/20260121000000_tabela_oficial_completa.sql`
+   - `supabase/migrations/20260122000000_create_analytics.sql`
+   - `supabase/migrations/20260211164500_create_keepalive_system.sql`
+   - `supabase/migrations/20260211195000_enhance_audit_history.sql`
 
 #### Via CLI (Opcional)
 
@@ -91,8 +83,10 @@ Resultado esperado:
 | `normas`              | Leis e códigos (CP, CPM, LE, etc)    |
 | `artigos_inelegiveis` | Artigos que geram inelegibilidade    |
 | `artigos_excecoes`    | Exceções que removem inelegibilidade |
-| `historico_consultas` | Histórico de consultas dos usuários  |
-| `analytics_events`    | Eventos de analytics                 |
+| `historico_consultas` | Histórico de consultas dos usuários (Auditoria) |
+| `keepalive`           | Status de disponibilidade (Singleton)           |
+| `keepalive_events`    | Logs de eventos de heartbeat                    |
+| `analytics_events`    | Eventos de analytics (Decomissionado/Legado)    |
 
 ### Views (para Dashboard)
 
@@ -109,8 +103,8 @@ Resultado esperado:
 | --------------------------- | --------------------------------------- |
 | `verificar_elegibilidade()` | Verifica se artigo gera inelegibilidade |
 | `get_user_history()`        | Obtém histórico do usuário              |
-| `add_to_history()`          | Adiciona consulta ao histórico          |
-| `get_user_stats()`          | Estatísticas do usuário                 |
+| `add_to_history()`          | Adiciona consulta ao histórico (com fundamentação detalhada) |
+| `get_user_stats()`          | Estatísticas do usuário (Top Leis/Artigos)                 |
 | `get_dashboard_stats()`     | Estatísticas para dashboard             |
 
 ---
@@ -158,3 +152,8 @@ Verifique se a `anon key` está correta e se RLS das tabelas permite acesso.
 - [Supabase Docs](https://supabase.com/docs)
 - [Supabase CLI](https://supabase.com/docs/guides/local-development/cli/getting-started)
 - [Row Level Security](https://supabase.com/docs/guides/auth/row-level-security)
+
+---
+
+_Última atualização: 12/02/2026 • v0.3.11 (Hub v0.5.5)_
+_Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_

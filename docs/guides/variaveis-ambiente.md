@@ -1,6 +1,6 @@
 # 🔐 Variáveis de Ambiente
 
-Este documento descreve as variáveis necessárias para a operação do Inelegis com o Supabase.
+Este documento descreve as variáveis necessárias para a operação do Inelegis com o Supabase, organizadas por camadas de responsabilidade técnica.
 
 ---
 
@@ -13,11 +13,11 @@ Este documento descreve as variáveis necessárias para a operação do Inelegis
 
 ---
 
-## 🔑 Variáveis Principais
+## 🏗️ Camadas de Configuração
 
-### Supabase (Obrigatório)
+### 1. 🗄️ Supabase Core (Obrigatório)
 
-Diferente do Redis, o Supabase utiliza três chaves fundamentais:
+Variáveis fundamentais para a conexão do frontend e backend com o banco de dados.
 
 ```env
 # URL do Projeto (API Externa)
@@ -26,47 +26,71 @@ NEXT_PUBLIC_SUPABASE_URL="https://xxxxxxxx.supabase.co"
 # Chave Pública (Usada no frontend pelo SDK)
 NEXT_PUBLIC_SUPABASE_ANON_KEY="eyJhbGci..."
 
-# Chave Privada (APENAS para scripts de build/seed)
+# Chave Privada (APENAS para scripts de build/seed e rotas de servidor)
+# NUNCA exponha esta chave no frontend
 SUPABASE_SERVICE_ROLE_KEY="eyJhbGci..."
 ```
 
 ---
 
-## 🔑 Segurança e Analytics
+### 2. 🛰️ Monitoramento (Hub Keepalive Pattern)
 
-### ANALYTICS_ADMIN_TOKEN
-
-Token para acessar o dashboard de estatísticas e auditoria.
+Configurações para o sistema de "sinais de vida" que reduzem o risco de suspensão do projeto por inatividade.
 
 ```env
-ANALYTICS_ADMIN_TOKEN="seo_token_gerado_via_script"
+# Token de autenticação entre Pinger (Cloudflare) e Receptor (Supabase)
+KEEPALIVE_TOKEN="seu_token_de_heartbeat"
+
+# Identificação do projeto para telemetria
+KEEPALIVE_PROJECT_SLUG="inelegis"
+KEEPALIVE_ENVIRONMENT="prod"
 ```
 
-### CRON_SECRET
+---
 
-Token para proteger operações de manutenção programada (Limpeza de histórico).
+### 3. 🧹 Zeladoria (Manutenção e Limpeza)
+
+Variáveis que controlam as tarefas de "faxina" automática e retenção de dados históricos.
+
+#### `CRON_SECRET`
+Este é o "token da faxina". Ele protege o endpoint de manutenção (`/api/maintenance`) contra chamadas não autorizadas. Quando configurado um agendamento automático (Vercel Cron ou externo), este token deve ser enviado no cabeçalho de autorização.
+
+#### `HISTORY_RETENTION_DAYS`
+Define o limite de idade dos registros de histórico de consulta antes de serem deletados pelo script de manutenção (Padrão: 90 dias).
 
 ```env
-CRON_SECRET="token_para_jobs_de_limpeza"
+CRON_SECRET="token_para_vincular_o_disparo_automatico"
+HISTORY_RETENTION_DAYS=90
+```
+
+---
+
+### 4. 🔐 Governança e Hub (Scripts)
+
+#### `HUB_ACCESS_TOKEN`
+O "crachá de acesso" ao Hub. Como o repositório **Solo Dev Hub Central** é privado, este token (GitHub GHP) garante que o Inelegis consiga ler scripts de validação, regras de agentes e geradores centralizados durante o desenvolvimento ou auditoria.
+
+```env
+HUB_ACCESS_TOKEN="ghp_xxx"
 ```
 
 ---
 
 ## 🚀 Como Configurar
 
-1.  Crie o arquivo `.env.local`.
-2.  Preencha as variáveis do Supabase.
-3.  Execute `npm run supabase:config`.
-    - Este script injeta as variáveis de ambiente no arquivo `public/assets/js/supabase-config.js` para que o frontend possa ler em runtime.
+1.  Crie o arquivo `.env.local` na raiz.
+2.  Preencha as variáveis conforme sua infraestrutura.
+3.  Execute `npm run supabase:config` para injetar as chaves necessárias no frontend.
 
 ---
 
 ## 🔒 Boas Práticas
 
 - **NUNCA** commite o arquivo `.env.local`.
-- **NUNCA** use a `SERVICE_ROLE_KEY` em arquivos de frontend (dentro de `src/js`).
-- Utilize o Vercel Dashboard para configurar as variáveis em produção.
+- **NUNCA** use a `SERVICE_ROLE_KEY` em arquivos dentro da pasta `public/`.
+- Utilize o Dashboard do seu provedor de Hosting (ex: Vercel) para configurar as variáveis em produção.
 
 ---
 
-_Atualizado em: 03/02/2026_
+_Última atualização: 12/02/2026 • v0.3.11 (Hub v0.5.5)_
+_Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_

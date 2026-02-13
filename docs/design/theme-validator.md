@@ -1,14 +1,11 @@
 ---
-docStatus: active
-docScope: design
-lastReviewed: 14/01/2026
+category: design
+scope: theme-validator
+status: active
+version: 3.1.0
 ---
 
 # Theme Validator Pro v3.1.0
-
-**Versão:** 3.1.0  
-**Autor:** Inelegis  
-**Licença:** MIT
 
 ## Visão Geral
 
@@ -384,3 +381,8 @@ MIT License - Veja LICENSE para detalhes.
 
 - Issues: https://github.com/rkvasne/inelegis/issues
 - Docs: https://github.com/rkvasne/inelegis/blob/main/docs/
+
+---
+
+_Última atualização: 11/02/2026 • v0.3.11 (Hub v0.5.5)_
+_Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_
