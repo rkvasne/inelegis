@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Histórico de Consultas - Inelegis Admin</title>
+    <title>Histórico - Inelegis Admin</title>
     <link rel="stylesheet" href="../styles/admin.css">
     <link rel="icon" href="../favicon.ico">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -19,35 +19,32 @@
                     style="font-size: 1.25rem; font-weight: 700; margin-left: 0.5rem; color: var(--text-main);">Auditoria</span>
             </div>
 
-            <nav>
+            <nav style="flex: 1;">
                 <div
                     style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1rem; margin-bottom: 1rem;">
                     Menu</div>
-                <a href="/admin/dashboard.html" class="btn"
-                    style="width: 100%; justify-content: flex-start; color: var(--text-muted);">
+                <a href="/admin/dashboard.html" class="btn btn-ghost" style="width: 100%; justify-content: flex-start;">
                     📉 Visão Geral
                 </a>
-                <a href="/admin/historico.html" class="btn"
+                <a href="/admin/historico.html" class="btn btn-ghost"
                     style="width: 100%; justify-content: flex-start; margin-top: 0.5rem; background: var(--glass);">
                     📋 Histórico
                 </a>
-                <a href="/admin/analytics.html" class="btn"
-                    style="width: 100%; justify-content: flex-start; margin-top: 0.5rem; color: var(--text-muted);">
+                <a href="/admin/analytics.html" class="btn btn-ghost"
+                    style="width: 100%; justify-content: flex-start; margin-top: 0.5rem;">
                     📊 Analytics
                 </a>
-                <a href="/admin/sistema.html" class="btn"
-                    style="width: 100%; justify-content: flex-start; margin-top: 0.5rem; color: var(--text-muted);">
+                <a href="/admin/sistema.html" class="btn btn-ghost"
+                    style="width: 100%; justify-content: flex-start; margin-top: 0.5rem;">
                     ⚙️ Sistema
                 </a>
-                <a href="/" class="btn"
-                    style="width: 100%; justify-content: flex-start; margin-top: 0.5rem; color: var(--text-muted);">
+                <a href="/" class="btn btn-ghost" style="width: 100%; justify-content: flex-start; margin-top: 0.5rem;">
                     🏠 Voltar ao Site
                 </a>
             </nav>
 
-            <div style="position: absolute; bottom: 2rem; left: 2rem; right: 2rem;">
-                <button id="logoutBtn" class="btn"
-                    style="width: 100%; color: var(--danger); justify-content: center; background: rgba(239, 68, 68, 0.05); border: 1px solid rgba(239, 68, 68, 0.2);">
+            <div style="margin-top: auto; padding-top: 2rem;">
+                <button id="logoutBtn" class="btn btn-danger-outline" style="width: 100%;">
                     Encerrar Sessão
                 </button>
             </div>
@@ -56,17 +53,15 @@
         <main class="main-content">
             <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
                 <div>
-                    <h1 style="margin: 0; font-size: 1.75rem;">Histórico de Consultas</h1>
-                    <p style="color: var(--text-muted); margin: 0.25rem 0 0 0;">Registros detalhados de todas as
-                        consultas realizadas no sistema</p>
+                    <h1 style="margin: 0; font-size: 1.75rem; letter-spacing: -0.025em; font-weight: 800;">Histórico de
+                        Consultas</h1>
+                    <p style="color: var(--text-muted); margin: 0.25rem 0 0 0;">Auditoria completa de veredictos gerados
+                    </p>
                 </div>
-                <div style="display: flex; gap: 0.5rem;">
-                    <button id="refreshBtn" class="btn" style="font-size: 0.875rem;">
-                        🔄 Atualizar
-                    </button>
-                    <button id="exportBtn" class="btn" style="font-size: 0.875rem;">
-                        📥 Exportar TXT
-                    </button>
+                <div class="glass-panel"
+                    style="padding: 0.5rem 1rem; display: flex; align-items: center; gap: 0.75rem;">
+                    <div class="pulse-indicator"></div>
+                    <span id="uptimeStatus" style="font-size: 0.875rem;">Keepalive: Ativo</span>
                 </div>
             </header>
 
@@ -88,7 +83,7 @@
                 </div>
                 <div class="stat-card glass-panel">
                     <div style="color: var(--text-muted); font-size: 0.875rem;">Última Consulta</div>
-                    <div id="statUltima" style="font-size: 1rem; font-weight: 600; margin-top: 0.5rem;">--</div>
+                    <div id="statUltima" style="font-size: 1rem; font-weight: 600; margin-top: 1rem;">--</div>
                 </div>
             </div>
 
@@ -96,19 +91,25 @@
             <div class="glass-panel"
                 style="padding: 1rem 1.5rem; margin-bottom: 1.5rem; display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
                 <label style="font-size: 0.875rem; color: var(--text-muted);">Lei:
-                    <select id="filterLei" class="form-input" style="margin-left: 0.25rem; min-width: 120px;">
+                    <select id="filterLei" class="form-control" style="margin-left: 0.25rem; min-width: 120px;">
                         <option value="">Todas</option>
                     </select>
                 </label>
                 <label style="font-size: 0.875rem; color: var(--text-muted);">Veredicto:
-                    <select id="filterVeredicto" class="form-input" style="margin-left: 0.25rem; min-width: 120px;">
+                    <select id="filterVeredicto" class="form-control" style="margin-left: 0.25rem; min-width: 120px;">
                         <option value="">Todos</option>
-                        <option value="inelegivel">Inelegível</option>
                         <option value="elegivel">Elegível</option>
+                        <option value="inelegivel">Inelegível</option>
                     </select>
                 </label>
-                <input id="filterSearch" type="search" class="form-input"
-                    placeholder="Buscar por artigo ou tipo de crime..." style="flex: 1; min-width: 200px;">
+                <input id="filterSearch" type="search" class="form-control" placeholder="Buscar por artigo ou crime..."
+                    style="flex: 1; min-width: 200px;">
+                <button id="refreshBtn" class="btn btn-secondary" style="white-space: nowrap;">
+                    🔄 Atualizar
+                </button>
+                <button id="exportBtn" class="btn btn-ghost" style="white-space: nowrap;">
+                    📥 Exportar .txt
+                </button>
             </div>
 
             <!-- Table -->
@@ -116,7 +117,7 @@
                 <table class="data-table" id="historyTable">
                     <thead>
                         <tr>
-                            <th>Timestamp</th>
+                            <th>Horário</th>
                             <th>Dispositivo Legal</th>
                             <th>Veredicto</th>
                             <th>Ação/Causa</th>
@@ -126,7 +127,7 @@
                     <tbody id="historyTableBody">
                         <tr>
                             <td colspan="5" style="padding: 2rem; text-align: center; color: var(--text-muted);">
-                                Carregando...</td>
+                                Carregando histórico...</td>
                         </tr>
                     </tbody>
                 </table>
@@ -144,9 +145,6 @@
     <script type="module">
         import { authService } from '../assets/js/admin/auth-service.js?v=0.3.12';
 
-        /**
-         * Admin History Page - Loads data directly from Supabase
-         */
         const HistoryAdmin = (() => {
             let allData = [];
             let filteredData = [];
@@ -154,11 +152,12 @@
             async function init() {
                 bindEvents();
                 await loadData();
+                await loadUptime();
             }
 
             function bindEvents() {
                 document.getElementById('refreshBtn')?.addEventListener('click', loadData);
-                document.getElementById('exportBtn')?.addEventListener('click', exportData);
+                document.getElementById('exportBtn')?.addEventListener('click', exportTxt);
                 document.getElementById('filterLei')?.addEventListener('change', applyFilters);
                 document.getElementById('filterVeredicto')?.addEventListener('change', applyFilters);
                 document.getElementById('filterSearch')?.addEventListener('input', applyFilters);
@@ -186,6 +185,17 @@
                 }
             }
 
+            async function loadUptime() {
+                const { data } = await window.supabase.from("keepalive").select("*").limit(1);
+                const statusEl = document.getElementById("uptimeStatus");
+                if (data && data.length > 0) {
+                    const lastPing = new Date(data[0].last_ping_at);
+                    const now = new Date();
+                    const diffMin = Math.round((now - lastPing) / (1000 * 60));
+                    statusEl.textContent = `Keepalive: ${diffMin < 10 ? 'Online' : 'Atenção'} (${diffMin}m)`;
+                }
+            }
+
             function renderStats() {
                 const total = allData.length;
                 const inelegiveis = allData.filter(r => r.resultado === 'inelegivel').length;
@@ -203,9 +213,7 @@
             function populateLeiFilter() {
                 const select = document.getElementById('filterLei');
                 if (!select) return;
-
                 const leis = [...new Set(allData.map(r => r.lei).filter(Boolean))].sort();
-                // Keep first option "Todas"
                 select.innerHTML = '<option value="">Todas</option>';
                 leis.forEach(lei => {
                     const opt = document.createElement('option');
@@ -224,79 +232,54 @@
                     if (lei && r.lei !== lei) return false;
                     if (veredicto && r.resultado !== veredicto) return false;
                     if (search) {
-                        const searchable = [r.artigo, r.tipo_crime, r.observacoes, r.lei]
-                            .filter(Boolean).join(' ').toLowerCase();
+                        const searchable = [r.artigo, r.tipo_crime, r.observacoes, r.lei].filter(Boolean).join(' ').toLowerCase();
                         if (!searchable.includes(search)) return false;
                     }
                     return true;
                 });
-
                 renderTable();
             }
 
             function renderTable() {
                 const tbody = document.getElementById('historyTableBody');
                 const info = document.getElementById('paginationInfo');
-
                 if (!filteredData.length) {
                     tbody.innerHTML = `<tr><td colspan="5" style="padding: 2rem; text-align: center; color: var(--text-muted);">Nenhum registro encontrado.</td></tr>`;
                     if (info) info.textContent = `0 de ${allData.length} registros`;
                     return;
                 }
-
                 if (info) info.textContent = `Exibindo ${filteredData.length} de ${allData.length} registros`;
 
                 const fragment = document.createDocumentFragment();
                 filteredData.forEach(entry => {
                     const row = document.createElement('tr');
-                    row.style.borderBottom = '1px solid var(--border)';
 
-                    // Timestamp
                     const tdTime = document.createElement('td');
-                    tdTime.style.cssText = 'padding: 0.75rem 1.5rem; font-size: 0.875rem; color: var(--text-muted);';
-                    tdTime.textContent = entry.timestamp
-                        ? new Date(entry.timestamp).toLocaleString('pt-BR')
-                        : 'N/A';
+                    tdTime.style.color = 'var(--text-muted)';
+                    tdTime.textContent = entry.timestamp ? new Date(entry.timestamp).toLocaleString('pt-BR') : 'N/A';
 
-                    // Dispositivo Legal
                     const tdLei = document.createElement('td');
-                    tdLei.style.cssText = 'padding: 0.75rem 1.5rem;';
-                    const leiSmall = document.createElement('small');
-                    leiSmall.style.cssText = 'display: block; color: var(--text-muted); font-size: 0.75rem;';
-                    leiSmall.textContent = entry.lei || 'N/A';
-                    const artigoStrong = document.createElement('strong');
-                    artigoStrong.textContent = `Art. ${entry.artigo || 'N/A'}`;
-                    tdLei.appendChild(leiSmall);
-                    tdLei.appendChild(artigoStrong);
+                    tdLei.innerHTML = `<small style="display:block;color:var(--text-muted)">${entry.lei || 'N/A'}</small><strong>Art. ${entry.artigo || 'N/A'}</strong>`;
 
-                    // Veredicto
                     const tdVeredicto = document.createElement('td');
-                    tdVeredicto.style.cssText = 'padding: 0.75rem 1.5rem;';
                     const badge = document.createElement('span');
                     const isInelegivel = entry.resultado === 'inelegivel';
-                    badge.style.cssText = `padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-inverse, #fff); background: ${isInelegivel ? 'var(--danger)' : 'var(--success)'}`;
+                    badge.className = isInelegivel ? 'badge badge-danger' : 'badge badge-success';
                     badge.textContent = isInelegivel ? 'INELEGÍVEL' : 'ELEGÍVEL';
                     tdVeredicto.appendChild(badge);
 
-                    // Ação/Causa
                     const tdCrime = document.createElement('td');
-                    tdCrime.style.cssText = 'padding: 0.75rem 1.5rem; font-size: 0.875rem;';
                     tdCrime.textContent = entry.tipo_crime || 'N/A';
 
-                    // Detalhes
                     const tdDetails = document.createElement('td');
-                    tdDetails.style.cssText = 'padding: 0.75rem 1.5rem;';
                     if (entry.observacoes || entry.motivo_detalhado) {
                         const detailBtn = document.createElement('button');
-                        detailBtn.className = 'btn';
-                        detailBtn.style.cssText = 'font-size: 0.75rem; padding: 0.25rem 0.5rem;';
+                        detailBtn.className = 'btn btn-secondary';
                         detailBtn.textContent = '📄 Ver Fundamentação';
-                        detailBtn.addEventListener('click', () => {
-                            alert(`Fundamentação:\n\n${entry.motivo_detalhado || entry.observacoes || 'Sem detalhes adicionais.'}`);
-                        });
+                        detailBtn.onclick = () => alert(`Fundamentação:\n\n${entry.motivo_detalhado || entry.observacoes}`);
                         tdDetails.appendChild(detailBtn);
                     } else {
-                        tdDetails.innerHTML = '<span style="color: var(--text-muted); font-size: 0.75rem;">—</span>';
+                        tdDetails.innerHTML = '<span style="color:var(--text-muted)">—</span>';
                     }
 
                     row.appendChild(tdTime);
@@ -306,28 +289,25 @@
                     row.appendChild(tdDetails);
                     fragment.appendChild(row);
                 });
-
                 tbody.innerHTML = '';
                 tbody.appendChild(fragment);
             }
 
-            function exportData() {
-                if (!filteredData.length) {
-                    alert('Nenhum dado para exportar.');
-                    return;
-                }
-
-                const lines = filteredData.map(e =>
-                    `${new Date(e.timestamp).toLocaleString('pt-BR')} | ${e.lei || 'N/A'} Art. ${e.artigo || 'N/A'} | ${(e.resultado || '').toUpperCase()} | ${e.tipo_crime || 'N/A'}`
-                );
-
-                const text = `HISTÓRICO DE CONSULTAS - INELEGIS\nExportado em: ${new Date().toLocaleString('pt-BR')}\nTotal: ${filteredData.length} registros\n${'='.repeat(60)}\n\n${lines.join('\n')}`;
-
-                const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+            function exportTxt() {
+                if (!filteredData.length) return alert('Nenhum dado para exportar.');
+                let content = "HISTÓRICO DE CONSULTAS - INELEGIS\n" + "=".repeat(40) + "\n\n";
+                filteredData.forEach(r => {
+                    content += `[${new Date(r.timestamp).toLocaleString()}] ${r.resultado.toUpperCase()}\n`;
+                    content += `Lei: ${r.lei} | Artigo: ${r.artigo}\n`;
+                    content += `Crime: ${r.tipo_crime}\n`;
+                    content += `Fundamentação: ${r.motivo_detalhado || r.observacoes || 'N/A'}\n`;
+                    content += "-".repeat(40) + "\n";
+                });
+                const blob = new Blob([content], { type: 'text/plain' });
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = `historico-inelegis-${new Date().toISOString().split('T')[0]}.txt`;
+                a.download = `historico_inelegis_${new Date().toISOString().split('T')[0]}.txt`;
                 a.click();
                 URL.revokeObjectURL(url);
             }
@@ -335,21 +315,14 @@
             return { init };
         })();
 
-        // Auth middleware & Initialization
         (async () => {
             if (!(await authService.isAuthenticated())) {
                 window.location.href = '/admin/index.html';
                 return;
             }
-
-            // Logout
             document.getElementById('logoutBtn')?.addEventListener('click', async () => {
-                if (confirm('Deseja encerrar a sessão administrativa?')) {
-                    await authService.logout();
-                }
+                if (confirm('Deseja encerrar a sessão?')) await authService.logout();
             });
-
-            // Init history page
             await HistoryAdmin.init();
         })();
     </script>

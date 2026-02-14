@@ -289,7 +289,7 @@ export const dashboardUI = {
                     ${log.tipo_crime || "Busca Manual"}
                 </td>
                 <td>
-                    <button class="btn show-details" style="padding: 0.25rem 0.5rem; font-size: 0.75rem; background: var(--glass);" data-id="${log.id}">
+                    <button class="btn btn-secondary show-details" data-id="${log.id}">
                         🔍 Ver Fundamentação
                     </button>
                 </td>
