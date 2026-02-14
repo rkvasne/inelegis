@@ -7,7 +7,6 @@
 
 import { supabaseClient } from "./supabase-client.js";
 import { InputValidator } from "../utils/input-validator.js";
-import { debugLog } from "../utils/core-utils.js";
 
 export class ValidatorService {
   constructor() {
@@ -28,7 +27,7 @@ export class ValidatorService {
     }
 
     this.initialized = true;
-    debugLog("Inicializado com Supabase");
+    console.log("[ValidatorService] Inicializado com Supabase");
     return true;
   }
 
@@ -49,14 +48,14 @@ export class ValidatorService {
       }
 
       // Consulta adaptada para a nova tabela unificada usando o cliente leve customizado
-      debugLog("Buscando leis no Supabase...");
+      console.log("[DEBUG] Buscando leis no Supabase...");
       let data;
 
       try {
         data = await supabaseClient.from("crimes_inelegibilidade", {
           select: "codigo,lei",
         });
-        debugLog("Dados recebidos:", data?.length || 0, "registros");
+        console.log("[DEBUG] Dados recebidos:", data?.length || 0, "registros");
       } catch (err) {
         console.error("[DEBUG] Erro fatal ao buscar leis:", err);
         return [];
@@ -83,11 +82,11 @@ export class ValidatorService {
       const result = Array.from(uniqueLaws.values()).sort((a, b) =>
         a.codigo.localeCompare(b.codigo),
       );
-      debugLog("ValidatorService.getLaws result:", result);
+      console.log("[DEBUG] ValidatorService.getLaws result:", result);
       this.normasCache = result;
 
-      debugLog(
-        "Carregadas",
+      console.log(
+        "[ValidatorService] Carregadas",
         this.normasCache.length,
         "normas do Supabase (Schema V2)",
       );

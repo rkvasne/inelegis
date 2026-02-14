@@ -18,11 +18,18 @@ export const dashboardUI = {
 
   /**
    * Helper para obter variáveis do tema CSS
+   * @param {string} name - Nome da variável CSS (ex: --primary)
+   * @returns {string} Valor da cor processado
    */
   getThemeColor(name) {
-    return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    return getComputedStyle(document.documentElement)
+      .getPropertyValue(name)
+      .trim();
   },
 
+  /**
+   * Configura os ouvintes de eventos para filtros e modais
+   */
   setupEventListeners() {
     const filterLei = document.getElementById("filterLei");
     const filterResultado = document.getElementById("filterResultado");
@@ -134,17 +141,23 @@ export const dashboardUI = {
     }
 
     // 2. Top 5 Laws Chart (Optimized via View in v0.3.12)
-    const { data: topLawsData } = await window.supabase.from("analytics_top_leis").select("*");
+    const { data: topLawsData } = await window.supabase
+      .from("analytics_top_leis")
+      .select("*");
     if (topLawsData) {
       new Chart(document.getElementById("lawsChart"), {
         type: "bar",
         data: {
-          labels: topLawsData.map(l => (l.lei?.substring(0, 10) || "Desconhecido") + "..."),
-          datasets: [{
-            data: topLawsData.map(l => l.count),
-            backgroundColor: chartColors.primary,
-            borderRadius: 5,
-          }]
+          labels: topLawsData.map(
+            (l) => (l.lei?.substring(0, 10) || "Desconhecido") + "...",
+          ),
+          datasets: [
+            {
+              data: topLawsData.map((l) => l.count),
+              backgroundColor: chartColors.primary,
+              borderRadius: 5,
+            },
+          ],
         },
         options: {
           responsive: true,
@@ -152,9 +165,12 @@ export const dashboardUI = {
           plugins: { legend: { display: false } },
           scales: {
             y: { display: false },
-            x: { grid: { display: false }, ticks: { color: chartColors.muted } }
-          }
-        }
+            x: {
+              grid: { display: false },
+              ticks: { color: chartColors.muted },
+            },
+          },
+        },
       });
     }
 
@@ -216,6 +232,10 @@ export const dashboardUI = {
     }
   },
 
+  /**
+   * Preenche o dropdown de filtro por Lei
+   * @param {Array} logs - Dados brutos do log
+   */
   populateLeiFilter(logs) {
     const filterLei = document.getElementById("filterLei");
     const uniqueLeis = [...new Set(logs.map((l) => l.lei))].sort();
@@ -228,6 +248,10 @@ export const dashboardUI = {
     });
   },
 
+  /**
+   * Renderiza os dados filtrados na tabela de auditoria
+   * @param {Array} logs - Lista de registros para exibir
+   */
   renderLogTable(logs) {
     const tbody = document.querySelector("#auditTable tbody");
     document.getElementById("logCount").textContent =
@@ -247,7 +271,8 @@ export const dashboardUI = {
             : "badge-warning";
 
       // Formatação centralizada via utilitário
-      const device = window.ArtigoFormatter?.formatLegalDevice(log) || `Art. ${log.artigo}`;
+      const device =
+        window.ArtigoFormatter?.formatLegalDevice(log) || `Art. ${log.artigo}`;
 
       tr.innerHTML = `
                 <td style="font-size: 0.75rem; color: var(--text-muted);">
@@ -276,11 +301,17 @@ export const dashboardUI = {
     });
   },
 
+  /**
+   * Exibe o modal com detalhes da fundamentação jurídica
+   * @param {Object} log - Registro selecionado
+   */
   showModalDetails(log) {
     const modal = document.getElementById("detailsModal");
-    const device = window.ArtigoFormatter?.formatLegalDevice(log) || `Art. ${log.artigo}`;
+    const device =
+      window.ArtigoFormatter?.formatLegalDevice(log) || `Art. ${log.artigo}`;
 
-    document.getElementById("modalLegal").textContent = `${log.lei} - ${device}`;
+    document.getElementById("modalLegal").textContent =
+      `${log.lei} - ${device}`;
     document.getElementById("modalVerdict").innerHTML =
       `<span class="badge ${log.resultado === "inelegivel" ? "badge-danger" : log.resultado === "elegivel" ? "badge-success" : "badge-warning"}">${log.resultado}</span>`;
     document.getElementById("modalCrime").textContent =
@@ -309,24 +340,30 @@ export const dashboardUI = {
    * Carrega o status do sistema (Keepalive)
    */
   async loadUptime() {
-    const { data } = await window.supabase
+    const { data, error } = await window.supabase
       .from("keepalive")
       .select("*")
-      .single();
+      .maybeSingle();
 
-    if (data) {
-      const statusEl = document.getElementById("uptimeStatus");
-      const lastPing = new Date(data.last_ping_at);
-      const now = new Date();
-      const diffMin = Math.round((now - lastPing) / (1000 * 60));
+    const statusEl = document.getElementById("uptimeStatus");
+    if (!statusEl) return;
 
-      if (diffMin < 10) {
-        statusEl.textContent = `Keepalive: Online (${diffMin}m atrás)`;
-        statusEl.parentElement.style.color = "var(--success)";
-      } else {
-        statusEl.textContent = `Keepalive: Atenção (${diffMin}m atrás)`;
-        statusEl.parentElement.style.color = "var(--warning)";
-      }
+    if (error || !data) {
+      statusEl.textContent = "Keepalive: Sem dados";
+      statusEl.parentElement.style.color = "var(--text-muted)";
+      return;
+    }
+
+    const lastPing = new Date(data.last_ping_at);
+    const now = new Date();
+    const diffMin = Math.round((now - lastPing) / (1000 * 60));
+
+    if (diffMin < 10) {
+      statusEl.textContent = `Keepalive: Online (${diffMin}m atrás)`;
+      statusEl.parentElement.style.color = "var(--success)";
+    } else {
+      statusEl.textContent = `Keepalive: Atenção (${diffMin}m atrás)`;
+      statusEl.parentElement.style.color = "var(--warning)";
     }
   },
 };
