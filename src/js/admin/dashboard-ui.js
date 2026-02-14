@@ -343,18 +343,19 @@ export const dashboardUI = {
     const { data, error } = await window.supabase
       .from("keepalive")
       .select("*")
-      .maybeSingle();
+      .limit(1);
 
     const statusEl = document.getElementById("uptimeStatus");
     if (!statusEl) return;
 
-    if (error || !data) {
+    if (error || !data || data.length === 0) {
       statusEl.textContent = "Keepalive: Sem dados";
       statusEl.parentElement.style.color = "var(--text-muted)";
       return;
     }
 
-    const lastPing = new Date(data.last_ping_at);
+    const record = data[0];
+    const lastPing = new Date(record.last_ping_at);
     const now = new Date();
     const diffMin = Math.round((now - lastPing) / (1000 * 60));
 
