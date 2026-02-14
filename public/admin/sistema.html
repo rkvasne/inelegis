@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log do Sistema - Inelegis Admin</title>
+    <link rel="stylesheet" href="../styles/admin.css">
+    <link rel="icon" href="../favicon.ico">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div style="margin-bottom: 3rem;">
+                <img src="../favicon.ico" alt="Inelegis" width="40" style="vertical-align: middle;">
+                <span
+                    style="font-size: 1.25rem; font-weight: 700; margin-left: 0.5rem; color: var(--text-main);">Auditoria</span>
+            </div>
+
+            <nav>
+                <div
+                    style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1rem; margin-bottom: 1rem;">
+                    Menu</div>
+                <a href="/admin/dashboard.html" class="btn"
+                    style="width: 100%; justify-content: flex-start; color: var(--text-muted);">
+                    📉 Visão Geral
+                </a>
+                <a href="/admin/historico.html" class="btn"
+                    style="width: 100%; justify-content: flex-start; margin-top: 0.5rem; color: var(--text-muted);">
+                    📋 Histórico
+                </a>
+                <a href="/admin/analytics.html" class="btn"
+                    style="width: 100%; justify-content: flex-start; margin-top: 0.5rem; color: var(--text-muted);">
+                    📊 Analytics
+                </a>
+                <a href="/admin/sistema.html" class="btn"
+                    style="width: 100%; justify-content: flex-start; margin-top: 0.5rem; background: var(--glass);">
+                    ⚙️ Sistema
+                </a>
+                <a href="/" class="btn"
+                    style="width: 100%; justify-content: flex-start; margin-top: 0.5rem; color: var(--text-muted);">
+                    🏠 Voltar ao Site
+                </a>
+            </nav>
+
+            <div style="position: absolute; bottom: 2rem; left: 2rem; right: 2rem;">
+                <button id="logoutBtn" class="btn"
+                    style="width: 100%; color: var(--danger); justify-content: center; background: rgba(239, 68, 68, 0.05); border: 1px solid rgba(239, 68, 68, 0.2);">
+                    Encerrar Sessão
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <div>
+                    <h1 style="margin: 0; font-size: 1.75rem; letter-spacing: -0.025em; font-weight: 800;">Log do
+                        Sistema</h1>
+                    <p style="color: var(--text-muted); margin: 0.25rem 0 0 0;">Relatório de pulso e saúde do
+                        ecossistema Inelegis</p>
+                </div>
+                <div class="glass-panel"
+                    style="padding: 0.5rem 1rem; display: flex; align-items: center; gap: 0.75rem;">
+                    <div class="pulse-indicator"></div>
+                    <span id="uptimeStatus" style="font-size: 0.875rem;">Keepalive: Verificando...</span>
+                </div>
+            </header>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid" id="statsGrid">
+                <div class="stat-card glass-panel">
+                    <div style="color: var(--text-muted); font-size: 0.875rem;">Sinais de Vida (Heartbeats)</div>
+                    <div id="statTotal" style="font-size: 2rem; font-weight: 700; margin-top: 0.5rem;">--</div>
+                </div>
+                <div class="stat-card glass-panel">
+                    <div style="color: var(--text-muted); font-size: 0.875rem;">Latência Supabase (ms)</div>
+                    <div id="statLatency"
+                        style="font-size: 2rem; font-weight: 700; margin-top: 0.5rem; color: var(--success);">--</div>
+                </div>
+                <div class="stat-card glass-panel">
+                    <div style="color: var(--text-muted); font-size: 0.875rem;">Disponibilidade (24h)</div>
+                    <div id="statUptime"
+                        style="font-size: 2rem; font-weight: 700; margin-top: 0.5rem; color: var(--primary);">100%</div>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="glass-panel"
+                style="padding: 1rem 1.5rem; margin-bottom: 1.5rem; display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+                <label style="font-size: 0.875rem; color: var(--text-muted);">Status:
+                    <select id="filterStatus" class="form-input" style="margin-left: 0.25rem; min-width: 120px;">
+                        <option value="">Todos</option>
+                        <option value="ok">Ok</option>
+                        <option value="error">Erro</option>
+                    </select>
+                </label>
+                <div style="flex: 1;"></div>
+                <button id="refreshBtn" class="btn" style="white-space: nowrap;">
+                    🔄 Atualizar Logs
+                </button>
+            </div>
+
+            <!-- Table -->
+            <div class="glass-panel" style="padding: 0; overflow: hidden;">
+                <table class="data-table" id="systemTable">
+                    <thead>
+                        <tr>
+                            <th>Horário</th>
+                            <th>Status</th>
+                            <th>Origem (Source)</th>
+                            <th>Latência</th>
+                            <th>Informações Adicionais</th>
+                        </tr>
+                    </thead>
+                    <tbody id="systemTableBody">
+                        <tr>
+                            <td colspan="5" style="padding: 2rem; text-align: center; color: var(--text-muted);">
+                                Carregando dados do sistema...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="paginationInfo"
+                style="margin-top: 1rem; text-align: center; font-size: 0.875rem; color: var(--text-muted);"></div>
+        </main>
+    </div>
+
+    <!-- Config -->
+    <script src="../assets/js/supabase-config.js"></script>
+    <script src="../assets/js/admin/supabase-admin-init.js"></script>
+
+    <script type="module">
+        import { authService } from '../assets/js/admin/auth-service.js?v=0.3.12';
+
+        /**
+         * System Monitor Page
+         */
+        const SystemAdmin = (() => {
+            let allData = [];
+
+            async function init() {
+                bindEvents();
+                await loadData();
+                await loadUptime();
+            }
+
+            function bindEvents() {
+                document.getElementById('refreshBtn')?.addEventListener('click', loadData);
+                document.getElementById('filterStatus')?.addEventListener('change', renderTable);
+            }
+
+            async function loadData() {
+                try {
+                    const { data, error } = await window.supabase
+                        .from('keepalive_events')
+                        .select('*')
+                        .order('ping_at', { ascending: false })
+                        .limit(200);
+
+                    if (error) throw error;
+
+                    allData = data || [];
+                    renderStats();
+                    renderTable();
+                } catch (err) {
+                    console.error('Erro ao carregar sistema:', err);
+                    document.getElementById('systemTableBody').innerHTML =
+                        `<tr><td colspan="5" style="padding: 2rem; text-align: center; color: var(--danger);">Erro ao carregar dados: ${err.message}</td></tr>`;
+                }
+            }
+
+            async function loadUptime() {
+                const { data } = await window.supabase.from("keepalive").select("*").limit(1);
+                const statusEl = document.getElementById("uptimeStatus");
+                if (data && data.length > 0) {
+                    const lastPing = new Date(data[0].last_ping_at);
+                    const now = new Date();
+                    const diffMin = Math.round((now - lastPing) / (1000 * 60));
+                    statusEl.textContent = `Keepalive: ${diffMin < 10 ? 'Online' : 'Atenção'} (${diffMin}m)`;
+                } else {
+                    statusEl.textContent = `Keepalive: Sem registros`;
+                }
+            }
+
+            function renderStats() {
+                const total = allData.length;
+                const times = allData.map(r => r.latency_ms).filter(t => t > 0);
+                const avgLatency = times.length > 0 ? Math.round(times.reduce((a, b) => a + b, 0) / times.length) : '--';
+
+                document.getElementById('statTotal').textContent = total;
+                document.getElementById('statLatency').textContent = avgLatency;
+            }
+
+            function renderTable() {
+                const tbody = document.getElementById('systemTableBody');
+                const info = document.getElementById('paginationInfo');
+                const filter = document.getElementById('filterStatus').value;
+
+                let filtered = allData;
+                if (filter) {
+                    filtered = allData.filter(r => r.status === filter);
+                }
+
+                if (!filtered.length) {
+                    tbody.innerHTML = `<tr><td colspan="5" style="padding: 2rem; text-align: center; color: var(--text-muted);">Nenhum sinal detectado.</td></tr>`;
+                    if (info) info.textContent = `0 sinais registrados`;
+                    return;
+                }
+
+                if (info) info.textContent = `Exibindo ${filtered.length} sinais (Logs das últimas 24h-48h)`;
+
+                const fragment = document.createDocumentFragment();
+                filtered.forEach(entry => {
+                    const row = document.createElement('tr');
+
+                    // Time
+                    const tdTime = document.createElement('td');
+                    tdTime.style.cssText = 'font-size: 0.75rem; color: var(--text-muted);';
+                    tdTime.textContent = new Date(entry.ping_at).toLocaleString('pt-BR');
+
+                    // Status
+                    const tdStatus = document.createElement('td');
+                    const badge = document.createElement('span');
+                    badge.style.cssText = 'padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase;';
+
+                    if (entry.status === 'ok') {
+                        badge.style.background = 'rgba(34, 197, 94, 0.2)';
+                        badge.style.color = 'var(--success)';
+                        badge.textContent = 'ONLINE';
+                    } else {
+                        badge.style.background = 'rgba(239, 68, 68, 0.2)';
+                        badge.style.color = 'var(--danger)';
+                        badge.textContent = 'ERRO';
+                    }
+                    tdStatus.appendChild(badge);
+
+                    // Source
+                    const tdSource = document.createElement('td');
+                    tdSource.style.fontSize = '0.875rem';
+                    tdSource.textContent = entry.source || 'service-worker';
+
+                    // Latency
+                    const tdLat = document.createElement('td');
+                    tdLat.style.fontSize = '0.875rem';
+                    tdLat.innerHTML = entry.latency_ms ? `<code>${entry.latency_ms}ms</code>` : '—';
+
+                    // Info
+                    const tdInfo = document.createElement('td');
+                    tdInfo.style.fontSize = '0.75rem';
+                    tdInfo.style.color = 'var(--text-muted)';
+                    tdInfo.textContent = entry.error || (entry.metadata ? JSON.stringify(entry.metadata) : 'Batimento cardíaco regular');
+
+                    row.appendChild(tdTime);
+                    row.appendChild(tdStatus);
+                    row.appendChild(tdSource);
+                    row.appendChild(tdLat);
+                    row.appendChild(tdInfo);
+                    fragment.appendChild(row);
+                });
+
+                tbody.innerHTML = '';
+                tbody.appendChild(fragment);
+            }
+
+            return { init };
+        })();
+
+        // Auth & Init
+        (async () => {
+            if (!(await authService.isAuthenticated())) {
+                window.location.href = '/admin/index.html';
+                return;
+            }
+
+            document.getElementById('logoutBtn')?.addEventListener('click', async () => {
+                if (confirm('Deseja encerrar a sessão?')) await authService.logout();
+            });
+
+            await SystemAdmin.init();
+        })();
+    </script>
+</body>
+
+</html>
