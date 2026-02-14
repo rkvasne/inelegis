@@ -129,25 +129,27 @@
         </main>
     </div>
 
-    <!-- Auth & Config -->
+    <!-- Config -->
     <script src="../assets/js/supabase-config.js"></script>
     <script src="../assets/js/admin/supabase-admin-init.js"></script>
-    <script src="../assets/js/admin/auth-service.js"></script>
 
-    <script>
+    <script type="module">
+        import { authService } from '../assets/js/admin/auth-service.js';
+
         // Auth middleware
-        window.addEventListener('DOMContentLoaded', async () => {
-            if (!(await authService.isAuthenticated())) {
-                window.location.href = '/admin/index.html';
-                return;
-            }
-
+        if (!(await authService.isAuthenticated())) {
+            window.location.href = '/admin/index.html';
+        } else {
             // Logout
-            document.getElementById('logoutBtn')?.addEventListener('click', () => authService.logout());
+            document.getElementById('logoutBtn')?.addEventListener('click', async () => {
+                if (confirm('Deseja encerrar a sessão administrativa?')) {
+                    await authService.logout();
+                }
+            });
 
             // Init history page
             await HistoryAdmin.init();
-        });
+        }
 
         /**
          * Admin History Page - Loads data directly from Supabase
