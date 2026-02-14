@@ -136,21 +136,6 @@
     <script type="module">
         import { authService } from '../assets/js/admin/auth-service.js';
 
-        // Auth middleware
-        if (!(await authService.isAuthenticated())) {
-            window.location.href = '/admin/index.html';
-        } else {
-            // Logout
-            document.getElementById('logoutBtn')?.addEventListener('click', async () => {
-                if (confirm('Deseja encerrar a sessão administrativa?')) {
-                    await authService.logout();
-                }
-            });
-
-            // Init history page
-            await HistoryAdmin.init();
-        }
-
         /**
          * Admin History Page - Loads data directly from Supabase
          */
@@ -340,6 +325,24 @@
             }
 
             return { init };
+        })();
+
+        // Auth middleware & Initialization
+        (async () => {
+            if (!(await authService.isAuthenticated())) {
+                window.location.href = '/admin/index.html';
+                return;
+            }
+
+            // Logout
+            document.getElementById('logoutBtn')?.addEventListener('click', async () => {
+                if (confirm('Deseja encerrar a sessão administrativa?')) {
+                    await authService.logout();
+                }
+            });
+
+            // Init history page
+            await HistoryAdmin.init();
         })();
     </script>
 </body>
