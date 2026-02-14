@@ -3,18 +3,22 @@
   --primary: #6366f1;
   --primary-hover: #4f46e5;
   --secondary: #ec4899;
+  --secondary-hover: #d946ef;
   --bg-main: #0f172a;
+  --bg-sidebar: #131c31;
   --bg-gradient-start: #1e1b4b;
-  --bg-card: rgba(10, 15, 30, 0.9);
-  --border-color: rgba(255, 255, 255, 0.15);
+  --bg-card: rgba(15, 23, 42, 0.95);
+  --border-color: rgba(255, 255, 255, 0.1);
   --text-main: #f8fafc;
-  --text-muted: #cbd5e1;
+  --text-muted: #94a3b8;
+  --text-highlight: #e2e8f0;
   --text-white: #ffffff;
-  --success: #22c55e;
+  --success: #10b981;
   --danger: #ef4444;
   --warning: #f59e0b;
-  --glass: rgba(255, 255, 255, 0.03);
-  --shadow-primary: rgba(99, 102, 241, 0.4);
+  --glass: rgba(255, 255, 255, 0.05);
+  --glass-hover: rgba(255, 255, 255, 0.1);
+  --shadow-primary: rgba(99, 102, 241, 0.3);
   --text-inverse: #ffffff;
   --border: var(--border-color);
 }
@@ -73,61 +77,117 @@ body {
 
 /* Dashboard Layout */
 .dashboard-layout {
-  display: grid;
-  grid-template-columns: 260px 1fr;
+  display: flex;
   min-height: 100vh;
 }
 
 .sidebar {
+  width: 260px;
+  height: 100vh;
   padding: 2rem;
   border-right: 1px solid var(--border-color);
-  background: rgba(15, 23, 42, 0.5);
+  background: var(--bg-sidebar);
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
 }
 
 .main-content {
+  flex: 1;
   padding: 2.5rem;
-  overflow-y: auto;
+  max-width: calc(100vw - 260px);
 }
 
 /* UI Elements */
 .btn {
-  padding: 0.75rem 1.5rem;
+  padding: 0.625rem 1.25rem;
   border-radius: 0.5rem;
-  border: none;
+  border: 1px solid transparent;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   text-decoration: none;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-main);
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  background: var(--primary);
   color: var(--text-white);
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
+  background: var(--primary-hover);
+  transform: translateY(-1px);
   box-shadow: 0 4px 12px var(--shadow-primary);
 }
 
-input {
-  width: 100%;
-  background: var(--glass);
-  border: 1px solid var(--border-color);
-  padding: 0.75rem 1rem;
-  border-radius: 0.5rem;
-  color: var(--text-white);
-  margin-bottom: 1.25rem;
-  box-sizing: border-box;
+.btn-secondary {
+  background: rgba(99, 102, 241, 0.1);
+  color: var(--primary);
+  border-color: rgba(99, 102, 241, 0.2);
 }
 
-input:focus {
+.btn-secondary:hover {
+  background: rgba(99, 102, 241, 0.15);
+  border-color: var(--primary);
+}
+
+.btn-ghost {
+  background: var(--glass);
+  color: var(--text-muted);
+  border-color: var(--border-color);
+}
+
+.btn-ghost:hover {
+  background: var(--glass-hover);
+  color: var(--text-main);
+  border-color: var(--text-muted);
+}
+
+.btn-danger-outline {
+  background: rgba(239, 68, 68, 0.05);
+  color: var(--danger);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.btn-danger-outline:hover {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: var(--danger);
+}
+
+/* Form Controls */
+.form-control {
+  width: 100%;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid var(--border-color);
+  padding: 0.625rem 1rem;
+  border-radius: 0.5rem;
+  color: var(--text-main);
+  font-size: 0.875rem;
+  transition: all 0.2s;
+}
+
+.form-control:focus {
   outline: none;
   border-color: var(--primary);
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(15, 23, 42, 0.8);
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+select.form-control {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1rem;
+  padding-right: 2.5rem;
 }
 
 /* Stats Cards */

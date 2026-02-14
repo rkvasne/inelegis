@@ -19,35 +19,32 @@
                     style="font-size: 1.25rem; font-weight: 700; margin-left: 0.5rem; color: var(--text-main);">Auditoria</span>
             </div>
 
-            <nav>
+            <nav style="flex: 1;">
                 <div
                     style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1rem; margin-bottom: 1rem;">
                     Menu</div>
-                <a href="/admin/dashboard.html" class="btn"
-                    style="width: 100%; justify-content: flex-start; color: var(--text-muted);">
+                <a href="/admin/dashboard.html" class="btn btn-ghost" style="width: 100%; justify-content: flex-start;">
                     📉 Visão Geral
                 </a>
-                <a href="/admin/historico.html" class="btn"
-                    style="width: 100%; justify-content: flex-start; margin-top: 0.5rem; color: var(--text-muted);">
+                <a href="/admin/historico.html" class="btn btn-ghost"
+                    style="width: 100%; justify-content: flex-start; margin-top: 0.5rem;">
                     📋 Histórico
                 </a>
-                <a href="/admin/analytics.html" class="btn"
-                    style="width: 100%; justify-content: flex-start; margin-top: 0.5rem; color: var(--text-muted);">
+                <a href="/admin/analytics.html" class="btn btn-ghost"
+                    style="width: 100%; justify-content: flex-start; margin-top: 0.5rem;">
                     📊 Analytics
                 </a>
-                <a href="/admin/sistema.html" class="btn"
+                <a href="/admin/sistema.html" class="btn btn-ghost"
                     style="width: 100%; justify-content: flex-start; margin-top: 0.5rem; background: var(--glass);">
                     ⚙️ Sistema
                 </a>
-                <a href="/" class="btn"
-                    style="width: 100%; justify-content: flex-start; margin-top: 0.5rem; color: var(--text-muted);">
+                <a href="/" class="btn btn-ghost" style="width: 100%; justify-content: flex-start; margin-top: 0.5rem;">
                     🏠 Voltar ao Site
                 </a>
             </nav>
 
-            <div style="position: absolute; bottom: 2rem; left: 2rem; right: 2rem;">
-                <button id="logoutBtn" class="btn"
-                    style="width: 100%; color: var(--danger); justify-content: center; background: rgba(239, 68, 68, 0.05); border: 1px solid rgba(239, 68, 68, 0.2);">
+            <div style="margin-top: auto; padding-top: 2rem;">
+                <button id="logoutBtn" class="btn btn-danger-outline" style="width: 100%;">
                     Encerrar Sessão
                 </button>
             </div>
@@ -89,15 +86,16 @@
             <!-- Filters -->
             <div class="glass-panel"
                 style="padding: 1rem 1.5rem; margin-bottom: 1.5rem; display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
-                <label style="font-size: 0.875rem; color: var(--text-muted);">Status:
-                    <select id="filterStatus" class="form-input" style="margin-left: 0.25rem; min-width: 120px;">
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="font-size: 0.875rem; color: var(--text-muted);">Status:</span>
+                    <select id="filterStatus" class="form-control" style="min-width: 120px;">
                         <option value="">Todos</option>
                         <option value="ok">Ok</option>
                         <option value="error">Erro</option>
                     </select>
-                </label>
+                </div>
                 <div style="flex: 1;"></div>
-                <button id="refreshBtn" class="btn" style="white-space: nowrap;">
+                <button id="refreshBtn" class="btn btn-secondary">
                     🔄 Atualizar Logs
                 </button>
             </div>
@@ -135,9 +133,6 @@
     <script type="module">
         import { authService } from '../assets/js/admin/auth-service.js?v=0.3.12';
 
-        /**
-         * System Monitor Page
-         */
         const SystemAdmin = (() => {
             let allData = [];
 
@@ -163,6 +158,21 @@
                     if (error) throw error;
 
                     allData = data || [];
+
+                    // Se estiver vazio, tenta pegar o status único do keepalive (singular)
+                    if (allData.length === 0) {
+                        const { data: statusData } = await window.supabase.from("keepalive").select("*").limit(1);
+                        if (statusData && statusData.length > 0) {
+                            allData = [{
+                                ping_at: statusData[0].last_ping_at,
+                                status: 'ok',
+                                source: 'db-pulse',
+                                latency_ms: 0,
+                                error: 'Tabela de eventos vazia, exibindo último pulso do banco.'
+                            }];
+                        }
+                    }
+
                     renderStats();
                     renderTable();
                 } catch (err) {
@@ -216,38 +226,22 @@
                 filtered.forEach(entry => {
                     const row = document.createElement('tr');
 
-                    // Time
                     const tdTime = document.createElement('td');
-                    tdTime.style.cssText = 'font-size: 0.75rem; color: var(--text-muted);';
+                    tdTime.style.color = 'var(--text-muted)';
                     tdTime.textContent = new Date(entry.ping_at).toLocaleString('pt-BR');
 
-                    // Status
                     const tdStatus = document.createElement('td');
                     const badge = document.createElement('span');
-                    badge.style.cssText = 'padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase;';
-
-                    if (entry.status === 'ok') {
-                        badge.style.background = 'rgba(34, 197, 94, 0.2)';
-                        badge.style.color = 'var(--success)';
-                        badge.textContent = 'ONLINE';
-                    } else {
-                        badge.style.background = 'rgba(239, 68, 68, 0.2)';
-                        badge.style.color = 'var(--danger)';
-                        badge.textContent = 'ERRO';
-                    }
+                    badge.className = entry.status === 'ok' ? 'badge badge-success' : 'badge badge-danger';
+                    badge.textContent = entry.status === 'ok' ? 'ONLINE' : 'ERRO';
                     tdStatus.appendChild(badge);
 
-                    // Source
                     const tdSource = document.createElement('td');
-                    tdSource.style.fontSize = '0.875rem';
                     tdSource.textContent = entry.source || 'service-worker';
 
-                    // Latency
                     const tdLat = document.createElement('td');
-                    tdLat.style.fontSize = '0.875rem';
                     tdLat.innerHTML = entry.latency_ms ? `<code>${entry.latency_ms}ms</code>` : '—';
 
-                    // Info
                     const tdInfo = document.createElement('td');
                     tdInfo.style.fontSize = '0.75rem';
                     tdInfo.style.color = 'var(--text-muted)';
@@ -268,7 +262,6 @@
             return { init };
         })();
 
-        // Auth & Init
         (async () => {
             if (!(await authService.isAuthenticated())) {
                 window.location.href = '/admin/index.html';
