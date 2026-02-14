@@ -33,7 +33,7 @@
                 <a href="#" class="btn" style="width: 100%; justify-content: flex-start; background: var(--glass);">
                     📉 Visão Geral
                 </a>
-                <a href="../index.html" class="btn"
+                <a href="/admin/index.html" class="btn"
                     style="width: 100%; justify-content: flex-start; margin-top: 0.5rem; color: var(--text-muted);">
                     🏠 Voltar ao Site
                 </a>
@@ -231,7 +231,7 @@
         // Middleware de autenticação
         window.addEventListener('DOMContentLoaded', async () => {
             if (!(await authService.isAuthenticated())) {
-                window.location.href = './index.html';
+                window.location.href = '/admin/index.html';
                 return;
             }
 

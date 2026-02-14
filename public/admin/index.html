@@ -53,7 +53,7 @@
         // Check se já está logado
         window.addEventListener('DOMContentLoaded', async () => {
             if (await authService.isAuthenticated()) {
-                window.location.href = './dashboard.html';
+                window.location.href = '/admin/dashboard.html';
             }
         });
 
@@ -67,7 +67,7 @@
             try {
                 const { user, error } = await authService.login(email, password);
                 if (error) throw error;
-                window.location.href = './dashboard.html';
+                window.location.href = '/admin/dashboard.html';
             } catch (err) {
                 console.error(err);
                 errorMessage.textContent = err.message || 'Erro ao realizar login.';
