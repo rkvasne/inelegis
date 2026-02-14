@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histórico de Consultas - Inelegis Admin</title>
+    <link rel="stylesheet" href="../styles/admin.css">
+    <link rel="icon" href="../favicon.ico">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div style="margin-bottom: 3rem;">
+                <img src="../favicon.ico" alt="Inelegis" width="40" style="vertical-align: middle;">
+                <span
+                    style="font-size: 1.25rem; font-weight: 700; margin-left: 0.5rem; color: var(--text-main);">Auditoria</span>
+            </div>
+
+            <nav>
+                <div
+                    style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1rem; margin-bottom: 1rem;">
+                    Menu</div>
+                <a href="/admin/dashboard.html" class="btn"
+                    style="width: 100%; justify-content: flex-start; color: var(--text-muted);">
+                    📉 Visão Geral
+                </a>
+                <a href="/admin/historico.html" class="btn"
+                    style="width: 100%; justify-content: flex-start; margin-top: 0.5rem; background: var(--glass);">
+                    📋 Histórico
+                </a>
+                <a href="/" class="btn"
+                    style="width: 100%; justify-content: flex-start; margin-top: 0.5rem; color: var(--text-muted);">
+                    🏠 Voltar ao Site
+                </a>
+            </nav>
+
+            <div style="position: absolute; bottom: 2rem; left: 2rem; right: 2rem;">
+                <button id="logoutBtn" class="btn"
+                    style="width: 100%; color: var(--danger); justify-content: center; background: rgba(239, 68, 68, 0.05); border: 1px solid rgba(239, 68, 68, 0.2);">
+                    Encerrar Sessão
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <div>
+                    <h1 style="margin: 0; font-size: 1.75rem;">Histórico de Consultas</h1>
+                    <p style="color: var(--text-muted); margin: 0.25rem 0 0 0;">Registros detalhados de todas as
+                        consultas realizadas no sistema</p>
+                </div>
+                <div style="display: flex; gap: 0.5rem;">
+                    <button id="refreshBtn" class="btn" style="font-size: 0.875rem;">
+                        🔄 Atualizar
+                    </button>
+                    <button id="exportBtn" class="btn" style="font-size: 0.875rem;">
+                        📥 Exportar TXT
+                    </button>
+                </div>
+            </header>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid" id="statsGrid">
+                <div class="stat-card glass-panel">
+                    <div style="color: var(--text-muted); font-size: 0.875rem;">Total de Consultas</div>
+                    <div id="statTotal" style="font-size: 2rem; font-weight: 700; margin-top: 0.5rem;">--</div>
+                </div>
+                <div class="stat-card glass-panel">
+                    <div style="color: var(--text-muted); font-size: 0.875rem;">Inelegíveis</div>
+                    <div id="statInelegiveis"
+                        style="font-size: 2rem; font-weight: 700; margin-top: 0.5rem; color: var(--danger);">--</div>
+                </div>
+                <div class="stat-card glass-panel">
+                    <div style="color: var(--text-muted); font-size: 0.875rem;">Elegíveis</div>
+                    <div id="statElegiveis"
+                        style="font-size: 2rem; font-weight: 700; margin-top: 0.5rem; color: var(--success);">--</div>
+                </div>
+                <div class="stat-card glass-panel">
+                    <div style="color: var(--text-muted); font-size: 0.875rem;">Última Consulta</div>
+                    <div id="statUltima" style="font-size: 1rem; font-weight: 600; margin-top: 0.5rem;">--</div>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="glass-panel"
+                style="padding: 1rem 1.5rem; margin-bottom: 1.5rem; display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+                <label style="font-size: 0.875rem; color: var(--text-muted);">Lei:
+                    <select id="filterLei" class="form-input" style="margin-left: 0.25rem; min-width: 120px;">
+                        <option value="">Todas</option>
+                    </select>
+                </label>
+                <label style="font-size: 0.875rem; color: var(--text-muted);">Veredicto:
+                    <select id="filterVeredicto" class="form-input" style="margin-left: 0.25rem; min-width: 120px;">
+                        <option value="">Todos</option>
+                        <option value="inelegivel">Inelegível</option>
+                        <option value="elegivel">Elegível</option>
+                    </select>
+                </label>
+                <input id="filterSearch" type="search" class="form-input"
+                    placeholder="Buscar por artigo ou tipo de crime..." style="flex: 1; min-width: 200px;">
+            </div>
+
+            <!-- Table -->
+            <div class="glass-panel" style="padding: 0; overflow: hidden;">
+                <table class="data-table" id="historyTable">
+                    <thead>
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>Dispositivo Legal</th>
+                            <th>Veredicto</th>
+                            <th>Ação/Causa</th>
+                            <th>Detalhes</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyTableBody">
+                        <tr>
+                            <td colspan="5" style="padding: 2rem; text-align: center; color: var(--text-muted);">
+                                Carregando...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="paginationInfo"
+                style="margin-top: 1rem; text-align: center; font-size: 0.875rem; color: var(--text-muted);"></div>
+        </main>
+    </div>
+
+    <!-- Auth & Config -->
+    <script src="../assets/js/supabase-config.js"></script>
+    <script src="../assets/js/admin/supabase-admin-init.js"></script>
+    <script src="../assets/js/admin/auth-service.js"></script>
+
+    <script>
+        // Auth middleware
+        window.addEventListener('DOMContentLoaded', async () => {
+            if (!(await authService.isAuthenticated())) {
+                window.location.href = '/admin/index.html';
+                return;
+            }
+
+            // Logout
+            document.getElementById('logoutBtn')?.addEventListener('click', () => authService.logout());
+
+            // Init history page
+            await HistoryAdmin.init();
+        });
+
+        /**
+         * Admin History Page - Loads data directly from Supabase
+         */
+        const HistoryAdmin = (() => {
+            let allData = [];
+            let filteredData = [];
+
+            async function init() {
+                bindEvents();
+                await loadData();
+            }
+
+            function bindEvents() {
+                document.getElementById('refreshBtn')?.addEventListener('click', loadData);
+                document.getElementById('exportBtn')?.addEventListener('click', exportData);
+                document.getElementById('filterLei')?.addEventListener('change', applyFilters);
+                document.getElementById('filterVeredicto')?.addEventListener('change', applyFilters);
+                document.getElementById('filterSearch')?.addEventListener('input', applyFilters);
+            }
+
+            async function loadData() {
+                try {
+                    const { data, error } = await window.supabase
+                        .from('historico_consultas')
+                        .select('*')
+                        .order('timestamp', { ascending: false });
+
+                    if (error) throw error;
+
+                    allData = data || [];
+                    filteredData = [...allData];
+
+                    renderStats();
+                    populateLeiFilter();
+                    renderTable();
+                } catch (err) {
+                    console.error('Erro ao carregar histórico:', err);
+                    document.getElementById('historyTableBody').innerHTML =
+                        `<tr><td colspan="5" style="padding: 2rem; text-align: center; color: var(--danger);">Erro ao carregar dados: ${err.message}</td></tr>`;
+                }
+            }
+
+            function renderStats() {
+                const total = allData.length;
+                const inelegiveis = allData.filter(r => r.resultado === 'inelegivel').length;
+                const elegiveis = allData.filter(r => r.resultado === 'elegivel').length;
+                const ultima = allData[0]?.timestamp
+                    ? new Date(allData[0].timestamp).toLocaleString('pt-BR')
+                    : 'Sem registros';
+
+                document.getElementById('statTotal').textContent = total;
+                document.getElementById('statInelegiveis').textContent = inelegiveis;
+                document.getElementById('statElegiveis').textContent = elegiveis;
+                document.getElementById('statUltima').textContent = ultima;
+            }
+
+            function populateLeiFilter() {
+                const select = document.getElementById('filterLei');
+                if (!select) return;
+
+                const leis = [...new Set(allData.map(r => r.lei).filter(Boolean))].sort();
+                // Keep first option "Todas"
+                select.innerHTML = '<option value="">Todas</option>';
+                leis.forEach(lei => {
+                    const opt = document.createElement('option');
+                    opt.value = lei;
+                    opt.textContent = lei;
+                    select.appendChild(opt);
+                });
+            }
+
+            function applyFilters() {
+                const lei = document.getElementById('filterLei')?.value || '';
+                const veredicto = document.getElementById('filterVeredicto')?.value || '';
+                const search = (document.getElementById('filterSearch')?.value || '').toLowerCase().trim();
+
+                filteredData = allData.filter(r => {
+                    if (lei && r.lei !== lei) return false;
+                    if (veredicto && r.resultado !== veredicto) return false;
+                    if (search) {
+                        const searchable = [r.artigo, r.tipo_crime, r.observacoes, r.lei]
+                            .filter(Boolean).join(' ').toLowerCase();
+                        if (!searchable.includes(search)) return false;
+                    }
+                    return true;
+                });
+
+                renderTable();
+            }
+
+            function renderTable() {
+                const tbody = document.getElementById('historyTableBody');
+                const info = document.getElementById('paginationInfo');
+
+                if (!filteredData.length) {
+                    tbody.innerHTML = `<tr><td colspan="5" style="padding: 2rem; text-align: center; color: var(--text-muted);">Nenhum registro encontrado.</td></tr>`;
+                    if (info) info.textContent = `0 de ${allData.length} registros`;
+                    return;
+                }
+
+                if (info) info.textContent = `Exibindo ${filteredData.length} de ${allData.length} registros`;
+
+                const fragment = document.createDocumentFragment();
+                filteredData.forEach(entry => {
+                    const row = document.createElement('tr');
+                    row.style.borderBottom = '1px solid var(--border)';
+
+                    // Timestamp
+                    const tdTime = document.createElement('td');
+                    tdTime.style.cssText = 'padding: 0.75rem 1.5rem; font-size: 0.875rem; color: var(--text-muted);';
+                    tdTime.textContent = entry.timestamp
+                        ? new Date(entry.timestamp).toLocaleString('pt-BR')
+                        : 'N/A';
+
+                    // Dispositivo Legal
+                    const tdLei = document.createElement('td');
+                    tdLei.style.cssText = 'padding: 0.75rem 1.5rem;';
+                    const leiSmall = document.createElement('small');
+                    leiSmall.style.cssText = 'display: block; color: var(--text-muted); font-size: 0.75rem;';
+                    leiSmall.textContent = entry.lei || 'N/A';
+                    const artigoStrong = document.createElement('strong');
+                    artigoStrong.textContent = `Art. ${entry.artigo || 'N/A'}`;
+                    tdLei.appendChild(leiSmall);
+                    tdLei.appendChild(artigoStrong);
+
+                    // Veredicto
+                    const tdVeredicto = document.createElement('td');
+                    tdVeredicto.style.cssText = 'padding: 0.75rem 1.5rem;';
+                    const badge = document.createElement('span');
+                    const isInelegivel = entry.resultado === 'inelegivel';
+                    badge.style.cssText = `padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-inverse, #fff); background: ${isInelegivel ? 'var(--danger)' : 'var(--success)'}`;
+                    badge.textContent = isInelegivel ? 'INELEGÍVEL' : 'ELEGÍVEL';
+                    tdVeredicto.appendChild(badge);
+
+                    // Ação/Causa
+                    const tdCrime = document.createElement('td');
+                    tdCrime.style.cssText = 'padding: 0.75rem 1.5rem; font-size: 0.875rem;';
+                    tdCrime.textContent = entry.tipo_crime || 'N/A';
+
+                    // Detalhes
+                    const tdDetails = document.createElement('td');
+                    tdDetails.style.cssText = 'padding: 0.75rem 1.5rem;';
+                    if (entry.observacoes || entry.motivo_detalhado) {
+                        const detailBtn = document.createElement('button');
+                        detailBtn.className = 'btn';
+                        detailBtn.style.cssText = 'font-size: 0.75rem; padding: 0.25rem 0.5rem;';
+                        detailBtn.textContent = '📄 Ver Fundamentação';
+                        detailBtn.addEventListener('click', () => {
+                            alert(`Fundamentação:\n\n${entry.motivo_detalhado || entry.observacoes || 'Sem detalhes adicionais.'}`);
+                        });
+                        tdDetails.appendChild(detailBtn);
+                    } else {
+                        tdDetails.innerHTML = '<span style="color: var(--text-muted); font-size: 0.75rem;">—</span>';
+                    }
+
+                    row.appendChild(tdTime);
+                    row.appendChild(tdLei);
+                    row.appendChild(tdVeredicto);
+                    row.appendChild(tdCrime);
+                    row.appendChild(tdDetails);
+                    fragment.appendChild(row);
+                });
+
+                tbody.innerHTML = '';
+                tbody.appendChild(fragment);
+            }
+
+            function exportData() {
+                if (!filteredData.length) {
+                    alert('Nenhum dado para exportar.');
+                    return;
+                }
+
+                const lines = filteredData.map(e =>
+                    `${new Date(e.timestamp).toLocaleString('pt-BR')} | ${e.lei || 'N/A'} Art. ${e.artigo || 'N/A'} | ${(e.resultado || '').toUpperCase()} | ${e.tipo_crime || 'N/A'}`
+                );
+
+                const text = `HISTÓRICO DE CONSULTAS - INELEGIS\nExportado em: ${new Date().toLocaleString('pt-BR')}\nTotal: ${filteredData.length} registros\n${'='.repeat(60)}\n\n${lines.join('\n')}`;
+
+                const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `historico-inelegis-${new Date().toISOString().split('T')[0]}.txt`;
+                a.click();
+                URL.revokeObjectURL(url);
+            }
+
+            return { init };
+        })();
+    </script>
+</body>
+
+</html>
