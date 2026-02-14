@@ -169,7 +169,13 @@ edit public/index.html
 edit public/consulta.html
 ```
 
+### ⚠️ LIÇÕES APRENDIDAS (HISTÓRICO DE VIOLAÇÕES)
+
+> **2026-02-11:** Agente editou `public/assets/js/` ao invés de `src/js/`. O script `sync-js.js` sobrescreveu as mudanças. **Correção perdida.**
+
+> **2026-02-13:** O MESMO erro aconteceu novamente em outra sessão. A IA editou `public/assets/js/components/components.js` múltiplas vezes, mas o build sempre sobrescrevia. A causa raiz (arquivo em `src/js/`) só foi identificada após perda significativa de tempo. **SEMPRE VERIFIQUE O FLUXO DE BUILD ANTES DE EDITAR QUALQUER JS.**
+
 ---
 
 _Última atualização: 14/02/2026 • v0.3.12 (Hub v0.5.6)_
-_Editado via: Antigravity | Modelo: Claude 4.5 Sonnet | OS: Windows 11_
+_Editado via: Cursor | Modelo: claude-opus-4-20250514 | OS: Windows 11_
