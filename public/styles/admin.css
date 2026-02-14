@@ -5,10 +5,10 @@
   --secondary: #ec4899;
   --bg-main: #0f172a;
   --bg-gradient-start: #1e1b4b;
-  --bg-card: rgba(30, 41, 59, 0.7);
-  --border-color: rgba(255, 255, 255, 0.1);
+  --bg-card: rgba(10, 15, 30, 0.9);
+  --border-color: rgba(255, 255, 255, 0.15);
   --text-main: #f8fafc;
-  --text-muted: #94a3b8;
+  --text-muted: #cbd5e1;
   --text-white: #ffffff;
   --success: #22c55e;
   --danger: #ef4444;
@@ -26,11 +26,9 @@ body {
     system-ui,
     -apple-system,
     sans-serif;
-  background: radial-gradient(
-    circle at top right,
-    var(--bg-gradient-start),
-    var(--bg-main)
-  );
+  background: radial-gradient(circle at top right,
+      var(--bg-gradient-start),
+      var(--bg-main));
   color: var(--text-main);
   min-height: 100vh;
   overflow-x: hidden;
