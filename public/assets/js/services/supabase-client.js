@@ -94,9 +94,9 @@ export const supabaseClient = {
   },
 
   /**
-   * Atualiza ou insere dados (Upsert)
+   * Atualiza ou insere dados (upsert)
    * @param {string} table - Nome da tabela
-   * @param {object} data - Dados a inserir/atualizar
+   * @param {object|array} data - Dados para upsert
    * @returns {Promise<object>}
    */
   async upsert(table, data) {
@@ -114,7 +114,7 @@ export const supabaseClient = {
       body: JSON.stringify(data),
     });
 
-    if (!response.status.toString().startsWith("2")) {
+    if (!response.ok) {
       const error = await response.text();
       throw new Error(`Supabase upsert error: ${error}`);
     }

@@ -3,8 +3,6 @@
 import { ValidatorUI } from "./ui/validator-ui.js";
 import { AnalyzerUI } from "./ui/analyzer-ui.js";
 import { setupRadioButtons } from "./ui/ui-events.js";
-import { keepaliveService } from "./services/keepalive-service.js";
-import { debugLog } from "./utils/core-utils.js";
 
 // Entrypoint Principal da Página de Consulta
 document.addEventListener("DOMContentLoaded", () => {
@@ -12,8 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!verificarAcessoConsulta()) return;
 
   // 2. Inicializar Serviços Core
+  if (typeof Analytics !== "undefined") Analytics.init();
   if (typeof SearchHistory !== "undefined") SearchHistory.init();
-  if (keepaliveService) keepaliveService.init();
 
   // 3. Inicializar a Nova UI de Validação Estruturada
   const validatorUI = new ValidatorUI();
@@ -40,13 +38,12 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   }
 
-  debugLog("Inelegis Validator UI Initialized 🚀");
+  console.log("Inelegis Validator UI Initialized 🚀");
 });
 
 /**
- * Verifica se o usuário aceitou os termos de uso na sessão atual.
- * Redireciona para a home (index.html) se o termo não foi aceito.
- * @returns {boolean} True se o acesso for permitido.
+ * Verifica se o usuário aceitou os termos de uso.
+ * Redireciona para home se não autenticado.
  */
 function verificarAcessoConsulta() {
   // Apenas executa na página de consulta

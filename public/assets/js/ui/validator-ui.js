@@ -1,5 +1,4 @@
 import { validatorService } from "../services/validator-service.js";
-import { debugLog } from "../utils/core-utils.js";
 
 /**
  * Controller da Interface de Validação.
@@ -20,8 +19,8 @@ export class ValidatorUI {
     /** @type {string|null} Nome amigável da lei selecionada */
     this.selectedLawName = null;
 
-    debugLog(
-      "Constructor - leiSelect:",
+    console.log(
+      "[ValidatorUI] Constructor - leiSelect:",
       !!this.leiSelect,
       "artigoSelect:",
       !!this.artigoSelect,
@@ -33,7 +32,7 @@ export class ValidatorUI {
    * Aguarda inicialização do serviço (agora async para Supabase).
    */
   async init() {
-    debugLog("init() chamado");
+    console.log("[ValidatorUI] init() chamado");
 
     // Mostrar loading
     if (this.leiSelect) {
@@ -55,27 +54,29 @@ export class ValidatorUI {
       return;
     }
 
-    debugLog("Service OK. Carregando leis...");
+    console.log("[ValidatorUI] Service OK. Carregando leis...");
 
     await this.setupLeiSelect();
     this.setupArtigoSelect();
 
-    debugLog("Inicialização COMPLETA");
+    console.log("[ValidatorUI] Inicialização COMPLETA");
   }
 
   /**
-   * Configura o dropdown de leis e seus eventos
-   * @async
+   * Configura o Dropdown de Leis com os dados do serviço.
    */
   async setupLeiSelect() {
     if (!this.leiSelect) {
-      debugLog("ERRO: #leiSelect não encontrado no DOM!");
+      console.error("[ValidatorUI] ERRO: #leiSelect não encontrado no DOM!");
       return;
     }
 
     // Buscar leis (agora é async)
     const laws = await validatorService.getLaws();
-    debugLog("setupLeiSelect - laws encontradas:", laws.length);
+    console.log(
+      "[ValidatorUI] setupLeiSelect - laws encontradas:",
+      laws.length,
+    );
 
     // Limpa opções
     this.leiSelect.innerHTML =
@@ -86,18 +87,25 @@ export class ValidatorUI {
     laws.forEach((law) => {
       const option = document.createElement("option");
       option.value = law.codigo;
+      // Melhoria: Mostrar Código + Nome (propriedade 'lei' do serviço)
+      // O serviço retorna { codigo, lei }
       const displayName = law.lei || `${law.codigo} - ${law.nome || ""}`;
       option.textContent = displayName;
       this.leiSelect.appendChild(option);
     });
 
-    debugLog("Opções adicionadas ao select:", this.leiSelect.options.length);
+    console.log(
+      "[ValidatorUI] Opções adicionadas ao select:",
+      this.leiSelect.options.length,
+    );
 
     // Evento de Mudança
     this.leiSelect.addEventListener("change", async (e) => {
       const codigo = e.target.value;
+      const nome = e.target.options[e.target.selectedIndex].text;
 
       if (codigo) {
+        // Agora usamos o texto completo do option, confiando no nome amigável vindo do banco
         const lawName = e.target.options[e.target.selectedIndex].textContent;
         await this.selectLaw(codigo, lawName);
         // Esconder a setinha indicadora após primeira seleção
@@ -198,7 +206,7 @@ export class ValidatorUI {
     const arrowIndicator = document.getElementById("leiArrowIndicator");
     if (arrowIndicator) arrowIndicator.classList.add("show");
 
-    debugLog("Busca limpa com sucesso");
+    console.log("[ValidatorUI] Busca limpa com sucesso");
   }
 
   /**
@@ -299,27 +307,6 @@ export class ValidatorUI {
         alinea,
       );
 
-      // Registrar no Histórico para Auditoria
-      if (typeof window.SearchHistory !== "undefined") {
-        window.SearchHistory.add({
-          lei: this.selectedLaw,
-          artigo: artigoNum,
-          resultado: result.resultado.toLowerCase(),
-          tipoCrime: result.tipo_crime,
-          observacoes: result.observacoes,
-          inciso: inciso,
-          alinea: alinea,
-          paragrafo: paragrafo,
-          motivoDetalhado: result.motivo,
-          excecoesCitadas: result.excecoes_detalhes,
-          metadata: {
-            lawName: this.selectedLawName,
-            source: "validator_ui",
-            timestamp: new Date().toISOString(),
-          },
-        });
-      }
-
       this.renderResult(result, artigoNum, paragrafo, inciso, alinea);
     } catch (error) {
       console.error("[ValidatorUI] Erro ao validar:", error);
@@ -359,7 +346,7 @@ export class ValidatorUI {
       statusIcon = `<svg width="24" height="24" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>`;
     } else if (isElegivel) {
       statusClass = "eligible";
-      statusText = "ELEGÍVEL";
+      statusText = result.eh_excecao ? "ELEGÍVEL (EXCEÇÃO)" : "ELEGÍVEL";
       iconBgClass = "legend-icon-eligible";
       iconColorClass = "text-success";
       statusIcon = `<svg width="24" height="24" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>`;

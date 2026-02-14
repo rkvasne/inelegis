@@ -5,7 +5,6 @@
  */
 
 import supabaseClient from "./supabase-client.js";
-import { debugLog } from "../utils/core-utils.js";
 
 export const keepaliveService = {
   project_slug: "inelegis",
@@ -28,8 +27,8 @@ export const keepaliveService = {
       this.heartbeat("client-timer");
     }, this.interval_ms);
 
-    debugLog(
-      `Serviço Keepalive inicializado (Intervalo: ${this.interval_ms / 1000}s)`,
+    console.log(
+      `[Keepalive] Serviço inicializado (Intervalo: ${this.interval_ms / 1000}s)`,
     );
   },
 

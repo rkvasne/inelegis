@@ -7,21 +7,13 @@ import { showToast } from "../utils/toast.js";
  */
 export class AnalyzerUI {
   constructor() {
-    /** @type {HTMLTextAreaElement} */
     this.textarea = document.getElementById("dispositivoText");
-    /** @type {HTMLButtonElement} */
     this.btnAnalisar = document.getElementById("btnAnalisarDispositivo");
-    /** @type {HTMLElement} */
     this.resultsContainer = document.getElementById("analyzer-results");
-    /** @type {HTMLElement} */
     this.tbody = document.getElementById("analyzer-tbody");
-    /** @type {HTMLElement} */
     this.statsText = document.getElementById("analyzer-stats");
   }
 
-  /**
-   * Inicializa os listeners de evento do analisador.
-   */
   init() {
     if (!this.btnAnalisar) return;
 
@@ -40,7 +32,6 @@ export class AnalyzerUI {
 
   /**
    * Executa a análise do texto fornecido
-   * @async
    */
   async analisar() {
     const texto = this.textarea.value.trim();
@@ -58,14 +49,33 @@ export class AnalyzerUI {
       '<span class="animate-spin inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2"></span> Analisando...';
 
     try {
-      const extraidos = this.extrairArtigosCompletos(texto);
+      const extraidosRaw = this.extrairArtigosCompletos(texto);
+      const extraidos = extraidosRaw.filter((item) =>
+        this.validarExtracao(item),
+      );
+      const falhas = extraidosRaw.length - extraidos.length;
 
       if (extraidos.length === 0) {
-        showToast(
-          "Não conseguimos identificar nenhuma citação de artigo/lei no texto. Verifique o formato.",
-          "warning",
-        );
+        if (falhas > 0) {
+          showToast(
+            "Detectamos citações, mas o formato está confuso ou fora do padrão. A consulta não será realizada para evitar erros. Use os exemplos de ajuda.",
+            "warning",
+            6000,
+          );
+        } else {
+          showToast(
+            "Não conseguimos identificar nenhuma citação de artigo/lei no texto. Verifique o formato.",
+            "warning",
+          );
+        }
         return;
+      }
+
+      if (falhas > 0) {
+        showToast(
+          `Identificamos ${extraidos.length} artigos válidos, mas ignoramos ${falhas} trechos confusos para garantir sua segurança.`,
+          "info",
+        );
       }
 
       this.resultsContainer.classList.remove("hidden");
@@ -78,7 +88,14 @@ export class AnalyzerUI {
         const lawInfo = (await validatorService.getLaws()).find(
           (l) => l.codigo === item.lei,
         );
-        const lawDisplayName = lawInfo ? lawInfo.nome : item.lei;
+        const lawDisplayName = lawInfo ? lawInfo.lei || lawInfo.nome : item.lei;
+
+        const detailText = [];
+        if (item.paragrafo) detailText.push(`§ ${item.paragrafo}`);
+        if (item.inciso) detailText.push(`Inc. ${item.inciso}`);
+        if (item.alinea) detailText.push(`Al. ${item.alinea}`);
+        const fullDetail =
+          detailText.length > 0 ? ` (${detailText.join(", ")})` : "";
 
         const row = document.createElement("tr");
         row.style.borderBottom = "1px solid var(--border-color)";
@@ -86,7 +103,7 @@ export class AnalyzerUI {
                     <td class="p-4 align-top">
                         <div class="flex flex-col gap-1">
                             <span class="font-bold text-neutral-900 text-sm">${lawDisplayName}</span>
-                            <span class="text-sm text-neutral-600 font-mono">Art. ${item.artigo}</span>
+                            <span class="text-sm text-neutral-600 font-mono">Art. ${item.artigo}${fullDetail}</span>
                         </div>
                     </td>
                     <td class="p-4 align-top" id="status-${item.uid}">
@@ -124,14 +141,15 @@ export class AnalyzerUI {
   }
 
   /**
-   * Valida um item individualmente e atualiza a linha correspondente na tabela
-   * @async
-   * @param {Object} item - Item extraído do texto
+   * Valida um item individualmente e atualiza a linha
    */
   async validarIndividual(item) {
     const result = await validatorService.verifyEligibility(
       item.lei,
       item.artigo,
+      item.paragrafo,
+      item.inciso,
+      item.alinea,
     );
     const statusCell = document.getElementById(`status-${item.uid}`);
     const aseCell = document.getElementById(`ase-${item.uid}`);
@@ -172,8 +190,10 @@ export class AnalyzerUI {
       // Atualizar botão Ver para abrir modal INELEGÍVEL
       this.updateViewButton(item, result, "INELEGIVEL");
     } else if (result.resultado === "ELEGIVEL") {
-      statusCell.innerHTML =
-        '<span class="analyzer-badge success">ELEGÍVEL</span>';
+      const isExcecao = result.eh_excecao;
+      statusCell.innerHTML = isExcecao
+        ? '<span class="analyzer-badge warning">ELEGÍVEL (EXCEÇÃO)</span>'
+        : '<span class="analyzer-badge success">ELEGÍVEL</span>';
       aseCell.textContent = temIndicador370
         ? "ASE 370 (Suspensão)"
         : "Não gera restrição";
@@ -203,15 +223,17 @@ export class AnalyzerUI {
         artigo: item.artigo,
         resultado: result.resultado.toLowerCase(),
         tipoCrime: result.tipo_crime,
-        observacoes: `[Análise Automática] ${result.observacoes || ""}`,
-        motivoDetalhado: result.motivo,
-        excecoesCitadas: result.excecoes_detalhes,
-        metadata: {
-          context: item.contexto,
-          source: "analyzer_ui",
-          originalText: this.textarea.value.substring(0, 500), // Amostra do texto original
-          timestamp: new Date().toISOString(),
-        },
+        observacoes: `[Análise Automática] ${result.observacoes || result.motivo || ""}`,
+      });
+    }
+
+    if (typeof Analytics !== "undefined") {
+      Analytics.trackSearch({
+        lei: item.lei,
+        artigo: item.artigo,
+        resultado: result.resultado.toLowerCase(),
+        temExcecao: result.resultado === "ELEGIVEL",
+        context: "sentence_analyzer",
       });
     }
   }
@@ -237,10 +259,14 @@ export class AnalyzerUI {
     // Armazenar dados no dataset do botão
     btn.dataset.lei = item.lei;
     btn.dataset.artigo = item.artigo;
+    btn.dataset.paragrafo = item.paragrafo || "";
+    btn.dataset.inciso = item.inciso || "";
+    btn.dataset.alinea = item.alinea || "";
     btn.dataset.resultado = tipo;
     btn.dataset.tipoCrime = result.tipo_crime || "";
     btn.dataset.itemAlineaE = result.item_alinea_e || "";
     btn.dataset.excecoes = result.excecoes_detalhes || "";
+    btn.dataset.ehExcecao = result.eh_excecao ? "true" : "false";
 
     // Adicionar evento de clique
     btn.addEventListener("click", () => {
@@ -249,9 +275,49 @@ export class AnalyzerUI {
   }
 
   /**
+   * Valida se a extração de um item parece legítima ou se é "lixo" de processamento.
+   * @param {object} item
+   * @returns {boolean}
+   */
+  validarExtracao(item) {
+    // Lista de palavras proibidas ou fragmentos de regex que indicam falha
+    const junkWords = [
+      "agrafo",
+      "inciso",
+      "alinea",
+      "paragrafo",
+      "artigo",
+      "lei",
+    ];
+
+    // Validar parágrafo (deve ser número, "unico" ou nulo)
+    if (item.paragrafo) {
+      const p = item.paragrafo.toLowerCase();
+      if (junkWords.some((word) => p.includes(word))) return false;
+      if (!/^\d+$/.test(p) && p !== "unico" && p !== "único") return false;
+    }
+
+    // Validar inciso (deve ser Romano ou número)
+    if (item.inciso) {
+      const i = item.inciso.toUpperCase();
+      if (junkWords.some((word) => i.includes(word.toUpperCase())))
+        return false;
+      if (!/^[IVXLCDM]+$/.test(i) && !/^\d+$/.test(i)) return false;
+    }
+
+    // Validar alínea (deve ser uma letra única)
+    if (item.alinea) {
+      const a = item.alinea.toLowerCase();
+      if (junkWords.some((word) => a.includes(word))) return false;
+      if (!/^[a-z]$/.test(a)) return false;
+    }
+
+    return true;
+  }
+
+  /**
    * Extrai artigos e tenta identificar a lei correspondente de forma robusta.
-   * @param {string} texto - Texto bruto do dispositivo da sentença
-   * @returns {Object[]} Lista de objetos com lei, artigo e contexto
+   * @param {string} texto
    */
   extrairArtigosCompletos(texto) {
     const resultados = [];
@@ -288,54 +354,114 @@ export class AnalyzerUI {
       }
     }
 
-    // Regex para blocos de artigos (Art. 1, 2 e 3 ou Art. 1 c/c Art. 2)
-    // Captura o artigo e um "clipping" do contexto posterior para identificar a lei próxima
-    const regexBloco =
-      /(?:art\.?s?\.?\s+)([\d\-\.]+)(?:\s*,?\s*([\d\-\.]+))?(?:\s*,?\s*([\d\-\.]+))?([^.;\n]{0,100})/gi;
+    // Dividir por sentenças ou novas linhas para manter contextos curtos e precisos
+    const clausulas = texto.split(/[;\n]+/);
 
-    let match;
-    while ((match = regexBloco.exec(texto)) !== null) {
-      const contexto = match[4].toLowerCase();
+    clausulas.forEach((clausula) => {
+      if (!clausula.trim()) return;
 
-      // Tenta achar a lei no contexto imediato (clipping)
-      let leiDoBloco = null;
+      let leiDaClausula = null;
       for (const [key, code] of Object.entries(lawKeywords)) {
-        if (contexto.includes(key)) {
-          leiDoBloco = code;
+        if (clausula.toLowerCase().includes(key)) {
+          leiDaClausula = code;
           break;
         }
       }
+      const currentLaw = leiDaClausula || primaryLaw;
 
-      const currentLaw = leiDoBloco || primaryLaw;
+      // Regex para blocos de artigos (Art. 1, 2 e 3)
+      const regexArt =
+        /(?:art\.?s?\.?\s+)([\d\w\-\.]+)(?:\s*(?:,|e|ou|c\/c)\s*(?!art)([\d\w\-\.]+))?(?:\s*(?:,|e|ou|c\/c)\s*(?!art)([\d\w\-\.]+))?/gi;
 
-      // Processar os 3 possíveis grupos de captura de números (limitado a 3 por regex por performance/simplicidade)
-      [match[1], match[2], match[3]].forEach((artValue) => {
-        if (artValue) {
-          const sanitizedArt = artValue.replace(/\.$/, "").trim();
-          if (/^\d/.test(sanitizedArt)) {
-            resultados.push({
-              lei: currentLaw,
-              artigo: sanitizedArt,
-              uid: Math.random().toString(36).substring(2, 9),
-              contexto: contexto,
+      let m;
+      while ((m = regexArt.exec(clausula)) !== null) {
+        // Contexto: do fim do match atual até o próximo "Art." ou fim da cláusula
+        const start = regexArt.lastIndex;
+        const preview = clausula.slice(start);
+        const nextArtMatch = preview.match(/art\.?s?\.?/i);
+        const contextEnd = nextArtMatch ? nextArtMatch.index : preview.length;
+        const context = preview.slice(0, contextEnd).toLowerCase();
+
+        // Extração Múltipla (Parágrafos, Incisos, Alíneas)
+        const extractMulti = (ctx, single, plural, valuePattern) => {
+          const allMarkers = (plural + "|" + single)
+            .split("|")
+            .sort((a, b) => b.length - a.length)
+            .map((marker) => marker.replace(".", "\\."));
+
+          const pattern = `(?:${allMarkers.join("|")})\\s*((?:${valuePattern})(?:\\s*(?:,|e|ou)\\s*(?:${valuePattern}))*)`;
+          const regex = new RegExp(pattern, "i");
+          const matchVal = ctx.match(regex);
+
+          if (!matchVal) return [null];
+
+          const clean = matchVal[1]
+            .split(/\s*(?:,|e|ou)\s*/)
+            .map((v) => v.replace(/[º°ª'"'']/g, "").trim())
+            .filter((v) => v && !/^(caput)$/i.test(v));
+
+          return clean.length > 0 ? clean : [null];
+        };
+
+        const paragrafos = extractMulti(
+          context,
+          "§|parágrafo|paragrafo|par",
+          "§§|parágrafos|paragrafos",
+          "\\d+|único|unico|caput",
+        );
+        const incisos = extractMulti(
+          context,
+          "inciso|inc",
+          "incisos|incs",
+          "[ivxlcdm]+|\\d+|único|unico",
+        );
+        const alineas = extractMulti(
+          context,
+          "alínea|alinea|al",
+          "alíneas|alineas|als",
+          "['\"]?[a-z]['\"]?",
+        );
+
+        const articlesFound = [m[1], m[2], m[3]]
+          .filter((v) => v && /^\d/.test(v))
+          .map((v) => v.replace(/\.$/, "").trim());
+
+        articlesFound.forEach((art) => {
+          paragrafos.forEach((p) => {
+            incisos.forEach((inc) => {
+              alineas.forEach((al) => {
+                resultados.push({
+                  lei: currentLaw,
+                  artigo: art,
+                  paragrafo: p,
+                  inciso: inc ? inc.toUpperCase() : null,
+                  alinea: al ? al.toLowerCase() : null,
+                  uid: Math.random().toString(36).substring(2, 9),
+                  contexto: context,
+                });
+              });
             });
-          }
-        }
-      });
-    }
+          });
+        });
+      }
+    });
 
-    // Post-process: remoção de duplicatas exatas (Lei+Artigo)
+    // Post-process: remoção de duplicatas exatas
     return resultados.filter(
       (v, i, a) =>
-        a.findIndex((t) => t.artigo === v.artigo && t.lei === v.lei) === i,
+        a.findIndex(
+          (t) =>
+            t.artigo === v.artigo &&
+            t.lei === v.lei &&
+            t.paragrafo === v.paragrafo &&
+            t.inciso === v.inciso &&
+            t.alinea === v.alinea,
+        ) === i,
     );
   }
 }
 
-/**
- * Alterna entre abas de consulta (Simples vs Analisador)
- * @param {string} mode - 'simple' ou 'advanced'
- */
+// Funções globais para suporte ao HTML
 window.switchTab = function (mode) {
   const simpleBtn = document.getElementById("tab-simple");
   const advancedBtn = document.getElementById("tab-advanced");
@@ -386,7 +512,7 @@ window.openAnalyzerResultModal = async function (data) {
   const lawInfo = (await validatorService.getLaws()).find(
     (l) => l.codigo === data.lei,
   );
-  const lawDisplayName = lawInfo ? lawInfo.nome : data.lei;
+  const lawDisplayName = lawInfo ? lawInfo.lei || lawInfo.nome : data.lei;
 
   // Configurações visuais
   let statusClass, statusText, statusIcon;
@@ -396,12 +522,15 @@ window.openAnalyzerResultModal = async function (data) {
     statusText = "INELEGÍVEL";
     statusIcon = `<svg width="24" height="24" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>`;
   } else {
-    statusClass = "eligible";
-    statusText = "ELEGÍVEL";
+    statusClass = data.ehExcecao === "true" ? "warning" : "eligible";
+    statusText = data.ehExcecao === "true" ? "ELEGÍVEL (EXCEÇÃO)" : "ELEGÍVEL";
     statusIcon = `<svg width="24" height="24" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>`;
   }
 
-  const incidencia = `Art. ${data.artigo}`;
+  let incidencia = `Art. ${data.artigo}`;
+  if (data.paragrafo) incidencia += `, § ${data.paragrafo}`;
+  if (data.inciso) incidencia += `, Inc. ${data.inciso}`;
+  if (data.alinea) incidencia += `, Al. ${data.alinea}`;
 
   const bodyHTML = `
     <div class="result-modal-v3">
