@@ -115,5 +115,61 @@ last-edited-os: [Sistema]
 
 ---
 
-_Última atualização: 13/02/2026 • v0.3.11 (Hub v0.5.6)_
-_Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_
+## 🚫 PUBLIC/ASSETS/JS/ É READ-ONLY (CRITICAL)
+
+A pasta `public/assets/js/` é **gerada automaticamente** pelo script `sync-js.js` a partir de `src/js/`.
+
+### ⛔ PROIBIÇÕES ABSOLUTAS
+
+| Ação                                   | Status      | Consequência                                |
+| -------------------------------------- | ----------- | ------------------------------------------- |
+| Editar arquivos em `public/assets/js/` | ❌ PROIBIDO | Alteração será sobrescrita no próximo build |
+| Criar arquivos em `public/assets/js/`  | ❌ PROIBIDO | Arquivo será sobrescrito ou ignorado        |
+
+### ✅ O QUE FAZER
+
+| Ação                            | Caminho Correto         |
+| ------------------------------- | ----------------------- |
+| Editar JavaScript               | `src/js/**/*.js`        |
+| Editar HTML                     | `public/*.html`         |
+| Editar CSS                      | `public/styles/*.css`   |
+| Editar imagens/assets estáticos | `public/assets/images/` |
+
+### 🔴 Fluxo SSoT (Single Source of Truth)
+
+```
+src/js/  ←── SSoT (EDITE AQUI)
+   ↓ sync-js.js (copia automaticamente)
+public/assets/js/  ←── DESTINO (NÃO EDITE)
+   ↓ build.js (copia para produção)
+dist/  ←── PRODUÇÃO (Vercel serve daqui)
+```
+
+### 🔴 Exemplos de VIOLAÇÕES (NUNCA FAÇA ISSO)
+
+```bash
+# ❌ VIOLAÇÃO: Editar JS no destino
+edit public/assets/js/components/components.js
+
+# ❌ VIOLAÇÃO: Editar admin JS no destino
+edit public/assets/js/admin/auth-service.js
+```
+
+### ✅ Exemplos CORRETOS
+
+```bash
+# ✅ CORRETO: Editar JS na fonte
+edit src/js/components/components.js
+
+# ✅ CORRETO: Editar admin JS na fonte
+edit src/js/admin/auth-service.js
+
+# ✅ CORRETO: Editar HTML (estes NÃO têm SSoT em src/)
+edit public/index.html
+edit public/consulta.html
+```
+
+---
+
+_Última atualização: 14/02/2026 • v0.3.12 (Hub v0.5.6)_
+_Editado via: Antigravity | Modelo: Claude 4.5 Sonnet | OS: Windows 11_
