@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics & Eventos - Inelegis Admin</title>
+    <link rel="stylesheet" href="../styles/admin.css">
+    <link rel="icon" href="../favicon.ico">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div style="margin-bottom: 3rem;">
+                <img src="../favicon.ico" alt="Inelegis" width="40" style="vertical-align: middle;">
+                <span
+                    style="font-size: 1.25rem; font-weight: 700; margin-left: 0.5rem; color: var(--text-main);">Auditoria</span>
+            </div>
+
+            <nav>
+                <div
+                    style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1rem; margin-bottom: 1rem;">
+                    Menu</div>
+                <a href="/admin/dashboard.html" class="btn"
+                    style="width: 100%; justify-content: flex-start; color: var(--text-muted);">
+                    📉 Visão Geral
+                </a>
+                <a href="/admin/historico.html" class="btn"
+                    style="width: 100%; justify-content: flex-start; margin-top: 0.5rem; color: var(--text-muted);">
+                    📋 Histórico
+                </a>
+                <a href="/admin/analytics.html" class="btn"
+                    style="width: 100%; justify-content: flex-start; margin-top: 0.5rem; background: var(--glass);">
+                    📊 Analytics
+                </a>
+                <a href="/admin/sistema.html" class="btn"
+                    style="width: 100%; justify-content: flex-start; margin-top: 0.5rem; color: var(--text-muted);">
+                    ⚙️ Sistema
+                </a>
+                <a href="/" class="btn"
+                    style="width: 100%; justify-content: flex-start; margin-top: 0.5rem; color: var(--text-muted);">
+                    🏠 Voltar ao Site
+                </a>
+            </nav>
+
+            <div style="position: absolute; bottom: 2rem; left: 2rem; right: 2rem;">
+                <button id="logoutBtn" class="btn"
+                    style="width: 100%; color: var(--danger); justify-content: center; background: rgba(239, 68, 68, 0.05); border: 1px solid rgba(239, 68, 68, 0.2);">
+                    Encerrar Sessão
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <div>
+                    <h1 style="margin: 0; font-size: 1.75rem; letter-spacing: -0.025em; font-weight: 800;">Analytics &
+                        Eventos</h1>
+                    <p style="color: var(--text-muted); margin: 0.25rem 0 0 0;">Log técnico de telemetria e
+                        comportamento do usuário</p>
+                </div>
+                <div class="glass-panel"
+                    style="padding: 0.5rem 1rem; display: flex; align-items: center; gap: 0.75rem;">
+                    <div class="pulse-indicator"></div>
+                    <span id="uptimeStatus" style="font-size: 0.875rem;">Keepalive: Ativo</span>
+                </div>
+            </header>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid" id="statsGrid">
+                <div class="stat-card glass-panel">
+                    <div style="color: var(--text-muted); font-size: 0.875rem;">Total de Eventos</div>
+                    <div id="statTotal" style="font-size: 2rem; font-weight: 700; margin-top: 0.5rem;">--</div>
+                </div>
+                <div class="stat-card glass-panel">
+                    <div style="color: var(--text-muted); font-size: 0.875rem;">Latência Média (ms)</div>
+                    <div id="statLatency"
+                        style="font-size: 2rem; font-weight: 700; margin-top: 0.5rem; color: var(--primary);">--</div>
+                </div>
+                <div class="stat-card glass-panel">
+                    <div style="color: var(--text-muted); font-size: 0.875rem;">Taxa de Erro</div>
+                    <div id="statErrorRate"
+                        style="font-size: 2rem; font-weight: 700; margin-top: 0.5rem; color: var(--danger);">--</div>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="glass-panel"
+                style="padding: 1rem 1.5rem; margin-bottom: 1.5rem; display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+                <label style="font-size: 0.875rem; color: var(--text-muted);">Tipo:
+                    <select id="filterType" class="form-input" style="margin-left: 0.25rem; min-width: 120px;">
+                        <option value="">Todos</option>
+                        <option value="search">Busca</option>
+                        <option value="pageview">Página</option>
+                        <option value="error">Erro</option>
+                    </select>
+                </label>
+                <input id="filterSearch" type="search" class="form-input" placeholder="Buscar por User ID ou Browser..."
+                    style="flex: 1; min-width: 200px;">
+                <button id="refreshBtn" class="btn" style="white-space: nowrap;">
+                    🔄 Atualizar
+                </button>
+            </div>
+
+            <!-- Table -->
+            <div class="glass-panel" style="padding: 0; overflow: hidden;">
+                <table class="data-table" id="analyticsTable">
+                    <thead>
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>Tipo</th>
+                            <th>User ID</th>
+                            <th>Detalhes</th>
+                            <th>Performance/Browser</th>
+                        </tr>
+                    </thead>
+                    <tbody id="analyticsTableBody">
+                        <tr>
+                            <td colspan="5" style="padding: 2rem; text-align: center; color: var(--text-muted);">
+                                Carregando eventos...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="paginationInfo"
+                style="margin-top: 1rem; text-align: center; font-size: 0.875rem; color: var(--text-muted);"></div>
+        </main>
+    </div>
+
+    <!-- Config -->
+    <script src="../assets/js/supabase-config.js"></script>
+    <script src="../assets/js/admin/supabase-admin-init.js"></script>
+
+    <script type="module">
+        import { authService } from '../assets/js/admin/auth-service.js?v=0.3.12';
+
+        /**
+         * Analytics Audit Page
+         */
+        const AnalyticsAdmin = (() => {
+            let allData = [];
+            let filteredData = [];
+
+            async function init() {
+                bindEvents();
+                await loadData();
+                await loadUptime();
+            }
+
+            function bindEvents() {
+                document.getElementById('refreshBtn')?.addEventListener('click', loadData);
+                document.getElementById('filterType')?.addEventListener('change', applyFilters);
+                document.getElementById('filterSearch')?.addEventListener('input', applyFilters);
+            }
+
+            async function loadData() {
+                try {
+                    const { data, error } = await window.supabase
+                        .from('analytics_events')
+                        .select('*')
+                        .order('timestamp', { ascending: false })
+                        .limit(500);
+
+                    if (error) throw error;
+
+                    allData = data || [];
+                    filteredData = [...allData];
+
+                    renderStats();
+                    renderTable();
+                } catch (err) {
+                    console.error('Erro ao carregar analytics:', err);
+                    document.getElementById('analyticsTableBody').innerHTML =
+                        `<tr><td colspan="5" style="padding: 2rem; text-align: center; color: var(--danger);">Erro ao carregar dados: ${err.message}</td></tr>`;
+                }
+            }
+
+            async function loadUptime() {
+                const { data } = await window.supabase.from("keepalive").select("*").limit(1);
+                const statusEl = document.getElementById("uptimeStatus");
+                if (data && data.length > 0) {
+                    const lastPing = new Date(data[0].last_ping_at);
+                    const now = new Date();
+                    const diffMin = Math.round((now - lastPing) / (1000 * 60));
+                    statusEl.textContent = `Keepalive: ${diffMin < 10 ? 'Online' : 'Atenção'} (${diffMin}m)`;
+                }
+            }
+
+            function renderStats() {
+                const total = allData.length;
+                const times = allData.map(r => r.tempo_resposta).filter(t => t > 0);
+                const avgLatency = times.length > 0 ? Math.round(times.reduce((a, b) => a + b, 0) / times.length) : '--';
+                const errors = allData.filter(r => r.resultado === 'erro' || r.type === 'error').length;
+                const errorRate = total > 0 ? ((errors / total) * 100).toFixed(1) + '%' : '--';
+
+                document.getElementById('statTotal').textContent = total;
+                document.getElementById('statLatency').textContent = avgLatency;
+                document.getElementById('statErrorRate').textContent = errorRate;
+            }
+
+            function applyFilters() {
+                const type = document.getElementById('filterType')?.value || '';
+                const search = (document.getElementById('filterSearch')?.value || '').toLowerCase().trim();
+
+                filteredData = allData.filter(r => {
+                    if (type && r.type !== type) return false;
+                    if (search) {
+                        const searchable = [r.user_id, r.browser, r.lei, r.artigo]
+                            .filter(Boolean).join(' ').toLowerCase();
+                        if (!searchable.includes(search)) return false;
+                    }
+                    return true;
+                });
+
+                renderTable();
+            }
+
+            function renderTable() {
+                const tbody = document.getElementById('analyticsTableBody');
+                const info = document.getElementById('paginationInfo');
+
+                if (!filteredData.length) {
+                    tbody.innerHTML = `<tr><td colspan="5" style="padding: 2rem; text-align: center; color: var(--text-muted);">Nenhum evento encontrado.</td></tr>`;
+                    if (info) info.textContent = `0 de ${allData.length} eventos`;
+                    return;
+                }
+
+                if (info) info.textContent = `Exibindo ${filteredData.length} de ${allData.length} eventos (Limitado a 500)`;
+
+                const fragment = document.createDocumentFragment();
+                filteredData.forEach(entry => {
+                    const row = document.createElement('tr');
+
+                    // Timestamp
+                    const tdTime = document.createElement('td');
+                    tdTime.style.cssText = 'font-size: 0.75rem; color: var(--text-muted);';
+                    tdTime.textContent = new Date(entry.timestamp).toLocaleString('pt-BR');
+
+                    // Tipo
+                    const tdType = document.createElement('td');
+                    const badge = document.createElement('span');
+                    badge.style.cssText = 'padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase;';
+
+                    if (entry.type === 'search') {
+                        badge.style.background = 'rgba(99, 102, 241, 0.2)';
+                        badge.style.color = 'var(--primary)';
+                        badge.textContent = 'BUSCA';
+                    } else if (entry.type === 'error' || entry.resultado === 'erro') {
+                        badge.style.background = 'rgba(239, 68, 68, 0.2)';
+                        badge.style.color = 'var(--danger)';
+                        badge.textContent = 'ERRO';
+                    } else {
+                        badge.style.background = 'rgba(255, 255, 255, 0.1)';
+                        badge.style.color = 'var(--text-muted)';
+                        badge.textContent = entry.type || 'PAGINA';
+                    }
+                    tdType.appendChild(badge);
+
+                    // User ID
+                    const tdUser = document.createElement('td');
+                    tdUser.style.cssText = 'font-size: 0.75rem; font-family: monospace;';
+                    tdUser.textContent = entry.user_id?.split('_').pop() || 'anon';
+
+                    // Detalhes
+                    const tdDetails = document.createElement('td');
+                    if (entry.type === 'search') {
+                        tdDetails.innerHTML = `<span style="color:var(--text-muted)">${entry.lei}</span> <strong>Art. ${entry.artigo}</strong>`;
+                    } else {
+                        tdDetails.textContent = entry.data ? JSON.stringify(entry.data) : '—';
+                    }
+
+                    // Tech/Perf
+                    const tdTech = document.createElement('td');
+                    const latency = entry.tempo_resposta ? `<span style="color:var(--primary)">${entry.tempo_resposta}ms</span>` : '';
+                    const browser = entry.browser ? `<div style="font-size: 0.65rem; color: var(--text-muted); margin-top: 0.25rem;">${entry.browser.substring(0, 40)}...</div>` : '';
+                    tdTech.innerHTML = `${latency}${browser}`;
+
+                    row.appendChild(tdTime);
+                    row.appendChild(tdType);
+                    row.appendChild(tdUser);
+                    row.appendChild(tdDetails);
+                    row.appendChild(tdTech);
+                    fragment.appendChild(row);
+                });
+
+                tbody.innerHTML = '';
+                tbody.appendChild(fragment);
+            }
+
+            return { init };
+        })();
+
+        // Auth & Init
+        (async () => {
+            if (!(await authService.isAuthenticated())) {
+                window.location.href = '/admin/index.html';
+                return;
+            }
+
+            document.getElementById('logoutBtn')?.addEventListener('click', async () => {
+                if (confirm('Deseja encerrar a sessão?')) await authService.logout();
+            });
+
+            await AnalyticsAdmin.init();
+        })();
+    </script>
+</body>
+
+</html>
