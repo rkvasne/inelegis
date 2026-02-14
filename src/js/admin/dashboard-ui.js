@@ -340,24 +340,30 @@ export const dashboardUI = {
    * Carrega o status do sistema (Keepalive)
    */
   async loadUptime() {
-    const { data } = await window.supabase
+    const { data, error } = await window.supabase
       .from("keepalive")
       .select("*")
-      .single();
+      .maybeSingle();
 
-    if (data) {
-      const statusEl = document.getElementById("uptimeStatus");
-      const lastPing = new Date(data.last_ping_at);
-      const now = new Date();
-      const diffMin = Math.round((now - lastPing) / (1000 * 60));
+    const statusEl = document.getElementById("uptimeStatus");
+    if (!statusEl) return;
 
-      if (diffMin < 10) {
-        statusEl.textContent = `Keepalive: Online (${diffMin}m atrás)`;
-        statusEl.parentElement.style.color = "var(--success)";
-      } else {
-        statusEl.textContent = `Keepalive: Atenção (${diffMin}m atrás)`;
-        statusEl.parentElement.style.color = "var(--warning)";
-      }
+    if (error || !data) {
+      statusEl.textContent = "Keepalive: Sem dados";
+      statusEl.parentElement.style.color = "var(--text-muted)";
+      return;
+    }
+
+    const lastPing = new Date(data.last_ping_at);
+    const now = new Date();
+    const diffMin = Math.round((now - lastPing) / (1000 * 60));
+
+    if (diffMin < 10) {
+      statusEl.textContent = `Keepalive: Online (${diffMin}m atrás)`;
+      statusEl.parentElement.style.color = "var(--success)";
+    } else {
+      statusEl.textContent = `Keepalive: Atenção (${diffMin}m atrás)`;
+      statusEl.parentElement.style.color = "var(--warning)";
     }
   },
 };
