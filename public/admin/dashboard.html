@@ -123,26 +123,26 @@
                 </div>
 
                 <!-- Barra de Filtros -->
-                <div class="filter-bar">
+                <div class="filter-bar" style="border: none; padding: 0.5rem 0 1.5rem 0;">
                     <div class="filter-group">
-                        <label style="font-size: 0.75rem; color: var(--text-muted);">Lei:</label>
-                        <select id="filterLei" class="filter-select">
+                        <label>Lei</label>
+                        <select id="filterLei" class="form-control" style="min-width: 160px;">
                             <option value="">Todas</option>
                             <!-- Populado via JS -->
                         </select>
                     </div>
                     <div class="filter-group">
-                        <label style="font-size: 0.75rem; color: var(--text-muted);">Veredicto:</label>
-                        <select id="filterResultado" class="filter-select">
+                        <label>Veredicto</label>
+                        <select id="filterResultado" class="form-control" style="min-width: 160px;">
                             <option value="">Todos</option>
                             <option value="inelegivel">Inelegível</option>
                             <option value="elegivel">Elegível</option>
                             <option value="nao_encontrado">Não Encontrado</option>
                         </select>
                     </div>
-                    <div class="filter-group" style="flex: 1;">
-                        <input type="text" id="searchArtigo" class="filter-input"
-                            placeholder="Buscar por artigo ou tipo de crime..." style="margin-bottom: 0;">
+                    <div class="filter-group" style="flex: 1; min-width: 250px;">
+                        <label>Artigo / Crime</label>
+                        <input type="search" id="searchArtigo" class="form-control" placeholder="Filtrar por texto...">
                     </div>
                 </div>
                 <div style="overflow-x: auto;">
@@ -236,12 +236,14 @@
     <script type="module">
         import { authService } from '../assets/js/admin/auth-service.js?v=0.3.12';
         import { dashboardUI } from '../assets/js/admin/dashboard-ui.js?v=0.3.12';
+        import { keepaliveService } from '../assets/js/services/keepalive-service.js';
 
         const loadingOverlay = document.getElementById('loadingOverlay');
         const logoutBtn = document.getElementById('logoutBtn');
 
         // Middleware de autenticação
         window.addEventListener('DOMContentLoaded', async () => {
+            keepaliveService.init();
             if (!(await authService.isAuthenticated())) {
                 window.location.href = '/admin/index.html';
                 return;

@@ -85,20 +85,25 @@
 
             <!-- Filters -->
             <div class="glass-panel"
-                style="padding: 1rem 1.5rem; margin-bottom: 1.5rem; display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
-                <label style="font-size: 0.875rem; color: var(--text-muted);">Tipo:
-                    <select id="filterType" class="form-control" style="margin-left: 0.25rem; min-width: 120px;">
+                style="padding: 1.5rem; margin-bottom: 1.5rem; display: flex; gap: 1.5rem; align-items: flex-end; flex-wrap: wrap;">
+                <div class="filter-group">
+                    <label>Tipo de Evento</label>
+                    <select id="filterType" class="form-control" style="min-width: 160px;">
                         <option value="">Todos</option>
                         <option value="search">Busca</option>
                         <option value="pageview">Página</option>
                         <option value="error">Erro</option>
                     </select>
-                </label>
-                <input id="filterSearch" type="search" class="form-control"
-                    placeholder="Buscar por User ID ou Browser..." style="flex: 1; min-width: 200px;">
-                <button id="refreshBtn" class="btn btn-secondary" style="white-space: nowrap;">
-                    🔄 Atualizar
-                </button>
+                </div>
+                <div class="filter-group" style="flex: 1; min-width: 250px;">
+                    <label>Buscar por User ID ou Browser</label>
+                    <input id="filterSearch" type="search" class="form-control" placeholder="Digite para filtrar...">
+                </div>
+                <div>
+                    <button id="refreshBtn" class="btn btn-secondary" style="white-space: nowrap;">
+                        🔄 Atualizar
+                    </button>
+                </div>
             </div>
 
             <!-- Table -->
@@ -133,6 +138,7 @@
 
     <script type="module">
         import { authService } from '../assets/js/admin/auth-service.js?v=0.3.12';
+        import { keepaliveService } from '../assets/js/services/keepalive-service.js';
 
         /**
          * Analytics Audit Page
@@ -142,6 +148,7 @@
             let filteredData = [];
 
             async function init() {
+                keepaliveService.init();
                 bindEvents();
                 await loadData();
                 await loadUptime();
