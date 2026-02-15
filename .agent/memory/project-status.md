@@ -50,6 +50,7 @@
 
 **Log de Governança/Sessão:**
 
+- 15/02/2026 (01:33): **Hub Junction Reconectada**: Re-estabelecida conexão com `E:\Agents` via Junction após submodule git estar vazio.
 - 15/02/2026: **Consolidação SSoT v0.3.16**: Sincronização total com a tabela oficial (Outubro/2024), normalização de case no banco e fallback de elegibilidade.
 - 14/02/2026: **Padronização v0.3.15**: Sincronização de versão e correção crítica do sistema de Keepalive (Erro 401) e Privacidade RLS.
 - 13/02/2026: Zeladoria Técnica e Estabilidade de Infraestrutura (Hub Bridge).
