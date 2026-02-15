@@ -16,7 +16,10 @@ O Inelegis utiliza a variante **Decoupled** do padrão Hub:
 2.  **Receptor**: Supabase Edge Function (`keepalive`).
 3.  **Persistência**: Tabelas `keepalive` e `keepalive_events` no Supabase.
 
-> **Nota:** Diferente de projetos Next.js (como o Zappy), o Inelegis **não** usa API Routes da Vercel para o Keepalive. Isso garante que o monitoramento continue funcionando mesmo se o site estiver fora do ar.
+> **Por que Edge Function e não API Route?** O Inelegis é um site estático (Vanilla JS/HTML) sem framework SSR. Pela Árvore de Decisão do Hub, projetos sem Next.js/SSR devem usar Supabase Edge Function — isso garante independência do hosting e resiliência mesmo se o site estiver fora do ar.
+>
+> **Referência Completa:** Para entender o padrão completo, consulte `.agent/hub/docs/guides/guide-keepalive-monitoring.md`.
+> Para a configuração de variáveis por componente, consulte `.agent/hub/system/scaffolding/keepalive/ARCHITECTURE.md`.
 
 ---
 
@@ -33,6 +36,7 @@ Configure estas variáveis no Dashboard do Supabase (Settings -> API -> Edge Fun
 - `SUPABASE_SERVICE_ROLE_KEY`: Chave de serviço.
 
 ### Localização do Código
+
 O código da função está em `supabase/functions/keepalive/index.ts`.
 
 ---
@@ -42,10 +46,12 @@ O código da função está em `supabase/functions/keepalive/index.ts`.
 O Cloudflare Worker atua como o **despertador externo**.
 
 ### Configuração
+
 1. Use o código em `scripts/keepalive-worker.js`.
 2. Adicione um **Cron Trigger** no Cloudflare: `*/30 * * * *` (Padrão Hub).
 
 ### Variáveis no Cloudflare
+
 - `KEEPALIVE_URL`: `https://[seu-projeto].supabase.co/functions/v1/keepalive`
 - `KEEPALIVE_TOKEN`: O mesmo segredo configurado no Supabase.
 
@@ -53,9 +59,10 @@ O Cloudflare Worker atua como o **despertador externo**.
 
 ## 3. Variáveis na Vercel (O que NÃO configurar)
 
-**🛑 ATENÇÃO:** Devido à arquitetura adotada, **NÃO** é necessário (e nem recomendado) configurar a variável `KEEPALIVE_TOKEN` na Vercel. 
+**🛑 ATENÇÃO:** Devido à arquitetura adotada, **NÃO** é necessário (e nem recomendado) configurar a variável `KEEPALIVE_TOKEN` na Vercel.
 
 A Vercel para o Inelegis deve conter apenas:
+
 - Conexão base (`SUPABASE_URL`, `SERVICE_ROLE_KEY`)
 - Senha do Painel Admin (`ANALYTICS_ADMIN_TOKEN`)
 - Segredo da Faxina (`CRON_SECRET`)

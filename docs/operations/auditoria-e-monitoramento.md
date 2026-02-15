@@ -81,10 +81,16 @@ A função central de auditoria recebe os seguintes parâmetros:
 
 O monitoramento de disponibilidade é feito via **Hub Keepalive Pattern**, utilizando obrigatoriamente um **Cloudflare Worker** externo como disparador (pinger). Este método gera tráfego externo regular para reduzir o risco de o projeto Supabase entrar em modo de suspensão por inatividade.
 
-**Configuração necessária:**
+> **Limitação:** Nenhum pinger consegue acordar banco já suspenso — reativação é manual via Dashboard Supabase.
 
-- `KEEPALIVE_TOKEN`: Segredo de autenticação.
+**Arquitetura no Inelegis:** Cloudflare Worker → Supabase Edge Function → Tabelas `keepalive`/`keepalive_events`. O Inelegis usa Edge Function (e não API Route) porque é um site estático sem framework SSR.
+
+**Configuração necessária (Supabase Secrets):**
+
+- `KEEPALIVE_TOKEN`: Segredo de autenticação (mesmo valor do Cloudflare Worker).
 - `KEEPALIVE_PROJECT_SLUG`: Identificador do projeto (`inelegis`).
+
+> **Detalhes completos:** Consulte [keepalive-setup.md](../guides/keepalive-setup.md) para checklist de variáveis e troubleshooting.
 
 ---
 
