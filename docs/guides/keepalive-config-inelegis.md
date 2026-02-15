@@ -1,151 +1,201 @@
-﻿# 🎯 Inelegis: Guia Rápido de Variáveis
+﻿# 🎯 Inelegis: Configuração Real de Variáveis
 
-> **Este projeto é Tipo A** (App Estático com Supabase Edge Functions)
+> **ARQUITETURA HÍBRIDA**: Frontend Estático + API Routes Serverless + Keepalive Edge Function
 
 ---
 
-## ✅ Configuração Correta
+## ⚠️ IMPORTANTE: O Que Este Projeto REALMENTE É
 
-### 1. Cloudflare Worker
+**Inelegis NÃO é apenas um app estático!**
+
+### Componentes:
+
+1. **Frontend**: Vanilla JS/HTML (estático) servido pela Vercel
+2. **Backend Serverless**: API Routes (`/api/*`) rodando NA VERCEL:
+   - `/api/analytics.js` - Dashboard de analytics
+   - `/api/dashboard.js` - Métricas do sistema  
+   - `/api/search-history.js` - Busca de histórico
+   - `/api/maintenance.js` - Manutenção
+3. **Keepalive Receptor**: Supabase Edge Function
+
+**Por isso:**
+- ✅ Frontend precisa de `NEXT_PUBLIC_*`
+- ✅ **API Routes precisam de `SERVICE_ROLE_KEY`** ← CRUCIAL!
+- ✅ Keepalive precisa de token no Supabase (não na Vercel)
+
+---
+
+## ✅ Configuração ATUAL e CORRETA
+
+### 1. Cloudflare Worker (Pinger)
 
 ```env
 KEEPALIVE_URL=https://lnjzhfykfzrvfbggrdzp.supabase.co/functions/v1/keepalive
-KEEPALIVE_TOKEN=[seu-token-secreto]
+KEEPALIVE_TOKEN=c8810...  # (hash completo nos secrets)
 ```
 
-### 2. Vercel (Painel de Environment Variables)
+### 2. Vercel Environment Variables
 
-**Configurar APENAS estas 2:**
+**TODAS estas variáveis são NECESSÁRIAS:**
 
 ```env
+# ========================================
+# Supabase (Frontend + Backend API Routes)
+# ========================================
 NEXT_PUBLIC_SUPABASE_URL=https://lnjzhfykfzrvfbggrdzp.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=ca772e...  # Frontend precisa
+SUPABASE_SERVICE_ROLE_KEY=3f04607...      # API Routes precisam!
+
+# ========================================
+# Sistema (Funcionalidades do App)
+# ========================================
+HISTORY_RETENTION_DAYS=90                 # Limpeza automática de histórico
+CRON_SECRET=...                           # Segurança para cron jobs
+ANALYTICS_ADMIN_TOKEN=...                  # Acesso ao dashboard admin
 ```
 
-**❌ NÃO configurar:**
+**❌ NÃO configurar na Vercel (são do Keepalive, que está no Supabase):**
+- `KEEPALIVE_TOKEN`
+- `KEEPALIVE_PROJECT_SLUG`
+- `KEEPALIVE_ENVIRONMENT`
 
-- `SUPABASE_SERVICE_ROLE_KEY` ← Não precisa (sem backend na Vercel)
-- `KEEPALIVE_TOKEN` ← Não precisa (receptor está no Supabase)
-- `KEEPALIVE_PROJECT_SLUG` ← Não precisa (receptor está no Supabase)
-
-### 3. Supabase Edge Function Secrets
-
-Acesse: https://supabase.com/dashboard/project/[project]/settings/functions
+### 3. Supabase Edge Functions Secrets
 
 ```env
-KEEPALIVE_TOKEN=[mesmo-token-do-cloudflare]
-SUPABASE_URL=https://lnjzhfykfzrvfbggrdzp.supabase.co
-SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+# ========================================
+# Keepalive (Edge Function)
+# ========================================
+KEEPALIVE_TOKEN=c8810...  # MESMO token do Cloudflare Worker
+SUPABASE_URL=b8e0e3a...
+SUPABASE_ANON_KEY=ca772e...
+SUPABASE_SERVICE_ROLE_KEY=3f04607...
+SUPABASE_DB_URL=ead99fe...
 ```
 
 ### 4. `.env.local` (Desenvolvimento Local)
 
 ```env
 # ---------------------------
-# 🗄️ Supabase (App Principal)
+# 🗄️ Supabase
 # ---------------------------
 NEXT_PUBLIC_SUPABASE_URL=https://lnjzhfykfzrvfbggrdzp.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJ...
-SUPABASE_SERVICE_ROLE_KEY=eyJ...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+SUPABASE_SERVICE_ROLE_KEY=...
 
 # ---------------------------
-# 🛰️ Keepalive (Metadados)
+# 🛰️ Keepalive
 # ---------------------------
-KEEPALIVE_TOKEN=seu-token-secreto
+KEEPALIVE_TOKEN=...
 KEEPALIVE_PROJECT_SLUG=inelegis
 KEEPALIVE_ENVIRONMENT=dev
 KEEPALIVE_EVENTS_ENABLED=true
+
+# ---------------------------
+# 🔧 Sistema
+# ---------------------------
+HISTORY_RETENTION_DAYS=90
+CRON_SECRET=...
+ANALYTICS_ADMIN_TOKEN=...
 ```
 
 ---
 
 ## 🧠 Por Que Assim?
 
-### Por que `NEXT_PUBLIC_*` na Vercel?
+### Por que `SUPABASE_SERVICE_ROLE_KEY` NA VERCEL?
 
-**O navegador do usuário precisa.** Quando alguém acessa inelegis.com, o browser faz chamadas diretas ao Supabase para consultar artigos. Essas chamadas precisam de URL + anon key.
+**As API Routes precisam!**
 
-### Por que NÃO `SERVICE_ROLE_KEY` na Vercel?
+Quando você acessa `/api/analytics`, o código roda **na Vercel** (serverless function). Esse código precisa acessar o Supabase com permissões elevadas para:
+- Buscar analytics sem RLS
+- Fazer manutenção de dados
+- Acessar histórico de todos os usuários
 
-**Este projeto não tem backend na Vercel.** A Vercel só serve HTML/CSS/JS estáticos. Não há Node.js rodando lá, então não tem como usar a service role key.
+### Por que `KEEPALIVE_TOKEN` NÃO está na Vercel?
 
-### Por que NÃO `KEEPALIVE_TOKEN` na Vercel?
+**O receptor está no Supabase, não na Vercel!**
 
-**O receptor do Keepalive está no Supabase, não na Vercel.** O fluxo é:
-
+Fluxo do Keepalive:
 ```
 Cloudflare Worker → Supabase Edge Function → Database
+                          ↑
+                    Receptor aqui
 ```
 
-A Vercel nem participa! Então o token só precisa estar no Cloudflare (quem envia) e no Supabase (quem recebe).
+A Vercel nem participa do fluxo de Keepalive! Então o token só precisa estar:
+1. No Cloudflare (quem envia)
+2. No Supabase (quem recebe)
 
 ---
 
 ## 🚨 Troubleshooting
 
-### Build na Vercel falha: "ANON_KEY não encontrada"
+### Build na Vercel falha: "SERVICE_ROLE_KEY não encontrada"
 
-**Problema**: Falta `NEXT_PUBLIC_SUPABASE_ANON_KEY` na Vercel
+**Isso é ESPERADO se a variável foi removida!**
 
-**Solução**:
-
+**Solução:**
 1. Vercel Dashboard → Settings → Environment Variables
-2. Add: `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-3. Value: (copie do `.env.local`)
+2. Add: `SUPABASE_SERVICE_ROLE_KEY` 
+3. Value: (copie do Supabase Dashboard → Settings → API → service_role)
 4. Environments: ✅ Production, ✅ Preview, ✅ Development
 5. Redeploy
+
+### API Routes retornam 500
+
+**Problema**: Falta `SERVICE_ROLE_KEY` ou está incorreta
+
+**Verificar**:
+1. Vercel tem a variável?
+2. Valor está correto? (compare com Supabase Dashboard)
 
 ### Keepalive retorna 401
 
 **Problema**: Tokens diferentes entre Cloudflare e Supabase
 
 **Solução**:
-
 ```bash
 # Verifique se são IDÊNTICOS:
 Cloudflare Worker → KEEPALIVE_TOKEN
 Supabase Secrets → KEEPALIVE_TOKEN
 ```
 
-### Frontend não consegue buscar dados
-
-**Problema**: Falta `NEXT_PUBLIC_SUPABASE_URL` na Vercel
-
-**Solução**: Adicione ambas variáveis `NEXT_PUBLIC_*` (ver seção 2)
-
 ---
 
-## 📋 Checklist de Deploy
-
-Antes de fazer deploy, confirme:
+## 📋 Checklist Pré-Deploy
 
 ```
-Vercel:
+Vercel Environment Variables:
   [x] NEXT_PUBLIC_SUPABASE_URL
   [x] NEXT_PUBLIC_SUPABASE_ANON_KEY
-  [ ] SUPABASE_SERVICE_ROLE_KEY (deve estar VAZIO ou ausente)
-  [ ] KEEPALIVE_TOKEN (deve estar VAZIO ou ausente)
+  [x] SUPABASE_SERVICE_ROLE_KEY  ← NECESSÁRIO (API Routes)
+  [x] HISTORY_RETENTION_DAYS
+  [x] CRON_SECRET
+  [x] ANALYTICS_ADMIN_TOKEN
+  [ ] KEEPALIVE_TOKEN (deve estar AUSENTE - está no Supabase)
 
-Cloudflare:
+Supabase Edge Function Secrets:
+  [x] KEEPALIVE_TOKEN (mesmo do Cloudflare)
+  [x] SUPABASE_URL
+  [x] SUPABASE_ANON_KEY
+  [x] SUPABASE_SERVICE_ROLE_KEY
+  [x] SUPABASE_DB_URL
+
+Cloudflare Worker:
   [x] KEEPALIVE_URL aponta para *.supabase.co/functions/v1/keepalive
-  [x] KEEPALIVE_TOKEN configurado
+  [x] KEEPALIVE_TOKEN (mesmo do Supabase)
   [x] Cron Trigger ativo (*/30 * * * *)
-
-Supabase Edge Function:
-  [x] Arquivo index.ts deployado em supabase/functions/keepalive/
-  [x] KEEPALIVE_TOKEN nos Secrets (mesmo do Cloudflare)
-  [x] SUPABASE_URL e SERVICE_ROLE_KEY nos Secrets
 ```
 
 ---
 
-## 🔗 Links Úteis
+## 📚 Documentação Relacionada
 
-- [Guia Arquitetural Completo](./ARCHITECTURE.md) (compara Tipo A vs B)
-- [Vercel Dashboard](https://vercel.com/dashboard)
-- [Supabase Dashboard](https://supabase.com/dashboard)
-- [Cloudflare Workers](https://dash.cloudflare.com)
+- [Arquitetura Geral do Keepalive](../../.agent/hub/system/scaffolding/keepalive/ARCHITECTURE.md)
+- [API Routes do Projeto](../../api/README.md)
+- [Troubleshooting Vercel Deploy](./troubleshooting-vercel-deploy.md)
 
 ---
 
-_Última atualização: 15/02/2026 • Específico para Inelegis (Tipo A)_
+_Última atualização: 15/02/2026 • Corrigido após identificação de API Routes_
+_Arquitetura: Híbrido (Frontend Estático + API Serverless + Edge Function)_
