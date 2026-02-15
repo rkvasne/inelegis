@@ -1,6 +1,6 @@
 ﻿# 🛠️ Guia de Configuração: Keepalive (Hub Keepalive Pattern)
 
-Este guia detalha como configurar o sistema de monitoramento externo (Hub Keepalive Pattern) para **reduzir o risco** de o Supabase suspender seu banco de dados por inatividade.
+Este guia detalha como configurar o sistema de monitoramento externo (Hub Keepalive Pattern) no Inelegis para **reduzir o risco** de o Supabase suspender seu banco de dados por inatividade.
 
 > **Importante:** O Hub define o **Cloudflare Worker com Cron Trigger** como o único pinger oficial.
 >
@@ -8,74 +8,67 @@ Este guia detalha como configurar o sistema de monitoramento externo (Hub Keepal
 
 ---
 
+## 🏗️ Arquitetura no Inelegis
+
+O Inelegis utiliza a variante **Decoupled** do padrão Hub:
+
+1.  **Pinger**: Cloudflare Worker (Executa a cada 30min).
+2.  **Receptor**: Supabase Edge Function (`keepalive`).
+3.  **Persistência**: Tabelas `keepalive` e `keepalive_events` no Supabase.
+
+> **Nota:** Diferente de projetos Next.js (como o Zappy), o Inelegis **não** usa API Routes da Vercel para o Keepalive. Isso garante que o monitoramento continue funcionando mesmo se o site estiver fora do ar.
+
+---
+
 ## 1. Supabase Edge Function (O Receptor)
 
-O receptor centraliza a lógica de "sinal de vida" e autenticação.
+O receptor centraliza a lógica de "sinal de vida" e validação do token.
 
-### Variáveis no Supabase
+### Variáveis no Supabase (Secrets)
 
-Configure estas variáveis via CLI (`supabase secrets set`) ou no Dashboard do Supabase (Settings -> Edge Functions):
+Configure estas variáveis no Dashboard do Supabase (Settings -> API -> Edge Functions) ou via CLI:
 
-- `KEEPALIVE_TOKEN`: Um hash seguro gerado por você.
-- `SUPABASE_URL`: URL do seu projeto.
-- `SUPABASE_SERVICE_ROLE_KEY`: Chave de serviço (para bypass de RLS).
+- `KEEPALIVE_TOKEN`: Segredo compartilhado (Mesmo do Cloudflare).
+- `SUPABASE_URL`: URL do projeto.
+- `SUPABASE_SERVICE_ROLE_KEY`: Chave de serviço.
 
-### Deploy
-
-```bash
-supabase functions deploy keepalive
-```
+### Localização do Código
+O código da função está em `supabase/functions/keepalive/index.ts`.
 
 ---
 
-## 2. Despertador: Cloudflare Worker (Padrão Obrigatório)
+## 2. Pinger: Cloudflare Worker
 
-O Cloudflare Worker atua como o **pinger externo**. Ele é o único método aprovado pelo Hub para manter a uniformidade entre os projetos satélites.
-
-**Por que somente Cloudflare?**
-
-- **Supabase pg_cron:** É executado internamente; o Supabase não o considera "tráfego externo", portanto não evita a suspensão por inatividade.
-- **Vercel Cron / GitHub Actions:** São descontinuados do padrão para garantir que todos os satélites usem a mesma infraestrutura atômica e independente (Cloudflare), facilitando a manutenção global do ecossistema.
+O Cloudflare Worker atua como o **despertador externo**.
 
 ### Configuração
+1. Use o código em `scripts/keepalive-worker.js`.
+2. Adicione um **Cron Trigger** no Cloudflare: `*/30 * * * *` (Padrão Hub).
 
-1. Crie um novo **Worker** no Cloudflare.
-2. Use o código em `scripts/keepalive-worker.js`.
-3. Em **Triggers**, adicione um **Cron Trigger** (recomendado: `*/10 * * * *` - a cada 10 minutos).
-
-### Variáveis no Cloudflare (Variables & Secrets)
-
+### Variáveis no Cloudflare
 - `KEEPALIVE_URL`: `https://[seu-projeto].supabase.co/functions/v1/keepalive`
-- `KEEPALIVE_TOKEN`: O mesmo hash configurado no Supabase.
+- `KEEPALIVE_TOKEN`: O mesmo segredo configurado no Supabase.
 
 ---
 
-## 3. Heartbeat do Cliente (Nativo)
+## 3. Variáveis na Vercel (O que NÃO configurar)
 
-A aplicação já possui um serviço em `public/assets/js/services/keepalive-service.js` que dispara sinais enquanto o site está aberto. Este serviço usa a chave `anon` e RLS (conforme configurado na migration `004`).
+**🛑 ATENÇÃO:** Devido à arquitetura adotada, **NÃO** é necessário (e nem recomendado) configurar a variável `KEEPALIVE_TOKEN` na Vercel. 
 
----
-
-## 4. Variáveis no Hosting (Vercel / Produção)
-
-Para que o heartbeat do cliente (executado no navegador) funcione em produção, você deve configurar as seguintes variáveis no painel da **Vercel** (ou seu provedor de hosting):
-
-| Variável                 | Valor Recomendado                             |
-| :----------------------- | :-------------------------------------------- |
-| `KEEPALIVE_TOKEN`        | O mesmo segredo usado no Supabase/Cloudflare. |
-| `KEEPALIVE_PROJECT_SLUG` | `inelegis`                                    |
-| `KEEPALIVE_ENVIRONMENT`  | `production`                                  |
+A Vercel para o Inelegis deve conter apenas:
+- Conexão base (`SUPABASE_URL`, `SERVICE_ROLE_KEY`)
+- Senha do Painel Admin (`ANALYTICS_ADMIN_TOKEN`)
+- Segredo da Faxina (`CRON_SECRET`)
 
 ---
 
-## ✅ Fluxo de Validação
+## ✅ Checklist de Validação
 
-1. Verifique se a migration `20260211164500_create_keepalive_system.sql` foi aplicada.
-2. Teste o Cloudflare Worker manualmente (botão "Run" ou via URL do worker).
-3. Verifique se as variáveis de ambiente foram adicionadas ao **Vercel Dashboard**.
-4. Verifique a tabela `public.keepalive` no Supabase: o campo `last_ping_at` deve estar atualizado.
+1. **Ping manual**: `curl -X POST https://[projeto].supabase.co/functions/v1/keepalive -H "Authorization: Bearer [TOKEN]"`
+2. **Logs**: Verifique os logs da Edge Function no Supabase para confirmar pings do Cloudflare.
+3. **Dashboard**: Acesse `/admin/sistema.html` para ver o status do Uptime em tempo real.
 
 ---
 
-_Última atualização: 12/02/2026 • v0.3.11 (Hub v0.5.5)_
+_Última atualização: 14/02/2026 • v0.3.13 (Hub v0.5.6)_
 _Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_

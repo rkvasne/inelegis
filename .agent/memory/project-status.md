@@ -1,11 +1,14 @@
 # 📊 Project Status & Context
 
-> **Last Updated:** 13/02/2026
+> **Last Updated:** 14/02/2026
 > **Current Phase:** System Hardening & Monitoring
-> **Project Version:** v0.3.12 (Refined)
+> **Project Version:** v0.3.13 (Keepalive Refined)
 
 ## 🎯 Objetivos Concluídos (Sessão 13/02/2026)
 
+- [x] **Arquitetura Keepalive v0.3.13:** Remoção de batimento client-side e limpeza de variáveis redundantes na Vercel. Fluxo agora é 100% externo (Cloudflare -> Supabase).
+- [x] **Governança do Hub**: Atualização dos prompts e guias centralizados no Hub para incluir Árvore de Decisão sobre receptores de monitoramento.
+- [x] **Documentação Sincronizada**: Guias de variáveis e setup de monitoramento no Inelegis atualizados e validados.
 - [x] **Dashboard Administrativo v0.3.12:** Refinamento visual completo com Glassmorphism, filtros dinâmicos de auditoria e modal de fundamentação detalhada.
 - [x] **Analytics & Performance Optimization:** Implementação da View SQL `analytics_top_leis` para processamento server-side e centralização de utilitários de formatação.
 - [x] **Blindagem de Governança**: Implementação de Husky pre-commit hooks, correção de CSP para CDNs, limpeza de cores hardcoded (Theme Linter Compliance).
@@ -52,7 +55,7 @@
 - 13/02/2026: **Blindagem de Governança**: Implementação de Husky pre-commit hooks, correção de CSP para CDNs, limpeza de cores hardcoded (Theme Linter Compliance) e atualização final de documentação técnica. Estabelecido padrão de **Arquivamento de Documentação Histórica** (`docs/archive/`) para manter arquivos abaixo do limite de 600 linhas. Projeto 100% CONFORME.
 - 13/02/2026: **Estabilidade de Infraestrutura (Hub Bridge)**: Resolução de bloqueio técnico (loop infinito) no servidor MCP através de correção no boot robusto e resolução de caminhos Junction. Acesso a skills e regras do Hub restaurado. Checkpoint Prompt 19.
 - 13/02/2026: **Zeladoria Técnica (Code Janitor)**: Execução de limpeza técnica (Prompt #20). Remoção de código morto em `constants.js`, migração de `console.log` para `debugLog` em serviços e controladores, adição de JSDoc em métodos estruturais. Integridade validada com lint 100% OK.
-- 13/02/2026: **Dashboard v0.3.12 (Refined)**: Implementação de filtros dinâmicos de auditoria, modal de fundamentação jurídica detalhada e otimização de performance via Supabase View (`analytics_top_leis`). Projeto 100% CONFORME.
+- 14/02/2026: **Arquitetura Keepalive v0.3.13**: Refinamento do sistema de monitoramento para eliminar redundâncias. Desacoplamento do heartbeat do frontend e limpeza de variáveis de ambiente na Vercel. Atualização da Base de Conhecimento do Hub com Árvore de Decisão para pinger/receptor. Projeto 100% CONFORME.
 
 ---
 

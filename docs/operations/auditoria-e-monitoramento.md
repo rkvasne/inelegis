@@ -50,7 +50,7 @@ UI (Validator/Analyzer) → SearchHistory.add() → Supabase RPC (add_to_history
 
 ```
 Fluxo de Status (Keepalive):
-KeepaliveService (Browser) / Cloudflare Worker (External)
+Cloudflare Worker (External Pinger)
     ↓
     Supabase Edge Function (keepalive)
     ↓
