@@ -11,6 +11,15 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
 
+## [0.3.13] - 14/02/2026
+
+### 📡 Monitoramento & Uptime (Hub Keepalive Pattern)
+
+- **Desacoplamento de Infraestrutura**: Removida a lógica de heartbeat client-side (`keepaliveService.init()`) em favor do pinger 100% externo via Cloudflare Worker.
+- **Higiene de Ambiente (Vercel)**: Identificadas e removidas variáveis redundantes no painel da Vercel (`KEEPALIVE_TOKEN`, etc.) para projetos que utilizam Supabase Edge Functions como receptor.
+- **Clarificação de Padrão (Hub)**: Atualização da documentação centralizada do Hub para incluir uma **Árvore de Decisão**, permitindo que futuras IAs saibam quando aplicar pings via API Route (Next.js) ou Edge Functions (Vanilla/Static).
+- **Zeladoria Documental**: Reescrita completa dos guias de `Keepalive Setup` e `Variáveis de Ambiente` no Inelegis para refletir a separação entre Zeladoria (Vercel) e Monitoramento (Cloudflare + Supabase).
+
 ## [0.3.12] - 13/02/2026
 
 ### 📊 Dashboard Administrativo (Refinamento)

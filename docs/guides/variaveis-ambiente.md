@@ -1,99 +1,78 @@
 ﻿# 🔐 Variáveis de Ambiente
 
-Este documento descreve as variáveis necessárias para a operação do Inelegis com o Supabase, organizadas por camadas de responsabilidade técnica.
+Este documento descreve as variáveis necessárias para a operação do Inelegis, organizadas por onde devem ser configuradas (Vercel, Supabase ou Cloudflare).
 
 ---
 
-## 🗂️ Arquivos
+## 🏗️ 1. Hosting (Vercel)
 
-| Arquivo        | Propósito                          | Git          |
-| -------------- | ---------------------------------- | ------------ |
-| `.env.example` | Template de exemplo                | ✅ Commitado |
-| `.env.local`   | Variáveis locais (Desenvolvimento) | ❌ Ignorado  |
+Estas variáveis alimentam as **APIs do Painel Admin** e tarefas de **Zeladoria**. Configure no Dashboard da Vercel em *Settings -> Environment Variables*.
+
+| Variável | Descrição | Importância |
+| :--- | :--- | :--- |
+| `NEXT_PUBLIC_SUPABASE_URL` | URL do seu projeto Supabase. | **Crítica** |
+| `SUPABASE_SERVICE_ROLE_KEY` | Chave secreta de serviço (Bypass RLS). | **Crítica** |
+| `CRON_SECRET` | Token que protege a faxina automática (`/api/maintenance`). | **Zeladoria** |
+| `HISTORY_RETENTION_DAYS` | Dias de retenção de logs (Ex: 90). | **Zeladoria** |
+| `ANALYTICS_ADMIN_TOKEN` | Senha de acesso aos dados do Dashboard Admin. | **Segurança** |
 
 ---
 
-## 🏗️ Camadas de Configuração
+## 💓 2. Banco e Receptor (Supabase)
 
-### 1. 🗄️ Supabase Core (Obrigatório)
+Estas variáveis alimentam as **Edge Functions** (Keepalive). Configure no Dashboard do Supabase em *Settings -> API -> Edge Functions*.
 
-Variáveis fundamentais para a conexão do frontend e backend com o banco de dados.
+| Variável | Descrição | Onde usar |
+| :--- | :--- | :--- |
+| `KEEPALIVE_TOKEN` | Segredo para validar o batimento cardíaco. | Edge Function |
+| `SUPABASE_URL` | URL interna/externa do projeto. | Edge Function |
+| `SUPABASE_SERVICE_ROLE_KEY` | Chave de serviço para gravar o status. | Edge Function |
+
+---
+
+## ⏰ 3. Despertador (Cloudflare)
+
+Configurações para o **Worker** que dispara o sinal de vida.
+
+| Variável | Valor Recomendado | Observação |
+| :--- | :--- | :--- |
+| `KEEPALIVE_URL` | `https://[projeto].supabase.co/functions/v1/keepalive` | URL da Edge Function. |
+| `KEEPALIVE_TOKEN` | O mesmo hash configurado no Supabase. | Deve ser idêntico. |
+
+---
+
+## 💻 4. Desenvolvimento Local (`.env.local`)
+
+Para rodar o projeto localmente, você deve ter um espelho dessas variáveis no arquivo `.env.local`. 
 
 ```env
-# URL do Projeto (API Externa)
+# Supabase
 NEXT_PUBLIC_SUPABASE_URL="https://xxxxxxxx.supabase.co"
-
-# Chave Pública (Usada no frontend pelo SDK)
 NEXT_PUBLIC_SUPABASE_ANON_KEY="eyJhbGci..."
-
-# Chave Privada (APENAS para scripts de build/seed e rotas de servidor)
-# NUNCA exponha esta chave no frontend
 SUPABASE_SERVICE_ROLE_KEY="eyJhbGci..."
-```
 
----
-
-### 2. 🛰️ Monitoramento (Hub Keepalive Pattern)
-
-Configurações para o sistema de "sinais de vida" que reduzem o risco de suspensão do projeto por inatividade.
-
-```env
-# Token de autenticação entre Pinger (Cloudflare) e Receptor (Supabase)
-KEEPALIVE_TOKEN="seu_token_de_heartbeat"
-
-# Identificação do projeto para telemetria
-KEEPALIVE_PROJECT_SLUG="inelegis"
-KEEPALIVE_ENVIRONMENT="prod"
-```
-
----
-
-### 3. 🧹 Zeladoria (Manutenção e Limpeza)
-
-Variáveis que controlam as tarefas de "faxina" automática e retenção de dados históricos.
-
-#### `CRON_SECRET`
-
-Este é o "token da faxina". Ele protege o endpoint de manutenção (`/api/maintenance`) contra chamadas não autorizadas. Quando configurado um agendamento automático (Vercel Cron ou externo), este token deve ser enviado no cabeçalho de autorização.
-
-#### `HISTORY_RETENTION_DAYS`
-
-Define o limite de idade dos registros de histórico de consulta antes de serem deletados pelo script de manutenção (Padrão: 90 dias).
-
-```env
-CRON_SECRET="token_para_vincular_o_disparo_automatico"
+# Zeladoria
+CRON_SECRET="token-de-limpeza"
 HISTORY_RETENTION_DAYS=90
+
+# Monitoramento (Local reference)
+KEEPALIVE_TOKEN="mesmo-do-supabase"
+KEEPALIVE_PROJECT_SLUG="inelegis"
+KEEPALIVE_ENVIRONMENT="local"
+
+# Admin Dashboard
+ANALYTICS_ADMIN_TOKEN="sua-senha-do-admin"
 ```
 
 ---
 
-### 4. 🔐 Governança e Hub (Scripts)
+## 🔒 Regras de Ouro
 
-#### `HUB_ACCESS_TOKEN`
-
-O "crachá de acesso" ao Hub. Como o repositório **Solo Dev Hub Central** é privado, este token (GitHub GHP) garante que o Inelegis consiga ler scripts de validação, regras de agentes e geradores centralizados durante o desenvolvimento ou auditoria.
-
-```env
-HUB_ACCESS_TOKEN="ghp_xxx"
-```
+1.  **Vercel ≠ Keepalive**: No Inelegis, a Vercel **não** precisa de `KEEPALIVE_TOKEN`.
+2.  **Segurança**: Nunca coloque `SERVICE_ROLE_KEY` em arquivos `.js` dentro da pasta `public/`.
+3.  **Sincronia**: Se mudar o `KEEPALIVE_TOKEN`, deve atualizar no Cloudflare e no Supabase simultaneamente.
 
 ---
 
-## 🚀 Como Configurar
-
-1.  Crie o arquivo `.env.local` na raiz.
-2.  Preencha as variáveis conforme sua infraestrutura.
-3.  Execute `npm run supabase:config` para injetar as chaves necessárias no frontend.
-
----
-
-## 🔒 Boas Práticas
-
-- **NUNCA** commite o arquivo `.env.local`.
-- **NUNCA** use a `SERVICE_ROLE_KEY` em arquivos dentro da pasta `public/`.
-- Utilize o Dashboard do seu provedor de Hosting (ex: Vercel) para configurar as variáveis em produção.
-
----
-
-_Última atualização: 12/02/2026 • v0.3.11 (Hub v0.5.5)_
+_Última atualização: 14/02/2026 • v0.3.13 (Hub v0.5.6)_
 _Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_
