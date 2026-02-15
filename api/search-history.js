@@ -39,9 +39,11 @@ const ALLOWED_ORIGINS = [
  * Valida origem da requisição (CORS)
  */
 function validateOrigin(origin) {
-  return (
-    ALLOWED_ORIGINS.includes(origin) || process.env.NODE_ENV === "development"
-  );
+  const isProd = process.env.NODE_ENV === "production";
+  if (isProd) {
+    return origin === "https://inelegis.vercel.app";
+  }
+  return ALLOWED_ORIGINS.includes(origin) || !origin;
 }
 
 /**
@@ -60,6 +62,9 @@ function setCorsHeaders(res, origin) {
  */
 async function addToHistory(userId, search) {
   const client = getSupabase();
+
+  // Reforçar contexto de segurança para RLS (Row Level Security)
+  await client.rpc("set_app_user_id", { p_user_id: userId });
 
   const { data, error } = await client
     .from("historico_consultas")
@@ -86,6 +91,9 @@ async function addToHistory(userId, search) {
  */
 async function getHistory(userId, limit = 50) {
   const client = getSupabase();
+
+  // Reforçar contexto de segurança para RLS (Row Level Security)
+  await client.rpc("set_app_user_id", { p_user_id: userId });
 
   const { data, error } = await client
     .from("historico_consultas")
@@ -114,6 +122,9 @@ async function getHistory(userId, limit = 50) {
  */
 async function getStats(userId) {
   const client = getSupabase();
+
+  // Reforçar contexto de segurança para RLS (Row Level Security)
+  await client.rpc("set_app_user_id", { p_user_id: userId });
 
   // Usar RPC para estatísticas
   const { data, error } = await client.rpc("get_user_stats", {
@@ -199,7 +210,8 @@ export default async function handler(req, res) {
     console.error("❌ Erro na API de histórico:", error);
     return res.status(500).json({
       error: "Internal server error",
-      message: error.message,
+      message:
+        "Ocorreu um erro ao processar o histórico. Tente novamente mais tarde.",
     });
   }
 }

@@ -11,6 +11,14 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
 
+## [0.3.15] - 14/02/2026
+
+### 🛡️ Segurança (Hardenização e Privacidade)
+
+- **Eliminação de Verbose Errors**: Sanitização de todas as APIs (Vercel e Supabase) para retornar mensagens genéricas ao usuário, evitando vazamento de estrutura do banco de dados (reconnaissance prevention).
+- **RLS para Dados Abertos**: Implementação do padrão `set_app_user_id` e conversão de funções SQL para `SECURITY INVOKER`, garantindo isolamento total de histórico entre usuários anônimos via Postgres RLS.
+- **Segurança de Origem**: Restrição de CORS mais rígida em produção, desativando automaticamente o acesso via `localhost` fora do ambiente de desenvolvimento.
+
 ## [0.3.14] - 14/02/2026
 
 ### 🛡️ Segurança e Governança (Hardenização RLS)
