@@ -39,7 +39,7 @@
 
 ## 🔄 Tarefas em Aberto (Próximos Passos)
 
-1. Auditoria de Performance e Core Web Vitals (Prompt #12).
+1. Auditoria de Performance e Core Web Vitals (Prompt #13).
 2. Refinamento contínuo das políticas de segurança e sanitização.
 
 ## ⚠️ Riscos e Bloqueios
