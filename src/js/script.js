@@ -4,15 +4,12 @@ import { ValidatorUI } from "./ui/validator-ui.js";
 import { AnalyzerUI } from "./ui/analyzer-ui.js";
 import { setupRadioButtons } from "./ui/ui-events.js";
 
-import { keepaliveService } from "./services/keepalive-service.js";
-
 // Entrypoint Principal da Página de Consulta
 document.addEventListener("DOMContentLoaded", () => {
   // 1. Verificação de Segurança (Gatekeeper)
   if (!verificarAcessoConsulta()) return;
 
   // 2. Inicializar Serviços Core
-  keepaliveService.init();
   if (typeof Analytics !== "undefined") Analytics.init();
   if (typeof SearchHistory !== "undefined") SearchHistory.init();
 

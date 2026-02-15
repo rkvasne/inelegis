@@ -151,14 +151,12 @@
 
     <script type="module">
         import { authService } from '../assets/js/admin/auth-service.js?v=0.3.12';
-        import { keepaliveService } from '../assets/js/services/keepalive-service.js';
 
         const HistoryAdmin = (() => {
             let allData = [];
             let filteredData = [];
 
             async function init() {
-                keepaliveService.init();
                 bindEvents();
                 await loadData();
                 await loadUptime();

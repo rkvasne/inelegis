@@ -236,14 +236,12 @@
     <script type="module">
         import { authService } from '../assets/js/admin/auth-service.js?v=0.3.12';
         import { dashboardUI } from '../assets/js/admin/dashboard-ui.js?v=0.3.12';
-        import { keepaliveService } from '../assets/js/services/keepalive-service.js';
 
         const loadingOverlay = document.getElementById('loadingOverlay');
         const logoutBtn = document.getElementById('logoutBtn');
 
         // Middleware de autenticação
         window.addEventListener('DOMContentLoaded', async () => {
-            keepaliveService.init();
             if (!(await authService.isAuthenticated())) {
                 window.location.href = '/admin/index.html';
                 return;
