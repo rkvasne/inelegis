@@ -11,6 +11,14 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
 
+## [0.3.14] - 14/02/2026
+
+### 🛡️ Segurança e Governança (Hardenização RLS)
+
+- **Blindagem do Keepalive**: Implementação da migration `20260214221500_secure_keepalive_rls.sql` para remover permissões de escrita/insert da role `anon` nas tabelas de monitoramento.
+- **Princípio do Menor Privilégio**: Restrição do controle total das tabelas `keepalive` e `keepalive_events` exclusivamente para a `service_role` (utilizada pela Supabase Edge Function).
+- **Consistência de Dashboard**: Preservada a política de leitura pública (`SELECT`) apenas para a tabela singleton de status, garantindo que o painel administrativo frontend continue exibindo o indicador de Uptime em tempo real.
+
 ## [0.3.13] - 14/02/2026
 
 ### 📡 Monitoramento & Uptime (Hub Keepalive Pattern)
