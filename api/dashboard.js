@@ -195,9 +195,15 @@ async function getSearchesByPeriod(days = 7) {
  */
 export default async function handler(req, res) {
   const origin = req.headers.origin;
-  if (validateOrigin(origin)) {
-    res.setHeader("Access-Control-Allow-Origin", origin);
+
+  if (!validateOrigin(origin)) {
+    console.warn(
+      `⚠️ Origem bloqueada (Dashboard): ${origin || "Desconhecida"}`,
+    );
+    return res.status(403).json({ error: "Forbidden: Invalid origin" });
   }
+
+  res.setHeader("Access-Control-Allow-Origin", origin);
   res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
 

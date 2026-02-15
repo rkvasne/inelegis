@@ -159,10 +159,14 @@ export default async function handler(req, res) {
   // CORS
   const origin = req.headers.origin;
 
-  if (validateOrigin(origin)) {
-    res.setHeader("Access-Control-Allow-Origin", origin);
+  if (!validateOrigin(origin)) {
+    console.warn(
+      `⚠️ Origem bloqueada (Analytics): ${origin || "Desconhecida"}`,
+    );
+    return res.status(403).json({ error: "Forbidden: Invalid origin" });
   }
 
+  res.setHeader("Access-Control-Allow-Origin", origin);
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
@@ -180,8 +184,10 @@ export default async function handler(req, res) {
     const { events, timestamp } = req.body;
 
     // Validar
-    if (!Array.isArray(events) || events.length === 0) {
-      return res.status(400).json({ error: "Invalid events array" });
+    if (!Array.isArray(events) || events.length === 0 || events.length > 50) {
+      return res
+        .status(400)
+        .json({ error: "Invalid events array (min 1, max 50)" });
     }
 
     // Processar eventos
