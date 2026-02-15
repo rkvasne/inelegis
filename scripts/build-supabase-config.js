@@ -13,9 +13,12 @@ import dotenv from "dotenv";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Tentar carregar dotenv se disponível
+// Tentar carregar dotenv se disponível com override para garantir que o .env.local vença
 try {
-  dotenv.config({ path: path.join(__dirname, "../.env.local") });
+  dotenv.config({
+    path: path.join(__dirname, "../.env.local"),
+    override: true,
+  });
 } catch (e) {
   // Silencioso se não houver dotenv (pode estar em CI)
 }
@@ -28,20 +31,28 @@ let supabaseAnonKey = process.env["NEXT_PUBLIC_SUPABASE_ANON_KEY"];
 if (!supabaseUrl || !supabaseAnonKey) {
   const envPath = path.join(__dirname, "../.env.local");
   if (fs.existsSync(envPath)) {
-    const envContent = fs.readFileSync(envPath, "utf8");
+    let envContent = fs.readFileSync(envPath, "utf8");
+
+    // Remover BOM se presente (pode causar erro no primeiro caractere do arquivo)
+    if (envContent.charCodeAt(0) === 0xfeff) {
+      envContent = envContent.slice(1);
+    }
+
     envContent.split(/\r?\n/).forEach((line) => {
       const trimmedLine = line.trim();
       if (!trimmedLine || trimmedLine.startsWith("#")) return;
 
       const [key, ...valueParts] = trimmedLine.split("=");
+      if (!key) return;
+
       const value = valueParts
         .join("=")
         .trim()
         .replace(/^["'](.*)["']$/, "$1");
 
-      if (key.trim() === "NEXT_PUBLIC_SUPABASE_URL") supabaseUrl = value;
-      if (key.trim() === "NEXT_PUBLIC_SUPABASE_ANON_KEY")
-        supabaseAnonKey = value;
+      const cleanKey = key.trim();
+      if (cleanKey === "NEXT_PUBLIC_SUPABASE_URL") supabaseUrl = value;
+      if (cleanKey === "NEXT_PUBLIC_SUPABASE_ANON_KEY") supabaseAnonKey = value;
     });
   }
 }
@@ -50,7 +61,14 @@ if (!supabaseUrl || !supabaseAnonKey) {
   console.error(
     "❌ ERRO: Variáveis do Supabase não encontradas no .env.local ou no ambiente.",
   );
-  console.log("   Siga os seguintes passos:");
+  console.log("   Diagnóstico:");
+  console.log(`   - CWD: ${process.cwd()}`);
+  console.log(
+    `   - .env.local existe: ${fs.existsSync(path.join(__dirname, "../.env.local"))}`,
+  );
+  console.log(`   - URL encontrada: ${supabaseUrl ? "SIM" : "NÃO"}`);
+  console.log(`   - Key encontrada: ${supabaseAnonKey ? "SIM" : "NÃO"}`);
+  console.log("\n   Siga os seguintes passos:");
   console.log(
     "   1. Verifique se o arquivo .env.local existe na raiz do projeto.",
   );
@@ -81,6 +99,13 @@ const outputPath = path.join(
   __dirname,
   "../public/assets/js/supabase-config.js",
 );
+
+// Garantir que a pasta exista
+const outputDir = path.dirname(outputPath);
+if (!fs.existsSync(outputDir)) {
+  fs.mkdirSync(outputDir, { recursive: true });
+}
+
 fs.writeFileSync(outputPath, configContent);
 
 console.log("✅ Supabase config gerado:", outputPath);
