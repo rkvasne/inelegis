@@ -539,6 +539,7 @@ const SearchHistory = (() => {
     remove,
     getStats,
     getStatsAsync,
+    getUserId,
     exportToText,
   };
 })();
