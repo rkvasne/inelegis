@@ -16,9 +16,10 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 ### 🛠️ Build & Infraestrutura (Zeladoria)
 
 - **Fix (Build Resilience)**: Refatoração do script `build-supabase-config.js` para maior robustez, incluindo detecção de BOM, diagnóstico detalhado e suporte a `override` de variáveis de ambiente no `dotenv`.
-- **Improved (DevExp)**: Sincronização dinâmica da versão do projeto nos scripts de `build` e `test`, eliminando versões hardcoded e garantindo relatórios consistentes em conformidade com o `package.json`.
+- **Improved (DevExp)**: Sincronização din âmica da versão do projeto nos scripts de `build` e `test`, eliminando versões hardcoded e garantindo relatórios consistentes em conformidade com o `package.json`.
 - **Refactor (Clean Code)**: Desacoplamento da lógica de UI com a criação do `ResultRenderer`, unificação de funções RPC no Supabase (removendo redundâncias de OID) e centralização de constantes de resultado.
-- **Fix (Deploy + Docs)**: Correção de build failure na Vercel causado por remoção incorreta de `NEXT_PUBLIC_SUPABASE_ANON_KEY`. **Causa raiz**: Documentação ambígua no Hub sobre variáveis do Keepalive foi interpretada como "remover todas as variáveis Supabase do Vercel". **Correção**: Atualizado `README.md` do Hub Keepalive para esclarecer que credenciais Supabase são SEMPRE necessárias na Vercel se o app usa client-side calls.
+- **Fix (Deploy)**: Restauração de `NEXT_PUBLIC_SUPABASE_ANON_KEY` na Vercel após remoção incorreta. **IMPORTANTE**: Frontend **sempre** precisa de credenciais Supabase. A "Arquitetura A" (Edge Functions) dispensa apenas `KEEPALIVE_TOKEN` e `SERVICE_ROLE_KEY`, mas **nunca** `NEXT_PUBLIC_*`.
+- **Docs (Hub)**: Criação de `ARCHITECTURE.md` no Hub Keepalive para esclarecer diferenças entre Arquitetura A (receptor no Supabase) vs B (receptor no Next.js). Previne confusão sobre quais variáveis são necessárias em cada cenário.
 
 ### 🏛️ Banco de Dados & SSoT (Fonte Única de Verdade)
 
