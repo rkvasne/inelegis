@@ -123,11 +123,15 @@ O Supabase usa Row Level Security (RLS) para proteger os dados:
 
 No Vercel Dashboard → Seu Projeto → **Settings** → **Environment Variables**:
 
-| Variável                        | Ambiente            |
-| ------------------------------- | ------------------- |
-| `NEXT_PUBLIC_SUPABASE_URL`      | Production, Preview |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Production, Preview |
-| `SUPABASE_SERVICE_ROLE_KEY`     | Production, Preview |
+| Variável                        | Ambiente            | Obrigatória? |
+| ------------------------------- | ------------------- | ------------ |
+| `NEXT_PUBLIC_SUPABASE_URL`      | Production, Preview | ✅ SIM       |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Production, Preview | ✅ SIM       |
+| `SUPABASE_SERVICE_ROLE_KEY`     | Production, Preview | ✅ SIM       |
+
+**⚠️ IMPORTANTE:** Todas as três variáveis são **SEMPRE necessárias** para o app funcionar na Vercel. Não remova nenhuma delas, mesmo ao implementar o Keepalive com Edge Functions.
+
+**Em caso de erro de build**, consulte: [Troubleshooting: Deploy na Vercel](./troubleshooting-vercel-deploy.md)
 
 ---
 
