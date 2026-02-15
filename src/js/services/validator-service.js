@@ -2,7 +2,7 @@
  * Validator Service - Supabase Edition
  * Serviço responsável por alimentar os dropdowns de validação estruturada.
  * Consulta dados diretamente do Supabase.
- * @version 0.3.7 (Only-Supabase)
+ * @version 0.3.15 (Only-Supabase)
  */
 
 import { supabaseClient } from "./supabase-client.js";

@@ -2,7 +2,7 @@
 category: operations
 scope: scripts
 status: active
-version: 0.3.11
+version: 0.3.15
 ---
 
 # 📜 Scripts do Projeto
@@ -36,5 +36,5 @@ Todos os scripts assumem Windows 11 como ambiente padrão.
 
 ---
 
-_Última atualização: 12/02/2026 • v0.3.11 (Hub v0.5.5)_
+_Última atualização: 14/02/2026 • v0.3.15 (Hub v0.5.6)_
 _Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_

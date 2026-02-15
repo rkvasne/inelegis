@@ -43,5 +43,5 @@ _A lógica destes scripts é mantida no Hub Central para garantir que todos os p
 
 ---
 
-_Última atualização: 13/02/2026 • v0.3.11 (Hub v0.5.5)_
-_Editado via: Cursor | Modelo: gpt-5.3-codex | OS: Windows 11_
+_Última atualização: 14/02/2026 • v0.3.15 (Hub v0.5.6)_
+_Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_

@@ -3,7 +3,7 @@ import { validatorService } from "../services/validator-service.js";
 /**
  * Controller da Interface de Validação.
  * Gerencia os Dropdowns (Leis e Artigos) e a exibição de resultados.
- * @version 0.3.7
+ * @version 0.3.15
  */
 export class ValidatorUI {
   constructor() {

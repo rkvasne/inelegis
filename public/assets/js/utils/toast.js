@@ -1,7 +1,7 @@
 /**
  * @file toast.js
  * @description Sistema de notificações toast leves e acessíveis
- * @version 0.3.7
+ * @version 0.3.15
  */
 
 /**

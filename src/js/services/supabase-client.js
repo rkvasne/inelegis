@@ -1,7 +1,7 @@
 /**
  * Supabase Client
  * Cliente centralizado para todas as operações Supabase
- * @version 0.3.7
+ * @version 0.3.15
  */
 
 // Configuração via variáveis de ambiente

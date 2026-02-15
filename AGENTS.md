@@ -177,5 +177,5 @@ edit public/consulta.html
 
 ---
 
-_Última atualização: 14/02/2026 • v0.3.12 (Hub v0.5.6)_
-_Editado via: Cursor | Modelo: claude-opus-4-20250514 | OS: Windows 11_
+_Última atualização: 14/02/2026 • v0.3.15 (Hub v0.5.6)_
+_Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_

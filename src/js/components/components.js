@@ -1,7 +1,7 @@
 /**
  * Reusable Components
  * Componentes reutilizáveis para todas as páginas
- * @version 0.3.12
+ * @version 0.3.15
  */
 
 const Components = (() => {
@@ -88,7 +88,7 @@ const Components = (() => {
                             <img id="header-logo"${logoLockAttr} src="${logoSrc}" alt="Inelegis Logo" class="theme-aware-logo u-rounded" width="32" height="32" loading="lazy">
                         </div>
                         <div class="brand-text">
-                            <h1>Inelegis <span class="version-badge">v0.3.12</span></h1>
+                            <h1>Inelegis <span class="version-badge">v0.3.15</span></h1>
                             <p>Consulta de Inelegibilidade Eleitoral</p>
                         </div>
                     </div>

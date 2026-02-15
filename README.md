@@ -133,5 +133,5 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE.md](LICENSE.md) p
 
 ---
 
-_Última atualização: 13/02/2026 • v0.3.12 (Hub v0.5.6)_
+_Última atualização: 14/02/2026 • v0.3.15 (Hub v0.5.6)_
 _Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_

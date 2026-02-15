@@ -4,7 +4,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 /**
  * Inelegis Keepalive Receiver (Supabase Edge Function)
  * Padrão: Hub-First / Hub Keepalive Pattern
- * @version 0.3.10
+ * @version 0.3.15
  */
 
 const KEEPALIVE_TOKEN = Deno.env.get("KEEPALIVE_TOKEN");
@@ -27,7 +27,23 @@ Deno.serve(async (req: Request) => {
     ? authHeader.substring(7)
     : req.headers.get("x-keepalive-token");
 
-  if (!KEEPALIVE_TOKEN || providedToken !== KEEPALIVE_TOKEN) {
+  if (!KEEPALIVE_TOKEN) {
+    console.error(
+      "[Keepalive] ERRO: KEEPALIVE_TOKEN não configurado nos segredos do Supabase.",
+    );
+    return new Response(
+      JSON.stringify({ error: "Server configuration missing" }),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      },
+    );
+  }
+
+  if (providedToken !== KEEPALIVE_TOKEN) {
+    console.warn(
+      `[Keepalive] 401: Token inválido recebido. Esperado: ${KEEPALIVE_TOKEN.substring(0, 3)}... Recebido: ${providedToken?.substring(0, 3)}...`,
+    );
     return new Response(JSON.stringify({ error: "Unauthorized" }), {
       status: 401,
       headers: { "Content-Type": "application/json" },
