@@ -160,6 +160,12 @@ async function getStats(userId) {
  */
 export default async function handler(req, res) {
   const origin = req.headers.origin;
+
+  if (!validateOrigin(origin)) {
+    console.warn(`⚠️ Origem bloqueada: ${origin || "Desconhecida"}`);
+    return res.status(403).json({ error: "Forbidden: Invalid origin" });
+  }
+
   setCorsHeaders(res, origin);
 
   // Preflight
@@ -172,8 +178,8 @@ export default async function handler(req, res) {
     if (req.method === "GET") {
       const { userId, limit, stats } = req.query;
 
-      if (!userId) {
-        return res.status(400).json({ error: "userId is required" });
+      if (!userId || userId.length < 5 || userId.length > 100) {
+        return res.status(400).json({ error: "Invalid or missing userId" });
       }
 
       if (stats === "true") {
@@ -189,10 +195,10 @@ export default async function handler(req, res) {
     if (req.method === "POST") {
       const { userId, search } = req.body;
 
-      if (!userId || !search) {
+      if (!userId || userId.length < 5 || userId.length > 100 || !search) {
         return res
           .status(400)
-          .json({ error: "userId and search are required" });
+          .json({ error: "Invalid userId or missing search data" });
       }
 
       if (!search.lei || !search.artigo || !search.resultado) {
