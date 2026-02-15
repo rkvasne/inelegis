@@ -2,10 +2,11 @@
 
 > **Last Updated:** 14/02/2026
 > **Current Phase:** System Hardening & Monitoring
-> **Project Version:** v0.3.13 (Keepalive Refined)
+> **Project Version:** v0.3.14 (Security Hardened)
 
 ## 🎯 Objetivos Concluídos (Sessão 13/02/2026)
 
+- [x] **Segurança Keepalive v0.3.14:** Blindagem RLS concluída. Acesso de escrita bloqueado para a role `anon`, movendo a responsabilidade de gravação 100% para a Edge Function via `service_role`.
 - [x] **Arquitetura Keepalive v0.3.13:** Remoção de batimento client-side e limpeza de variáveis redundantes na Vercel. Fluxo agora é 100% externo (Cloudflare -> Supabase).
 - [x] **Governança do Hub**: Atualização dos prompts e guias centralizados no Hub para incluir Árvore de Decisão sobre receptores de monitoramento.
 - [x] **Documentação Sincronizada**: Guias de variáveis e setup de monitoramento no Inelegis atualizados e validados.
@@ -55,6 +56,7 @@
 - 13/02/2026: **Blindagem de Governança**: Implementação de Husky pre-commit hooks, correção de CSP para CDNs, limpeza de cores hardcoded (Theme Linter Compliance) e atualização final de documentação técnica. Estabelecido padrão de **Arquivamento de Documentação Histórica** (`docs/archive/`) para manter arquivos abaixo do limite de 600 linhas. Projeto 100% CONFORME.
 - 13/02/2026: **Estabilidade de Infraestrutura (Hub Bridge)**: Resolução de bloqueio técnico (loop infinito) no servidor MCP através de correção no boot robusto e resolução de caminhos Junction. Acesso a skills e regras do Hub restaurado. Checkpoint Prompt 19.
 - 13/02/2026: **Zeladoria Técnica (Code Janitor)**: Execução de limpeza técnica (Prompt #20). Remoção de código morto em `constants.js`, migração de `console.log` para `debugLog` em serviços e controladores, adição de JSDoc em métodos estruturais. Integridade validada com lint 100% OK.
+- 14/02/2026: **Segurança Keepalive v0.3.14**: Blindagem RLS das tabelas de monitoramento. Restrição de acesso de escrita à `service_role`, eliminando riscos de poluição de dados via `anon_key`.
 - 14/02/2026: **Arquitetura Keepalive v0.3.13**: Refinamento do sistema de monitoramento para eliminar redundâncias. Desacoplamento do heartbeat do frontend e limpeza de variáveis de ambiente na Vercel. Atualização da Base de Conhecimento do Hub com Árvore de Decisão para pinger/receptor. Projeto 100% CONFORME.
 
 ---
