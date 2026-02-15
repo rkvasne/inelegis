@@ -11,6 +11,16 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
 
+## [0.3.16] - 15/02/2026
+
+### 🏛️ Banco de Dados & SSoT (Fonte Única de Verdade)
+
+- **Consolidação da Tabela Oficial**: Reconstrução total da migration `20260121000000_tabela_oficial_completa.sql` sincronizada com as 4 páginas da tabela oficial da Corregedoria (Outubro/2024).
+- **Idempotência de Banco**: Implementação de lógica de `DROP` e `RECREATE` na migration para garantir reconstruções limpas e seguras em qualquer ambiente.
+- **Normalização Técnica**: Padronização global de todos os códigos de normas para MAIÚSCULAS, eliminando divergências de case-sensitive entre frontend (Validator UI) e backend (Supabase).
+- **Lógica de Fallback Inteligente**: Aprimoramento da função RPC `verificar_elegibilidade` para suportar buscas hierárquicas — se um parágrafo/inciso específico não estiver mapeado, o sistema valida a inelegibilidade do Artigo Principal (caput) como camada de proteção.
+- **Sincronização de Metadados**: Atualização completa de todos os snapshots de estrutura (`supabase/structure/*.json`) via **Bridge Mode** do Hub, garantindo que a documentação técnica reflita o estado atual do banco.
+
 ## [0.3.15] - 14/02/2026
 
 ### 🛡️ Segurança (Hardenização e Privacidade)
@@ -529,6 +539,6 @@ As alterações das versões **v0.1.x** foram movidas para o arquivo de históri
 
 ---
 
-_Última atualização: 14/02/2026 • v0.3.15 (Hub v0.5.6)_
+_Última atualização: 15/02/2026 • v0.3.16 (Hub v0.5.6)_
 _Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_
 ```

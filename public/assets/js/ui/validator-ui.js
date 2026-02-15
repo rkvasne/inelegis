@@ -307,6 +307,30 @@ export class ValidatorUI {
         alinea,
       );
 
+      // Registrar no Histórico e Analytics (Busca Manual)
+      if (typeof SearchHistory !== "undefined") {
+        SearchHistory.add({
+          lei: this.selectedLaw,
+          artigo: artigoNum,
+          resultado: result.resultado.toLowerCase(),
+          tipoCrime: result.tipo_crime,
+          inciso: inciso,
+          alinea: alinea,
+          paragrafo: paragrafo,
+          observacoes: `[Busca Manual] ${result.observacoes || result.motivo || ""}`,
+        });
+      }
+
+      if (typeof Analytics !== "undefined") {
+        Analytics.trackSearch({
+          lei: this.selectedLaw,
+          artigo: artigoNum,
+          resultado: result.resultado.toLowerCase(),
+          temExcecao: result.resultado === "ELEGIVEL",
+          context: "simple_search",
+        });
+      }
+
       this.renderResult(result, artigoNum, paragrafo, inciso, alinea);
     } catch (error) {
       console.error("[ValidatorUI] Erro ao validar:", error);

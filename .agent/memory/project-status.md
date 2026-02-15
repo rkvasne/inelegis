@@ -1,8 +1,15 @@
 # 📊 Project Status & Context
 
-> **Last Updated:** 14/02/2026
-> **Current Phase:** System Hardening & Monitoring
-> **Project Version:** v0.3.15 (Security Standardized)
+> **Last Updated:** 15/02/2026
+> **Current Phase:** Database Consolidation & SSoT
+> **Project Version:** v0.3.16 (SSoT Synchronized)
+
+## 🎯 Objetivos Concluídos (Sessão 15/02/2026)
+
+- [x] **Consolidação SSoT v0.3.16**: Reconstrução total da migration `20260121000000_tabela_oficial_completa.sql` sincronizada com as 4 páginas da tabela oficial da Corregedoria (Outubro/2024).
+- [x] **Normalização Técnica**: Padronização global de códigos de normas para MAIÚSCULAS no banco de dados, eliminando erros de case-sensitivity.
+- [x] **Lógica de Fallback de Elegibilidade**: Aprimoramento da função RPC para validar o artigo principal (caput) caso parágrafos específicos não estejam mapeados individualmente.
+- [x] **Zeladoria de Estrutura**: Regeneração completa dos metadados técnicos em `supabase/structure/` via Bridge Mode do Hub.
 
 ## 🎯 Objetivos Concluídos (Sessão 14/02/2026)
 
@@ -17,12 +24,6 @@
 - [x] **Blindagem de Governança**: Implementação de Husky pre-commit hooks, correção de CSP para CDNs e limpeza de cores hardcoded (Theme Linter Compliance).
 - [x] **Estabilidade de Infraestrutura (Hub Bridge)**: Resolução de bloqueio técnico no servidor MCP e restauração de acesso a skills.
 - [x] **Zeladoria Técnica (Code Janitor)**: Execução de limpeza técnica (Prompt #20), migração de logs e JSDoc em métodos estruturais.
-
-## 🎯 Objetivos Concluídos (Sessão 11/02/2026)
-
-- [x] **Audit Trail (v1):** Implementação de sistema de auditoria detalhado com fundamentação jurídica preservada.
-- [x] **Higiene de Ambiente (SSoT):** Padronização de `.env.example` e `.env.local` alinhada ao Solo Dev Hub v0.5.5.
-- [x] **QA & DevOps (Windows):** Reativada suíte de testes Puppeteer; corrigido carregamento de módulos ESM no ambiente Windows.
 
 ---
 
@@ -47,14 +48,12 @@
 
 **Log de Governança/Sessão:**
 
-- 14/02/2026: **Padronização v0.3.15**: Sincronização completa de versão em toda a base. Resolução de erro 401 no sistema de Keepalive via deploy de Edge Function. Sincronização SSoT da estrutura do banco.
-- 14/02/2026: **Privacidade v0.3.15**: Correção crítica de vazamento de histórico. Implementado isolamento RLS e sanitização de `verbose errors`.
-- 14/02/2026: **Segurança Keepalive v0.3.14**: Blindagem RLS das tabelas de monitoramento.
+- 15/02/2026: **Consolidação SSoT v0.3.16**: Sincronização total com a tabela oficial (Outubro/2024), normalização de case no banco e fallback de elegibilidade.
+- 14/02/2026: **Padronização v0.3.15**: Sincronização de versão e correção crítica do sistema de Keepalive (Erro 401) e Privacidade RLS.
 - 13/02/2026: Zeladoria Técnica e Estabilidade de Infraestrutura (Hub Bridge).
 - 12/02/2026: Implementação do Hub Keepalive Pattern e Dashboard Administrativo v1.
-- 01-11/02/2026: Consolidação de infraestrutura e Auditoria de Segurança.
 
 ---
 
-_Última atualização: 14/02/2026 • v0.3.15 (Hub v0.5.6)_
+_Última atualização: 15/02/2026 • v0.3.16 (Hub v0.5.6)_
 _Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_
