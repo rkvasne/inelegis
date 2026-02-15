@@ -11,10 +11,7 @@
 ALTER FUNCTION public.get_user_history(varchar, integer) SECURITY INVOKER;
 ALTER FUNCTION public.get_user_stats(varchar) SECURITY INVOKER;
 
--- Nota: add_to_history deve permanecer SECURITY DEFINER se quisermos que ela 
--- consiga inserir em tabelas que o usuário anon não tem permissão direta, 
--- MAS, no nosso caso, o usuário anon TEM permissão de insert. 
--- Para maior segurança, vamos mudar para INVOKER também.
+-- Ajuste na assinatura para bater exatamente com a definição original (varchar)
 ALTER FUNCTION public.add_to_history(varchar, varchar, varchar, varchar, text, text) SECURITY INVOKER;
 
 -- 2. Função auxiliar para setar contexto de usuário
