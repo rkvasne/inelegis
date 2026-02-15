@@ -13,6 +13,11 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ## [0.3.16] - 15/02/2026
 
+### 🛠️ Build & Infraestrutura (Zeladoria)
+
+- **Fix (Build Resilience)**: Refatoração do script `build-supabase-config.js` para maior robustez, incluindo detecção de BOM, diagnóstico detalhado e suporte a `override` de variáveis de ambiente no `dotenv`.
+- **Improved (DevExp)**: Sincronização dinâmica da versão do projeto nos scripts de `build` e `test`, eliminando versões hardcoded e garantindo relatórios consistentes em conformidade com o `package.json`.
+
 ### 🏛️ Banco de Dados & SSoT (Fonte Única de Verdade)
 
 - **Consolidação da Tabela Oficial**: Reconstrução total da migration `20260121000000_tabela_oficial_completa.sql` sincronizada com as 4 páginas da tabela oficial da Corregedoria (Outubro/2024).

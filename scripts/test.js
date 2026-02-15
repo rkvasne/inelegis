@@ -50,7 +50,19 @@ class TestRunner {
   }
 
   async runTests() {
-    this.log("Iniciando testes do Inelegis v0.3.15", "info");
+    // Ler versão do package.json
+    let version = "0.0.0";
+    try {
+      const pkg = JSON.parse(
+        fs.readFileSync(path.join(this.projectRoot, "package.json"), "utf8"),
+      );
+      version = pkg.version;
+    } catch (e) {
+      // Fallback
+    }
+
+    this.log(`Iniciando testes do Inelegis v${version}`, "info");
+    this.version = version;
 
     try {
       // 1. Testes de unidade
@@ -613,7 +625,7 @@ class TestRunner {
   generateReport() {
     const report = {
       timestamp: new Date().toISOString(),
-      version: "0.3.15",
+      version: this.version || "0.0.0",
       summary: {
         total: this.results.total,
         passed: this.results.passed,
@@ -635,7 +647,9 @@ class TestRunner {
 
     // Exibir resumo
     console.log("\n" + "=".repeat(60));
-    console.log("📊 RELATÓRIO DE TESTES - INELEG-APP v0.3.15");
+    console.log(
+      `📊 RELATÓRIO DE TESTES - INELEG-APP v${this.version || "0.0.0"}`,
+    );
     console.log("=".repeat(60));
     console.log(`Total de testes: ${this.results.total}`);
     console.log(`Passou: ${this.results.passed}`);

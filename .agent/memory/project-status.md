@@ -6,6 +6,7 @@
 
 ## 🎯 Objetivos Concluídos (Sessão 15/02/2026)
 
+- [x] **Resiliência de Build v0.3.16**: Correção técnica no script de configuração do Supabase com diagnósticos avançados e sincronização dinâmica de versão em todos os relatórios (Build/Test).
 - [x] **Consolidação SSoT v0.3.16**: Reconstrução total da migration `20260121000000_tabela_oficial_completa.sql` sincronizada com as 4 páginas da tabela oficial da Corregedoria (Outubro/2024).
 - [x] **Normalização Técnica**: Padronização global de códigos de normas para MAIÚSCULAS no banco de dados, eliminando erros de case-sensitivity.
 - [x] **Lógica de Fallback de Elegibilidade**: Aprimoramento da função RPC para validar o artigo principal (caput) caso parágrafos específicos não estejam mapeados individualmente.
