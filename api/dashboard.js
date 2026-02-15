@@ -37,9 +37,11 @@ const ALLOWED_ORIGINS = [
 ];
 
 function validateOrigin(origin) {
-  return (
-    ALLOWED_ORIGINS.includes(origin) || process.env.NODE_ENV === "development"
-  );
+  const isProd = process.env.NODE_ENV === "production";
+  if (isProd) {
+    return origin === "https://inelegis.vercel.app";
+  }
+  return ALLOWED_ORIGINS.includes(origin) || !origin;
 }
 
 /**
@@ -258,7 +260,7 @@ export default async function handler(req, res) {
 
     return res.status(500).json({
       error: "Internal server error",
-      message: error.message,
+      message: "Erro ao carregar dados do dashboard.",
     });
   }
 }
