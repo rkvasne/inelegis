@@ -56,7 +56,7 @@ class Builder {
   }
 
   async build() {
-    this.log("Iniciando build do Inelegis v0.3.11", "info");
+    this.log("Iniciando build do Inelegis v0.3.15", "info");
 
     try {
       // 1. Validar estrutura do projeto
@@ -363,7 +363,7 @@ class Builder {
 
     // Exibir resumo
     console.log("\n" + "=".repeat(60));
-    console.log("📊 RELATÓRIO DE BUILD - INELEG-APP v0.3.11");
+    console.log("📊 RELATÓRIO DE BUILD - INELEG-APP v0.3.15");
     console.log("=".repeat(60));
     console.log(`Status: ${report.status}`);
     console.log(`Erros: ${this.errors.length}`);

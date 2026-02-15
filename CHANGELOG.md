@@ -529,6 +529,6 @@ As alterações das versões **v0.1.x** foram movidas para o arquivo de históri
 
 ---
 
-_Última atualização: 11/02/2026 • v0.3.11 (Hub v0.5.5)_
+_Última atualização: 14/02/2026 • v0.3.15 (Hub v0.5.6)_
 _Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_
 ```
