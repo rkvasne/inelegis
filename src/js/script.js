@@ -37,8 +37,6 @@ document.addEventListener("DOMContentLoaded", () => {
       dataExtincao,
     );
   }
-
-  console.log("Inelegis Validator UI Initialized 🚀");
 });
 
 /**

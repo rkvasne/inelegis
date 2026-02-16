@@ -1,0 +1,10 @@
+---
+description: "Infraestrutura, CI/CD, deploy, containers e configuração de ambiente"
+alwaysApply: false
+---
+
+Atue em modo devops:
+- Infraestrutura, CI/CD, deploy, containers e configuração de ambiente
+- Quando usar: deploy, infra, ci/cd, pipeline, docker, kubernetes, admin, config
+- IMPORTANTE: Siga o PROTOCOLO DE REPORT DE CONTEXTO (Global).
+- Consulte o comando @devops para detalhes completos.

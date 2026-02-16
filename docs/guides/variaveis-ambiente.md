@@ -6,28 +6,28 @@ Este documento descreve as variáveis necessárias para a operação do Inelegis
 
 ## 🏗️ 1. Hosting e Backend (Vercel)
 
-Estas variáveis alimentam as **APIs do Painel Administrativo** e tarefas de **Zeladoria**. Elas devem ser configuradas no Dashboard da Vercel (*Settings -> Environment Variables*).
+Estas variáveis alimentam as **APIs do Painel Administrativo** e tarefas de **Zeladoria**. Elas devem ser configuradas no Dashboard da Vercel (_Settings -> Environment Variables_).
 
-| Variável | Descrição | Importância |
-| :--- | :--- | :--- |
-| `NEXT_PUBLIC_SUPABASE_URL` | URL da API REST do seu projeto Supabase. | **Crítica** |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Chave pública "anon". Usada durante o build para gerar o config do frontend. | **Obrigatória** |
-| `SUPABASE_SERVICE_ROLE_KEY` | Chave secreta administrativa. Permite que as APIs leiam/escrevam ignorando RLS. | **Crítica** |
-| `CRON_SECRET` | Token de segurança que valida se o disparo da "faxina" é legítimo. | **Zeladoria** |
-| `HISTORY_RETENTION_DAYS` | Define quantos dias os logs de consulta serão mantidos (Padrão: 90). | **Zeladoria** |
-| `ANALYTICS_ADMIN_TOKEN` | Senha (Bearer Token) que autoriza o acesso aos dados sensíveis no `/admin`. | **Segurança** |
+| Variável                        | Descrição                                                                       | Importância     |
+| :------------------------------ | :------------------------------------------------------------------------------ | :-------------- |
+| `NEXT_PUBLIC_SUPABASE_URL`      | URL da API REST do seu projeto Supabase.                                        | **Crítica**     |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Chave pública "anon". Usada durante o build para gerar o config do frontend.    | **Obrigatória** |
+| `SUPABASE_SERVICE_ROLE_KEY`     | Chave secreta administrativa. Permite que as APIs leiam/escrevam ignorando RLS. | **Crítica**     |
+| `CRON_SECRET`                   | Token de segurança que valida se o disparo da "faxina" é legítimo.              | **Zeladoria**   |
+| `HISTORY_RETENTION_DAYS`        | Define quantos dias os logs de consulta serão mantidos (Padrão: 90).            | **Zeladoria**   |
+| `ANALYTICS_ADMIN_TOKEN`         | Senha (Bearer Token) que autoriza o acesso aos dados sensíveis no `/admin`.     | **Segurança**   |
 
 ---
 
 ## 💓 2. Banco e Receptor (Supabase)
 
-Estas variáveis alimentam as **Edge Functions** (Monitoramento). Configure no Dashboard do Supabase (*Settings -> Edge Functions*).
+Estas variáveis alimentam as **Edge Functions** (Monitoramento). Configure no Dashboard do Supabase (_Settings -> Edge Functions_).
 
-| Variável | Descrição | Função no Círculo |
-| :--- | :--- | :--- |
-| `KEEPALIVE_TOKEN` | Segredo para validar se o ping recebido veio de um pinger autorizado. | Validação |
-| `SUPABASE_URL` | Referência da URL do projeto para chamadas internas. | Conectividade |
-| `SUPABASE_SERVICE_ROLE_KEY` | Permite que a função atualize a tabela `keepalive` sem restrições. | Persistência |
+| Variável                    | Descrição                                                             | Função no Círculo |
+| :-------------------------- | :-------------------------------------------------------------------- | :---------------- |
+| `KEEPALIVE_TOKEN`           | Segredo para validar se o ping recebido veio de um pinger autorizado. | Validação         |
+| `SUPABASE_URL`              | Referência da URL do projeto para chamadas internas.                  | Conectividade     |
+| `SUPABASE_SERVICE_ROLE_KEY` | Permite que a função atualize a tabela `keepalive` sem restrições.    | Persistência      |
 
 ---
 
@@ -35,10 +35,10 @@ Estas variáveis alimentam as **Edge Functions** (Monitoramento). Configure no D
 
 Configurações para o **Worker** que atua como disparador do sinal de vida.
 
-| Variável | Valor/Formato | Observação |
-| :--- | :--- | :--- |
-| `KEEPALIVE_URL` | `https://[id].supabase.co/functions/v1/keepalive` | Ponto final do receptor. |
-| `KEEPALIVE_TOKEN` | O mesmo hash configurado nos Secrets do Supabase. | Sincronia obrigatória. |
+| Variável          | Valor/Formato                                     | Observação               |
+| :---------------- | :------------------------------------------------ | :----------------------- |
+| `KEEPALIVE_URL`   | `https://[id].supabase.co/functions/v1/keepalive` | Ponto final do receptor. |
+| `KEEPALIVE_TOKEN` | O mesmo hash configurado nos Secrets do Supabase. | Sincronia obrigatória.   |
 
 ---
 
@@ -46,9 +46,9 @@ Configurações para o **Worker** que atua como disparador do sinal de vida.
 
 Necessário para que a IA e os scripts de validação consigam acessar o conhecimento centralizado.
 
-| Variável | Descrição | Onde configurar |
-| :--- | :--- | :--- |
-| `HUB_ACCESS_TOKEN` | Personal Access Token (PAT) do GitHub com acesso ao repositório `Agents`. | `.env.local` |
+| Variável           | Descrição                                                                 | Onde configurar |
+| :----------------- | :------------------------------------------------------------------------ | :-------------- |
+| `HUB_ACCESS_TOKEN` | Personal Access Token (PAT) do GitHub com acesso ao repositório `Agents`. | `.env.local`    |
 
 ---
 

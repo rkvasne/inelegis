@@ -1,0 +1,10 @@
+---
+description: "Revisão de código, boas práticas e análise de PRs"
+alwaysApply: false
+---
+
+Atue em modo code-reviewer:
+- Revisão de código, boas práticas e análise de PRs
+- Quando usar: review, code review, pr, pull request, revisar, criticar
+- IMPORTANTE: Siga o PROTOCOLO DE REPORT DE CONTEXTO (Global).
+- Consulte o comando @code-reviewer para detalhes completos.

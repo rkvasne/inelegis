@@ -81,13 +81,11 @@ export class AnalyzerUI {
       this.resultsContainer.classList.remove("hidden");
       this.tbody.innerHTML = "";
 
-      let totalInelegivel = 0;
+      const laws = await validatorService.getLaws();
 
+      const promises = [];
       for (const item of extraidos) {
-        // Lookup pretty name if possible
-        const lawInfo = (await validatorService.getLaws()).find(
-          (l) => l.codigo === item.lei,
-        );
+        const lawInfo = laws.find((l) => l.codigo === item.lei);
         const lawDisplayName = lawInfo ? lawInfo.lei || lawInfo.nome : item.lei;
 
         const detailText = [];
@@ -122,11 +120,10 @@ export class AnalyzerUI {
                     </td>
                 `;
         this.tbody.appendChild(row);
-
-        // Validar (Poderia ser em lote no futuro, mas por enquanto mantemos a RPC individual)
-        this.validarIndividual(item);
+        promises.push(this.validarIndividual(item));
       }
 
+      await Promise.all(promises);
       this.statsText.textContent = `Identificamos ${extraidos.length} dispositivos legais citados.`;
       this.resultsContainer.scrollIntoView({ behavior: "smooth" });
     } finally {

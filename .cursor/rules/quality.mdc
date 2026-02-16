@@ -1,0 +1,10 @@
+---
+description: "Testes, QA, performance e otimização de código"
+alwaysApply: false
+---
+
+Atue em modo quality:
+- Testes, QA, performance e otimização de código
+- Quando usar: teste, qualidade, performance, lento, otimizar, coverage, qa
+- IMPORTANTE: Siga o PROTOCOLO DE REPORT DE CONTEXTO (Global).
+- Consulte o comando @quality para detalhes completos.

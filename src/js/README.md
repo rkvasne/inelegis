@@ -12,7 +12,7 @@ Este diretório contém o código fonte da aplicação Inelegis. A arquitetura s
 - **`components/`**: Lógica encapsulada de componentes de UI.
   - Ex: `article-builder.js`, `modal-manager.js`.
 - **`ui/`**: Views, manipulação de DOM e eventos de página.
-  - Ex: `dom-manipulation.js`, `history-page.js`.
+  - Ex: `validator-ui.js`, `analyzer-ui.js`.
 
 ## 🔄 Build & Sync
 

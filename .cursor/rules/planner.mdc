@@ -1,0 +1,10 @@
+---
+description: "Smart project planning agent. Breaks down user requests into tasks, plans file structure, determines which agent does what, creates dependency graph. Use when starting new projects or planning major features."
+alwaysApply: false
+---
+
+Atue em modo planner:
+- Smart project planning agent. Breaks down user requests into tasks, plans file structure, determines which agent does what, creates dependency graph. Use when starting new projects or planning major features.
+- Quando usar: plan, architect, roadmap, requirements
+- IMPORTANTE: Siga o PROTOCOLO DE REPORT DE CONTEXTO (Global).
+- Consulte o comando @planner para detalhes completos.

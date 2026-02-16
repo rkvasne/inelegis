@@ -14,6 +14,7 @@ Database:  PostgreSQL (Supabase)
 ```
 
 **Por que essa combinação?**
+
 - Frontend estático = mais rápido
 - API Routes = features admin sem complexidade de framework
 - Edge Function Keepalive = menor latência, 1 menos componente na Vercel
@@ -35,16 +36,17 @@ KEEPALIVE_TOKEN=c8810...  # (guarde o hash completo)
 
 ### 2. Vercel Environment Variables
 
-| Variável | Por Que Precisa | Valor Atual |
-|----------|-----------------|-------------|
-| `NEXT_PUBLIC_SUPABASE_URL` | Frontend faz RPC calls (`verificar_elegibilidade`) | `https://lnjzhf...` ✅ |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Frontend precisa autenticar chamadas | `ca772e...` ✅ |
-| `SUPABASE_SERVICE_ROLE_KEY` | **API Routes** (`/api/analytics`, `/api/dashboard`) byppassam RLS | `3f04607...` ✅ |
-| `HISTORY_RETENTION_DAYS` | Limpeza automática de histórico | `90` ✅ |
-| `CRON_SECRET` | Proteger endpoints de manutenção | (configurado) ✅ |
-| `ANALYTICS_ADMIN_TOKEN` | Acesso ao dashboard admin | (configurado) ✅ |
+| Variável                        | Por Que Precisa                                                   | Valor Atual            |
+| ------------------------------- | ----------------------------------------------------------------- | ---------------------- |
+| `NEXT_PUBLIC_SUPABASE_URL`      | Frontend faz RPC calls (`verificar_elegibilidade`)                | `https://lnjzhf...` ✅ |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Frontend precisa autenticar chamadas                              | `ca772e...` ✅         |
+| `SUPABASE_SERVICE_ROLE_KEY`     | **API Routes** (`/api/analytics`, `/api/dashboard`) byppassam RLS | `3f04607...` ✅        |
+| `HISTORY_RETENTION_DAYS`        | Limpeza automática de histórico                                   | `90` ✅                |
+| `CRON_SECRET`                   | Proteger endpoints de manutenção                                  | (configurado) ✅       |
+| `ANALYTICS_ADMIN_TOKEN`         | Acesso ao dashboard admin                                         | (configurado) ✅       |
 
 **❌ NÃO configurar:**
+
 - `KEEPALIVE_TOKEN` - Receptor está no Supabase, não aqui
 - `KEEPALIVE_PROJECT_SLUG` - Idem
 - `KEEPALIVE_ENVIRONMENT` - Idem
@@ -55,13 +57,13 @@ KEEPALIVE_TOKEN=c8810...  # (guarde o hash completo)
 
 Acesse: `https://supabase.com/dashboard/project/[id]/settings/functions`
 
-| Variável | Valor |
-|----------|-------|
-| `KEEPALIVE_TOKEN` | `c8810...` (**MESMO** do Cloudflare) ✅ |
-| `SUPABASE_URL` | `b8e0e3a...` ✅ |
-| `SUPABASE_ANON_KEY` | `ca772e...` ✅ |
-| `SUPABASE_SERVICE_ROLE_KEY` | `3f04607...` ✅ |
-| `SUPABASE_DB_URL` | `ead99fe...` ✅ |
+| Variável                    | Valor                                   |
+| --------------------------- | --------------------------------------- |
+| `KEEPALIVE_TOKEN`           | `c8810...` (**MESMO** do Cloudflare) ✅ |
+| `SUPABASE_URL`              | `b8e0e3a...` ✅                         |
+| `SUPABASE_ANON_KEY`         | `ca772e...` ✅                          |
+| `SUPABASE_SERVICE_ROLE_KEY` | `3f04607...` ✅                         |
+| `SUPABASE_DB_URL`           | `ead99fe...` ✅                         |
 
 ---
 
@@ -100,6 +102,7 @@ ANALYTICS_ADMIN_TOKEN=...
 **As API Routes precisam!**
 
 Quando alguém acessa `/api/analytics`, o código roda na Vercel serverless. Esse código precisa:
+
 - Buscar analytics de TODOS os usuários (sem filtro RLS)
 - Fazer manutenção do banco (ex: limpar histórico antigo)
 - Acessar dados com permissões elevadas
@@ -193,7 +196,7 @@ Esperado: Todos ✅
 
 - [Guia Geral de Arquitetura Keepalive](../../.agent/hub/system/scaffolding/keepalive/ARCHITECTURE.md)
 - [Troubleshooting Deploy Vercel](./troubleshooting-vercel-deploy.md)
-- [API Routes  do Projeto](../../api/README.md)
+- [API Routes do Projeto](../../api/README.md)
 
 ---
 

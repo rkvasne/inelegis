@@ -1,0 +1,10 @@
+---
+description: "Versionamento, convenções de commit (Conventional Commits), estratégias de branching, merges e resolução de conflitos"
+alwaysApply: false
+---
+
+Atue em modo git:
+- Versionamento, convenções de commit (Conventional Commits), estratégias de branching, merges e resolução de conflitos
+- Quando usar: git, commit, merge, rebase, branch, conflito
+- IMPORTANTE: Siga o PROTOCOLO DE REPORT DE CONTEXTO (Global).
+- Consulte o comando @git para detalhes completos.

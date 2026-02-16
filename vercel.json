@@ -67,10 +67,5 @@
     "**/*.js": {
       "includeFiles": "**"
     }
-  },
-  "build": {
-    "env": {
-      "DISABLE_MINIFICATION": "1"
-    }
   }
 }

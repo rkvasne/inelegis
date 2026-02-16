@@ -11,6 +11,18 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
 
+## [0.3.17] - 15/02/2026
+
+### 🧹 Zeladoria e Performance (Leve)
+
+- **Remoção de código morto:** Exclusão de `history-page.js` (não referenciado por nenhum HTML); atualização de `toast.js` e `src/js/README.md`.
+- **Code Janitor (Prompt #20):** Remoção de `console.log` de inicialização em `script.js`.
+- **Build (Vercel):** Remoção de `DISABLE_MINIFICATION` do `vercel.json` para permitir minificação em produção quando aplicável.
+- **Analisador de Dispositivo:** Refatoração para uma única chamada a `getLaws()` antes do loop e verificação em paralelo via `Promise.all`, reduzindo tempo de análise quando múltiplos artigos são extraídos.
+- **Documentação:** Alinhada à v0.3.17; checkpoint de sessão (Prompt #19) com bump.
+
+---
+
 ## [0.3.16] - 15/02/2026
 
 ### 🛠️ Build & Infraestrutura (Zeladoria)
@@ -547,6 +559,6 @@ As alterações das versões **v0.1.x** foram movidas para o arquivo de históri
 
 ---
 
-_Última atualização: 15/02/2026 • v0.3.16 (Hub v0.5.6)_
-_Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_
+_Última atualização: 15/02/2026 • v0.3.17 (Hub v0.5.8)_
+_Editado via: Cursor | Modelo: claude-4.6-opus | OS: Windows 11_
 ```

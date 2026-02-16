@@ -191,7 +191,7 @@ test("Deve formatar dispositivo legal de forma amigável", () => {
   const result = ArtigoFormatter.formatLegalDevice(log);
   assert.equal(
     result,
-    'Art. 121, § 3º, inc. I, al. a',
+    "Art. 121, § 3º, inc. I, al. a",
     "Formatação amigável completa",
   );
 });
@@ -206,8 +206,16 @@ test("Deve tratar 'caput' e 'parágrafo único' amigavelmente", () => {
     paragrafo: "unico",
   });
 
-  assert.equal(resultCaput, "Art. 1, caput", "Caput deve ser exibido explicitamente");
-  assert.equal(resultUnico, "Art. 1, parágrafo único", "Parágrafo único deve ser formatado por extenso");
+  assert.equal(
+    resultCaput,
+    "Art. 1, caput",
+    "Caput deve ser exibido explicitamente",
+  );
+  assert.equal(
+    resultUnico,
+    "Art. 1, parágrafo único",
+    "Parágrafo único deve ser formatado por extenso",
+  );
 });
 
 test("Deve lidar com campos nulos no dispositivo legal", () => {

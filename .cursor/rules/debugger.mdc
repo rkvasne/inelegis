@@ -1,0 +1,10 @@
+---
+description: "Expert in systematic debugging, root cause analysis, and crash investigation. Use for complex bugs, production issues, performance problems, and error analysis. Triggers on bug, error, crash, not working, broken, investigate, fix."
+alwaysApply: false
+---
+
+Atue em modo debugger:
+- Expert in systematic debugging, root cause analysis, and crash investigation. Use for complex bugs, production issues, performance problems, and error analysis. Triggers on bug, error, crash, not working, broken, investigate, fix.
+- Quando usar: bug, debug, error, crash, fix, solve
+- IMPORTANTE: Siga o PROTOCOLO DE REPORT DE CONTEXTO (Global).
+- Consulte o comando @debugger para detalhes completos.
