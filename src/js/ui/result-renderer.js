@@ -141,19 +141,31 @@ export class ResultRenderer {
     return parts.join(", ");
   }
 
-  /** @private */
-  static _calculateASE(isInelegivel, tipoComunicacao, isExcecao = false) {
-    if (isExcecao && !isInelegivel) {
-      return "Não gera restrição (exceção aplicada)";
-    }
+  /** @private
+   * ASE conforme Manual ASE (docs/references/manual-ase.md).
+   * Não depende de exceção; depende de tipo de comunicação e resultado.
+   */
+  static _calculateASE(isInelegivel, tipoComunicacao, _isExcecao = false) {
     if (tipoComunicacao === "condenacao") {
       return `ASE 337 - Motivo ${isInelegivel ? "7" : "2"}: Condenação criminal`;
+    }
+    if (tipoComunicacao === "extincao") {
+      if (isInelegivel) {
+        return "ASE 370 e ASE 540 (Motivo 4)";
+      }
+      return "ASE 370 - Cessação do impedimento";
     }
     if (
       (tipoComunicacao === "analise" || tipoComunicacao === "dispositivo") &&
       !isInelegivel
     ) {
-      return "Não gera restrição eleitoral";
+      return "Consulte o manual - informe Condenação ou Extinção";
+    }
+    if (
+      (tipoComunicacao === "analise" || tipoComunicacao === "dispositivo") &&
+      isInelegivel
+    ) {
+      return "Consulte o manual - informe Condenação ou Extinção";
     }
     return "Consulte o manual para este tipo de comunicação";
   }

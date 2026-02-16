@@ -176,12 +176,15 @@ export class AnalyzerUI {
         ? `<div class="text-sm text-neutral-900 font-medium mt-1 pt-1">${escapeHtml(result.tipo_crime)}</div>`
         : "";
 
-      if (temIndicador370) {
+      const tipoCom =
+        document.querySelector('input[name="tipoComunicacao"]:checked')
+          ?.value || "condenacao";
+
+      if (tipoCom === "extincao") {
         aseCell.innerHTML = `
                     <div class="flex flex-col gap-1">
-                        <span class="font-bold text-danger-700 text-sm">ASE 370 / 337 (Motivo 7)</span>
+                        <span class="font-bold text-danger-700 text-sm">ASE 370 e ASE 540 (Motivo 4)</span>
                         ${tipoCrime}
-                        <span class="text-xs text-neutral-500">Com inabilitação de direitos</span>
                     </div>`;
       } else {
         aseCell.innerHTML = `
@@ -203,11 +206,18 @@ export class AnalyzerUI {
       statusCell.innerHTML = isExcecao
         ? '<span class="analyzer-badge warning">ELEGÍVEL (EXCEÇÃO)</span>'
         : '<span class="analyzer-badge success">ELEGÍVEL</span>';
-      aseCell.textContent = isExcecao
-        ? "Elegível por exceção"
-        : temIndicador370
-          ? "ASE 370 (Suspensão)"
-          : "Não gera restrição";
+      // ASE conforme Manual ASE: Condenação (337 m2/7) ou Extinção (370, 370+540)
+      const tipoCom =
+        document.querySelector('input[name="tipoComunicacao"]:checked')
+          ?.value || "condenacao";
+      aseCell.textContent =
+        tipoCom === "condenacao"
+          ? "ASE 337 - Motivo 2: Condenação criminal"
+          : tipoCom === "extincao"
+            ? "ASE 370 - Cessação do impedimento"
+            : temIndicador370
+              ? "ASE 370 (Suspensão)"
+              : "Consulte o manual";
 
       // Abrir modal ELEGÍVEL automaticamente ao clicar no Ver
       this.updateViewButton(
@@ -540,13 +550,16 @@ window.openAnalyzerResultModal = async function (data) {
     excecoes_artigo: data.excecoes || null,
     eh_excecao: data.ehExcecao === "true",
   };
+  const tipoComunicacao =
+    document.querySelector('input[name="tipoComunicacao"]:checked')?.value ||
+    "condenacao";
   const context = {
     artigo: data.artigo,
     paragrafo: data.paragrafo || null,
     inciso: data.inciso || null,
     alinea: data.alinea || null,
     leiNome: lawDisplayName,
-    tipoComunicacao: "dispositivo",
+    tipoComunicacao,
   };
 
   const { html, statusClass, statusText } = ResultRenderer.render(

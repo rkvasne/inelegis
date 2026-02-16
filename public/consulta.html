@@ -35,6 +35,56 @@
             <span class="breadcrumb-current">Consulta</span>
         </nav>
 
+        <!-- Tipo de Comunicação (compartilhado entre as abas) -->
+        <div class="card mb-6">
+            <div class="card-body py-4">
+                <div class="form-group mb-0">
+                    <label class="form-label">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        Tipo de Comunicação
+                    </label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" id="condenacao" name="tipoComunicacao" value="condenacao" checked>
+                            <span class="radio-content">
+                                <span class="radio-icon danger">
+                                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" class="text-danger-600">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8 7a4 4 0 118 0v4" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M6 11h12a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2v-6a2 2 0 012-2z" />
+                                    </svg>
+                                </span>
+                                <span class="radio-text">
+                                    <span class="radio-title">Condenação</span>
+                                    <span class="radio-description">Sentença condenatória transitada em julgado</span>
+                                </span>
+                            </span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" id="extincao" name="tipoComunicacao" value="extincao">
+                            <span class="radio-content">
+                                <span class="radio-icon success">
+                                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" class="text-success-600">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </span>
+                                <span class="radio-text">
+                                    <span class="radio-title">Extinção da Punibilidade</span>
+                                    <span class="radio-description">Processo com extinção da punibilidade</span>
+                                </span>
+                            </span>
+                        </label>
+                    </div>
+                    <p class="text-xs text-neutral-500 mt-2">Define qual ASE anotar conforme Manual ASE (337, 370, 540)</p>
+                </div>
+            </div>
+        </div>
+
         <!-- Tabs de Navegação -->
         <div class="tabs mb-6">
             <button id="tab-simple" class="tab-btn active" onclick="switchTab('simple')">
@@ -51,61 +101,9 @@
             <div class="card mb-6">
                 <div class="card-header">
                     <h2>Configuração da Consulta</h2>
-                    <p>Selecione o tipo de comunicação e configure os parâmetros</p>
+                    <p>Selecione a lei e o artigo para consultar</p>
                 </div>
                 <div class="card-body">
-                    <!-- Tipo de Comunicação -->
-                    <div class="form-group">
-                        <label class="form-label">
-                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-                                </path>
-                            </svg>
-                            Tipo de Comunicação
-                        </label>
-                        <div class="radio-group">
-                            <label class="radio-option">
-                                <input type="radio" id="condenacao" name="tipoComunicacao" value="condenacao" checked>
-                                <span class="radio-content">
-                                    <span class="radio-icon danger">
-                                        <svg width="20" height="20" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24" class="text-danger-600">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M8 7a4 4 0 118 0v4" />
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M6 11h12a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2v-6a2 2 0 012-2z" />
-                                        </svg>
-                                    </span>
-                                    <span class="radio-text">
-                                        <span class="radio-title">Condenação</span>
-                                        <span class="radio-description">Sentença condenatória
-                                            transitada em julgado</span>
-                                    </span>
-                                </span>
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" id="extincao" name="tipoComunicacao" value="extincao">
-                                <span class="radio-content">
-                                    <span class="radio-icon success">
-                                        <svg width="20" height="20" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24" class="text-success-600">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M5 13l4 4L19 7" />
-                                        </svg>
-                                    </span>
-                                    <span class="radio-text">
-                                        <span class="radio-title">Extinção da
-                                            Punibilidade</span>
-                                        <span class="radio-description">Processo com extinção da
-                                            punibilidade</span>
-                                    </span>
-                                </span>
-                            </label>
-                        </div>
-                    </div>
-
                     <!-- Campos de Busca: Lei e Artigo lado a lado -->
                     <div class="fields-row-2">
                         <!-- Lei/Código -->

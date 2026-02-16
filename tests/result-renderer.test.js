@@ -163,7 +163,7 @@ test("Deve retornar NÃO ENCONTRADO quando resultado é NOT_FOUND", () => {
 
 // --- ASE ---
 
-test("ASE: exceção aplicada deve retornar 'Não gera restrição (exceção aplicada)'", () => {
+test("ASE: condenação elegível deve retornar ASE 337 Motivo 2 (independente de exceção)", () => {
   const result = {
     resultado: RESULTS.ELIGIBLE,
     eh_excecao: true,
@@ -172,8 +172,10 @@ test("ASE: exceção aplicada deve retornar 'Não gera restrição (exceção ap
     item_alinea_e: "",
     excecoes_artigo: null,
   };
-  const { html } = ResultRenderer.render(result, baseContext);
-  assert.includes(html, "Não gera restrição (exceção aplicada)", "ASE exceção");
+  const ctx = { ...baseContext, tipoComunicacao: "condenacao" };
+  const { html } = ResultRenderer.render(result, ctx);
+  assert.includes(html, "ASE 337", "ASE 337");
+  assert.includes(html, "Motivo 2", "Motivo 2 condenação elegível");
 });
 
 test("ASE: condenação inelegível deve retornar ASE 337 Motivo 7", () => {
@@ -189,7 +191,7 @@ test("ASE: condenação inelegível deve retornar ASE 337 Motivo 7", () => {
   assert.includes(html, "Motivo 7", "Motivo 7 condenação");
 });
 
-test("ASE: tipoComunicacao dispositivo/analise sem inelegibilidade deve retornar 'Não gera restrição eleitoral'", () => {
+test("ASE: tipoComunicacao dispositivo/analise deve pedir para informar Condenação ou Extinção", () => {
   const result = {
     resultado: RESULTS.ELIGIBLE,
     tipo_crime: null,
@@ -201,8 +203,36 @@ test("ASE: tipoComunicacao dispositivo/analise sem inelegibilidade deve retornar
   const ctxAnalise = { ...baseContext, tipoComunicacao: "analise" };
   const { html: htmlD } = ResultRenderer.render(result, ctxDispositivo);
   const { html: htmlA } = ResultRenderer.render(result, ctxAnalise);
-  assert.includes(htmlD, "Não gera restrição eleitoral", "dispositivo");
-  assert.includes(htmlA, "Não gera restrição eleitoral", "analise");
+  assert.includes(htmlD, "Consulte o manual", "dispositivo");
+  assert.includes(htmlA, "Consulte o manual", "analise");
+});
+
+test("ASE: extinção inelegível deve retornar ASE 370 e ASE 540", () => {
+  const result = {
+    resultado: RESULTS.INELIGIBLE,
+    tipo_crime: "Homicídio",
+    observacoes: "",
+    item_alinea_e: "",
+    excecoes_artigo: null,
+  };
+  const ctx = { ...baseContext, tipoComunicacao: "extincao" };
+  const { html } = ResultRenderer.render(result, ctx);
+  assert.includes(html, "ASE 370", "ASE 370");
+  assert.includes(html, "ASE 540", "ASE 540");
+});
+
+test("ASE: extinção elegível deve retornar ASE 370", () => {
+  const result = {
+    resultado: RESULTS.ELIGIBLE,
+    tipo_crime: null,
+    observacoes: "",
+    item_alinea_e: "",
+    excecoes_artigo: null,
+  };
+  const ctx = { ...baseContext, tipoComunicacao: "extincao" };
+  const { html } = ResultRenderer.render(result, ctx);
+  assert.includes(html, "ASE 370", "ASE 370");
+  assert.includes(html, "Cessação", "Cessação do impedimento");
 });
 
 // --- Incidência e layout ---

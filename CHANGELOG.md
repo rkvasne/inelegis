@@ -13,11 +13,21 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ## [Unreleased]
 
+## [0.3.21] - 17/02/2026
+
+### ✨ UX e ASE (Conformidade Manual)
+
+- **fix(ase):** ASE no modal e na tabela passa a seguir o Manual ASE conforme tipo de comunicação (Condenação/Extinção) e resultado, independente de exceção.
+- **Condenação:** inelegível → ASE 337 Motivo 7; elegível → ASE 337 Motivo 2.
+- **Extinção:** inelegível → ASE 370 + ASE 540 (Motivo 4); elegível → ASE 370.
+- **UX (Radios compartilhados):** Tipo de Comunicação (Condenação/Extinção) movido para card único acima das abas, evitando duplicação em Busca Simples e Análise de Dispositivo.
+- **Docs:** development.md e manual-ase.md atualizados com mapeamento UI → ASE.
+
 ## [0.3.20] - 16/02/2026
 
 ### ✨ UX e Qualidade
 
-- **UX (Exceção explícita):** Consulta simples e análise por extração exibem claramente quando o resultado é elegível por exceção legal (badge "ELEGÍVEL (EXCEÇÃO)", texto explicativo e ASE "Não gera restrição (exceção aplicada)").
+- **UX (Exceção explícita):** Consulta simples e análise por extração exibem claramente quando o resultado é elegível por exceção legal (badge "ELEGÍVEL (EXCEÇÃO)" e texto explicativo).
 - **Refactor (Modal unificado):** `ResultRenderer` passou a ser o único exibidor de resultados; consulta simples e análise por extração usam o mesmo componente, eliminando duplicação e garantindo padronização.
 - **Testes (Prompt 11):** Criado `tests/result-renderer.test.js` (14 cenários) cobrindo exceção explícita, ASE, incidência e escape XSS; integrado ao `npm run test:unit`.
 
@@ -143,5 +153,5 @@ As alterações das versões **v0.2.0 a v0.3.11** e **v0.1.x** foram movidas par
 - 📂 [v0.2.0 a v0.3.11](docs/archive/CHANGELOG_V0_3_early.md)
 - 📂 [v0.1.x](docs/archive/CHANGELOG_V0.md)
 
-_Última atualização: 16/02/2026 • v0.3.20 (Hub v0.5.8)_
+_Última atualização: 17/02/2026 • v0.3.21 (Hub v0.5.8)_
 _Editado via: Cursor | Modelo: claude-4.6-opus | OS: Windows 11_

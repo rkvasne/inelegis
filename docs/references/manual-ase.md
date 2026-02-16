@@ -13,10 +13,26 @@ Guia de referência dos códigos ASE (Atos do Sistema Eleitoral) utilizados pela
 
 ## 📋 Índice
 
+- [Mapeamento Inelegis (UI → ASE)](#mapeamento-inelegis-ui--ase)
 - [ASE 337 - Suspensão de Direitos Políticos](#ase-337---suspensão-de-direitos-políticos)
 - [ASE 370 - Cessação do Impedimento](#ase-370---cessação-do-impedimento---suspensão)
 - [ASE 540 - Ocorrência a ser Examinada](#ase-540---ocorrência-a-ser-examinada-em-pedido-de-registro-de-candidatura)
 - [ASE 019 - Cancelamento por Falecimento](#ase-019---cancelamento---falecimento)
+
+---
+
+## Mapeamento Inelegis (UI → ASE)
+
+O Inelegis exibe o ASE sugerido no modal de resultado e na tabela de análise conforme o **Tipo de Comunicação** (radio) e o resultado da consulta. O mapeamento é independente de exceção.
+
+| Tipo de Comunicação      | Resultado  | ASE sugerido                      |
+| ------------------------ | ---------- | --------------------------------- |
+| Condenação               | Inelegível | ASE 337 - Motivo 7                |
+| Condenação               | Elegível   | ASE 337 - Motivo 2                |
+| Extinção da Punibilidade | Inelegível | ASE 370 e ASE 540 (Motivo 4)      |
+| Extinção da Punibilidade | Elegível   | ASE 370 - Cessação do impedimento |
+
+O card **Tipo de Comunicação** fica acima das abas (Busca Simples / Análise de Dispositivo) e aplica-se a ambas.
 
 ---
 
@@ -331,5 +347,5 @@ Informação com indicação do documento de registro do óbito, no formato:
 
 ---
 
-_Última atualização: 15/02/2026 • v0.3.20 (Hub v0.5.8)_
+_Última atualização: 17/02/2026 • v0.3.21 (Hub v0.5.8)_
 _Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_
