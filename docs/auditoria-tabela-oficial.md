@@ -1,4 +1,4 @@
-﻿# 📋 Auditoria: Tabela Oficial vs Migration (v0.3.19)
+﻿# 📋 Auditoria: Tabela Oficial vs Migration (v0.3.20)
 
 **Data da Auditoria:** 09/02/2026 (conteúdo); revisão de referências: 16/02/2026  
 **Tabela de Referência:** Corregedoria Regional Eleitoral de São Paulo (outubro/2024)  
@@ -139,5 +139,5 @@ A migration `20260121000000_tabela_oficial_completa.sql` está **CONFORME** com 
 
 ---
 
-_Última atualização: 15/02/2026 • v0.3.19 (Hub v0.5.8)_
+_Última atualização: 15/02/2026 • v0.3.20 (Hub v0.5.8)_
 _Editado via: Cursor | Modelo: claude-4.6-opus | OS: Windows 11_

@@ -183,16 +183,16 @@
         <div class="card mb-6">
             <div class="card-header">
                 <h2>Versão Atual</h2>
-                <p>v0.3.19 - Segurança XSS e Melhorias de UX</p>
+                <p>v0.3.20 - Exceção Explícita, Modal Unificado e Testes</p>
             </div>
             <div class="card-body">
-                <p><strong>Lançado em:</strong> 15 de fevereiro de 2026</p>
+                <p><strong>Lançado em:</strong> 16 de fevereiro de 2026</p>
                 <p class="mt-3"><strong>Destaques desta versão:</strong></p>
                 <ul class="list-disc">
-                    <li><strong>Segurança (Sanitização XSS):</strong> Escape HTML em todas as UIs que interpolam dados do banco; novo utilitário <code>escapeHtml()</code> integrado</li>
                     <li><strong>Exceção explícita:</strong> Consulta simples e análise por extração indicam claramente quando o resultado é elegível por exceção legal</li>
                     <li><strong>Modal unificado:</strong> Um único exibidor (<code>ResultRenderer</code>) para resultados em todos os modos de consulta</li>
-                    <li>Documentação e configuração atualizadas (README, .env.example, development, devops-manual)</li>
+                    <li><strong>Testes (Prompt 11):</strong> 14 cenários em <code>result-renderer.test.js</code> cobrindo exceção, ASE e XSS</li>
+                    <li>Governança Prompt 18 (links prompts) e documentação atualizada</li>
                 </ul>
             </div>
         </div>

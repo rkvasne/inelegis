@@ -1,12 +1,12 @@
 # 📊 Project Status & Context
 
-> **Last Updated:** 15/02/2026
+> **Last Updated:** 16/02/2026
 > **Current Phase:** Testes com usuários reais / Zeladoria
-> **Project Version:** v0.3.19 (SSoT Synchronized)
+> **Project Version:** v0.3.20 (SSoT Synchronized)
 
 ## 🎯 Objetivos Concluídos (Sessão 15/02/2026 – Checkpoint)
 
-- [x] **UX (Exceção + Modal unificado):** Exceção explícita em consulta simples e análise por extração; ResultRenderer como único exibidor de resultados; página Sobre e badges atualizados para v0.3.19.
+- [x] **UX (Exceção + Modal unificado):** Exceção explícita em consulta simples e análise por extração; ResultRenderer como único exibidor de resultados; página Sobre e badges atualizados para v0.3.20.
 - [x] **Compliance (Prompt 18):** Execução do Prompt 18; correção de links `prompts-library` → `prompts` em AGENTS.md e GEMINI.md; formatação Prettier (supabase-config, core-utils); validador de proteção do Hub e verify OK.
 - [x] **Segurança XSS (Sanitização):** Implementação de escape HTML em todas as UIs que interpolam dados do banco/usuário: `analyzer-ui.js`, `result-renderer.js`, `dashboard-ui.js`; novo utilitário `escape-html.js` para módulos ES.
 - [x] **Documentação e Config:** README (arquitetura de dados), `.env.example` (ANALYTICS_ADMIN_TOKEN), `development.md` (tabela e sanitização), `devops-manual.md` (.env.local). CHANGELOG [Unreleased] atualizado.
@@ -60,6 +60,7 @@
 
 **Log de Governança/Sessão:**
 
+- 16/02/2026: **v0.3.20 (Prompt #19 com bump):** Exceção explícita, modal unificado (ResultRenderer), testes result-renderer (14 cenários), governança Prompt 18. Bump 0.3.19 → 0.3.20, docs e validadores atualizados.
 - 15/02/2026: **v0.3.19 (Prompt #19 sem bump):** Exceção explícita (consulta simples + extração), modal unificado (ResultRenderer único), docs e Sobre atualizados para v0.3.19. Checkpoint sem bump.
 - 15/02/2026: **v0.3.19 (Prompt #19 com bump):** Sanitização XSS (escape-html.js + analyzer/result-renderer/dashboard-ui), docs e config atualizados (README, .env.example, development, devops-manual), CHANGELOG [Unreleased]. Commit e push sem bump.
 - 16/02/2026: **v0.3.18 (Documentação):** Consolidação e unificação de docs (mode-documentation), padronização de versão e rodapés, índice e estrutura docs/ atualizados.
@@ -73,5 +74,5 @@
 
 ---
 
-_Última atualização: 15/02/2026 • v0.3.19 (Hub v0.5.8)_
+_Última atualização: 16/02/2026 • v0.3.20 (Hub v0.5.8)_
 _Editado via: Cursor | Modelo: Auto | OS: Windows 11_

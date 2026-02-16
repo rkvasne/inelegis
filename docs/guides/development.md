@@ -27,7 +27,7 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 
 ## 🏗 Arquitetura do Código
 
-### Estrutura de Pastas (v0.3.19)
+### Estrutura de Pastas (v0.3.20)
 
 - `public/assets/js/`: Código distribuído (runtime).
 - `src/js/`: Código fonte original organizado por camadas:
@@ -86,13 +86,13 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 
 ---
 
-| Script                    | Descrição                                              |
-| ------------------------- | ------------------------------------------------------ |
-| `npm run dev`             | Inicia servidor local com sync de assets.              |
-| `npm run check`           | Valida Lint, Testes e integridade do Build.            |
-| `npm run supabase:config` | Sincroniza chaves do `.env.local` con o frontend.      |
-| `npm run test:unit`       | Executa testes de lógica de negócio (formatters, etc). |
-| `npm run verify`          | Executa a auditoria completa de integridade do Hub.    |
+| Script                    | Descrição                                                           |
+| ------------------------- | ------------------------------------------------------------------- |
+| `npm run dev`             | Inicia servidor local com sync de assets.                           |
+| `npm run check`           | Valida Lint, Testes e integridade do Build.                         |
+| `npm run supabase:config` | Sincroniza chaves do `.env.local` con o frontend.                   |
+| `npm run test:unit`       | Executa testes de lógica (formatters, exceptions, result-renderer). |
+| `npm run verify`          | Executa a auditoria completa de integridade do Hub.                 |
 
 ### 🛡️ Blindagem de Commits (Husky)
 
@@ -131,5 +131,5 @@ Para garantir a eficiência de leitura por agentes de IA e conformidade com o **
 
 ---
 
-_Última atualização: 15/02/2026 • v0.3.19 (Hub v0.5.8)_
+_Última atualização: 15/02/2026 • v0.3.20 (Hub v0.5.8)_
 _Editado via: Cursor | Modelo: Auto | OS: Windows 11_
