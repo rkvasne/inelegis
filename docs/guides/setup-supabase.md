@@ -159,5 +159,5 @@ Verifique se a `anon key` está correta e se RLS das tabelas permite acesso.
 
 ---
 
-_Última atualização: 16/02/2026 • v0.3.18 (Hub v0.5.8)_
+_Última atualização: 15/02/2026 • v0.3.19 (Hub v0.5.8)_
 _Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_

@@ -3,7 +3,7 @@
 > **Objetivo:** Formalizar o escopo do produto para evitar scope creep em versões futuras. Este documento é a referência para decisões "isto entra ou não no Inelegis?".
 
 **Fase:** Definição de Produto (referência contínua)  
-**Versão do Projeto:** v0.3.18
+**Versão do Projeto:** v0.3.19
 
 ---
 
@@ -77,5 +77,5 @@ Qualquer funcionalidade nova que se encaixe nos itens acima deve ser tratada com
 
 ---
 
-_Última atualização: 16/02/2026 • v0.3.18_
+_Última atualização: 15/02/2026 • v0.3.19_
 _Editado via: Cursor | Modelo: claude-4.6-opus | OS: Windows 11_

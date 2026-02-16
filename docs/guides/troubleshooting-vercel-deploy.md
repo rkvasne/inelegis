@@ -1,7 +1,7 @@
 ﻿# ⚠️ Troubleshooting: Deploy na Vercel
 
 > **Última atualização:** 15/02/2026  
-> **Versão do Projeto:** v0.3.18
+> **Versão do Projeto:** v0.3.19
 
 ---
 

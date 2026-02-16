@@ -13,6 +13,8 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ## [Unreleased]
 
+## [0.3.19] - 15/02/2026
+
 ### 🛡️ Segurança (Sanitização XSS)
 
 - **fix(security):** Sanitização de dados interpolados em HTML para mitigar XSS em todas as UIs que exibem dados do banco ou do usuário.
