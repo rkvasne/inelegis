@@ -14,6 +14,8 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 ## [Unreleased]
 
 - **Governança (Prompt 18):** Correção de links `prompts-library` → `prompts` em AGENTS.md e GEMINI.md; formatação Prettier em supabase-config e core-utils; assinaturas de edição atualizadas; verify OK.
+- **UX (Exceção explícita):** Consulta simples e análise por extração exibem claramente quando o resultado é elegível por exceção legal (badge "ELEGÍVEL (EXCEÇÃO)", texto explicativo e ASE "Não gera restrição (exceção aplicada)").
+- **Refactor (Modal unificado):** `ResultRenderer` passou a ser o único exibidor de resultados; consulta simples e análise por extração usam o mesmo componente, eliminando duplicação e garantindo padronização.
 
 ## [0.3.19] - 15/02/2026
 

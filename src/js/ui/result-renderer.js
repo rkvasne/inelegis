@@ -8,10 +8,11 @@ import { escapeHtml } from "../utils/escape-html.js";
 
 export class ResultRenderer {
   /**
-   * Gera o HTML para o modal de resultado de elegibilidade.
-   * @param {Object} result - Resultado vindo do ValidatorService
-   * @param {Object} context - Contexto da busca (artigo, parágrafo, etc)
-   * @returns {string} HTML formatado
+   * Gera o HTML e metadados do modal de resultado de elegibilidade (único exibidor).
+   * Usado pela consulta simples e pela análise por extração.
+   * @param {Object} result - Resultado (resultado, tipo_crime, item_alinea_e, excecoes_artigo, eh_excecao, etc.)
+   * @param {Object} context - Contexto (artigo, paragrafo, inciso, alinea, leiNome, tipoComunicacao)
+   * @returns {{ html: string, statusClass: string, statusText: string }}
    */
   static render(result, context) {
     const {
@@ -28,15 +29,25 @@ export class ResultRenderer {
     const isInelegivel = resultado === RESULTS.INELIGIBLE;
     const isElegivel = resultado === RESULTS.ELIGIBLE;
     const isNotFound = resultado === RESULTS.NOT_FOUND;
+    // Exceção: elegível por exceção legal (registro com tipo_crime ou excecoes_artigo)
+    const isExcecao =
+      result.eh_excecao === true ||
+      (isElegivel &&
+        (tipo_crime != null ||
+          (excecoes_artigo && excecoes_artigo.trim() !== "")));
 
-    const config = this._getVisualConfig(resultado);
+    const config = this._getVisualConfig(resultado, isExcecao);
     const incidencia = this._formatIncidencia(
       artigo,
       paragrafo,
       inciso,
       alinea,
     );
-    const aseInfo = this._calculateASE(isInelegivel, tipoComunicacao);
+    const aseInfo = this._calculateASE(
+      isInelegivel,
+      tipoComunicacao,
+      isExcecao,
+    );
     const safeTipoCrime = escapeHtml(
       tipo_crime || "Não consta crime impeditivo",
     );
@@ -46,7 +57,7 @@ export class ResultRenderer {
     const safeIncidencia = escapeHtml(incidencia);
     const safeLeiNome = escapeHtml(leiNome || "");
 
-    return `
+    const html = `
       <div class="result-modal-v3">
         <!-- Card de Status Principal -->
         <div class="modal-status-card ${config.statusClass}">
@@ -56,6 +67,7 @@ export class ResultRenderer {
           <div>
             <span class="status-label">RESULTADO</span>
             <h2 class="status-value">${config.statusText}</h2>
+            ${isExcecao ? '<p class="text-sm font-medium opacity-90 mt-1">O artigo geraria inelegibilidade, mas uma exceção legal se aplica.</p>' : ""}
           </div>
         </div>
 
@@ -90,10 +102,15 @@ export class ResultRenderer {
         ${mensagem ? `<p class="text-[10px] text-slate-400 mt-2 italic text-center">${escapeHtml(mensagem)}</p>` : ""}
       </div>
     `;
+    return {
+      html,
+      statusClass: config.statusClass,
+      statusText: config.statusText,
+    };
   }
 
   /** @private */
-  static _getVisualConfig(resultado) {
+  static _getVisualConfig(resultado, isExcecao = false) {
     if (resultado === RESULTS.INELIGIBLE) {
       return {
         statusClass: "ineligible",
@@ -103,8 +120,8 @@ export class ResultRenderer {
     }
     if (resultado === RESULTS.ELIGIBLE) {
       return {
-        statusClass: "eligible",
-        statusText: "ELEGÍVEL",
+        statusClass: isExcecao ? "warning" : "eligible",
+        statusText: isExcecao ? "ELEGÍVEL (EXCEÇÃO)" : "ELEGÍVEL",
         icon: `<svg width="24" height="24" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>`,
       };
     }
@@ -125,9 +142,18 @@ export class ResultRenderer {
   }
 
   /** @private */
-  static _calculateASE(isInelegivel, tipoComunicacao) {
+  static _calculateASE(isInelegivel, tipoComunicacao, isExcecao = false) {
+    if (isExcecao && !isInelegivel) {
+      return "Não gera restrição (exceção aplicada)";
+    }
     if (tipoComunicacao === "condenacao") {
       return `ASE 337 - Motivo ${isInelegivel ? "7" : "2"}: Condenação criminal`;
+    }
+    if (
+      (tipoComunicacao === "analise" || tipoComunicacao === "dispositivo") &&
+      !isInelegivel
+    ) {
+      return "Não gera restrição eleitoral";
     }
     return "Consulte o manual para este tipo de comunicação";
   }
