@@ -48,6 +48,7 @@ export class ResultRenderer {
       tipoComunicacao,
       isExcecao,
     );
+    const dataOcorrencia = this._formatDataOcorrencia(tipoComunicacao);
     const safeTipoCrime = escapeHtml(
       tipo_crime || "Não consta crime impeditivo",
     );
@@ -84,8 +85,8 @@ export class ResultRenderer {
           </div>
           <div class="info-card info-card-compact">
             <span class="info-label">DATA DE OCORRÊNCIA</span>
-            <p class="info-value">Trânsito em Julgado</p>
-            <p class="info-subtext">Da sentença condenatória</p>
+            <p class="info-value">${dataOcorrencia.value}</p>
+            <p class="info-subtext">${dataOcorrencia.subtext}</p>
           </div>
         </div>
 
@@ -129,6 +130,22 @@ export class ResultRenderer {
       statusClass: "not-found",
       statusText: "NÃO ENCONTRADO",
       icon: `<svg width="24" height="24" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>`,
+    };
+  }
+
+  /** @private
+   * Data de ocorrência conforme Manual ASE (337 = trânsito em julgado; 370 = data da sentença de extinção).
+   */
+  static _formatDataOcorrencia(tipoComunicacao) {
+    if (tipoComunicacao === "extincao") {
+      return {
+        value: "Data da sentença de extinção",
+        subtext: "Extinção da punibilidade ou cumprimento da pena",
+      };
+    }
+    return {
+      value: "Trânsito em Julgado",
+      subtext: "Da sentença condenatória",
     };
   }
 

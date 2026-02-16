@@ -34,6 +34,13 @@ O Inelegis exibe o ASE sugerido no modal de resultado e na tabela de análise co
 
 O card **Tipo de Comunicação** fica acima das abas (Busca Simples / Análise de Dispositivo) e aplica-se a ambas.
 
+### Data de Ocorrência (Modal)
+
+| Tipo de Comunicação      | Valor                        | Subtexto                                        |
+| ------------------------ | ---------------------------- | ----------------------------------------------- |
+| Condenação               | Trânsito em Julgado          | Da sentença condenatória                        |
+| Extinção da Punibilidade | Data da sentença de extinção | Extinção da punibilidade ou cumprimento da pena |
+
 ---
 
 ## ASE 337 - SUSPENSÃO DE DIREITOS POLÍTICOS

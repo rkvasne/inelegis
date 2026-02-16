@@ -20,6 +20,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 - **fix(ase):** ASE no modal e na tabela passa a seguir o Manual ASE conforme tipo de comunicação (Condenação/Extinção) e resultado, independente de exceção.
 - **Condenação:** inelegível → ASE 337 Motivo 7; elegível → ASE 337 Motivo 2.
 - **Extinção:** inelegível → ASE 370 + ASE 540 (Motivo 4); elegível → ASE 370.
+- **fix(data-ocorrencia):** Data de Ocorrência no modal passa a variar conforme tipo: Condenação = "Trânsito em Julgado / Da sentença condenatória"; Extinção = "Data da sentença de extinção / Extinção da punibilidade ou cumprimento da pena" (Manual ASE 337/370).
 - **UX (Radios compartilhados):** Tipo de Comunicação (Condenação/Extinção) movido para card único acima das abas, evitando duplicação em Busca Simples e Análise de Dispositivo.
 - **Docs:** development.md e manual-ase.md atualizados com mapeamento UI → ASE.
 
