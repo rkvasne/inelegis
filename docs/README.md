@@ -13,6 +13,9 @@ Bem-vindo à documentação oficial do projeto **Inelegis**.
 ### 📖 Índice
 
 - **[📚 README (Índice principal)](README.md)** – este documento
+- **[PRD e Escopo](prd-and-scope.md)** – escopo explícito do produto (evita scope creep)
+- **[Plano Inicial](PLAN-INITIAL.md)** – plano de partida (prompt 03): visão, requisitos, T-shirt sizing, riscos
+- **[Referência de API](api-reference.md)** – endpoints Vercel, RPCs Supabase, Quick Start e FAQ (prompt 17)
 
 ### 🛠️ Guias
 
@@ -27,6 +30,10 @@ Bem-vindo à documentação oficial do projeto **Inelegis**.
 - **[Auditoria e Monitoramento](operations/auditoria-e-monitoramento.md)** – rastreabilidade, fundamentação e Keepalive
 - **[Proteção](operations/protection.md)** – estratégias de edição segura e hardening
 - **[Keepalive (Hub Keepalive Pattern)](guides/keepalive-setup.md)** – monitoramento de uptime do banco de dados
+- **[Config Keepalive (Inelegis)](guides/keepalive-config-inelegis.md)** – configuração específica do projeto
+- **[Troubleshooting Vercel](guides/troubleshooting-vercel-deploy.md)** – erros de deploy e variáveis
+- **[Deploy manual (Docker/Vercel)](guides/devops-manual.md)** – opções de implantação sem CI
+- **[Auditoria Tabela Oficial](auditoria-tabela-oficial.md)** – conformidade CRE vs migration
 
 ### 🎨 Design System
 
@@ -51,29 +58,41 @@ Bem-vindo à documentação oficial do projeto **Inelegis**.
 
 ```
 docs/
-├── README.md                # Índice principal
+├── README.md                   # Índice principal
+├── api-reference.md            # Referência de API (Vercel + Supabase RPC)
+├── auditoria-tabela-oficial.md # Conformidade tabela CRE vs migration
+├── prd-and-scope.md            # PRD e escopo do produto
+├── PLAN-INITIAL.md             # Plano de partida (prompt 03)
 │
-├── design/                  # Sistema de design e temas
+├── design/                     # Sistema de design e temas
 │   ├── components.md
 │   ├── design-decisions.md
 │   └── theme-validator.md
 │
-├── guides/                  # Guias de desenvolvimento e manutenção
+├── guides/                     # Guias de desenvolvimento e manutenção
 │   ├── development.md
+│   ├── devops.md               # CI/CD (GitHub Actions)
+│   ├── devops-manual.md        # Deploy manual (Docker, Vercel)
+│   ├── keepalive-setup.md
+│   ├── keepalive-config-inelegis.md
 │   ├── maintenance.md
 │   ├── setup-supabase.md
+│   ├── troubleshooting-vercel-deploy.md
 │   └── variaveis-ambiente.md
 │
-├── operations/              # Operações, segurança e monitoramento
+├── operations/                 # Operações, segurança e monitoramento
 │   ├── auditoria-e-monitoramento.md
 │   └── protection.md
 │
-├── history/                 # Releases e marcos do projeto
-│   ├── refatoracao-v0.0.6.md
+├── history/                    # Releases e marcos do projeto
+│   └── refatoracao-v0.0.6.md
 │
-└── references/              # Materiais oficiais e anexos
-    ├── manual-ase.md
-    └── tabela-oficial.xml
+├── references/                 # Materiais oficiais e anexos
+│   └── manual-ase.md
+│
+└── archive/                    # Documentos arquivados
+    ├── CHANGELOG_V0.md
+    └── 2026-02-08-audit-relatorio-deep-dive.md
 ```
 
 ## 📐 Padrão de Formato
@@ -87,7 +106,7 @@ Para manter consistência entre todos os documentos, siga o padrão centralizado
 - [Voltar para a Raiz](../README.md)
 - [Contribuição](../CONTRIBUTING.md)
 - [Política de Privacidade](../PRIVACY.md)
-- [Política de Segurança](../SECURITY.md)
+- [Política de Segurança](../SECURITY.md) • [Relatório de Auditoria de Segurança](../SECURITY-AUDIT.md)
 - [Código de Conduta](../CODE_OF_CONDUCT.md)
 - [Licença](../LICENSE.md)
 - [🤖 Instruções para Copilotos](../.github/copilot-instructions.md)
@@ -95,5 +114,5 @@ Para manter consistência entre todos os documentos, siga o padrão centralizado
 
 ---
 
-_Última atualização: 15/02/2026 • v0.3.16 (Hub v0.5.6)_
-_Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_
+_Última atualização: 16/02/2026 • v0.3.18 (Hub v0.5.8)_
+_Editado via: Cursor | Modelo: claude-4.6-opus | OS: Windows 11_

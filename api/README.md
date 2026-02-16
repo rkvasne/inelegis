@@ -8,6 +8,8 @@ lastReviewed: 12/02/2026
 
 Serverless Functions do Inelegis (Vercel) para operações de retaguarda, manutenção e integração.
 
+> **Referência completa:** [docs/api-reference.md](../docs/api-reference.md) — payloads, respostas, RPCs Supabase e Quick Start.
+
 ---
 
 ## 📡 Endpoints
@@ -110,5 +112,5 @@ vercel dev
 
 ---
 
-_Última atualização: 12/02/2026 • v0.3.11 (Hub v0.5.5)_
-_Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_
+_Última atualização: 16/02/2026 • v0.3.18 (Hub v0.5.8)_
+_Editado via: Cursor | Modelo: claude-4.6-opus | OS: Windows 11_

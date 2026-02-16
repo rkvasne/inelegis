@@ -11,6 +11,18 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
 
+## [0.3.18] - 16/02/2026
+
+### 📚 Documentação (Consolidação e Unificação)
+
+- **Consolidação (mode-documentation):** Unificação e padronização de toda a documentação do projeto.
+- **Índice docs/:** Inclusão de links para Auditoria Tabela Oficial, Keepalive Config (Inelegis), Troubleshooting Vercel, Deploy manual (devops-manual), e referência a SECURITY-AUDIT no índice.
+- **Estrutura docs/:** Árvore atualizada no `docs/README.md` (api-reference, prd-and-scope, PLAN-INITIAL, guides, archive).
+- **Versionamento:** Padronização de rodapés e versão em todos os arquivos de documentação para v0.3.18 (Hub v0.5.8).
+- **Sem remoção de documentos:** Nenhum documento obsoleto removido; históricos e SECURITY-AUDIT mantidos como referência.
+
+---
+
 ## [0.3.17] - 15/02/2026
 
 ### 🧹 Zeladoria e Performance (Leve)

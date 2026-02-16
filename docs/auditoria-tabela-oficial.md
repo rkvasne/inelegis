@@ -1,8 +1,8 @@
-﻿# 📋 Auditoria: Tabela Oficial vs Migration (v0.3.11)
+﻿# 📋 Auditoria: Tabela Oficial vs Migration (v0.3.18)
 
-**Data da Auditoria:** 09/02/2026  
+**Data da Auditoria:** 09/02/2026 (conteúdo); revisão de referências: 16/02/2026  
 **Tabela de Referência:** Corregedoria Regional Eleitoral de São Paulo (outubro/2024)  
-**Migration Analisada:** `20260121000000_tabela_oficial_completa.sql`
+**Migration Analisada:** `20260121000000_tabela_oficial_completa.sql` (reconsolidada em v0.3.16)
 
 **Status:** ✅ **CONFORME COM RESSALVAS**
 
@@ -10,7 +10,7 @@
 
 ## 📊 Resumo Executivo
 
-A migration `002_tabela_oficial_completa.sql` está **substancialmente alinhada** com a tabela oficial da Corregedoria Regional Eleitoral de São Paulo, atualizada em outubro/2024. A estrutura contempla todos os elementos principais da LC 64/90, atualizada pela LC 135/2010.
+A migration `20260121000000_tabela_oficial_completa.sql` está **substancialmente alinhada** com a tabela oficial da Corregedoria Regional Eleitoral de São Paulo, atualizada em outubro/2024. A estrutura contempla todos os elementos principais da LC 64/90, atualizada pela LC 135/2010.
 
 ### ✅ Pontos Conformes
 
@@ -112,7 +112,11 @@ A tabela oficial menciona que houve atualização em outubro/2024, incluindo:
 - **Migration:** "2-A"
 - **Impacto:** ⚠️ **MÉDIO** - Usuários podem digitar "2º-A" e não encontrar o registro. **RECOMENDAÇÃO:** Adicionar normalização no frontend.
 
-### 4. **Observações Adicionais**
+### 4. **Reconsolidação v0.3.16**
+
+Em v0.3.16 a migration `20260121000000_tabela_oficial_completa.sql` foi **reconsolidada** (sincronização total com as 4 páginas da tabela oficial). A **normalização de case** (códigos em MAIÚSCULAS) e o **fallback de elegibilidade** (validação do caput quando parágrafo/inciso não estão mapeados) foram implementados na **RPC `verificar_elegibilidade`** e no aplicativo, não na estrutura da tabela. Esta auditoria continua referindo-se ao conteúdo jurídico da base (conformidade CRE out/2024).
+
+### 5. **Observações Adicionais**
 
 A migration inclui observações detalhadas sobre:
 
@@ -124,7 +128,7 @@ A migration inclui observações detalhadas sobre:
 
 ## 🎯 Conclusão
 
-A migration `002_tabela_oficial_completa.sql` está **CONFORME** com a tabela oficial da Corregedoria Regional Eleitoral de São Paulo. Todos os crimes, exceções e categorias estão corretamente mapeados.
+A migration `20260121000000_tabela_oficial_completa.sql` está **CONFORME** com a tabela oficial da Corregedoria Regional Eleitoral de São Paulo. Todos os crimes, exceções e categorias estão corretamente mapeados.
 
 ### Recomendações:
 
@@ -135,5 +139,5 @@ A migration `002_tabela_oficial_completa.sql` está **CONFORME** com a tabela of
 
 ---
 
-_Última atualização: 12/02/2026 • v0.3.11 (Hub v0.5.5)_
-_Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_
+_Última atualização: 16/02/2026 • v0.3.18 (Hub v0.5.8)_
+_Editado via: Cursor | Modelo: claude-4.6-opus | OS: Windows 11_

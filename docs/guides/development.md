@@ -27,7 +27,7 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 
 ## 🏗 Arquitetura do Código
 
-### Estrutura de Pastas (v0.3.11)
+### Estrutura de Pastas (v0.3.18)
 
 - `public/assets/js/`: Código distribuído (runtime).
 - `src/js/`: Código fonte original organizado por camadas:
@@ -49,10 +49,10 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 - Gerencia o histórico do usuário sincronizado com Supabase.
 - Calcula estatísticas locais para performance (Top Leis/Artigos).
 
-**[services/keepalive-service.js](../../src/js/services/keepalive-service.js)**
+**Keepalive (externo)**
 
-- Implementa o **Hub Keepalive Pattern**.
-- Mantém o banco de dados ativo através de heartbeats periódicos (Client Heartbeat).
+- O heartbeat é feito por **Cloudflare Worker** → Supabase Edge Function (não há serviço client-side no `src/js/`).
+- Referências: [scripts/keepalive-worker.js](../../scripts/keepalive-worker.js), [keepalive-setup.md](./keepalive-setup.md).
 
 **[utils/sanitizer.js](../../src/js/utils/sanitizer.js)**
 
@@ -130,5 +130,5 @@ Para garantir a eficiência de leitura por agentes de IA e conformidade com o **
 
 ---
 
-_Última atualização: 12/02/2026 • v0.3.11 (Hub v0.5.5)_
+_Última atualização: 16/02/2026 • v0.3.18 (Hub v0.5.8)_
 _Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_

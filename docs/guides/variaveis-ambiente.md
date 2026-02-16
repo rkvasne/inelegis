@@ -97,5 +97,5 @@ npm run supabase:config
 
 ---
 
-_Última atualização: 14/02/2026 • v0.3.13 (Hub v0.5.6)_
+_Última atualização: 16/02/2026 • v0.3.18 (Hub v0.5.8)_
 _Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_

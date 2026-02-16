@@ -200,5 +200,5 @@ Esperado: Todos ✅
 
 ---
 
-_Última atualização: 15/02/2026 • Baseado na configuração real_  
+_Última atualização: 16/02/2026 • v0.3.18 (Hub v0.5.8)_  
 _Validado com: Screenshots Vercel + Supabase (15/02/2026 01:30)_

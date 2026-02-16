@@ -1,8 +1,8 @@
 # 📊 Project Status & Context
 
-> **Last Updated:** 15/02/2026
+> **Last Updated:** 16/02/2026
 > **Current Phase:** Testes com usuários reais / Zeladoria
-> **Project Version:** v0.3.17 (SSoT Synchronized)
+> **Project Version:** v0.3.18 (SSoT Synchronized)
 
 ## 🎯 Objetivos Concluídos (Sessão 15/02/2026)
 
@@ -12,6 +12,7 @@
 - [x] **Normalização Técnica**: Padronização global de códigos de normas para MAIÚSCULAS no banco de dados, eliminando erros de case-sensitivity.
 - [x] **Lógica de Fallback de Elegibilidade**: Aprimoramento da função RPC para validar o artigo principal (caput) caso parágrafos específicos não estejam mapeados individualmente.
 - [x] **Zeladoria de Estrutura**: Regeneração completa dos metadados técnicos em `supabase/structure/` via Bridge Mode do Hub.
+- [x] **v0.3.18 (Docs):** Consolidação e unificação da documentação (mode-documentation): índice docs/ ampliado, estrutura padronizada, rodapés e versão v0.3.18 em todos os docs.
 - [x] **v0.3.17 (Checkpoint + Bump):** Remoção de `history-page.js` (código morto), Code Janitor (console.log), remoção de DISABLE_MINIFICATION no vercel.json, Analisador com getLaws único e Promise.all. Documentação e memória atualizadas.
 
 ## 🎯 Objetivos Concluídos (Sessão 14/02/2026)
@@ -51,6 +52,7 @@
 
 **Log de Governança/Sessão:**
 
+- 16/02/2026: **v0.3.18 (Documentação):** Consolidação e unificação de docs (mode-documentation), padronização de versão e rodapés, índice e estrutura docs/ atualizados.
 - 15/02/2026: **Checkpoint v0.3.17 (Prompt #19 com bump):** Zeladoria (history-page removido, Code Janitor), performance leve (Analisador em paralelo, vercel minificação), docs e memória atualizados.
 - 15/02/2026: **Compliance Prompt #18**: AGENTS.md e GEMINI.md atualizados para Hub v0.5.8. Validador de proteção OK.
 - 15/02/2026 (01:33): **Hub Junction Reconectada**: Re-estabelecida conexão com `E:\Agents` via Junction após submodule git estar vazio.
@@ -61,5 +63,5 @@
 
 ---
 
-_Última atualização: 15/02/2026 • v0.3.17 (Hub v0.5.8)_
+_Última atualização: 16/02/2026 • v0.3.18 (Hub v0.5.8)_
 _Editado via: Cursor | Modelo: claude-4.6-opus | OS: Windows 11_

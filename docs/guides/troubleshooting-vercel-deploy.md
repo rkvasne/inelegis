@@ -1,7 +1,7 @@
 ﻿# ⚠️ Troubleshooting: Deploy na Vercel
 
 > **Última atualização:** 15/02/2026  
-> **Versão do Projeto:** v0.3.16
+> **Versão do Projeto:** v0.3.18
 
 ---
 
@@ -80,8 +80,8 @@ vercel env add NEXT_PUBLIC_SUPABASE_ANON_KEY production
 ## 📚 Documentação Relacionada
 
 - [Setup Supabase](./setup-supabase.md)
-- [Hub Keepalive Pattern](../.agent/hub/system/scaffolding/keepalive/README.md)
-- [Guia de Keepalive](./guide-keepalive-monitoring.md)
+- [Hub Keepalive Pattern](../../.agent/hub/system/scaffolding/keepalive/README.md)
+- [Guia de Keepalive (setup)](./keepalive-setup.md)
 
 ---
 
