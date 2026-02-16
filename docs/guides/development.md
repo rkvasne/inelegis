@@ -42,7 +42,7 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 
 - `init()`: Inicializa o cliente Supabase.
 - `verifyEligibility()`: Chama a RPC `verificar_elegibilidade` no banco.
-- `getLaws()` / `getArticlesByLaw()`: Consome as tabelas de normas.
+- `getLaws()` / `getArticlesByLaw()`: Consome a tabela `crimes_inelegibilidade`.
 
 **[services/search-history.js](../../src/js/services/search-history.js)**
 
@@ -54,9 +54,10 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 - O heartbeat é feito por **Cloudflare Worker** → Supabase Edge Function (não há serviço client-side no `src/js/`).
 - Referências: [scripts/keepalive-worker.js](../../scripts/keepalive-worker.js), [keepalive-setup.md](./keepalive-setup.md).
 
-**[utils/sanitizer.js](../../src/js/utils/sanitizer.js)**
+**[utils/sanitizer.js](../../src/js/utils/sanitizer.js)** e **[utils/escape-html.js](../../src/js/utils/escape-html.js)**
 
-- Proteção contra XSS e inserção segura de conteúdo dinâmico.
+- **Sanitizer:** Carregado como classic script; `escapeHtml()` e `safeInnerHTML()` para proteção XSS.
+- **escape-html.js:** Módulo ES que exporta `escapeHtml()`; usado por `analyzer-ui`, `result-renderer` e `dashboard-ui` em toda interpolação de dados do banco/usuário em HTML.
 
 **[ui/validator-ui.js](../../src/js/ui/validator-ui.js)**
 
@@ -80,7 +81,7 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 ## 📏 Padrões de Código
 
 - **Clean Code**: Funções pequenas e responsabilidade única.
-- **Sanitização**: Obrigatório o uso de `Sanitizer.safeInnerHTML()` em qualquer dado vindo do banco.
+- **Sanitização**: Para dados do banco ou entrada do usuário inseridos em HTML, use `Sanitizer.escapeHtml()` ao interpolar em templates, ou `textContent` para texto puro. `Sanitizer.safeInnerHTML()` para conteúdo HTML controlado (ex.: modal de fundamentação).
 - **Async/Await**: Padrão para todas as operações de rede e inicialização.
 
 ---
@@ -130,5 +131,5 @@ Para garantir a eficiência de leitura por agentes de IA e conformidade com o **
 
 ---
 
-_Última atualização: 16/02/2026 • v0.3.18 (Hub v0.5.8)_
-_Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_
+_Última atualização: 15/02/2026 • v0.3.18 (Hub v0.5.8)_
+_Editado via: Cursor | Modelo: Auto | OS: Windows 11_

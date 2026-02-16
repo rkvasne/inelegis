@@ -13,10 +13,10 @@ A aplicação foi containerizada para garantir consistência entre desenvolvimen
 
 ### Requisitos de Ambiente
 
-Crie um arquivo `.env` (baseado em `.env.example`):
+Crie um arquivo `.env.local` (baseado em `.env.example`):
 
 ```env
-PORT=3000
+# Copie de .env.example e preencha os valores
 NEXT_PUBLIC_SUPABASE_URL=https://...
 NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJ...
 NODE_ENV=production

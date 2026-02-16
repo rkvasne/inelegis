@@ -1,5 +1,6 @@
 import { validatorService } from "../services/validator-service.js";
 import { showToast } from "../utils/toast.js";
+import { escapeHtml } from "../utils/escape-html.js";
 
 /**
  * Controller para Análise de Dispositivo de Sentença.
@@ -97,24 +98,28 @@ export class AnalyzerUI {
 
         const row = document.createElement("tr");
         row.style.borderBottom = "1px solid var(--border-color)";
+        const safeLaw = escapeHtml(lawDisplayName);
+        const safeArtigo = escapeHtml(item.artigo);
+        const safeDetail = escapeHtml(fullDetail);
+        const safeUid = escapeHtml(item.uid);
         row.innerHTML = `
                     <td class="p-4 align-top">
                         <div class="flex flex-col gap-1">
-                            <span class="font-bold text-neutral-900 text-sm">${lawDisplayName}</span>
-                            <span class="text-sm text-neutral-600 font-mono">Art. ${item.artigo}${fullDetail}</span>
+                            <span class="font-bold text-neutral-900 text-sm">${safeLaw}</span>
+                            <span class="text-sm text-neutral-600 font-mono">Art. ${safeArtigo}${safeDetail}</span>
                         </div>
                     </td>
-                    <td class="p-4 align-top" id="status-${item.uid}">
+                    <td class="p-4 align-top" id="status-${safeUid}">
                         <div class="flex items-center gap-2">
                             <div class="w-4 h-4 rounded-full border-2 border-neutral-200 border-t-neutral-400 animate-spin"></div>
                             <span class="text-neutral-400 text-sm">Verificando...</span>
                         </div>
                     </td>
-                    <td class="p-4 align-top" id="ase-${item.uid}">
+                    <td class="p-4 align-top" id="ase-${safeUid}">
                         <span class="text-neutral-300">-</span>
                     </td>
                     <td class="p-4 align-top text-right">
-                        <button class="btn btn-secondary btn-sm" data-uid="${item.uid}" disabled title="Aguardando verificação...">
+                        <button class="btn btn-secondary btn-sm" data-uid="${safeUid}" disabled title="Aguardando verificação...">
                             Ver
                         </button>
                     </td>
@@ -163,9 +168,11 @@ export class AnalyzerUI {
     if (result.resultado === "INELEGIVEL") {
       statusCell.innerHTML =
         '<span class="analyzer-badge danger">INELEGÍVEL</span>';
-      const itemE = result.item_alinea_e ? `Item ${result.item_alinea_e}` : "";
+      const itemE = result.item_alinea_e
+        ? `Item ${escapeHtml(result.item_alinea_e)}`
+        : "";
       const tipoCrime = result.tipo_crime
-        ? `<div class="text-sm text-neutral-900 font-medium mt-1 pt-1">${result.tipo_crime}</div>`
+        ? `<div class="text-sm text-neutral-900 font-medium mt-1 pt-1">${escapeHtml(result.tipo_crime)}</div>`
         : "";
 
       if (temIndicador370) {
@@ -529,6 +536,15 @@ window.openAnalyzerResultModal = async function (data) {
   if (data.inciso) incidencia += `, Inc. ${data.inciso}`;
   if (data.alinea) incidencia += `, Al. ${data.alinea}`;
 
+  const safeTipoCrime = escapeHtml(
+    data.tipoCrime || "Não consta crime impeditivo",
+  );
+  const safeItemAlineaE = data.itemAlineaE
+    ? ` (${escapeHtml(data.itemAlineaE)})`
+    : "";
+  const safeIncidencia = escapeHtml(incidencia);
+  const safeLawDisplayName = escapeHtml(lawDisplayName || "");
+
   const bodyHTML = `
     <div class="result-modal-v3">
       <!-- Card de Status Principal -->
@@ -547,14 +563,14 @@ window.openAnalyzerResultModal = async function (data) {
         <div class="info-card info-card-compact">
           <span class="info-label">CRIME/DELITO</span>
           <p class="info-value">
-            ${data.tipoCrime || "Não consta crime impeditivo"}
-            ${data.itemAlineaE ? ` (${data.itemAlineaE})` : ""}
+            ${safeTipoCrime}
+            ${safeItemAlineaE}
           </p>
         </div>
         <div class="info-card info-card-compact">
           <span class="info-label">NORMA/INCIDÊNCIA</span>
-          <p class="info-value">${incidencia}</p>
-          <p class="info-subtext">${lawDisplayName}</p>
+          <p class="info-value">${safeIncidencia}</p>
+          <p class="info-subtext">${safeLawDisplayName}</p>
         </div>
         <div class="info-card info-card-compact">
           <span class="info-label">DATA DE OCORRÊNCIA</span>
@@ -586,7 +602,7 @@ window.openAnalyzerResultModal = async function (data) {
               Este artigo possui exceções que podem <strong>NÃO gerar inelegibilidade</strong> caso o condenado se enquadre em uma delas:
             </p>
             <div class="mt-2 p-3 bg-white/60 rounded-lg text-[11px] font-medium text-warning-900 border border-warning-100">
-              ${data.excecoes}
+              ${escapeHtml(data.excecoes || "")}
             </div>
           </div>
         </div>

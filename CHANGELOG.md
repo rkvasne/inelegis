@@ -11,6 +11,23 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
 
+## [Unreleased]
+
+### 🛡️ Segurança (Sanitização XSS)
+
+- **fix(security):** Sanitização de dados interpolados em HTML para mitigar XSS em todas as UIs que exibem dados do banco ou do usuário.
+- **Novo utilitário:** `src/js/utils/escape-html.js` exporta `escapeHtml()` para uso em módulos ES; integrado em `analyzer-ui.js`, `result-renderer.js` e `dashboard-ui.js`.
+- **Escopo:** Valores de lei, artigo, dispositivo legal, tipo_crime, item_alinea_e, exceções, mensagens e IDs passam por escape antes de inserção em `innerHTML` ou templates.
+
+### 📚 Documentação e Configuração
+
+- **README:** Arquitetura de dados atualizada (tabela SSoT `crimes_inelegibilidade`, cliente customizado Supabase, `historico_consultas`).
+- **.env.example:** Inclusão de `ANALYTICS_ADMIN_TOKEN` na seção Dashboard Admin.
+- **docs/guides/development.md:** Referência à tabela `crimes_inelegibilidade` e regra de sanitização (escapeHtml / textContent).
+- **docs/guides/devops-manual.md:** Padronização de `.env` para `.env.local` e comentário para copiar de `.env.example`.
+
+---
+
 ## [0.3.18] - 16/02/2026
 
 ### 📚 Documentação (Consolidação e Unificação)

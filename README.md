@@ -30,13 +30,13 @@ O **Inelegis** é uma aplicação web para consulta de inelegibilidade eleitoral
 O projeto utiliza **Supabase** como única fonte de verdade (Single Source of Truth), eliminando dependências de arquivos locais ou cache temporário.
 
 1.  **Backend (Supabase):**
-    - **Tabelas:** `normas`, `artigos_inelegiveis`, `artigos_excecoes` (Base jurídica multi-tabela - Schema V2).
+    - **Tabela:** `crimes_inelegibilidade` (SSoT: base jurídica alinhada à tabela oficial CRE out/2024). Histórico em `historico_consultas`.
     - **Validação:** RPCs (`verificar_elegibilidade`) garantem lógica segura no lado do servidor.
     - **Audit Trail:** Sistema de histórico detalhado que registra o veredicto jurídico completo e metadados de consulta.
     - **Keepalive:** Sistema de monitoramento baseado no **Hub Keepalive Pattern** para garantir disponibilidade.
 
 2.  **Frontend (Vanilla JS):**
-    - Consome dados via `@supabase/supabase-js`.
+    - Consome dados via cliente customizado (`supabase-client.js`) compatível com a API REST do Supabase.
     - Sem cache estático (removido na v0.3.1 para garantir integridade).
 
 ---

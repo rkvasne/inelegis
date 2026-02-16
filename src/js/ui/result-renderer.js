@@ -4,6 +4,7 @@
  */
 
 import { RESULTS } from "../services/validator-service.js";
+import { escapeHtml } from "../utils/escape-html.js";
 
 export class ResultRenderer {
   /**
@@ -36,6 +37,14 @@ export class ResultRenderer {
       alinea,
     );
     const aseInfo = this._calculateASE(isInelegivel, tipoComunicacao);
+    const safeTipoCrime = escapeHtml(
+      tipo_crime || "Não consta crime impeditivo",
+    );
+    const safeItemAlinea = item_alinea_e
+      ? ` (${escapeHtml(item_alinea_e)})`
+      : "";
+    const safeIncidencia = escapeHtml(incidencia);
+    const safeLeiNome = escapeHtml(leiNome || "");
 
     return `
       <div class="result-modal-v3">
@@ -54,12 +63,12 @@ export class ResultRenderer {
         <div class="grid grid-cols-3 gap-3 mb-3">
           <div class="info-card info-card-compact">
             <span class="info-label">CRIME/DELITO</span>
-            <p class="info-value">${tipo_crime || "Não consta crime impeditivo"}${item_alinea_e ? ` (${item_alinea_e})` : ""}</p>
+            <p class="info-value">${safeTipoCrime}${safeItemAlinea}</p>
           </div>
           <div class="info-card info-card-compact">
             <span class="info-label">NORMA/INCIDÊNCIA</span>
-            <p class="info-value">${incidencia}</p>
-            <p class="info-subtext">${leiNome}</p>
+            <p class="info-value">${safeIncidencia}</p>
+            <p class="info-subtext">${safeLeiNome}</p>
           </div>
           <div class="info-card info-card-compact">
             <span class="info-label">DATA DE OCORRÊNCIA</span>
@@ -78,7 +87,7 @@ export class ResultRenderer {
         ${this._renderExceptionAlert(excecoes_artigo)}
         
         <!-- Mensagem de Contexto SSoT -->
-        ${mensagem ? `<p class="text-[10px] text-slate-400 mt-2 italic text-center">${mensagem}</p>` : ""}
+        ${mensagem ? `<p class="text-[10px] text-slate-400 mt-2 italic text-center">${escapeHtml(mensagem)}</p>` : ""}
       </div>
     `;
   }
@@ -138,7 +147,7 @@ export class ResultRenderer {
               Este artigo possui exceções que podem <strong>NÃO gerar inelegibilidade</strong> caso o condenado se enquadre em uma delas:
             </p>
             <div class="mt-2 p-3 bg-white/60 rounded-lg text-[11px] font-medium text-warning-900 border border-warning-100">
-              ${excecoes}
+              ${escapeHtml(excecoes)}
             </div>
           </div>
         </div>
