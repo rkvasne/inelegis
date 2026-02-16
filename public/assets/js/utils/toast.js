@@ -102,7 +102,7 @@ function escapeHtml(text) {
 if (typeof window !== "undefined") {
   window.showToast = showToast;
 
-  // Alias para compatibilidade com history-page.js
+  // Alias legado (mostrarToast)
   window.mostrarToast = (message, type = "info") => {
     showToast(message, type === "error" ? "error" : "success");
   };

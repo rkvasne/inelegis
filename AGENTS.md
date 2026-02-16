@@ -88,7 +88,7 @@ Use `.agent/memory/` para armazenar informações **deste** projeto:
 
 Ao finalizar uma tarefa:
 
-1. **Consulte** `.agent/hub/brain/prompts-library/README.md`.
+1. **Consulte** `.agent/hub/brain/prompts/README.md`.
 2. **Sugira** o próximo prompt lógico para avançar o projeto.
 
 > **Exemplo:** "Código criado. 👉 **Próximo Passo:** Rode `11-testing-strategy.md` para validar."
@@ -177,5 +177,5 @@ edit public/consulta.html
 
 ---
 
-_Última atualização: 15/02/2026 • v0.3.16 (Hub v0.5.8)_
-_Editado via: Cursor | Modelo: claude-4.6-opus | OS: Windows 11_
+_Última atualização: 15/02/2026 • v0.3.19 (Hub v0.5.8)_
+_Editado via: Cursor | Modelo: claude-opus-4.6 | OS: Windows 11_

@@ -13,6 +13,8 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ## [Unreleased]
 
+- **Governança (Prompt 18):** Correção de links `prompts-library` → `prompts` em AGENTS.md e GEMINI.md; formatação Prettier em supabase-config e core-utils; assinaturas de edição atualizadas; verify OK.
+
 ## [0.3.19] - 15/02/2026
 
 ### 🛡️ Segurança (Sanitização XSS)

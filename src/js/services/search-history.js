@@ -9,7 +9,7 @@ const SEARCH_HISTORY_DEBUG_ENABLED = (() => {
   if (typeof globalThis === "undefined") {
     return false;
   }
-  if (globalThis.INelegisDebug === true) {
+  if (globalThis.inelegisDebug === true) {
     return true;
   }
   if (

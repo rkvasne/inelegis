@@ -6,6 +6,7 @@
 
 ## 🎯 Objetivos Concluídos (Sessão 15/02/2026 – Checkpoint)
 
+- [x] **Compliance (Prompt 18):** Execução do Prompt 18; correção de links `prompts-library` → `prompts` em AGENTS.md e GEMINI.md; formatação Prettier (supabase-config, core-utils); validador de proteção do Hub e verify OK.
 - [x] **Segurança XSS (Sanitização):** Implementação de escape HTML em todas as UIs que interpolam dados do banco/usuário: `analyzer-ui.js`, `result-renderer.js`, `dashboard-ui.js`; novo utilitário `escape-html.js` para módulos ES.
 - [x] **Documentação e Config:** README (arquitetura de dados), `.env.example` (ANALYTICS_ADMIN_TOKEN), `development.md` (tabela e sanitização), `devops-manual.md` (.env.local). CHANGELOG [Unreleased] atualizado.
 - [x] **Validações:** Testes, verify, lint e doc:check executados com sucesso (Prompt 19 – sem bump).
@@ -58,6 +59,7 @@
 
 **Log de Governança/Sessão:**
 
+- 15/02/2026: **v0.3.19 (Prompt #19 sem bump):** Compliance Prompt 18 — links `prompts-library`→`prompts` em AGENTS.md e GEMINI.md, Prettier em supabase-config e core-utils, verify OK (2 avisos de órfãos). Checkpoint sem bump.
 - 15/02/2026: **v0.3.19 (Prompt #19 com bump):** Sanitização XSS (escape-html.js + analyzer/result-renderer/dashboard-ui), docs e config atualizados (README, .env.example, development, devops-manual), CHANGELOG [Unreleased]. Commit e push sem bump.
 - 16/02/2026: **v0.3.18 (Documentação):** Consolidação e unificação de docs (mode-documentation), padronização de versão e rodapés, índice e estrutura docs/ atualizados.
 - 15/02/2026: **Checkpoint v0.3.17 (Prompt #19 com bump):** Zeladoria (history-page removido, Code Janitor), performance leve (Analisador em paralelo, vercel minificação), docs e memória atualizados.

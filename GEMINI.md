@@ -112,7 +112,7 @@ Pare e pergunte antes de codar:
 
 Ao finalizar uma tarefa:
 
-1. **Consulte** `.agent/hub/brain/prompts-library/README.md`.
+1. **Consulte** `.agent/hub/brain/prompts/README.md`.
 2. **Sugira** o próximo prompt lógico para avançar o projeto.
 
 > **Exemplo:** "Código criado. 👉 **Próximo Passo:** Rode `11-testing-strategy.md` para validar."
@@ -121,4 +121,4 @@ Ao finalizar uma tarefa:
 
 _Configurado via Solo Dev Hub (v0.5.8)_
 _Última atualização: 15/02/2026_
-_Editado via: Cursor | Modelo: claude-4.6-opus | OS: Windows 11_
+_Editado via: Cursor | Modelo: claude-opus-4.6 | OS: Windows 11_

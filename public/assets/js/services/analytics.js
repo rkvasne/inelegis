@@ -16,16 +16,12 @@ const Analytics = (() => {
 
   /**
    * Obtém ou gera o ID único do usuário
+   * Implementação autônoma para evitar recursão com SearchHistory.getUserId
    */
   function getUserId() {
     let uid = null;
 
-    // Tentar ler dos cookies (via SearchHistory se disponível)
-    if (typeof SearchHistory !== "undefined" && SearchHistory.getUserId) {
-      uid = SearchHistory.getUserId();
-    }
-
-    if (!uid && typeof document !== "undefined") {
+    if (typeof document !== "undefined") {
       const match = document.cookie.match(
         new RegExp("(?:^|; )" + USER_ID_KEY + "=([^;]*)"),
       );
@@ -41,9 +37,16 @@ const Analytics = (() => {
       const timePart = Date.now().toString(36);
       uid = `user_${timePart}_${randomPart}`;
 
-      // Persistir
+      // Persistir (cookie + localStorage para consistência com SearchHistory)
+      if (typeof document !== "undefined") {
+        document.cookie = `${USER_ID_KEY}=${encodeURIComponent(uid)}; path=/; max-age=${60 * 60 * 24 * 365}`;
+      }
       if (typeof localStorage !== "undefined") {
-        localStorage.setItem(USER_ID_KEY, uid);
+        try {
+          localStorage.setItem(USER_ID_KEY, uid);
+        } catch (e) {
+          /* modo privado */
+        }
       }
     }
 

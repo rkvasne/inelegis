@@ -78,7 +78,7 @@ const Sanitizer = {
   },
 };
 
-// Exportar para uso global
+// Exportar para uso global (carregado como classic script; módulos usam window.Sanitizer)
 if (typeof window !== "undefined") {
   window.Sanitizer = Sanitizer;
 }

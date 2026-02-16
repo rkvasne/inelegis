@@ -9,7 +9,7 @@ const SEARCH_HISTORY_DEBUG_ENABLED = (() => {
   if (typeof globalThis === "undefined") {
     return false;
   }
-  if (globalThis.INelegisDebug === true) {
+  if (globalThis.inelegisDebug === true) {
     return true;
   }
   if (
@@ -120,26 +120,25 @@ const SearchHistory = (() => {
     return true;
   }
 
-  // Obter userId do Analytics ou gerar um novo persistido em cookie
+  /**
+   * Obtém ou gera o ID único do usuário
+   * Implementação autônoma para evitar recursão com Analytics.getUserId
+   */
   function getUserId() {
-    if (typeof window !== "undefined" && window.Analytics?.getUserId) {
-      return window.Analytics.getUserId();
-    }
-
     let userId = readCookie(USER_ID_COOKIE);
 
     if (!userId && typeof localStorage !== "undefined") {
-      try {
-        const legacyId = localStorage.getItem(LEGACY_USER_ID_KEY);
-        if (legacyId) {
-          userId = legacyId;
-          localStorage.removeItem(LEGACY_USER_ID_KEY);
+      userId = localStorage.getItem(USER_ID_COOKIE);
+      if (!userId) {
+        try {
+          const legacyId = localStorage.getItem(LEGACY_USER_ID_KEY);
+          if (legacyId) {
+            userId = legacyId;
+            localStorage.removeItem(LEGACY_USER_ID_KEY);
+          }
+        } catch (error) {
+          historyDebugLog("Migração userId legado:", error);
         }
-      } catch (error) {
-        console.warn(
-          "Histórico: não foi possível migrar userId legado:",
-          error,
-        );
       }
     }
 
@@ -150,6 +149,13 @@ const SearchHistory = (() => {
     }
 
     writeCookie(USER_ID_COOKIE, userId, COOKIE_MAX_AGE);
+    if (typeof localStorage !== "undefined" && userId) {
+      try {
+        localStorage.setItem(USER_ID_COOKIE, userId);
+      } catch (e) {
+        // Ignorar falha de localStorage (ex.: modo privado)
+      }
+    }
     return userId;
   }
 

@@ -3,6 +3,8 @@
  * Lógica de interface e carregamento de dados do painel admin
  */
 
+import { escapeHtml } from "../utils/escape-html.js";
+
 export const dashboardUI = {
   async init() {
     this.allLogs = [];
@@ -273,23 +275,28 @@ export const dashboardUI = {
       // Formatação centralizada via utilitário
       const device =
         window.ArtigoFormatter?.formatLegalDevice(log) || `Art. ${log.artigo}`;
+      const safeLei = escapeHtml(log.lei);
+      const safeDevice = escapeHtml(device);
+      const safeResultado = escapeHtml(log.resultado);
+      const safeTipoCrime = escapeHtml(log.tipo_crime || "Busca Manual");
+      const safeId = escapeHtml(String(log.id));
 
       tr.innerHTML = `
                 <td style="font-size: 0.75rem; color: var(--text-muted);">
                     ${new Date(log.timestamp).toLocaleString("pt-BR")}
                 </td>
                 <td style="font-weight: 500;">
-                    <div style="font-size: 0.7rem; opacity: 0.6;">${log.lei}</div>
-                    ${device}
+                    <div style="font-size: 0.7rem; opacity: 0.6;">${safeLei}</div>
+                    ${safeDevice}
                 </td>
                 <td>
-                    <span class="badge ${badgeClass}">${log.resultado}</span>
+                    <span class="badge ${badgeClass}">${safeResultado}</span>
                 </td>
                 <td style="font-size: 0.875rem;">
-                    ${log.tipo_crime || "Busca Manual"}
+                    ${safeTipoCrime}
                 </td>
                 <td>
-                    <button class="btn btn-secondary show-details" data-id="${log.id}">
+                    <button class="btn btn-secondary show-details" data-id="${safeId}">
                         🔍 Ver Fundamentação
                     </button>
                 </td>
@@ -313,7 +320,7 @@ export const dashboardUI = {
     document.getElementById("modalLegal").textContent =
       `${log.lei} - ${device}`;
     document.getElementById("modalVerdict").innerHTML =
-      `<span class="badge ${log.resultado === "inelegivel" ? "badge-danger" : log.resultado === "elegivel" ? "badge-success" : "badge-warning"}">${log.resultado}</span>`;
+      `<span class="badge ${log.resultado === "inelegivel" ? "badge-danger" : log.resultado === "elegivel" ? "badge-success" : "badge-warning"}">${escapeHtml(log.resultado)}</span>`;
     document.getElementById("modalCrime").textContent =
       log.tipo_crime || "Não especificado";
     document.getElementById("modalReason").textContent =
