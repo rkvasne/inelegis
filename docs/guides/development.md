@@ -41,7 +41,7 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 **[services/validator-service.js](../../src/js/services/validator-service.js)**
 
 - `init()`: Inicializa o cliente Supabase.
-- `verifyEligibility()`: Chama a RPC `verificar_elegibilidade` no banco.
+- `verifyEligibility()`: Chama a RPC `verificar_elegibilidade` no banco. A RPC usa **match exato**; sem match e artigo com dispositivos impeditivos retorna ELEGIVEL com aviso no campo `mensagem` (ver [api-reference](../api-reference.md)).
 - `getLaws()` / `getArticlesByLaw()`: Consome a tabela `crimes_inelegibilidade`.
 
 **[services/search-history.js](../../src/js/services/search-history.js)**

@@ -114,7 +114,7 @@ A tabela oficial menciona que houve atualização em outubro/2024, incluindo:
 
 ### 4. **Reconsolidação v0.3.16**
 
-Em v0.3.16 a migration `20260121000000_tabela_oficial_completa.sql` foi **reconsolidada** (sincronização total com as 4 páginas da tabela oficial). A **normalização de case** (códigos em MAIÚSCULAS) e o **fallback de elegibilidade** (validação do caput quando parágrafo/inciso não estão mapeados) foram implementados na **RPC `verificar_elegibilidade`** e no aplicativo, não na estrutura da tabela. Esta auditoria continua referindo-se ao conteúdo jurídico da base (conformidade CRE out/2024).
+Em v0.3.16 a migration `20260121000000_tabela_oficial_completa.sql` foi **reconsolidada** (sincronização total com as 4 páginas da tabela oficial). A **normalização de case** (códigos em MAIÚSCULAS) foi implementada na **RPC `verificar_elegibilidade`**. A lógica atual (v20260215) é **match exato apenas**: sem match e artigo com dispositivos impeditivos retorna ELEGIVEL com aviso em `mensagem`; ORDER BY NULLS LAST prioriza dispositivo exato (ex.: Art. 121 § 3º retorna ELEGIVEL). Esta auditoria continua referindo-se ao conteúdo jurídico da base (conformidade CRE out/2024).
 
 ### 5. **Observações Adicionais**
 
@@ -139,5 +139,5 @@ A migration `20260121000000_tabela_oficial_completa.sql` está **CONFORME** com 
 
 ---
 
-_Última atualização: 15/02/2026 • v0.3.20 (Hub v0.5.8)_
-_Editado via: Cursor | Modelo: claude-4.6-opus | OS: Windows 11_
+_Última atualização: 15/02/2026 • v0.3.21 (Hub v0.5.8)_
+_Editado via: Cursor | Modelo: Auto | OS: Windows 11_

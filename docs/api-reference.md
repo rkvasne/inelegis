@@ -258,7 +258,15 @@ O frontend usa o cliente Supabase com a chave **anon** (pública). As funções 
 
 #### verificar_elegibilidade
 
-Verifica se um artigo gera inelegibilidade ou exceção conforme a base oficial.
+Verifica se um artigo gera inelegibilidade ou exceção conforme a tabela oficial. **Regra:** match exato apenas. A tabela contempla somente os dispositivos impeditivos.
+
+**Comportamento:**
+
+- **Match exato** → `INELEGIVEL` ou `ELEGIVEL` (quando for exceção legal).
+- **Sem match e artigo possui dispositivos impeditivos** (ex.: Art. 148 sem §, mas § 1º IV é impeditivo) → `ELEGIVEL` com `mensagem` orientando a verificar na sentença se o dispositivo foi informado corretamente.
+- **Sem match e artigo inexistente** → `NAO_CONSTA`.
+
+**Prioridade de match:** exato de parágrafo/inciso/alínea (ORDER BY NULLS LAST), depois exceção. Ex.: Art. 121 § 3º retorna `ELEGIVEL` (exceção), não o caput.
 
 **Parâmetros:**
 
@@ -272,14 +280,14 @@ Verifica se um artigo gera inelegibilidade ou exceção conforme a base oficial.
 
 **Retorno (uma linha):**
 
-| Campo           | Tipo    | Descrição                                           |
-| --------------- | ------- | --------------------------------------------------- |
-| resultado       | VARCHAR | `INELEGIVEL`, `ELEGIVEL` (exceção) ou `NAO_CONSTA`  |
-| tipo_crime      | TEXT    | Descrição do tipo de crime (quando inelegível)      |
-| observacoes     | TEXT    | Observações adicionais                              |
-| mensagem        | TEXT    | Mensagem de fundamentação (ex.: item da alínea "e") |
-| item_alinea_e   | VARCHAR | Item na tabela oficial                              |
-| excecoes_artigo | TEXT    | Exceções do mesmo artigo (quando aplicável)         |
+| Campo           | Tipo    | Descrição                                                                 |
+| --------------- | ------- | ------------------------------------------------------------------------- |
+| resultado       | VARCHAR | `INELEGIVEL`, `ELEGIVEL` (exceção ou sem match com aviso) ou `NAO_CONSTA` |
+| tipo_crime      | TEXT    | Descrição do tipo de crime (quando inelegível)                            |
+| observacoes     | TEXT    | Observações adicionais                                                    |
+| mensagem        | TEXT    | Mensagem de fundamentação (ex.: item da alínea "e")                       |
+| item_alinea_e   | VARCHAR | Item na tabela oficial                                                    |
+| excecoes_artigo | TEXT    | Exceções do mesmo artigo (quando aplicável)                               |
 
 **Exemplo (JavaScript):**
 
@@ -372,5 +380,5 @@ Retorna totais gerais para o painel administrativo (uso com **service_role** ou 
 
 ---
 
-_Última atualização: 15/02/2026 • v0.3.20_
-_Editado via: Cursor | Modelo: claude-4.6-opus | OS: Windows 11_
+_Última atualização: 15/02/2026 • v0.3.21_
+_Editado via: Cursor | Modelo: Auto | OS: Windows 11_

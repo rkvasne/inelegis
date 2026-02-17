@@ -1,8 +1,14 @@
 # 📊 Project Status & Context
 
-> **Last Updated:** 16/02/2026
+> **Last Updated:** 15/02/2026
 > **Current Phase:** Testes com usuários reais / Zeladoria
-> **Project Version:** v0.3.20 (SSoT Synchronized)
+> **Project Version:** v0.3.21 (SSoT Synchronized)
+
+## 🎯 Objetivos Concluídos (Sessão 15/02/2026 – RPC Match Exato)
+
+- [x] **fix(rpc) verificar_elegibilidade:** Match exato apenas. Sem match e artigo com dispositivos impeditivos → ELEGIVEL com aviso em `mensagem` (ex.: Art. 148 sem §). Correção ORDER BY NULLS LAST para priorizar dispositivo exato (ex.: Art. 121 § 3º retorna ELEGIVEL corretamente). Migration `20260215000000_verificar_elegibilidade_fallback_hierarquico.sql`.
+- [x] **Documentação:** api-reference.md, development.md e auditoria-tabela-oficial.md atualizados com nova lógica da RPC.
+- [x] **Verificação:** 54 exceções, 390 impeditivos validados; testes unitários e verify OK.
 
 ## 🎯 Objetivos Concluídos (Sessão 15/02/2026 – Checkpoint)
 
@@ -60,6 +66,7 @@
 
 **Log de Governança/Sessão:**
 
+- 15/02/2026: **v0.3.21 (Prompt #19):** fix(rpc) verificar_elegibilidade – match exato, ELEGIVEL com aviso quando artigo tem dispositivos impeditivos, ORDER BY NULLS LAST. Docs (api-reference, development, auditoria) e CHANGELOG atualizados. Testes OK.
 - 16/02/2026: **v0.3.20 (Prompt #19 com bump):** Exceção explícita, modal unificado (ResultRenderer), testes result-renderer (14 cenários), governança Prompt 18. Bump 0.3.19 → 0.3.20, docs e validadores atualizados.
 - 15/02/2026: **v0.3.19 (Prompt #19 sem bump):** Exceção explícita (consulta simples + extração), modal unificado (ResultRenderer único), docs e Sobre atualizados para v0.3.19. Checkpoint sem bump.
 - 15/02/2026: **v0.3.19 (Prompt #19 com bump):** Sanitização XSS (escape-html.js + analyzer/result-renderer/dashboard-ui), docs e config atualizados (README, .env.example, development, devops-manual), CHANGELOG [Unreleased]. Commit e push sem bump.
@@ -74,5 +81,5 @@
 
 ---
 
-_Última atualização: 16/02/2026 • v0.3.20 (Hub v0.5.8)_
+_Última atualização: 15/02/2026 • v0.3.21 (Hub v0.5.8)_
 _Editado via: Cursor | Modelo: Auto | OS: Windows 11_
