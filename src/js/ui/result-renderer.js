@@ -96,8 +96,8 @@ export class ResultRenderer {
           <span class="ase-value">${aseInfo}</span>
         </div>
 
-        <!-- Alerta de Exceções Hierárquicas -->
-        ${this._renderExceptionAlert(excecoes_artigo)}
+        <!-- Alerta de Exceções: só quando INELEGÍVEL (avisa que há exceções que poderiam tornar elegível; se o usuário já consultou a exceção e deu match, é redundante) -->
+        ${isInelegivel ? this._renderExceptionAlert(excecoes_artigo) : ""}
         
         <!-- Mensagem de Contexto SSoT -->
         ${mensagem ? `<p class="text-[10px] text-slate-400 mt-2 italic text-center">${escapeHtml(mensagem)}</p>` : ""}

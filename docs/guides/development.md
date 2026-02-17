@@ -73,6 +73,7 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 ### 🛡️ Segurança e UX (v0.3.8+)
 
 - **Sinalização de Exceções**: Quando o banco de dados retorna `eh_excecao: true`, a UI exibe "ELEGÍVEL (EXCEÇÃO)" para diferenciar de artigos que não constam na base.
+- **Alerta de Exceções**: O card "Atenção: Exceções Existentes" só aparece quando o resultado é INELEGÍVEL (informa ao usuário que há dispositivos que poderiam torná-lo elegível). Quando o usuário já consultou a exceção (ex.: Art. 121 § 3º) e obteve ELEGÍVEL, o alerta é omitido.
 - **ASE conforme Manual**: O ASE exibido no modal e na tabela segue o [Manual ASE](../references/manual-ase.md) conforme o **Tipo de Comunicação** (Condenação/Extinção) selecionado e o resultado (inelegível/elegível). Não depende de exceção.
 - **Filtro de Extração (Analyzer)**: O sistema utiliza o método `validarExtracao()` para descartar fragmentos capturados por regex que não contenham números reais ou que incluam termos técnicos como "agrafo".
 - **Guia de Formatos**: A interface de análise avançada contém um box de ajuda visual com exemplos explícitos para guiar o input do usuário.
@@ -132,5 +133,5 @@ Para garantir a eficiência de leitura por agentes de IA e conformidade com o **
 
 ---
 
-_Última atualização: 15/02/2026 • v0.3.20 (Hub v0.5.8)_
+_Última atualização: 15/02/2026 • v0.3.21 (Hub v0.5.8)_
 _Editado via: Cursor | Modelo: Auto | OS: Windows 11_
