@@ -266,7 +266,7 @@ Verifica se um artigo gera inelegibilidade ou exceção conforme a tabela oficia
 - **Sem match e artigo possui dispositivos impeditivos** (ex.: Art. 148 sem §, mas § 1º IV é impeditivo) → `ELEGIVEL` com `mensagem` orientando a verificar na sentença se o dispositivo foi informado corretamente.
 - **Sem match e artigo inexistente** → `NAO_CONSTA`.
 
-**Prioridade de match:** exato de parágrafo/inciso/alínea (ORDER BY NULLS LAST), depois exceção. Ex.: Art. 121 § 3º retorna `ELEGIVEL` (exceção), não o caput.
+**Prioridade de match:** exato de parágrafo/inciso/alínea (ORDER BY NULLS LAST), depois exceção. Ex.: Art. 121 § 3º retorna `ELEGIVEL` (exceção), não o caput. **Match estrito:** dispositivo informado que não existe na tabela (ex.: Art. 122 § 8, inexistente) não faz fallback para o caput; retorna fluxo "sem match".
 
 **Parâmetros:**
 
@@ -280,14 +280,14 @@ Verifica se um artigo gera inelegibilidade ou exceção conforme a tabela oficia
 
 **Retorno (uma linha):**
 
-| Campo           | Tipo    | Descrição                                                                                                                                                                                                                                                        |
-| --------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| resultado       | VARCHAR | `INELEGIVEL`, `ELEGIVEL` (exceção ou sem match com aviso) ou `NAO_CONSTA`                                                                                                                                                                                        |
-| tipo_crime      | TEXT    | Descrição do tipo de crime (quando inelegível)                                                                                                                                                                                                                   |
-| observacoes     | TEXT    | Observações adicionais                                                                                                                                                                                                                                           |
-| mensagem        | TEXT    | Mensagem de fundamentação (ex.: item da alínea "e")                                                                                                                                                                                                              |
-| item_alinea_e   | VARCHAR | Item na tabela oficial                                                                                                                                                                                                                                           |
-| excecoes_artigo | TEXT    | Exceções do mesmo artigo: dispositivo apenas (§ N; parágrafo único; inciso X; caput), sem observações. O alerta "Atenção: Exceções Existentes" é exibido **apenas** quando `resultado = INELEGIVEL`; quando ELEGIVEL (ex.: match em exceção), o aviso é omitido. |
+| Campo           | Tipo    | Descrição                                                                                                                                                                                                               |
+| --------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| resultado       | VARCHAR | `INELEGIVEL`, `ELEGIVEL` (exceção ou sem match com aviso) ou `NAO_CONSTA`                                                                                                                                               |
+| tipo_crime      | TEXT    | Descrição do tipo de crime (quando inelegível)                                                                                                                                                                          |
+| observacoes     | TEXT    | Observações adicionais                                                                                                                                                                                                  |
+| mensagem        | TEXT    | Mensagem de fundamentação (ex.: item da alínea "e")                                                                                                                                                                     |
+| item_alinea_e   | VARCHAR | Item na tabela oficial                                                                                                                                                                                                  |
+| excecoes_artigo | TEXT    | Exceções do mesmo artigo: dispositivo apenas (§ N; parágrafo único; inciso X; caput), sem observações. O alerta "Atenção: Exceções Existentes" é exibido sempre que houver exceções (até a tabela estar 100% validada). |
 
 **Exemplo (JavaScript):**
 

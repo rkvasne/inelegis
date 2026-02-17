@@ -17,7 +17,8 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 - **fix(rpc):** Match exato apenas na `verificar_elegibilidade`. Sem match e artigo com dispositivos impeditivos → ELEGIVEL com aviso ("combinação exata que produz inelegibilidade; verifique na sentença"). Sem match e artigo inexistente → NAO_CONSTA. Correção ORDER BY NULLS LAST para priorizar match exato de §/inciso (ex.: Art. 121 §3º retorna ELEGIVEL corretamente). Verificação completa: 54 exceções, 390 impeditivos, artigos específicos (148, 129, 149-A).
 - **fix(rpc):** Formatação de `excecoes_artigo`: usar § em vez de "Par."; "parágrafo único" por extenso quando for parágrafo único; remover observações (tipo de crime) — exibir apenas o dispositivo conforme a tabela.
-- **fix(ui):** O aviso "Atenção: Exceções Existentes" passa a ser exibido apenas quando o resultado é INELEGÍVEL. Quando o usuário consulta a exceção (ex.: Art. 121 § 3º) e obtém ELEGÍVEL, o aviso é omitido (redundante).
+- **fix(ui):** Revertido: o aviso "Atenção: Exceções Existentes" volta a ser exibido sempre que houver `excecoes_artigo` (até a tabela estar 100% validada).
+- **fix(rpc):** Match estrito para §/inciso/alínea: quando o usuário informa um dispositivo inexistente (ex.: Art. 122 § 8), não fazer fallback para o caput. Retorna fluxo "sem match" (ELEGIVEL com aviso ou NAO_CONSTA conforme o artigo).
 
 ## [0.3.21] - 17/02/2026
 
