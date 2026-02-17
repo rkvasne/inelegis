@@ -61,13 +61,15 @@ BEGIN
     LIMIT 1;
 
     -- 2. Buscar exceções do artigo (para resposta com match)
+    -- Formato: § N ou parágrafo único; inciso X; alínea Y; caput. Sem observações.
     SELECT string_agg(
         CASE
-            WHEN t2.paragrafo IS NOT NULL THEN 'Par. ' || t2.paragrafo
-            WHEN t2.inciso IS NOT NULL THEN 'Inc. ' || t2.inciso
-            WHEN t2.alinea IS NOT NULL THEN 'Al. ' || t2.alinea
-            ELSE 'Caput'
-        END || COALESCE(' (' || t2.observacoes || ')', ''),
+            WHEN t2.paragrafo IS NOT NULL THEN
+                CASE WHEN LOWER(TRIM(t2.paragrafo)) = 'unico' THEN 'parágrafo único' ELSE '§ ' || t2.paragrafo END
+            WHEN t2.inciso IS NOT NULL THEN 'inciso ' || t2.inciso
+            WHEN t2.alinea IS NOT NULL THEN 'alínea ' || t2.alinea
+            ELSE 'caput'
+        END,
         '; '
     ) INTO v_excecoes_list
     FROM public.crimes_inelegibilidade t2
@@ -80,8 +82,10 @@ BEGIN
         -- Sem match exato: listar dispositivos impeditivos e exceções do artigo
         SELECT string_agg(
             CASE
-                WHEN t.paragrafo IS NOT NULL AND t.inciso IS NOT NULL THEN '§ ' || t.paragrafo || ', inciso ' || t.inciso
-                WHEN t.paragrafo IS NOT NULL THEN '§ ' || t.paragrafo
+                WHEN t.paragrafo IS NOT NULL AND t.inciso IS NOT NULL THEN
+                    (CASE WHEN LOWER(TRIM(t.paragrafo)) = 'unico' THEN 'parágrafo único' ELSE '§ ' || t.paragrafo END) || ', inciso ' || t.inciso
+                WHEN t.paragrafo IS NOT NULL THEN
+                    CASE WHEN LOWER(TRIM(t.paragrafo)) = 'unico' THEN 'parágrafo único' ELSE '§ ' || t.paragrafo END
                 WHEN t.inciso IS NOT NULL THEN 'inciso ' || t.inciso
                 WHEN t.alinea IS NOT NULL THEN 'alínea ' || t.alinea
                 ELSE 'caput'
@@ -95,7 +99,8 @@ BEGIN
 
         SELECT string_agg(
             CASE
-                WHEN t.paragrafo IS NOT NULL THEN '§ ' || t.paragrafo
+                WHEN t.paragrafo IS NOT NULL THEN
+                    CASE WHEN LOWER(TRIM(t.paragrafo)) = 'unico' THEN 'parágrafo único' ELSE '§ ' || t.paragrafo END
                 WHEN t.inciso IS NOT NULL THEN 'inciso ' || t.inciso
                 WHEN t.alinea IS NOT NULL THEN 'alínea ' || t.alinea
                 ELSE 'caput'

@@ -280,14 +280,14 @@ Verifica se um artigo gera inelegibilidade ou exceção conforme a tabela oficia
 
 **Retorno (uma linha):**
 
-| Campo           | Tipo    | Descrição                                                                 |
-| --------------- | ------- | ------------------------------------------------------------------------- |
-| resultado       | VARCHAR | `INELEGIVEL`, `ELEGIVEL` (exceção ou sem match com aviso) ou `NAO_CONSTA` |
-| tipo_crime      | TEXT    | Descrição do tipo de crime (quando inelegível)                            |
-| observacoes     | TEXT    | Observações adicionais                                                    |
-| mensagem        | TEXT    | Mensagem de fundamentação (ex.: item da alínea "e")                       |
-| item_alinea_e   | VARCHAR | Item na tabela oficial                                                    |
-| excecoes_artigo | TEXT    | Exceções do mesmo artigo (quando aplicável)                               |
+| Campo           | Tipo    | Descrição                                                                                             |
+| --------------- | ------- | ----------------------------------------------------------------------------------------------------- |
+| resultado       | VARCHAR | `INELEGIVEL`, `ELEGIVEL` (exceção ou sem match com aviso) ou `NAO_CONSTA`                             |
+| tipo_crime      | TEXT    | Descrição do tipo de crime (quando inelegível)                                                        |
+| observacoes     | TEXT    | Observações adicionais                                                                                |
+| mensagem        | TEXT    | Mensagem de fundamentação (ex.: item da alínea "e")                                                   |
+| item_alinea_e   | VARCHAR | Item na tabela oficial                                                                                |
+| excecoes_artigo | TEXT    | Exceções do mesmo artigo: dispositivo apenas (§ N; parágrafo único; inciso X; caput), sem observações |
 
 **Exemplo (JavaScript):**
 
