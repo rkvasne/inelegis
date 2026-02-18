@@ -66,6 +66,7 @@
 
 **Log de Governança/Sessão:**
 
+- 15/02/2026: **Prompt #19 (checkpoint):** Match estrito RPC (Art. 122 § 8 sem fallback para caput); revert do alerta de exceções (sempre exibir até tabela 100%); migration aplicada via MCP Supabase. Docs: hub-access-token-ci.md, migrations-status.md; variaveis-ambiente e docs/README atualizados. IA Health (check-hub-version) e git push.
 - 15/02/2026: **v0.3.21 (Prompt #19):** fix(rpc) verificar_elegibilidade – match exato, ELEGIVEL com aviso, ORDER BY NULLS LAST. Formatação excecoes_artigo (§, parágrafo único, sem observações). Docs e CHANGELOG atualizados.
 - 16/02/2026: **v0.3.20 (Prompt #19 com bump):** Exceção explícita, modal unificado (ResultRenderer), testes result-renderer (14 cenários), governança Prompt 18. Bump 0.3.19 → 0.3.20, docs e validadores atualizados.
 - 15/02/2026: **v0.3.19 (Prompt #19 sem bump):** Exceção explícita (consulta simples + extração), modal unificado (ResultRenderer único), docs e Sobre atualizados para v0.3.19. Checkpoint sem bump.

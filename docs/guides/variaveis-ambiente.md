@@ -46,9 +46,9 @@ Configurações para o **Worker** que atua como disparador do sinal de vida.
 
 Necessário para que a IA e os scripts de validação consigam acessar o conhecimento centralizado.
 
-| Variável           | Descrição                                                                 | Onde configurar |
-| :----------------- | :------------------------------------------------------------------------ | :-------------- |
-| `HUB_ACCESS_TOKEN` | Personal Access Token (PAT) do GitHub com acesso ao repositório `Agents`. | `.env.local`    |
+| Variável           | Descrição                                                                                                                                      | Onde configurar                             |
+| :----------------- | :--------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------ |
+| `HUB_ACCESS_TOKEN` | Personal Access Token (PAT) do GitHub com acesso ao repositório `Agents`. Necessário como **Secret** no GitHub Actions para o CI clonar o Hub. | `.env.local` (dev); **GitHub Secrets** (CI) |
 
 ---
 
@@ -94,6 +94,8 @@ npm run supabase:config
 1.  **Vercel ≠ Keepalive**: Devido à arquitetura desacoplada do Inelegis, o `KEEPALIVE_TOKEN` **não** é necessário na Vercel (menos vetores de ataque).
 2.  **Segurança de Chaves**: Nunca exponha a `SERVICE_ROLE_KEY` ou o `HUB_ACCESS_TOKEN` em arquivos públicos.
 3.  **Ambientes**: Identifique sempre a variável `KEEPALIVE_ENVIRONMENT` (ex: `prod`, `local`) para não poluir os gráficos de produção durante testes.
+
+**Ver também:** [Hub Access Token e CI/CD](hub-access-token-ci.md) — como configurar `HUB_ACCESS_TOKEN` no GitHub e em outros satélites.
 
 ---
 

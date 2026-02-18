@@ -20,6 +20,11 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 - **fix(ui):** Revertido: o aviso "Atenção: Exceções Existentes" volta a ser exibido sempre que houver `excecoes_artigo` (até a tabela estar 100% validada).
 - **fix(rpc):** Match estrito para §/inciso/alínea: quando o usuário informa um dispositivo inexistente (ex.: Art. 122 § 8), não fazer fallback para o caput. Retorna fluxo "sem match" (ELEGIVEL com aviso ou NAO_CONSTA conforme o artigo).
 
+### docs
+
+- **docs:** Novo guia [hub-access-token-ci.md](docs/guides/hub-access-token-ci.md) — configuração de `HUB_ACCESS_TOKEN` no GitHub e em outros satélites; índice em docs/README e referência em variaveis-ambiente.
+- **docs:** Novo guia [migrations-status.md](docs/guides/migrations-status.md) — status das migrations locais vs Supabase e como conferir se estão aplicadas.
+
 ## [0.3.21] - 17/02/2026
 
 ### ✨ UX e ASE (Conformidade Manual)

@@ -23,6 +23,7 @@ Bem-vindo à documentação oficial do projeto **Inelegis**.
 - **[DevOps e CI/CD](guides/devops.md)** – pipeline de automação e deploy
 - **[Guia de Manutenção](guides/maintenance.md)** – atualização de dados, validação e deploy
 - **[Variáveis de Ambiente](guides/variaveis-ambiente.md)** – catálogo de variáveis
+- **[HUB_ACCESS_TOKEN e CI/CD](guides/hub-access-token-ci.md)** – configurar token do Hub para GitHub Actions em satélites
 - **[Setup Supabase](guides/setup-supabase.md)** – configuração do banco de dados
 
 ### ⚙️ Operações e Segurança
