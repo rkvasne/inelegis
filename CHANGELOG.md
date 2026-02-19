@@ -13,6 +13,8 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ## [Unreleased]
 
+## [0.3.22] - 15/02/2026
+
 ### fix(verificação)
 
 - **fix(rpc):** Match exato apenas na `verificar_elegibilidade`. Sem match e artigo com dispositivos impeditivos → ELEGIVEL com aviso ("combinação exata que produz inelegibilidade; verifique na sentença"). Sem match e artigo inexistente → NAO_CONSTA. Correção ORDER BY NULLS LAST para priorizar match exato de §/inciso (ex.: Art. 121 §3º retorna ELEGIVEL corretamente). Verificação completa: 54 exceções, 390 impeditivos, artigos específicos (148, 129, 149-A).
@@ -24,6 +26,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 - **docs:** Novo guia [hub-access-token-ci.md](docs/guides/hub-access-token-ci.md) — configuração de `HUB_ACCESS_TOKEN` no GitHub e em outros satélites; índice em docs/README e referência em variaveis-ambiente.
 - **docs:** Novo guia [migrations-status.md](docs/guides/migrations-status.md) — status das migrations locais vs Supabase e como conferir se estão aplicadas.
+- **docs:** Novo guia [ci-variaveis-github.md](docs/guides/ci-variaveis-github.md) — referência detalhada das variáveis do CI: HUB*ACCESS_TOKEN, NEXT_PUBLIC_SUPABASE*\*, por que cada uma é usada (com referência ao código), padrão do Hub vs Inelegis e uso de placeholders. Links em docs/README, variaveis-ambiente, hub-access-token-ci e devops.
 
 ## [0.3.21] - 17/02/2026
 

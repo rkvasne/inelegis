@@ -45,6 +45,16 @@ Para ambientes que não utilizam o deploy automático do GitHub (ex: servidores 
 
 ---
 
+## 🔐 Variáveis do CI (GitHub Secrets)
+
+O pipeline usa secrets configurados em **Settings > Secrets and variables > Actions**. Para referência detalhada (por que cada variável é usada, padrão do Hub, placeholders vs credenciais reais):
+
+→ **[Variáveis do GitHub Actions (CI)](ci-variaveis-github.md)**
+
+Para configurar o token do Hub em novos satélites: [hub-access-token-ci.md](hub-access-token-ci.md).
+
+---
+
 ## 📦 Versionamento e Releases
 
 O projeto segue [Semantic Versioning](https://semver.org/).

@@ -95,7 +95,10 @@ npm run supabase:config
 2.  **Segurança de Chaves**: Nunca exponha a `SERVICE_ROLE_KEY` ou o `HUB_ACCESS_TOKEN` em arquivos públicos.
 3.  **Ambientes**: Identifique sempre a variável `KEEPALIVE_ENVIRONMENT` (ex: `prod`, `local`) para não poluir os gráficos de produção durante testes.
 
-**Ver também:** [Hub Access Token e CI/CD](hub-access-token-ci.md) — como configurar `HUB_ACCESS_TOKEN` no GitHub e em outros satélites.
+**Ver também:**
+
+- [Hub Access Token e CI/CD](hub-access-token-ci.md) — como configurar `HUB_ACCESS_TOKEN` no GitHub e em outros satélites.
+- [Variáveis do GitHub Actions (CI)](ci-variaveis-github.md) — referência detalhada de todas as variáveis do CI: por que cada uma é usada, padrão do Hub e se placeholders são aceitos.
 
 ---
 

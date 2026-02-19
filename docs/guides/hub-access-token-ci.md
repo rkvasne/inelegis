@@ -94,5 +94,7 @@ No `.github/workflows/ci-cd.yml` (ou equivalente) do satélite:
 
 O mesmo token (PAT) pode ser reutilizado em vários repositórios satélites; basta adicionar o secret `HUB_ACCESS_TOKEN` em cada um e usar o mesmo trecho de checkout no CI.
 
+**Ver também:** [Variáveis do GitHub Actions (CI)](ci-variaveis-github.md) — documentação completa de todas as variáveis do CI, incluindo `NEXT_PUBLIC_SUPABASE_*`, padrão do Hub e placeholders.
+
 _Última atualização: 15/02/2026_
 _Editado via: Cursor | Modelo: Auto | OS: Windows 11_
