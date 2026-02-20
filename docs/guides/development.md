@@ -27,7 +27,7 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 
 ## 🏗 Arquitetura do Código
 
-### Estrutura de Pastas (v0.3.22)
+### Estrutura de Pastas (v0.3.25)
 
 - `public/assets/js/`: Código distribuído (runtime).
 - `src/js/`: Código fonte original organizado por camadas:
@@ -46,7 +46,7 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 
 **[services/search-history.js](../../src/js/services/search-history.js)**
 
-- Gerencia o histórico do usuário sincronizado com Supabase.
+- Gerencia o histórico do usuário sincronizado com Supabase via RPC `add_to_history` (12 parâmetros: lei, artigo, resultado, inciso, alinea, paragrafo, motivoDetalhado, excecoesCitadas, metadata, etc.).
 - Calcula estatísticas locais para performance (Top Leis/Artigos).
 
 **Keepalive (externo)**
@@ -133,5 +133,5 @@ Para garantir a eficiência de leitura por agentes de IA e conformidade com o **
 
 ---
 
-_Última atualização: 20/02/2026 • v0.3.24 (Hub v0.5.8)_
+_Última atualização: 20/02/2026 • v0.3.25 (Hub v0.5.8)_
 _Editado via: Cursor | Modelo: Auto | OS: Windows 11_

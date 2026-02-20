@@ -58,29 +58,30 @@ function setCorsHeaders(res, origin) {
 }
 
 /**
- * Adiciona busca ao histórico do usuário
+ * Adiciona busca ao histórico do usuário (via RPC add_to_history)
  */
 async function addToHistory(userId, search) {
   const client = getSupabase();
 
-  // Reforçar contexto de segurança para RLS (Row Level Security)
   await client.rpc("set_app_user_id", { p_user_id: userId });
 
-  const { data, error } = await client
-    .from("historico_consultas")
-    .insert({
-      user_id: userId,
-      lei: search.lei,
-      artigo: search.artigo,
-      resultado: search.resultado,
-      tipo_crime: search.tipoCrime || null,
-      observacoes: search.observacoes || null,
-    })
-    .select()
-    .single();
+  const { data, error } = await client.rpc("add_to_history", {
+    p_user_id: userId,
+    p_lei: search.lei,
+    p_artigo: search.artigo,
+    p_resultado: search.resultado,
+    p_tipo_crime: search.tipoCrime || null,
+    p_observacoes: search.observacoes || null,
+    p_inciso: search.inciso || null,
+    p_alinea: search.alinea || null,
+    p_paragrafo: search.paragrafo || null,
+    p_motivo_detalhado: search.motivoDetalhado || null,
+    p_excecoes_citadas: search.excecoesCitadas || null,
+    p_metadata: search.metadata || {},
+  });
 
   if (error) {
-    throw new Error(`Supabase insert error: ${error.message}`);
+    throw new Error(`Supabase add_to_history error: ${error.message}`);
   }
 
   return { success: true, entry: data };
@@ -106,7 +107,6 @@ async function getHistory(userId, limit = 50) {
     throw new Error(`Supabase query error: ${error.message}`);
   }
 
-  // Mapear para formato do frontend
   return data.map((item) => ({
     lei: item.lei,
     artigo: item.artigo,
@@ -114,6 +114,12 @@ async function getHistory(userId, limit = 50) {
     timestamp: item.timestamp,
     tipoCrime: item.tipo_crime,
     observacoes: item.observacoes,
+    inciso: item.inciso,
+    alinea: item.alinea,
+    paragrafo: item.paragrafo,
+    motivoDetalhado: item.motivo_detalhado,
+    excecoesCitadas: item.excecoes_citadas,
+    metadata: item.metadata,
   }));
 }
 

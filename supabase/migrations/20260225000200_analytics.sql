@@ -1,42 +1,33 @@
--- 003_create_analytics.sql
-DROP VIEW IF EXISTS analytics_stats CASCADE;
-DROP VIEW IF EXISTS analytics_top_artigos CASCADE;
-DROP VIEW IF EXISTS analytics_result_distribution CASCADE;
-DROP VIEW IF EXISTS analytics_timeline CASCADE;
-DROP TABLE IF EXISTS analytics_events CASCADE;
-DROP FUNCTION IF EXISTS insert_analytics_event;
-DROP FUNCTION IF EXISTS get_dashboard_stats;
-
--- Tabela para analytics (substitui Redis analytics)
+-- =====================================================
+-- Migration: analytics_events
+-- =====================================================
+-- Tabela de analytics + views + funções + RLS.
+-- Preserva dados: CREATE IF NOT EXISTS.
+-- Data: 25/02/2026
+-- =====================================================
 
 CREATE TABLE IF NOT EXISTS analytics_events (
   id BIGSERIAL PRIMARY KEY,
-  type VARCHAR(20) NOT NULL,         -- 'search', 'error', 'action'
+  type VARCHAR(20) NOT NULL,
   user_id VARCHAR(100) NOT NULL,
   timestamp TIMESTAMPTZ DEFAULT NOW(),
-  
-  -- Dados do evento
   lei VARCHAR(50),
   artigo VARCHAR(20),
   resultado VARCHAR(20),
   tem_excecao BOOLEAN,
-  tempo_resposta INTEGER,             -- ms
-  
-  -- Metadados
+  tempo_resposta INTEGER,
   browser TEXT,
   version VARCHAR(20),
-  data JSONB                          -- dados adicionais flexíveis
+  data JSONB
 );
 
--- Índices
 CREATE INDEX IF NOT EXISTS idx_analytics_type ON analytics_events(type);
 CREATE INDEX IF NOT EXISTS idx_analytics_timestamp ON analytics_events(timestamp DESC);
 CREATE INDEX IF NOT EXISTS idx_analytics_user ON analytics_events(user_id);
 CREATE INDEX IF NOT EXISTS idx_analytics_lei ON analytics_events(lei) WHERE lei IS NOT NULL;
 
--- View para estatísticas gerais
 CREATE OR REPLACE VIEW analytics_stats AS
-SELECT 
+SELECT
   COUNT(*) as total_events,
   COUNT(*) FILTER (WHERE type = 'search') as total_searches,
   COUNT(*) FILTER (WHERE type = 'error') as total_errors,
@@ -46,9 +37,8 @@ SELECT
   MAX(timestamp) as last_event
 FROM analytics_events;
 
--- View para top artigos
 CREATE OR REPLACE VIEW analytics_top_artigos AS
-SELECT 
+SELECT
   lei,
   artigo,
   COUNT(*) as count
@@ -58,18 +48,16 @@ GROUP BY lei, artigo
 ORDER BY count DESC
 LIMIT 20;
 
--- View para distribuição de resultados
 CREATE OR REPLACE VIEW analytics_result_distribution AS
-SELECT 
+SELECT
   resultado,
   COUNT(*) as count
 FROM analytics_events
 WHERE type = 'search' AND resultado IS NOT NULL
 GROUP BY resultado;
 
--- View para timeline (últimos 30 dias)
 CREATE OR REPLACE VIEW analytics_timeline AS
-SELECT 
+SELECT
   DATE(timestamp) as date,
   COUNT(*) as searches
 FROM analytics_events
@@ -77,7 +65,16 @@ WHERE type = 'search' AND timestamp > NOW() - INTERVAL '30 days'
 GROUP BY DATE(timestamp)
 ORDER BY date DESC;
 
--- Função para inserir evento
+ALTER TABLE public.analytics_events ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Allow authenticated read analytics" ON public.analytics_events;
+CREATE POLICY "Allow authenticated read analytics"
+ON public.analytics_events FOR SELECT
+TO authenticated
+USING (true);
+
+GRANT SELECT ON public.analytics_events TO authenticated;
+
 CREATE OR REPLACE FUNCTION insert_analytics_event(
   p_type VARCHAR,
   p_user_id VARCHAR,
@@ -95,7 +92,7 @@ DECLARE
   v_new_record analytics_events;
 BEGIN
   INSERT INTO analytics_events (
-    type, user_id, lei, artigo, resultado, 
+    type, user_id, lei, artigo, resultado,
     tem_excecao, tempo_resposta, browser, version, data
   )
   VALUES (
@@ -103,12 +100,10 @@ BEGIN
     p_tem_excecao, p_tempo_resposta, p_browser, p_version, p_data
   )
   RETURNING * INTO v_new_record;
-  
   RETURN v_new_record;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
--- Função para obter dashboard stats
 CREATE OR REPLACE FUNCTION get_dashboard_stats()
 RETURNS TABLE(
   total_searches BIGINT,
@@ -119,7 +114,7 @@ RETURNS TABLE(
 ) AS $$
 BEGIN
   RETURN QUERY
-  SELECT 
+  SELECT
     COUNT(*) FILTER (WHERE type = 'search')::BIGINT as total_searches,
     COUNT(DISTINCT user_id)::BIGINT as total_users,
     COUNT(*) FILTER (WHERE type = 'error')::BIGINT as total_errors,

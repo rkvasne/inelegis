@@ -1,40 +1,34 @@
 -- =====================================================
--- Migration: Tabela Oficial 100% Completa (Outubro/2024)
+-- Migration: crimes_inelegibilidade + verificar_elegibilidade
 -- =====================================================
--- Fonte: Corregedoria Regional Eleitoral de São Paulo (CRE-SP)
--- Baseado na Tabela Exemplificativa de Crimes - LC 64/90 (Alínea "e")
--- Versão Consolidada: v0.3.15
--- Data: 15/02/2026
+-- Tabela oficial CRE-SP + RPC de verificação.
+-- Apenas o que é pertinente à inelegibilidade.
+-- Data: 25/02/2026
 -- =====================================================
 
--- 1. ESTRUTURA E LIMPEZA (IDEMPOTÊNCIA)
--- ─────────────────────────────────────────────────────
-
+DROP FUNCTION IF EXISTS public.verificar_elegibilidade(VARCHAR, VARCHAR, VARCHAR, VARCHAR, VARCHAR);
+DROP FUNCTION IF EXISTS public.verificar_elegibilidade(TEXT, TEXT, TEXT, TEXT, TEXT);
 DROP TABLE IF EXISTS crimes_inelegibilidade CASCADE;
-DROP FUNCTION IF EXISTS public.verificar_elegibilidade;
 
 CREATE TABLE crimes_inelegibilidade (
     id SERIAL PRIMARY KEY,
-    codigo VARCHAR(50) NOT NULL,           -- Código (CP, CE, LEI_9605_98, etc)
-    lei TEXT NOT NULL,                     -- Nome completo da lei
-    artigo VARCHAR(50) NOT NULL,           -- Artigo
-    paragrafo VARCHAR(50),                 -- Parágrafo ('unico', '1', '2', etc)
-    inciso VARCHAR(50),                    -- Inciso (I, II, III...)
-    alinea VARCHAR(50),                    -- Alínea (a, b, c...)
-    eh_excecao BOOLEAN DEFAULT FALSE,      -- TRUE = ELEGÍVEL
-    tipo_crime TEXT NOT NULL,              -- Categoria (ex: "Crimes contra a vida")
-    item_alinea_e VARCHAR(10) NOT NULL,    -- Item da alínea "e" (1 a 10)
-    observacoes TEXT,                      -- Notas técnicas
+    codigo VARCHAR(50) NOT NULL,
+    lei TEXT NOT NULL,
+    artigo VARCHAR(50) NOT NULL,
+    paragrafo VARCHAR(50),
+    inciso VARCHAR(50),
+    alinea VARCHAR(50),
+    eh_excecao BOOLEAN DEFAULT FALSE,
+    tipo_crime TEXT NOT NULL,
+    item_alinea_e VARCHAR(10) NOT NULL,
+    observacoes TEXT,
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW()
 );
 
 CREATE INDEX idx_crimes_ssot ON crimes_inelegibilidade(codigo, artigo);
 
--- 2. CÓDIGO PENAL (DECRETO-LEI 2.848/40) - PAGE 1
--- ─────────────────────────────────────────────────────
-
--- NORMA: Arts. 121, 121-A, 122 §1º a §7º, 123 a 127 (Vida - 9)
+-- CÓDIGO PENAL (DECRETO-LEI 2.848/40)
 INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, eh_excecao, tipo_crime, item_alinea_e, observacoes) VALUES
 ('CP', 'Código Penal (DL 2.848/40)', '121', NULL, FALSE, 'Crimes contra a vida', '9', 'Homicídio'),
 ('CP', 'Código Penal (DL 2.848/40)', '121', '3', TRUE, 'Crimes contra a vida', '9', 'Exceção: Homicídio culposo'),
@@ -53,7 +47,6 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, eh_excecao, 
 ('CP', 'Código Penal (DL 2.848/40)', '126', NULL, FALSE, 'Crimes contra a vida', '9', 'Aborto'),
 ('CP', 'Código Penal (DL 2.848/40)', '127', NULL, FALSE, 'Crimes contra a vida', '9', 'Aborto');
 
--- Hediondos (7)
 INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, eh_excecao, tipo_crime, item_alinea_e, observacoes) VALUES
 ('CP', 'Código Penal (DL 2.848/40)', '129', '2', FALSE, 'Crime hediondo', '7', 'Lesão gravíssima (c/c §12)'),
 ('CP', 'Código Penal (DL 2.848/40)', '129', '3', FALSE, 'Crime hediondo', '7', 'Lesão morte (c/c §12)'),
@@ -61,7 +54,6 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, eh_excecao, 
 ('CP', 'Código Penal (DL 2.848/40)', '149', NULL, FALSE, 'Redução escravidão e dignidade sexual', '8 e 9', NULL),
 ('CP', 'Código Penal (DL 2.848/40)', '149-A', NULL, FALSE, 'Crime hediondo', '7', 'Tráfico de pessoas');
 
--- Patrimônio (1 e 2)
 INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, eh_excecao, tipo_crime, item_alinea_e, observacoes) VALUES
 ('CP', 'Código Penal (DL 2.848/40)', '155', NULL, FALSE, 'Crimes contra o patrimônio', '1', 'Furto'),
 ('CP', 'Código Penal (DL 2.848/40)', '157', NULL, FALSE, 'Crimes contra o patrimônio', '1', 'Roubo'),
@@ -84,7 +76,6 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, eh_excecao, 
 ('CP', 'Código Penal (DL 2.848/40)', '180-A', NULL, FALSE, 'Crimes contra o patrimônio', '1', NULL),
 ('CP', 'Código Penal (DL 2.848/40)', '184', '4', TRUE, 'Crimes contra o patrimônio', '1', 'Exceção');
 
--- Dignidade Sexual (9)
 INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, eh_excecao, tipo_crime, item_alinea_e) VALUES
 ('CP', 'Código Penal (DL 2.848/40)', '213', FALSE, 'Crimes contra a dignidade sexual', '9'),
 ('CP', 'Código Penal (DL 2.848/40)', '214', FALSE, 'Crimes contra a dignidade sexual', '9'),
@@ -107,7 +98,6 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, eh_excecao, tipo_crime,
 ('CP', 'Código Penal (DL 2.848/40)', '231', FALSE, 'Crimes contra a dignidade sexual', '9'),
 ('CP', 'Código Penal (DL 2.848/40)', '231-A', FALSE, 'Crimes contra a dignidade sexual', '9');
 
--- Saúde Pública (3)
 INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, eh_excecao, tipo_crime, item_alinea_e) VALUES
 ('CP', 'Código Penal (DL 2.848/40)', '267', NULL, FALSE, 'Crimes contra a saúde pública', '3'),
 ('CP', 'Código Penal (DL 2.848/40)', '267', '2', TRUE, 'Crimes contra a saúde pública', '3'),
@@ -130,7 +120,6 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, eh_excecao, 
 ('CP', 'Código Penal (DL 2.848/40)', '288', NULL, FALSE, 'Crimes praticados por quadrilha ou bando', '10'),
 ('CP', 'Código Penal (DL 2.848/40)', '288-A', NULL, FALSE, 'Crimes praticados por quadrilha ou bando', '10');
 
--- Fé Pública (1)
 INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, eh_excecao, tipo_crime, item_alinea_e) VALUES
 ('CP', 'Código Penal (DL 2.848/40)', '289', NULL, FALSE, 'Crimes contra a fé pública', '1'),
 ('CP', 'Código Penal (DL 2.848/40)', '289', '2', TRUE, 'Crimes contra a fé pública', '1'),
@@ -153,76 +142,71 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, eh_excecao, 
 ('CP', 'Código Penal (DL 2.848/40)', '311', NULL, FALSE, 'Crimes contra a fé pública', '1'),
 ('CP', 'Código Penal (DL 2.848/40)', '311-A', NULL, FALSE, 'Crimes contra a fé pública', '1');
 
--- Admin Pública (1)
-INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, eh_excecao, tipo_crime, item_alinea_e) VALUES
-('CP', 'Código Penal (DL 2.848/40)', '312', NULL, FALSE, 'Crimes contra a administração pública', '1'),
-('CP', 'Código Penal (DL 2.848/40)', '312', '2', TRUE, 'Crimes contra a administração pública', '1'),
-('CP', 'Código Penal (DL 2.848/40)', '313', NULL, FALSE, 'Crimes contra a administração pública', '1'),
-('CP', 'Código Penal (DL 2.848/40)', '313-A', NULL, FALSE, 'Crimes contra a administração pública', '1'),
-('CP', 'Código Penal (DL 2.848/40)', '314', NULL, FALSE, 'Crimes contra a administração pública', '1'),
-('CP', 'Código Penal (DL 2.848/40)', '316', NULL, FALSE, 'Crimes contra a administration pública', '1'),
-('CP', 'Código Penal (DL 2.848/40)', '317', NULL, FALSE, 'Crimes contra a administration pública', '1'),
-('CP', 'Código Penal (DL 2.848/40)', '317', '2', TRUE, 'Crimes contra a administration pública', '1'),
-('CP', 'Código Penal (DL 2.848/40)', '318', NULL, FALSE, 'Crimes contra a administration pública', '1'),
-('CP', 'Código Penal (DL 2.848/40)', '322', NULL, FALSE, 'Crimes contra a administration pública', '1'),
-('CP', 'Código Penal (DL 2.848/40)', '323', NULL, FALSE, 'Crimes contra a administration pública', '1'),
-('CP', 'Código Penal (DL 2.848/40)', '323', NULL, TRUE, 'Crimes contra a administration pública', '1', 'Exceção: Caput §1'),
-('CP', 'Código Penal (DL 2.848/40)', '325', NULL, FALSE, 'Crimes contra a administration pública', '1'),
-('CP', 'Código Penal (DL 2.848/40)', '325', NULL, TRUE, 'Crimes contra a administration pública', '1', 'Exceção: Caput §1'),
-('CP', 'Código Penal (DL 2.848/40)', '328', NULL, FALSE, 'Crimes contra a administration pública', '1'),
-('CP', 'Código Penal (DL 2.848/40)', '328', NULL, TRUE, 'Crimes contra a administration pública', '1', 'Exceção: Caput'),
-('CP', 'Código Penal (DL 2.848/40)', '332', NULL, FALSE, 'Crimes contra a administration pública', '1'),
-('CP', 'Código Penal (DL 2.848/40)', '333', NULL, FALSE, 'Crimes contra a administration pública', '1'),
-('CP', 'Código Penal (DL 2.848/40)', '334', NULL, FALSE, 'Crimes contra a administration pública', '1'),
-('CP', 'Código Penal (DL 2.848/40)', '334-A', NULL, FALSE, 'Crimes contra a administration pública', '1'),
-('CP', 'Código Penal (DL 2.848/40)', '337', NULL, FALSE, 'Crimes contra a administration pública', '1'),
-('CP', 'Código Penal (DL 2.848/40)', '337-A', NULL, FALSE, 'Crimes contra a administration pública', '1'),
-('CP', 'Código Penal (DL 2.848/40)', '337-B', NULL, FALSE, 'Crimes contra a administration pública', '1'),
-('CP', 'Código Penal (DL 2.848/40)', '337-C', NULL, FALSE, 'Crimes contra a administration pública', '1'),
-('CP', 'Código Penal (DL 2.848/40)', '338', NULL, FALSE, 'Crimes contra a administration pública', '1'),
-('CP', 'Código Penal (DL 2.848/40)', '339', NULL, FALSE, 'Crimes contra a administration pública', '1'),
-('CP', 'Código Penal (DL 2.848/40)', '342', NULL, FALSE, 'Crimes contra a administration pública', '1'),
-('CP', 'Código Penal (DL 2.848/40)', '343', NULL, FALSE, 'Crimes contra a administration pública', '1'),
-('CP', 'Código Penal (DL 2.848/40)', '344', NULL, FALSE, 'Crimes contra a administration pública', '1'),
-('CP', 'Código Penal (DL 2.848/40)', '347', NULL, FALSE, 'Crimes contra a administration pública', '1'),
-('CP', 'Código Penal (DL 2.848/40)', '347', NULL, TRUE, 'Crimes contra a administration pública', '1', 'Exceção: Caput'),
-('CP', 'Código Penal (DL 2.848/40)', '351', NULL, FALSE, 'Crimes contra a administration pública', '1'),
-('CP', 'Código Penal (DL 2.848/40)', '351', '4', TRUE, 'Crimes contra a administration pública', '1', 'Exceção'),
-('CP', 'Código Penal (DL 2.848/40)', '353', NULL, FALSE, 'Crimes contra a administration pública', '1'),
-('CP', 'Código Penal (DL 2.848/40)', '355', NULL, FALSE, 'Crimes contra a administration pública', '1'),
-('CP', 'Código Penal (DL 2.848/40)', '356', NULL, FALSE, 'Crimes contra a administration pública', '1'),
-('CP', 'Código Penal (DL 2.848/40)', '357', NULL, FALSE, 'Crimes contra a administration pública', '1'),
-('CP', 'Código Penal (DL 2.848/40)', '359-C', NULL, FALSE, 'Crimes contra a administration pública', '1'),
-('CP', 'Código Penal (DL 2.848/40)', '359-D', NULL, FALSE, 'Crimes contra a administration pública', '1'),
-('CP', 'Código Penal (DL 2.848/40)', '359-G', NULL, FALSE, 'Crimes contra a administration pública', '1'),
-('CP', 'Código Penal (DL 2.848/40)', '359-H', NULL, FALSE, 'Crimes contra a administration pública', '1');
+INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, eh_excecao, tipo_crime, item_alinea_e, observacoes) VALUES
+('CP', 'Código Penal (DL 2.848/40)', '312', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '312', '2', TRUE, 'Crimes contra a administração pública', '1', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '313', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '313-A', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '314', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '316', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '317', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '317', '2', TRUE, 'Crimes contra a administração pública', '1', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '318', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '322', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '323', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '323', NULL, TRUE, 'Crimes contra a administração pública', '1', 'Exceção: Caput §1'),
+('CP', 'Código Penal (DL 2.848/40)', '325', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '325', NULL, TRUE, 'Crimes contra a administração pública', '1', 'Exceção: Caput §1'),
+('CP', 'Código Penal (DL 2.848/40)', '328', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '328', NULL, TRUE, 'Crimes contra a administração pública', '1', 'Exceção: Caput'),
+('CP', 'Código Penal (DL 2.848/40)', '332', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '333', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '334', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '334-A', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '337', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '337-A', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '337-B', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '337-C', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '338', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '339', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '342', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '343', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '344', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '347', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '347', NULL, TRUE, 'Crimes contra a administração pública', '1', 'Exceção: Caput'),
+('CP', 'Código Penal (DL 2.848/40)', '351', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '351', '4', TRUE, 'Crimes contra a administração pública', '1', 'Exceção'),
+('CP', 'Código Penal (DL 2.848/40)', '353', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '355', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '356', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '357', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '359-C', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '359-D', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '359-G', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '359-H', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL);
 
--- 3. CÓDIGO PENAL MILITAR (DL 1.001/69) - PAGE 2
--- ─────────────────────────────────────────────────────
-
-INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, eh_excecao, tipo_crime, item_alinea_e) VALUES
-('CPM', 'Código Penal Militar (DL 1.001/69)', '205', NULL, FALSE, 'Crimes contra a vida', '9'),
-('CPM', 'Código Penal Militar (DL 1.001/69)', '207', NULL, FALSE, 'Crimes contra a vida', '9'),
-('CPM', 'Código Penal Militar (DL 1.001/69)', '208', NULL, FALSE, 'Crimes hediondos', '7'),
-('CPM', 'Código Penal Militar (DL 1.001/69)', '232', NULL, FALSE, 'Crimes contra a dignidade sexual', '9'),
-('CPM', 'Código Penal Militar (DL 1.001/69)', '233', NULL, FALSE, 'Crimes contra a dignidade sexual', '9'),
-('CPM', 'Código Penal Militar (DL 1.001/69)', '234', NULL, FALSE, 'Crimes contra a dignidade sexual', '9'),
-('CPM', 'Código Penal Militar (DL 1.001/69)', '235', NULL, FALSE, 'Crimes contra a dignidade sexual', '9'),
-('CPM', 'Código Penal Militar (DL 1.001/69)', '238', NULL, FALSE, 'Crimes contra a dignidade sexual', '9'),
-('CPM', 'Código Penal Militar (DL 1.001/69)', '239', NULL, FALSE, 'Crimes contra a dignidade sexual', '9'),
+-- CÓDIGO PENAL MILITAR (DL 1.001/69)
+INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, eh_excecao, tipo_crime, item_alinea_e, observacoes) VALUES
+('CPM', 'Código Penal Militar (DL 1.001/69)', '205', NULL, FALSE, 'Crimes contra a vida', '9', NULL),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '207', NULL, FALSE, 'Crimes contra a vida', '9', NULL),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '208', NULL, FALSE, 'Crimes hediondos', '7', NULL),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '232', NULL, FALSE, 'Crimes contra a dignidade sexual', '9', NULL),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '233', NULL, FALSE, 'Crimes contra a dignidade sexual', '9', NULL),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '234', NULL, FALSE, 'Crimes contra a dignidade sexual', '9', NULL),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '235', NULL, FALSE, 'Crimes contra a dignidade sexual', '9', NULL),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '238', NULL, FALSE, 'Crimes contra a dignidade sexual', '9', NULL),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '239', NULL, FALSE, 'Crimes contra a dignidade sexual', '9', NULL),
 ('CPM', 'Código Penal Militar (DL 1.001/69)', '303', '3', TRUE, 'Crimes contra a administração pública e fé pública', '1', 'Exceção: Peculato culposo'),
-('CPM', 'Código Penal Militar (DL 1.001/69)', '400', NULL, FALSE, 'Crimes contra a vida', '9'),
-('CPM', 'Código Penal Militar (DL 1.001/69)', '401', NULL, FALSE, 'Crimes hediondos', '7'),
-('CPM', 'Código Penal Militar (DL 1.001/69)', '402', NULL, FALSE, 'Crimes hediondos', '7'),
-('CPM', 'Código Penal Militar (DL 1.001/69)', '404', NULL, FALSE, 'Crimes contra o patrimônio', '1'),
-('CPM', 'Código Penal Militar (DL 1.001/69)', '405', NULL, FALSE, 'Crimes contra o patrimônio', '1'),
-('CPM', 'Código Penal Militar (DL 1.001/69)', '406', NULL, FALSE, 'Crimes contra o patrimônio', '1'),
-('CPM', 'Código Penal Militar (DL 1.001/69)', '407', NULL, FALSE, 'Crimes contra a dignidade sexual', '9'),
-('CPM', 'Código Penal Militar (DL 1.001/69)', '408', NULL, FALSE, 'Crimes contra a dignidade sexual', '9');
+('CPM', 'Código Penal Militar (DL 1.001/69)', '400', NULL, FALSE, 'Crimes contra a vida', '9', NULL),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '401', NULL, FALSE, 'Crimes hediondos', '7', NULL),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '402', NULL, FALSE, 'Crimes hediondos', '7', NULL),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '404', NULL, FALSE, 'Crimes contra o patrimônio', '1', NULL),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '405', NULL, FALSE, 'Crimes contra o patrimônio', '1', NULL),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '406', NULL, FALSE, 'Crimes contra o patrimônio', '1', NULL),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '407', NULL, FALSE, 'Crimes contra a dignidade sexual', '9', NULL),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '408', NULL, FALSE, 'Crimes contra a dignidade sexual', '9', NULL);
 
--- 4. CÓDIGO ELEITORAL (LEI 4.737/65) - PAGE 3
--- ─────────────────────────────────────────────────────
-
+-- CÓDIGO ELEITORAL (LEI 4.737/65)
 INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, eh_excecao, tipo_crime, item_alinea_e) VALUES
 ('CE', 'Código Eleitoral (Lei 4.737/65)', '289', FALSE, 'Crimes eleitorais', '4'),
 ('CE', 'Código Eleitoral (Lei 4.737/65)', '291', FALSE, 'Crimes eleitorais', '4'),
@@ -246,29 +230,28 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, eh_excecao, tipo_crime,
 ('CE', 'Código Eleitoral (Lei 4.737/65)', '354', FALSE, 'Crimes eleitorais', '4'),
 ('CE', 'Código Eleitoral (Lei 4.737/65)', '354-A', FALSE, 'Crimes eleitorais', '4');
 
--- 5. LEIS ESPECIAIS (CONFORME IMAGENS) - PAGES 3 e 4
--- ─────────────────────────────────────────────────────
-
-INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, eh_excecao, tipo_crime, item_alinea_e) VALUES
-('LEI_2889_56', 'Lei 2.889/56 - Genocídio', '1', FALSE, 'Crimes hediondos', '7'),
+-- LEIS ESPECIAIS
+INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, eh_excecao, tipo_crime, item_alinea_e, observacoes) VALUES
+('LEI_2889_56', 'Lei 2.889/56 - Genocídio', '1', FALSE, 'Crimes hediondos', '7', NULL),
 ('LEI_2889_56', 'Lei 2.889/56 - Genocídio', '2', TRUE, 'Crimes hediondos', '7', 'Exceção: Caput'),
 ('LEI_2889_56', 'Lei 2.889/56 - Genocídio', '3', TRUE, 'Crimes hediondos', '7', 'Exceção: Caput'),
-('LEI_7716_89', 'Lei 7.716/89 - Racismo', '2-A', FALSE, 'Crimes de racismo', '7'),
-('LEI_9455_97', 'Lei 9.455/97 - Tortura', '1', FALSE, 'Crimes de tortura', '7'),
-('LEI_11343_06', 'Lei 11.343/06 - Drogas', '33', FALSE, 'Crimes de tráfico de entorpecentes', '7'),
+('LEI_7716_89', 'Lei 7.716/89 - Racismo', '2-A', FALSE, 'Crimes de racismo', '7', NULL),
+('LEI_9455_97', 'Lei 9.455/97 - Tortura', '1', FALSE, 'Crimes de tortura', '7', NULL),
+('LEI_11343_06', 'Lei 11.343/06 - Drogas', '33', FALSE, 'Crimes de tráfico de entorpecentes', '7', NULL),
 ('LEI_11343_06', 'Lei 11.343/06 - Drogas', '33', TRUE, 'Crimes de tráfico de entorpecentes', '7', 'Exceção: §3º'),
-('LEI_11343_06', 'Lei 11.343/06 - Drogas', '37', FALSE, 'Crimes de tráfico de entorpecentes', '7'),
-('LEI_9613_98', 'Lei 9.613/98 - Lavagem', '1', FALSE, 'Crimes de lavagem ou ocultação de bens', '6'),
-('LEI_12850_13', 'Lei 12.850/13 - Org. Crim.', '2', FALSE, 'Crimes praticados por organização criminosa', '10'),
-('LEI_9605_98', 'Lei 9.605/98 - Ambiental', '54', FALSE, 'Crimes contra o meio ambiente', '3'),
-('LEI_9503_97', 'Lei 9.503/97 - CTB', '302', FALSE, 'Crimes de trânsito', '8'),
-('LEI_10826_03', 'Lei 10.826/03 - Desarmamento', '16', FALSE, 'Crime hediondo', '7'),
+('LEI_11343_06', 'Lei 11.343/06 - Drogas', '37', FALSE, 'Crimes de tráfico de entorpecentes', '7', NULL),
+('LEI_9613_98', 'Lei 9.613/98 - Lavagem', '1', FALSE, 'Crimes de lavagem ou ocultação de bens', '6', NULL),
+('LEI_12850_13', 'Lei 12.850/13 - Org. Crim.', '2', FALSE, 'Crimes praticados por organização criminosa', '10', NULL),
+('LEI_9605_98', 'Lei 9.605/98 - Ambiental', '54', FALSE, 'Crimes contra o meio ambiente', '3', NULL),
+('LEI_9503_97', 'Lei 9.503/97 - CTB', '302', FALSE, 'Crimes de trânsito', '8', NULL),
+('LEI_10826_03', 'Lei 10.826/03 - Desarmamento', '16', FALSE, 'Crime hediondo', '7', NULL),
 ('LEI_8429_92', 'Lei 8.429/92 - Improbidade', '9', FALSE, 'Atos de improbidade', '1', 'Enriquecimento ilícito'),
 ('LEI_8429_92', 'Lei 8.429/92 - Improbidade', '10', FALSE, 'Atos de improbidade', '1', 'Prejuízo ao erário');
 
--- 6. FUNÇÃO DE VERIFICAÇÃO INTELIGENTE (SSOT BRIDGE)
--- ─────────────────────────────────────────────────────
+COMMENT ON TABLE crimes_inelegibilidade IS 'SSoT: Tabela Oficial da Corregedoria (v0.3.15)';
+GRANT ALL ON TABLE crimes_inelegibilidade TO postgres, service_role;
 
+-- verificar_elegibilidade (interpretação CRE - docs/references/interpretacao-tabela-oficial.md)
 CREATE OR REPLACE FUNCTION public.verificar_elegibilidade(
     p_codigo_norma VARCHAR,
     p_artigo VARCHAR,
@@ -283,72 +266,146 @@ RETURNS TABLE (
     mensagem TEXT,
     item_alinea_e VARCHAR,
     excecoes_artigo TEXT
-) 
+)
 LANGUAGE plpgsql
 AS $$
 DECLARE
     v_record record;
     v_excecoes_list TEXT;
+    v_artigo_existe BOOLEAN;
+    v_artigo_inteiro_impeditivo record;
+    v_eh_excecao BOOLEAN;
+    v_mensagem TEXT;
 BEGIN
-    -- 1. Buscar o registro (Lógica de Fallback)
-    SELECT 
-        t.eh_excecao, t.tipo_crime, t.observacoes, t.item_alinea_e
+    SELECT t.eh_excecao, t.tipo_crime, t.observacoes, t.item_alinea_e
     INTO v_record
     FROM public.crimes_inelegibilidade t
-    WHERE t.codigo = UPPER(p_codigo_norma) 
+    WHERE t.codigo = UPPER(p_codigo_norma)
       AND t.artigo = p_artigo
       AND (
           (p_paragrafo IS NULL AND t.paragrafo IS NULL) OR
-          (p_paragrafo IS NOT NULL AND (t.paragrafo = p_paragrafo OR t.paragrafo IS NULL))
+          (p_paragrafo IS NOT NULL AND t.paragrafo = p_paragrafo)
       )
       AND (
           (p_inciso IS NULL AND t.inciso IS NULL) OR
-          (p_inciso IS NOT NULL AND (t.inciso = p_inciso OR t.inciso IS NULL))
+          (p_inciso IS NOT NULL AND t.inciso = p_inciso)
       )
       AND (
           (p_alinea IS NULL AND t.alinea IS NULL) OR
-          (p_alinea IS NOT NULL AND (t.alinea = p_alinea OR t.alinea IS NULL))
+          (p_alinea IS NOT NULL AND t.alinea = p_alinea)
       )
-    ORDER BY 
-      (p_paragrafo IS NOT NULL AND t.paragrafo = p_paragrafo) DESC,
-      (p_inciso IS NOT NULL AND t.inciso = p_inciso) DESC,
-      (p_alinea IS NOT NULL AND t.alinea = p_alinea) DESC,
-      t.eh_excecao DESC 
+    ORDER BY
+      (p_paragrafo IS NOT NULL AND t.paragrafo = p_paragrafo) DESC NULLS LAST,
+      (p_inciso IS NOT NULL AND t.inciso = p_inciso) DESC NULLS LAST,
+      (p_alinea IS NOT NULL AND t.alinea = p_alinea) DESC NULLS LAST,
+      t.eh_excecao DESC
     LIMIT 1;
 
-    -- 2. Buscar Exceções
-    SELECT string_agg(
-        CASE 
-            WHEN t2.paragrafo IS NOT NULL THEN 'Par. ' || t2.paragrafo
-            WHEN t2.inciso IS NOT NULL THEN 'Inc. ' || t2.inciso 
-            WHEN t2.alinea IS NOT NULL THEN 'Al. ' || t2.alinea 
-            ELSE 'Caput'
-        END || COALESCE(' (' || t2.observacoes || ')', ''), 
-        '; '
-    ) INTO v_excecoes_list
-    FROM public.crimes_inelegibilidade t2
-    WHERE t2.codigo = UPPER(p_codigo_norma) 
-      AND t2.artigo = p_artigo 
-      AND t2.eh_excecao = TRUE;
+    IF v_record IS NOT NULL THEN
+        SELECT string_agg(
+            CASE
+                WHEN t2.paragrafo IS NOT NULL THEN
+                    CASE WHEN LOWER(TRIM(t2.paragrafo)) = 'unico' THEN 'parágrafo único' ELSE '§ ' || t2.paragrafo END
+                WHEN t2.inciso IS NOT NULL THEN 'inciso ' || t2.inciso
+                WHEN t2.alinea IS NOT NULL THEN 'alínea ' || t2.alinea
+                ELSE 'caput'
+            END,
+            '; '
+        ) INTO v_excecoes_list
+        FROM public.crimes_inelegibilidade t2
+        WHERE t2.codigo = UPPER(p_codigo_norma)
+          AND t2.artigo = p_artigo
+          AND t2.eh_excecao = TRUE;
 
-    -- 3. Resposta Final
-    IF v_record IS NULL THEN
-        RETURN QUERY SELECT 
-            'NAO_CONSTA'::VARCHAR, NULL::TEXT, NULL::TEXT, 
-            'Artigo não mapeado como impeditivo.'::TEXT, NULL::VARCHAR, NULL::TEXT;
-    ELSE
-        RETURN QUERY SELECT 
-            (CASE WHEN v_record.eh_excecao THEN 'ELEGIVEL' ELSE 'INELEGIVEL' END)::VARCHAR, 
-            v_record.tipo_crime::TEXT, v_record.observacoes::TEXT, 
+        RETURN QUERY SELECT
+            (CASE WHEN v_record.eh_excecao THEN 'ELEGIVEL' ELSE 'INELEGIVEL' END)::VARCHAR,
+            v_record.tipo_crime::TEXT, v_record.observacoes::TEXT,
             ('Artigo consta na Tabela Oficial da Corregedoria (Item ' || COALESCE(v_record.item_alinea_e, '?') || ' da alínea "e")')::TEXT,
             v_record.item_alinea_e::VARCHAR, v_excecoes_list::TEXT;
+        RETURN;
     END IF;
+
+    SELECT EXISTS (
+        SELECT 1 FROM public.crimes_inelegibilidade t
+        WHERE t.codigo = UPPER(p_codigo_norma) AND t.artigo = p_artigo
+    ) INTO v_artigo_existe;
+
+    IF NOT v_artigo_existe THEN
+        RETURN QUERY SELECT
+            'NAO_CONSTA'::VARCHAR, NULL::TEXT, NULL::TEXT,
+            'Artigo não consta na tabela de inelegibilidade.'::TEXT,
+            NULL::VARCHAR, NULL::TEXT;
+        RETURN;
+    END IF;
+
+    SELECT t.tipo_crime, t.item_alinea_e INTO v_artigo_inteiro_impeditivo
+    FROM public.crimes_inelegibilidade t
+    WHERE t.codigo = UPPER(p_codigo_norma)
+      AND t.artigo = p_artigo
+      AND t.paragrafo IS NULL
+      AND t.inciso IS NULL
+      AND t.alinea IS NULL
+      AND t.eh_excecao = FALSE
+    LIMIT 1;
+
+    IF v_artigo_inteiro_impeditivo IS NOT NULL THEN
+        SELECT EXISTS (
+            SELECT 1 FROM public.crimes_inelegibilidade t
+            WHERE t.codigo = UPPER(p_codigo_norma)
+              AND t.artigo = p_artigo
+              AND t.eh_excecao = TRUE
+              AND (
+                  (p_paragrafo IS NULL AND t.paragrafo IS NULL) OR
+                  (p_paragrafo IS NOT NULL AND t.paragrafo = p_paragrafo)
+              )
+              AND (
+                  (p_inciso IS NULL AND t.inciso IS NULL) OR
+                  (p_inciso IS NOT NULL AND t.inciso = p_inciso)
+              )
+              AND (
+                  (p_alinea IS NULL AND t.alinea IS NULL) OR
+                  (p_alinea IS NOT NULL AND t.alinea = p_alinea)
+              )
+        ) INTO v_eh_excecao;
+
+        IF v_eh_excecao THEN
+            RETURN QUERY SELECT
+                'ELEGIVEL'::VARCHAR, NULL::TEXT, NULL::TEXT,
+                'Dispositivo consta como exceção na Tabela Oficial.'::TEXT,
+                NULL::VARCHAR, NULL::TEXT;
+            RETURN;
+        END IF;
+
+        v_mensagem := 'Art. ' || p_artigo ||
+            COALESCE(' § ' || p_paragrafo, '') ||
+            COALESCE(', inc. ' || p_inciso, '') ||
+            COALESCE(', al. ' || p_alinea, '') ||
+            ' não consta explicitamente na tabela; conforme interpretação (artigo inteiro impeditivo), trata-se como inelegível.';
+        RETURN QUERY SELECT
+            'INELEGIVEL'::VARCHAR,
+            v_artigo_inteiro_impeditivo.tipo_crime::TEXT,
+            NULL::TEXT, v_mensagem::TEXT,
+            v_artigo_inteiro_impeditivo.item_alinea_e::VARCHAR,
+            (SELECT string_agg(
+                CASE
+                    WHEN t2.paragrafo IS NOT NULL THEN
+                        CASE WHEN LOWER(TRIM(t2.paragrafo)) = 'unico' THEN 'parágrafo único' ELSE '§ ' || t2.paragrafo END
+                    WHEN t2.inciso IS NOT NULL THEN 'inciso ' || t2.inciso
+                    WHEN t2.alinea IS NOT NULL THEN 'alínea ' || t2.alinea
+                    ELSE 'caput'
+                END,
+                '; '
+            ) FROM public.crimes_inelegibilidade t2
+            WHERE t2.codigo = UPPER(p_codigo_norma) AND t2.artigo = p_artigo AND t2.eh_excecao = TRUE)::TEXT;
+        RETURN;
+    END IF;
+
+    v_mensagem := 'Dispositivo não consta na enumeração impeditiva da tabela; fora do rol explícito, trata-se como elegível.';
+    RETURN QUERY SELECT
+        'ELEGIVEL'::VARCHAR, NULL::TEXT, NULL::TEXT,
+        v_mensagem::TEXT, NULL::VARCHAR, NULL::TEXT;
 END;
 $$;
 
--- 7. PERMISSÕES
--- ─────────────────────────────────────────────────────
-
-COMMENT ON TABLE crimes_inelegibilidade IS 'SSoT: Tabela Oficial da Corregedoria (v0.3.15)';
-GRANT ALL ON TABLE crimes_inelegibilidade TO postgres, service_role;
-GRANT EXECUTE ON FUNCTION verificar_elegibilidade TO postgres, service_role, anon, authenticated;
+COMMENT ON FUNCTION public.verificar_elegibilidade IS 'Verifica elegibilidade conforme interpretação CRE (docs/references/interpretacao-tabela-oficial.md).';
+GRANT EXECUTE ON FUNCTION public.verificar_elegibilidade TO postgres, service_role, anon, authenticated;

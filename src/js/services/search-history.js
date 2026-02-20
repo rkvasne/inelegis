@@ -245,7 +245,6 @@ const SearchHistory = (() => {
 
       const data = await response.json();
 
-      // Mapear para formato esperado pelo frontend
       return data.map((item) => ({
         lei: item.lei,
         artigo: item.artigo,
@@ -253,6 +252,12 @@ const SearchHistory = (() => {
         timestamp: item.timestamp,
         tipoCrime: item.tipo_crime,
         observacoes: item.observacoes,
+        inciso: item.inciso,
+        alinea: item.alinea,
+        paragrafo: item.paragrafo,
+        motivoDetalhado: item.motivo_detalhado,
+        excecoesCitadas: item.excecoes_citadas,
+        metadata: item.metadata,
       }));
     } catch (error) {
       console.warn("⚠️ Falha ao buscar do Supabase:", error.message);

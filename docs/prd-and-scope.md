@@ -77,5 +77,5 @@ Qualquer funcionalidade nova que se encaixe nos itens acima deve ser tratada com
 
 ---
 
-_Última atualização: 20/02/2026 • v0.3.24_
+_Última atualização: 20/02/2026 • v0.3.25_
 _Editado via: Cursor | Modelo: claude-4.6-opus | OS: Windows 11_

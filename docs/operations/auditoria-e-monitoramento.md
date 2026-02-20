@@ -65,15 +65,20 @@ Cloudflare Worker (External Pinger)
 
 A função central de auditoria recebe os seguintes parâmetros:
 
-| Parâmetro            | Tipo        | Descrição                             |
-| -------------------- | ----------- | ------------------------------------- |
-| `p_user_id`          | UUID/String | Identificador anônimo do usuário      |
-| `p_lei`              | String      | Nome curto da lei (ex: CP)            |
-| `p_artigo`           | String      | Número do artigo                      |
-| `p_resultado`        | String      | inelegivel, elegivel, nao_consta      |
-| `p_motivo_detalhado` | Text        | Fundamentação técnica do veredicto    |
-| `p_excecoes_citadas` | Text        | Detalhes das exceções aplicadas       |
-| `p_metadata`         | JSONB       | Contexto original, source, user-agent |
+| Parâmetro            | Tipo    | Descrição                             |
+| -------------------- | ------- | ------------------------------------- |
+| `p_user_id`          | VARCHAR | Identificador anônimo do usuário      |
+| `p_lei`              | VARCHAR | Nome curto da lei (ex: LC64)          |
+| `p_artigo`           | VARCHAR | Número do artigo                      |
+| `p_resultado`        | VARCHAR | inelegivel, elegivel, nao_consta      |
+| `p_tipo_crime`       | TEXT    | Tipo do crime (opcional)              |
+| `p_observacoes`      | TEXT    | Observações (opcional)                |
+| `p_inciso`           | VARCHAR | Inciso consultado (opcional)          |
+| `p_alinea`           | VARCHAR | Alínea consultada (opcional)          |
+| `p_paragrafo`        | VARCHAR | Parágrafo consultado (opcional)       |
+| `p_motivo_detalhado` | TEXT    | Fundamentação técnica do veredicto    |
+| `p_excecoes_citadas` | TEXT    | Detalhes das exceções aplicadas       |
+| `p_metadata`         | JSONB   | Contexto original, source, user-agent |
 
 ---
 
@@ -118,5 +123,5 @@ _Nota: O antigo `analytics.js` foi decomissionado na v0.3.11 em favor deste sist
 
 ---
 
-_Última atualização: 20/02/2026 • v0.3.24 (Hub v0.5.8)_
+_Última atualização: 20/02/2026 • v0.3.25 (Hub v0.5.8)_
 _Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_

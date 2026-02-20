@@ -1,7 +1,7 @@
 ﻿---
 docStatus: reference
 docScope: api
-lastReviewed: 12/02/2026
+lastReviewed: 15/02/2026
 ---
 
 # 🔌 API Endpoints
@@ -84,9 +84,9 @@ O backend consome diretamente o **Supabase (PostgreSQL)**.
 
 **Tabelas operacionais:**
 
-- `historico_consultas`: Registro de consultas por usuário com fundamentação jurídica.
+- `crimes_inelegibilidade`: SSoT — base jurídica (LC 64/90). Consulta via RPC `verificar_elegibilidade`.
+- `historico_consultas`: Registro de consultas por usuário com fundamentação (12 campos via RPC `add_to_history`).
 - `keepalive_events`: Logs de monitoramento de uptime.
-- `normas`: Base jurídica de referência.
 
 ---
 
@@ -112,5 +112,5 @@ vercel dev
 
 ---
 
-_Última atualização: 20/02/2026 • v0.3.24 (Hub v0.5.8)_
+_Última atualização: 15/02/2026 • v0.3.25_
 _Editado via: Cursor | Modelo: claude-4.6-opus | OS: Windows 11_

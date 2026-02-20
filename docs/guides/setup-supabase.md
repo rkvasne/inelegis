@@ -36,7 +36,7 @@ SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6...
 
 ### 3. Executar Migrations
 
-O sistema exige **todas as 13 migrations** executadas na ordem. **Não é possível pular nenhuma** — mesmo as que apenas alteram a função `verificar_elegibilidade` (10, 11, 12) são necessárias para o histórico linear e para o estado final correto. Ver lista completa e instruções em [migrations-status.md](migrations-status.md#para-replicar-o-sistema-do-zero).
+O sistema usa **4 migrations separadas** por domínio. Detalhes em [migrations-status.md](migrations-status.md).
 
 #### Via CLI (recomendado)
 
@@ -49,7 +49,7 @@ supabase db push
 
 #### Via SQL Editor (Dashboard)
 
-Execute os 13 arquivos de `supabase/migrations/` **na ordem** descrita em [migrations-status.md](migrations-status.md).
+Execute os 4 arquivos em ordem: crimes_inelegibilidade → historico_consultas → analytics → keepalive.
 
 ### 4. Testar Conexão
 
@@ -108,7 +108,7 @@ O Supabase usa Row Level Security (RLS) para proteger os dados:
 
 - Tabela `historico_consultas` tem RLS ativado
 - Usuários só podem ver seu próprio histórico
-- A função `verificar_elegibilidade` é `SECURITY DEFINER` (acesso controlado)
+- A função `verificar_elegibilidade` usa `SECURITY INVOKER`; o acesso à tabela segue as permissões do chamador (anon/authenticated com SELECT)
 
 ---
 
@@ -136,7 +136,7 @@ Verifique se o `.env.local` está preenchido corretamente.
 
 ### Erro: "relation does not exist"
 
-Execute **todas as 13 migrations** na ordem (ver [migrations-status.md](migrations-status.md)).
+Execute as **migrations** (`supabase db push` ou os 4 arquivos SQL no Dashboard — ver [migrations-status.md](migrations-status.md)).
 
 ### Erro 401 (Unauthorized)
 
@@ -152,5 +152,5 @@ Verifique se a `anon key` está correta e se RLS das tabelas permite acesso.
 
 ---
 
-_Última atualização: 20/02/2026 • v0.3.24 (Hub v0.5.8)_
+_Última atualização: 25/02/2026 • v0.3.25 (Hub v0.5.8)_
 _Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_

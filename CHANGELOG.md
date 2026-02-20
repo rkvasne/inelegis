@@ -13,6 +13,19 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ## [Unreleased]
 
+- **docs:** Atualização de documentação pendente (Prompt 19 checkpoint): supabase/migrations/README (4 migrations), api-reference (payload POST search-history expandido), api/README (tabelas SSoT), development (search-history 12 params).
+
+## [0.3.25] - 15/02/2026
+
+### fix
+
+- **fix(historico):** Função `add_to_history` na migration `20260225000100_historico_consultas.sql` expandida para aceitar e persistir `p_inciso`, `p_alinea`, `p_paragrafo`, `p_motivo_detalhado`, `p_excecoes_citadas`, `p_metadata`, alinhando migration ao payload enviado pelo frontend.
+- **fix(api):** API `api/search-history.js` passa a usar RPC `add_to_history` em vez de INSERT direto; `addToHistory` e `getHistory` mapeiam todos os campos de fundamentação (inciso, alinea, paragrafo, motivoDetalhado, excecoesCitadas, metadata).
+
+### docs
+
+- **docs:** api-reference.md, auditoria-e-monitoramento.md e setup-supabase.md atualizados com parâmetros completos de `add_to_history` e mapeamento do histórico.
+
 ## [0.3.24] - 15/02/2026
 
 ### test

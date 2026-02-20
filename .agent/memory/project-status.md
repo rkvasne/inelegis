@@ -2,7 +2,13 @@
 
 > **Last Updated:** 15/02/2026
 > **Current Phase:** Testes com usuários reais / Zeladoria
-> **Project Version:** v0.3.24 (SSoT Synchronized)
+> **Project Version:** v0.3.25 (SSoT Synchronized)
+
+## 🎯 Objetivos Concluídos (Sessão 15/02/2026 – Histórico Expandido)
+
+- [x] **fix(historico):** Migration `20260225000100_historico_consultas.sql` — função `add_to_history` expandida para 12 parâmetros (inciso, alinea, paragrafo, motivo_detalhado, excecoes_citadas, metadata). API `api/search-history.js` passou a usar RPC em vez de INSERT direto; mapeamento completo em getHistory/addToHistory. Frontend `search-history.js` mapeia todos os campos no fetch.
+- [x] **docs:** api-reference, auditoria-e-monitoramento, migrations-status e setup-supabase atualizados.
+- [x] **v0.3.25 (Prompt #19 com bump):** CHANGELOG, sync:version, cache-bust (HTML), constants, analytics, components, project-status.
 
 ## 🎯 Objetivos Concluídos (Sessão 15/02/2026 – RPC Match Exato)
 
@@ -66,6 +72,8 @@
 
 **Log de Governança/Sessão:**
 
+- 15/02/2026: **Prompt #19 (checkpoint sem bump):** Docs pendentes: supabase/migrations/README (4 migrations), api-reference (payload search expandido), api/README (tabelas SSoT), development (search-history 12 params). CHANGELOG [Unreleased].
+- 15/02/2026: **v0.3.25 (Prompt #19 com bump):** fix(historico) add_to_history expandido (12 params), API usa RPC, docs atualizados. Bump 0.3.24 → 0.3.25.
 - 15/02/2026: **v0.3.24 (Prompt #19 com bump):** Bump 0.3.23 → 0.3.24. Testes (91 cenários), fix versão frontend (badges, constants, analytics, cache-bust), Prompt 29 (gotchas, Modos). CHANGELOG, sync:version, sobre.html. IA Health: Hub v0.5.9 — rodar Prompt 23 para atualizar governança.
 - 15/02/2026: **Prompt #19 (checkpoint sem bump):** Testes (Prompt 11) ampliados: input-validator.test.js (23), validator-service.test.js (11 com mock RPC), toast e theme-manager integrados ao test:unit. Total: 91 testes unitários. Docs: CHANGELOG [Unreleased], development.md, sobre.html (v0.3.23). Commit e push.
 - 20/02/2026: **v0.3.23 (Prompt #19 com bump):** Interpretação da tabela CRE aplicada (Art. 121 §8 → INELEGIVEL; Art. 122 §8 → ELEGIVEL). Docs: interpretacao-tabela-oficial, migrations-status (obsoletas, setup), setup-supabase (estrutura, 13 migrations obrigatórias). sync-js fix Windows. Bump 0.3.22 → 0.3.23.
@@ -90,5 +98,5 @@
 
 ---
 
-_Última atualização: 15/02/2026 • v0.3.24 (Hub v0.5.8)_
+_Última atualização: 15/02/2026 • v0.3.25 (Hub v0.5.8)_
 _Editado via: Cursor | Modelo: Auto | OS: Windows 11_

@@ -197,7 +197,13 @@ Insere uma consulta no histórico do usuário.
     "artigo": "string",
     "resultado": "inelegivel|elegivel|nao_consta",
     "tipoCrime": "string (opcional)",
-    "observacoes": "string (opcional)"
+    "observacoes": "string (opcional)",
+    "inciso": "string (opcional)",
+    "alinea": "string (opcional)",
+    "paragrafo": "string (opcional)",
+    "motivoDetalhado": "string (opcional)",
+    "excecoesCitadas": "string (opcional)",
+    "metadata": "object (opcional)"
   }
 }
 ```
@@ -309,7 +315,7 @@ const resultado = data?.[0]; // { resultado: "INELEGIVEL", tipo_crime: "...", ..
 
 Registra uma consulta no histórico do usuário (com contexto RLS).
 
-**Parâmetros:** `p_user_id`, `p_lei`, `p_artigo`, `p_resultado`, `p_tipo_crime` (opcional), `p_observacoes` (opcional).
+**Parâmetros:** `p_user_id`, `p_lei`, `p_artigo`, `p_resultado`, `p_tipo_crime` (opcional), `p_observacoes` (opcional), `p_inciso` (opcional), `p_alinea` (opcional), `p_paragrafo` (opcional), `p_motivo_detalhado` (opcional), `p_excecoes_citadas` (opcional), `p_metadata` (opcional, JSONB).
 
 **Retorno:** uma linha da tabela `historico_consultas` (o registro inserido).
 
@@ -381,5 +387,5 @@ Retorna totais gerais para o painel administrativo (uso com **service_role** ou 
 
 ---
 
-_Última atualização: 20/02/2026 • v0.3.24_
+_Última atualização: 20/02/2026 • v0.3.25_
 _Editado via: Cursor | Modelo: Auto | OS: Windows 11_

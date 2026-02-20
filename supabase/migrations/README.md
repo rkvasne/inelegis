@@ -8,6 +8,11 @@ Execute **todas** as migrations nesta pasta, na ordem dos timestamps dos arquivo
 supabase db push
 ```
 
-Ou, manualmente: execute os 13 arquivos `.sql` em ordem (1 a 13 conforme [docs/guides/migrations-status.md](../../docs/guides/migrations-status.md)).
+Ou, manualmente: execute os 4 arquivos `.sql` em ordem conforme [docs/guides/migrations-status.md](../../docs/guides/migrations-status.md):
 
-A migration final (`20260220100000_verificar_elegibilidade_fallback_interpretacao.sql`) define o comportamento atual da consulta de elegibilidade.
+1. `20260225000000_crimes_inelegibilidade.sql`
+2. `20260225000100_historico_consultas.sql`
+3. `20260225000200_analytics.sql`
+4. `20260225000300_keepalive.sql`
+
+Ver [interpretacao-tabela-oficial.md](../../docs/references/interpretacao-tabela-oficial.md) para regras da RPC `verificar_elegibilidade`.
