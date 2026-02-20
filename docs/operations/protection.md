@@ -190,5 +190,5 @@ Adicione validação no build:
 
 ---
 
-_Última atualização: 20/02/2026 • v0.3.23 (Hub v0.5.8)_
+_Última atualização: 20/02/2026 • v0.3.24 (Hub v0.5.8)_
 _Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_

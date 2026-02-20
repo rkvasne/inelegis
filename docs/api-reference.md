@@ -381,5 +381,5 @@ Retorna totais gerais para o painel administrativo (uso com **service_role** ou 
 
 ---
 
-_Última atualização: 20/02/2026 • v0.3.23_
+_Última atualização: 20/02/2026 • v0.3.24_
 _Editado via: Cursor | Modelo: Auto | OS: Windows 11_

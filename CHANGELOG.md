@@ -13,14 +13,21 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ## [Unreleased]
 
+## [0.3.24] - 15/02/2026
+
 ### test
 
 - **test(Prompt 11):** Novos testes unitários integrados ao `npm run test:unit`: `input-validator.test.js` (23 cenários), `validator-service.test.js` (11 cenários com mock RPC), `toast.test.js` e `theme-manager.test.js`. Total: 91 testes unitários.
 
+### fix
+
+- **fix(frontend):** Versão exibida no frontend alinhada ao package.json: badge, landing, constants.js (0.3.23 → 0.3.24), analytics, cache-bust (?v=) em HTMLs e service-worker.
+
 ### chore
 
+- **chore(hub):** Prompt 29 — gotchas.md criado em `.agent/memory/`; seção 🎭 Modos de Operação adicionada ao AGENTS.md.
 - **chore(deps):** npm audit overrides para minimizar vulnerabilidades.
-- **chore(governança):** Prompt 18 (Compliance). AGENTS.md footer v0.3.23.
+- **chore(governança):** Prompt 18 (Compliance). AGENTS.md footer v0.3.24.
 - **docs(keepalive):** keepalive-config-inelegis.md — Project ID `btdbfspuazgerdbmurza`.
 
 ## [0.3.23] - 20/02/2026

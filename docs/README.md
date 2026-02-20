@@ -120,5 +120,5 @@ Para manter consistência entre todos os documentos, siga o padrão centralizado
 
 ---
 
-_Última atualização: 20/02/2026 • v0.3.23 (Hub v0.5.8)_
+_Última atualização: 20/02/2026 • v0.3.24 (Hub v0.5.8)_
 _Editado via: Cursor | Modelo: claude-4.6-opus | OS: Windows 11_
