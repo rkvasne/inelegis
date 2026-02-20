@@ -33,6 +33,27 @@ Para garantir a qualidade e o nível sênior de execução, siga as regras do Hu
 
 ---
 
+## 🎭 Modos de Operação Disponíveis
+
+Ative o modo especialista para a tarefa atual. Disponíveis via Junction em `.agent/hub/brain/personas/`:
+
+| Modo                | Quando Usar                          | Como Ativar                    |
+| ------------------- | ------------------------------------ | ------------------------------ |
+| `mode-frontend`     | React, Next.js, CSS, componentes UI  | `@mode-frontend` / `/frontend` |
+| `mode-backend`      | API, banco de dados, Node.js, Python | `@mode-backend` / `/backend`   |
+| `mode-security`     | Auditoria, OWASP, vulnerabilidades   | `@mode-security` / `/security` |
+| `mode-debugger`     | Investigação de bugs, causa raiz     | `@mode-debugger` / `/debugger` |
+| `mode-planner`      | Planejamento técnico, roadmap        | `@mode-planner` / `/planner`   |
+| `mode-quality`      | Testes, cobertura, refatoração       | `@mode-quality` / `/quality`   |
+| `mode-devops`       | CI/CD, deploy, infra                 | `@mode-devops` / `/devops`     |
+| `mode-orchestrator` | Tarefas complexas multi-domínio      | `@mode-orchestrator`           |
+
+> Arquivos completos em `.agent/hub/brain/personas/` (via Junction — READ-ONLY).
+> Em IDEs com Slash Commands (VSCode Copilot): use `/frontend`, `/backend`, etc.
+> Em Cursor: use `@mode-frontend`, `@mode-backend`, etc.
+
+---
+
 ## 🚫 READ-ONLY HUB ZONE (CRITICAL - VIOLAÇÃO GRAVE)
 
 A pasta `.agent/hub/` é uma **Junction (Link)** do Hub Central `E:\Agents`.
