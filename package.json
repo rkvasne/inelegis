@@ -69,6 +69,12 @@
   "engines": {
     "node": "22.x"
   },
+  "overrides": {
+    "minimatch": "^10.2.1",
+    "html-validate": {
+      "ajv": "^8.18.0"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rkvasne/inelegis.git"

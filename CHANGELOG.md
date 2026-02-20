@@ -13,6 +13,11 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ## [Unreleased]
 
+### chore
+
+- **chore(deps):** npm audit overrides para minimizar vulnerabilidades. Override `minimatch` → ^10.2.1 e `html-validate.ajv` → ^8.18.0; alta severidade resolvida; 4 moderadas (ajv no ESLint) permanecem — não corrigíveis sem breaking change.
+- **chore(governança):** Prompt 18 (Compliance). AGENTS.md footer atualizado para v0.3.22; validador de proteção do Hub OK.
+
 ## [0.3.22] - 15/02/2026
 
 ### fix(verificação)

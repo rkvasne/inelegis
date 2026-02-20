@@ -17,13 +17,13 @@ O pipeline segue o princípio de **Fail Fast** e é dividido em dois jobs princi
 
 Este estágio roda em paralelo e bloqueia o processo se qualquer verificação falhar.
 
-| Etapa                | Comando                  | Descrição                                                           |
-| -------------------- | ------------------------ | ------------------------------------------------------------------- |
-| **Security Audit**   | `npm audit`              | Verifica vulnerabilidades conhecidas em dependências (nível high+). |
-| **Linting**          | `npm run lint`           | Valida estilo de código (JS, CSS, HTML).                            |
-| **Theme Validation** | `npm run validate:theme` | Garante integridade das variáveis de tema e consistência visual.    |
-| **Tests**            | `npm run test:all`       | Executa testes unitários e de componentes.                          |
-| **Docs Check**       | `npm run doc:check`      | Verifica integridade da documentação.                               |
+| Etapa                | Comando                        | Descrição                                                                                                                                                                 |
+| -------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Security Audit**   | `npm audit --audit-level=high` | Verifica vulnerabilidades em dependências. O projeto usa `overrides` em `package.json` (minimatch, html-validate/ajv) para mitigar vulnerabilidades sem breaking changes. |
+| **Linting**          | `npm run lint`                 | Valida estilo de código (JS, CSS, HTML).                                                                                                                                  |
+| **Theme Validation** | `npm run validate:theme`       | Garante integridade das variáveis de tema e consistência visual.                                                                                                          |
+| **Tests**            | `npm run test:all`             | Executa testes unitários e de componentes.                                                                                                                                |
+| **Docs Check**       | `npm run doc:check`            | Verifica integridade da documentação.                                                                                                                                     |
 
 #### 2. 🏗️ Build Verification
 
@@ -67,5 +67,5 @@ O histórico de versões é mantido estritamente no [CHANGELOG.md](../../CHANGEL
 
 ---
 
-_Última atualização: 15/02/2026 • v0.3.20 (Hub v0.5.8)_
-_Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_
+_Última atualização: 20/02/2026 • v0.3.22 (Hub v0.5.8)_
+_Editado via: Cursor | Modelo: Auto | OS: Windows 11_
