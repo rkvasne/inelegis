@@ -81,5 +81,5 @@ Quando resolver um problema não óbvio, adicione uma entrada na seção adequad
 
 ---
 
-_Última atualização: 15/02/2026_
-_Projeto: Inelegis | Hub: agents-rules v0.5.8_
+_Última atualização: 20/02/2026_
+_Projeto: Inelegis | Hub: agents-rules v0.5.9_

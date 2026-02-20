@@ -37,20 +37,24 @@ Para garantir a qualidade e o nível sênior de execução, siga as regras do Hu
 
 Ative o modo especialista para a tarefa atual. Disponíveis via Junction em `.agent/hub/brain/personas/`:
 
-| Modo                | Quando Usar                          | Como Ativar                    |
-| ------------------- | ------------------------------------ | ------------------------------ |
-| `mode-frontend`     | React, Next.js, CSS, componentes UI  | `@mode-frontend` / `/frontend` |
-| `mode-backend`      | API, banco de dados, Node.js, Python | `@mode-backend` / `/backend`   |
-| `mode-security`     | Auditoria, OWASP, vulnerabilidades   | `@mode-security` / `/security` |
-| `mode-debugger`     | Investigação de bugs, causa raiz     | `@mode-debugger` / `/debugger` |
-| `mode-planner`      | Planejamento técnico, roadmap        | `@mode-planner` / `/planner`   |
-| `mode-quality`      | Testes, cobertura, refatoração       | `@mode-quality` / `/quality`   |
-| `mode-devops`       | CI/CD, deploy, infra                 | `@mode-devops` / `/devops`     |
-| `mode-orchestrator` | Tarefas complexas multi-domínio      | `@mode-orchestrator`           |
+| Modo                 | Quando Usar                                     | Ativar (Cursor)       | Ativar (VSCode/TRAE) |
+| -------------------- | ----------------------------------------------- | --------------------- | -------------------- |
+| `mode-frontend`      | React, Next.js, CSS, componentes UI             | `@mode-frontend`      | `/frontend`          |
+| `mode-backend`       | API, banco de dados, Node.js, Python            | `@mode-backend`       | `/backend`           |
+| `mode-security`      | Auditoria de segurança, OWASP, vulnerabilidades | `@mode-security`      | `/security`          |
+| `mode-debugger`      | Investigação de bugs, causa raiz                | `@mode-debugger`      | `/debugger`          |
+| `mode-planner`       | Planejamento técnico, roadmap, ADRs             | `@mode-planner`       | `/planner`           |
+| `mode-quality`       | Testes, cobertura, refatoração limpa            | `@mode-quality`       | `/quality`           |
+| `mode-devops`        | CI/CD, deploy, infra, Docker                    | `@mode-devops`        | `/devops`            |
+| `mode-orchestrator`  | Tarefas complexas multi-domínio                 | `@mode-orchestrator`  | `/orchestrate`       |
+| `mode-architect`     | Design de sistema, decisões de arquitetura      | `@mode-architect`     | `/architect`         |
+| `mode-git`           | Commits, branches, PR, histórico                | `@mode-git`           | `/git`               |
+| `mode-documentation` | Docs técnicos, READMEs, guias                   | `@mode-documentation` | `/writer`            |
+| `mode-mobile`        | React Native, Flutter, apps mobile              | `@mode-mobile`        | `/mobile`            |
+| `mode-code-reviewer` | Code review, boas práticas, qualidade de PR     | `@mode-code-reviewer` | `/reviewer`          |
 
 > Arquivos completos em `.agent/hub/brain/personas/` (via Junction — READ-ONLY).
-> Em IDEs com Slash Commands (VSCode Copilot): use `/frontend`, `/backend`, etc.
-> Em Cursor: use `@mode-frontend`, `@mode-backend`, etc.
+> Em TRAE: arquivos gerados em `.trae/rules/` via `npm run build:ide:trae` no Hub.
 
 ---
 
@@ -198,5 +202,5 @@ edit public/consulta.html
 
 ---
 
-_Última atualização: 15/02/2026 • v0.3.24 (Hub v0.5.9)_
+_Última atualização: 15/02/2026 • v0.3.25 (Hub v0.5.9)_
 _Editado via: Cursor | Modelo: Auto | OS: Windows 11_
