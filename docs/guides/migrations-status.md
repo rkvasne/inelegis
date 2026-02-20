@@ -6,19 +6,20 @@ Referência para conferir se o que está no repositório já foi aplicado no Sup
 
 ## Migrations no repositório (ordem cronológica)
 
-| #   | Arquivo                                                           | Conteúdo principal                                          |
-| --- | ----------------------------------------------------------------- | ----------------------------------------------------------- |
-| 1   | `20260115000000_remodelagem_completa.sql`                         | Remodelagem inicial, tabela crimes                          |
-| 2   | `20260120000000_create_historico_consultas.sql`                   | Tabela historico_consultas                                  |
-| 3   | `20260121000000_tabela_oficial_completa.sql`                      | Tabela oficial (crimes_inelegibilidade)                     |
-| 4   | `20260122000000_create_analytics.sql`                             | Analytics (tabelas/views)                                   |
-| 5   | `20260211164500_create_keepalive_system.sql`                      | Tabelas keepalive                                           |
-| 6   | `20260211195000_enhance_audit_history.sql`                        | Melhorias no histórico/auditoria                            |
-| 7   | `20260212233000_admin_access_setup.sql`                           | Setup de acesso admin                                       |
-| 8   | `20260214221500_secure_keepalive_rls.sql`                         | RLS keepalive (service_role)                                |
-| 9   | `20260214223000_secure_history_functions.sql`                     | Funções de histórico (SECURITY INVOKER, set_app_user_id)    |
-| 10  | `20260215000000_verificar_elegibilidade_fallback_hierarquico.sql` | RPC verificar_elegibilidade (fallback hierárquico)          |
-| 11  | `20260215100000_verificar_elegibilidade_match_estrito.sql`        | RPC verificar_elegibilidade (match estrito §/inciso/alínea) |
+| #   | Arquivo                                                              | Conteúdo principal                                                      |
+| --- | -------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| 1   | `20260115000000_remodelagem_completa.sql`                            | Remodelagem inicial, tabela crimes                                      |
+| 2   | `20260120000000_create_historico_consultas.sql`                      | Tabela historico_consultas                                              |
+| 3   | `20260121000000_tabela_oficial_completa.sql`                         | Tabela oficial (crimes_inelegibilidade)                                 |
+| 4   | `20260122000000_create_analytics.sql`                                | Analytics (tabelas/views)                                               |
+| 5   | `20260211164500_create_keepalive_system.sql`                         | Tabelas keepalive                                                       |
+| 6   | `20260211195000_enhance_audit_history.sql`                           | Melhorias no histórico/auditoria                                        |
+| 7   | `20260212233000_admin_access_setup.sql`                              | Setup de acesso admin                                                   |
+| 8   | `20260214221500_secure_keepalive_rls.sql`                            | RLS keepalive (service_role)                                            |
+| 9   | `20260214223000_secure_history_functions.sql`                        | Funções de histórico (SECURITY INVOKER, set_app_user_id)                |
+| 10  | `20260215000000_verificar_elegibilidade_fallback_hierarquico.sql`    | RPC verificar_elegibilidade (fallback hierárquico)                      |
+| 11  | `20260215100000_verificar_elegibilidade_match_estrito.sql`           | RPC verificar_elegibilidade (match estrito §/inciso/alínea)             |
+| 12  | `20260220000000_verificar_elegibilidade_dispositivo_inexistente.sql` | RPC: dispositivo inexistente na tabela → NAO_CONSTA (ex.: Art. 121 § 8) |
 
 ---
 
@@ -71,11 +72,11 @@ Os nomes/versões não batem 1:1 com os arquivos do repo porque o histórico do 
 
 ## Conclusão
 
-- **Repositório:** 11 arquivos de migration em `supabase/migrations/`.
+- **Repositório:** 12 arquivos de migration em `supabase/migrations/`.
 - **Supabase:** 10 migrations registradas (nomes/versões diferentes do repo).
-- **Função atual:** o `db:extract` já mostrou que `verificar_elegibilidade` está com a lógica de **match estrito** no banco; portanto a migration de match estrito foi aplicada (provavelmente via SQL Editor).
+- **Função atual:** o `db:extract` já mostrou que `verificar_elegibilidade` está com a lógica de **match estrito** no banco; portanto a migration de match estrito foi aplicada (provavelmente via SQL Editor). A migration `20260220000000` garante que **dispositivo inexistente** (ex.: Art. 121 § 8 quando a tabela tem só caput e § 3) retorne sempre `NAO_CONSTA`.
 
 Se quiser que a lista do Supabase reflita exatamente o repo, use o CLI para aplicar as migrations a partir de agora e, se necessário, normalize o histórico (ex.: um único “baseline” e novas migrations em cima).
 
-_Última atualização: 15/02/2026_
+_Última atualização: 20/02/2026_
 _Editado via: Cursor | Modelo: Auto | OS: Windows 11_

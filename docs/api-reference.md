@@ -265,6 +265,7 @@ Verifica se um artigo gera inelegibilidade ou exceção conforme a tabela oficia
 - **Match exato** → `INELEGIVEL` ou `ELEGIVEL` (quando for exceção legal).
 - **Sem match e artigo possui dispositivos impeditivos** (ex.: Art. 148 sem §, mas § 1º IV é impeditivo) → `ELEGIVEL` com `mensagem` orientando a verificar na sentença se o dispositivo foi informado corretamente.
 - **Sem match e artigo inexistente** → `NAO_CONSTA`.
+- **Dispositivo inexistente na tabela** (ex.: Art. 121 § 8 quando apenas caput e § 3 existem) → sempre `NAO_CONSTA` (não encontrado). O frontend exibe badge "NÃO ENCONTRADO" em Busca Simples e Análise de Dispositivo.
 
 **Prioridade de match:** exato de parágrafo/inciso/alínea (ORDER BY NULLS LAST), depois exceção. Ex.: Art. 121 § 3º retorna `ELEGIVEL` (exceção), não o caput. **Match estrito:** dispositivo informado que não existe na tabela (ex.: Art. 122 § 8, inexistente) não faz fallback para o caput; retorna fluxo "sem match".
 

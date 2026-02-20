@@ -66,6 +66,7 @@
 
 **Log de Governança/Sessão:**
 
+- 20/02/2026: **fix(rpc + ui):** Migration `20260220000000_verificar_elegibilidade_dispositivo_inexistente.sql` aplicada. Dispositivo inexistente (ex.: Art. 121 § 8) retorna NAO_CONSTA. Análise de Dispositivo exibe badge "NÃO ENCONTRADO". Docs: migrations-status, api-reference, development, auditoria; CHANGELOG [Unreleased]; sync-js fix para Windows. Prompt 19 (checkpoint sem bump).
 - 15/02/2026: **Prompt #19 (checkpoint sem bump):** Doc keepalive-config-inelegis — Project ID `btdbfspuazgerdbmurza` aplicado em URLs (Vercel, Cloudflare, Supabase). CHANGELOG [Unreleased], project-status. Commit e push.
 - 15/02/2026: **Prompt #19 (checkpoint sem bump):** Code Janitor (Prompt #20) — JSDoc em escape-html.js, varredura higiene OK (sem dead code, sem imports órfãos); formatação e sync JS. CHANGELOG [Unreleased], project-status. Commit e push.
 - 20/02/2026: **Prompt #19 (checkpoint sem bump):** npm audit overrides (minimatch, html-validate/ajv) para reduzir vulnerabilidades; Prompt 18 (Compliance) com AGENTS.md atualizado; CHANGELOG [Unreleased] e project-status. Commit e push.
@@ -86,5 +87,5 @@
 
 ---
 
-_Última atualização: 15/02/2026 • v0.3.22 (Hub v0.5.8)_
+_Última atualização: 20/02/2026 • v0.3.22 (Hub v0.5.8)_
 _Editado via: Cursor | Modelo: Auto | OS: Windows 11_

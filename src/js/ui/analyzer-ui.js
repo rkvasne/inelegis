@@ -226,18 +226,15 @@ export class AnalyzerUI {
         "ELEGIVEL",
       );
     } else {
-      // NAO_CONSTA = Elegível (artigo não encontrado na base)
+      // NAO_CONSTA = Dispositivo não consta na tabela (não encontrado)
       statusCell.innerHTML =
-        '<span class="analyzer-badge success">ELEGÍVEL</span>';
-      aseCell.innerHTML = temIndicador370
-        ? '<span class="text-warning-700 font-medium">ASE 370?</span><br><small>Verificar se há condenação criminal</small>'
-        : "Não gera restrição";
+        '<span class="analyzer-badge warning">NÃO ENCONTRADO</span>';
+      aseCell.textContent = "—";
 
-      // Abrir modal ELEGÍVEL (não consta = elegível)
       this.updateViewButton(
         item,
-        { ...result, resultado: "ELEGIVEL" },
-        "ELEGIVEL",
+        { ...result, resultado: "NAO_CONSTA" },
+        "NAO_CONSTA",
       );
     }
 
@@ -267,7 +264,7 @@ export class AnalyzerUI {
    * Atualiza o botão "Ver" para abrir o modal correto
    * @param {object} item - Item analisado
    * @param {object} result - Resultado da verificação
-   * @param {string} tipo - Tipo do resultado (INELEGIVEL, ELEGIVEL)
+   * @param {string} tipo - Tipo do resultado (INELEGIVEL, ELEGIVEL, NAO_CONSTA)
    */
   updateViewButton(item, result, tipo) {
     // Encontrar a row e o botão

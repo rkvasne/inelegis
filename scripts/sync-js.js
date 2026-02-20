@@ -41,8 +41,10 @@ function main() {
   );
 }
 
-// ES Module compatibility
-if (import.meta.url === `file://${process.argv[1]}`) {
+// ES Module compatibility (funciona em Windows e Unix)
+const isMain =
+  process.argv[1] && path.resolve(process.argv[1]) === path.resolve(__filename);
+if (isMain) {
   try {
     main();
   } catch (error) {

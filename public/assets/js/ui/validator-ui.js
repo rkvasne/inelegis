@@ -258,7 +258,10 @@ export class ValidatorUI {
   }
 
   renderResult(result, context) {
-    const html = ResultRenderer.render(result, context);
+    const { html, statusClass, statusText } = ResultRenderer.render(
+      result,
+      context,
+    );
 
     if (window.ModalManager) {
       const subtitle = document.getElementById("modalSubtitle");
@@ -267,17 +270,7 @@ export class ValidatorUI {
       const title = document.getElementById("modalTitle");
       if (title) title.textContent = "Resultado da Consulta";
 
-      const statusMap = {
-        [RESULTS.INELIGIBLE]: "ineligible",
-        [RESULTS.ELIGIBLE]: "eligible",
-        [RESULTS.NOT_FOUND]: "not-found",
-      };
-
-      window.ModalManager.open(
-        statusMap[result.resultado] || "not-found",
-        result.resultado,
-        html,
-      );
+      window.ModalManager.open(statusClass, statusText, html);
     }
   }
 

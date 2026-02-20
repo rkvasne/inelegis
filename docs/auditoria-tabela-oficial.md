@@ -114,7 +114,7 @@ A tabela oficial menciona que houve atualização em outubro/2024, incluindo:
 
 ### 4. **Reconsolidação v0.3.16**
 
-Em v0.3.16 a migration `20260121000000_tabela_oficial_completa.sql` foi **reconsolidada** (sincronização total com as 4 páginas da tabela oficial). A **normalização de case** (códigos em MAIÚSCULAS) foi implementada na **RPC `verificar_elegibilidade`**. A lógica atual (v20260215) é **match exato apenas**: sem match e artigo com dispositivos impeditivos retorna ELEGIVEL com aviso em `mensagem`; ORDER BY NULLS LAST prioriza dispositivo exato (ex.: Art. 121 § 3º retorna ELEGIVEL). Esta auditoria continua referindo-se ao conteúdo jurídico da base (conformidade CRE out/2024).
+Em v0.3.16 a migration `20260121000000_tabela_oficial_completa.sql` foi **reconsolidada** (sincronização total com as 4 páginas da tabela oficial). A **normalização de case** (códigos em MAIÚSCULAS) foi implementada na **RPC `verificar_elegibilidade`**. A lógica atual (v20260220) é **match exato apenas**: sem match e artigo com dispositivos impeditivos retorna ELEGIVEL com aviso em `mensagem`; dispositivo inexistente (ex.: Art. 121 § 8) retorna NAO_CONSTA; ORDER BY NULLS LAST prioriza dispositivo exato (ex.: Art. 121 § 3º retorna ELEGIVEL). Esta auditoria continua referindo-se ao conteúdo jurídico da base (conformidade CRE out/2024).
 
 ### 5. **Observações Adicionais**
 
