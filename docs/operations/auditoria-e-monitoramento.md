@@ -41,7 +41,7 @@ Os logs de auditoria são mantidos por **90 dias** (configurável via `HISTORY_R
 
 ```
 Fluxo de Auditoria e Visualização:
-UI (Validator/Analyzer) → SearchHistory.add() → Supabase RPC (add_to_history)
+UI (Validator/Analyzer) → SearchHistory.add() → Supabase INSERT (historico_consultas)
                                               ↓
                                       Tabela historico_consultas
                                               ↓
@@ -59,7 +59,11 @@ Cloudflare Worker (External Pinger)
 
 ---
 
-## 📡 Histórico e RPCs
+## 📡 Histórico
+
+**Frontend:** `search-history.js` usa `supabaseClient.insert("historico_consultas", row)` (INSERT direto). A role `anon` tem GRANT INSERT e policy "Allow anonymous insert".
+
+**API Vercel:** `api/search-history.js` usa RPC `add_to_history` (service_role). Fluxo via POST /api/search-history.
 
 ### RPC `add_to_history`
 

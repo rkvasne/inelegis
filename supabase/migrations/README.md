@@ -14,5 +14,6 @@ Ou, manualmente: execute os 4 arquivos `.sql` em ordem conforme [docs/guides/mig
 2. `20260225000100_historico_consultas.sql`
 3. `20260225000200_analytics.sql`
 4. `20260225000300_keepalive.sql`
+5. `20260225000150_grant_rpc_anon.sql`
 
 Ver [interpretacao-tabela-oficial.md](../../docs/references/interpretacao-tabela-oficial.md) para regras da RPC `verificar_elegibilidade`.

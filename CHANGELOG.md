@@ -13,7 +13,9 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ## [Unreleased]
 
-- **docs:** Atualização de documentação pendente (Prompt 19 checkpoint): supabase/migrations/README (4 migrations), api-reference (payload POST search-history expandido), api/README (tabelas SSoT), development (search-history 12 params).
+- **fix(historico):** Frontend `search-history.js` passou a usar INSERT direto em `historico_consultas` via `supabaseClient.insert()` em vez de RPC `add_to_history`, evitando 401 Unauthorized (anon tem GRANT INSERT e policy).
+- **fix(migration):** Nova migration `20260225000150_grant_rpc_anon.sql` com GRANT EXECUTE nas RPCs para anon (uso pela API Vercel).
+- **docs:** auditoria-e-monitoramento (fluxo INSERT), development (search-history INSERT), migrations-status (5 migrations).
 
 ## [0.3.25] - 15/02/2026
 

@@ -14,6 +14,7 @@ Migrations separadas por domínio. Ordem de execução (cronológica pelo timest
 |   2   | `20260225000100_historico_consultas.sql`    | Histórico de consultas + RPC `add_to_history` (12 params) + RLS |
 |   3   | `20260225000200_analytics.sql`              | Analytics (tabela, views, funções) + RLS                        |
 |   4   | `20260225000300_keepalive.sql`              | Keepalive (status e eventos de heartbeat)                       |
+|   5   | `20260225000150_grant_rpc_anon.sql`         | GRANT EXECUTE nas RPCs de histórico para anon (API Vercel)      |
 
 ---
 
@@ -38,7 +39,7 @@ supabase db push
 
 ### Via SQL Editor
 
-Execute os 4 arquivos em ordem (1 → 4).
+Execute os 5 arquivos em ordem (1 → 5).
 
 ---
 

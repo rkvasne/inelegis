@@ -160,11 +160,11 @@ const SearchHistory = (() => {
   }
 
   /**
-   * Sincroniza busca com Supabase
+   * Sincroniza busca com Supabase (INSERT direto na tabela; anon tem permissão)
    */
   async function syncToSupabase(search) {
-    const config = getSupabaseConfig();
-    if (!config) {
+    const client = window.supabaseClient;
+    if (!client || !client.isConfigured?.()) {
       historyDebugLog(
         "Supabase não configurado, salvando apenas em cache local",
       );
@@ -173,37 +173,24 @@ const SearchHistory = (() => {
 
     try {
       const userId = getUserId();
+      const row = {
+        user_id: userId,
+        lei: search.lei,
+        artigo: search.artigo,
+        resultado: search.resultado,
+        tipo_crime: search.tipoCrime || null,
+        observacoes: search.observacoes || null,
+        inciso: search.inciso || null,
+        alinea: search.alinea || null,
+        paragrafo: search.paragrafo || null,
+        motivo_detalhado: search.motivoDetalhado || null,
+        excecoes_citadas: search.excecoesCitadas || null,
+        metadata: search.metadata || {},
+      };
 
-      const response = await fetch(`${config.url}/rest/v1/rpc/add_to_history`, {
-        method: "POST",
-        headers: {
-          apikey: config.anonKey,
-          Authorization: `Bearer ${config.anonKey}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          p_user_id: userId,
-          p_lei: search.lei,
-          p_artigo: search.artigo,
-          p_resultado: search.resultado,
-          p_tipo_crime: search.tipoCrime || null,
-          p_observacoes: search.observacoes || null,
-          p_inciso: search.inciso || null,
-          p_alinea: search.alinea || null,
-          p_paragrafo: search.paragrafo || null,
-          p_motivo_detalhado: search.motivoDetalhado || null,
-          p_excecoes_citadas: search.excecoesCitadas || null,
-          p_metadata: search.metadata || {},
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}`);
-      }
-
-      const result = await response.json();
+      const result = await client.insert("historico_consultas", row);
       historyDebugLog("Histórico sincronizado com Supabase");
-      return result;
+      return Array.isArray(result) ? result[0] : result;
     } catch (error) {
       console.warn("⚠️ Falha ao sincronizar com Supabase:", error.message);
       return null;
