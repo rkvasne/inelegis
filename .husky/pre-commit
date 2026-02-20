@@ -2,8 +2,8 @@
 echo "🔒 Executando verificações de pré-commit..."
 
 # 1. PROTEÇÃO DO HUB (CRÍTICO)
-# Bloquear commits em .agent/hub/
-if git diff --cached --name-only | grep -q "^\.agent/hub/"; then
+# Bloquear commits em .agent/hub/ ou .agent/hub (submodule)
+if git diff --cached --name-only | grep -qE "^\.agent/hub(/|$)"; then
   echo ""
   echo "❌ ERRO: VIOLAÇÃO DE HUB DETECTADA!"
   echo ""

@@ -2,7 +2,7 @@
 
 > **Prompt:** 17-api-and-docs.md (Documentação: API Docs e Manuais)  
 > **Fase:** Finalização / Handover  
-> **Versão do Projeto:** v0.3.20
+> **Versão do Projeto:** v0.3.22
 
 Documentação técnica das APIs do Inelegis: endpoints serverless (Vercel) e funções RPC do Supabase consumidas pelo frontend.
 
@@ -380,5 +380,5 @@ Retorna totais gerais para o painel administrativo (uso com **service_role** ou 
 
 ---
 
-_Última atualização: 15/02/2026 • v0.3.21_
+_Última atualização: 20/02/2026 • v0.3.22_
 _Editado via: Cursor | Modelo: Auto | OS: Windows 11_

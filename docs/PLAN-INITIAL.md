@@ -2,7 +2,7 @@
 
 > **Prompt:** 03-prd-and-scope.md (Planejamento: PRD, Escopo e Estimativas)  
 > **Fase:** Descoberta / Definição  
-> **Versão do Projeto:** v0.3.20  
+> **Versão do Projeto:** v0.3.22  
 > **Data:** 16/02/2026
 
 ---
@@ -130,5 +130,5 @@ Este documento serve como **guia de decisão** para:
 
 ---
 
-_Última atualização: 15/02/2026 • v0.3.20_
+_Última atualização: 20/02/2026 • v0.3.22_
 _Editado via: Cursor | Modelo: claude-4.6-opus | OS: Windows 11_

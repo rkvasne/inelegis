@@ -20,6 +20,7 @@
     "test:all": "npm run test:unit && npm run test",
     "test:standards": "node .agent/hub/system/validators/validator-web-standards.js public",
     "sync:js": "node scripts/sync-js.js",
+    "sync:version": "node .agent/hub/system/scripts/sync-version.js",
     "supabase:config": "node scripts/build-supabase-config.js",
     "serve": "npm run sync:js && npm run supabase:config && node scripts/serve.js",
     "dev": "npm run check && npm run serve",

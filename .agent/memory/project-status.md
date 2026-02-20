@@ -66,6 +66,7 @@
 
 **Log de Governança/Sessão:**
 
+- 15/02/2026: **Prompt #19 (checkpoint sem bump):** Code Janitor (Prompt #20) — JSDoc em escape-html.js, varredura higiene OK (sem dead code, sem imports órfãos); formatação e sync JS. CHANGELOG [Unreleased], project-status. Commit e push.
 - 20/02/2026: **Prompt #19 (checkpoint sem bump):** npm audit overrides (minimatch, html-validate/ajv) para reduzir vulnerabilidades; Prompt 18 (Compliance) com AGENTS.md atualizado; CHANGELOG [Unreleased] e project-status. Commit e push.
 - 15/02/2026: **v0.3.22 (Prompt #19 com bump):** Bump 0.3.21 → 0.3.22. Docs ci-variaveis-github.md, hub-access-token-ci.md, migrations-status.md; variaveis-ambiente, devops e docs/README atualizados. CHANGELOG consolidado, project-status e commit/push.
 - 15/02/2026: **Prompt #19 (checkpoint):** Match estrito RPC (Art. 122 § 8 sem fallback para caput); revert do alerta de exceções (sempre exibir até tabela 100%); migration aplicada via MCP Supabase. Docs: hub-access-token-ci.md, migrations-status.md; variaveis-ambiente e docs/README atualizados. IA Health (check-hub-version) e git push.

@@ -27,7 +27,7 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 
 ## 🏗 Arquitetura do Código
 
-### Estrutura de Pastas (v0.3.20)
+### Estrutura de Pastas (v0.3.22)
 
 - `public/assets/js/`: Código distribuído (runtime).
 - `src/js/`: Código fonte original organizado por camadas:
@@ -133,5 +133,5 @@ Para garantir a eficiência de leitura por agentes de IA e conformidade com o **
 
 ---
 
-_Última atualização: 15/02/2026 • v0.3.21 (Hub v0.5.8)_
+_Última atualização: 20/02/2026 • v0.3.22 (Hub v0.5.8)_
 _Editado via: Cursor | Modelo: Auto | OS: Windows 11_

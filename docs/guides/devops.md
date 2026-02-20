@@ -17,13 +17,15 @@ O pipeline segue o princípio de **Fail Fast** e é dividido em dois jobs princi
 
 Este estágio roda em paralelo e bloqueia o processo se qualquer verificação falhar.
 
-| Etapa                | Comando                        | Descrição                                                                                                                                                                 |
-| -------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Security Audit**   | `npm audit --audit-level=high` | Verifica vulnerabilidades em dependências. O projeto usa `overrides` em `package.json` (minimatch, html-validate/ajv) para mitigar vulnerabilidades sem breaking changes. |
-| **Linting**          | `npm run lint`                 | Valida estilo de código (JS, CSS, HTML).                                                                                                                                  |
-| **Theme Validation** | `npm run validate:theme`       | Garante integridade das variáveis de tema e consistência visual.                                                                                                          |
-| **Tests**            | `npm run test:all`             | Executa testes unitários e de componentes.                                                                                                                                |
-| **Docs Check**       | `npm run doc:check`            | Verifica integridade da documentação.                                                                                                                                     |
+| Etapa                | Comando                        | Descrição                                                                                                                        |
+| -------------------- | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------- |
+| **Security Audit**   | `npm audit --audit-level=high` | Verifica vulnerabilidades em dependências. Falha só para high/critical; moderate são aceitas. Ver nota abaixo sobre `overrides`. |
+| **Linting**          | `npm run lint`                 | Valida estilo de código (JS, CSS, HTML).                                                                                         |
+| **Theme Validation** | `npm run validate:theme`       | Garante integridade das variáveis de tema e consistência visual.                                                                 |
+| **Tests**            | `npm run test:all`             | Executa testes unitários e de componentes.                                                                                       |
+| **Docs Check**       | `npm run doc:check`            | Verifica integridade da documentação.                                                                                            |
+
+> **Sobre `npm audit --audit-level=high`:** Sem o parâmetro, o comando falha para qualquer vulnerabilidade (incl. moderate/low). Com `--audit-level=high`, falha apenas para high e critical. O projeto possui 4 vulnerabilidades moderadas (ajv no ESLint) sem correção sem breaking change; o `package.json` usa `overrides` (minimatch, html-validate/ajv) para mitigar as demais.
 
 #### 2. 🏗️ Build Verification
 

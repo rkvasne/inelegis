@@ -75,6 +75,9 @@ docs/
 │   ├── development.md
 │   ├── devops.md               # CI/CD (GitHub Actions)
 │   ├── devops-manual.md        # Deploy manual (Docker, Vercel)
+│   ├── hub-access-token-ci.md  # Token do Hub para CI em satélites
+│   ├── ci-variaveis-github.md  # Variáveis do GitHub Actions (detalhado)
+│   ├── migrations-status.md    # Status de migrations (local vs Supabase)
 │   ├── keepalive-setup.md
 │   ├── keepalive-config-inelegis.md
 │   ├── maintenance.md
@@ -116,5 +119,5 @@ Para manter consistência entre todos os documentos, siga o padrão centralizado
 
 ---
 
-_Última atualização: 15/02/2026 • v0.3.20 (Hub v0.5.8)_
+_Última atualização: 20/02/2026 • v0.3.22 (Hub v0.5.8)_
 _Editado via: Cursor | Modelo: claude-4.6-opus | OS: Windows 11_
