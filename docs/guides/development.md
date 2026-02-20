@@ -88,13 +88,13 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 
 ---
 
-| Script                    | Descrição                                                           |
-| ------------------------- | ------------------------------------------------------------------- |
-| `npm run dev`             | Inicia servidor local com sync de assets.                           |
-| `npm run check`           | Valida Lint, Testes e integridade do Build.                         |
-| `npm run supabase:config` | Sincroniza chaves do `.env.local` con o frontend.                   |
-| `npm run test:unit`       | Executa testes de lógica (formatters, exceptions, result-renderer). |
-| `npm run verify`          | Executa a auditoria completa de integridade do Hub.                 |
+| Script                    | Descrição                                                                                                                     |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `npm run dev`             | Inicia servidor local com sync de assets.                                                                                     |
+| `npm run check`           | Valida Lint, Testes e integridade do Build.                                                                                   |
+| `npm run supabase:config` | Sincroniza chaves do `.env.local` con o frontend.                                                                             |
+| `npm run test:unit`       | Executa testes de lógica (formatters, exceptions, result-renderer, input-validator, validator-service, toast, theme-manager). |
+| `npm run verify`          | Executa a auditoria completa de integridade do Hub.                                                                           |
 
 ### 🛡️ Blindagem de Commits (Husky)
 

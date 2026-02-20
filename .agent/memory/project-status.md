@@ -66,6 +66,7 @@
 
 **Log de Governança/Sessão:**
 
+- 15/02/2026: **Prompt #19 (checkpoint sem bump):** Testes (Prompt 11) ampliados: input-validator.test.js (23), validator-service.test.js (11 com mock RPC), toast e theme-manager integrados ao test:unit. Total: 91 testes unitários. Docs: CHANGELOG [Unreleased], development.md, sobre.html (v0.3.23). Commit e push.
 - 20/02/2026: **v0.3.23 (Prompt #19 com bump):** Interpretação da tabela CRE aplicada (Art. 121 §8 → INELEGIVEL; Art. 122 §8 → ELEGIVEL). Docs: interpretacao-tabela-oficial, migrations-status (obsoletas, setup), setup-supabase (estrutura, 13 migrations obrigatórias). sync-js fix Windows. Bump 0.3.22 → 0.3.23.
 - 20/02/2026: **fix(rpc + ui):** Migration `20260220000000_verificar_elegibilidade_dispositivo_inexistente.sql` aplicada. Dispositivo inexistente (ex.: Art. 121 § 8) retorna NAO_CONSTA. Análise de Dispositivo exibe badge "NÃO ENCONTRADO". Docs: migrations-status, api-reference, development, auditoria; CHANGELOG [Unreleased]; sync-js fix para Windows. Prompt 19 (checkpoint sem bump).
 - 15/02/2026: **Prompt #19 (checkpoint sem bump):** Doc keepalive-config-inelegis — Project ID `btdbfspuazgerdbmurza` aplicado em URLs (Vercel, Cloudflare, Supabase). CHANGELOG [Unreleased], project-status. Commit e push.

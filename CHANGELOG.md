@@ -13,6 +13,10 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ## [Unreleased]
 
+### test
+
+- **test(Prompt 11):** Novos testes unitários integrados ao `npm run test:unit`: `input-validator.test.js` (23 cenários), `validator-service.test.js` (11 cenários com mock RPC), `toast.test.js` e `theme-manager.test.js`. Total: 91 testes unitários.
+
 ### chore
 
 - **chore(deps):** npm audit overrides para minimizar vulnerabilidades.
