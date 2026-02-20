@@ -160,39 +160,41 @@ const SearchHistory = (() => {
   }
 
   /**
-   * Sincroniza busca com Supabase (INSERT direto na tabela; anon tem permissão)
+   * Sincroniza busca via API Vercel (service_role) para evitar 401 do Supabase anon
    */
   async function syncToSupabase(search) {
-    const client = window.supabaseClient;
-    if (!client || !client.isConfigured?.()) {
-      historyDebugLog(
-        "Supabase não configurado, salvando apenas em cache local",
-      );
-      return null;
-    }
-
     try {
       const userId = getUserId();
-      const row = {
-        user_id: userId,
-        lei: search.lei,
-        artigo: search.artigo,
-        resultado: search.resultado,
-        tipo_crime: search.tipoCrime || null,
-        observacoes: search.observacoes || null,
-        inciso: search.inciso || null,
-        alinea: search.alinea || null,
-        paragrafo: search.paragrafo || null,
-        motivo_detalhado: search.motivoDetalhado || null,
-        excecoes_citadas: search.excecoesCitadas || null,
-        metadata: search.metadata || {},
-      };
-
-      const result = await client.insert("historico_consultas", row);
-      historyDebugLog("Histórico sincronizado com Supabase");
-      return Array.isArray(result) ? result[0] : result;
+      const base =
+        typeof window !== "undefined" && window.location?.origin
+          ? window.location.origin
+          : "";
+      const res = await fetch(`${base}/api/search-history`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId,
+          search: {
+            lei: search.lei,
+            artigo: search.artigo,
+            resultado: search.resultado,
+            tipoCrime: search.tipoCrime || null,
+            observacoes: search.observacoes || null,
+            inciso: search.inciso || null,
+            alinea: search.alinea || null,
+            paragrafo: search.paragrafo || null,
+            motivoDetalhado: search.motivoDetalhado || null,
+            excecoesCitadas: search.excecoesCitadas || null,
+            metadata: search.metadata || {},
+          },
+        }),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      historyDebugLog("Histórico sincronizado via API");
+      return data?.entry ?? null;
     } catch (error) {
-      console.warn("⚠️ Falha ao sincronizar com Supabase:", error.message);
+      console.warn("⚠️ Falha ao sincronizar histórico:", error.message);
       return null;
     }
   }

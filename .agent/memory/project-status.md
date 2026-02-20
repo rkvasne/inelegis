@@ -72,7 +72,7 @@
 
 **Log de Governança/Sessão:**
 
-- 20/02/2026: **fix(401 historico):** Frontend search-history usa INSERT direto (supabaseClient.insert) em vez de RPC; migration 00150 com GRANT EXECUTE. Docs: auditoria, development, migrations-status. Commit e push.
+- 20/02/2026: **fix(401 historico):** Frontend search-history usa POST /api/search-history (API Vercel com service_role) em vez de Supabase direto; migration 00150; docs atualizados. Commit e push.
 - 15/02/2026: **Prompt #19 (checkpoint sem bump):** Docs pendentes: supabase/migrations/README (4 migrations), api-reference (payload search expandido), api/README (tabelas SSoT), development (search-history 12 params). CHANGELOG [Unreleased].
 - 15/02/2026: **v0.3.25 (Prompt #19 com bump):** fix(historico) add_to_history expandido (12 params), API usa RPC, docs atualizados. Bump 0.3.24 → 0.3.25.
 - 15/02/2026: **v0.3.24 (Prompt #19 com bump):** Bump 0.3.23 → 0.3.24. Testes (91 cenários), fix versão frontend (badges, constants, analytics, cache-bust), Prompt 29 (gotchas, Modos). CHANGELOG, sync:version, sobre.html. IA Health: Hub v0.5.9 — rodar Prompt 23 para atualizar governança.

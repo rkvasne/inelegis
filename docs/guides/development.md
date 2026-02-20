@@ -46,7 +46,7 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 
 **[services/search-history.js](../../src/js/services/search-history.js)**
 
-- Gerencia o histórico do usuário sincronizado com Supabase via `supabaseClient.insert("historico_consultas", row)` (INSERT direto; anon tem permissão).
+- Gerencia o histórico do usuário via POST `/api/search-history` (API Vercel com service_role), evitando 401 do Supabase anon.
 - Persiste todos os campos: lei, artigo, resultado, inciso, alinea, paragrafo, motivo_detalhado, excecoes_citadas, metadata, etc.
 - Calcula estatísticas locais para performance (Top Leis/Artigos).
 
