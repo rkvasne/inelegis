@@ -26,7 +26,7 @@ Database:  PostgreSQL (Supabase)
 ### 1. Cloudflare Worker
 
 ```env
-KEEPALIVE_URL=https://lnjzhfykfzrvfbggrdzp.supabase.co/functions/v1/keepalive
+KEEPALIVE_URL=https://btdbfspuazgerdbmurza.supabase.co/functions/v1/keepalive
 KEEPALIVE_TOKEN=c8810...  # (guarde o hash completo)
 ```
 
@@ -36,14 +36,14 @@ KEEPALIVE_TOKEN=c8810...  # (guarde o hash completo)
 
 ### 2. Vercel Environment Variables
 
-| Variável                        | Por Que Precisa                                                   | Valor Atual            |
-| ------------------------------- | ----------------------------------------------------------------- | ---------------------- |
-| `NEXT_PUBLIC_SUPABASE_URL`      | Frontend faz RPC calls (`verificar_elegibilidade`)                | `https://lnjzhf...` ✅ |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Frontend precisa autenticar chamadas                              | `ca772e...` ✅         |
-| `SUPABASE_SERVICE_ROLE_KEY`     | **API Routes** (`/api/analytics`, `/api/dashboard`) byppassam RLS | `3f04607...` ✅        |
-| `HISTORY_RETENTION_DAYS`        | Limpeza automática de histórico                                   | `90` ✅                |
-| `CRON_SECRET`                   | Proteger endpoints de manutenção                                  | (configurado) ✅       |
-| `ANALYTICS_ADMIN_TOKEN`         | Acesso ao dashboard admin                                         | (configurado) ✅       |
+| Variável                        | Por Que Precisa                                                   | Valor Atual           |
+| ------------------------------- | ----------------------------------------------------------------- | --------------------- |
+| `NEXT_PUBLIC_SUPABASE_URL`      | Frontend faz RPC calls (`verificar_elegibilidade`)                | `https://btdbf...` ✅ |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Frontend precisa autenticar chamadas                              | `ca772e...` ✅        |
+| `SUPABASE_SERVICE_ROLE_KEY`     | **API Routes** (`/api/analytics`, `/api/dashboard`) byppassam RLS | `3f04607...` ✅       |
+| `HISTORY_RETENTION_DAYS`        | Limpeza automática de histórico                                   | `90` ✅               |
+| `CRON_SECRET`                   | Proteger endpoints de manutenção                                  | (configurado) ✅      |
+| `ANALYTICS_ADMIN_TOKEN`         | Acesso ao dashboard admin                                         | (configurado) ✅      |
 
 **❌ NÃO configurar:**
 
@@ -73,7 +73,7 @@ Acesse: `https://supabase.com/dashboard/project/[id]/settings/functions`
 # ========================================
 # Supabase (App Principal)
 # ========================================
-NEXT_PUBLIC_SUPABASE_URL=https://lnjzhfykfzrvfbggrdzp.supabase.co
+NEXT_PUBLIC_SUPABASE_URL=https://btdbfspuazgerdbmurza.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=ca772e...
 SUPABASE_SERVICE_ROLE_KEY=3f04607...
 
@@ -186,8 +186,8 @@ Esperado: Todos ✅
 ## 🔗 Links Úteis
 
 - **Vercel Dashboard**: https://vercel.com/rkvasne/inelegis-app/settings/environment-variables
-- **Supabase Dashboard**: https://supabase.com/dashboard/project/lnjzhfykfzrvfbggrdzp
-- **Supabase Functions Secrets**: https://supabase.com/dashboard/project/lnjzhfykfzrvfbggrdzp/settings/functions
+- **Supabase Dashboard**: https://supabase.com/dashboard/project/btdbfspuazgerdbmurza
+- **Supabase Functions Secrets**: https://supabase.com/dashboard/project/btdbfspuazgerdbmurza/settings/functions
 - **Cloudflare Workers**: https://dash.cloudflare.com (busque por "inelegis keepalive")
 
 ---
@@ -200,5 +200,5 @@ Esperado: Todos ✅
 
 ---
 
-_Última atualização: 20/02/2026 • v0.3.22 (Hub v0.5.8)_  
-_Validado com: Screenshots Vercel + Supabase (15/02/2026 01:30)_
+_Última atualização: 15/02/2026 • v0.3.22 (Hub v0.5.8)_  
+_Validado com: Screenshots Vercel + Cloudflare + Supabase (btdbfspuazgerdbmurza)_
