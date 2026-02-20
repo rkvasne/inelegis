@@ -2,7 +2,7 @@
 
 > **Last Updated:** 20/02/2026
 > **Current Phase:** Testes com usuários reais / Zeladoria
-> **Project Version:** v0.3.22 (SSoT Synchronized)
+> **Project Version:** v0.3.23 (SSoT Synchronized)
 
 ## 🎯 Objetivos Concluídos (Sessão 15/02/2026 – RPC Match Exato)
 
@@ -66,6 +66,7 @@
 
 **Log de Governança/Sessão:**
 
+- 20/02/2026: **v0.3.23 (Prompt #19 com bump):** Interpretação da tabela CRE aplicada (Art. 121 §8 → INELEGIVEL; Art. 122 §8 → ELEGIVEL). Docs: interpretacao-tabela-oficial, migrations-status (obsoletas, setup), setup-supabase (estrutura, 13 migrations obrigatórias). sync-js fix Windows. Bump 0.3.22 → 0.3.23.
 - 20/02/2026: **fix(rpc + ui):** Migration `20260220000000_verificar_elegibilidade_dispositivo_inexistente.sql` aplicada. Dispositivo inexistente (ex.: Art. 121 § 8) retorna NAO_CONSTA. Análise de Dispositivo exibe badge "NÃO ENCONTRADO". Docs: migrations-status, api-reference, development, auditoria; CHANGELOG [Unreleased]; sync-js fix para Windows. Prompt 19 (checkpoint sem bump).
 - 15/02/2026: **Prompt #19 (checkpoint sem bump):** Doc keepalive-config-inelegis — Project ID `btdbfspuazgerdbmurza` aplicado em URLs (Vercel, Cloudflare, Supabase). CHANGELOG [Unreleased], project-status. Commit e push.
 - 15/02/2026: **Prompt #19 (checkpoint sem bump):** Code Janitor (Prompt #20) — JSDoc em escape-html.js, varredura higiene OK (sem dead code, sem imports órfãos); formatação e sync JS. CHANGELOG [Unreleased], project-status. Commit e push.
@@ -87,5 +88,5 @@
 
 ---
 
-_Última atualização: 20/02/2026 • v0.3.22 (Hub v0.5.8)_
+_Última atualização: 20/02/2026 • v0.3.23 (Hub v0.5.8)_
 _Editado via: Cursor | Modelo: Auto | OS: Windows 11_

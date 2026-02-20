@@ -200,5 +200,5 @@ Esperado: Todos ✅
 
 ---
 
-_Última atualização: 15/02/2026 • v0.3.22 (Hub v0.5.8)_  
+_Última atualização: 15/02/2026 • v0.3.23 (Hub v0.5.8)_  
 _Validado com: Screenshots Vercel + Cloudflare + Supabase (btdbfspuazgerdbmurza)_

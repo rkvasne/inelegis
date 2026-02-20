@@ -52,6 +52,7 @@ Bem-vindo à documentação oficial do projeto **Inelegis**.
 ### 📁 Referências
 
 - **[`references/`](references/)** – manual ASE, tabelas oficiais e anexos de domínio
+- **[Interpretação da Tabela Oficial](references/interpretacao-tabela-oficial.md)** – regras de fallback (artigo inteiro vs dispositivos enumerados) usadas na prática pelos servidores do TRE
 - **[Documentação das APIs](../api/README.md)** – endpoints disponíveis
 
 ---
@@ -119,5 +120,5 @@ Para manter consistência entre todos os documentos, siga o padrão centralizado
 
 ---
 
-_Última atualização: 20/02/2026 • v0.3.22 (Hub v0.5.8)_
+_Última atualização: 20/02/2026 • v0.3.23 (Hub v0.5.8)_
 _Editado via: Cursor | Modelo: claude-4.6-opus | OS: Windows 11_

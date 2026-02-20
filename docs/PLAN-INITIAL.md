@@ -130,5 +130,5 @@ Este documento serve como **guia de decisão** para:
 
 ---
 
-_Última atualização: 20/02/2026 • v0.3.22_
+_Última atualização: 20/02/2026 • v0.3.23_
 _Editado via: Cursor | Modelo: claude-4.6-opus | OS: Windows 11_

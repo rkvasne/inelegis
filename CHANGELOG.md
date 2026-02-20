@@ -13,18 +13,25 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ## [Unreleased]
 
-### fix
-
-- **fix(rpc):** Dispositivo inexistente na tabela (ex.: Art. 121 § 8) passa a retornar `NAO_CONSTA` em vez de `ELEGIVEL`. Migration `20260220000000_verificar_elegibilidade_dispositivo_inexistente.sql` aplicada.
-- **fix(ui):** Análise de Dispositivo exibe badge "NÃO ENCONTRADO" quando RPC retorna `NAO_CONSTA`; modal abre com status correto.
-- **fix(sync):** Condicional do `sync-js.js` ajustada para executar corretamente no Windows.
-
 ### chore
 
-- **chore(deps):** npm audit overrides para minimizar vulnerabilidades. Override `minimatch` → ^10.2.1 e `html-validate.ajv` → ^8.18.0; alta severidade resolvida; 4 moderadas (ajv no ESLint) permanecem — não corrigíveis sem breaking change.
-- **chore(governança):** Prompt 18 (Compliance). AGENTS.md footer atualizado para v0.3.22; validador de proteção do Hub OK.
-- **chore(docs):** Code Janitor (Prompt #20). JSDoc em `escape-html.js`; varredura de higiene sem dead code; formatação e sync JS OK.
-- **docs(keepalive):** Atualização de `keepalive-config-inelegis.md` — Project ID corrigido para `btdbfspuazgerdbmurza` (Vercel, Cloudflare e Supabase); URLs e referências unificadas.
+- **chore(deps):** npm audit overrides para minimizar vulnerabilidades.
+- **chore(governança):** Prompt 18 (Compliance). AGENTS.md footer v0.3.23.
+- **docs(keepalive):** keepalive-config-inelegis.md — Project ID `btdbfspuazgerdbmurza`.
+
+## [0.3.23] - 20/02/2026
+
+### fix
+
+- **fix(rpc):** Interpretação da tabela CRE conforme uso pelos servidores do TRE. Migration `20260220100000_verificar_elegibilidade_fallback_interpretacao.sql`: artigo inteiro impeditivo (ex.: Art. 121) e dispositivo fora das exceções → INELEGIVEL; dispositivos enumerados (ex.: Art. 122 §1–7) e fora do rol → ELEGIVEL; artigo inexistente → NAO_CONSTA.
+- **fix(sync):** Condicional do `sync-js.js` ajustada para executar corretamente no Windows.
+
+### docs
+
+- **docs:** Novo guia [interpretacao-tabela-oficial.md](docs/references/interpretacao-tabela-oficial.md) documenta os padrões artigo inteiro vs dispositivos enumerados.
+- **docs:** [migrations-status.md](docs/guides/migrations-status.md) — seção "Para replicar do zero", lista ordenada das 13 migrations, seção "Migrations logicamente obsoletas" (não excluir).
+- **docs:** [setup-supabase.md](docs/guides/setup-supabase.md) — estrutura do banco atualizada (crimes_inelegibilidade SSoT); instrução de que todas as 13 migrations são obrigatórias.
+- **docs:** [supabase/migrations/README.md](supabase/migrations/README.md) — guia rápido para replicar.
 
 ## [0.3.22] - 15/02/2026
 

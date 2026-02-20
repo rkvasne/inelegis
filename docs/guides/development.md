@@ -41,7 +41,7 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 **[services/validator-service.js](../../src/js/services/validator-service.js)**
 
 - `init()`: Inicializa o cliente Supabase.
-- `verifyEligibility()`: Chama a RPC `verificar_elegibilidade` no banco. A RPC usa **match exato**; sem match e artigo com dispositivos impeditivos retorna ELEGIVEL com aviso no campo `mensagem`; dispositivo inexistente (ex.: Art. 121 § 8) retorna NAO_CONSTA. Ver [api-reference](../api-reference.md).
+- `verifyEligibility()`: Chama a RPC `verificar_elegibilidade` no banco. Lógica conforme [interpretação da tabela](../references/interpretacao-tabela-oficial.md): match exato; sem match → artigo inexistente NAO_CONSTA; artigo inteiro impeditivo (ex.: Art. 121) e dispositivo fora das exceções → INELEGIVEL; dispositivos enumerados (ex.: Art. 122 §1–7) e fora do rol → ELEGIVEL.
 - `getLaws()` / `getArticlesByLaw()`: Consome a tabela `crimes_inelegibilidade`.
 
 **[services/search-history.js](../../src/js/services/search-history.js)**
@@ -133,5 +133,5 @@ Para garantir a eficiência de leitura por agentes de IA e conformidade com o **
 
 ---
 
-_Última atualização: 20/02/2026 • v0.3.22 (Hub v0.5.8)_
+_Última atualização: 20/02/2026 • v0.3.23 (Hub v0.5.8)_
 _Editado via: Cursor | Modelo: Auto | OS: Windows 11_

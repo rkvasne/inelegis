@@ -161,6 +161,24 @@ test("Deve retornar NÃO ENCONTRADO quando resultado é NOT_FOUND", () => {
   assert.equal(statusText, "NÃO ENCONTRADO", "statusText");
 });
 
+test("NAO_CONSTA com mensagem (dispositivo inexistente) deve exibir mensagem no HTML", () => {
+  const result = {
+    resultado: RESULTS.NOT_FOUND,
+    tipo_crime: null,
+    observacoes: "",
+    item_alinea_e: "",
+    excecoes_artigo: null,
+    mensagem: "Dispositivo não consta na tabela",
+  };
+  const { html, statusText } = ResultRenderer.render(result, baseContext);
+  assert.equal(statusText, "NÃO ENCONTRADO", "statusText");
+  assert.includes(
+    html,
+    "Dispositivo não consta na tabela",
+    "Mensagem da migration deve aparecer no modal",
+  );
+});
+
 // --- ASE ---
 
 test("ASE: condenação elegível deve retornar ASE 337 Motivo 2 (independente de exceção)", () => {

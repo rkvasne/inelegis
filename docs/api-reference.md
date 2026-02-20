@@ -258,16 +258,16 @@ O frontend usa o cliente Supabase com a chave **anon** (pública). As funções 
 
 #### verificar_elegibilidade
 
-Verifica se um artigo gera inelegibilidade ou exceção conforme a tabela oficial. **Regra:** match exato apenas. A tabela contempla somente os dispositivos impeditivos.
+Verifica se um artigo gera inelegibilidade ou exceção conforme a tabela oficial da CRE. Reproduz o uso prático pelos servidores do TRE. Ver [interpretação da tabela](references/interpretacao-tabela-oficial.md).
 
 **Comportamento:**
 
 - **Match exato** → `INELEGIVEL` ou `ELEGIVEL` (quando for exceção legal).
-- **Sem match e artigo possui dispositivos impeditivos** (ex.: Art. 148 sem §, mas § 1º IV é impeditivo) → `ELEGIVEL` com `mensagem` orientando a verificar na sentença se o dispositivo foi informado corretamente.
-- **Sem match e artigo inexistente** → `NAO_CONSTA`.
-- **Dispositivo inexistente na tabela** (ex.: Art. 121 § 8 quando apenas caput e § 3 existem) → sempre `NAO_CONSTA` (não encontrado). O frontend exibe badge "NÃO ENCONTRADO" em Busca Simples e Análise de Dispositivo.
+- **Sem match e artigo inexistente na tabela** → `NAO_CONSTA`.
+- **Sem match e artigo com dispositivo "artigo inteiro impeditivo"** (ex.: Art. 121): dispositivo não consta nas exceções → `INELEGIVEL` (fallback conforme interpretação).
+- **Sem match e artigo com dispositivos apenas enumerados** (ex.: Art. 122 § 1–7): dispositivo fora do rol → `ELEGIVEL`.
 
-**Prioridade de match:** exato de parágrafo/inciso/alínea (ORDER BY NULLS LAST), depois exceção. Ex.: Art. 121 § 3º retorna `ELEGIVEL` (exceção), não o caput. **Match estrito:** dispositivo informado que não existe na tabela (ex.: Art. 122 § 8, inexistente) não faz fallback para o caput; retorna fluxo "sem match".
+**Exemplos:** Art. 121 § 8 → `INELEGIVEL` (artigo inteiro impeditivo; § 3º é a única exceção). Art. 122 § 8 → `ELEGIVEL` (só § 1–7 impeditivos).
 
 **Parâmetros:**
 
@@ -381,5 +381,5 @@ Retorna totais gerais para o painel administrativo (uso com **service_role** ou 
 
 ---
 
-_Última atualização: 20/02/2026 • v0.3.22_
+_Última atualização: 20/02/2026 • v0.3.23_
 _Editado via: Cursor | Modelo: Auto | OS: Windows 11_

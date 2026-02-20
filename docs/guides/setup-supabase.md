@@ -36,18 +36,9 @@ SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6...
 
 ### 3. Executar Migrations
 
-#### Via SQL Editor (Dashboard)
+O sistema exige **todas as 13 migrations** executadas na ordem. **Não é possível pular nenhuma** — mesmo as que apenas alteram a função `verificar_elegibilidade` (10, 11, 12) são necessárias para o histórico linear e para o estado final correto. Ver lista completa e instruções em [migrations-status.md](migrations-status.md#para-replicar-o-sistema-do-zero).
 
-1. Acesse **SQL Editor** no Supabase Dashboard
-2. Execute cada arquivo em ordem:
-   - `supabase/migrations/20260115000000_remodelagem_completa.sql`
-   - `supabase/migrations/20260120000000_create_historico_consultas.sql`
-   - `supabase/migrations/20260121000000_tabela_oficial_completa.sql`
-   - `supabase/migrations/20260122000000_create_analytics.sql`
-   - `supabase/migrations/20260211164500_create_keepalive_system.sql`
-   - `supabase/migrations/20260211195000_enhance_audit_history.sql`
-
-#### Via CLI (Opcional)
+#### Via CLI (recomendado)
 
 ```bash
 npm install -g supabase
@@ -55,6 +46,10 @@ supabase login
 supabase link --project-ref seu-project-id
 supabase db push
 ```
+
+#### Via SQL Editor (Dashboard)
+
+Execute os 13 arquivos de `supabase/migrations/` **na ordem** descrita em [migrations-status.md](migrations-status.md).
 
 ### 4. Testar Conexão
 
@@ -78,15 +73,13 @@ Resultado esperado:
 
 ### Tabelas Principais
 
-| Tabela                | Descrição                                       |
-| --------------------- | ----------------------------------------------- |
-| `normas`              | Leis e códigos (CP, CPM, LE, etc)               |
-| `artigos_inelegiveis` | Artigos que geram inelegibilidade               |
-| `artigos_excecoes`    | Exceções que removem inelegibilidade            |
-| `historico_consultas` | Histórico de consultas dos usuários (Auditoria) |
-| `keepalive`           | Status de disponibilidade (Singleton)           |
-| `keepalive_events`    | Logs de eventos de heartbeat                    |
-| `analytics_events`    | Eventos de analytics (Decomissionado/Legado)    |
+| Tabela                   | Descrição                                              |
+| ------------------------ | ------------------------------------------------------ |
+| `crimes_inelegibilidade` | SSoT: artigos e exceções (LC 64/90). Consulta via RPC. |
+| `historico_consultas`    | Histórico de consultas dos usuários (Auditoria)        |
+| `keepalive`              | Status de disponibilidade (Singleton)                  |
+| `keepalive_events`       | Logs de eventos de heartbeat                           |
+| `analytics_events`       | Eventos de analytics (Decomissionado/Legado)           |
 
 ### Views (para Dashboard)
 
@@ -99,13 +92,13 @@ Resultado esperado:
 
 ### Funções RPC
 
-| Função                      | Descrição                                                    |
-| --------------------------- | ------------------------------------------------------------ |
-| `verificar_elegibilidade()` | Verifica se artigo gera inelegibilidade                      |
-| `get_user_history()`        | Obtém histórico do usuário                                   |
-| `add_to_history()`          | Adiciona consulta ao histórico (com fundamentação detalhada) |
-| `get_user_stats()`          | Estatísticas do usuário (Top Leis/Artigos)                   |
-| `get_dashboard_stats()`     | Estatísticas para dashboard                                  |
+| Função                      | Descrição                                                                                                                                                       |
+| --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `verificar_elegibilidade()` | Verifica elegibilidade conforme [interpretação da tabela CRE](../references/interpretacao-tabela-oficial.md). Art. 121 §8 → INELEGIVEL; Art. 122 §8 → ELEGIVEL. |
+| `get_user_history()`        | Obtém histórico do usuário                                                                                                                                      |
+| `add_to_history()`          | Adiciona consulta ao histórico (com fundamentação detalhada)                                                                                                    |
+| `get_user_stats()`          | Estatísticas do usuário (Top Leis/Artigos)                                                                                                                      |
+| `get_dashboard_stats()`     | Estatísticas para dashboard                                                                                                                                     |
 
 ---
 
@@ -143,7 +136,7 @@ Verifique se o `.env.local` está preenchido corretamente.
 
 ### Erro: "relation does not exist"
 
-Execute as migrations na ordem correta.
+Execute **todas as 13 migrations** na ordem (ver [migrations-status.md](migrations-status.md)).
 
 ### Erro 401 (Unauthorized)
 
@@ -159,5 +152,5 @@ Verifique se a `anon key` está correta e se RLS das tabelas permite acesso.
 
 ---
 
-_Última atualização: 20/02/2026 • v0.3.22 (Hub v0.5.8)_
+_Última atualização: 20/02/2026 • v0.3.23 (Hub v0.5.8)_
 _Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_
