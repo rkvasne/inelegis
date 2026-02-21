@@ -108,7 +108,7 @@ test("Deve retornar ELEGÍVEL (EXCEÇÃO) quando eh_excecao é true", () => {
     result,
     baseContext,
   );
-  assert.equal(statusClass, "warning", "statusClass");
+  assert.equal(statusClass, "eligible-exception", "statusClass");
   assert.equal(statusText, "ELEGÍVEL (EXCEÇÃO)", "statusText");
   assert.includes(html, "exceção legal se aplica", "Mensagem de exceção");
 });
@@ -277,11 +277,11 @@ test("Deve formatar incidência corretamente (artigo, parágrafo, inciso, alíne
   assert.includes(html, "Alínea a", "alínea");
 });
 
-test("Deve exibir alerta de exceções hierárquicas quando excecoes_artigo presente", () => {
+test("Deve exibir alerta de exceções hierárquicas quando excecoes_artigo presente e dispositivo consultado NÃO é exceção", () => {
   const result = {
-    resultado: RESULTS.ELIGIBLE,
-    eh_excecao: true,
-    tipo_crime: "Crime",
+    resultado: RESULTS.INELIGIBLE,
+    eh_excecao: false,
+    tipo_crime: "Homicídio",
     observacoes: "",
     item_alinea_e: "",
     excecoes_artigo: "Art. 121, §3º - Exceção aplicável",
