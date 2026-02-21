@@ -72,6 +72,7 @@ export class ValidatorUI {
 
     this._setupParagrafoUnicoLogic();
     this.setupActionButtons();
+    this._setupEnterKeySearch();
   }
 
   /** @private */
@@ -99,6 +100,32 @@ export class ValidatorUI {
         if (e.target.checked) inputParagrafo.value = "";
       });
     }
+  }
+
+  /** @private - Enter aciona o botão Pesquisar quando focado em input de busca */
+  _setupEnterKeySearch() {
+    const triggerSearch = (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        const btn = document.getElementById("btnPesquisar");
+        if (btn && this.selectedLaw && this.artigoSelect?.value) {
+          btn.click();
+        } else if (btn) {
+          this._highlightMissingFields();
+        }
+      }
+    };
+    const ids = [
+      "leiSelect",
+      "artigoSelect",
+      "paragrafoInput",
+      "incisoInput",
+      "alineaInput",
+    ];
+    ids.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener("keydown", triggerSearch);
+    });
   }
 
   setupActionButtons() {

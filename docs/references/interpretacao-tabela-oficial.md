@@ -30,29 +30,38 @@ A tabela é formalmente "exemplificativa" para evitar substituir a lei, mas na p
 
 **Exemplo:** Art. 122 § 8 — Só § 1 a § 7 são impeditivos. O § 8 está fora da enumeração → **ELEGIVEL**.
 
-### Padrão C — Combinação específica (ex.: Art. 129)
+### Padrão C — Combinação específica (ex.: Art. 129, Art. 149-A)
 
-- Apenas certas combinações são impeditivas (ex.: § 2º c/c § 12º).
-- Qualquer outra combinação → **ELEGIVEL**.
+- Apenas certas combinações são impeditivas (ex.: Art. 149-A caput I a V c.c. § 1º, II).
+- Qualquer outra combinação ou dispositivo isolado → **ELEGIVEL**.
+
+**Exemplo:** Art. 149-A § 3 — O § 3 não consta como impeditivo na tabela; apenas "caput I a V c.c. § 1º, II" gera inelegibilidade → **ELEGIVEL**.
 
 ---
 
 ## 3. Critério técnico no banco de dados
 
-A distinção entre padrões é feita pela presença de uma linha com **parágrafo/inciso/alínea nulos** e **eh_excecao = FALSE**:
+A distinção entre padrões é feita pela coluna `artigo_inteiro_impeditivo` e pela presença de linha com **parágrafo/inciso/alínea nulos** e **eh_excecao = FALSE**:
 
-| Condição                                                                      | Interpretação                                                                  |
-| ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
-| Existe `(artigo, paragrafo NULL, inciso NULL, alinea NULL, eh_excecao=FALSE)` | Artigo inteiro impeditivo. Dispositivo não exceção → INELEGIVEL                |
-| Não existe essa linha                                                         | Só dispositivos enumerados são impeditivos. Dispositivo não listado → ELEGIVEL |
+| Condição                                                                                                           | Interpretação                                                              |
+| ------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------- |
+| Existe `(artigo, paragrafo NULL, inciso NULL, alinea NULL, eh_excecao=FALSE)` e `artigo_inteiro_impeditivo = TRUE` | Artigo inteiro impeditivo. Dispositivo não exceção → INELEGIVEL            |
+| Não existe essa linha ou `artigo_inteiro_impeditivo = FALSE`                                                       | Só combinações específicas impeditivas. Dispositivo não listado → ELEGIVEL |
 
 ### Exemplos no banco
 
-| Artigo | Linhas                                               | Padrão                    |
-| ------ | ---------------------------------------------------- | ------------------------- |
-| 121    | (121, NULL) impeditivo; (121, 3) exceção             | A — artigo inteiro        |
-| 122    | (122, NULL) exceção (caput); (122, 1..7) impeditivos | B — enumerado             |
-| 129    | (129, 2), (129, 3) impeditivos (c/c §12)             | C — combinação específica |
+| Artigo             | Linhas                                                            | Padrão                    |
+| ------------------ | ----------------------------------------------------------------- | ------------------------- |
+| 121                | (121, NULL) impeditivo; (121, 3) exceção                          | A — artigo inteiro        |
+| 122                | (122, NULL) exceção (caput); (122, 1..7) impeditivos              | B — enumerado             |
+| 129                | (129, 2), (129, 3) impeditivos (c/c §12)                          | C — combinação específica |
+| 148                | (148, 1, IV) impeditivo; sem linha artigo-inteiro                 | C — combinação específica |
+| 149-A              | (149-A, 1, II) impeditivo; sem linha artigo-inteiro               | C — combinação específica |
+| 163                | (163, NULL) impeditivo; (163, NULL), (163, unico) exceções        | A — artigo inteiro        |
+| 175                | (175, NULL) impeditivo; (175, NULL), (175, I), (175, II) exceções | A — artigo inteiro        |
+| 323/325            | (NULL) impeditivo; (NULL), (§1) exceções                          | A — artigo inteiro        |
+| 351                | (NULL) impeditivo; (NULL), (§4) exceções                          | A — artigo inteiro        |
+| Lei 10.826 art. 16 | (NULL), (§1) impeditivos; artigo_inteiro=FALSE                    | C — combinação específica |
 
 ---
 
@@ -74,5 +83,5 @@ Quando o dispositivo informado **não tem match exato** na tabela:
 
 ---
 
-_Última atualização: 20/02/2026_
+_Última atualização: 15/02/2026 • v0.3.25_
 _Editado via: Cursor | Modelo: Auto | OS: Windows 11_

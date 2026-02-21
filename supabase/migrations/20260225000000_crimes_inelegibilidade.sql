@@ -19,12 +19,15 @@ CREATE TABLE crimes_inelegibilidade (
     inciso VARCHAR(50),
     alinea VARCHAR(50),
     eh_excecao BOOLEAN DEFAULT FALSE,
+    artigo_inteiro_impeditivo BOOLEAN DEFAULT TRUE,
     tipo_crime TEXT NOT NULL,
     item_alinea_e VARCHAR(10) NOT NULL,
     observacoes TEXT,
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW()
 );
+
+COMMENT ON COLUMN crimes_inelegibilidade.artigo_inteiro_impeditivo IS 'FALSE = artigo com apenas combinações específicas impeditivas (ex.: 149-A); não usar fallback "artigo inteiro"';
 
 CREATE INDEX idx_crimes_ssot ON crimes_inelegibilidade(codigo, artigo);
 
@@ -50,9 +53,22 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, eh_excecao, 
 INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, eh_excecao, tipo_crime, item_alinea_e, observacoes) VALUES
 ('CP', 'Código Penal (DL 2.848/40)', '129', '2', FALSE, 'Crime hediondo', '7', 'Lesão gravíssima (c/c §12)'),
 ('CP', 'Código Penal (DL 2.848/40)', '129', '3', FALSE, 'Crime hediondo', '7', 'Lesão morte (c/c §12)'),
-('CP', 'Código Penal (DL 2.848/40)', '148', '1', FALSE, 'Crime hediondo', '7', 'Sequestro (inciso IV)'),
-('CP', 'Código Penal (DL 2.848/40)', '149', NULL, FALSE, 'Redução escravidão e dignidade sexual', '8 e 9', NULL),
-('CP', 'Código Penal (DL 2.848/40)', '149-A', NULL, FALSE, 'Crime hediondo', '7', 'Tráfico de pessoas');
+('CP', 'Código Penal (DL 2.848/40)', '149', NULL, FALSE, 'Redução escravidão e dignidade sexual', '8 e 9', NULL);
+
+-- Art. 148: somente § 1º, inciso IV impeditivo (Padrão C)
+INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, eh_excecao, artigo_inteiro_impeditivo, tipo_crime, item_alinea_e, observacoes) VALUES
+('CP', 'Código Penal (DL 2.848/40)', '148', '1', 'IV', FALSE, TRUE, 'Crime hediondo', '7', '§ 1º, inciso IV (Sequestro)');
+
+-- Art. 149-A: apenas combinação "caput I a V c.c. § 1º, II" impeditiva (Padrão C — sem linha artigo-inteiro)
+INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, eh_excecao, artigo_inteiro_impeditivo, tipo_crime, item_alinea_e, observacoes) VALUES
+('CP', 'Código Penal (DL 2.848/40)', '149-A', '1', 'II', FALSE, TRUE, 'Crime hediondo', '7', 'Caput I a V c.c. § 1º, II (Lei 14.811/24)');
+
+-- Arts. 163 e 175: artigo inteiro impeditivo; exceções caput/incisos em linhas separadas
+INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, eh_excecao, artigo_inteiro_impeditivo, tipo_crime, item_alinea_e, observacoes) VALUES
+('CP', 'Código Penal (DL 2.848/40)', '163', NULL, NULL, FALSE, TRUE, 'Crimes contra o patrimônio', '1', 'Art. inteiro; exceções caput e p.único'),
+('CP', 'Código Penal (DL 2.848/40)', '175', NULL, NULL, FALSE, TRUE, 'Crimes contra o patrimônio', '1', 'Art. inteiro; exceções caput e incisos I/II'),
+('CP', 'Código Penal (DL 2.848/40)', '175', NULL, 'I', TRUE, TRUE, 'Crimes contra o patrimônio', '1', 'Exceção inciso I'),
+('CP', 'Código Penal (DL 2.848/40)', '175', NULL, 'II', TRUE, TRUE, 'Crimes contra o patrimônio', '1', 'Exceção inciso II');
 
 INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, eh_excecao, tipo_crime, item_alinea_e, observacoes) VALUES
 ('CP', 'Código Penal (DL 2.848/40)', '155', NULL, FALSE, 'Crimes contra o patrimônio', '1', 'Furto'),
@@ -154,9 +170,11 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, eh_excecao, 
 ('CP', 'Código Penal (DL 2.848/40)', '318', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
 ('CP', 'Código Penal (DL 2.848/40)', '322', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
 ('CP', 'Código Penal (DL 2.848/40)', '323', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
-('CP', 'Código Penal (DL 2.848/40)', '323', NULL, TRUE, 'Crimes contra a administração pública', '1', 'Exceção: Caput §1'),
+('CP', 'Código Penal (DL 2.848/40)', '323', NULL, TRUE, 'Crimes contra a administração pública', '1', 'Exceção: Caput'),
+('CP', 'Código Penal (DL 2.848/40)', '323', '1', TRUE, 'Crimes contra a administração pública', '1', 'Exceção: § 1º'),
 ('CP', 'Código Penal (DL 2.848/40)', '325', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
-('CP', 'Código Penal (DL 2.848/40)', '325', NULL, TRUE, 'Crimes contra a administração pública', '1', 'Exceção: Caput §1'),
+('CP', 'Código Penal (DL 2.848/40)', '325', NULL, TRUE, 'Crimes contra a administração pública', '1', 'Exceção: Caput'),
+('CP', 'Código Penal (DL 2.848/40)', '325', '1', TRUE, 'Crimes contra a administração pública', '1', 'Exceção: § 1º'),
 ('CP', 'Código Penal (DL 2.848/40)', '328', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
 ('CP', 'Código Penal (DL 2.848/40)', '328', NULL, TRUE, 'Crimes contra a administração pública', '1', 'Exceção: Caput'),
 ('CP', 'Código Penal (DL 2.848/40)', '332', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
@@ -175,7 +193,8 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, eh_excecao, 
 ('CP', 'Código Penal (DL 2.848/40)', '347', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
 ('CP', 'Código Penal (DL 2.848/40)', '347', NULL, TRUE, 'Crimes contra a administração pública', '1', 'Exceção: Caput'),
 ('CP', 'Código Penal (DL 2.848/40)', '351', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
-('CP', 'Código Penal (DL 2.848/40)', '351', '4', TRUE, 'Crimes contra a administração pública', '1', 'Exceção'),
+('CP', 'Código Penal (DL 2.848/40)', '351', NULL, TRUE, 'Crimes contra a administração pública', '1', 'Exceção: Caput'),
+('CP', 'Código Penal (DL 2.848/40)', '351', '4', TRUE, 'Crimes contra a administração pública', '1', 'Exceção: § 4º'),
 ('CP', 'Código Penal (DL 2.848/40)', '353', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
 ('CP', 'Código Penal (DL 2.848/40)', '355', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
 ('CP', 'Código Penal (DL 2.848/40)', '356', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
@@ -233,7 +252,9 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, eh_excecao, tipo_crime,
 -- LEIS ESPECIAIS
 INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, eh_excecao, tipo_crime, item_alinea_e, observacoes) VALUES
 ('LEI_2889_56', 'Lei 2.889/56 - Genocídio', '1', FALSE, 'Crimes hediondos', '7', NULL),
+('LEI_2889_56', 'Lei 2.889/56 - Genocídio', '2', FALSE, 'Crimes hediondos', '7', 'Art. inteiro; exceção caput'),
 ('LEI_2889_56', 'Lei 2.889/56 - Genocídio', '2', TRUE, 'Crimes hediondos', '7', 'Exceção: Caput'),
+('LEI_2889_56', 'Lei 2.889/56 - Genocídio', '3', FALSE, 'Crimes hediondos', '7', 'Art. inteiro; exceção caput'),
 ('LEI_2889_56', 'Lei 2.889/56 - Genocídio', '3', TRUE, 'Crimes hediondos', '7', 'Exceção: Caput'),
 ('LEI_7716_89', 'Lei 7.716/89 - Racismo', '2-A', FALSE, 'Crimes de racismo', '7', NULL),
 ('LEI_9455_97', 'Lei 9.455/97 - Tortura', '1', FALSE, 'Crimes de tortura', '7', NULL),
@@ -244,11 +265,16 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, eh_excecao, tipo_crime,
 ('LEI_12850_13', 'Lei 12.850/13 - Org. Crim.', '2', FALSE, 'Crimes praticados por organização criminosa', '10', NULL),
 ('LEI_9605_98', 'Lei 9.605/98 - Ambiental', '54', FALSE, 'Crimes contra o meio ambiente', '3', NULL),
 ('LEI_9503_97', 'Lei 9.503/97 - CTB', '302', FALSE, 'Crimes de trânsito', '8', NULL),
-('LEI_10826_03', 'Lei 10.826/03 - Desarmamento', '16', FALSE, 'Crime hediondo', '7', NULL),
-('LEI_8429_92', 'Lei 8.429/92 - Improbidade', '9', FALSE, 'Atos de improbidade', '1', 'Enriquecimento ilícito'),
 ('LEI_8429_92', 'Lei 8.429/92 - Improbidade', '10', FALSE, 'Atos de improbidade', '1', 'Prejuízo ao erário');
 
-COMMENT ON TABLE crimes_inelegibilidade IS 'SSoT: Tabela Oficial da Corregedoria (v0.3.15)';
+-- Lei 10.826/03 Art. 16: somente caput e §1º impeditivos (Padrão C)
+INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, eh_excecao, artigo_inteiro_impeditivo, tipo_crime, item_alinea_e, observacoes) VALUES
+('LEI_10826_03', 'Lei 10.826/03 - Desarmamento', '16', NULL, FALSE, FALSE, 'Crime hediondo', '7', 'Referência; impeditivos: caput e §1º'),
+('LEI_10826_03', 'Lei 10.826/03 - Desarmamento', '16', '1', FALSE, TRUE, 'Crime hediondo', '7', 'Caput e §1º c.c. §2º'),
+('LEI_10826_03', 'Lei 10.826/03 - Desarmamento', '17', NULL, FALSE, TRUE, 'Crime hediondo', '7', NULL),
+('LEI_10826_03', 'Lei 10.826/03 - Desarmamento', '18', NULL, FALSE, TRUE, 'Crime hediondo', '7', NULL);
+
+COMMENT ON TABLE crimes_inelegibilidade IS 'SSoT: Tabela Oficial da Corregedoria (v0.3.25)';
 GRANT ALL ON TABLE crimes_inelegibilidade TO postgres, service_role;
 
 -- verificar_elegibilidade (interpretação CRE - docs/references/interpretacao-tabela-oficial.md)
@@ -346,6 +372,7 @@ BEGIN
       AND t.inciso IS NULL
       AND t.alinea IS NULL
       AND t.eh_excecao = FALSE
+      AND COALESCE(t.artigo_inteiro_impeditivo, TRUE) = TRUE
     LIMIT 1;
 
     IF v_artigo_inteiro_impeditivo IS NOT NULL THEN

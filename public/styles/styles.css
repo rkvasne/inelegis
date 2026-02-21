@@ -3283,6 +3283,18 @@ html:not(.dark-theme) .main-footer .footer-bottom {
   color: var(--success-border);
 }
 
+/* ELEGÍVEL (EXCEÇÃO): verde em tom levemente diferente */
+.modal-status-card.eligible-exception .modal-result-icon {
+  background: var(--success-bg);
+  color: var(--success-700);
+}
+
+.modal-status-card.eligible-exception {
+  background: var(--success-bg);
+  border-color: var(--success-border);
+  color: var(--success-text);
+}
+
 .modal-status-card.not-found .modal-result-icon {
   background: rgba(245, 158, 11, 0.25);
   color: var(--warning-border);

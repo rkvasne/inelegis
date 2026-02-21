@@ -96,8 +96,8 @@ export class ResultRenderer {
           <span class="ase-value">${aseInfo}</span>
         </div>
 
-        <!-- Alerta de Exceções (exibido sempre que houver exceções até a tabela estar 100% validada) -->
-        ${this._renderExceptionAlert(excecoes_artigo)}
+        <!-- Alerta de Exceções -->
+        ${this._renderExceptionAlert(excecoes_artigo, isExcecao)}
         
         <!-- Mensagem de Contexto SSoT -->
         ${mensagem ? `<p class="text-[10px] text-slate-400 mt-2 italic text-center">${escapeHtml(mensagem)}</p>` : ""}
@@ -121,7 +121,7 @@ export class ResultRenderer {
     }
     if (resultado === RESULTS.ELIGIBLE) {
       return {
-        statusClass: isExcecao ? "warning" : "eligible",
+        statusClass: isExcecao ? "eligible-exception" : "eligible",
         statusText: isExcecao ? "ELEGÍVEL (EXCEÇÃO)" : "ELEGÍVEL",
         icon: `<svg width="24" height="24" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>`,
       };
@@ -187,9 +187,32 @@ export class ResultRenderer {
     return "Consulte o manual para este tipo de comunicação";
   }
 
-  /** @private */
-  static _renderExceptionAlert(excecoes) {
+  /** @private
+   * @param {string} excecoes - Lista de exceções do artigo
+   * @param {boolean} isExcecao - true quando o dispositivo consultado É uma exceção (match direto)
+   */
+  static _renderExceptionAlert(excecoes, isExcecao = false) {
     if (!excecoes) return "";
+    if (isExcecao) {
+      return `
+      <div class="exception-alert-card border-2 border-success-200 bg-success-50/80 p-4 rounded-xl">
+        <div class="flex items-start gap-3">
+          <div class="text-success-600 mt-0.5">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+          </div>
+          <div>
+            <h4 class="text-sm font-black text-success-800 uppercase mb-1">Dispositivo consultado é exceção legal</h4>
+            <p class="text-xs text-success-700 leading-normal">
+              O resultado <strong>ELEGÍVEL</strong> acima já considera essa exceção. Outras exceções do mesmo artigo:
+            </p>
+            <div class="mt-2 p-3 bg-white/60 rounded-lg text-[11px] font-medium text-success-800 border border-success-100">
+              ${escapeHtml(excecoes)}
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+    }
     return `
       <div class="exception-alert-card border-2 border-warning-200 bg-warning-50 p-4 rounded-xl">
         <div class="flex items-start gap-3">
