@@ -16,6 +16,10 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 - **fix(historico):** Frontend `search-history.js` envia para POST `/api/search-history` (API Vercel) em vez de Supabase direto, evitando 401 Unauthorized (API usa service_role).
 - **fix(migration):** Migration `20260225000150_grant_rpc_anon.sql` com GRANT EXECUTE nas RPCs para anon (uso pela API Vercel).
 - **docs:** auditoria-e-monitoramento, development — fluxo via API Vercel.
+- **docs(consolidacao):** Unificação de documentação: devops + devops-manual → devops.md; keepalive-setup + keepalive-config-inelegis → keepalive-inelegis.md.
+- **docs(arquivo):** revisao-tabela, relatorio-doc-janitor, inventario, refatoracao-v0.0.6 movidos para docs/archive/ (padrão YYYY-MM-DD).
+- **docs(fix):** Paths components.js (protection, components), endpoint /api/maintenance, setup-supabase 5 migrations, project-status migration ref, troubleshooting Keepalive.
+- **fix(script):** test-supabase.js usa crimes_inelegibilidade em vez de normas.
 
 ## [0.3.25] - 15/02/2026
 

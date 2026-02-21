@@ -1,10 +1,12 @@
 ﻿---
 docStatus: historical
-docScope: history
+docScope: archive
 lastReviewed: 14/01/2026
 ---
 
 # 🔧 Histórico Consolidado da Refatoração v0.0.6
+
+> **Arquivado em 21/02/2026.** Documento histórico — descreve arquitetura antiga (script.js, data.js, modules/). Arquitetura atual em [development.md](../guides/development.md).
 
 **Status:** ✅ Concluído / Referência histórica
 
@@ -75,72 +77,7 @@ Adicionar os módulos no final do `body` para páginas que usam a consulta:
 <script src="/assets/js/script.js"></script>
 ```
 
-### 3.2 Atualizar `script.js`
-
-1. **Remover duplicações** e usar `ArtigoFormatter` / `ExceptionValidator`:
-
-```javascript
-const artigoProcessado = ArtigoFormatter.processar(valor);
-const excecao = ExceptionValidator.verificar(item, artigoProcessado);
-```
-
-2. **Busca com índice**:
-
-```javascript
-const resultado = SearchIndex.buscar(
-  leiSelecionada,
-  artigoDigitado,
-  leisDisponiveis,
-  tabelaInelegibilidade,
-);
-```
-
-3. **Formatação automática** usa `ArtigoFormatter.formatar`, preservando posição do cursor.
-
-4. **Modal centralizado**:
-
-```javascript
-ModalManager.open(tipoResultado, status, conteudo);
-ModalManager.close();
-const texto = ModalManager.exportContent();
-```
-
-5. **Persistência segura**:
-
-```javascript
-SecureStorage.setItem("termos_aceitos", true, 90 * 24 * 60 * 60 * 1000);
-const termosAceitos = SecureStorage.getItem("termos_aceitos") === true;
-```
-
-### 3.3 Testes e Validação
-
-```bash
-# Testes unitários
-npm run test:unit
-
-# Lint
-npm run lint
-
-# Build
-npm run build
-
-# Validação de tema
-npm run validate:theme
-```
-
-### 3.4 Otimizações Opcionais
-
-- Minificar CSS com `postcss + cssnano` e JS com `terser` (fontes em `src/js`, saída em `public/assets/js`).
-- Habilitar versões `.min.js` nos HTMLs de produção.
-
-### 3.5 Troubleshooting
-
-| Problema                     | Ação                                                                                         |
-| ---------------------------- | -------------------------------------------------------------------------------------------- |
-| `Sanitizer is not defined`   | Verificar ordem de scripts, garantir `/assets/js/modules/sanitizer.js` antes de `script.js`. |
-| Busca não retorna            | Confirmar `leisDisponiveis`, limpar cache com `SearchIndex.clearCache()`, verificar console. |
-| Modal não abre               | Conferir carregamento de `ModalManager` e presença de `#modalResultado`.                     |
-| `SecureStorage` não persiste | Checar se `localStorage` está disponível (fallback para memória).                            |
+_Nota: A arquitetura atual usa `src/js/` com estrutura diferente (components/, services/, ui/, utils/). Ver [development.md](../guides/development.md)._
 
 ---
 
@@ -195,44 +132,14 @@ tests/
 | v0.0.5 | ~50ms          | ❌    | ❌      |
 | v0.0.6 | ~5ms           | ✅    | ✅      |
 
-### Qualidade
-
-| Versão | Testes | Cobertura | Duplicação |
-| ------ | ------ | --------- | ---------- |
-| v0.0.5 | 0      | 0%        | ~15%       |
-| v0.0.6 | 20     | ~60%      | <5%        |
-
-### Documentação
-
-| Versão | Documentos | Padrão | Completa |
-| ------ | ---------- | ------ | -------- |
-| v0.0.5 | 3          | ❌     | ❌       |
-| v0.0.6 | 15         | ✅     | ✅       |
-
 ---
 
-## 6. Checklist de Validação
-
-- **Segurança:** CSP aplicada, sanitização ativa, storage validado.
-- **Performance:** índices construídos, cache ativo, assets minimizados.
-- **Qualidade:** lint sem erros, testes unitários passando (>60% cobertura), versões sincronizadas.
-- **Acessibilidade:** foco visível, ARIA básica, testes com teclado (itens remanescentes listados como backlog).
-
----
-
-## 7. Lições e Filosofia
+## 6. Lições e Filosofia
 
 - **Iterar antes de modularizar:** entender o domínio evitou abstrações erradas.
 - **Performance como requisito:** cada KB importa em redes corporativas lentas.
 - **Documentação viva:** decisões registradas evitam regressões.
 - **Transparência:** histórico preservado para onboarding e auditoria.
-
-### Próximos Passos Recomendados
-
-1. Expandir cobertura de testes (>80%).
-2. Migrar funções legadas para `SearchIndex.buscar()` e limpar compatibilidade temporária.
-3. Reforçar acessibilidade (labels, ARIA adicionais, navegação completa por teclado).
-4. Internacionalização e preparação para v1.0.0.
 
 ---
 
@@ -242,3 +149,7 @@ tests/
 - [`docs/guides/maintenance.md`](../guides/maintenance.md)
 - [`CHANGELOG.md`](../../CHANGELOG.md)
 - OWASP, Web.dev Performance, WCAG 2.1, Conventional Commits
+
+---
+
+_Arquivado em: 21/02/2026 • Original: docs/history/refatoracao-v0.0.6.md_

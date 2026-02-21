@@ -53,7 +53,7 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 **Keepalive (externo)**
 
 - O heartbeat é feito por **Cloudflare Worker** → Supabase Edge Function (não há serviço client-side no `src/js/`).
-- Referências: [scripts/keepalive-worker.js](../../scripts/keepalive-worker.js), [keepalive-setup.md](./keepalive-setup.md).
+- Referências: [scripts/keepalive-worker.js](../../scripts/keepalive-worker.js), [keepalive-inelegis.md](./keepalive-inelegis.md).
 
 **[utils/sanitizer.js](../../src/js/utils/sanitizer.js)** e **[utils/escape-html.js](../../src/js/utils/escape-html.js)**
 

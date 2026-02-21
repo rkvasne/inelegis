@@ -37,7 +37,7 @@ Components.init("consulta");
 
 > **Nota:** A navegação principal é renderizada dentro do próprio header.
 
-> **Fluxo pós-migração:** Sempre edite `src/js/modules/components.js` (fonte) e execute `npm run sync:js` ou `npm run dev` para sincronizar o bundle público (`public/assets/js/modules/components.js`) antes de testar/commitar.
+> **Fluxo pós-migração:** Sempre edite `src/js/components/components.js` (fonte) e execute `npm run sync:js` ou `npm run dev` para sincronizar o bundle público (`public/assets/js/components/components.js`) antes de testar/commitar.
 
 ---
 
@@ -314,7 +314,7 @@ Todos os componentes possuem testes automatizados que verificam:
 
 ## 📝 Exemplos Práticos
 
-> 💡 Carregue `/assets/js/modules/theme-bootstrap.js` no `<head>` para aplicar o tema antes do primeiro paint. Se a página exigir confirmação dos termos, também inclua `/assets/js/modules/terms-gate.js` logo após o bootstrap.
+> 💡 Carregue `/assets/js/components/theme-bootstrap.js` no `<head>` para aplicar o tema antes do primeiro paint. Se a página exigir confirmação dos termos, também inclua `/assets/js/ui/terms-gate.js` logo após o bootstrap.
 
 ### Página Completa
 
@@ -325,9 +325,9 @@ Todos os componentes possuem testes automatizados que verificam:
     <meta charset="UTF-8" />
     <title>Minha Página | Inelegis</title>
     <link rel="stylesheet" href="/styles/styles.css" />
-    <script src="/assets/js/modules/theme-bootstrap.js?v=0.3.0"></script>
+    <script src="/assets/js/components/theme-bootstrap.js?v=0.3.0"></script>
     <!-- Opcional: restringe acesso caso os termos não tenham sido aceitos -->
-    <script src="/assets/js/modules/terms-gate.js?v=0.3.0"></script>
+    <script src="/assets/js/ui/terms-gate.js?v=0.3.0"></script>
   </head>
   <body>
     <div id="header-placeholder"></div>
@@ -340,8 +340,8 @@ Todos os componentes possuem testes automatizados que verificam:
 
     <div id="footer-placeholder"></div>
 
-    <script src="/assets/js/modules/components.js?v=0.3.0" defer></script>
-    <script src="/assets/js/modules/theme-manager.js?v=0.3.0" defer></script>
+    <script src="/assets/js/components/components.js?v=0.3.0" defer></script>
+    <script src="/assets/js/components/theme-manager.js?v=0.3.0" defer></script>
     <script>
       Components.init("minha-pagina");
     </script>
@@ -376,14 +376,14 @@ document.getElementById("container").innerHTML = card;
 
 ### Adicionando Novos Componentes
 
-1. Faça as alterações em `src/js/modules/components.js`
+1. Faça as alterações em `src/js/components/components.js`
 2. Documente os parâmetros e retorno
 3. Crie/atualize testes em `tests/components.test.js`
 4. Atualize este documento
 
 ### Modificando Componentes Existentes
 
-1. Faça as alterações em `src/js/modules/components.js`
+1. Faça as alterações em `src/js/components/components.js`
 2. Atualize os testes se necessário
 3. Execute `npm run test:components`
 4. Atualize a documentação
@@ -449,5 +449,5 @@ gap: 40px;
 
 ---
 
-_Última atualização: 20/02/2026 • v0.3.25 (Hub v0.5.8)_
+_Última atualização: 21/02/2026 • v0.3.25 (Hub v0.6.1)_
 _Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_

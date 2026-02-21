@@ -6,11 +6,11 @@ Este guia descreve como manter os dados jurídicos e validar a integridade do si
 
 ## 📊 Estrutura de Dados (Single Source of Truth)
 
-Diferente das versões anteriores, o Inelegis não utiliza arquivos JSON ou JS estáticos para os dados. Toda a base jurídica reside no Supabase:
+Toda a base jurídica reside no Supabase. O schema atual usa:
 
-1.  **Tabela `normas`**: Cadastro de leis e códigos.
-2.  **Tabela `artigos_inelegiveis`**: Base de artigos que geram inelegibilidade.
-3.  **Tabela `artigos_excecoes`**: Regras de exceção (Ex: crimes culposos).
+1.  **Tabela `crimes_inelegibilidade`**: Base única com leis, artigos, exceções e tipos de crime. A coluna `eh_excecao` distingue dispositivos impeditivos das exceções legais (ex.: crimes culposos, art. 163 § único inciso IV).
+2.  **Tabela `historico_consultas`**: Histórico de consultas do usuário (RPC `add_to_history` via API Vercel).
+3.  **Tabelas auxiliares**: `analytics_events`, `keepalive`, `keepalive_events` — ver [migrations-status.md](./migrations-status.md).
 
 ---
 
@@ -20,17 +20,17 @@ Diferente das versões anteriores, o Inelegis não utiliza arquivos JSON ou JS e
 
 As atualizações devem ser versionadas em `supabase/migrations/`.
 
-1.  Crie um novo arquivo `.sql` (Ex: `009_update_law_X.sql`).
-2.  Utilize o `INSERT INTO ... ON CONFLICT DO NOTHING` para garantir idempotência.
-3.  Execute o script no **SQL Editor** do Supabase Dashboard ou via CLI.
+1.  Crie um novo arquivo `.sql` seguindo o padrão `YYYYMMDDHHMMSS_descricao.sql` (ex.: `20260301000000_ajuste_lei_X.sql`).
+2.  Para `crimes_inelegibilidade`, use `INSERT INTO` — a migration principal usa `DROP TABLE` + `CREATE` ao replicar do zero; para correções incrementais, crie migrations que alterem apenas o necessário.
+3.  Execute via `supabase db push` ou no **SQL Editor** do Supabase Dashboard.
 
 ### Via Supabase Dashboard
 
 Para correções emergenciais ou in-line:
 
 1.  Acesse o **Table Editor** no Dashboard do Supabase.
-2.  Selecione a tabela `artigos_inelegiveis` ou `artigos_excecoes`.
-3.  Edite os registros diretamente na interface.
+2.  Selecione a tabela `crimes_inelegibilidade`.
+3.  Edite os registros diretamente na interface (cuidado com a coluna `eh_excecao` e `artigo_inteiro_impeditivo`).
 
 ---
 
@@ -58,5 +58,5 @@ O histórico de consultas é persistido na tabela `historico_consultas`. A limpe
 
 ---
 
-_Última atualização: 20/02/2026 • v0.3.25 (Hub v0.5.8)_
+_Última atualização: 21/02/2026 • v0.3.25 (Hub v0.6.1)_
 _Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_

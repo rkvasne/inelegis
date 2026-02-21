@@ -65,7 +65,8 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, eh_e
 
 -- Arts. 163 e 175: artigo inteiro impeditivo; exceções caput/incisos em linhas separadas
 INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, eh_excecao, artigo_inteiro_impeditivo, tipo_crime, item_alinea_e, observacoes) VALUES
-('CP', 'Código Penal (DL 2.848/40)', '163', NULL, NULL, FALSE, TRUE, 'Crimes contra o patrimônio', '1', 'Art. inteiro; exceções caput e p.único'),
+('CP', 'Código Penal (DL 2.848/40)', '163', NULL, NULL, FALSE, TRUE, 'Crimes contra o patrimônio', '1', 'Art. inteiro; exceções caput e p.único IV'),
+('CP', 'Código Penal (DL 2.848/40)', '163', 'unico', 'IV', TRUE, TRUE, 'Crimes contra o patrimônio', '1', 'Exceção: § único, inciso IV (Ação Privada)'),
 ('CP', 'Código Penal (DL 2.848/40)', '175', NULL, NULL, FALSE, TRUE, 'Crimes contra o patrimônio', '1', 'Art. inteiro; exceções caput e incisos I/II'),
 ('CP', 'Código Penal (DL 2.848/40)', '175', NULL, 'I', TRUE, TRUE, 'Crimes contra o patrimônio', '1', 'Exceção inciso I'),
 ('CP', 'Código Penal (DL 2.848/40)', '175', NULL, 'II', TRUE, TRUE, 'Crimes contra o patrimônio', '1', 'Exceção inciso II');
@@ -78,7 +79,6 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, eh_excecao, 
 ('CP', 'Código Penal (DL 2.848/40)', '160', NULL, FALSE, 'Crimes contra o patrimônio', '1', 'Extorsão indireta'),
 ('CP', 'Código Penal (DL 2.848/40)', '162', NULL, FALSE, 'Crimes contra o patrimônio', '1', NULL),
 ('CP', 'Código Penal (DL 2.848/40)', '163', NULL, TRUE, 'Crimes contra o patrimônio', '1', 'Exceção: Dano simples (caput)'),
-('CP', 'Código Penal (DL 2.848/40)', '163', 'unico', TRUE, 'Crimes contra o patrimônio', '1', 'Exceção: Inciso IV (Ação Privada)'),
 ('CP', 'Código Penal (DL 2.848/40)', '168', NULL, FALSE, 'Crimes contra o patrimônio', '1', 'Apropriação indébita'),
 ('CP', 'Código Penal (DL 2.848/40)', '168-A', NULL, FALSE, 'Crimes contra o patrimônio', '1', 'Apropriação previdenciária'),
 ('CP', 'Código Penal (DL 2.848/40)', '171', NULL, FALSE, 'Crimes contra o patrimônio', '1', 'Estelionato'),
@@ -215,7 +215,6 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, eh_excecao, 
 ('CPM', 'Código Penal Militar (DL 1.001/69)', '235', NULL, FALSE, 'Crimes contra a dignidade sexual', '9', NULL),
 ('CPM', 'Código Penal Militar (DL 1.001/69)', '238', NULL, FALSE, 'Crimes contra a dignidade sexual', '9', NULL),
 ('CPM', 'Código Penal Militar (DL 1.001/69)', '239', NULL, FALSE, 'Crimes contra a dignidade sexual', '9', NULL),
-('CPM', 'Código Penal Militar (DL 1.001/69)', '303', '3', TRUE, 'Crimes contra a administração pública e fé pública', '1', 'Exceção: Peculato culposo'),
 ('CPM', 'Código Penal Militar (DL 1.001/69)', '400', NULL, FALSE, 'Crimes contra a vida', '9', NULL),
 ('CPM', 'Código Penal Militar (DL 1.001/69)', '401', NULL, FALSE, 'Crimes hediondos', '7', NULL),
 ('CPM', 'Código Penal Militar (DL 1.001/69)', '402', NULL, FALSE, 'Crimes hediondos', '7', NULL),
@@ -224,6 +223,113 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, eh_excecao, 
 ('CPM', 'Código Penal Militar (DL 1.001/69)', '406', NULL, FALSE, 'Crimes contra o patrimônio', '1', NULL),
 ('CPM', 'Código Penal Militar (DL 1.001/69)', '407', NULL, FALSE, 'Crimes contra a dignidade sexual', '9', NULL),
 ('CPM', 'Código Penal Militar (DL 1.001/69)', '408', NULL, FALSE, 'Crimes contra a dignidade sexual', '9', NULL);
+
+-- CPM: Crimes contra o patrimônio (arts. 240-254, 257-267) - Exceções: 262, 263, 264, 265 quando c/c art. 266 (culposos)
+INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, eh_excecao, tipo_crime, item_alinea_e, observacoes) VALUES
+('CPM', 'Código Penal Militar (DL 1.001/69)', '240', FALSE, 'Crimes contra o patrimônio', '1', NULL),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '241', FALSE, 'Crimes contra o patrimônio', '1', NULL),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '242', FALSE, 'Crimes contra o patrimônio', '1', NULL),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '243', FALSE, 'Crimes contra o patrimônio', '1', NULL),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '244', FALSE, 'Crimes contra o patrimônio', '1', NULL),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '245', FALSE, 'Crimes contra o patrimônio', '1', NULL),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '246', FALSE, 'Crimes contra o patrimônio', '1', NULL),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '247', FALSE, 'Crimes contra o patrimônio', '1', NULL),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '248', FALSE, 'Crimes contra o patrimônio', '1', NULL),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '249', FALSE, 'Crimes contra o patrimônio', '1', NULL),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '250', FALSE, 'Crimes contra o patrimônio', '1', NULL),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '251', FALSE, 'Crimes contra o patrimônio', '1', NULL),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '252', FALSE, 'Crimes contra o patrimônio', '1', NULL),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '253', FALSE, 'Crimes contra o patrimônio', '1', NULL),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '254', FALSE, 'Crimes contra o patrimônio', '1', NULL),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '257', FALSE, 'Crimes contra o patrimônio', '1', NULL),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '258', FALSE, 'Crimes contra o patrimônio', '1', NULL),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '259', FALSE, 'Crimes contra o patrimônio', '1', NULL),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '260', FALSE, 'Crimes contra o patrimônio', '1', NULL),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '261', FALSE, 'Crimes contra o patrimônio', '1', NULL),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '262', FALSE, 'Crimes contra o patrimônio', '1', 'Exceção: quando c/c art. 266 culposo'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '263', FALSE, 'Crimes contra o patrimônio', '1', 'Exceção: quando c/c art. 266 culposo'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '264', FALSE, 'Crimes contra o patrimônio', '1', 'Exceção: quando c/c art. 266 culposo'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '265', FALSE, 'Crimes contra o patrimônio', '1', 'Exceção: quando c/c art. 266 culposo'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '266', FALSE, 'Crimes contra o patrimônio', '1', NULL),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '267', FALSE, 'Crimes contra o patrimônio', '1', NULL);
+
+-- CPM: Crimes contra meio ambiente e saúde pública (arts. 290-297) - Exceções: 292§2, 293§3, 294 p.único, 295 p.único, 296 p.único
+INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, eh_excecao, tipo_crime, item_alinea_e) VALUES
+('CPM', 'Código Penal Militar (DL 1.001/69)', '290', NULL, FALSE, 'Crimes contra o meio ambiente e saúde pública', '3'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '291', NULL, FALSE, 'Crimes contra o meio ambiente e saúde pública', '3'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '292', NULL, FALSE, 'Crimes contra o meio ambiente e saúde pública', '3'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '292', '2', TRUE, 'Crimes contra o meio ambiente e saúde pública', '3'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '293', NULL, FALSE, 'Crimes contra o meio ambiente e saúde pública', '3'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '293', '3', TRUE, 'Crimes contra o meio ambiente e saúde pública', '3'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '294', NULL, FALSE, 'Crimes contra o meio ambiente e saúde pública', '3'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '294', 'unico', TRUE, 'Crimes contra o meio ambiente e saúde pública', '3'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '295', NULL, FALSE, 'Crimes contra o meio ambiente e saúde pública', '3'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '295', 'unico', TRUE, 'Crimes contra o meio ambiente e saúde pública', '3'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '296', NULL, FALSE, 'Crimes contra o meio ambiente e saúde pública', '3'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '296', 'unico', TRUE, 'Crimes contra o meio ambiente e saúde pública', '3'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '297', NULL, FALSE, 'Crimes contra o meio ambiente e saúde pública', '3');
+
+-- CPM: Crimes contra administração pública e fé pública (arts. 298-322, 324-354) - Exceções: 303§3, 332§2, 352 p.único
+INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, eh_excecao, tipo_crime, item_alinea_e) VALUES
+('CPM', 'Código Penal Militar (DL 1.001/69)', '298', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '299', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '300', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '301', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '302', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '303', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '303', '3', TRUE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '304', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '305', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '306', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '307', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '308', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '309', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '310', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '311', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '312', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '313', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '314', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '315', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '316', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '317', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '318', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '319', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '320', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '321', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '322', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '324', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '325', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '326', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '327', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '328', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '329', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '330', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '331', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '332', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '332', '2', TRUE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '333', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '334', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '335', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '336', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '337', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '338', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '339', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '340', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '341', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '342', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '343', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '344', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '345', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '346', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '347', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '348', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '349', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '350', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '351', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '352', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '352', 'unico', TRUE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '353', NULL, FALSE, 'Crimes contra administração e fé pública', '1'),
+('CPM', 'Código Penal Militar (DL 1.001/69)', '354', NULL, FALSE, 'Crimes contra administração e fé pública', '1');
 
 -- CÓDIGO ELEITORAL (LEI 4.737/65)
 INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, eh_excecao, tipo_crime, item_alinea_e) VALUES
@@ -249,7 +355,160 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, eh_excecao, tipo_crime,
 ('CE', 'Código Eleitoral (Lei 4.737/65)', '354', FALSE, 'Crimes eleitorais', '4'),
 ('CE', 'Código Eleitoral (Lei 4.737/65)', '354-A', FALSE, 'Crimes eleitorais', '4');
 
--- LEIS ESPECIAIS
+-- LEIS ESPECIAIS (conforme tabela CRE-SP out/2024)
+
+-- CLT (DL 5.452/43)
+INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, eh_excecao, tipo_crime, item_alinea_e) VALUES
+('CLT', 'CLT (DL 5.452/43)', '49', FALSE, 'Crimes contra a fé pública', '1');
+
+-- DL 7.661/45 - Lei Falimentar (revogada pela Lei 11.101/05)
+INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, eh_excecao, tipo_crime, item_alinea_e, observacoes) VALUES
+('DL_7661_45', 'DL 7.661/45 - Lei Falimentar (revogada)', '186', FALSE, 'Crimes previstos na lei que regula a falência', '2', 'Lei revogada pela 11.101/05'),
+('DL_7661_45', 'DL 7.661/45 - Lei Falimentar (revogada)', '187', FALSE, 'Crimes previstos na lei que regula a falência', '2', 'Lei revogada pela 11.101/05'),
+('DL_7661_45', 'DL 7.661/45 - Lei Falimentar (revogada)', '188', FALSE, 'Crimes previstos na lei que regula a falência', '2', 'Lei revogada pela 11.101/05'),
+('DL_7661_45', 'DL 7.661/45 - Lei Falimentar (revogada)', '189', FALSE, 'Crimes previstos na lei que regula a falência', '2', 'Lei revogada pela 11.101/05');
+
+-- DL 201/67
+INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, eh_excecao, tipo_crime, item_alinea_e) VALUES
+('DL_201_67', 'DL 201/67 - Crimes de responsabilidade', '1', FALSE, 'Crimes contra a administração pública', '1');
+
+-- LC 105/01
+INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, eh_excecao, tipo_crime, item_alinea_e) VALUES
+('LC_105_01', 'LC 105/01', '10', FALSE, 'Crimes contra a fé pública', '1');
+
+-- Lei 1.521/51
+INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, eh_excecao, tipo_crime, item_alinea_e) VALUES
+('LEI_1521_51', 'Lei 1.521/51 - Economia popular', '3', FALSE, 'Crimes contra a economia popular', '1');
+
+-- Lei 4.591/64
+INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, eh_excecao, tipo_crime, item_alinea_e) VALUES
+('LEI_4591_64', 'Lei 4.591/64 - Condomínios', '65', FALSE, 'Crimes contra a economia popular', '1');
+
+-- Lei 4.595/64
+INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, eh_excecao, tipo_crime, item_alinea_e) VALUES
+('LEI_4595_64', 'Lei 4.595/64 - Sistema financeiro', '34', FALSE, 'Crimes contra o sistema financeiro', '2');
+
+-- Lei 4.728/65
+INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, eh_excecao, tipo_crime, item_alinea_e) VALUES
+('LEI_4728_65', 'Lei 4.728/65 - Mercado de capitais', '66-B', FALSE, 'Crimes contra o mercado de capitais', '2'),
+('LEI_4728_65', 'Lei 4.728/65 - Mercado de capitais', '73', FALSE, 'Crimes contra o mercado de capitais', '2'),
+('LEI_4728_65', 'Lei 4.728/65 - Mercado de capitais', '74', FALSE, 'Crimes contra o mercado de capitais', '2');
+
+-- Lei 4.898/65
+INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, eh_excecao, tipo_crime, item_alinea_e) VALUES
+('LEI_4898_65', 'Lei 4.898/65 - Abuso de autoridade', '6', '3', 'c', FALSE, 'Crimes de abuso de autoridade', '5');
+
+-- Lei 6.091/74
+INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, inciso, eh_excecao, tipo_crime, item_alinea_e) VALUES
+('LEI_6091_74', 'Lei 6.091/74 - Transporte eleitores', '11', 'III', FALSE, 'Crimes eleitorais', '4'),
+('LEI_6091_74', 'Lei 6.091/74 - Transporte eleitores', '11', 'V', FALSE, 'Crimes eleitorais', '4');
+
+-- Lei 6.368/76 - Drogas (revogada pela Lei 11.343/06)
+INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, eh_excecao, tipo_crime, item_alinea_e, observacoes) VALUES
+('LEI_6368_76', 'Lei 6.368/76 - Drogas (revogada)', '12', FALSE, 'Crimes de tráfico de entorpecentes', '7', 'Lei revogada pela 11.343/06'),
+('LEI_6368_76', 'Lei 6.368/76 - Drogas (revogada)', '13', FALSE, 'Crimes de tráfico de entorpecentes', '7', 'Lei revogada pela 11.343/06'),
+('LEI_6368_76', 'Lei 6.368/76 - Drogas (revogada)', '14', FALSE, 'Crimes de tráfico de entorpecentes', '7', 'Lei revogada pela 11.343/06');
+
+-- Lei 6.385/76
+INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, eh_excecao, tipo_crime, item_alinea_e) VALUES
+('LEI_6385_76', 'Lei 6.385/76 - CVM', '27-C', FALSE, 'Crimes contra o mercado de capitais', '2'),
+('LEI_6385_76', 'Lei 6.385/76 - CVM', '27-D', FALSE, 'Crimes contra o mercado de capitais', '2');
+
+-- Lei 6.766/79
+INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, eh_excecao, tipo_crime, item_alinea_e) VALUES
+('LEI_6766_79', 'Lei 6.766/79 - Parcelamento solo', '50', FALSE, 'Crimes contra a administração pública', '1'),
+('LEI_6766_79', 'Lei 6.766/79 - Parcelamento solo', '51', FALSE, 'Crimes contra a administração pública', '1');
+
+-- Lei 6.996/82
+INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, eh_excecao, tipo_crime, item_alinea_e) VALUES
+('LEI_6996_82', 'Lei 6.996/82 - Processamento eletrônico', '15', FALSE, 'Crimes eleitorais', '4');
+
+-- Lei 7.492/86 - Colarinho Branco
+INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, eh_excecao, tipo_crime, item_alinea_e) VALUES
+('LEI_7492_86', 'Lei 7.492/86 - Colarinho Branco', '2', FALSE, 'Crimes contra o sistema financeiro', '2'),
+('LEI_7492_86', 'Lei 7.492/86 - Colarinho Branco', '3', FALSE, 'Crimes contra o sistema financeiro', '2'),
+('LEI_7492_86', 'Lei 7.492/86 - Colarinho Branco', '4', FALSE, 'Crimes contra o sistema financeiro', '2'),
+('LEI_7492_86', 'Lei 7.492/86 - Colarinho Branco', '5', FALSE, 'Crimes contra o sistema financeiro', '2'),
+('LEI_7492_86', 'Lei 7.492/86 - Colarinho Branco', '6', FALSE, 'Crimes contra o sistema financeiro', '2'),
+('LEI_7492_86', 'Lei 7.492/86 - Colarinho Branco', '7', FALSE, 'Crimes contra o sistema financeiro', '2'),
+('LEI_7492_86', 'Lei 7.492/86 - Colarinho Branco', '8', FALSE, 'Crimes contra o sistema financeiro', '2'),
+('LEI_7492_86', 'Lei 7.492/86 - Colarinho Branco', '9', FALSE, 'Crimes contra o sistema financeiro', '2'),
+('LEI_7492_86', 'Lei 7.492/86 - Colarinho Branco', '10', FALSE, 'Crimes contra o sistema financeiro', '2'),
+('LEI_7492_86', 'Lei 7.492/86 - Colarinho Branco', '11', FALSE, 'Crimes contra o sistema financeiro', '2'),
+('LEI_7492_86', 'Lei 7.492/86 - Colarinho Branco', '12', FALSE, 'Crimes contra o sistema financeiro', '2'),
+('LEI_7492_86', 'Lei 7.492/86 - Colarinho Branco', '13', FALSE, 'Crimes contra o sistema financeiro', '2'),
+('LEI_7492_86', 'Lei 7.492/86 - Colarinho Branco', '14', FALSE, 'Crimes contra o sistema financeiro', '2'),
+('LEI_7492_86', 'Lei 7.492/86 - Colarinho Branco', '15', FALSE, 'Crimes contra o sistema financeiro', '2'),
+('LEI_7492_86', 'Lei 7.492/86 - Colarinho Branco', '16', FALSE, 'Crimes contra o sistema financeiro', '2'),
+('LEI_7492_86', 'Lei 7.492/86 - Colarinho Branco', '17', FALSE, 'Crimes contra o sistema financeiro', '2'),
+('LEI_7492_86', 'Lei 7.492/86 - Colarinho Branco', '18', FALSE, 'Crimes contra o sistema financeiro', '2'),
+('LEI_7492_86', 'Lei 7.492/86 - Colarinho Branco', '19', FALSE, 'Crimes contra o sistema financeiro', '2'),
+('LEI_7492_86', 'Lei 7.492/86 - Colarinho Branco', '20', FALSE, 'Crimes contra o sistema financeiro', '2'),
+('LEI_7492_86', 'Lei 7.492/86 - Colarinho Branco', '21', FALSE, 'Crimes contra o sistema financeiro', '2'),
+('LEI_7492_86', 'Lei 7.492/86 - Colarinho Branco', '22', FALSE, 'Crimes contra o sistema financeiro', '2'),
+('LEI_7492_86', 'Lei 7.492/86 - Colarinho Branco', '23', FALSE, 'Crimes contra o sistema financeiro', '2');
+
+-- ECA (Lei 8.069/90)
+INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, eh_excecao, tipo_crime, item_alinea_e) VALUES
+('LEI_8069_90', 'Lei 8.069/90 - ECA', '240', FALSE, 'Crimes contra a dignidade sexual', '9'),
+('LEI_8069_90', 'Lei 8.069/90 - ECA', '241', FALSE, 'Crimes contra a dignidade sexual', '9'),
+('LEI_8069_90', 'Lei 8.069/90 - ECA', '241-A', FALSE, 'Crimes contra a dignidade sexual', '9'),
+('LEI_8069_90', 'Lei 8.069/90 - ECA', '241-B', FALSE, 'Crimes contra a dignidade sexual', '9'),
+('LEI_8069_90', 'Lei 8.069/90 - ECA', '241-C', FALSE, 'Crimes contra a dignidade sexual', '9'),
+('LEI_8069_90', 'Lei 8.069/90 - ECA', '241-D', FALSE, 'Crimes contra a dignidade sexual', '9'),
+('LEI_8069_90', 'Lei 8.069/90 - ECA', '244-A', FALSE, 'Crimes contra a dignidade sexual', '9');
+
+-- Lei 8.137/90 - Ordem tributária (Exceção: art. 7º p.único)
+INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, eh_excecao, tipo_crime, item_alinea_e) VALUES
+('LEI_8137_90', 'Lei 8.137/90 - Ordem tributária', '1', NULL, FALSE, 'Crimes contra a economia popular', '1'),
+('LEI_8137_90', 'Lei 8.137/90 - Ordem tributária', '3', NULL, FALSE, 'Crimes contra a economia popular', '1'),
+('LEI_8137_90', 'Lei 8.137/90 - Ordem tributária', '4', NULL, FALSE, 'Crimes contra a economia popular', '1'),
+('LEI_8137_90', 'Lei 8.137/90 - Ordem tributária', '5', NULL, FALSE, 'Crimes contra a economia popular', '1'),
+('LEI_8137_90', 'Lei 8.137/90 - Ordem tributária', '6', NULL, FALSE, 'Crimes contra a economia popular', '1'),
+('LEI_8137_90', 'Lei 8.137/90 - Ordem tributária', '7', NULL, FALSE, 'Crimes contra a economia popular', '1'),
+('LEI_8137_90', 'Lei 8.137/90 - Ordem tributária', '7', 'unico', TRUE, 'Crimes contra a economia popular', '1');
+
+-- Lei 8.176/91 (arts. 5º e 6º revogados pela Lei 12.529/2011)
+INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, eh_excecao, tipo_crime, item_alinea_e, observacoes) VALUES
+('LEI_8176_91', 'Lei 8.176/91 - Ordem econômica', '1', FALSE, 'Crimes contra a economia popular e patrimônio', '1', 'Arts. 5º e 6º revogados pela 12.529/11'),
+('LEI_8176_91', 'Lei 8.176/91 - Ordem econômica', '2', FALSE, 'Crimes contra a economia popular e patrimônio', '1', 'Arts. 5º e 6º revogados pela 12.529/11');
+
+-- Lei 8.666/93
+INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, eh_excecao, tipo_crime, item_alinea_e) VALUES
+('LEI_8666_93', 'Lei 8.666/93 - Licitações', '89', FALSE, 'Crimes contra a administração pública', '1'),
+('LEI_8666_93', 'Lei 8.666/93 - Licitações', '90', FALSE, 'Crimes contra a administração pública', '1'),
+('LEI_8666_93', 'Lei 8.666/93 - Licitações', '92', FALSE, 'Crimes contra a administração pública', '1'),
+('LEI_8666_93', 'Lei 8.666/93 - Licitações', '94', FALSE, 'Crimes contra a administração pública', '1'),
+('LEI_8666_93', 'Lei 8.666/93 - Licitações', '95', FALSE, 'Crimes contra a administração pública', '1'),
+('LEI_8666_93', 'Lei 8.666/93 - Licitações', '96', FALSE, 'Crimes contra a administração pública', '1');
+
+-- Lei 9.504/97 - Lei Eleitoral
+INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, eh_excecao, tipo_crime, item_alinea_e) VALUES
+('LEI_9504_97', 'Lei 9.504/97 - Lei Eleitoral', '57-H', '1', FALSE, 'Crimes eleitorais', '4'),
+('LEI_9504_97', 'Lei 9.504/97 - Lei Eleitoral', '72', NULL, FALSE, 'Crimes eleitorais', '4');
+
+-- Lei 11.101/05 - Lei Falimentar
+INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, eh_excecao, tipo_crime, item_alinea_e) VALUES
+('LEI_11101_05', 'Lei 11.101/05 - Lei Falimentar', '168', FALSE, 'Crimes previstos na lei que regula a falência', '2'),
+('LEI_11101_05', 'Lei 11.101/05 - Lei Falimentar', '169', FALSE, 'Crimes previstos na lei que regula a falência', '2'),
+('LEI_11101_05', 'Lei 11.101/05 - Lei Falimentar', '170', FALSE, 'Crimes previstos na lei que regula a falência', '2'),
+('LEI_11101_05', 'Lei 11.101/05 - Lei Falimentar', '171', FALSE, 'Crimes previstos na lei que regula a falência', '2'),
+('LEI_11101_05', 'Lei 11.101/05 - Lei Falimentar', '172', FALSE, 'Crimes previstos na lei que regula a falência', '2'),
+('LEI_11101_05', 'Lei 11.101/05 - Lei Falimentar', '173', FALSE, 'Crimes previstos na lei que regula a falência', '2'),
+('LEI_11101_05', 'Lei 11.101/05 - Lei Falimentar', '174', FALSE, 'Crimes previstos na lei que regula a falência', '2'),
+('LEI_11101_05', 'Lei 11.101/05 - Lei Falimentar', '175', FALSE, 'Crimes previstos na lei que regula a falência', '2'),
+('LEI_11101_05', 'Lei 11.101/05 - Lei Falimentar', '176', FALSE, 'Crimes previstos na lei que regula a falência', '2'),
+('LEI_11101_05', 'Lei 11.101/05 - Lei Falimentar', '177', FALSE, 'Crimes previstos na lei que regula a falência', '2');
+
+-- Lei 13.260/16 - Terrorismo
+INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, eh_excecao, tipo_crime, item_alinea_e) VALUES
+('LEI_13260_16', 'Lei 13.260/16 - Terrorismo', '2', FALSE, 'Crimes de terrorismo', '7'),
+('LEI_13260_16', 'Lei 13.260/16 - Terrorismo', '3', FALSE, 'Crimes de terrorismo', '7'),
+('LEI_13260_16', 'Lei 13.260/16 - Terrorismo', '4', FALSE, 'Crimes de terrorismo', '7'),
+('LEI_13260_16', 'Lei 13.260/16 - Terrorismo', '5', FALSE, 'Crimes de terrorismo', '7'),
+('LEI_13260_16', 'Lei 13.260/16 - Terrorismo', '6', FALSE, 'Crimes de terrorismo', '7');
+
+-- LEI_2889_56, LEI_7716_89, LEI_9455_97, LEI_11343_06, LEI_9613_98, LEI_12850_13, LEI_9605_98, LEI_9503_97, LEI_8429_92, LEI_10826_03
 INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, eh_excecao, tipo_crime, item_alinea_e, observacoes) VALUES
 ('LEI_2889_56', 'Lei 2.889/56 - Genocídio', '1', FALSE, 'Crimes hediondos', '7', NULL),
 ('LEI_2889_56', 'Lei 2.889/56 - Genocídio', '2', FALSE, 'Crimes hediondos', '7', 'Art. inteiro; exceção caput'),
@@ -257,15 +516,64 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, eh_excecao, tipo_crime,
 ('LEI_2889_56', 'Lei 2.889/56 - Genocídio', '3', FALSE, 'Crimes hediondos', '7', 'Art. inteiro; exceção caput'),
 ('LEI_2889_56', 'Lei 2.889/56 - Genocídio', '3', TRUE, 'Crimes hediondos', '7', 'Exceção: Caput'),
 ('LEI_7716_89', 'Lei 7.716/89 - Racismo', '2-A', FALSE, 'Crimes de racismo', '7', NULL),
+('LEI_7716_89', 'Lei 7.716/89 - Racismo', '3', FALSE, 'Crimes de racismo', '7', NULL),
+('LEI_7716_89', 'Lei 7.716/89 - Racismo', '4', FALSE, 'Crimes de racismo', '7', NULL),
+('LEI_7716_89', 'Lei 7.716/89 - Racismo', '5', FALSE, 'Crimes de racismo', '7', NULL),
+('LEI_7716_89', 'Lei 7.716/89 - Racismo', '6', FALSE, 'Crimes de racismo', '7', NULL),
+('LEI_7716_89', 'Lei 7.716/89 - Racismo', '7', FALSE, 'Crimes de racismo', '7', NULL),
+('LEI_7716_89', 'Lei 7.716/89 - Racismo', '8', FALSE, 'Crimes de racismo', '7', NULL),
+('LEI_7716_89', 'Lei 7.716/89 - Racismo', '9', FALSE, 'Crimes de racismo', '7', NULL),
+('LEI_7716_89', 'Lei 7.716/89 - Racismo', '10', FALSE, 'Crimes de racismo', '7', NULL),
+('LEI_7716_89', 'Lei 7.716/89 - Racismo', '11', FALSE, 'Crimes de racismo', '7', NULL),
+('LEI_7716_89', 'Lei 7.716/89 - Racismo', '12', FALSE, 'Crimes de racismo', '7', NULL),
+('LEI_7716_89', 'Lei 7.716/89 - Racismo', '13', FALSE, 'Crimes de racismo', '7', NULL),
+('LEI_7716_89', 'Lei 7.716/89 - Racismo', '14', FALSE, 'Crimes de racismo', '7', NULL),
+('LEI_7716_89', 'Lei 7.716/89 - Racismo', '20', FALSE, 'Crimes de racismo', '7', NULL),
 ('LEI_9455_97', 'Lei 9.455/97 - Tortura', '1', FALSE, 'Crimes de tortura', '7', NULL),
 ('LEI_11343_06', 'Lei 11.343/06 - Drogas', '33', FALSE, 'Crimes de tráfico de entorpecentes', '7', NULL),
 ('LEI_11343_06', 'Lei 11.343/06 - Drogas', '33', TRUE, 'Crimes de tráfico de entorpecentes', '7', 'Exceção: §3º'),
+('LEI_11343_06', 'Lei 11.343/06 - Drogas', '34', FALSE, 'Crimes de tráfico de entorpecentes', '7', NULL),
+('LEI_11343_06', 'Lei 11.343/06 - Drogas', '35', FALSE, 'Crimes de tráfico de entorpecentes', '7', NULL),
+('LEI_11343_06', 'Lei 11.343/06 - Drogas', '36', FALSE, 'Crimes de tráfico de entorpecentes', '7', NULL),
 ('LEI_11343_06', 'Lei 11.343/06 - Drogas', '37', FALSE, 'Crimes de tráfico de entorpecentes', '7', NULL),
 ('LEI_9613_98', 'Lei 9.613/98 - Lavagem', '1', FALSE, 'Crimes de lavagem ou ocultação de bens', '6', NULL),
 ('LEI_12850_13', 'Lei 12.850/13 - Org. Crim.', '2', FALSE, 'Crimes praticados por organização criminosa', '10', NULL),
-('LEI_9605_98', 'Lei 9.605/98 - Ambiental', '54', FALSE, 'Crimes contra o meio ambiente', '3', NULL),
 ('LEI_9503_97', 'Lei 9.503/97 - CTB', '302', FALSE, 'Crimes de trânsito', '8', NULL),
 ('LEI_8429_92', 'Lei 8.429/92 - Improbidade', '10', FALSE, 'Atos de improbidade', '1', 'Prejuízo ao erário');
+
+-- Lei 9.605/98 - Ambiental (arts. 30, 33-35, 38-42, 50-A, 54, 56, 61-63, 66-69-A + exceções)
+INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, eh_excecao, tipo_crime, item_alinea_e, observacoes) VALUES
+('LEI_9605_98', 'Lei 9.605/98 - Ambiental', '30', NULL, FALSE, 'Crimes contra o meio ambiente', '3', NULL),
+('LEI_9605_98', 'Lei 9.605/98 - Ambiental', '33', NULL, FALSE, 'Crimes contra o meio ambiente', '3', NULL),
+('LEI_9605_98', 'Lei 9.605/98 - Ambiental', '34', NULL, FALSE, 'Crimes contra o meio ambiente', '3', NULL),
+('LEI_9605_98', 'Lei 9.605/98 - Ambiental', '35', NULL, FALSE, 'Crimes contra o meio ambiente', '3', NULL),
+('LEI_9605_98', 'Lei 9.605/98 - Ambiental', '38', NULL, FALSE, 'Crimes contra o meio ambiente', '3', NULL),
+('LEI_9605_98', 'Lei 9.605/98 - Ambiental', '38', 'unico', TRUE, 'Crimes contra o meio ambiente', '3', 'Exceção'),
+('LEI_9605_98', 'Lei 9.605/98 - Ambiental', '38-A', NULL, FALSE, 'Crimes contra o meio ambiente', '3', NULL),
+('LEI_9605_98', 'Lei 9.605/98 - Ambiental', '38-A', 'unico', TRUE, 'Crimes contra o meio ambiente', '3', 'Exceção'),
+('LEI_9605_98', 'Lei 9.605/98 - Ambiental', '39', NULL, FALSE, 'Crimes contra o meio ambiente', '3', NULL),
+('LEI_9605_98', 'Lei 9.605/98 - Ambiental', '40', NULL, FALSE, 'Crimes contra o meio ambiente', '3', NULL),
+('LEI_9605_98', 'Lei 9.605/98 - Ambiental', '40', '3', TRUE, 'Crimes contra o meio ambiente', '3', 'Exceção §3º'),
+('LEI_9605_98', 'Lei 9.605/98 - Ambiental', '41', NULL, FALSE, 'Crimes contra o meio ambiente', '3', NULL),
+('LEI_9605_98', 'Lei 9.605/98 - Ambiental', '41', 'unico', TRUE, 'Crimes contra o meio ambiente', '3', 'Exceção'),
+('LEI_9605_98', 'Lei 9.605/98 - Ambiental', '42', NULL, FALSE, 'Crimes contra o meio ambiente', '3', NULL),
+('LEI_9605_98', 'Lei 9.605/98 - Ambiental', '50-A', NULL, FALSE, 'Crimes contra o meio ambiente', '3', NULL),
+('LEI_9605_98', 'Lei 9.605/98 - Ambiental', '54', NULL, FALSE, 'Crimes contra o meio ambiente', '3', NULL),
+('LEI_9605_98', 'Lei 9.605/98 - Ambiental', '54', '1', TRUE, 'Crimes contra o meio ambiente', '3', 'Exceção §1º'),
+('LEI_9605_98', 'Lei 9.605/98 - Ambiental', '56', NULL, FALSE, 'Crimes contra o meio ambiente', '3', NULL),
+('LEI_9605_98', 'Lei 9.605/98 - Ambiental', '56', '3', TRUE, 'Crimes contra o meio ambiente', '3', 'Exceção §3º'),
+('LEI_9605_98', 'Lei 9.605/98 - Ambiental', '61', NULL, FALSE, 'Crimes contra o meio ambiente', '3', NULL),
+('LEI_9605_98', 'Lei 9.605/98 - Ambiental', '62', NULL, FALSE, 'Crimes contra o meio ambiente', '3', NULL),
+('LEI_9605_98', 'Lei 9.605/98 - Ambiental', '62', 'unico', TRUE, 'Crimes contra o meio ambiente', '3', 'Exceção'),
+('LEI_9605_98', 'Lei 9.605/98 - Ambiental', '63', NULL, FALSE, 'Crimes contra o meio ambiente', '3', NULL),
+('LEI_9605_98', 'Lei 9.605/98 - Ambiental', '66', NULL, FALSE, 'Crimes contra o meio ambiente', '3', NULL),
+('LEI_9605_98', 'Lei 9.605/98 - Ambiental', '67', NULL, FALSE, 'Crimes contra o meio ambiente', '3', NULL),
+('LEI_9605_98', 'Lei 9.605/98 - Ambiental', '67', 'unico', TRUE, 'Crimes contra o meio ambiente', '3', 'Exceção'),
+('LEI_9605_98', 'Lei 9.605/98 - Ambiental', '68', NULL, FALSE, 'Crimes contra o meio ambiente', '3', NULL),
+('LEI_9605_98', 'Lei 9.605/98 - Ambiental', '68', 'unico', TRUE, 'Crimes contra o meio ambiente', '3', 'Exceção'),
+('LEI_9605_98', 'Lei 9.605/98 - Ambiental', '69', NULL, FALSE, 'Crimes contra o meio ambiente', '3', NULL),
+('LEI_9605_98', 'Lei 9.605/98 - Ambiental', '69-A', NULL, FALSE, 'Crimes contra o meio ambiente', '3', NULL),
+('LEI_9605_98', 'Lei 9.605/98 - Ambiental', '69-A', '1', TRUE, 'Crimes contra o meio ambiente', '3', 'Exceção §1º');
 
 -- Lei 10.826/03 Art. 16: somente caput e §1º impeditivos (Padrão C)
 INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, eh_excecao, artigo_inteiro_impeditivo, tipo_crime, item_alinea_e, observacoes) VALUES
@@ -310,15 +618,15 @@ BEGIN
       AND t.artigo = p_artigo
       AND (
           (p_paragrafo IS NULL AND t.paragrafo IS NULL) OR
-          (p_paragrafo IS NOT NULL AND t.paragrafo = p_paragrafo)
+          (p_paragrafo IS NOT NULL AND LOWER(TRIM(t.paragrafo)) = LOWER(TRIM(p_paragrafo)))
       )
       AND (
           (p_inciso IS NULL AND t.inciso IS NULL) OR
-          (p_inciso IS NOT NULL AND t.inciso = p_inciso)
+          (p_inciso IS NOT NULL AND UPPER(TRIM(t.inciso)) = UPPER(TRIM(p_inciso)))
       )
       AND (
           (p_alinea IS NULL AND t.alinea IS NULL) OR
-          (p_alinea IS NOT NULL AND t.alinea = p_alinea)
+          (p_alinea IS NOT NULL AND UPPER(TRIM(t.alinea)) = UPPER(TRIM(p_alinea)))
       )
     ORDER BY
       (p_paragrafo IS NOT NULL AND t.paragrafo = p_paragrafo) DESC NULLS LAST,
@@ -383,15 +691,15 @@ BEGIN
               AND t.eh_excecao = TRUE
               AND (
                   (p_paragrafo IS NULL AND t.paragrafo IS NULL) OR
-                  (p_paragrafo IS NOT NULL AND t.paragrafo = p_paragrafo)
+                  (p_paragrafo IS NOT NULL AND LOWER(TRIM(t.paragrafo)) = LOWER(TRIM(p_paragrafo)))
               )
               AND (
                   (p_inciso IS NULL AND t.inciso IS NULL) OR
-                  (p_inciso IS NOT NULL AND t.inciso = p_inciso)
+                  (p_inciso IS NOT NULL AND UPPER(TRIM(t.inciso)) = UPPER(TRIM(p_inciso)))
               )
               AND (
                   (p_alinea IS NULL AND t.alinea IS NULL) OR
-                  (p_alinea IS NOT NULL AND t.alinea = p_alinea)
+                  (p_alinea IS NOT NULL AND UPPER(TRIM(t.alinea)) = UPPER(TRIM(p_alinea)))
               )
         ) INTO v_eh_excecao;
 

@@ -99,7 +99,7 @@ O monitoramento de disponibilidade é feito via **Hub Keepalive Pattern**, utili
 - `KEEPALIVE_TOKEN`: Segredo de autenticação (mesmo valor do Cloudflare Worker).
 - `KEEPALIVE_PROJECT_SLUG`: Identificador do projeto (`inelegis`).
 
-> **Detalhes completos:** Consulte [keepalive-setup.md](../guides/keepalive-setup.md) para checklist de variáveis e troubleshooting.
+> **Detalhes completos:** Consulte [keepalive-inelegis.md](../guides/keepalive-inelegis.md) para checklist de variáveis e troubleshooting.
 
 ---
 
@@ -108,9 +108,9 @@ O monitoramento de disponibilidade é feito via **Hub Keepalive Pattern**, utili
 A limpeza do histórico é protegida pelo `CRON_SECRET`.
 
 ```bash
-# Exemplo de trigger manual de limpeza (se implementado via API route)
+# Exemplo de trigger manual de limpeza (API Vercel)
 curl -X POST -H "Authorization: Bearer CRON_SECRET" \
-  https://inelegis.vercel.app/api/maintenance/cleanup
+  https://inelegis.vercel.app/api/maintenance
 ```
 
 ---
@@ -119,7 +119,7 @@ curl -X POST -H "Authorization: Bearer CRON_SECRET" \
 
 - [setup-supabase.md](../guides/setup-supabase.md) - Tabelas de auditoria.
 - [variaveis-ambiente.md](../guides/variaveis-ambiente.md) - Configuração de segredos.
-- [keepalive-setup.md](../guides/keepalive-setup.md) - Monitoramento de status.
+- [keepalive-inelegis.md](../guides/keepalive-inelegis.md) - Monitoramento de status.
 
 ---
 
@@ -127,5 +127,5 @@ _Nota: O antigo `analytics.js` foi decomissionado na v0.3.11 em favor deste sist
 
 ---
 
-_Última atualização: 20/02/2026 • v0.3.25 (Hub v0.5.8)_
+_Última atualização: 21/02/2026 • v0.3.25 (Hub v0.6.1)_
 _Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_

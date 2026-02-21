@@ -1,73 +1,103 @@
-﻿# 🚀 CI/CD e DevOps
+﻿# 🚀 DevOps e Deploy — Inelegis
 
-Este documento descreve o pipeline de integração e entrega contínua (CI/CD) do Inelegis, implementado via GitHub Actions.
-
-## 🔄 Workflow Automático
-
-O workflow principal está definido em `.github/workflows/ci-cd.yml`. Ele é acionado automaticamente em:
-
-- **Push** na branch `main`.
-- **Pull Requests** direcionados para a branch `main`.
-
-### Estrutura do Pipeline
-
-O pipeline segue o princípio de **Fail Fast** e é dividido em dois jobs principais:
-
-#### 1. 🛡️ Quality Gate (Validação)
-
-Este estágio roda em paralelo e bloqueia o processo se qualquer verificação falhar.
-
-| Etapa                | Comando                        | Descrição                                                                                                                        |
-| -------------------- | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------- |
-| **Security Audit**   | `npm audit --audit-level=high` | Verifica vulnerabilidades em dependências. Falha só para high/critical; moderate são aceitas. Ver nota abaixo sobre `overrides`. |
-| **Linting**          | `npm run lint`                 | Valida estilo de código (JS, CSS, HTML).                                                                                         |
-| **Theme Validation** | `npm run validate:theme`       | Garante integridade das variáveis de tema e consistência visual.                                                                 |
-| **Tests**            | `npm run test:all`             | Executa testes unitários e de componentes.                                                                                       |
-| **Docs Check**       | `npm run doc:check`            | Verifica integridade da documentação.                                                                                            |
-
-> **Sobre `npm audit --audit-level=high`:** Sem o parâmetro, o comando falha para qualquer vulnerabilidade (incl. moderate/low). Com `--audit-level=high`, falha apenas para high e critical. O projeto possui 4 vulnerabilidades moderadas (ajv no ESLint) sem correção sem breaking change; o `package.json` usa `overrides` (minimatch, html-validate/ajv) para mitigar as demais.
-
-#### 2. 🏗️ Build Verification
-
-Executado apenas se o _Quality Gate_ for aprovado.
-
-| Etapa     | Comando         | Descrição                                            |
-| --------- | --------------- | ---------------------------------------------------- |
-| **Build** | `npm run build` | Compila o projeto para produção (diretório `dist/`). |
+Guia unificado de CI/CD, deploy e manutenção do Inelegis.
 
 ---
 
-## 🛠️ Scripts de Deploy Manual (Legado/Servidor)
+## 🏗️ Arquitetura
 
-Para ambientes que não utilizam o deploy automático do GitHub (ex: servidores Linux dedicados), scripts auxiliares estão disponíveis em `scripts/`:
+- **Produção (Vercel):** HTML/JS/CSS estático + APIs serverless em `/api`. Deploy automático a cada push na `main`.
+- **Desenvolvimento:** Node.js (`serve.js`) para Live Reload e proxy das APIs.
+- **Persistência:** Supabase para histórico de consultas, base jurídica (`crimes_inelegibilidade`) e analytics.
 
-- **`scripts/deploy-server.sh`**: Script Shell para deploy em servidores Apache/Nginx (Linux). Realiza backup, cópia de arquivos e configuração de permissões.
+---
 
-> **Nota:** O deploy preferencial é via CI/CD. Scripts manuais devem ser usados apenas em cenários específicos de infraestrutura on-premise.
+## 🔄 CI/CD (GitHub Actions)
+
+O workflow está definido em `.github/workflows/ci-cd.yml`, acionado em **push** ou **PR** para `main`.
+
+### Estrutura do Pipeline
+
+#### 1. 🛡️ Quality Gate (Validação)
+
+| Etapa                | Comando                        | Descrição                                                                                                                   |
+| -------------------- | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------- |
+| **Security Audit**   | `npm audit --audit-level=high` | Verifica vulnerabilidades. Falha só para high/critical; moderate são aceitas. Ver nota sobre `overrides` no `package.json`. |
+| **Linting**          | `npm run lint`                 | Valida estilo (JS, CSS, HTML).                                                                                              |
+| **Theme Validation** | `npm run validate:theme`       | Garante integridade das variáveis de tema.                                                                                  |
+| **Tests**            | `npm run test:all`             | Testes unitários e de componentes.                                                                                          |
+| **Docs Check**       | `npm run doc:check`            | Verifica integridade da documentação.                                                                                       |
+
+#### 2. 🏗️ Build Verification
+
+| Etapa      | Comando         | Descrição                                   |
+| ---------- | --------------- | ------------------------------------------- |
+| **Build**  | `npm run build` | Compila para produção (diretório `dist/`).  |
+| **Docker** | (implícito)     | Garante que o Dockerfile não está quebrado. |
+
+---
+
+## 🚀 Deploy Manual
+
+> **Preferência:** Deploy via CI/CD (push na `main`). Deploy manual apenas para cenários específicos.
+
+### Opção A: Vercel (Recomendado para Produção)
+
+1. Conecte o repositório GitHub ao projeto Vercel.
+2. Configure as variáveis em _Settings → Environment Variables_: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` e demais conforme [variaveis-ambiente.md](variaveis-ambiente.md).
+3. O deploy é automático a cada push na `main`.
+
+### Opção B: Docker Compose (VPS/On-Premise)
+
+1. Clone o repositório.
+2. Na raiz: `docker-compose up -d --build`
+3. Aplicação em `http://localhost:3000`.
+
+### Requisitos de Ambiente
+
+Crie `.env.local` baseado em `.env.example`:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJ...
+NODE_ENV=production
+```
+
+### Scripts Legado
+
+`scripts/deploy-server.sh` — deploy em Apache/Nginx (Linux): backup, cópia de arquivos e permissões.
+
+---
+
+## 🩺 Monitoramento e Manutenção
+
+### Logs (Docker)
+
+```bash
+docker-compose logs -f app
+```
+
+### Manutenção de Dados
+
+A limpeza do histórico é feita via `POST /api/maintenance` (Serverless Function), geralmente acionada por Cron Job externo. Ver [auditoria-e-monitoramento.md](../operations/auditoria-e-monitoramento.md).
 
 ---
 
 ## 🔐 Variáveis do CI (GitHub Secrets)
 
-O pipeline usa secrets configurados em **Settings > Secrets and variables > Actions**. Para referência detalhada (por que cada variável é usada, padrão do Hub, placeholders vs credenciais reais):
+O pipeline usa secrets em **Settings > Secrets and variables > Actions**:
 
-→ **[Variáveis do GitHub Actions (CI)](ci-variaveis-github.md)**
+→ **[Variáveis do GitHub Actions](ci-variaveis-github.md)** — referência detalhada.
 
 Para configurar o token do Hub em novos satélites: [hub-access-token-ci.md](hub-access-token-ci.md).
 
 ---
 
-## 📦 Versionamento e Releases
+## 📦 Versionamento
 
-O projeto segue [Semantic Versioning](https://semver.org/).
-
-- **Major (X.0.0)**: Breaking changes.
-- **Minor (0.X.0)**: Novas features compatíveis.
-- **Patch (0.0.X)**: Correções de bugs.
-
-O histórico de versões é mantido estritamente no [CHANGELOG.md](../../CHANGELOG.md).
+O projeto segue [Semantic Versioning](https://semver.org/). Histórico em [CHANGELOG.md](../../CHANGELOG.md).
 
 ---
 
-_Última atualização: 20/02/2026 • v0.3.25 (Hub v0.5.8)_
-_Editado via: Cursor | Modelo: Auto | OS: Windows 11_
+_Última atualização: 21/02/2026 • v0.3.25 (Hub v0.6.1)_
+_Editado via: Cursor | Modelo: claude-4.6-opus | OS: Windows 11_

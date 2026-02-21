@@ -2,7 +2,7 @@
 
 **Data da Auditoria:** 09/02/2026 (conteúdo); revisão de referências: 16/02/2026  
 **Tabela de Referência:** Corregedoria Regional Eleitoral de São Paulo (outubro/2024)  
-**Migration Analisada:** `20260121000000_tabela_oficial_completa.sql` (reconsolidada em v0.3.16)
+**Migration Analisada:** `20260225000000_crimes_inelegibilidade.sql` (reconsolidada em 25/02/2026; substitui tabelas `normas`, `artigos_inelegiveis`, `artigos_excecoes`)
 
 **Status:** ✅ **CONFORME COM RESSALVAS**
 
@@ -10,7 +10,7 @@
 
 ## 📊 Resumo Executivo
 
-A migration `20260121000000_tabela_oficial_completa.sql` está **substancialmente alinhada** com a tabela oficial da Corregedoria Regional Eleitoral de São Paulo, atualizada em outubro/2024. A estrutura contempla todos os elementos principais da LC 64/90, atualizada pela LC 135/2010.
+A migration `20260225000000_crimes_inelegibilidade.sql` está **substancialmente alinhada** com a tabela oficial da Corregedoria Regional Eleitoral de São Paulo, atualizada em outubro/2024. A estrutura contempla todos os elementos principais da LC 64/90, atualizada pela LC 135/2010.
 
 ### ✅ Pontos Conformes
 
@@ -114,7 +114,7 @@ A tabela oficial menciona que houve atualização em outubro/2024, incluindo:
 
 ### 4. **Reconsolidação v0.3.16**
 
-Em v0.3.16 a migration `20260121000000_tabela_oficial_completa.sql` foi **reconsolidada** (sincronização total com as 4 páginas da tabela oficial). A **normalização de case** (códigos em MAIÚSCULAS) foi implementada na **RPC `verificar_elegibilidade`**. A lógica atual (v202602201) segue a **interpretação da tabela CRE** usada pelos servidores do TRE: match exato; sem match → artigo inexistente NAO_CONSTA; artigo inteiro impeditivo (ex.: Art. 121) e dispositivo fora das exceções → INELEGIVEL; dispositivos enumerados (ex.: Art. 122 §1–7) e fora do rol → ELEGIVEL. Ver [interpretacao-tabela-oficial.md](references/interpretacao-tabela-oficial.md). Esta auditoria continua referindo-se ao conteúdo jurídico da base (conformidade CRE out/2024).
+Em 25/02/2026 a migration `20260225000000_crimes_inelegibilidade.sql` foi consolidada (substituindo o schema anterior) (sincronização total com as 4 páginas da tabela oficial). A **normalização de case** (códigos em MAIÚSCULAS) foi implementada na **RPC `verificar_elegibilidade`**. A lógica atual (v202602201) segue a **interpretação da tabela CRE** usada pelos servidores do TRE: match exato; sem match → artigo inexistente NAO_CONSTA; artigo inteiro impeditivo (ex.: Art. 121) e dispositivo fora das exceções → INELEGIVEL; dispositivos enumerados (ex.: Art. 122 §1–7) e fora do rol → ELEGIVEL. Ver [interpretacao-tabela-oficial.md](references/interpretacao-tabela-oficial.md). Esta auditoria continua referindo-se ao conteúdo jurídico da base (conformidade CRE out/2024).
 
 ### 5. **Observações Adicionais**
 
@@ -128,7 +128,7 @@ A migration inclui observações detalhadas sobre:
 
 ## 🎯 Conclusão
 
-A migration `20260121000000_tabela_oficial_completa.sql` está **CONFORME** com a tabela oficial da Corregedoria Regional Eleitoral de São Paulo. Todos os crimes, exceções e categorias estão corretamente mapeados.
+A migration `20260225000000_crimes_inelegibilidade.sql` está **CONFORME** com a tabela oficial da Corregedoria Regional Eleitoral de São Paulo. Todos os crimes, exceções e categorias estão corretamente mapeados.
 
 ### Recomendações:
 
@@ -139,5 +139,5 @@ A migration `20260121000000_tabela_oficial_completa.sql` está **CONFORME** com 
 
 ---
 
-_Última atualização: 20/02/2026 • v0.3.25 (Hub v0.5.8)_
+_Última atualização: 21/02/2026 • v0.3.25 (Hub v0.6.1)_
 _Editado via: Cursor | Modelo: Auto | OS: Windows 11_

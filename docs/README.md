@@ -20,7 +20,7 @@ Bem-vindo à documentação oficial do projeto **Inelegis**.
 ### 🛠️ Guias
 
 - **[Guia de Desenvolvimento](guides/development.md)** – arquitetura, módulos, testes e padrões
-- **[DevOps e CI/CD](guides/devops.md)** – pipeline de automação e deploy
+- **[DevOps e Deploy](guides/devops.md)** – CI/CD, deploy (Vercel, Docker) e manutenção
 - **[Guia de Manutenção](guides/maintenance.md)** – atualização de dados, validação e deploy
 - **[Variáveis de Ambiente](guides/variaveis-ambiente.md)** – catálogo de variáveis
 - **[HUB_ACCESS_TOKEN e CI/CD](guides/hub-access-token-ci.md)** – configurar token do Hub para GitHub Actions em satélites
@@ -31,11 +31,10 @@ Bem-vindo à documentação oficial do projeto **Inelegis**.
 
 - **[Auditoria e Monitoramento](operations/auditoria-e-monitoramento.md)** – rastreabilidade, fundamentação e Keepalive
 - **[Proteção](operations/protection.md)** – estratégias de edição segura e hardening
-- **[Keepalive (Hub Keepalive Pattern)](guides/keepalive-setup.md)** – monitoramento de uptime do banco de dados
-- **[Config Keepalive (Inelegis)](guides/keepalive-config-inelegis.md)** – configuração específica do projeto
+- **[Keepalive (Inelegis)](guides/keepalive-inelegis.md)** – monitoramento de uptime do banco (Hub Keepalive Pattern)
 - **[Troubleshooting Vercel](guides/troubleshooting-vercel-deploy.md)** – erros de deploy e variáveis
-- **[Deploy manual (Docker/Vercel)](guides/devops-manual.md)** – opções de implantação sem CI
 - **[Auditoria Tabela Oficial](auditoria-tabela-oficial.md)** – conformidade CRE vs migration
+- **[Conferência Leis CRE vs Banco](guides/conferencia-leis-cre-vs-banco.md)** – leis presentes/ausentes no banco
 
 ### 🎨 Design System
 
@@ -46,7 +45,7 @@ Bem-vindo à documentação oficial do projeto **Inelegis**.
 ### 🗂️ Histórico e Versões
 
 - **[Changelog](../CHANGELOG.md)** – histórico consolidado de versões e mudanças
-- **[Refatoração v0.0.6](history/refatoracao-v0.0.6.md)** – arquivo histórico (não operacional)
+- **[Refatoração v0.0.6](archive/2025-12-01-refatoracao-v0-0-6.md)** – histórico arquivado (Dez/2025)
 - **Commits e Versionamento (Hotfix crítico)**: veja o repositório `e:\Agents` – seção “Commits e Versionamento”
 
 ### 📁 Referências
@@ -74,13 +73,12 @@ docs/
 │
 ├── guides/                     # Guias de desenvolvimento e manutenção
 │   ├── development.md
-│   ├── devops.md               # CI/CD (GitHub Actions)
-│   ├── devops-manual.md        # Deploy manual (Docker, Vercel)
+│   ├── devops.md               # CI/CD, deploy e manutenção
 │   ├── hub-access-token-ci.md  # Token do Hub para CI em satélites
 │   ├── ci-variaveis-github.md  # Variáveis do GitHub Actions (detalhado)
 │   ├── migrations-status.md    # Status de migrations (local vs Supabase)
-│   ├── keepalive-setup.md
-│   ├── keepalive-config-inelegis.md
+│   ├── conferencia-leis-cre-vs-banco.md # Leis presentes/ausentes vs CRE
+│   ├── keepalive-inelegis.md    # Keepalive (Hub Pattern)
 │   ├── maintenance.md
 │   ├── setup-supabase.md
 │   ├── troubleshooting-vercel-deploy.md
@@ -90,15 +88,17 @@ docs/
 │   ├── auditoria-e-monitoramento.md
 │   └── protection.md
 │
-├── history/                    # Releases e marcos do projeto
-│   └── refatoracao-v0.0.6.md
-│
 ├── references/                 # Materiais oficiais e anexos
 │   └── manual-ase.md
 │
 └── archive/                    # Documentos arquivados
     ├── CHANGELOG_V0.md
-    └── 2026-02-08-audit-relatorio-deep-dive.md
+    ├── CHANGELOG_V0_3_early.md
+    ├── 2026-02-08-audit-relatorio-deep-dive.md
+    ├── 2026-02-15-revisao-tabela-crimes-inelegibilidade.md
+    ├── 2026-02-21-relatorio-doc-janitor.md
+    ├── 2026-02-21-inventario-documentacao.md
+    └── 2025-12-01-refatoracao-v0-0-6.md
 ```
 
 ## 📐 Padrão de Formato
@@ -120,5 +120,5 @@ Para manter consistência entre todos os documentos, siga o padrão centralizado
 
 ---
 
-_Última atualização: 20/02/2026 • v0.3.25 (Hub v0.5.8)_
+_Última atualização: 21/02/2026 • v0.3.25 (Hub v0.6.1)_
 _Editado via: Cursor | Modelo: claude-4.6-opus | OS: Windows 11_

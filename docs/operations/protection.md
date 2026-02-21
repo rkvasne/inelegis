@@ -13,16 +13,16 @@ Este documento explica como o projeto está protegido contra corrupção acident
 
 ## 🛡️ Componentes Protegidos
 
-### Footer Component (`src/js/modules/components.js`)
+### Footer Component (`src/js/components/components.js`)
 
 O footer faz parte do módulo `Components`. **NUNCA edite o HTML do footer diretamente nos arquivos `.html`**.
 
-> **Importante:** o código-fonte mora em `src/js/modules/components.js` e é enviado para `public/assets/js/modules/components.js` via `npm run sync:js` (executado automaticamente pelo `npm run dev/build`). Sempre altere o arquivo em `src/` e sincronize antes de commitar.
+> **Importante:** o código-fonte mora em `src/js/components/components.js` e é enviado para `public/assets/js/components/components.js` via `npm run sync:js` (executado automaticamente pelo `npm run dev/build`). Sempre altere o arquivo em `src/` e sincronize antes de commitar.
 
 **Como atualizar o footer:**
 
-1. Edite apenas a função `renderFooter()` em `src/js/modules/components.js`
-2. Execute `npm run sync:js` (ou `npm run dev`) para atualizar `public/assets/js/modules/components.js`
+1. Edite apenas a função `renderFooter()` em `src/js/components/components.js`
+2. Execute `npm run sync:js` (ou `npm run dev`) para atualizar `public/assets/js/components/components.js`
 3. O footer será automaticamente injetado em todas as páginas
 4. Teste em todas as páginas antes de commitar
 
@@ -190,5 +190,5 @@ Adicione validação no build:
 
 ---
 
-_Última atualização: 20/02/2026 • v0.3.25 (Hub v0.5.8)_
+_Última atualização: 21/02/2026 • v0.3.25 (Hub v0.6.1)_
 _Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_

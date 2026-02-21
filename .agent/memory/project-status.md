@@ -1,6 +1,6 @@
 # 📊 Project Status & Context
 
-> **Last Updated:** 15/02/2026
+> **Last Updated:** 21/02/2026
 > **Current Phase:** Testes com usuários reais / Zeladoria
 > **Project Version:** v0.3.25 (SSoT Synchronized)
 
@@ -28,7 +28,7 @@
 
 - [x] **Resiliência de Build v0.3.16**: Correção técnica no script de configuração do Supabase com diagnósticos avançados e sincronização dinâmica de versão em todos os relatórios (Build/Test).
 - [x] **Refatoração Clean Code v0.3.16**: Desacoplamento da UI via `ResultRenderer` e unificação de funções RPC no Supabase, eliminando débito técnico e OIDs duplicados.
-- [x] **Consolidação SSoT v0.3.16**: Reconstrução total da migration `20260121000000_tabela_oficial_completa.sql` sincronizada com as 4 páginas da tabela oficial da Corregedoria (Outubro/2024).
+- [x] **Consolidação SSoT v0.3.16 → v0.3.25**: Migration `20260225000000_crimes_inelegibilidade.sql` (tabela única `crimes_inelegibilidade`) sincronizada com a tabela oficial da Corregedoria (Outubro/2024). Substitui o schema anterior (normas, artigos_inelegiveis, artigos_excecoes).
 - [x] **Normalização Técnica**: Padronização global de códigos de normas para MAIÚSCULAS no banco de dados, eliminando erros de case-sensitivity.
 - [x] **Lógica de Fallback de Elegibilidade**: Aprimoramento da função RPC para validar o artigo principal (caput) caso parágrafos específicos não estejam mapeados individualmente.
 - [x] **Zeladoria de Estrutura**: Regeneração completa dos metadados técnicos em `supabase/structure/` via Bridge Mode do Hub.
@@ -72,6 +72,7 @@
 
 **Log de Governança/Sessão:**
 
+- 21/02/2026: **docs(consolidacao + Prompt 19):** Unificação de docs (devops, keepalive), arquivamento (revisao-tabela, relatorio-doc-janitor, inventario, refatoracao), correções (paths components, endpoint maintenance, setup 5 migrations, test-supabase crimes_inelegibilidade). CHANGELOG [Unreleased], project-status, verify OK.
 - 20/02/2026: **fix(401 historico):** Frontend search-history usa POST /api/search-history (API Vercel com service_role) em vez de Supabase direto; migration 00150; docs atualizados. Commit e push.
 - 15/02/2026: **Prompt #19 (checkpoint sem bump):** Docs pendentes: supabase/migrations/README (4 migrations), api-reference (payload search expandido), api/README (tabelas SSoT), development (search-history 12 params). CHANGELOG [Unreleased].
 - 15/02/2026: **v0.3.25 (Prompt #19 com bump):** fix(historico) add_to_history expandido (12 params), API usa RPC, docs atualizados. Bump 0.3.24 → 0.3.25.
@@ -99,5 +100,5 @@
 
 ---
 
-_Última atualização: 15/02/2026 • v0.3.25 (Hub v0.5.8)_
+_Última atualização: 21/02/2026 • v0.3.25 (Hub v0.6.1)_
 _Editado via: Cursor | Modelo: Auto | OS: Windows 11_

@@ -805,6 +805,43 @@ code {
   border-top: 1px solid var(--border-color);
 }
 
+/* Hint: caput quando campos vazios */
+.u-consulta-caput-hint {
+  margin: 0.75rem 0 0;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: var(--text-muted);
+  background: var(--bg-tertiary, #f8fafc);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--primary-400);
+}
+
+/* Aviso: uma consulta por vez (não combinar artigos) */
+.u-consulta-limitation {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--text-secondary);
+  background: var(--bg-tertiary, #f8fafc);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+}
+
+.u-consulta-limitation svg {
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+  color: var(--text-muted);
+}
+
+.u-consulta-limitation p {
+  margin: 0;
+}
+
 /* Dark mode adjustments */
 .dark-theme .refinement-details {
   background: var(--bg-secondary);
@@ -821,6 +858,11 @@ code {
 
 .dark-theme .refinement-content {
   border-top-color: var(--border-color);
+}
+
+.dark-theme .u-consulta-caput-hint,
+.dark-theme .u-consulta-limitation {
+  background: var(--bg-secondary);
 }
 
 /* Responsive: inputs empilhados em mobile */

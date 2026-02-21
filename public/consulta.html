@@ -220,8 +220,19 @@
                                         oninput="this.value = this.value.toLowerCase().replace(/[^a-z]/g, '')">
                                 </div>
                             </div>
+                            <p class="u-consulta-caput-hint">
+                                <strong>Caput:</strong> Ao deixar Parágrafo, Inciso e Alínea vazios (ou selecionar apenas Lei + Artigo e pesquisar), você já está consultando o <strong>caput</strong> do artigo.
+                            </p>
                         </div>
                     </details>
+
+                    <!-- Aviso: uma consulta por vez -->
+                    <div class="u-consulta-limitation" aria-live="polite">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <p><strong>Uma consulta por vez.</strong> Não há suporte para combinar artigos diferentes (ex.: Art. 121 e Art. 122 na mesma busca). Para consultar mais de um artigo, faça pesquisas separadas e avalie os resultados manualmente.</p>
+                    </div>
 
                     <!-- Botão de Ação -->
                     <div class="u-flex-end u-mt-6">

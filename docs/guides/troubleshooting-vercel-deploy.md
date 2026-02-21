@@ -1,7 +1,7 @@
 ﻿# ⚠️ Troubleshooting: Deploy na Vercel
 
-> **Última atualização:** 15/02/2026  
-> **Versão do Projeto:** v0.3.22
+> **Última atualização:** 21/02/2026  
+> **Versão do Projeto:** v0.3.25
 
 ---
 
@@ -59,13 +59,9 @@ vercel env add NEXT_PUBLIC_SUPABASE_ANON_KEY production
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | ✅ SIM       | Frontend (RPC calls, auth)       |
 | `SUPABASE_SERVICE_ROLE_KEY`     | ✅ SIM       | Backend (API routes, bypass RLS) |
 
-### Keepalive (Opcional, mas recomendado)
+### Keepalive (NÃO na Vercel)
 
-| Variável                 | Obrigatória? | Onde usar                 |
-| ------------------------ | ------------ | ------------------------- |
-| `KEEPALIVE_TOKEN`        | ⚙️ Opcional  | `/api/keepalive` route    |
-| `KEEPALIVE_PROJECT_SLUG` | ⚙️ Opcional  | Metadados do ping         |
-| `KEEPALIVE_ENVIRONMENT`  | ⚙️ Opcional  | Identificação do ambiente |
+O Inelegis usa **Supabase Edge Function** para Keepalive, não rota na Vercel. As variáveis `KEEPALIVE_TOKEN`, `KEEPALIVE_PROJECT_SLUG` e `KEEPALIVE_ENVIRONMENT` devem ser configuradas nos **Supabase Secrets** (Edge Functions), não nas Environment Variables da Vercel. Consulte [keepalive-inelegis.md](./keepalive-inelegis.md).
 
 ---
 
@@ -81,7 +77,7 @@ vercel env add NEXT_PUBLIC_SUPABASE_ANON_KEY production
 
 - [Setup Supabase](./setup-supabase.md)
 - [Hub Keepalive Pattern](../../.agent/hub/system/scaffolding/keepalive/README.md)
-- [Guia de Keepalive (setup)](./keepalive-setup.md)
+- [Guia de Keepalive (Inelegis)](./keepalive-inelegis.md)
 
 ---
 
@@ -94,4 +90,4 @@ vercel env add NEXT_PUBLIC_SUPABASE_ANON_KEY production
 
 ---
 
-_Criado em: 15/02/2026 • Contexto: Incidente de deploy v0.3.16_
+_Última atualização: 21/02/2026 • v0.3.25 (Hub v0.6.1)_

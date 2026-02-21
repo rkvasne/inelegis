@@ -1,5 +1,7 @@
 ﻿# Revisão da Tabela crimes_inelegibilidade (15/02/2026)
 
+> **Arquivado:** Documento histórico. O estado atual está em [interpretacao-tabela-oficial.md](../references/interpretacao-tabela-oficial.md).
+
 Auditoria completa contra a tabela oficial CRE-SP (out/2024).
 
 ---
@@ -51,5 +53,4 @@ Auditoria completa contra a tabela oficial CRE-SP (out/2024).
 
 ---
 
-_Última atualização: 15/02/2026_
-_Editado via: Cursor | Modelo: Auto | OS: Windows 11_
+_Arquivado em: 21/02/2026 • Original: docs/guides/revisao-tabela-15022026.md_

@@ -48,9 +48,9 @@ if (!SUPABASE_URL || !SUPABASE_KEY || SUPABASE_URL.includes("seu-projeto")) {
 
 async function testConnection() {
   try {
-    // Testar listando as normas
+    // Testar listando as leis (crimes_inelegibilidade)
     const response = await fetch(
-      `${SUPABASE_URL}/rest/v1/normas?select=codigo,nome_curto&limit=5`,
+      `${SUPABASE_URL}/rest/v1/crimes_inelegibilidade?select=codigo,lei&limit=5`,
       {
         headers: {
           apikey: SUPABASE_KEY,
@@ -67,14 +67,14 @@ async function testConnection() {
     const data = await response.json();
 
     console.log("\n✅ CONEXÃO SUPABASE OK!");
-    console.log("\n📊 Normas encontradas:", data.length);
+    console.log("\n📊 Leis no banco:", data.length);
 
     if (data.length > 0) {
-      console.log("\n📋 Primeiras normas:");
-      data.forEach((n) => console.log(`   - ${n.codigo}: ${n.nome_curto}`));
+      console.log("\n📋 Primeiras leis:");
+      data.forEach((n) => console.log(`   - ${n.codigo}: ${n.lei || "(lei)"}`));
     } else {
       console.log(
-        "\n⚠️  Nenhuma norma encontrada. Verifique se as migrations 002-005 foram executadas.",
+        "\n⚠️  Nenhuma lei encontrada. Verifique se a migration crimes_inelegibilidade foi executada.",
       );
     }
 
@@ -94,7 +94,7 @@ async function testConnection() {
       console.log("✅ Tabela historico_consultas existe!");
     } else {
       console.log(
-        "⚠️  Tabela historico_consultas não encontrada. Execute a migration 006.",
+        "⚠️  Tabela historico_consultas não encontrada. Execute as migrations (ver migrations-status.md).",
       );
     }
 
