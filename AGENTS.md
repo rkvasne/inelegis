@@ -202,5 +202,5 @@ edit public/consulta.html
 
 ---
 
-_Última atualização: 15/02/2026 • v0.3.25 (Hub v0.5.9)_
+_Última atualização: 15/02/2026 • v0.3.25 (Hub v0.6.1)_
 _Editado via: Cursor | Modelo: Auto | OS: Windows 11_

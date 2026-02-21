@@ -6,7 +6,7 @@ trigger: always_on
 
 > **Hub Link:** `.agent/hub/` (READ-ONLY)
 > **Priority:** P0 (GEMINI.md) > P1 (Persona) > P2 (Skill)
-> **Hub Version:** v0.5.9
+> **Hub Version:** v0.6.1
 > **Isolamento:** Hub ↔ Satélite (Governança Bidirecional)
 
 Este projeto consome inteligência centralizada do Solo Dev Hub através de Junctions.
@@ -51,6 +51,17 @@ PERGUNTA: Estou identificando meu modelo corretamente?
 ├─ Use EXATAMENTE o valor da sua identidade real.
 ├─ NÃO invente (ex: não diga "Gemini" se você é "Claude").
 └─ ✅ Prossiga com a ação.
+```
+
+### Gate 4: Âncora de Identidade (Anti-Alucinação)
+
+```
+PERGUNTA: O projeto que estou editando é realmente o "meu" projeto atual?
+├─ VALIDE via: Corpus Mapping, status de memória e âncora GEMINI.
+├─ SE OPERANDO FORA DA RAIZ DO PROJETO IDENTIFICADO:
+│   • 🛑 PARE IMEDIATAMENTE. Você está em **Transgressão de Jurisdição**.
+│   • PEÇA autorização explícita para cruzar fronteiras.
+└─ ✅ Prossiga se estiver dentro da sua **competência de execução**.
 ```
 
 ---
@@ -119,6 +130,6 @@ Ao finalizar uma tarefa:
 
 ---
 
-_Configurado via Solo Dev Hub (v0.5.9)_
+_Configurado via Solo Dev Hub (v0.6.1)_
 _Última atualização: 15/02/2026_
 _Editado via: Cursor | Modelo: claude-opus-4.6 | OS: Windows 11_
