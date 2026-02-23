@@ -90,8 +90,16 @@ test("getArticlesByLaw deve retornar [] quando não inicializado", async () => {
 
 test("init deve retornar false quando Supabase não configurado", async () => {
   const svc = new ValidatorService();
-  const ok = await svc.init();
-  assert.equal(ok, false);
+  const supabase = await import("../src/js/services/supabase-client.js");
+  const originalIsConfigured = supabase.supabaseClient.isConfigured;
+  supabase.supabaseClient.isConfigured = () => false;
+
+  try {
+    const ok = await svc.init();
+    assert.equal(ok, false);
+  } finally {
+    supabase.supabaseClient.isConfigured = originalIsConfigured;
+  }
 });
 
 test("verifyEligibility deve propagar result[0] quando RPC retorna array", async () => {
