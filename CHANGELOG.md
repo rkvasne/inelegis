@@ -15,6 +15,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ### docs
 
+- **docs(checkpoint-keepalive):** Prompt 19 executado após ajustes do Prompt 26: documentação alinhada para migração `20260226000100_keepalive_hub_compat.sql`, checklist de apply/deploy reforçado e registro de evidência de recência (ping manual com `KEEPALIVE_AGE_MIN=0` durante auditoria).
 - **docs(governança):** Execução do Prompt 18 com sincronização obrigatória de `AGENTS.md` e `GEMINI.md` ao template do Hub v0.6.1, preservando regras locais de SSoT para `public/assets/js`.
 - **docs(checkpoint):** Execução do Prompt 19 (sem bump) com revisão ampla de documentação: alinhamento de versões (`v0.3.27`) em PRD, API Reference, Troubleshooting e Development; auditoria final CRE consolidada em `auditoria-tabela-oficial.md` e `interpretacao-tabela-oficial.md`; atualização da memória em `.agent/memory/project-status.md`.
 - **docs(v2-cc):** Atualização dos guias de migration/setup/API para incluir a RPC `verificar_elegibilidade_v2` e o fluxo de combinações condicionais (`c.c.`).
