@@ -49,7 +49,7 @@ supabase db push
 
 #### Via SQL Editor (Dashboard)
 
-Execute os 7 arquivos em ordem conforme [migrations-status.md](migrations-status.md): crimes_inelegibilidade → historico_consultas → grant_rpc_anon → analytics → keepalive → cleanup_extras_nao_cre → verificar_elegibilidade_v2_compostas.
+Execute os 8 arquivos em ordem conforme [migrations-status.md](migrations-status.md): crimes_inelegibilidade → historico_consultas → grant_rpc_anon → analytics → keepalive → cleanup_extras_nao_cre → verificar_elegibilidade_v2_compostas → keepalive_hub_compat.
 
 ### 4. Testar Conexão
 

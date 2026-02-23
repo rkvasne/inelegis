@@ -52,7 +52,7 @@ async function handleKeepalive(env, request) {
       body: JSON.stringify({
         source: "cloudflare-worker",
         project_slug: KEEPALIVE_PROJECT_SLUG || undefined,
-        environment: KEEPALIVE_ENVIRONMENT || "production",
+        environment: KEEPALIVE_ENVIRONMENT || "prod",
         region: resolveRegion(env, request),
         timestamp: new Date().toISOString(),
       }),

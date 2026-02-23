@@ -46,7 +46,7 @@ Bem-vindo à documentação oficial do projeto **Inelegis**.
 
 - **[Changelog](../CHANGELOG.md)** – histórico consolidado de versões e mudanças
 - **[Refatoração v0.0.6](archive/2025-12-01-refatoracao-v0-0-6.md)** – histórico arquivado (Dez/2025)
-- **Commits e Versionamento (Hotfix crítico)**: veja o repositório `e:\Agents` – seção “Commits e Versionamento”
+- **Commits e Versionamento (Hotfix crítico)**: veja o [Changelog](../CHANGELOG.md) e o [Guia de Desenvolvimento](guides/development.md)
 
 ### 📁 Referências
 
@@ -102,7 +102,7 @@ docs/
 
 ## 📐 Padrão de Formato
 
-Para manter consistência entre todos os documentos, siga o padrão centralizado no repositório `e:\Agents` (seções “Documentação” e “Commits e Versionamento”).
+Para manter consistência entre todos os documentos, siga os padrões deste repositório em `AGENTS.md`, `CHANGELOG.md` e `docs/guides/development.md`.
 
 ## 🔗 Links Úteis
 
@@ -115,7 +115,7 @@ Para manter consistência entre todos os documentos, siga o padrão centralizado
 - [Código de Conduta](../CODE_OF_CONDUCT.md)
 - [Licença](../LICENSE.md)
 - [🤖 Instruções para Copilotos](../.github/copilot-instructions.md)
-- Regras para Agentes: repositório `e:\Agents`
+- [Regras para Agentes](../AGENTS.md)
 
 ---
 

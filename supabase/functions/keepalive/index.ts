@@ -60,15 +60,24 @@ Deno.serve(async (req: Request) => {
     const payload = await req.json().catch(() => ({}));
     const now = new Date().toISOString();
     const source = payload.source || "external-trigger";
+    const projectSlug = payload.project_slug || "inelegis";
+    const environment = payload.environment || "prod";
+    const latencyMs =
+      Number.isFinite(payload.response_time_ms) && payload.response_time_ms >= 0
+        ? payload.response_time_ms
+        : Number.isFinite(payload.latency_ms) && payload.latency_ms >= 0
+          ? payload.latency_ms
+          : null;
 
     // 3. Heartbeat (Status Principal)
     const { error: heartbeatError } = await supabase.from("keepalive").upsert({
       id: 1,
-      project_slug: "inelegis",
-      environment: "prod",
+      project_slug: projectSlug,
+      environment: environment,
       source: source,
       last_ping_at: now,
       last_success_at: now,
+      latency_ms: latencyMs,
       schema_version: 1,
     });
 
@@ -78,12 +87,14 @@ Deno.serve(async (req: Request) => {
     const { error: eventError } = await supabase
       .from("keepalive_events")
       .insert({
-        project_slug: "inelegis",
-        environment: "prod",
+        project_slug: projectSlug,
+        environment: environment,
         source: source,
         ping_at: now,
         status: "ok",
-        latency_ms: payload.latency_ms || null,
+        status_code: 200,
+        latency_ms: latencyMs,
+        response_time_ms: latencyMs,
         metadata: { region: payload.region || "edge" },
       });
 

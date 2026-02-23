@@ -17,6 +17,7 @@ Migrations separadas por domínio. Ordem de execução (cronológica pelo timest
 |   5   | `20260225000300_keepalive.sql`                            | Keepalive (status e eventos de heartbeat)                                 |
 |   6   | `20260225000400_cleanup_extras_nao_cre.sql`               | Limpeza idempotente de registros fora da tabela CRE (CTB/Improbidade)     |
 |   7   | `20260225000500_verificar_elegibilidade_v2_compostas.sql` | RPC `verificar_elegibilidade_v2` (suporte a c.c. e exceções condicionais) |
+|   8   | `20260226000100_keepalive_hub_compat.sql`                 | Compatibilidade Hub no keepalive (`status_code`, `response_time_ms`)      |
 
 ---
 
@@ -28,6 +29,7 @@ Migrations separadas por domínio. Ordem de execução (cronológica pelo timest
 | historico_consultas    | `historico_consultas`           | `CREATE IF NOT EXISTS` (preserva dados) |
 | analytics              | `analytics_events`              | `CREATE IF NOT EXISTS` (preserva dados) |
 | keepalive              | `keepalive`, `keepalive_events` | `CREATE IF NOT EXISTS` (preserva dados) |
+| keepalive_hub_compat   | `keepalive_events`              | `ALTER TABLE/UPDATE` (retrocompatível)  |
 
 ---
 
@@ -41,7 +43,7 @@ supabase db push
 
 ### Via SQL Editor
 
-Execute os 7 arquivos em ordem (1 → 7).
+Execute os 8 arquivos em ordem (1 → 8).
 
 ---
 
