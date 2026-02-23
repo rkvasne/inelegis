@@ -34,6 +34,7 @@ Bem-vindo à documentação oficial do projeto **Inelegis**.
 - **[Keepalive (Inelegis)](guides/keepalive-inelegis.md)** – monitoramento de uptime do banco (Hub Keepalive Pattern)
 - **[Troubleshooting Vercel](guides/troubleshooting-vercel-deploy.md)** – erros de deploy e variáveis
 - **[Auditoria Tabela Oficial](auditoria-tabela-oficial.md)** – conformidade CRE vs migration
+- **[Matriz RPC v2](auditoria-rpc-v2-matriz.md)** – evidência de validação manual dos cenários compostos/condicionais
 
 ### 🎨 Design System
 
@@ -62,6 +63,7 @@ docs/
 ├── README.md                   # Índice principal
 ├── api-reference.md            # Referência de API (Vercel + Supabase RPC)
 ├── auditoria-tabela-oficial.md # Conformidade tabela CRE vs migration
+├── auditoria-rpc-v2-matriz.md  # Matriz de validação da RPC v2 (c.c./condicionais)
 ├── prd-and-scope.md            # PRD e escopo do produto
 ├── PLAN-INITIAL.md             # Plano de partida (prompt 03)
 │

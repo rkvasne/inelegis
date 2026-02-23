@@ -20,6 +20,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 - **docs(v2-cc):** Atualização dos guias de migration/setup/API para incluir a RPC `verificar_elegibilidade_v2` e o fluxo de combinações condicionais (`c.c.`).
 - **docs(pos-migration-00500):** Registro da execução da migration `20260225000500_verificar_elegibilidade_v2_compostas.sql` no ambiente ativo e validação final de conformidade documental.
 - **docs(api-consumo):** Arquitetura de consumo atualizada para explicitar uso de `verificar_elegibilidade_v2` no fluxo composto e verificação da aplicação da migration via `supabase/structure/extract-functions.json`.
+- **docs(auditoria-rpc-v2):** Nova evidência versionada em `docs/auditoria-rpc-v2-matriz.md` com matriz de 12 casos críticos (entrada/esperado/obtido) da `verificar_elegibilidade_v2`, vinculada ao índice de docs e à auditoria principal.
 
 ### feat
 

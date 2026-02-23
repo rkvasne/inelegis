@@ -155,6 +155,12 @@ Também foi identificado um ponto de robustez na RPC:
 - ✅ RPC `verificar_elegibilidade` segue interpretação documentada em `docs/references/interpretacao-tabela-oficial.md`.
 - ✅ Padrões críticos conferidos: Art. 121 (fallback impeditivo), Art. 122 (§1-§7 enumerados), Art. 148/149-A (combinação específica), Lei 11.343/06 art. 33 (§3 exceção).
 
+### 9. **Matriz de validação RPC v2 (evidência de execução)**
+
+- ✅ Bateria manual com 12 casos críticos da `verificar_elegibilidade_v2` executada no banco ativo.
+- ✅ Resultado: 12/12 conformes (0 falhas), incluindo cenários com/sem `p_relacionados` e `p_contexto`.
+- ✅ Evidência detalhada em: [auditoria-rpc-v2-matriz.md](auditoria-rpc-v2-matriz.md).
+
 ---
 
 ## 🎯 Conclusão
