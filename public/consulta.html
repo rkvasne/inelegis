@@ -223,98 +223,110 @@
                             <p class="u-consulta-caput-hint">
                                 <strong>Caput:</strong> Ao deixar Parágrafo, Inciso e Alínea vazios (ou selecionar apenas Lei + Artigo e pesquisar), você já está consultando o <strong>caput</strong> do artigo.
                             </p>
-
-                            <div class="u-mt-4" style="border-top: 1px solid var(--border-color); padding-top: 0.875rem;">
-                                <h4 class="u-text-sm u-font-semibold u-mb-2">Quando o artigo depende de outro dispositivo (c.c.)</h4>
-                                <p class="text-xs text-neutral-600 u-mb-2">
-                                    Use este bloco quando a regra depende de combinação. Exemplo: Art. 149-A caput I a V <strong>c.c.</strong> §1º, II.
-                                </p>
-                                <p class="text-xs text-neutral-600 u-mb-3">
-                                    Passo 1: preencha os campos abaixo e clique em <strong>Adicionar à combinação</strong>.
-                                </p>
-
-                                <div class="fields-row-4-compact">
-                                    <div>
-                                        <label class="form-label u-refinement-label">Artigo relacionado</label>
-                                        <input type="text" id="ccArtigoInput" class="form-input form-input-compact" placeholder="Ex: 149-A">
-                                    </div>
-                                    <div>
-                                        <label class="form-label u-refinement-label">Parágrafo</label>
-                                        <input type="text" id="ccParagrafoInput" class="form-input form-input-compact" placeholder="Ex: 1 ou unico">
-                                    </div>
-                                    <div>
-                                        <label class="form-label u-refinement-label">Inciso</label>
-                                        <input type="text" id="ccIncisoInput" class="form-input form-input-compact" placeholder="Ex: II ou I a V">
-                                    </div>
-                                    <div>
-                                        <label class="form-label u-refinement-label">Alínea</label>
-                                        <input type="text" id="ccAlineaInput" class="form-input form-input-compact" placeholder="Ex: e">
-                                    </div>
-                                </div>
-
-                                <div class="u-flex-center-gap u-mt-2" style="justify-content: flex-start;">
-                                    <button type="button" id="btnAddRelacionado" class="btn btn-secondary btn-sm">Adicionar à combinação</button>
-                                    <button type="button" id="btnClearRelacionados" class="btn btn-secondary btn-sm">Limpar lista</button>
-                                </div>
-
-                                <ul id="relacionadosList" class="u-mt-2" style="list-style: none; margin-left: 0; padding-left: 0;">
-                                    <li class="text-xs text-neutral-500">Nenhum dispositivo adicionado na combinação.</li>
-                                </ul>
-
-                                <div class="u-mt-3">
-                                    <label class="form-label u-refinement-label">Passo 2 (opcional): detalhes do caso</label>
-                                    <p class="text-xs text-neutral-600 u-mb-2">
-                                        Abra apenas se precisar. Marque só quando a sentença indicar isso de forma clara. Em caso de dúvida, deixe desmarcado.
-                                    </p>
-
-                                    <details class="cc-context-details">
-                                        <summary class="cc-context-summary">
-                                            <span class="text-xs">Selecionar situações específicas (exceções condicionais)</span>
-                                            <svg class="cc-context-chevron" width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                                            </svg>
-                                        </summary>
-                                        <div class="cc-context-content">
-                                            <div class="cc-options-list">
-                                                <label class="text-xs cc-option-row">
-                                                    <span class="cc-option-main"><input type="checkbox" id="ctxFiguras301302"> CP art. 304 quando ligado aos arts. 301/302</span>
-                                                    <button type="button" class="cc-help-icon" aria-label="Exemplo CP art. 304" data-tooltip="Exemplo: uso de documento falso (art. 304) para acobertar favorecimento real (figuras dos arts. 301/302).">?</button>
-                                                </label>
-                                                <label class="text-xs cc-option-row">
-                                                    <span class="cc-option-main"><input type="checkbox" id="ctxRefereArt1AlineaE"> Lei 2.889/56 arts. 2º/3º quando houver referência ao art. 1º, alínea "e"</span>
-                                                    <button type="button" class="cc-help-icon" aria-label="Exemplo Lei 2.889/56" data-tooltip="Exemplo: denúncia/decisão cita art. 2º ou 3º e vincula expressamente ao art. 1º, alínea e (crime hediondo).">?</button>
-                                                </label>
-                                                <label class="text-xs cc-option-row">
-                                                    <span class="cc-option-main"><input type="checkbox" id="ctxCpmArt266Culposo"> CPM arts. 262-265 quando combinados com art. 266 (culposo)</span>
-                                                    <button type="button" class="cc-help-icon" aria-label="Exemplo CPM 262-265 com 266" data-tooltip="Exemplo: decisão aponta arts. 262-265, mas qualifica o resultado como modalidade culposa do art. 266.">?</button>
-                                                </label>
-                                                <label class="text-xs cc-option-row">
-                                                    <span class="cc-option-main"><input type="checkbox" id="ctxCp129Cc12"> CP art. 129 §§2º/3º em combinação com §12</span>
-                                                    <button type="button" class="cc-help-icon" aria-label="Exemplo CP art. 129 c.c. §12" data-tooltip="Exemplo: lesão grave/gravíssima com menção explícita de incidência do §12 no mesmo fato.">?</button>
-                                                </label>
-                                                <label class="text-xs cc-option-row">
-                                                    <span class="cc-option-main"><input type="checkbox" id="ctxLei10826Art16Cc2"> Lei 10.826/03 art. 16 em combinação com §2º</span>
-                                                    <button type="button" class="cc-help-icon" aria-label="Exemplo Lei 10.826 art. 16 c.c. §2º" data-tooltip="Exemplo: posse/porte do art. 16 com descrição expressa da hipótese qualificada do §2º.">?</button>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </details>
-                                </div>
-
-                                <div id="ccResumoSelecionado" class="cc-selection-summary u-mt-3" aria-live="polite">
-                                    <p class="text-xs text-neutral-500">Resumo da combinação: nenhum item adicional selecionado.</p>
-                                </div>
-                            </div>
                         </div>
                     </details>
 
-                    <!-- Aviso: uma consulta por vez -->
-                    <div class="u-consulta-limitation" aria-live="polite">
-                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                        <p><strong>Uma consulta por vez.</strong> Não há suporte para combinar artigos diferentes (ex.: Art. 121 e Art. 122 na mesma busca). Para consultar mais de um artigo, faça pesquisas separadas e avalie os resultados manualmente.</p>
-                    </div>
+                    <!-- Combinação c.c. (Opcional) -->
+                    <details class="refinement-details u-mt-4">
+                        <summary class="refinement-summary">
+                            <div class="u-flex-center-gap">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    style="color: var(--primary-500); flex-shrink: 0;">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 7h16M4 12h16M4 17h16"></path>
+                                </svg>
+                                <span style="font-size: 0.8125rem; font-weight: 600; color: var(--text-primary);">Combinação de Dispositivos (c.c.)</span>
+                                <span style="font-size: 0.6875rem; color: var(--text-muted); margin-left: 0.25rem;">(Opcional)</span>
+                            </div>
+                            <svg class="refinement-chevron" width="16" height="16" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </summary>
+
+                        <div class="refinement-content">
+                            <h4 class="u-text-sm u-font-semibold u-mb-2">Quando o artigo depende de outro dispositivo (c.c.)</h4>
+                            <p class="text-xs text-neutral-600 u-mb-2">
+                                Use este bloco quando a regra depende de combinação. Exemplo: Art. 149-A caput I a V <strong>c.c.</strong> §1º, II.
+                            </p>
+                            <p class="text-xs text-neutral-600 u-mb-3">
+                                Passo 1: preencha os campos abaixo e clique em <strong>Adicionar à combinação</strong>.
+                            </p>
+
+                            <div class="fields-row-4-compact">
+                                <div>
+                                    <label class="form-label u-refinement-label">Artigo relacionado</label>
+                                    <input type="text" id="ccArtigoInput" class="form-input form-input-compact" placeholder="Ex: 149-A">
+                                </div>
+                                <div>
+                                    <label class="form-label u-refinement-label">Parágrafo</label>
+                                    <input type="text" id="ccParagrafoInput" class="form-input form-input-compact" placeholder="Ex: 1 ou unico">
+                                </div>
+                                <div>
+                                    <label class="form-label u-refinement-label">Inciso</label>
+                                    <input type="text" id="ccIncisoInput" class="form-input form-input-compact" placeholder="Ex: II ou I a V">
+                                </div>
+                                <div>
+                                    <label class="form-label u-refinement-label">Alínea</label>
+                                    <input type="text" id="ccAlineaInput" class="form-input form-input-compact" placeholder="Ex: e">
+                                </div>
+                            </div>
+
+                            <div class="u-flex-center-gap u-mt-2" style="justify-content: flex-start;">
+                                <button type="button" id="btnAddRelacionado" class="btn btn-secondary btn-sm">Adicionar à combinação</button>
+                                <button type="button" id="btnClearRelacionados" class="btn btn-secondary btn-sm">Limpar lista</button>
+                            </div>
+
+                            <ul id="relacionadosList" class="u-mt-2" style="list-style: none; margin-left: 0; padding-left: 0;">
+                                <li class="text-xs text-neutral-500">Nenhum dispositivo adicionado na combinação.</li>
+                            </ul>
+
+                            <div class="u-mt-3">
+                                <label class="form-label u-refinement-label">Passo 2 (opcional): detalhes do caso</label>
+                                <p class="text-xs text-neutral-600 u-mb-2">
+                                    Abra apenas se precisar. Marque só quando a sentença indicar isso de forma clara. Em caso de dúvida, deixe desmarcado.
+                                </p>
+
+                                <details class="cc-context-details">
+                                    <summary class="cc-context-summary">
+                                        <span class="text-xs">Selecionar situações específicas (exceções condicionais)</span>
+                                        <svg class="cc-context-chevron" width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                        </svg>
+                                    </summary>
+                                    <div class="cc-context-content">
+                                        <div class="cc-options-list">
+                                            <label class="text-xs cc-option-row">
+                                                <span class="cc-option-main"><input type="checkbox" id="ctxFiguras301302"> CP art. 304 quando ligado aos arts. 301/302</span>
+                                                <button type="button" class="cc-help-icon" aria-label="Exemplo CP art. 304" data-tooltip="Exemplo: uso de documento falso (art. 304) para acobertar favorecimento real (figuras dos arts. 301/302).">?</button>
+                                            </label>
+                                            <label class="text-xs cc-option-row">
+                                                <span class="cc-option-main"><input type="checkbox" id="ctxRefereArt1AlineaE"> Lei 2.889/56 arts. 2º/3º quando houver referência ao art. 1º, alínea &quot;e&quot;</span>
+                                                <button type="button" class="cc-help-icon" aria-label="Exemplo Lei 2.889/56" data-tooltip="Exemplo: denúncia/decisão cita art. 2º ou 3º e vincula expressamente ao art. 1º, alínea e (crime hediondo).">?</button>
+                                            </label>
+                                            <label class="text-xs cc-option-row">
+                                                <span class="cc-option-main"><input type="checkbox" id="ctxCpmArt266Culposo"> CPM arts. 262-265 quando combinados com art. 266 (culposo)</span>
+                                                <button type="button" class="cc-help-icon" aria-label="Exemplo CPM 262-265 com 266" data-tooltip="Exemplo: decisão aponta arts. 262-265, mas qualifica o resultado como modalidade culposa do art. 266.">?</button>
+                                            </label>
+                                            <label class="text-xs cc-option-row">
+                                                <span class="cc-option-main"><input type="checkbox" id="ctxCp129Cc12"> CP art. 129 §§2º/3º em combinação com §12</span>
+                                                <button type="button" class="cc-help-icon" aria-label="Exemplo CP art. 129 c.c. §12" data-tooltip="Exemplo: lesão grave/gravíssima com menção explícita de incidência do §12 no mesmo fato.">?</button>
+                                            </label>
+                                            <label class="text-xs cc-option-row">
+                                                <span class="cc-option-main"><input type="checkbox" id="ctxLei10826Art16Cc2"> Lei 10.826/03 art. 16 em combinação com §2º</span>
+                                                <button type="button" class="cc-help-icon" aria-label="Exemplo Lei 10.826 art. 16 c.c. §2º" data-tooltip="Exemplo: posse/porte do art. 16 com descrição expressa da hipótese qualificada do §2º.">?</button>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </details>
+                            </div>
+
+                            <div id="ccResumoSelecionado" class="cc-selection-summary u-mt-3" aria-live="polite">
+                                <p class="text-xs text-neutral-500">Resumo da combinação: nenhum item adicional selecionado.</p>
+                            </div>
+                        </div>
+                    </details>
 
                     <!-- Botão de Ação -->
                     <div class="u-flex-end u-mt-6">
