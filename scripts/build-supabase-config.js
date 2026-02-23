@@ -88,11 +88,12 @@ const configContent = `/**
  */
 
 window.__SUPABASE_CONFIG__ = {
-    url: '${supabaseUrl}',
-    anonKey: '${supabaseAnonKey}'
+  url: ${JSON.stringify(supabaseUrl)},
+  anonKey:
+    ${JSON.stringify(supabaseAnonKey)},
 };
 
-console.log('[Supabase] Configurado para:', window.__SUPABASE_CONFIG__.url);
+console.log("[Supabase] Configurado para:", window.__SUPABASE_CONFIG__.url);
 `;
 
 const outputPath = path.join(

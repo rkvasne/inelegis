@@ -11,8 +11,9 @@ trigger: always_on
 
 Este projeto consome inteligência centralizada do Solo Dev Hub através de Junctions.
 
-**⚠️ AUTONOMIA:** Este projeto é INDEPENDENTE. O Hub apenas fornece regras para LEITURA.
-O Hub NÃO gerencia este projeto. Este projeto NÃO altera o Hub.
+**⚠️ GOVERNANÇA:** Este projeto possui AUTONOMIA LIMITADA, estando vinculado às regras e padrões do Solo Dev Hub.
+O Hub governa a inteligência e o DNA; este projeto as aplica localmente.
+Satélites NÃO alteram o Hub. Hub é READ-ONLY nesta instância.
 
 ---
 
@@ -131,5 +132,5 @@ Ao finalizar uma tarefa:
 ---
 
 _Configurado via Solo Dev Hub (v0.6.1)_
-_Última atualização: 15/02/2026_
-_Editado via: Cursor | Modelo: claude-opus-4.6 | OS: Windows 11_
+_Última atualização: 23/02/2026_
+_Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_

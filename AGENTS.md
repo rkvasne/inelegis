@@ -20,41 +20,25 @@ Este projeto integra o ecossistema Solo Dev Hub. O Agente de IA deve priorizar a
 
 Para garantir a qualidade e o nível sênior de execução, siga as regras do Hub Central em tempo real:
 
-1. **Princípios Universais (Comportamento/Comunicação):**
+1. **⚓ Âncora de Identidade (Anti-Alucinação):**
+   - **MANTATÓRIO:** Antes de agir, valide sua **jurisdição**. Sua atuação é limitada estritamente ao repositório do projeto local.
+   - Consulte: Mapeamento de Corpus (`user_information`), `.agent/memory/project-status.md` e o `GEMINI.md` local.
+   - 📖 Siga o protocolo em: `.agent/hub/brain/constitution/rule-universal-principles.md` (Seção ⚓).
+
+2. **🚫 Jurisdição de Atuação (Anti-Transgressão):**
+   - **MANDATÓRIO:** Você deve agir EXCLUSIVAMENTE dentro da raiz deste projeto. É terminantemente PROIBIDO realizar diagnósticos, auditorias ou edições em outros diretórios visíveis no workspace. Sua única interface externa autorizada é a Junction `.agent/hub/`.
+   - Se o usuário solicitar ações em outros projetos enquanto você estiver instanciado aqui, pare imediatamente e declare **Incompetência de Escopo por Limite de Jurisdição**.
+
+3. **Princípios Universais (Comportamento/Comunicação):**
    - 📖 Leia: `.agent/hub/brain/constitution/rule-universal-principles.md`
    - Aplique: Honestidade, Anti-concordância, Regra de Commits (pt-BR) e protocolos de segurança.
 
-2. **Personas & Brainstorming:**
+4. **Personas & Brainstorming:**
    - 🎭 Use: `.agent/hub/brain/personas/` (ex: `@mode-architect.md`) para mudar de modo operacional.
    - Siga: Protocolo Socrático antes de qualquer implementação complexa.
 
-3. **Capacidades (Skills):**
+5. **Capacidades (Skills):**
    - 🛠️ Use: `.agent/hub/capabilities/` para execução de tarefas técnicas (Engineering, Design, Ops).
-
----
-
-## 🎭 Modos de Operação Disponíveis
-
-Ative o modo especialista para a tarefa atual. Disponíveis via Junction em `.agent/hub/brain/personas/`:
-
-| Modo                 | Quando Usar                                     | Ativar (Cursor)       | Ativar (VSCode/TRAE) |
-| -------------------- | ----------------------------------------------- | --------------------- | -------------------- |
-| `mode-frontend`      | React, Next.js, CSS, componentes UI             | `@mode-frontend`      | `/frontend`          |
-| `mode-backend`       | API, banco de dados, Node.js, Python            | `@mode-backend`       | `/backend`           |
-| `mode-security`      | Auditoria de segurança, OWASP, vulnerabilidades | `@mode-security`      | `/security`          |
-| `mode-debugger`      | Investigação de bugs, causa raiz                | `@mode-debugger`      | `/debugger`          |
-| `mode-planner`       | Planejamento técnico, roadmap, ADRs             | `@mode-planner`       | `/planner`           |
-| `mode-quality`       | Testes, cobertura, refatoração limpa            | `@mode-quality`       | `/quality`           |
-| `mode-devops`        | CI/CD, deploy, infra, Docker                    | `@mode-devops`        | `/devops`            |
-| `mode-orchestrator`  | Tarefas complexas multi-domínio                 | `@mode-orchestrator`  | `/orchestrate`       |
-| `mode-architect`     | Design de sistema, decisões de arquitetura      | `@mode-architect`     | `/architect`         |
-| `mode-git`           | Commits, branches, PR, histórico                | `@mode-git`           | `/git`               |
-| `mode-documentation` | Docs técnicos, READMEs, guias                   | `@mode-documentation` | `/writer`            |
-| `mode-mobile`        | React Native, Flutter, apps mobile              | `@mode-mobile`        | `/mobile`            |
-| `mode-code-reviewer` | Code review, boas práticas, qualidade de PR     | `@mode-code-reviewer` | `/reviewer`          |
-
-> Arquivos completos em `.agent/hub/brain/personas/` (via Junction — READ-ONLY).
-> Em TRAE: arquivos gerados em `.trae/rules/` via `npm run build:ide:trae` no Hub.
 
 ---
 
@@ -104,8 +88,36 @@ git restore .agent/hub/
 
 Use `.agent/memory/` para armazenar informações **deste** projeto:
 
-- `project-status.md` - Estado atual do projeto
-- `tasks/` - Planejamento de tarefas
+- `project-status.md` - Estado atual, fase e objetivos do projeto
+- `gotchas.md` - Problemas conhecidos e workarounds descobertos (consulte no início de cada sessão)
+- `tasks/` - Planejamento de tarefas complexas e roadmaps
+- `templates/` — Via Junction: `.agent/hub/memory/templates/` (ADRs, preferências, gotchas)
+
+---
+
+## 🎭 Modos de Operação Disponíveis
+
+Ative o modo especialista para a tarefa atual. Cole `@modo` no chat ou use `/comando` em IDEs com slash commands.
+
+| Modo                 | Quando Usar                                     | Ativar (Cursor)       | Ativar (VSCode/TRAE) |
+| -------------------- | ----------------------------------------------- | --------------------- | -------------------- |
+| `mode-frontend`      | React, Next.js, CSS, componentes UI             | `@mode-frontend`      | `/frontend`          |
+| `mode-backend`       | API, banco de dados, Node.js, Python            | `@mode-backend`       | `/backend`           |
+| `mode-security`      | Auditoria de segurança, OWASP, vulnerabilidades | `@mode-security`      | `/security`          |
+| `mode-debugger`      | Investigação de bugs, causa raiz                | `@mode-debugger`      | `/debugger`          |
+| `mode-planner`       | Planejamento técnico, roadmap, ADRs             | `@mode-planner`       | `/planner`           |
+| `mode-quality`       | Testes, cobertura, refatoração limpa            | `@mode-quality`       | `/quality`           |
+| `mode-devops`        | CI/CD, deploy, infra, Docker                    | `@mode-devops`        | `/devops`            |
+| `mode-orchestrator`  | Tarefas complexas multi-domínio                 | `@mode-orchestrator`  | `/orchestrate`       |
+| `mode-architect`     | Design de sistema, decisões de arquitetura      | `@mode-architect`     | `/architect`         |
+| `mode-git`           | Commits, branches, PR, histórico                | `@mode-git`           | `/git`               |
+| `mode-documentation` | Docs técnicos, READMEs, guias                   | `@mode-documentation` | `/writer`            |
+| `mode-mobile`        | React Native, Flutter, apps mobile              | `@mode-mobile`        | `/mobile`            |
+| `mode-code-reviewer` | Code review, boas práticas, qualidade de PR     | `@mode-code-reviewer` | `/reviewer`          |
+
+> Arquivos completos em `.agent/hub/brain/personas/` (via Junction — READ-ONLY).
+> Em TRAE: arquivos gerados em `.trae/rules/` via `npm run build:ide:trae` no Hub.
+> Em Claude Code CLI / Kiro: leia este `AGENTS.md` — a tabela acima dá contexto imediato.
 
 ---
 
@@ -202,5 +214,5 @@ edit public/consulta.html
 
 ---
 
-_Última atualização: 15/02/2026 • v0.3.26 (Hub v0.6.1)_
-_Editado via: Cursor | Modelo: Auto | OS: Windows 11_
+_Última atualização: 23/02/2026 • v0.3.26 (Hub v0.6.1)_
+_Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_

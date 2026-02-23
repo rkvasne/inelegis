@@ -13,7 +13,13 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ## [Unreleased]
 
-- Nenhuma alteração registrada.
+### docs
+
+- **docs(governança):** Execução do Prompt 18 com sincronização obrigatória de `AGENTS.md` e `GEMINI.md` ao template do Hub v0.6.1, preservando regras locais de SSoT para `public/assets/js`.
+
+### fix
+
+- **fix(build-config):** Ajustado `scripts/build-supabase-config.js` para gerar `public/assets/js/supabase-config.js` já compatível com Prettier, evitando quebra recorrente de `format:check` após `npm run build`.
 
 ## [0.3.26] - 23/02/2026
 

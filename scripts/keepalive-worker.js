@@ -68,14 +68,17 @@ async function handleKeepalive(env, request) {
         duration_ms: duration,
         response: data,
       }),
-      { headers: { "Content-Type": "application/json" } }
+      { headers: { "Content-Type": "application/json" } },
     );
   } catch (error) {
     // eslint-disable-next-line no-console -- Worker: único canal de log
     console.error(`❌ Ping falhou: ${error.message}`);
-    return new Response(JSON.stringify({ success: false, error: error.message }), {
-      status: 500,
-      headers: { "Content-Type": "application/json" },
-    });
+    return new Response(
+      JSON.stringify({ success: false, error: error.message }),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      },
+    );
   }
 }
