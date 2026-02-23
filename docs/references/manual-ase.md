@@ -354,5 +354,5 @@ Informação com indicação do documento de registro do óbito, no formato:
 
 ---
 
-_Última atualização: 20/02/2026 • v0.3.25 (Hub v0.5.8)_
-_Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_
+_Última atualização: 23/02/2026 • v0.3.25 (Hub v0.6.1)_
+_Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_

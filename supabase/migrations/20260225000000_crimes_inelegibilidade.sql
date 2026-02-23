@@ -57,11 +57,11 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, eh_excecao, 
 
 -- Art. 148: somente § 1º, inciso IV impeditivo (Padrão C)
 INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, eh_excecao, artigo_inteiro_impeditivo, tipo_crime, item_alinea_e, observacoes) VALUES
-('CP', 'Código Penal (DL 2.848/40)', '148', '1', 'IV', FALSE, TRUE, 'Crime hediondo', '7', '§ 1º, inciso IV (Sequestro)');
+('CP', 'Código Penal (DL 2.848/40)', '148', '1', 'IV', FALSE, FALSE, 'Crime hediondo', '7', '§ 1º, inciso IV (Sequestro)');
 
 -- Art. 149-A: apenas combinação "caput I a V c.c. § 1º, II" impeditiva (Padrão C — sem linha artigo-inteiro)
 INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, eh_excecao, artigo_inteiro_impeditivo, tipo_crime, item_alinea_e, observacoes) VALUES
-('CP', 'Código Penal (DL 2.848/40)', '149-A', '1', 'II', FALSE, TRUE, 'Crime hediondo', '7', 'Caput I a V c.c. § 1º, II (Lei 14.811/24)');
+('CP', 'Código Penal (DL 2.848/40)', '149-A', '1', 'II', FALSE, FALSE, 'Crime hediondo', '7', 'Caput I a V c.c. § 1º, II (Lei 14.811/24)');
 
 -- Arts. 163 e 175: artigo inteiro impeditivo; exceções caput/incisos em linhas separadas
 INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, inciso, eh_excecao, artigo_inteiro_impeditivo, tipo_crime, item_alinea_e, observacoes) VALUES
@@ -157,6 +157,16 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, eh_excecao, 
 ('CP', 'Código Penal (DL 2.848/40)', '310', NULL, FALSE, 'Crimes contra a fé pública', '1'),
 ('CP', 'Código Penal (DL 2.848/40)', '311', NULL, FALSE, 'Crimes contra a fé pública', '1'),
 ('CP', 'Código Penal (DL 2.848/40)', '311-A', NULL, FALSE, 'Crimes contra a fé pública', '1');
+
+-- Exceção condicional do art. 304 (nas figuras dos arts. 301 e 302) exige análise manual
+UPDATE crimes_inelegibilidade
+SET observacoes = 'Exceção condicional: elegível apenas nas figuras dos arts. 301 e 302 (análise manual).'
+WHERE codigo = 'CP'
+  AND artigo = '304'
+  AND paragrafo IS NULL
+  AND inciso IS NULL
+  AND alinea IS NULL
+  AND eh_excecao = FALSE;
 
 INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, eh_excecao, tipo_crime, item_alinea_e, observacoes) VALUES
 ('CP', 'Código Penal (DL 2.848/40)', '312', NULL, FALSE, 'Crimes contra a administração pública', '1', NULL),
@@ -511,10 +521,8 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, eh_excecao, tipo_crime,
 -- LEI_2889_56, LEI_7716_89, LEI_9455_97, LEI_11343_06, LEI_9613_98, LEI_12850_13, LEI_9605_98, LEI_9503_97, LEI_8429_92, LEI_10826_03
 INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, eh_excecao, tipo_crime, item_alinea_e, observacoes) VALUES
 ('LEI_2889_56', 'Lei 2.889/56 - Genocídio', '1', FALSE, 'Crimes hediondos', '7', NULL),
-('LEI_2889_56', 'Lei 2.889/56 - Genocídio', '2', FALSE, 'Crimes hediondos', '7', 'Art. inteiro; exceção caput'),
-('LEI_2889_56', 'Lei 2.889/56 - Genocídio', '2', TRUE, 'Crimes hediondos', '7', 'Exceção: Caput'),
-('LEI_2889_56', 'Lei 2.889/56 - Genocídio', '3', FALSE, 'Crimes hediondos', '7', 'Art. inteiro; exceção caput'),
-('LEI_2889_56', 'Lei 2.889/56 - Genocídio', '3', TRUE, 'Crimes hediondos', '7', 'Exceção: Caput'),
+('LEI_2889_56', 'Lei 2.889/56 - Genocídio', '2', FALSE, 'Crimes hediondos', '7', 'Exceção condicional no caput: quando se referir ao art. 1º, alínea "e" (análise manual).'),
+('LEI_2889_56', 'Lei 2.889/56 - Genocídio', '3', FALSE, 'Crimes hediondos', '7', 'Exceção condicional no caput: quando se referir ao art. 1º, alínea "e" (análise manual).'),
 ('LEI_7716_89', 'Lei 7.716/89 - Racismo', '2-A', FALSE, 'Crimes de racismo', '7', NULL),
 ('LEI_7716_89', 'Lei 7.716/89 - Racismo', '3', FALSE, 'Crimes de racismo', '7', NULL),
 ('LEI_7716_89', 'Lei 7.716/89 - Racismo', '4', FALSE, 'Crimes de racismo', '7', NULL),
@@ -531,7 +539,6 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, eh_excecao, tipo_crime,
 ('LEI_7716_89', 'Lei 7.716/89 - Racismo', '20', FALSE, 'Crimes de racismo', '7', NULL),
 ('LEI_9455_97', 'Lei 9.455/97 - Tortura', '1', FALSE, 'Crimes de tortura', '7', NULL),
 ('LEI_11343_06', 'Lei 11.343/06 - Drogas', '33', FALSE, 'Crimes de tráfico de entorpecentes', '7', NULL),
-('LEI_11343_06', 'Lei 11.343/06 - Drogas', '33', TRUE, 'Crimes de tráfico de entorpecentes', '7', 'Exceção: §3º'),
 ('LEI_11343_06', 'Lei 11.343/06 - Drogas', '34', FALSE, 'Crimes de tráfico de entorpecentes', '7', NULL),
 ('LEI_11343_06', 'Lei 11.343/06 - Drogas', '35', FALSE, 'Crimes de tráfico de entorpecentes', '7', NULL),
 ('LEI_11343_06', 'Lei 11.343/06 - Drogas', '36', FALSE, 'Crimes de tráfico de entorpecentes', '7', NULL),
@@ -540,6 +547,10 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, eh_excecao, tipo_crime,
 ('LEI_12850_13', 'Lei 12.850/13 - Org. Crim.', '2', FALSE, 'Crimes praticados por organização criminosa', '10', NULL),
 ('LEI_9503_97', 'Lei 9.503/97 - CTB', '302', FALSE, 'Crimes de trânsito', '8', NULL),
 ('LEI_8429_92', 'Lei 8.429/92 - Improbidade', '10', FALSE, 'Atos de improbidade', '1', 'Prejuízo ao erário');
+
+-- Lei 11.343/06: art. 33, § 3º é exceção expressa
+INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, eh_excecao, tipo_crime, item_alinea_e, observacoes) VALUES
+('LEI_11343_06', 'Lei 11.343/06 - Drogas', '33', '3', TRUE, 'Crimes de tráfico de entorpecentes', '7', 'Exceção: § 3º');
 
 -- Lei 9.605/98 - Ambiental (arts. 30, 33-35, 38-42, 50-A, 54, 56, 61-63, 66-69-A + exceções)
 INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, eh_excecao, tipo_crime, item_alinea_e, observacoes) VALUES
@@ -578,7 +589,7 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, eh_excecao, 
 -- Lei 10.826/03 Art. 16: somente caput e §1º impeditivos (Padrão C)
 INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, eh_excecao, artigo_inteiro_impeditivo, tipo_crime, item_alinea_e, observacoes) VALUES
 ('LEI_10826_03', 'Lei 10.826/03 - Desarmamento', '16', NULL, FALSE, FALSE, 'Crime hediondo', '7', 'Referência; impeditivos: caput e §1º'),
-('LEI_10826_03', 'Lei 10.826/03 - Desarmamento', '16', '1', FALSE, TRUE, 'Crime hediondo', '7', 'Caput e §1º c.c. §2º'),
+('LEI_10826_03', 'Lei 10.826/03 - Desarmamento', '16', '1', FALSE, FALSE, 'Crime hediondo', '7', 'Caput e §1º c.c. §2º'),
 ('LEI_10826_03', 'Lei 10.826/03 - Desarmamento', '17', NULL, FALSE, TRUE, 'Crime hediondo', '7', NULL),
 ('LEI_10826_03', 'Lei 10.826/03 - Desarmamento', '18', NULL, FALSE, TRUE, 'Crime hediondo', '7', NULL);
 

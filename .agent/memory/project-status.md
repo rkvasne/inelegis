@@ -1,6 +1,6 @@
 # 📊 Project Status & Context
 
-> **Last Updated:** 21/02/2026
+> **Last Updated:** 23/02/2026
 > **Current Phase:** Testes com usuários reais / Zeladoria
 > **Project Version:** v0.3.25 (SSoT Synchronized)
 
@@ -72,6 +72,7 @@
 
 **Log de Governança/Sessão:**
 
+- 23/02/2026: **Prompt 25 + alinhamento completo + Prompt 19 (sem bump):** revisão integral da tabela oficial x migration; correções SSoT na `20260225000000_crimes_inelegibilidade.sql` (padrões combinados 148/149-A, exceção Lei 11.343 art. 33 §3º, exceções condicionais CP 304 e Lei 2.889); normalização de artigo no frontend (`2º-A`→`2-A`) com testes; auditoria/atualização de docs (api-reference, auditoria, interpretação, PRD, plano inicial, assinaturas); `doc:check`, `test:unit` e `verify` executados com sucesso.
 - 21/02/2026: **docs(consolidacao + Prompt 19):** Unificação de docs (devops, keepalive), arquivamento (revisao-tabela, relatorio-doc-janitor, inventario, refatoracao), correções (paths components, endpoint maintenance, setup 5 migrations, test-supabase crimes_inelegibilidade). CHANGELOG [Unreleased], project-status, verify OK.
 - 20/02/2026: **fix(401 historico):** Frontend search-history usa POST /api/search-history (API Vercel com service_role) em vez de Supabase direto; migration 00150; docs atualizados. Commit e push.
 - 15/02/2026: **Prompt #19 (checkpoint sem bump):** Docs pendentes: supabase/migrations/README (4 migrations), api-reference (payload search expandido), api/README (tabelas SSoT), development (search-history 12 params). CHANGELOG [Unreleased].
@@ -100,5 +101,5 @@
 
 ---
 
-_Última atualização: 21/02/2026 • v0.3.25 (Hub v0.6.1)_
-_Editado via: Cursor | Modelo: Auto | OS: Windows 11_
+_Última atualização: 23/02/2026 • v0.3.25 (Hub v0.6.1)_
+_Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_

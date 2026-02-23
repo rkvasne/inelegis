@@ -1,5 +1,7 @@
 ﻿# Conferência: Leis da tabela CRE vs Banco de Dados
 
+> **Arquivado em 21/02/2026.** Snapshot obsoleto. A conformidade CRE está em [auditoria-tabela-oficial.md](../auditoria-tabela-oficial.md).
+
 Confronto entre as leis da tabela oficial CRE-SP (4 páginas) e o que está na migration `crimes_inelegibilidade`.
 
 ---
@@ -62,23 +64,4 @@ O input select é populado por `validator-service.getLaws()`, que obtém `DISTIN
 
 ---
 
-## Completude das leis
-
-Além das novas leis, foram completados:
-
-- **CPM**: arts. 240–267 (patrimônio), 290–297 (meio ambiente/saúde), 298–354 (administração e fé pública) com exceções
-- **LEI_7716_89**: arts. 3–14, 20 (racismo)
-- **LEI_11343_06**: arts. 34, 35, 36 (drogas)
-- **LEI_9605_98**: arts. 30, 33–35, 38–42, 50-A, 54, 56, 61–63, 66–69-A com exceções por parágrafo
-
----
-
-## Observações
-
-1. **Leis revogadas**: DL 7.661/45 e Lei 6.368/76 constam na tabela CRE e foram incluídas (com observação de revogação).
-2. **Aplicação**: Após `supabase db reset` ou deploy, o input select passará a exibir todas as leis.
-
----
-
-_Última atualização: 15/02/2026_
-_Editado via: Cursor | Modelo: Auto | OS: Windows 11_
+_Arquivado em: 21/02/2026 • Original: docs/guides/conferencia-leis-cre-vs-banco.md_

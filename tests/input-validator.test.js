@@ -86,6 +86,15 @@ test("validateArticle deve aceitar 1-A", () => {
   assert.equal(InputValidator.validateArticle("1-A"), "1-A");
 });
 
+test('validateArticle deve normalizar "2º-A" para "2-A"', () => {
+  assert.equal(InputValidator.validateArticle("2º-A"), "2-A");
+});
+
+test("validateArticle deve normalizar espaços e hífen unicode", () => {
+  assert.equal(InputValidator.validateArticle(" 231- A "), "231-A");
+  assert.equal(InputValidator.validateArticle("231–A"), "231-A");
+});
+
 test("validateArticle deve aceitar número como input", () => {
   assert.equal(InputValidator.validateArticle(121), "121");
 });

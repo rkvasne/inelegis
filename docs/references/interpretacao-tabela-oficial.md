@@ -73,6 +73,16 @@ Quando o dispositivo informado **não tem match exato** na tabela:
 2. **Artigo existe e tem linha "artigo inteiro impeditivo"** → dispositivo não é exceção → `INELEGIVEL`
 3. **Artigo existe e não tem linha "artigo inteiro impeditivo"** → dispositivo fora da enumeração → `ELEGIVEL`
 
+### 4.1 Exceções condicionais (não estruturadas)
+
+Há itens da tabela oficial que dependem de combinação textual/fática e não podem ser inferidos apenas por `(artigo, parágrafo, inciso, alínea)`:
+
+- CP, art. 304: exceção apenas nas figuras dos arts. 301 e 302.
+- Lei 2.889/56, arts. 2º e 3º (caput): exceção quando se referir ao art. 1º, alínea "e".
+- CPM, arts. 262 a 265: exceção quando combinados com art. 266 (culposo).
+
+Nesses cenários, a base mantém o registro impeditivo com observação de revisão jurídica manual.
+
 ---
 
 ## 5. Referências
@@ -83,5 +93,5 @@ Quando o dispositivo informado **não tem match exato** na tabela:
 
 ---
 
-_Última atualização: 15/02/2026 • v0.3.25_
-_Editado via: Cursor | Modelo: Auto | OS: Windows 11_
+_Última atualização: 23/02/2026 • v0.3.25_
+_Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_

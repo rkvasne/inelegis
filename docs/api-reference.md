@@ -2,7 +2,7 @@
 
 > **Prompt:** 17-api-and-docs.md (Documentação: API Docs e Manuais)  
 > **Fase:** Finalização / Handover  
-> **Versão do Projeto:** v0.3.22
+> **Versão do Projeto:** v0.3.25
 
 Documentação técnica das APIs do Inelegis: endpoints serverless (Vercel) e funções RPC do Supabase consumidas pelo frontend.
 
@@ -272,6 +272,8 @@ Verifica se um artigo gera inelegibilidade ou exceção conforme a tabela oficia
 - **Sem match e artigo inexistente na tabela** → `NAO_CONSTA`.
 - **Sem match e artigo com dispositivo "artigo inteiro impeditivo"** (ex.: Art. 121): dispositivo não consta nas exceções → `INELEGIVEL` (fallback conforme interpretação).
 - **Sem match e artigo com dispositivos apenas enumerados** (ex.: Art. 122 § 1–7): dispositivo fora do rol → `ELEGIVEL`.
+- **Entrada de artigo no frontend:** há normalização (`2º-A` → `2-A`, hífens e ordinais) antes da chamada RPC.
+- **Exceções condicionais textuais** (ex.: CP 304 nas figuras dos arts. 301/302) exigem revisão jurídica manual do caso concreto.
 
 **Exemplos:** Art. 121 § 8 → `INELEGIVEL` (artigo inteiro impeditivo; § 3º é a única exceção). Art. 122 § 8 → `ELEGIVEL` (só § 1–7 impeditivos).
 
@@ -387,5 +389,5 @@ Retorna totais gerais para o painel administrativo (uso com **service_role** ou 
 
 ---
 
-_Última atualização: 20/02/2026 • v0.3.25_
-_Editado via: Cursor | Modelo: Auto | OS: Windows 11_
+_Última atualização: 23/02/2026 • v0.3.25_
+_Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_

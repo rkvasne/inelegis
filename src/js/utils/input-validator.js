@@ -25,7 +25,12 @@ export const InputValidator = {
    */
   validateArticle(article) {
     if (article === undefined || article === null) return null;
-    const sanitized = String(article).trim();
+    const sanitized = String(article)
+      .trim()
+      .replace(/[º°ª]/g, "")
+      .replace(/[–—−]/g, "-")
+      .replace(/\s*-\s*/g, "-")
+      .toUpperCase();
     // Permite números, hífens e letras (ex: "1", "121-A"), max 10 caracteres
     return /^[0-9a-zA-Z-]{1,10}$/.test(sanitized) ? sanitized : null;
   },

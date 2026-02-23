@@ -1,4 +1,4 @@
-﻿# 📋 Auditoria: Tabela Oficial vs Migration (v0.3.22)
+﻿# 📋 Auditoria: Tabela Oficial vs Migration (v0.3.25)
 
 **Data da Auditoria:** 09/02/2026 (conteúdo); revisão de referências: 16/02/2026  
 **Tabela de Referência:** Corregedoria Regional Eleitoral de São Paulo (outubro/2024)  
@@ -110,7 +110,7 @@ A tabela oficial menciona que houve atualização em outubro/2024, incluindo:
 
 - **Tabela Oficial:** "2º-A"
 - **Migration:** "2-A"
-- **Impacto:** ⚠️ **MÉDIO** - Usuários podem digitar "2º-A" e não encontrar o registro. **RECOMENDAÇÃO:** Adicionar normalização no frontend.
+- **Impacto:** ✅ **RESOLVIDO** - A validação do frontend normaliza `2º-A` para `2-A`.
 
 ### 4. **Reconsolidação v0.3.16**
 
@@ -124,20 +124,30 @@ A migration inclui observações detalhadas sobre:
 - ✅ Entendimentos do TSE (ex: Recurso Especial Eleitoral nº 145-94.2016.6.24.0074/SC)
 - ✅ Alterações legislativas recentes (ex: Lei 13.142/2015, Lei 14.811/2024)
 
+### 6. **Exceções condicionais (análise manual)**
+
+Há hipóteses da tabela oficial cuja exceção depende de combinação textual/fática e não deve ser aplicada automaticamente por `eh_excecao=TRUE`:
+
+- CP, art. 304: exceção apenas "nas figuras dos arts. 301 e 302".
+- Lei 2.889/56, arts. 2º e 3º (caput): exceção somente quando se referir ao art. 1º, alínea "e".
+- CPM, arts. 262 a 265: exceção quando combinados com art. 266 (culposo).
+
+No banco, esses casos seguem impeditivos por padrão, com observação explícita para revisão jurídica manual no caso concreto.
+
 ---
 
 ## 🎯 Conclusão
 
-A migration `20260225000000_crimes_inelegibilidade.sql` está **CONFORME** com a tabela oficial da Corregedoria Regional Eleitoral de São Paulo. Todos os crimes, exceções e categorias estão corretamente mapeados.
+A migration `20260225000000_crimes_inelegibilidade.sql` está **CONFORME** com a tabela oficial da Corregedoria Regional Eleitoral de São Paulo. Crimes, exceções estruturadas e categorias estão mapeados; exceções condicionais foram explicitadas para análise manual.
 
 ### Recomendações:
 
-1. ✅ **Normalização de Entrada:** Implementar normalização no frontend para aceitar "2º" e converter para "2"
-2. ✅ **Validação de Artigos Especiais:** Adicionar tratamento especial para artigos como "2º-A" → "2-A"
+1. ✅ **Normalização de Entrada (concluída):** frontend normaliza `2º` e variações de hífen.
+2. ✅ **Validação de Artigos Especiais (concluída):** artigos como `2º-A` são convertidos para `2-A`.
 3. ✅ **Documentação:** Manter a tabela oficial atualizada no diretório `docs/references/`
 4. ✅ **Testes:** Criar testes automatizados para validar todos os artigos da tabela oficial
 
 ---
 
-_Última atualização: 21/02/2026 • v0.3.25 (Hub v0.6.1)_
-_Editado via: Cursor | Modelo: Auto | OS: Windows 11_
+_Última atualização: 23/02/2026 • v0.3.25 (Hub v0.6.1)_
+_Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_

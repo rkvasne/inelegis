@@ -34,7 +34,6 @@ Bem-vindo à documentação oficial do projeto **Inelegis**.
 - **[Keepalive (Inelegis)](guides/keepalive-inelegis.md)** – monitoramento de uptime do banco (Hub Keepalive Pattern)
 - **[Troubleshooting Vercel](guides/troubleshooting-vercel-deploy.md)** – erros de deploy e variáveis
 - **[Auditoria Tabela Oficial](auditoria-tabela-oficial.md)** – conformidade CRE vs migration
-- **[Conferência Leis CRE vs Banco](guides/conferencia-leis-cre-vs-banco.md)** – leis presentes/ausentes no banco
 
 ### 🎨 Design System
 
@@ -77,7 +76,6 @@ docs/
 │   ├── hub-access-token-ci.md  # Token do Hub para CI em satélites
 │   ├── ci-variaveis-github.md  # Variáveis do GitHub Actions (detalhado)
 │   ├── migrations-status.md    # Status de migrations (local vs Supabase)
-│   ├── conferencia-leis-cre-vs-banco.md # Leis presentes/ausentes vs CRE
 │   ├── keepalive-inelegis.md    # Keepalive (Hub Pattern)
 │   ├── maintenance.md
 │   ├── setup-supabase.md
@@ -98,7 +96,8 @@ docs/
     ├── 2026-02-15-revisao-tabela-crimes-inelegibilidade.md
     ├── 2026-02-21-relatorio-doc-janitor.md
     ├── 2026-02-21-inventario-documentacao.md
-    └── 2025-12-01-refatoracao-v0-0-6.md
+    ├── 2025-12-01-refatoracao-v0-0-6.md
+    └── 2026-02-15-conferencia-cre-banco.md
 ```
 
 ## 📐 Padrão de Formato
