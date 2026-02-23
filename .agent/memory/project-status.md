@@ -72,6 +72,7 @@
 
 **Log de Governança/Sessão:**
 
+- 23/02/2026: **Prompt 19 (checkpoint sem bump) + ajuste final de UX c.c.:** card `Combinação de Dispositivos` reorganizado com hierarquia visual por blocos (introdução, Passo 1, Passo 2 e resumo), melhoria de contraste e alinhamento de opções condicionais, padronização de espaçamento e correção da lista de relacionados sem marcador visual indevido (`public/consulta.html`, `public/styles/styles.css`). Validações executadas: `npm run lint` e `npm run test` (13/13).
 - 23/02/2026: **Prompt 19 (checkpoint sem bump) pós-Prompt 26:** documentação consolidada para correção de compliance keepalive (migration `20260226000100_keepalive_hub_compat.sql`, atualização de guias de setup/migrations/keepalive e remoção de referências não portáveis em `docs/README.md`), com registro operacional da auditoria: ping manual validado e recência normalizada (`KEEPALIVE_AGE_MIN=0` no momento do teste).
 - 23/02/2026: **Polimento visual do card c.c. (frontend):** refinado o bloco de combinação para legibilidade operacional (passos com padrão único, checkboxes em grid alinhado, textos ajustados e botões “Adicionar à combinação / Limpar lista” com dimensões padronizadas).
 - 23/02/2026: **UX busca composta (ajuste estrutural):** separação do bloco `c.c.` para um expansível independente do refinamento de busca e remoção do aviso legado "uma consulta por vez", para manter coerência com a implementação atual de dispositivos relacionados.

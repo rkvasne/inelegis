@@ -235,8 +235,8 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M4 7h16M4 12h16M4 17h16"></path>
                                 </svg>
-                                <span style="font-size: 0.8125rem; font-weight: 600; color: var(--text-primary);">Combinação de Dispositivos (c.c.)</span>
-                                <span style="font-size: 0.6875rem; color: var(--text-muted); margin-left: 0.25rem;">(Opcional)</span>
+                                <span class="cc-card-title">Combinação de Dispositivos (c.c.)</span>
+                                <span class="cc-card-optional">(Opcional)</span>
                             </div>
                             <svg class="refinement-chevron" width="16" height="16" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
@@ -246,44 +246,49 @@
                         </summary>
 
                         <div class="refinement-content">
-                            <h4 class="u-text-sm u-font-semibold u-mb-2">Quando o artigo depende de outro dispositivo (c.c.)</h4>
-                            <p class="text-xs text-neutral-600 u-mb-2">
-                                Use este bloco quando a regra depende de combinação. Exemplo: Art. 149-A caput I a V <strong>c.c.</strong> §1º, II.
-                            </p>
-                            <p class="cc-step-title">
-                                <span class="cc-step-badge">Passo 1</span>
-                                <span>Informe os dispositivos relacionados e clique em <strong>Adicionar à combinação</strong>.</span>
-                            </p>
-
-                            <div class="fields-row-4-compact">
-                                <div>
-                                    <label class="form-label u-refinement-label">Artigo relacionado</label>
-                                    <input type="text" id="ccArtigoInput" class="form-input form-input-compact" placeholder="Ex: 149-A">
-                                </div>
-                                <div>
-                                    <label class="form-label u-refinement-label">Parágrafo</label>
-                                    <input type="text" id="ccParagrafoInput" class="form-input form-input-compact" placeholder="Ex: 1 ou unico">
-                                </div>
-                                <div>
-                                    <label class="form-label u-refinement-label">Inciso</label>
-                                    <input type="text" id="ccIncisoInput" class="form-input form-input-compact" placeholder="Ex: II ou I a V">
-                                </div>
-                                <div>
-                                    <label class="form-label u-refinement-label">Alínea</label>
-                                    <input type="text" id="ccAlineaInput" class="form-input form-input-compact" placeholder="Ex: e">
-                                </div>
+                            <div class="cc-intro">
+                                <h4 class="u-text-sm u-font-semibold">Quando o artigo depende de outro dispositivo (c.c.)</h4>
+                                <p class="text-xs text-neutral-600">
+                                    Use este bloco quando a regra depender de combinação. Exemplo: Art. 149-A caput I a V <strong>c.c.</strong> §1º, II.
+                                </p>
                             </div>
 
-                            <div class="u-flex-center-gap u-mt-2" style="justify-content: flex-start;">
-                                <button type="button" id="btnAddRelacionado" class="btn btn-secondary btn-sm cc-action-btn">Adicionar à combinação</button>
-                                <button type="button" id="btnClearRelacionados" class="btn btn-secondary btn-sm cc-action-btn">Limpar lista</button>
-                            </div>
+                            <section class="cc-step-panel" aria-label="Passo 1">
+                                <p class="cc-step-title">
+                                    <span class="cc-step-badge">Passo 1</span>
+                                    <span>Informe os dispositivos relacionados e clique em <strong>Adicionar à combinação</strong>.</span>
+                                </p>
 
-                            <ul id="relacionadosList" class="u-mt-2 cc-related-list">
-                                <li class="text-xs text-neutral-500">Nenhum dispositivo adicionado na combinação.</li>
-                            </ul>
+                                <div class="fields-row-4-compact">
+                                    <div>
+                                        <label class="form-label u-refinement-label">Artigo relacionado</label>
+                                        <input type="text" id="ccArtigoInput" class="form-input form-input-compact" placeholder="Ex: 149-A">
+                                    </div>
+                                    <div>
+                                        <label class="form-label u-refinement-label">Parágrafo</label>
+                                        <input type="text" id="ccParagrafoInput" class="form-input form-input-compact" placeholder="Ex: 1 ou unico">
+                                    </div>
+                                    <div>
+                                        <label class="form-label u-refinement-label">Inciso</label>
+                                        <input type="text" id="ccIncisoInput" class="form-input form-input-compact" placeholder="Ex: II ou I a V">
+                                    </div>
+                                    <div>
+                                        <label class="form-label u-refinement-label">Alínea</label>
+                                        <input type="text" id="ccAlineaInput" class="form-input form-input-compact" placeholder="Ex: e">
+                                    </div>
+                                </div>
 
-                            <div class="u-mt-3">
+                                <div class="cc-action-row">
+                                    <button type="button" id="btnAddRelacionado" class="btn btn-secondary btn-sm cc-action-btn">Adicionar à combinação</button>
+                                    <button type="button" id="btnClearRelacionados" class="btn btn-secondary btn-sm cc-action-btn">Limpar lista</button>
+                                </div>
+
+                                <ul id="relacionadosList" class="u-mt-2 cc-related-list">
+                                    <li class="text-xs text-neutral-500">Nenhum dispositivo adicionado na combinação.</li>
+                                </ul>
+                            </section>
+
+                            <section class="cc-step-panel u-mt-3" aria-label="Passo 2">
                                 <p class="cc-step-title">
                                     <span class="cc-step-badge">Passo 2</span>
                                     <span>Opcional: marque detalhes do caso somente quando estiverem claros na sentença.</span>
@@ -324,7 +329,7 @@
                                         </div>
                                     </div>
                                 </details>
-                            </div>
+                            </section>
 
                             <div id="ccResumoSelecionado" class="cc-selection-summary u-mt-3" aria-live="polite">
                                 <p class="text-xs text-neutral-500">Resumo da combinação: nenhum item adicional selecionado.</p>

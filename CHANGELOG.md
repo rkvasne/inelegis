@@ -30,6 +30,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ### fix
 
+- **fix(frontend-ux-cc-hierarquia):** Reorganizado o card `Combinação de Dispositivos (c.c.)` em blocos visuais claros (introdução, Passo 1, Passo 2 e resumo), com melhoria de contraste/legibilidade, alinhamento de checkboxes e remoção de marcador indevido na lista de relacionados.
 - **fix(keepalive-compliance):** Correções de conformidade parcial do Keepalive: nova migration `20260226000100_keepalive_hub_compat.sql` para adicionar `status_code` e `response_time_ms` em `keepalive_events` (com backfill), atualização da Edge Function `supabase/functions/keepalive/index.ts` para gravar os campos novos e normalização do `KEEPALIVE_ENVIRONMENT` padrão para `prod` no worker.
 - **fix(frontend-ux-cc):** Refinamento da seção de consulta composta na página de busca: linguagem simplificada (remoção de jargão "contexto fático"), instruções por passos, botão `Adicionar à combinação`, lista vazia mais explícita e layout compacto com os quatro campos relacionados na mesma linha (responsivo).
 - **fix(frontend-ux-cc-contexto):** Bloco de exceções condicionais convertido para seletor expansível com ajuda contextual (`?` + tooltip por opção) e resumo pré-pesquisa em chips, incluindo remoção rápida por `x` diretamente no resumo.
