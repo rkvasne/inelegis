@@ -21,7 +21,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 - **fix(build-config):** Ajustado `scripts/build-supabase-config.js` para gerar `public/assets/js/supabase-config.js` já compatível com Prettier, evitando quebra recorrente de `format:check` após `npm run build`.
 - **fix(rpc-cre):** Corrigida a RPC `verificar_elegibilidade` na migration SSoT para usar `IF FOUND` (em vez de `IS NOT NULL` em record), evitando falso “sem match” quando o registro existe e possui campos nulos (ex.: `observacoes`).
-- **fix(data-cre):** Nova migration `20260225000400_hotfix_conformidade_cre.sql` para reparar dados legados divergentes da tabela CRE (Lei 11.343/06 art. 33 caput marcado como exceção; Lei 2.889/56 arts. 2/3 caput marcados como exceção) e reaplicar a RPC corrigida.
+- **fix(data-cre):** Consolidação final da trilha de inelegibilidade: reparos de dados CRE e ajuste da RPC incorporados na migration base `20260225000000_crimes_inelegibilidade.sql` (removida migration de hotfix separada para setup limpo do zero).
 
 ### test
 

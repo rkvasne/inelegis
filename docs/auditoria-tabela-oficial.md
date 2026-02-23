@@ -6,7 +6,7 @@
 
 **Status:** ✅ **CONFORME COM RESSALVAS**
 
-> **Atualização crítica (23/02/2026):** A auditoria profunda identificou que o **banco ativo** pode conter dados legados divergentes mesmo com o repositório correto. Foi criada a migration `20260225000400_hotfix_conformidade_cre.sql` para correção idempotente de dados e reaplicação da RPC `verificar_elegibilidade` com ajuste de fluxo (`IF FOUND`).
+> **Atualização crítica (23/02/2026):** A auditoria profunda identificou que o **banco ativo** pode conter dados legados divergentes mesmo com o repositório correto. Para setup do zero, o hotfix foi **incorporado na migration base** `20260225000000_crimes_inelegibilidade.sql` (dados + RPC com ajuste de fluxo `IF FOUND`).
 
 ---
 

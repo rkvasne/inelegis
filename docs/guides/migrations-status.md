@@ -8,14 +8,13 @@ Referência para conferir se o schema está aplicado no Supabase.
 
 Migrations separadas por domínio. Ordem de execução (cronológica pelo timestamp):
 
-| Ordem | Arquivo                                      | Conteúdo                                                                |
-| :---: | -------------------------------------------- | ----------------------------------------------------------------------- |
-|   1   | `20260225000000_crimes_inelegibilidade.sql`  | Tabela oficial CRE-SP + RPC `verificar_elegibilidade`                   |
-|   2   | `20260225000100_historico_consultas.sql`     | Histórico de consultas + RPC `add_to_history` (12 params) + RLS         |
-|   3   | `20260225000150_grant_rpc_anon.sql`          | GRANT EXECUTE nas RPCs de histórico para anon (API Vercel)              |
-|   4   | `20260225000200_analytics.sql`               | Analytics (tabela, views, funções) + RLS                                |
-|   5   | `20260225000300_keepalive.sql`               | Keepalive (status e eventos de heartbeat)                               |
-|   6   | `20260225000400_hotfix_conformidade_cre.sql` | Hotfix idempotente: corrige dados legados + reaplica RPC com `IF FOUND` |
+| Ordem | Arquivo                                     | Conteúdo                                                            |
+| :---: | ------------------------------------------- | ------------------------------------------------------------------- |
+|   1   | `20260225000000_crimes_inelegibilidade.sql` | Tabela oficial CRE-SP + RPC `verificar_elegibilidade` (consolidada) |
+|   2   | `20260225000100_historico_consultas.sql`    | Histórico de consultas + RPC `add_to_history` (12 params) + RLS     |
+|   3   | `20260225000150_grant_rpc_anon.sql`         | GRANT EXECUTE nas RPCs de histórico para anon (API Vercel)          |
+|   4   | `20260225000200_analytics.sql`              | Analytics (tabela, views, funções) + RLS                            |
+|   5   | `20260225000300_keepalive.sql`              | Keepalive (status e eventos de heartbeat)                           |
 
 ---
 
@@ -40,7 +39,7 @@ supabase db push
 
 ### Via SQL Editor
 
-Execute os 6 arquivos em ordem (1 → 6).
+Execute os 5 arquivos em ordem (1 → 5).
 
 ---
 
