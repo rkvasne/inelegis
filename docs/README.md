@@ -20,6 +20,7 @@ Bem-vindo à documentação oficial do projeto **Inelegis**.
 ### 🛠️ Guias
 
 - **[Guia de Desenvolvimento](guides/development.md)** – arquitetura, módulos, testes e padrões
+- **[Convenções de Documentação](guides/documentation-conventions.md)** – SSoT, nomenclatura e checklist de publicação
 - **[DevOps e Deploy](guides/devops.md)** – CI/CD, deploy (Vercel, Docker) e manutenção
 - **[Guia de Manutenção](guides/maintenance.md)** – atualização de dados, validação e deploy
 - **[Variáveis de Ambiente](guides/variaveis-ambiente.md)** – catálogo de variáveis
@@ -74,6 +75,7 @@ docs/
 │
 ├── guides/                     # Guias de desenvolvimento e manutenção
 │   ├── development.md
+│   ├── documentation-conventions.md # Convenções de documentação (SSoT + nomenclatura)
 │   ├── devops.md               # CI/CD, deploy e manutenção
 │   ├── hub-access-token-ci.md  # Token do Hub para CI em satélites
 │   ├── ci-variaveis-github.md  # Variáveis do GitHub Actions (detalhado)
@@ -92,8 +94,8 @@ docs/
 │   └── manual-ase.md
 │
 └── archive/                    # Documentos arquivados
-    ├── changelog-v0.md
-    ├── changelog-v0-3-early.md
+    ├── 2026-02-23-release-history-v0.md
+    ├── 2026-02-23-release-history-v0-3-early.md
     ├── 2026-02-08-audit-relatorio-deep-dive.md
     ├── 2026-02-15-revisao-tabela-crimes-inelegibilidade.md
     ├── 2025-12-01-refatoracao-v0-0-6.md
