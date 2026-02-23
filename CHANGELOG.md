@@ -16,6 +16,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 ### docs
 
 - **docs(governança):** Execução do Prompt 18 com sincronização obrigatória de `AGENTS.md` e `GEMINI.md` ao template do Hub v0.6.1, preservando regras locais de SSoT para `public/assets/js`.
+- **docs(checkpoint):** Execução do Prompt 19 (sem bump) com revisão ampla de documentação: alinhamento de versões (`v0.3.26`) em PRD, API Reference, Troubleshooting e Development; auditoria final CRE consolidada em `auditoria-tabela-oficial.md` e `interpretacao-tabela-oficial.md`; atualização da memória em `.agent/memory/project-status.md`.
 
 ### fix
 

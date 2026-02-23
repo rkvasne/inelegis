@@ -2,7 +2,7 @@
 
 > **Prompt:** 17-api-and-docs.md (Documentação: API Docs e Manuais)  
 > **Fase:** Finalização / Handover  
-> **Versão do Projeto:** v0.3.25
+> **Versão do Projeto:** v0.3.26
 
 Documentação técnica das APIs do Inelegis: endpoints serverless (Vercel) e funções RPC do Supabase consumidas pelo frontend.
 

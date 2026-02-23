@@ -1,12 +1,12 @@
-﻿# 📋 Auditoria: Tabela Oficial vs Migration (v0.3.25)
+﻿# 📋 Auditoria: Tabela Oficial vs Migration (v0.3.26)
 
-**Data da Auditoria:** 09/02/2026 (conteúdo); revisão de referências: 16/02/2026  
+**Data da Auditoria:** 09/02/2026 (conteúdo); revisões: 16/02/2026 e 23/02/2026  
 **Tabela de Referência:** Corregedoria Regional Eleitoral de São Paulo (outubro/2024)  
 **Migration Analisada:** `20260225000000_crimes_inelegibilidade.sql` (reconsolidada em 25/02/2026; substitui tabelas `normas`, `artigos_inelegiveis`, `artigos_excecoes`)
 
-**Status:** ✅ **CONFORME COM RESSALVAS**
+**Status:** ✅ **CONFORME**
 
-> **Atualização crítica (23/02/2026):** A auditoria profunda identificou que o **banco ativo** pode conter dados legados divergentes mesmo com o repositório correto. Para setup do zero, o hotfix foi **incorporado na migration base** `20260225000000_crimes_inelegibilidade.sql` (dados + RPC com ajuste de fluxo `IF FOUND`).
+> **Validação final (23/02/2026):** Após aplicar `20260225000400_cleanup_extras_nao_cre.sql`, a base ativa ficou sem registros de `LEI_9503_97` e `LEI_8429_92` (ausentes nas 4 páginas da tabela oficial CRE). Estado validado também na extração local de estrutura (`supabase/structure`).
 
 ---
 
@@ -147,6 +147,13 @@ Também foi identificado um ponto de robustez na RPC:
 
 - `IF v_record IS NOT NULL` em variável `record` pode falhar quando há colunas nulas no match exato.
 - Ajuste aplicado na migration SSoT: uso de `IF FOUND`.
+
+### 8. **Conferência final pós-cleanup (estado atual)**
+
+- ✅ `crimes_inelegibilidade`: 33 códigos e 431 registros no banco ativo.
+- ✅ `LEI_9503_97` e `LEI_8429_92`: não existem mais na base.
+- ✅ RPC `verificar_elegibilidade` segue interpretação documentada em `docs/references/interpretacao-tabela-oficial.md`.
+- ✅ Padrões críticos conferidos: Art. 121 (fallback impeditivo), Art. 122 (§1-§7 enumerados), Art. 148/149-A (combinação específica), Lei 11.343/06 art. 33 (§3 exceção).
 
 ---
 

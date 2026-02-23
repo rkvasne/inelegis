@@ -3,7 +3,7 @@
 > **Objetivo:** Formalizar o escopo do produto para evitar scope creep em versões futuras. Este documento é a referência para decisões "isto entra ou não no Inelegis?".
 
 **Fase:** Definição de Produto (referência contínua)  
-**Versão do Projeto:** v0.3.25
+**Versão do Projeto:** v0.3.26
 
 ---
 

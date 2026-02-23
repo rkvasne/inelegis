@@ -10,6 +10,8 @@
 
 A tabela é formalmente "exemplificativa" para evitar substituir a lei, mas na prática os servidores do TRE usam como índice exaustivo dos dispositivos que geram inelegibilidade e das exceções. O sistema Inelegis reproduz esse uso operacional.
 
+Na conferência das 4 páginas da tabela oficial CRE (out/2024), **não constam** as normas `LEI_9503_97` (CTB) e `LEI_8429_92` (Improbidade). Por isso, elas não devem permanecer na base ativa de inelegibilidade do projeto.
+
 ---
 
 ## 2. Dois padrões de modelagem na tabela
@@ -89,7 +91,11 @@ Nesses cenários, a base mantém o registro impeditivo com observação de revis
 
 - [api-reference.md](../api-reference.md) — RPC `verificar_elegibilidade`
 - [auditoria-tabela-oficial.md](../auditoria-tabela-oficial.md) — Conformidade CRE vs migration
-- [tabela-oficial PDF](tabela-oficial_page-0001.jpg) — Páginas da tabela oficial
+- [Tabela oficial PDF](tabela-oficial.pdf)
+- [Página 1](tabela-oficial_page-0001.jpg)
+- [Página 2](tabela-oficial_page-0002.jpg)
+- [Página 3](tabela-oficial_page-0003.jpg)
+- [Página 4](tabela-oficial_page-0004.jpg)
 
 ---
 

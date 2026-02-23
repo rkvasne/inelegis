@@ -1,8 +1,8 @@
 ﻿# Plano Inicial — Inelegis
 
 > **Prompt:** 03-prd-and-scope.md (Planejamento: PRD, Escopo e Estimativas)  
-> **Fase:** Descoberta / Definição  
-> **Versão do Projeto:** v0.3.25  
+> **Fase:** Documento histórico (planejamento inicial já concluído)  
+> **Versão do Projeto:** v0.3.26  
 > **Data:** 16/02/2026
 
 ---
