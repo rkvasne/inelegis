@@ -1,26 +1,42 @@
-// Cloudflare Worker: Inelegis Keepalive Trigger
-// Este script deve ser implantado no Cloudflare Workers.
-// Configuração: Triggers > Cron Triggers > Adicionar (ex: every 10 minutes)
-//
-// Variáveis Necessárias no Cloudflare:
-// - KEEPALIVE_URL: https://[seu-projeto].supabase.co/functions/v1/keepalive
-// - KEEPALIVE_TOKEN: [Sua Chave Segura]
-
+/**
+ * Cloudflare Worker — Keepalive (padrão Hub)
+ * Pinger externo: envia POST para o endpoint do projeto a cada 30 min.
+ *
+ * Configuração no Dashboard Cloudflare:
+ * - Trigger Cron: a cada 30 minutos (ex.: 0,30 * * * * ou equivalente)
+ * - Variables: KEEPALIVE_URL, KEEPALIVE_TOKEN (mesmo valor do .env.local / Vercel)
+ */
 export default {
   async scheduled(event, env, ctx) {
-    ctx.waitUntil(handleKeepalive(env));
+    ctx.waitUntil(handleKeepalive(env, null));
   },
 
   async fetch(request, env, ctx) {
-    return await handleKeepalive(env);
+    return await handleKeepalive(env, request);
   },
 };
 
-async function handleKeepalive(env) {
-  const { KEEPALIVE_URL, KEEPALIVE_TOKEN } = env;
+function resolveRegion(env, request) {
+  const cfColo = request?.cf?.colo;
+  if (cfColo) return cfColo;
+
+  if (typeof env.KEEPALIVE_REGION === "string" && env.KEEPALIVE_REGION.trim()) {
+    return env.KEEPALIVE_REGION.trim();
+  }
+
+  return "edge";
+}
+
+async function handleKeepalive(env, request) {
+  const KEEPALIVE_URL = env.KEEPALIVE_URL;
+  const KEEPALIVE_TOKEN = env.KEEPALIVE_TOKEN;
+  const KEEPALIVE_PROJECT_SLUG = env.KEEPALIVE_PROJECT_SLUG;
+  const KEEPALIVE_ENVIRONMENT = env.KEEPALIVE_ENVIRONMENT;
 
   if (!KEEPALIVE_URL || !KEEPALIVE_TOKEN) {
-    return new Response("Configuração ausente no Cloudflare", { status: 500 });
+    // eslint-disable-next-line no-console -- Worker: único canal de log
+    console.error("❌ Configuração ausente: KEEPALIVE_URL ou KEEPALIVE_TOKEN");
+    return new Response("Missing configuration", { status: 500 });
   }
 
   const start = Date.now();
@@ -31,25 +47,35 @@ async function handleKeepalive(env) {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${KEEPALIVE_TOKEN}`,
+        "User-Agent": "Cloudflare-Worker-Keepalive/1.0",
       },
       body: JSON.stringify({
         source: "cloudflare-worker",
-        region: "edge-cron",
-        latency_ms: 0, // Será calculado no receptor se necessário
+        project_slug: KEEPALIVE_PROJECT_SLUG || undefined,
+        environment: KEEPALIVE_ENVIRONMENT || "production",
+        region: resolveRegion(env, request),
+        timestamp: new Date().toISOString(),
       }),
     });
 
     const duration = Date.now() - start;
-    const result = await response.text();
+    const data = await response.text();
 
-    console.log(`[Inelegis] Status: ${response.status} em ${duration}ms`);
-
-    return new Response(result, {
-      status: response.status,
+    return new Response(
+      JSON.stringify({
+        success: response.ok,
+        status: response.status,
+        duration_ms: duration,
+        response: data,
+      }),
+      { headers: { "Content-Type": "application/json" } }
+    );
+  } catch (error) {
+    // eslint-disable-next-line no-console -- Worker: único canal de log
+    console.error(`❌ Ping falhou: ${error.message}`);
+    return new Response(JSON.stringify({ success: false, error: error.message }), {
+      status: 500,
       headers: { "Content-Type": "application/json" },
     });
-  } catch (error) {
-    console.error(`[Inelegis] Falha no trigger: ${error.message}`);
-    return new Response(error.message, { status: 500 });
   }
 }
