@@ -14,7 +14,7 @@ Bem-vindo à documentação oficial do projeto **Inelegis**.
 
 - **[📚 README (Índice principal)](README.md)** – este documento
 - **[PRD e Escopo](prd-and-scope.md)** – escopo explícito do produto (evita scope creep)
-- **[Plano Inicial](PLAN-INITIAL.md)** – plano de partida (prompt 03): visão, requisitos, T-shirt sizing, riscos
+- **[Plano Inicial](plan-initial.md)** – plano de partida (prompt 03): visão, requisitos, T-shirt sizing, riscos
 - **[Referência de API](api-reference.md)** – endpoints Vercel, RPCs Supabase, Quick Start e FAQ (prompt 17)
 
 ### 🛠️ Guias
@@ -65,7 +65,7 @@ docs/
 ├── auditoria-tabela-oficial.md # Conformidade tabela CRE vs migration
 ├── auditoria-rpc-v2-matriz.md  # Matriz de validação da RPC v2 (c.c./condicionais)
 ├── prd-and-scope.md            # PRD e escopo do produto
-├── PLAN-INITIAL.md             # Plano de partida (prompt 03)
+├── plan-initial.md             # Plano de partida (prompt 03)
 │
 ├── design/                     # Sistema de design e temas
 │   ├── components.md
@@ -92,8 +92,8 @@ docs/
 │   └── manual-ase.md
 │
 └── archive/                    # Documentos arquivados
-    ├── CHANGELOG_V0.md
-    ├── CHANGELOG_V0_3_early.md
+    ├── changelog-v0.md
+    ├── changelog-v0-3-early.md
     ├── 2026-02-08-audit-relatorio-deep-dive.md
     ├── 2026-02-15-revisao-tabela-crimes-inelegibilidade.md
     ├── 2025-12-01-refatoracao-v0-0-6.md

@@ -177,7 +177,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 - **Consolidação (mode-documentation):** Unificação e padronização de toda a documentação do projeto.
 - **Índice docs/:** Inclusão de links para Auditoria Tabela Oficial, Keepalive Config (Inelegis), Troubleshooting Vercel, Deploy manual (devops-manual), e referência a SECURITY-AUDIT no índice.
-- **Estrutura docs/:** Árvore atualizada no `docs/README.md` (api-reference, prd-and-scope, PLAN-INITIAL, guides, archive).
+- **Estrutura docs/:** Árvore atualizada no `docs/README.md` (api-reference, prd-and-scope, plan-initial, guides, archive).
 - **Versionamento:** Padronização de rodapés e versão em todos os arquivos de documentação para v0.3.18 (Hub v0.5.8).
 - **Sem remoção de documentos:** Nenhum documento obsoleto removido; históricos e SECURITY-AUDIT mantidos como referência.
 
@@ -267,8 +267,8 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 As alterações das versões **v0.2.0 a v0.3.11** e **v0.1.x** foram movidas para arquivos de histórico para manter o CHANGELOG principal sob o limite de 600 linhas (Doc Auditor).
 
-- 📂 [v0.2.0 a v0.3.11](docs/archive/CHANGELOG_V0_3_early.md)
-- 📂 [v0.1.x](docs/archive/CHANGELOG_V0.md)
+- 📂 [v0.2.0 a v0.3.11](docs/archive/changelog-v0-3-early.md)
+- 📂 [v0.1.x](docs/archive/changelog-v0.md)
 
 _Última atualização: 23/02/2026 • v0.3.27 (Hub v0.6.1)_
 _Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_
