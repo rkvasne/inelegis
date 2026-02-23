@@ -22,6 +22,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 - **fix(build-config):** Ajustado `scripts/build-supabase-config.js` para gerar `public/assets/js/supabase-config.js` já compatível com Prettier, evitando quebra recorrente de `format:check` após `npm run build`.
 - **fix(rpc-cre):** Corrigida a RPC `verificar_elegibilidade` na migration SSoT para usar `IF FOUND` (em vez de `IS NOT NULL` em record), evitando falso “sem match” quando o registro existe e possui campos nulos (ex.: `observacoes`).
 - **fix(data-cre):** Consolidação final da trilha de inelegibilidade: reparos de dados CRE e ajuste da RPC incorporados na migration base `20260225000000_crimes_inelegibilidade.sql` (removida migration de hotfix separada para setup limpo do zero).
+- **fix(cre-escopo):** Removidos da migration SSoT e do banco ativo os códigos `LEI_9503_97` (CTB) e `LEI_8429_92` (Improbidade), por não constarem na tabela oficial CRE-SP (out/2024) usada como fonte de verdade da alínea “e”.
 
 ### test
 
