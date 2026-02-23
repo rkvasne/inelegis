@@ -85,6 +85,11 @@ Há itens da tabela oficial que dependem de combinação textual/fática e não 
 
 Nesses cenários, a base mantém o registro impeditivo com observação de revisão jurídica manual.
 
+Na implementação v2 (`verificar_elegibilidade_v2`), esses casos podem ser informados com:
+
+- `p_relacionados` para dispositivos em combinação (c.c.).
+- `p_contexto` para flags fáticas das exceções condicionais.
+
 ---
 
 ## 5. Referências
@@ -99,5 +104,5 @@ Nesses cenários, a base mantém o registro impeditivo com observação de revis
 
 ---
 
-_Última atualização: 23/02/2026 • v0.3.26_
+_Última atualização: 23/02/2026 • v0.3.27_
 _Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_

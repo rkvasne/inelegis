@@ -16,7 +16,14 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 ### docs
 
 - **docs(governança):** Execução do Prompt 18 com sincronização obrigatória de `AGENTS.md` e `GEMINI.md` ao template do Hub v0.6.1, preservando regras locais de SSoT para `public/assets/js`.
-- **docs(checkpoint):** Execução do Prompt 19 (sem bump) com revisão ampla de documentação: alinhamento de versões (`v0.3.26`) em PRD, API Reference, Troubleshooting e Development; auditoria final CRE consolidada em `auditoria-tabela-oficial.md` e `interpretacao-tabela-oficial.md`; atualização da memória em `.agent/memory/project-status.md`.
+- **docs(checkpoint):** Execução do Prompt 19 (sem bump) com revisão ampla de documentação: alinhamento de versões (`v0.3.27`) em PRD, API Reference, Troubleshooting e Development; auditoria final CRE consolidada em `auditoria-tabela-oficial.md` e `interpretacao-tabela-oficial.md`; atualização da memória em `.agent/memory/project-status.md`.
+- **docs(v2-cc):** Atualização dos guias de migration/setup/API para incluir a RPC `verificar_elegibilidade_v2` e o fluxo de combinações condicionais (`c.c.`).
+- **docs(pos-migration-00500):** Registro da execução da migration `20260225000500_verificar_elegibilidade_v2_compostas.sql` no ambiente ativo e validação final de conformidade documental.
+
+### feat
+
+- **feat(rpc-v2):** Nova migration `20260225000500_verificar_elegibilidade_v2_compostas.sql` com RPC `verificar_elegibilidade_v2` para cenários compostos e condicionais da tabela CRE (ex.: CP 149-A c.c.; CP 304; Lei 2.889 art. 2º/3º; CPM 262-265; CP 129 c.c. §12; Lei 10.826 art. 16 c.c. §2º).
+- **feat(frontend-cc):** Busca simples ganhou bloco avançado de dispositivos relacionados e contexto fático; frontend chama RPC v2 quando há dados de combinação, mantendo fallback para RPC base.
 
 ### fix
 
@@ -251,5 +258,5 @@ As alterações das versões **v0.2.0 a v0.3.11** e **v0.1.x** foram movidas par
 - 📂 [v0.2.0 a v0.3.11](docs/archive/CHANGELOG_V0_3_early.md)
 - 📂 [v0.1.x](docs/archive/CHANGELOG_V0.md)
 
-_Última atualização: 23/02/2026 • v0.3.26 (Hub v0.6.1)_
+_Última atualização: 23/02/2026 • v0.3.27 (Hub v0.6.1)_
 _Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_

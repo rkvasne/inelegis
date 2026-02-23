@@ -1,7 +1,7 @@
 ﻿# ⚠️ Troubleshooting: Deploy na Vercel
 
 > **Última atualização:** 21/02/2026  
-> **Versão do Projeto:** v0.3.26
+> **Versão do Projeto:** v0.3.27
 
 ---
 
@@ -90,4 +90,4 @@ O Inelegis usa **Supabase Edge Function** para Keepalive, não rota na Vercel. A
 
 ---
 
-_Última atualização: 21/02/2026 • v0.3.26 (Hub v0.6.1)_
+_Última atualização: 21/02/2026 • v0.3.27 (Hub v0.6.1)_

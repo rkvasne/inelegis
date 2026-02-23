@@ -2,7 +2,7 @@
 
 > **Prompt:** 03-prd-and-scope.md (Planejamento: PRD, Escopo e Estimativas)  
 > **Fase:** Documento histórico (planejamento inicial já concluído)  
-> **Versão do Projeto:** v0.3.26  
+> **Versão do Projeto:** v0.3.27  
 > **Data:** 16/02/2026
 
 ---
@@ -130,5 +130,5 @@ Este documento serve como **guia de decisão** para:
 
 ---
 
-_Última atualização: 23/02/2026 • v0.3.26_
+_Última atualização: 23/02/2026 • v0.3.27_
 _Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_

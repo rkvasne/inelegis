@@ -130,5 +130,5 @@ Ver também: [troubleshooting-vercel-deploy.md](troubleshooting-vercel-deploy.md
 
 ---
 
-_Última atualização: 21/02/2026 • v0.3.26 (Hub v0.6.1)_
+_Última atualização: 21/02/2026 • v0.3.27 (Hub v0.6.1)_
 _Editado via: Cursor | Modelo: claude-4.6-opus | OS: Windows 11_

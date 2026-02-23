@@ -2,7 +2,7 @@
 
 > **Last Updated:** 23/02/2026
 > **Current Phase:** Testes com usuários reais / Zeladoria
-> **Project Version:** v0.3.26 (SSoT Synchronized)
+> **Project Version:** v0.3.27 (SSoT Synchronized)
 
 ## 🎯 Objetivos Concluídos (Sessão 15/02/2026 – Histórico Expandido)
 
@@ -72,6 +72,7 @@
 
 **Log de Governança/Sessão:**
 
+- 23/02/2026: **Prompt 19 (checkpoint sem bump) pós-migration 00500:** documentação atualizada para refletir execução da `20260225000500_verificar_elegibilidade_v2_compostas.sql`; auditoria final consolidada com cobertura de regras compostas/condicionais na RPC v2; memória de sessão revisada e health check do Hub (`check-hub-version`) validado como coeso (v0.6.1).
 - 23/02/2026: **Prompt 19 (checkpoint sem bump) + atualização global de docs:** revisão e harmonização de documentação operacional para `v0.3.26` (PRD, API Reference, Troubleshooting Vercel e Development), consolidação da auditoria final CRE (remoção de CTB/Improbidade da base ativa e referência explícita às 4 páginas da tabela oficial), regeneração de `supabase/structure` com `db:extract` e validações completas (`format:check`, `doc:check`, `verify`). Hub Health: `check-hub-version` OK (coeso com v0.6.1).
 - 23/02/2026: **Auditoria profunda CRE (frontend+backend+docs+DB):** Validação da planilha oficial `tabela-oficial.xlsx` contra migration/RPC e bateria de casos representativos via Supabase RPC. Encontradas divergências no banco ativo (Lei 11.343/06 art. 33 caput como exceção; Lei 2.889/56 arts. 2/3 caput como exceção) e bug de fluxo da RPC com `record IS NOT NULL` quando há campos nulos. Correções consolidadas na migration SSoT `20260225000000_crimes_inelegibilidade.sql` (dados + RPC com `IF FOUND`), mantendo `historico_consultas`, `analytics` e `keepalive` em migrations separadas.
 - 23/02/2026: **Conferência extraídos vs PDF CRE:** comparação de `supabase/structure/*.json` com `tabela-oficial.xlsx` e regras de interpretação. Ajuste necessário aplicado: remoção de `LEI_9503_97` e `LEI_8429_92` da migration SSoT e limpeza no banco ativo (service role). Pós-ajuste: 33 códigos CRE e bateria crítica RPC 10/10 OK.
@@ -106,5 +107,5 @@
 
 ---
 
-_Última atualização: 23/02/2026 • v0.3.26 (Hub v0.6.1)_
+_Última atualização: 23/02/2026 • v0.3.27 (Hub v0.6.1)_
 _Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_

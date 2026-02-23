@@ -5,5 +5,5 @@
  * Atualmente em transição para dados vindos do Supabase.
  */
 export const APP_CONFIG = {
-  VERSION: "0.3.25",
+  VERSION: "0.3.27",
 };

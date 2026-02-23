@@ -14,6 +14,7 @@ export class ValidatorUI {
 
     this.selectedLaw = null;
     this.selectedLawName = null;
+    this.relatedDevices = [];
   }
 
   /**
@@ -71,6 +72,7 @@ export class ValidatorUI {
     });
 
     this._setupParagrafoUnicoLogic();
+    this._setupCompositeRuleInputs();
     this.setupActionButtons();
     this._setupEnterKeySearch();
   }
@@ -176,6 +178,30 @@ export class ValidatorUI {
 
     this.selectedLaw = null;
     this.selectedLawName = null;
+    this.relatedDevices = [];
+    this._renderRelatedDevices();
+
+    [
+      "ctxFiguras301302",
+      "ctxRefereArt1AlineaE",
+      "ctxCpmArt266Culposo",
+      "ctxCp129Cc12",
+      "ctxLei10826Art16Cc2",
+    ].forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) el.checked = false;
+    });
+
+    [
+      "ccArtigoInput",
+      "ccParagrafoInput",
+      "ccIncisoInput",
+      "ccAlineaInput",
+    ].forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) el.value = "";
+    });
+
     this.hideResult();
 
     const arrow = document.getElementById("leiArrowIndicator");
@@ -234,6 +260,8 @@ export class ValidatorUI {
       tipoComunicacao: document.querySelector(
         'input[name="tipoComunicacao"]:checked',
       )?.value,
+      relacionados: this.relatedDevices,
+      contextoRegra: this._collectRuleContext(),
     };
 
     if (this.resultContainer) {
@@ -247,6 +275,8 @@ export class ValidatorUI {
         context.paragrafo,
         context.inciso,
         context.alinea,
+        context.relacionados,
+        context.contextoRegra,
       );
 
       this._trackAnalytics(result, context);
@@ -306,5 +336,167 @@ export class ValidatorUI {
       this.resultContainer.classList.add("hidden");
       this.resultContainer.innerHTML = "";
     }
+  }
+
+  /** @private */
+  _setupCompositeRuleInputs() {
+    const addBtn = document.getElementById("btnAddRelacionado");
+    const clearBtn = document.getElementById("btnClearRelacionados");
+    if (addBtn) {
+      addBtn.addEventListener("click", () => {
+        const artigo = document.getElementById("ccArtigoInput")?.value || "";
+        const paragrafo =
+          document.getElementById("ccParagrafoInput")?.value || "";
+        const inciso = document.getElementById("ccIncisoInput")?.value || "";
+        const alinea = document.getElementById("ccAlineaInput")?.value || "";
+
+        const artigoNormalizado = artigo.trim().toUpperCase();
+        if (!artigoNormalizado) return;
+
+        const incisos = this._expandIncisoInput(inciso);
+        const novos = incisos.length > 0 ? incisos : [null];
+        novos.forEach((inc) => {
+          const item = {
+            artigo: artigoNormalizado,
+            paragrafo: paragrafo.trim() || null,
+            inciso: inc,
+            alinea: alinea.trim() || null,
+          };
+          const key = `${item.artigo}|${item.paragrafo || ""}|${item.inciso || ""}|${item.alinea || ""}`;
+          const exists = this.relatedDevices.some((d) => {
+            const k = `${d.artigo}|${d.paragrafo || ""}|${d.inciso || ""}|${d.alinea || ""}`;
+            return k === key;
+          });
+          if (!exists) this.relatedDevices.push(item);
+        });
+
+        [
+          "ccArtigoInput",
+          "ccParagrafoInput",
+          "ccIncisoInput",
+          "ccAlineaInput",
+        ].forEach((id) => {
+          const el = document.getElementById(id);
+          if (el) el.value = "";
+        });
+
+        this._renderRelatedDevices();
+      });
+    }
+
+    if (clearBtn) {
+      clearBtn.addEventListener("click", () => {
+        this.relatedDevices = [];
+        this._renderRelatedDevices();
+      });
+    }
+  }
+
+  /** @private */
+  _expandIncisoInput(value) {
+    const raw = (value || "").trim().toUpperCase();
+    if (!raw) return [];
+
+    // Ex.: "I a V" / "I-V"
+    const range = raw.match(/^([IVXLCDM]+)\s*(?:A|-)\s*([IVXLCDM]+)$/);
+    if (!range) return [raw];
+
+    const start = this._romanToInt(range[1]);
+    const end = this._romanToInt(range[2]);
+    if (!start || !end || end < start || end - start > 30) return [raw];
+
+    const out = [];
+    for (let i = start; i <= end; i += 1) {
+      out.push(this._intToRoman(i));
+    }
+    return out;
+  }
+
+  /** @private */
+  _romanToInt(roman) {
+    const map = { I: 1, V: 5, X: 10, L: 50, C: 100, D: 500, M: 1000 };
+    let total = 0;
+    let prev = 0;
+    for (let i = roman.length - 1; i >= 0; i -= 1) {
+      const curr = map[roman[i]] || 0;
+      if (curr < prev) total -= curr;
+      else total += curr;
+      prev = curr;
+    }
+    return total;
+  }
+
+  /** @private */
+  _intToRoman(num) {
+    const values = [
+      [1000, "M"],
+      [900, "CM"],
+      [500, "D"],
+      [400, "CD"],
+      [100, "C"],
+      [90, "XC"],
+      [50, "L"],
+      [40, "XL"],
+      [10, "X"],
+      [9, "IX"],
+      [5, "V"],
+      [4, "IV"],
+      [1, "I"],
+    ];
+    let n = num;
+    let out = "";
+    values.forEach(([v, r]) => {
+      while (n >= v) {
+        out += r;
+        n -= v;
+      }
+    });
+    return out;
+  }
+
+  /** @private */
+  _renderRelatedDevices() {
+    const list = document.getElementById("relacionadosList");
+    if (!list) return;
+    if (this.relatedDevices.length === 0) {
+      list.innerHTML =
+        '<li class="text-xs text-neutral-500">Nenhum dispositivo relacionado adicionado.</li>';
+      return;
+    }
+
+    list.innerHTML = this.relatedDevices
+      .map((item, idx) => {
+        const parts = [`Art. ${item.artigo}`];
+        if (item.paragrafo) parts.push(`§ ${item.paragrafo}`);
+        if (item.inciso) parts.push(`Inc. ${item.inciso}`);
+        if (item.alinea) parts.push(`Alínea ${item.alinea}`);
+        return `
+          <li class="u-flex-between" style="gap: 0.5rem;">
+            <span class="text-xs">${parts.join(", ")}</span>
+            <button type="button" class="btn btn-secondary btn-sm" data-related-remove="${idx}">Remover</button>
+          </li>
+        `;
+      })
+      .join("");
+
+    list.querySelectorAll("[data-related-remove]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const idx = Number(btn.getAttribute("data-related-remove"));
+        this.relatedDevices.splice(idx, 1);
+        this._renderRelatedDevices();
+      });
+    });
+  }
+
+  /** @private */
+  _collectRuleContext() {
+    const flag = (id) => !!document.getElementById(id)?.checked;
+    const ctx = {};
+    if (flag("ctxFiguras301302")) ctx.figuras_301_302 = true;
+    if (flag("ctxRefereArt1AlineaE")) ctx.refere_art1_alinea_e = true;
+    if (flag("ctxCpmArt266Culposo")) ctx.cpm_art266_culposo = true;
+    if (flag("ctxCp129Cc12")) ctx.cp129_cc12 = true;
+    if (flag("ctxLei10826Art16Cc2")) ctx.lei10826_art16_cc2 = true;
+    return ctx;
   }
 }

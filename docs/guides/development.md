@@ -27,7 +27,7 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 
 ## 🏗 Arquitetura do Código
 
-### Estrutura de Pastas (v0.3.26)
+### Estrutura de Pastas (v0.3.27)
 
 - `public/assets/js/`: Código distribuído (runtime).
 - `src/js/`: Código fonte original organizado por camadas:
@@ -63,6 +63,7 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 **[ui/validator-ui.js](../../src/js/ui/validator-ui.js)**
 
 - Controla o fluxo "Lei -> Artigo" com selects em cascata.
+- Suporta modo avançado de combinação (`c.c.`) com dispositivos relacionados e contexto fático para exceções condicionais (consome `verificar_elegibilidade_v2` quando esses campos são preenchidos).
 
 **[ui/analyzer-ui.js](../../src/js/ui/analyzer-ui.js)**
 
@@ -134,5 +135,5 @@ Para garantir a eficiência de leitura por agentes de IA e conformidade com o **
 
 ---
 
-_Última atualização: 23/02/2026 • v0.3.26 (Hub v0.6.1)_
+_Última atualização: 23/02/2026 • v0.3.27 (Hub v0.6.1)_
 _Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_

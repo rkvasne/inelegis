@@ -27,6 +27,7 @@ export const RESULTS = {
   ELIGIBLE: "ELEGIVEL",
   INELIGIBLE: "INELEGIVEL",
   NOT_FOUND: "NAO_CONSTA",
+  PENDING_ANALYSIS: "PENDENTE_ANALISE",
   ERROR: "ERRO",
 };
 
@@ -133,6 +134,8 @@ export class ValidatorService {
     paragraph = null,
     inciso = null,
     alinea = null,
+    relatedDevices = [],
+    ruleContext = {},
   ) {
     if (!this.initialized) {
       return { resultado: RESULTS.ERROR, motivo: "Service not initialized" };
@@ -149,15 +152,72 @@ export class ValidatorService {
     }
 
     try {
-      const result = await supabaseClient.rpc("verificar_elegibilidade", {
-        p_codigo_norma: sanitizedLaw,
-        p_artigo: sanitizedArticle,
-        p_paragrafo: paragraph
-          ? InputValidator.normalizeDetail(paragraph)
-          : null,
-        p_inciso: inciso ? InputValidator.normalizeDetail(inciso) : null,
-        p_alinea: alinea ? InputValidator.normalizeDetail(alinea) : null,
-      });
+      const normalizedParagraph = paragraph
+        ? InputValidator.normalizeDetail(paragraph)
+        : null;
+      const normalizedInciso = inciso
+        ? InputValidator.normalizeDetail(inciso)
+        : null;
+      const normalizedAlinea = alinea
+        ? InputValidator.normalizeDetail(alinea)
+        : null;
+      const normalizedRelated = Array.isArray(relatedDevices)
+        ? relatedDevices
+            .map((item) => {
+              const art = InputValidator.validateArticle(item?.artigo);
+              if (!art) return null;
+              return {
+                artigo: art,
+                paragrafo: item?.paragrafo
+                  ? InputValidator.normalizeDetail(item.paragrafo)
+                  : null,
+                inciso: item?.inciso
+                  ? InputValidator.normalizeDetail(item.inciso)?.toUpperCase()
+                  : null,
+                alinea: item?.alinea
+                  ? InputValidator.normalizeDetail(item.alinea)
+                  : null,
+              };
+            })
+            .filter(Boolean)
+        : [];
+      const normalizedContext =
+        ruleContext && typeof ruleContext === "object" ? ruleContext : {};
+      const hasCompositeInput =
+        normalizedRelated.length > 0 ||
+        Object.keys(normalizedContext).length > 0;
+
+      let result;
+      if (hasCompositeInput) {
+        try {
+          result = await supabaseClient.rpc("verificar_elegibilidade_v2", {
+            p_codigo_norma: sanitizedLaw,
+            p_artigo: sanitizedArticle,
+            p_paragrafo: normalizedParagraph,
+            p_inciso: normalizedInciso,
+            p_alinea: normalizedAlinea,
+            p_relacionados: normalizedRelated,
+            p_contexto: normalizedContext,
+          });
+        } catch (v2Error) {
+          // Fallback compatível com ambientes que ainda não aplicaram a migration v2.
+          result = await supabaseClient.rpc("verificar_elegibilidade", {
+            p_codigo_norma: sanitizedLaw,
+            p_artigo: sanitizedArticle,
+            p_paragrafo: normalizedParagraph,
+            p_inciso: normalizedInciso,
+            p_alinea: normalizedAlinea,
+          });
+        }
+      } else {
+        result = await supabaseClient.rpc("verificar_elegibilidade", {
+          p_codigo_norma: sanitizedLaw,
+          p_artigo: sanitizedArticle,
+          p_paragrafo: normalizedParagraph,
+          p_inciso: normalizedInciso,
+          p_alinea: normalizedAlinea,
+        });
+      }
 
       return (result && result[0]) || { resultado: RESULTS.NOT_FOUND };
     } catch (error) {

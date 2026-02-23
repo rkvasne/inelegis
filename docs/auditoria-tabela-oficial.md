@@ -1,4 +1,4 @@
-﻿# 📋 Auditoria: Tabela Oficial vs Migration (v0.3.26)
+﻿# 📋 Auditoria: Tabela Oficial vs Migration (v0.3.27)
 
 **Data da Auditoria:** 09/02/2026 (conteúdo); revisões: 16/02/2026 e 23/02/2026  
 **Tabela de Referência:** Corregedoria Regional Eleitoral de São Paulo (outubro/2024)  
@@ -6,7 +6,7 @@
 
 **Status:** ✅ **CONFORME**
 
-> **Validação final (23/02/2026):** Após aplicar `20260225000400_cleanup_extras_nao_cre.sql`, a base ativa ficou sem registros de `LEI_9503_97` e `LEI_8429_92` (ausentes nas 4 páginas da tabela oficial CRE). Estado validado também na extração local de estrutura (`supabase/structure`).
+> **Validação final (23/02/2026):** Após aplicar `20260225000400_cleanup_extras_nao_cre.sql`, a base ativa ficou sem registros de `LEI_9503_97` e `LEI_8429_92` (ausentes nas 4 páginas da tabela oficial CRE). Em seguida, com `20260225000500_verificar_elegibilidade_v2_compostas.sql` executada, a RPC v2 passou a cobrir combinações `c.c.` e exceções condicionais sem regressão da regra base. Estado validado também na extração local de estrutura (`supabase/structure`).
 
 ---
 
@@ -170,5 +170,5 @@ A migration `20260225000000_crimes_inelegibilidade.sql` está **CONFORME** com a
 
 ---
 
-_Última atualização: 23/02/2026 • v0.3.26 (Hub v0.6.1)_
+_Última atualização: 23/02/2026 • v0.3.27 (Hub v0.6.1)_
 _Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_

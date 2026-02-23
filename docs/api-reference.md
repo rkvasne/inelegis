@@ -2,7 +2,7 @@
 
 > **Prompt:** 17-api-and-docs.md (Documentação: API Docs e Manuais)  
 > **Fase:** Finalização / Handover  
-> **Versão do Projeto:** v0.3.26
+> **Versão do Projeto:** v0.3.27
 
 Documentação técnica das APIs do Inelegis: endpoints serverless (Vercel) e funções RPC do Supabase consumidas pelo frontend.
 
@@ -313,6 +313,40 @@ const resultado = data?.[0]; // { resultado: "INELEGIVEL", tipo_crime: "...", ..
 
 ---
 
+#### verificar_elegibilidade_v2
+
+Versão avançada da RPC para cenários de combinação (`c.c.`) e exceções condicionais da tabela oficial CRE.
+
+**Parâmetros adicionais:**
+
+| Nome           | Tipo  | Obrigatório | Descrição                                                                      |
+| -------------- | ----- | ----------- | ------------------------------------------------------------------------------ |
+| p_relacionados | JSONB | Não         | Lista de dispositivos relacionados (ex.: `[{ artigo: "149-A", inciso: "I" }]`) |
+| p_contexto     | JSONB | Não         | Flags fáticas para exceções condicionais (ex.: `figuras_301_302: true`)        |
+
+**Campos extras no retorno:**
+
+| Campo                      | Tipo    | Descrição                                             |
+| -------------------------- | ------- | ----------------------------------------------------- |
+| match_composto             | BOOLEAN | Indica se a regra composta/condicional foi satisfeita |
+| pendencia_validacao_manual | BOOLEAN | Indica necessidade de análise manual complementar     |
+| regra_aplicada             | TEXT    | Identificador técnico da regra aplicada               |
+
+**Exemplo (JavaScript):**
+
+```javascript
+const { data } = await supabase.rpc("verificar_elegibilidade_v2", {
+  p_codigo_norma: "CP",
+  p_artigo: "149-A",
+  p_paragrafo: "1",
+  p_inciso: "II",
+  p_relacionados: [{ artigo: "149-A", inciso: "III" }],
+  p_contexto: {},
+});
+```
+
+---
+
 #### add_to_history
 
 Registra uma consulta no histórico do usuário (com contexto RLS).
@@ -389,5 +423,5 @@ Retorna totais gerais para o painel administrativo (uso com **service_role** ou 
 
 ---
 
-_Última atualização: 23/02/2026 • v0.3.26_
+_Última atualização: 23/02/2026 • v0.3.27_
 _Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_

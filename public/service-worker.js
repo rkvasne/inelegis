@@ -2,14 +2,14 @@ const CACHE_NAME = "ineleg-cache-v4";
 const ASSETS = [
   "/",
   "/index.html",
-  "/styles/styles.css?v=0.3.25",
-  "/assets/js/components/theme-bootstrap.js?v=0.3.25",
-  "/assets/js/components/components.js?v=0.3.25",
-  "/assets/js/components/theme-manager.js?v=0.3.25",
-  "/assets/js/ui/ui-enhancements.js?v=0.3.25",
-  "/assets/js/utils/sanitizer.js?v=0.3.25",
-  "/assets/js/services/storage.js?v=0.3.25",
-  "/assets/js/components/modal-manager.js?v=0.3.25",
+  "/styles/styles.css?v=0.3.27",
+  "/assets/js/components/theme-bootstrap.js?v=0.3.27",
+  "/assets/js/components/components.js?v=0.3.27",
+  "/assets/js/components/theme-manager.js?v=0.3.27",
+  "/assets/js/ui/ui-enhancements.js?v=0.3.27",
+  "/assets/js/utils/sanitizer.js?v=0.3.27",
+  "/assets/js/services/storage.js?v=0.3.27",
+  "/assets/js/components/modal-manager.js?v=0.3.27",
 ];
 
 self.addEventListener("install", (event) => {

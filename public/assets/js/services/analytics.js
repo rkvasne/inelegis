@@ -71,7 +71,7 @@ const Analytics = (() => {
         body: JSON.stringify({
           events: eventsToSend,
           timestamp: new Date().toISOString(),
-          version: "0.3.25",
+          version: "0.3.27",
         }),
       });
 
@@ -97,7 +97,7 @@ const Analytics = (() => {
       type,
       userId: getUserId(),
       timestamp: new Date().toISOString(),
-      version: "0.3.25",
+      version: "0.3.27",
       browser: {
         userAgent:
           typeof navigator !== "undefined" ? navigator.userAgent : "unknown",

@@ -3,7 +3,7 @@
 > **Objetivo:** Formalizar o escopo do produto para evitar scope creep em versões futuras. Este documento é a referência para decisões "isto entra ou não no Inelegis?".
 
 **Fase:** Definição de Produto (referência contínua)  
-**Versão do Projeto:** v0.3.26
+**Versão do Projeto:** v0.3.27
 
 ---
 
@@ -77,5 +77,5 @@ Qualquer funcionalidade nova que se encaixe nos itens acima deve ser tratada com
 
 ---
 
-_Última atualização: 23/02/2026 • v0.3.26_
+_Última atualização: 23/02/2026 • v0.3.27_
 _Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_
