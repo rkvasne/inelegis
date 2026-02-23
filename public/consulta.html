@@ -225,41 +225,47 @@
                             </p>
 
                             <div class="u-mt-4" style="border-top: 1px solid var(--border-color); padding-top: 0.875rem;">
-                                <h4 class="u-text-sm u-font-semibold u-mb-2">Combinações condicionais (c.c.)</h4>
+                                <h4 class="u-text-sm u-font-semibold u-mb-2">Quando o artigo depende de outro dispositivo (c.c.)</h4>
+                                <p class="text-xs text-neutral-600 u-mb-2">
+                                    Use este bloco quando a regra depende de combinação. Exemplo: Art. 149-A caput I a V <strong>c.c.</strong> §1º, II.
+                                </p>
                                 <p class="text-xs text-neutral-600 u-mb-3">
-                                    Use quando o dispositivo depender de combinação com outro artigo/parágrafo (ex.: Art. 149-A caput I a V c.c. §1º, II).
+                                    Passo 1: preencha os campos abaixo e clique em <strong>Adicionar à combinação</strong>.
                                 </p>
 
-                                <div class="fields-row-3">
+                                <div class="fields-row-4-compact">
                                     <div>
                                         <label class="form-label u-refinement-label">Artigo relacionado</label>
-                                        <input type="text" id="ccArtigoInput" class="form-input" placeholder="Ex: 149-A">
+                                        <input type="text" id="ccArtigoInput" class="form-input form-input-compact" placeholder="Ex: 149-A">
                                     </div>
                                     <div>
                                         <label class="form-label u-refinement-label">Parágrafo</label>
-                                        <input type="text" id="ccParagrafoInput" class="form-input" placeholder="Ex: 1 ou unico">
+                                        <input type="text" id="ccParagrafoInput" class="form-input form-input-compact" placeholder="Ex: 1 ou unico">
                                     </div>
                                     <div>
                                         <label class="form-label u-refinement-label">Inciso</label>
-                                        <input type="text" id="ccIncisoInput" class="form-input" placeholder="Ex: II ou I a V">
+                                        <input type="text" id="ccIncisoInput" class="form-input form-input-compact" placeholder="Ex: II ou I a V">
                                     </div>
                                     <div>
                                         <label class="form-label u-refinement-label">Alínea</label>
-                                        <input type="text" id="ccAlineaInput" class="form-input" placeholder="Ex: e">
+                                        <input type="text" id="ccAlineaInput" class="form-input form-input-compact" placeholder="Ex: e">
                                     </div>
                                 </div>
 
                                 <div class="u-flex-center-gap u-mt-2" style="justify-content: flex-start;">
-                                    <button type="button" id="btnAddRelacionado" class="btn btn-secondary btn-sm">Adicionar relacionado</button>
+                                    <button type="button" id="btnAddRelacionado" class="btn btn-secondary btn-sm">Adicionar à combinação</button>
                                     <button type="button" id="btnClearRelacionados" class="btn btn-secondary btn-sm">Limpar lista</button>
                                 </div>
 
                                 <ul id="relacionadosList" class="u-mt-2" style="list-style: none; margin-left: 0; padding-left: 0;">
-                                    <li class="text-xs text-neutral-500">Nenhum dispositivo relacionado adicionado.</li>
+                                    <li class="text-xs text-neutral-500">Nenhum dispositivo adicionado na combinação.</li>
                                 </ul>
 
                                 <div class="u-mt-3">
-                                    <label class="form-label u-refinement-label">Contexto fático (exceções condicionais)</label>
+                                    <label class="form-label u-refinement-label">Situação do caso (exceções condicionais)</label>
+                                    <p class="text-xs text-neutral-600 u-mb-2">
+                                        Passo 2: marque apenas se a situação abaixo estiver claramente descrita na decisão.
+                                    </p>
                                     <div style="display: flex; flex-direction: column; gap: 0.375rem;">
                                         <label class="text-xs"><input type="checkbox" id="ctxFiguras301302"> CP art. 304 nas figuras dos arts. 301/302</label>
                                         <label class="text-xs"><input type="checkbox" id="ctxRefereArt1AlineaE"> Lei 2.889/56 arts. 2º/3º referindo-se ao art. 1º, alínea "e"</label>

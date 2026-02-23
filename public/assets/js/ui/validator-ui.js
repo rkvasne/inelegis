@@ -460,7 +460,7 @@ export class ValidatorUI {
     if (!list) return;
     if (this.relatedDevices.length === 0) {
       list.innerHTML =
-        '<li class="text-xs text-neutral-500">Nenhum dispositivo relacionado adicionado.</li>';
+        '<li class="text-xs text-neutral-500">Nenhum dispositivo adicionado na combinação.</li>';
       return;
     }
 
