@@ -64,6 +64,7 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 
 - Controla o fluxo "Lei -> Artigo" com selects em cascata.
 - Suporta modo avançado de combinação (`c.c.`) com dispositivos relacionados e "situação do caso" para exceções condicionais (consome `verificar_elegibilidade_v2` quando esses campos são preenchidos).
+- O subbloco de exceções condicionais é expansível (abre sob demanda), possui tooltips de ajuda por cenário e resumo em chips com remoção rápida (`x`) para desmarcar contexto sem retornar aos checkboxes.
 
 **[ui/analyzer-ui.js](../../src/js/ui/analyzer-ui.js)**
 

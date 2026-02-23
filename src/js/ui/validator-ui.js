@@ -202,6 +202,8 @@ export class ValidatorUI {
       if (el) el.value = "";
     });
 
+    this._renderContextSummary();
+
     this.hideResult();
 
     const arrow = document.getElementById("leiArrowIndicator");
@@ -390,6 +392,21 @@ export class ValidatorUI {
         this._renderRelatedDevices();
       });
     }
+
+    [
+      "ctxFiguras301302",
+      "ctxRefereArt1AlineaE",
+      "ctxCpmArt266Culposo",
+      "ctxCp129Cc12",
+      "ctxLei10826Art16Cc2",
+    ].forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.addEventListener("change", () => this._renderContextSummary());
+      }
+    });
+
+    this._renderContextSummary();
   }
 
   /** @private */
@@ -461,6 +478,7 @@ export class ValidatorUI {
     if (this.relatedDevices.length === 0) {
       list.innerHTML =
         '<li class="text-xs text-neutral-500">Nenhum dispositivo adicionado na combinação.</li>';
+      this._renderContextSummary();
       return;
     }
 
@@ -486,6 +504,8 @@ export class ValidatorUI {
         this._renderRelatedDevices();
       });
     });
+
+    this._renderContextSummary();
   }
 
   /** @private */
@@ -498,5 +518,83 @@ export class ValidatorUI {
     if (flag("ctxCp129Cc12")) ctx.cp129_cc12 = true;
     if (flag("ctxLei10826Art16Cc2")) ctx.lei10826_art16_cc2 = true;
     return ctx;
+  }
+
+  /** @private */
+  _getSelectedContexts() {
+    const flags = [
+      {
+        id: "ctxFiguras301302",
+        label: "CP art. 304 ligado aos arts. 301/302",
+      },
+      {
+        id: "ctxRefereArt1AlineaE",
+        label: 'Lei 2.889/56 arts. 2º/3º com referência ao art. 1º, alínea "e"',
+      },
+      {
+        id: "ctxCpmArt266Culposo",
+        label: "CPM arts. 262-265 combinados com art. 266 (culposo)",
+      },
+      {
+        id: "ctxCp129Cc12",
+        label: "CP art. 129 §§2º/3º em combinação com §12",
+      },
+      {
+        id: "ctxLei10826Art16Cc2",
+        label: "Lei 10.826/03 art. 16 em combinação com §2º",
+      },
+    ];
+
+    return flags.filter((f) => document.getElementById(f.id)?.checked);
+  }
+
+  /** @private */
+  _renderContextSummary() {
+    const summary = document.getElementById("ccResumoSelecionado");
+    if (!summary) return;
+
+    const selectedContexts = this._getSelectedContexts();
+    const hasRelated = this.relatedDevices.length > 0;
+    const hasContext = selectedContexts.length > 0;
+
+    if (!hasRelated && !hasContext) {
+      summary.innerHTML =
+        '<p class="text-xs text-neutral-500">Resumo da combinação: nenhum item adicional selecionado.</p>';
+      return;
+    }
+
+    const chips = [];
+    if (hasRelated) {
+      chips.push(
+        `<span class="cc-chip cc-chip-primary">Relacionados: ${this.relatedDevices.length}</span>`,
+      );
+    }
+
+    selectedContexts.forEach((ctx) => {
+      chips.push(`
+        <span class="cc-chip">
+          <span>${ctx.label}</span>
+          <button type="button" class="cc-chip-remove" data-ctx-remove="${ctx.id}" aria-label="Desmarcar ${ctx.label}">x</button>
+        </span>
+      `);
+    });
+
+    summary.innerHTML = `
+      <p class="text-xs u-mb-1"><strong>Resumo da combinação antes de pesquisar:</strong></p>
+      <div class="cc-chip-list">
+        ${chips.join("")}
+      </div>
+    `;
+
+    summary.querySelectorAll("[data-ctx-remove]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const id = btn.getAttribute("data-ctx-remove");
+        const checkbox = document.getElementById(id);
+        if (checkbox) {
+          checkbox.checked = false;
+          this._renderContextSummary();
+        }
+      });
+    });
   }
 }

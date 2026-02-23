@@ -262,17 +262,47 @@
                                 </ul>
 
                                 <div class="u-mt-3">
-                                    <label class="form-label u-refinement-label">Situação do caso (exceções condicionais)</label>
+                                    <label class="form-label u-refinement-label">Passo 2 (opcional): detalhes do caso</label>
                                     <p class="text-xs text-neutral-600 u-mb-2">
-                                        Passo 2: marque apenas se a situação abaixo estiver claramente descrita na decisão.
+                                        Abra apenas se precisar. Marque só quando a sentença indicar isso de forma clara. Em caso de dúvida, deixe desmarcado.
                                     </p>
-                                    <div style="display: flex; flex-direction: column; gap: 0.375rem;">
-                                        <label class="text-xs"><input type="checkbox" id="ctxFiguras301302"> CP art. 304 nas figuras dos arts. 301/302</label>
-                                        <label class="text-xs"><input type="checkbox" id="ctxRefereArt1AlineaE"> Lei 2.889/56 arts. 2º/3º referindo-se ao art. 1º, alínea "e"</label>
-                                        <label class="text-xs"><input type="checkbox" id="ctxCpmArt266Culposo"> CPM arts. 262-265 combinados com art. 266 (culposo)</label>
-                                        <label class="text-xs"><input type="checkbox" id="ctxCp129Cc12"> CP art. 129 §§2º/3º c.c. §12</label>
-                                        <label class="text-xs"><input type="checkbox" id="ctxLei10826Art16Cc2"> Lei 10.826/03 art. 16 c.c. §2º</label>
-                                    </div>
+
+                                    <details class="cc-context-details">
+                                        <summary class="cc-context-summary">
+                                            <span class="text-xs">Selecionar situações específicas (exceções condicionais)</span>
+                                            <svg class="cc-context-chevron" width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                            </svg>
+                                        </summary>
+                                        <div class="cc-context-content">
+                                            <div class="cc-options-list">
+                                                <label class="text-xs cc-option-row">
+                                                    <span class="cc-option-main"><input type="checkbox" id="ctxFiguras301302"> CP art. 304 quando ligado aos arts. 301/302</span>
+                                                    <button type="button" class="cc-help-icon" aria-label="Exemplo CP art. 304" data-tooltip="Exemplo: uso de documento falso (art. 304) para acobertar favorecimento real (figuras dos arts. 301/302).">?</button>
+                                                </label>
+                                                <label class="text-xs cc-option-row">
+                                                    <span class="cc-option-main"><input type="checkbox" id="ctxRefereArt1AlineaE"> Lei 2.889/56 arts. 2º/3º quando houver referência ao art. 1º, alínea "e"</span>
+                                                    <button type="button" class="cc-help-icon" aria-label="Exemplo Lei 2.889/56" data-tooltip="Exemplo: denúncia/decisão cita art. 2º ou 3º e vincula expressamente ao art. 1º, alínea e (crime hediondo).">?</button>
+                                                </label>
+                                                <label class="text-xs cc-option-row">
+                                                    <span class="cc-option-main"><input type="checkbox" id="ctxCpmArt266Culposo"> CPM arts. 262-265 quando combinados com art. 266 (culposo)</span>
+                                                    <button type="button" class="cc-help-icon" aria-label="Exemplo CPM 262-265 com 266" data-tooltip="Exemplo: decisão aponta arts. 262-265, mas qualifica o resultado como modalidade culposa do art. 266.">?</button>
+                                                </label>
+                                                <label class="text-xs cc-option-row">
+                                                    <span class="cc-option-main"><input type="checkbox" id="ctxCp129Cc12"> CP art. 129 §§2º/3º em combinação com §12</span>
+                                                    <button type="button" class="cc-help-icon" aria-label="Exemplo CP art. 129 c.c. §12" data-tooltip="Exemplo: lesão grave/gravíssima com menção explícita de incidência do §12 no mesmo fato.">?</button>
+                                                </label>
+                                                <label class="text-xs cc-option-row">
+                                                    <span class="cc-option-main"><input type="checkbox" id="ctxLei10826Art16Cc2"> Lei 10.826/03 art. 16 em combinação com §2º</span>
+                                                    <button type="button" class="cc-help-icon" aria-label="Exemplo Lei 10.826 art. 16 c.c. §2º" data-tooltip="Exemplo: posse/porte do art. 16 com descrição expressa da hipótese qualificada do §2º.">?</button>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </details>
+                                </div>
+
+                                <div id="ccResumoSelecionado" class="cc-selection-summary u-mt-3" aria-live="polite">
+                                    <p class="text-xs text-neutral-500">Resumo da combinação: nenhum item adicional selecionado.</p>
                                 </div>
                             </div>
                         </div>

@@ -30,6 +30,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 ### fix
 
 - **fix(frontend-ux-cc):** Refinamento da seção de consulta composta na página de busca: linguagem simplificada (remoção de jargão "contexto fático"), instruções por passos, botão `Adicionar à combinação`, lista vazia mais explícita e layout compacto com os quatro campos relacionados na mesma linha (responsivo).
+- **fix(frontend-ux-cc-contexto):** Bloco de exceções condicionais convertido para seletor expansível com ajuda contextual (`?` + tooltip por opção) e resumo pré-pesquisa em chips, incluindo remoção rápida por `x` diretamente no resumo.
 - **fix(build-config):** Ajustado `scripts/build-supabase-config.js` para gerar `public/assets/js/supabase-config.js` já compatível com Prettier, evitando quebra recorrente de `format:check` após `npm run build`.
 - **fix(rpc-cre):** Corrigida a RPC `verificar_elegibilidade` na migration SSoT para usar `IF FOUND` (em vez de `IS NOT NULL` em record), evitando falso “sem match” quando o registro existe e possui campos nulos (ex.: `observacoes`).
 - **fix(data-cre):** Consolidação final da trilha de inelegibilidade: reparos de dados CRE e ajuste da RPC incorporados na migration base `20260225000000_crimes_inelegibilidade.sql` (removida migration de hotfix separada para setup limpo do zero).
