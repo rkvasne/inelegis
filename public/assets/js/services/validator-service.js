@@ -156,7 +156,7 @@ export class ValidatorService {
         ? InputValidator.normalizeDetail(paragraph)
         : null;
       const normalizedInciso = inciso
-        ? InputValidator.normalizeDetail(inciso)
+        ? InputValidator.normalizeDetail(inciso)?.toUpperCase()
         : null;
       const normalizedAlinea = alinea
         ? InputValidator.normalizeDetail(alinea)
@@ -169,7 +169,10 @@ export class ValidatorService {
               return {
                 artigo: art,
                 paragrafo: item?.paragrafo
-                  ? InputValidator.normalizeDetail(item.paragrafo)
+                  ? (() => {
+                      const p = InputValidator.normalizeDetail(item.paragrafo);
+                      return p === "caput" ? null : p;
+                    })()
                   : null,
                 inciso: item?.inciso
                   ? InputValidator.normalizeDetail(item.inciso)?.toUpperCase()

@@ -19,6 +19,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 - **docs(checkpoint):** Execução do Prompt 19 (sem bump) com revisão ampla de documentação: alinhamento de versões (`v0.3.27`) em PRD, API Reference, Troubleshooting e Development; auditoria final CRE consolidada em `auditoria-tabela-oficial.md` e `interpretacao-tabela-oficial.md`; atualização da memória em `.agent/memory/project-status.md`.
 - **docs(v2-cc):** Atualização dos guias de migration/setup/API para incluir a RPC `verificar_elegibilidade_v2` e o fluxo de combinações condicionais (`c.c.`).
 - **docs(pos-migration-00500):** Registro da execução da migration `20260225000500_verificar_elegibilidade_v2_compostas.sql` no ambiente ativo e validação final de conformidade documental.
+- **docs(api-consumo):** Arquitetura de consumo atualizada para explicitar uso de `verificar_elegibilidade_v2` no fluxo composto e verificação da aplicação da migration via `supabase/structure/extract-functions.json`.
 
 ### feat
 
@@ -31,10 +32,13 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 - **fix(rpc-cre):** Corrigida a RPC `verificar_elegibilidade` na migration SSoT para usar `IF FOUND` (em vez de `IS NOT NULL` em record), evitando falso “sem match” quando o registro existe e possui campos nulos (ex.: `observacoes`).
 - **fix(data-cre):** Consolidação final da trilha de inelegibilidade: reparos de dados CRE e ajuste da RPC incorporados na migration base `20260225000000_crimes_inelegibilidade.sql` (removida migration de hotfix separada para setup limpo do zero).
 - **fix(cre-escopo):** Removidos da migration SSoT e do banco ativo os códigos `LEI_9503_97` (CTB) e `LEI_8429_92` (Improbidade), por não constarem na tabela oficial CRE-SP (out/2024) usada como fonte de verdade da alínea “e”.
+- **fix(rpc-v2-hardening):** Endurecimento da `verificar_elegibilidade_v2`: normalização defensiva de `p_paragrafo/p_inciso/p_alinea` com `TRANSLATE`, aceitação de `caput` em relacionados e restrição de exceções condicionais (CP 304, Lei 2.889 arts. 2/3 e CPM 262-265) ao escopo de caput.
+- **fix(frontend-v2-normalizacao):** `validator-service` normaliza `inciso` principal para maiúsculas e converte `paragrafo=caput` em relacionados para `null`, evitando falsos `PENDENTE_ANALISE`.
 
 ### test
 
 - **test(auditoria-profunda):** Auditoria ponta a ponta da tabela oficial (`tabela-oficial.xlsx`), migration e RPC com bateria de casos representativos CRE; identificadas divergências no banco ativo e gerado hotfix idempotente no repositório.
+- **test(prompt11-v2):** Prompt 11 executado com ampliação dos testes do `validator-service` para cenários de RPC v2 (uso de `p_relacionados/p_contexto`, fallback para RPC base e normalização de `caput`), além de correção do runner assíncrono para evitar falso positivo.
 
 ## [0.3.26] - 23/02/2026
 

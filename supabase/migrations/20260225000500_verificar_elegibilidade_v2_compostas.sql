@@ -36,8 +36,10 @@ DECLARE
     v_base RECORD;
     v_codigo VARCHAR := UPPER(TRIM(COALESCE(p_codigo_norma, '')));
     v_artigo VARCHAR := TRIM(COALESCE(p_artigo, ''));
-    v_paragrafo VARCHAR := LOWER(TRIM(COALESCE(p_paragrafo, '')));
-    v_inciso VARCHAR := UPPER(TRIM(COALESCE(p_inciso, '')));
+    -- Normalização defensiva para suportar entradas com símbolos (§, º) via RPC direta.
+    v_paragrafo VARCHAR := TRANSLATE(LOWER(TRIM(COALESCE(p_paragrafo, ''))), '§º°ª ', '');
+    v_inciso VARCHAR := TRANSLATE(UPPER(TRIM(COALESCE(p_inciso, ''))), ' ', '');
+    v_alinea VARCHAR := TRANSLATE(LOWER(TRIM(COALESCE(p_alinea, ''))), ' ', '');
     v_relacionados JSONB := COALESCE(p_relacionados, '[]'::JSONB);
     v_contexto JSONB := COALESCE(p_contexto, '{}'::JSONB);
 
@@ -96,7 +98,7 @@ BEGIN
         SELECT 1
         FROM jsonb_array_elements(v_relacionados) r
         WHERE UPPER(COALESCE(r->>'artigo', '')) = '149-A'
-          AND COALESCE(NULLIF(LOWER(TRIM(COALESCE(r->>'paragrafo', ''))), ''), '') = ''
+          AND COALESCE(NULLIF(TRANSLATE(LOWER(TRIM(COALESCE(r->>'paragrafo', ''))), '§º°ª ', ''), ''), '') IN ('', 'caput')
           AND UPPER(COALESCE(r->>'inciso', '')) IN ('I', 'II', 'III', 'IV', 'V')
     ) INTO v_tem_caput_i_v;
 
@@ -104,14 +106,14 @@ BEGIN
         SELECT 1
         FROM jsonb_array_elements(v_relacionados) r
         WHERE UPPER(COALESCE(r->>'artigo', '')) = '129'
-          AND LOWER(COALESCE(r->>'paragrafo', '')) = '12'
+          AND TRANSLATE(LOWER(COALESCE(r->>'paragrafo', '')), '§º°ª ', '') = '12'
     ) INTO v_tem_art_129_p12;
 
     SELECT EXISTS (
         SELECT 1
         FROM jsonb_array_elements(v_relacionados) r
         WHERE UPPER(COALESCE(r->>'artigo', '')) = '16'
-          AND LOWER(COALESCE(r->>'paragrafo', '')) = '2'
+          AND TRANSLATE(LOWER(COALESCE(r->>'paragrafo', '')), '§º°ª ', '') = '2'
     ) INTO v_tem_art_16_p2;
 
     SELECT EXISTS (
@@ -179,7 +181,7 @@ BEGIN
     END IF;
 
     -- CP 304: exceção somente nas figuras dos arts. 301 e 302
-    IF v_codigo = 'CP' AND v_artigo = '304' THEN
+    IF v_codigo = 'CP' AND v_artigo = '304' AND v_paragrafo = '' AND v_inciso = '' AND v_alinea = '' THEN
         IF v_tem_art_301_302 OR LOWER(COALESCE(v_contexto->>'figuras_301_302', 'false')) = 'true' THEN
             v_resultado := 'ELEGIVEL';
             v_match_composto := TRUE;
@@ -196,7 +198,7 @@ BEGIN
     END IF;
 
     -- Lei 2.889/56 arts. 2º e 3º: exceção quando se referir ao art. 1º, alínea "e"
-    IF v_codigo = 'LEI_2889_56' AND v_artigo IN ('2', '3') THEN
+    IF v_codigo = 'LEI_2889_56' AND v_artigo IN ('2', '3') AND v_paragrafo = '' AND v_inciso = '' AND v_alinea = '' THEN
         IF LOWER(COALESCE(v_contexto->>'refere_art1_alinea_e', 'false')) = 'true' THEN
             v_resultado := 'ELEGIVEL';
             v_match_composto := TRUE;
@@ -213,7 +215,7 @@ BEGIN
     END IF;
 
     -- CPM 262-265: exceção quando combinados com art. 266 (culposo)
-    IF v_codigo = 'CPM' AND v_artigo IN ('262', '263', '264', '265') THEN
+    IF v_codigo = 'CPM' AND v_artigo IN ('262', '263', '264', '265') AND v_paragrafo = '' AND v_inciso = '' AND v_alinea = '' THEN
         IF v_tem_art_266 OR LOWER(COALESCE(v_contexto->>'cpm_art266_culposo', 'false')) = 'true' THEN
             v_resultado := 'ELEGIVEL';
             v_match_composto := TRUE;
