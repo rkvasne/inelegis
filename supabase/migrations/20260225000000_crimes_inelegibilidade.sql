@@ -646,7 +646,7 @@ BEGIN
       t.eh_excecao DESC
     LIMIT 1;
 
-    IF v_record IS NOT NULL THEN
+    IF FOUND THEN
         SELECT string_agg(
             CASE
                 WHEN t2.paragrafo IS NOT NULL THEN
@@ -694,7 +694,7 @@ BEGIN
       AND COALESCE(t.artigo_inteiro_impeditivo, TRUE) = TRUE
     LIMIT 1;
 
-    IF v_artigo_inteiro_impeditivo IS NOT NULL THEN
+    IF FOUND THEN
         SELECT EXISTS (
             SELECT 1 FROM public.crimes_inelegibilidade t
             WHERE t.codigo = UPPER(p_codigo_norma)

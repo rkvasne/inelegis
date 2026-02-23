@@ -6,6 +6,8 @@
 
 **Status:** ✅ **CONFORME COM RESSALVAS**
 
+> **Atualização crítica (23/02/2026):** A auditoria profunda identificou que o **banco ativo** pode conter dados legados divergentes mesmo com o repositório correto. Foi criada a migration `20260225000400_hotfix_conformidade_cre.sql` para correção idempotente de dados e reaplicação da RPC `verificar_elegibilidade` com ajuste de fluxo (`IF FOUND`).
+
 ---
 
 ## 📊 Resumo Executivo
@@ -133,6 +135,18 @@ Há hipóteses da tabela oficial cuja exceção depende de combinação textual/
 - CPM, arts. 262 a 265: exceção quando combinados com art. 266 (culposo).
 
 No banco, esses casos seguem impeditivos por padrão, com observação explícita para revisão jurídica manual no caso concreto.
+
+### 7. **Divergências encontradas no banco ativo (corrigidas no repositório)**
+
+Na verificação ponta a ponta (RPC real), foram detectados cenários fora da interpretação CRE por **dados legados**:
+
+- Lei 11.343/06, art. 33: caput aparecendo como exceção (deveria ser apenas §3º).
+- Lei 2.889/56, arts. 2º e 3º: caput aparecendo como exceção (na tabela oficial a exceção é condicional/fática, sem automação caput).
+
+Também foi identificado um ponto de robustez na RPC:
+
+- `IF v_record IS NOT NULL` em variável `record` pode falhar quando há colunas nulas no match exato.
+- Ajuste aplicado na migration SSoT: uso de `IF FOUND`.
 
 ---
 

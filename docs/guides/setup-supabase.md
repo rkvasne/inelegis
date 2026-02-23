@@ -36,7 +36,7 @@ SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6...
 
 ### 3. Executar Migrations
 
-O sistema usa **5 migrations** separadas por domínio. Detalhes em [migrations-status.md](migrations-status.md).
+O sistema usa **6 migrations** separadas por domínio. Detalhes em [migrations-status.md](migrations-status.md).
 
 #### Via CLI (recomendado)
 
@@ -49,7 +49,7 @@ supabase db push
 
 #### Via SQL Editor (Dashboard)
 
-Execute os 5 arquivos em ordem conforme [migrations-status.md](migrations-status.md): crimes_inelegibilidade → historico_consultas → analytics → keepalive → grant_rpc_anon.
+Execute os 6 arquivos em ordem conforme [migrations-status.md](migrations-status.md): crimes_inelegibilidade → historico_consultas → grant_rpc_anon → analytics → keepalive → hotfix_conformidade_cre.
 
 ### 4. Testar Conexão
 
@@ -136,7 +136,7 @@ Verifique se o `.env.local` está preenchido corretamente.
 
 ### Erro: "relation does not exist"
 
-Execute as **migrations** (`supabase db push` ou os 5 arquivos SQL no Dashboard — ver [migrations-status.md](migrations-status.md)).
+Execute as **migrations** (`supabase db push` ou os 6 arquivos SQL no Dashboard — ver [migrations-status.md](migrations-status.md)).
 
 ### Erro 401 (Unauthorized)
 
@@ -152,5 +152,5 @@ Verifique se a `anon key` está correta e se RLS das tabelas permite acesso.
 
 ---
 
-_Última atualização: 21/02/2026 • v0.3.26 (Hub v0.6.1)_
-_Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_
+_Última atualização: 23/02/2026 • v0.3.26 (Hub v0.6.1)_
+_Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_
