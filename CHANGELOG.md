@@ -13,10 +13,23 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ## [Unreleased]
 
+- Nenhuma alteração registrada.
+
+## [0.3.26] - 23/02/2026
+
+### fix
+
 - **fix(ssot-juridico):** Ajustes na migration `20260225000000_crimes_inelegibilidade.sql` para reduzir falsos positivos/negativos: Art. 148 e 149-A marcados como padrão C (`artigo_inteiro_impeditivo=FALSE`), exceção da Lei 11.343/06 corrigida para art. 33 §3º, e tratamento explícito de exceções condicionais (CP 304; Lei 2.889 arts. 2/3).
 - **fix(busca):** Normalização de artigo no frontend (`2º-A` → `2-A`, hífens unicode e espaços) em `input-validator`, com testes unitários adicionais.
-- **docs(prompt-25+19):** Auditoria e alinhamento documental (api-reference, auditoria-tabela-oficial, interpretacao-tabela-oficial, PRD/Plano Inicial e metadados de assinatura/Hub).
-- **test:** suíte unitária validada após ajustes (input-validator com novos cenários) e `npm run verify` sem falhas críticas.
+
+### docs
+
+- **docs(consolidacao):** Unificação de índices e metadados de documentação; remoção de documentos obsoletos em `docs/archive` (inventário e relatório antigos do doc-janitor).
+- **docs(orfãos):** Tratamento dos órfãos do validator com índice em `.cursor/commands/README.md` e correção de referência para `code-reviewer.prompt.md` em `.github/prompts/README.md`.
+
+### test
+
+- **test:** suíte unitária e verificações de integridade executadas após os ajustes (`test:unit`, `doc:check`, `verify`).
 
 - **fix(historico):** Frontend `search-history.js` envia para POST `/api/search-history` (API Vercel) em vez de Supabase direto, evitando 401 Unauthorized (API usa service_role).
 - **fix(migration):** Migration `20260225000150_grant_rpc_anon.sql` com GRANT EXECUTE nas RPCs para anon (uso pela API Vercel).
@@ -224,5 +237,5 @@ As alterações das versões **v0.2.0 a v0.3.11** e **v0.1.x** foram movidas par
 - 📂 [v0.2.0 a v0.3.11](docs/archive/CHANGELOG_V0_3_early.md)
 - 📂 [v0.1.x](docs/archive/CHANGELOG_V0.md)
 
-_Última atualização: 23/02/2026 • v0.3.25 (Hub v0.6.1)_
+_Última atualização: 23/02/2026 • v0.3.26 (Hub v0.6.1)_
 _Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_

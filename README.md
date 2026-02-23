@@ -7,7 +7,7 @@
 **Sistema de Consulta de Inelegibilidade Eleitoral.**  
 _Uma ferramenta moderna, rápida e precisa para análise jurídica eleitoral._
 
-[![Version](https://img.shields.io/badge/version-0.3.25-blue.svg?style=for-the-badge)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-0.3.26-blue.svg?style=for-the-badge)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-orange.svg?style=for-the-badge)](LICENSE.md)
 [![Status](https://img.shields.io/badge/status-active-success.svg?style=for-the-badge)](CHANGELOG.md)
 
@@ -96,6 +96,11 @@ Toda a documentação oficial vive em `docs/`. Use o índice central:
 
 **[docs/README.md](docs/README.md)**
 
+Materiais de modos/assistentes de IDE:
+
+- **[.github/prompts/README.md](.github/prompts/README.md)** — Prompt Files para Copilot/VS Code
+- **[.cursor/commands/README.md](.cursor/commands/README.md)** — comandos de modo no Cursor
+
 ---
 
 ## 🆕 Novidades
@@ -104,7 +109,7 @@ Consulte o [CHANGELOG.md](CHANGELOG.md) para histórico completo e versão atual
 
 ---
 
-## �️ Tecnologias (opcional)
+## 🛠️ Tecnologias (opcional)
 
 - HTML5
 - CSS3
@@ -133,5 +138,5 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE.md](LICENSE.md) p
 
 ---
 
-_Última atualização: 15/02/2026 • v0.3.25 (Hub v0.5.8)_
-_Editado via: Cursor | Modelo: claude-4.6-opus | OS: Windows 11_
+_Última atualização: 23/02/2026 • v0.3.26 (Hub v0.6.1)_
+_Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_

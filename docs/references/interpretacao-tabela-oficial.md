@@ -93,5 +93,5 @@ Nesses cenários, a base mantém o registro impeditivo com observação de revis
 
 ---
 
-_Última atualização: 23/02/2026 • v0.3.25_
+_Última atualização: 23/02/2026 • v0.3.26_
 _Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_

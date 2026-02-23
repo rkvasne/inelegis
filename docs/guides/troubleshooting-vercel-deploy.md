@@ -90,4 +90,4 @@ O Inelegis usa **Supabase Edge Function** para Keepalive, não rota na Vercel. A
 
 ---
 
-_Última atualização: 21/02/2026 • v0.3.25 (Hub v0.6.1)_
+_Última atualização: 21/02/2026 • v0.3.26 (Hub v0.6.1)_

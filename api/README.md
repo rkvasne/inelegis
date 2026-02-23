@@ -112,5 +112,5 @@ vercel dev
 
 ---
 
-_Última atualização: 15/02/2026 • v0.3.25_
+_Última atualização: 15/02/2026 • v0.3.26_
 _Editado via: Cursor | Modelo: claude-4.6-opus | OS: Windows 11_

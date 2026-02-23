@@ -94,8 +94,6 @@ docs/
     ├── CHANGELOG_V0_3_early.md
     ├── 2026-02-08-audit-relatorio-deep-dive.md
     ├── 2026-02-15-revisao-tabela-crimes-inelegibilidade.md
-    ├── 2026-02-21-relatorio-doc-janitor.md
-    ├── 2026-02-21-inventario-documentacao.md
     ├── 2025-12-01-refatoracao-v0-0-6.md
     └── 2026-02-15-conferencia-cre-banco.md
 ```
@@ -119,5 +117,5 @@ Para manter consistência entre todos os documentos, siga o padrão centralizado
 
 ---
 
-_Última atualização: 21/02/2026 • v0.3.25 (Hub v0.6.1)_
-_Editado via: Cursor | Modelo: claude-4.6-opus | OS: Windows 11_
+_Última atualização: 23/02/2026 • v0.3.26 (Hub v0.6.1)_
+_Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_

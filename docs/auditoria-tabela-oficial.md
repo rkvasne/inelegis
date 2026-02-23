@@ -149,5 +149,5 @@ A migration `20260225000000_crimes_inelegibilidade.sql` está **CONFORME** com a
 
 ---
 
-_Última atualização: 23/02/2026 • v0.3.25 (Hub v0.6.1)_
+_Última atualização: 23/02/2026 • v0.3.26 (Hub v0.6.1)_
 _Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_

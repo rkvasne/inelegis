@@ -99,5 +99,5 @@ O projeto segue [Semantic Versioning](https://semver.org/). Histórico em [CHANG
 
 ---
 
-_Última atualização: 21/02/2026 • v0.3.25 (Hub v0.6.1)_
+_Última atualização: 21/02/2026 • v0.3.26 (Hub v0.6.1)_
 _Editado via: Cursor | Modelo: claude-4.6-opus | OS: Windows 11_

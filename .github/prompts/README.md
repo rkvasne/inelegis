@@ -49,7 +49,7 @@ Prompt Files (`.prompt.md`) automatically load specialized context into VS Code 
 
 | File                      | Purpose                         | When to Use                     |
 | ------------------------- | ------------------------------- | ------------------------------- |
-| `code-review.prompt.md`   | PR Review                       | Before merge, code analysis     |
+| `code-reviewer.prompt.md` | PR Review                       | Before merge, code analysis     |
 | `debugger.prompt.md`      | Methodical Debugging            | Errors, stack traces            |
 | `devops.prompt.md`        | CI/CD, Docker, infra            | Pipelines, deploy, containers   |
 | `documentation.prompt.md` | Technical Docs, README          | API docs, process documentation |
@@ -106,3 +106,8 @@ brain/personas/mode-systems-architect.md → .github/prompts/systems-architect.p
 - [PROMPTS.md](../../PROMPTS.md) - Copy/paste prompt library
 - [brain/identities/](../../brain/identities/) - Identity layer
 - [brain/personas/](../../brain/personas/) - Persona layer (source)
+
+---
+
+_Última atualização: 23/02/2026 • v0.3.26_
+_Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_

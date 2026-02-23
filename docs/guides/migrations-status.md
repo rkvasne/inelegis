@@ -49,5 +49,5 @@ Execute os 5 arquivos em ordem (1 → 5).
 2. **Função:** `verificar_elegibilidade` (ver [interpretacao-tabela-oficial.md](../references/interpretacao-tabela-oficial.md))
 3. **RLS:** políticas em `historico_consultas`, `analytics_events`, `keepalive`, `keepalive_events`
 
-_Última atualização: 20/02/2026 • v0.3.25_
+_Última atualização: 20/02/2026 • v0.3.26_
 _Editado via: Cursor | Modelo: Auto | OS: Windows 11_
