@@ -99,16 +99,47 @@ export class ValidatorUI {
     const checkUnico = document.getElementById("paragrafoUnicoCheck");
     const inputParagrafo = document.getElementById("paragrafoInput");
     if (checkCaput && checkUnico && inputParagrafo) {
+      const syncMainParagrafoState = () => {
+        if (checkCaput.checked) {
+          checkUnico.checked = false;
+          inputParagrafo.value = "";
+          inputParagrafo.disabled = true;
+          return;
+        }
+        if (checkUnico.checked) {
+          checkCaput.checked = false;
+          inputParagrafo.value = "";
+          inputParagrafo.disabled = true;
+          return;
+        }
+        inputParagrafo.disabled = false;
+      };
+
       checkCaput.addEventListener("change", (e) => {
-        if (e.target.checked) checkUnico.checked = false;
-        inputParagrafo.disabled = e.target.checked || checkUnico.checked;
-        if (e.target.checked) inputParagrafo.value = "";
+        if (e.target.checked) {
+          checkUnico.checked = false;
+        }
+        syncMainParagrafoState();
       });
+
       checkUnico.addEventListener("change", (e) => {
-        if (e.target.checked) checkCaput.checked = false;
-        inputParagrafo.disabled = e.target.checked || checkCaput.checked;
-        if (e.target.checked) inputParagrafo.value = "";
+        if (e.target.checked) {
+          checkCaput.checked = false;
+        }
+        syncMainParagrafoState();
       });
+
+      inputParagrafo.addEventListener("input", () => {
+        // Se o usuário digitar um parágrafo, sai do modo caput/único explicitamente.
+        if (inputParagrafo.value.trim() !== "") {
+          checkCaput.checked = false;
+          checkUnico.checked = false;
+          inputParagrafo.disabled = false;
+        }
+      });
+
+      // Sincroniza estado inicial da UI (evita caput marcado com parágrafo preenchido).
+      syncMainParagrafoState();
     }
   }
 
@@ -433,10 +464,27 @@ export class ValidatorUI {
     const caputCheck = document.getElementById("ccCaputCheck");
     const paragrafoInput = document.getElementById("ccParagrafoInput");
     if (caputCheck && paragrafoInput) {
+      const syncCcParagrafoState = () => {
+        if (caputCheck.checked) {
+          paragrafoInput.value = "";
+          paragrafoInput.disabled = true;
+          return;
+        }
+        paragrafoInput.disabled = false;
+      };
+
       caputCheck.addEventListener("change", (e) => {
-        paragrafoInput.disabled = e.target.checked;
-        if (e.target.checked) paragrafoInput.value = "";
+        syncCcParagrafoState();
       });
+
+      paragrafoInput.addEventListener("input", () => {
+        if (paragrafoInput.value.trim() !== "") {
+          caputCheck.checked = false;
+          paragrafoInput.disabled = false;
+        }
+      });
+
+      syncCcParagrafoState();
     }
     if (addBtn) {
       addBtn.addEventListener("click", () => {

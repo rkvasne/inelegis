@@ -67,6 +67,8 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 - O refinamento básico possui seleção explícita de `Caput` e `Único` (mutuamente exclusivos), removendo ambiguidade no preenchimento de parágrafo.
 - O subbloco de exceções condicionais é expansível (abre sob demanda), possui tooltips de ajuda por cenário e resumo em chips com remoção rápida (`x`) para desmarcar contexto sem retornar aos checkboxes.
 - O bloco de combinação `c.c.` fica em expansível próprio, separado do refinamento básico (parágrafo/inciso/alínea), possui seleção explícita de `Caput` para dispositivo relacionado e reduz ambiguidades de uso.
+- Na legenda da consulta, os quatro estados são exibidos em linha única no desktop (com quebra responsiva em telas menores) para comparação visual imediata.
+- O estado técnico `PENDENTE_ANALISE` é apresentado ao usuário como **Revisão necessária**, com orientação de que faltam dados para conclusão automática.
 - O modal final exibe "Consulta informada pelo usuário" com dispositivo principal, dispositivos `c.c.` adicionados e situações específicas marcadas.
 
 **[ui/analyzer-ui.js](../../src/js/ui/analyzer-ui.js)**
@@ -139,5 +141,5 @@ Para garantir a eficiência de leitura por agentes de IA e conformidade com o **
 
 ---
 
-_Última atualização: 23/02/2026 • v0.3.27 (Hub v0.6.1)_
+_Última atualização: 24/02/2026 • v0.3.27 (Hub v0.6.1)_
 _Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_

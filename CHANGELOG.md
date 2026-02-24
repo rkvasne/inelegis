@@ -15,6 +15,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ### docs
 
+- **docs(ux-legenda):** `guides/development.md` atualizado para documentar a legenda em linha única no desktop e a nomenclatura de exibição “Revisão necessária” para o estado técnico `PENDENTE_ANALISE`.
 - **docs(prompt19-checkpoint):** Revisão global de consistência documental executada (README/CHANGELOG/docs + memória de sessão), com validação automática `npm run doc:check` e coesão de governança confirmada via `check-hub-version` (Hub v0.6.1).
 - **docs(ux-caput-explicito):** Atualizados os guias (`development.md`, `api-reference.md`) para refletir o novo fluxo de `Caput` explícito no refinamento principal e no bloco `c.c.`, além do resumo completo de entrada exibido no modal de resultado.
 - **docs(prompt25):** Auditoria de saúde documental (Prompt 25) executada com padronização de nomenclatura no `archive` (`YYYY-MM-DD-<slug>.md`), atualização de referências e criação do guia canônico `docs/guides/documentation-conventions.md` (SSoT, nomenclatura e checklist de publicação).
@@ -33,6 +34,10 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ### fix
 
+- **fix(frontend-legenda):** Card “Legenda de Resultados” ajustado para exibir os quatro estados em uma única linha no desktop (com fallback responsivo para 2/1 colunas).
+- **fix(frontend-copy):** Texto do estado “PENDENTE DE ANÁLISE” simplificado na interface para “REVISÃO NECESSÁRIA”, com descrição orientada a ação do usuário.
+- **fix(frontend-caput-consistencia):** Reforçada consistência de `Caput` no refinamento principal e no bloco `c.c.`: ao marcar `Caput`, o campo de parágrafo é limpo/bloqueado; ao digitar parágrafo, `Caput` é desmarcado automaticamente para evitar combinações inválidas.
+- **fix(frontend-acao-cc):** Botões de ação do bloco `c.c.` padronizados para estilo compacto com ícone e alinhamento à direita no desktop, mantendo resposta adaptativa no mobile.
 - **fix(frontend-ux-caput):** Adicionada seleção explícita de `Caput` no refinamento principal (exclusiva com `Único`) e no bloco `c.c.`, com bloqueio/desbloqueio automático de parágrafo para reduzir ambiguidade de preenchimento.
 - **fix(frontend-modal-contexto):** Modal de resultado passou a exibir a consulta informada (dispositivo principal + relacionados `c.c.` + situações marcadas), incluindo formatação correta de `caput` (sem `§ caput`).
 - **fix(frontend-ux-cc-hierarquia):** Reorganizado o card `Combinação de Dispositivos (c.c.)` em blocos visuais claros (introdução, Passo 1, Passo 2 e resumo), com melhoria de contraste/legibilidade, alinhamento de checkboxes e remoção de marcador indevido na lista de relacionados.

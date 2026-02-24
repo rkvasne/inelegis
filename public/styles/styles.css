@@ -982,7 +982,7 @@ code {
 .cc-action-row {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: flex-end;
   gap: 0.5rem;
   margin-top: 0.5rem;
   flex-wrap: wrap;
@@ -1011,10 +1011,13 @@ code {
   accent-color: var(--primary-500);
 }
 
-.cc-action-btn {
-  min-width: 11.25rem;
-  height: 2rem;
+.cc-action-tool-btn {
+  min-width: auto;
+  height: auto;
   justify-content: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
 }
 
 .cc-options-list {
@@ -1078,8 +1081,8 @@ code {
     grid-template-columns: 1fr;
   }
 
-  .cc-action-btn {
-    min-width: 9.5rem;
+  .cc-action-row {
+    justify-content: flex-start;
   }
 }
 
@@ -3379,7 +3382,7 @@ html:not(.dark-theme) .main-footer .footer-bottom {
 
 .legend-items {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: var(--space-4);
 }
 
@@ -3469,6 +3472,18 @@ html:not(.dark-theme) .main-footer .footer-bottom {
 .legend-item.not-found .legend-icon {
   background: var(--warning-bg);
   color: var(--warning-border);
+}
+
+@media (max-width: 1200px) {
+  .legend-items {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .legend-items {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ========================================
