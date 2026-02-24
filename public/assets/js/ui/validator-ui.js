@@ -73,6 +73,7 @@ export class ValidatorUI {
     });
 
     this._setupParagrafoUnicoLogic();
+    this._setupUppercaseInputs();
     this._setupCompositeRuleInputs();
     this.setupActionButtons();
     this._setupEnterKeySearch();
@@ -141,6 +142,25 @@ export class ValidatorUI {
       // Sincroniza estado inicial da UI (evita caput marcado com parágrafo preenchido).
       syncMainParagrafoState();
     }
+  }
+
+  /** @private */
+  _setupUppercaseInputs() {
+    const forceUpper = (id, sanitizer = null) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener("input", () => {
+        const next = (el.value || "").toUpperCase();
+        el.value = typeof sanitizer === "function" ? sanitizer(next) : next;
+      });
+    };
+
+    forceUpper("incisoInput", (v) => v.replace(/[^IVXLCDM]/g, ""));
+    forceUpper("alineaInput", (v) => v.replace(/[^A-Z]/g, ""));
+    forceUpper("ccArtigoInput", (v) => v.replace(/[^0-9A-Z-]/g, ""));
+    forceUpper("ccParagrafoInput", (v) => v.replace(/[^0-9A-Z]/g, ""));
+    forceUpper("ccIncisoInput", (v) => v.replace(/[^IVXLCDMA -]/g, ""));
+    forceUpper("ccAlineaInput", (v) => v.replace(/[^A-Z]/g, ""));
   }
 
   /** @private - Enter aciona o botão Pesquisar quando focado em input de busca */
@@ -690,25 +710,102 @@ export class ValidatorUI {
 
     const draft = this._readRelatedDraftInputs();
     if (!draft.artigo) {
-      return this._confirmWithUser(
-        "Há campos de combinação (c.c.) preenchidos sem 'Artigo relacionado'. Deseja pesquisar sem adicionar esse rascunho?",
-      );
+      const action = await this._showConfirmDialog({
+        title: "Campos c.c. sem artigo",
+        message:
+          "Há campos de combinação (c.c.) preenchidos sem 'Artigo relacionado'. Deseja pesquisar sem adicionar esse rascunho?",
+        primaryLabel: "Pesquisar assim",
+        secondaryLabel: "Voltar",
+      });
+      return action === "primary";
     }
 
-    const shouldAdd = this._confirmWithUser(
-      "Você preencheu o bloco c.c. e ainda não clicou em 'Adicionar'. Deseja adicionar agora e incluir nesta pesquisa?",
-    );
-    if (shouldAdd) {
+    const action = await this._showConfirmDialog({
+      title: "Adicionar combinação antes da busca?",
+      message:
+        "Você preencheu o bloco c.c. e ainda não clicou em 'Adicionar'. Deseja adicionar agora e incluir nesta pesquisa?",
+      primaryLabel: "Adicionar e pesquisar",
+      secondaryLabel: "Pesquisar sem adicionar",
+    });
+
+    if (action === "primary") {
       this._addRelatedDeviceFromInputs();
     }
 
-    return true;
+    return action !== "dismiss";
   }
 
   /** @private */
-  _confirmWithUser(message) {
-    // eslint-disable-next-line no-alert
-    return window.confirm(message);
+  _showConfirmDialog({
+    title = "Confirmar ação",
+    message = "",
+    primaryLabel = "Confirmar",
+    secondaryLabel = "Cancelar",
+  }) {
+    return new Promise((resolve) => {
+      const overlay = document.getElementById("confirmDialogOverlay");
+      const titleEl = document.getElementById("confirmDialogTitle");
+      const messageEl = document.getElementById("confirmDialogMessage");
+      const btnPrimary = document.getElementById("confirmDialogPrimary");
+      const btnSecondary = document.getElementById("confirmDialogSecondary");
+      const btnClose = document.getElementById("confirmDialogClose");
+
+      if (
+        !overlay ||
+        !titleEl ||
+        !messageEl ||
+        !btnPrimary ||
+        !btnSecondary ||
+        !btnClose
+      ) {
+        resolve("dismiss");
+        return;
+      }
+
+      titleEl.textContent = title;
+      messageEl.textContent = message;
+      btnPrimary.textContent = primaryLabel;
+      btnSecondary.textContent = secondaryLabel;
+
+      const cleanup = () => {
+        overlay.classList.add("hidden");
+        overlay.setAttribute("aria-hidden", "true");
+        btnPrimary.removeEventListener("click", onPrimary);
+        btnSecondary.removeEventListener("click", onSecondary);
+        btnClose.removeEventListener("click", onDismiss);
+        overlay.removeEventListener("click", onOverlay);
+        document.removeEventListener("keydown", onEsc);
+      };
+
+      const onPrimary = () => {
+        cleanup();
+        resolve("primary");
+      };
+      const onSecondary = () => {
+        cleanup();
+        resolve("secondary");
+      };
+      const onDismiss = () => {
+        cleanup();
+        resolve("dismiss");
+      };
+      const onOverlay = (e) => {
+        if (e.target === overlay) onDismiss();
+      };
+      const onEsc = (e) => {
+        if (e.key === "Escape") onDismiss();
+      };
+
+      btnPrimary.addEventListener("click", onPrimary);
+      btnSecondary.addEventListener("click", onSecondary);
+      btnClose.addEventListener("click", onDismiss);
+      overlay.addEventListener("click", onOverlay);
+      document.addEventListener("keydown", onEsc);
+
+      overlay.classList.remove("hidden");
+      overlay.setAttribute("aria-hidden", "false");
+      btnPrimary.focus();
+    });
   }
 
   /** @private */
@@ -794,9 +891,15 @@ export class ValidatorUI {
         if (item.inciso) parts.push(`Inc. ${item.inciso}`);
         if (item.alinea) parts.push(`Alínea ${item.alinea}`);
         return `
-          <li class="u-flex-between" style="gap: 0.5rem;">
-            <span class="text-xs">${parts.join(", ")}</span>
-            <button type="button" class="btn btn-secondary btn-sm" data-related-remove="${idx}">Remover</button>
+          <li>
+            <button type="button" class="cc-remove-inline-btn" data-related-remove="${idx}" aria-label="Remover dispositivo relacionado">
+              <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                </path>
+              </svg>
+            </button>
+            <span class="cc-related-item-text">${parts.join(", ")}</span>
           </li>
         `;
       })

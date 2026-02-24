@@ -217,15 +217,15 @@
                                 <!-- Inciso -->
                                 <div>
                                     <label class="form-label u-refinement-label">Inciso</label>
-                                    <input type="text" id="incisoInput" class="form-input" placeholder="Ex: IX"
+                                    <input type="text" id="incisoInput" class="form-input u-uppercase-input" placeholder="Ex: IX"
                                         oninput="this.value = this.value.toUpperCase().replace(/[^IVXLCDM]/g, '')">
                                 </div>
 
                                 <!-- Alínea -->
                                 <div>
                                     <label class="form-label u-refinement-label">Alínea</label>
-                                    <input type="text" id="alineaInput" class="form-input" placeholder="Ex: a"
-                                        oninput="this.value = this.value.toLowerCase().replace(/[^a-z]/g, '')">
+                                    <input type="text" id="alineaInput" class="form-input u-uppercase-input" placeholder="Ex: A"
+                                        oninput="this.value = this.value.toUpperCase().replace(/[^A-Z]/g, '')">
                                 </div>
                             </div>
                             <p class="u-consulta-caput-hint">
@@ -246,11 +246,23 @@
                                 <span class="cc-card-title">Combinação de Dispositivos (c.c.)</span>
                                 <span class="cc-card-optional">(Opcional)</span>
                             </div>
-                            <svg class="refinement-chevron" width="16" height="16" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M19 9l-7 7-7-7"></path>
-                            </svg>
+                            <div class="u-flex-center-gap">
+                                <button type="button" id="btnClearRelacionados"
+                                    class="btn btn-secondary btn-sm cc-action-tool-btn"
+                                    aria-label="Limpar lista de combinação">
+                                    <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                                        </path>
+                                    </svg>
+                                    Limpar
+                                </button>
+                                <svg class="refinement-chevron" width="16" height="16" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
                         </summary>
 
                         <div class="refinement-content">
@@ -270,7 +282,7 @@
                                 <div class="fields-row-4-compact">
                                     <div>
                                         <label class="form-label u-refinement-label">Artigo relacionado</label>
-                                        <input type="text" id="ccArtigoInput" class="form-input form-input-compact" placeholder="Ex: 149-A">
+                                        <input type="text" id="ccArtigoInput" class="form-input form-input-compact u-uppercase-input" placeholder="Ex: 149-A">
                                     </div>
                                     <div>
                                         <div class="cc-paragrafo-label-row">
@@ -280,30 +292,24 @@
                                                 <span>Caput</span>
                                             </label>
                                         </div>
-                                        <input type="text" id="ccParagrafoInput" class="form-input form-input-compact" placeholder="Ex: 1 ou unico">
+                                        <input type="text" id="ccParagrafoInput" class="form-input form-input-compact u-uppercase-input" placeholder="Ex: 1 ou UNICO">
                                     </div>
                                     <div>
                                         <label class="form-label u-refinement-label">Inciso</label>
-                                        <input type="text" id="ccIncisoInput" class="form-input form-input-compact" placeholder="Ex: II ou I a V">
+                                        <input type="text" id="ccIncisoInput" class="form-input form-input-compact u-uppercase-input" placeholder="Ex: II ou I A V">
                                     </div>
                                     <div>
                                         <label class="form-label u-refinement-label">Alínea</label>
-                                        <input type="text" id="ccAlineaInput" class="form-input form-input-compact" placeholder="Ex: e">
+                                        <input type="text" id="ccAlineaInput" class="form-input form-input-compact u-uppercase-input" placeholder="Ex: E">
                                     </div>
                                 </div>
 
                                 <div class="cc-action-row">
-                                    <button type="button" id="btnAddRelacionado" class="btn btn-secondary btn-sm u-refinement-tag cc-action-tool-btn" aria-label="Adicionar à combinação">
+                                    <button type="button" id="btnAddRelacionado" class="btn btn-primary btn-sm cc-action-tool-btn cc-action-add-btn" aria-label="Adicionar à combinação">
                                         <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                                         </svg>
                                         Adicionar
-                                    </button>
-                                    <button type="button" id="btnClearRelacionados" class="btn btn-secondary btn-sm u-refinement-tag cc-action-tool-btn" aria-label="Limpar lista de combinação">
-                                        <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                        </svg>
-                                        Limpar
                                     </button>
                                 </div>
 
@@ -666,6 +672,31 @@
             </div>
         </div>
     </main>
+
+    <!-- Modal de Confirmação (c.c.) -->
+    <div id="confirmDialogOverlay" class="confirm-dialog-overlay hidden" aria-hidden="true">
+        <div class="confirm-dialog" role="dialog" aria-modal="true" aria-labelledby="confirmDialogTitle"
+            aria-describedby="confirmDialogMessage">
+            <div class="confirm-dialog-header">
+                <h3 id="confirmDialogTitle">Confirmar ação</h3>
+                <button type="button" id="confirmDialogClose" class="confirm-dialog-close" aria-label="Fechar">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+            <p id="confirmDialogMessage" class="confirm-dialog-message"></p>
+            <div class="confirm-dialog-actions">
+                <button type="button" id="confirmDialogSecondary" class="btn btn-secondary btn-sm confirm-dialog-btn">
+                    Voltar
+                </button>
+                <button type="button" id="confirmDialogPrimary" class="btn btn-primary btn-sm confirm-dialog-btn">
+                    Confirmar
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer será renderizado aqui -->
     <div id="footer-placeholder"></div>

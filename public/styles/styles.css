@@ -976,7 +976,10 @@ code {
 .cc-related-list li {
   list-style: none;
   margin: 0;
-  padding: 0.2rem 0;
+  padding: 0.25rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
 }
 
 .cc-action-row {
@@ -1018,6 +1021,61 @@ code {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
+  font-size: 0.75rem;
+  padding: 0.36rem 0.72rem;
+  line-height: 1.2;
+}
+
+.cc-action-add-btn {
+  min-height: 2rem;
+  padding: 0.5rem 0.95rem;
+  font-weight: 600;
+}
+
+.cc-remove-inline-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.45rem;
+  height: 1.45rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: var(--transition-fast);
+}
+
+.cc-remove-inline-btn:hover {
+  background: var(--danger-bg);
+  border-color: var(--danger-border);
+  color: var(--danger-border);
+}
+
+.cc-related-item-text {
+  font-size: 0.75rem;
+  line-height: 1.35;
+}
+
+.u-uppercase-input {
+  text-transform: uppercase;
+}
+
+/* Evita fundo claro no autofill em dark mode (ex.: Inciso) */
+.dark-theme .form-input:-webkit-autofill,
+.dark-theme .form-input:-webkit-autofill:hover,
+.dark-theme .form-input:-webkit-autofill:focus,
+.dark-theme .form-input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px var(--bg-primary) inset !important;
+  -webkit-text-fill-color: var(--text-primary) !important;
+  caret-color: var(--text-primary) !important;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+.dark-theme #incisoInput {
+  background: var(--bg-primary);
+  color: var(--text-primary);
 }
 
 .cc-options-list {
@@ -1074,6 +1132,79 @@ code {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Modal de confirmação customizado (substitui confirm nativo) */
+.confirm-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 6, 23, 0.65);
+  z-index: calc(var(--z-modal) + 20);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.confirm-dialog {
+  width: 100%;
+  max-width: 460px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  background: var(--bg-primary);
+  box-shadow: var(--shadow-xl);
+  padding: 0.9rem 1rem 0.95rem;
+}
+
+.confirm-dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.45rem;
+}
+
+.confirm-dialog-header h3 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.confirm-dialog-close {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.confirm-dialog-close:hover {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.confirm-dialog-message {
+  margin: 0;
+  font-size: 0.83rem;
+  line-height: 1.45;
+  color: var(--text-secondary);
+}
+
+.confirm-dialog-actions {
+  margin-top: 0.85rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.confirm-dialog-btn {
+  min-width: 8.4rem;
 }
 
 @media (max-width: 960px) {
