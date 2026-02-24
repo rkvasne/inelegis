@@ -15,6 +15,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ### docs
 
+- **docs(prompt19-checkpoint):** Revisão global de consistência documental executada (README/CHANGELOG/docs + memória de sessão), com validação automática `npm run doc:check` e coesão de governança confirmada via `check-hub-version` (Hub v0.6.1).
 - **docs(ux-caput-explicito):** Atualizados os guias (`development.md`, `api-reference.md`) para refletir o novo fluxo de `Caput` explícito no refinamento principal e no bloco `c.c.`, além do resumo completo de entrada exibido no modal de resultado.
 - **docs(prompt25):** Auditoria de saúde documental (Prompt 25) executada com padronização de nomenclatura no `archive` (`YYYY-MM-DD-<slug>.md`), atualização de referências e criação do guia canônico `docs/guides/documentation-conventions.md` (SSoT, nomenclatura e checklist de publicação).
 - **docs(checkpoint-keepalive):** Prompt 19 executado após ajustes do Prompt 26: documentação alinhada para migração `20260226000100_keepalive_hub_compat.sql`, checklist de apply/deploy reforçado e registro de evidência de recência (ping manual com `KEEPALIVE_AGE_MIN=0` durante auditoria).
@@ -274,5 +275,5 @@ As alterações das versões **v0.2.0 a v0.3.11** e **v0.1.x** foram movidas par
 - 📂 [v0.2.0 a v0.3.11](docs/archive/2026-02-23-release-history-v0-3-early.md)
 - 📂 [v0.1.x](docs/archive/2026-02-23-release-history-v0.md)
 
-_Última atualização: 23/02/2026 • v0.3.27 (Hub v0.6.1)_
+_Última atualização: 24/02/2026 • v0.3.27 (Hub v0.6.1)_
 _Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_

@@ -1,6 +1,6 @@
 # 📊 Project Status & Context
 
-> **Last Updated:** 23/02/2026
+> **Last Updated:** 24/02/2026
 > **Current Phase:** Testes com usuários reais / Zeladoria
 > **Project Version:** v0.3.27 (SSoT Synchronized)
 
@@ -72,6 +72,7 @@
 
 **Log de Governança/Sessão:**
 
+- 24/02/2026: **Prompt 19 (checkpoint sem bump) — atualização documental completa:** revisão de consistência de `README.md`, `CHANGELOG.md` e guias em `docs/`; atualização do changelog em `Unreleased` para registrar checkpoint; validações executadas com sucesso: `npm run doc:check` e `node .agent/hub/system/scripts/check-hub-version.js` (satélite coeso com Hub v0.6.1). Mantido escopo local sem alterações em `.agent/hub/`.
 - 23/02/2026: **Prompt 19 (checkpoint sem bump) + UX caput explícito:** implementada seleção explícita de `Caput` também no refinamento principal (exclusiva com `Único`) e no bloco `c.c.`; adicionadas validações orientativas para o caso CP 149-A combinado; modal de resultado atualizado para exibir o resumo completo da entrada (principal + relacionados + situações marcadas) com formatação correta de `caput`. Arquivos: `public/consulta.html`, `public/styles/styles.css`, `src/js/ui/validator-ui.js`, `src/js/ui/result-renderer.js`, `tests/result-renderer.test.js` + sync em `public/assets/js`. Validações: `lint`, `test:unit`, `test`, `sync:js` OK.
 - 23/02/2026: **Padronização Hub-First (documentação e nomenclatura):** execução orientada por personas `mode-documentation`, `mode-quality` e `mode-orchestrator` (via Junction `.agent/hub`), com varredura completa e ajustes de nomenclatura para kebab-case em documentos legados (`docs/plan-initial.md`) e padrão de archive `YYYY-MM-DD-<slug>.md` (`docs/archive/2026-02-23-release-history-v0.md`, `docs/archive/2026-02-23-release-history-v0-3-early.md`), além de atualização de referências cruzadas em `docs/README.md` e `CHANGELOG.md`. Validações: `doc:check`, `format:check`, `verify` e `check-hub-version` (100% conforme Hub v0.6.1).
 - 23/02/2026: **Prompt 19 (checkpoint sem bump) + ajuste final de UX c.c.:** card `Combinação de Dispositivos` reorganizado com hierarquia visual por blocos (introdução, Passo 1, Passo 2 e resumo), melhoria de contraste e alinhamento de opções condicionais, padronização de espaçamento e correção da lista de relacionados sem marcador visual indevido (`public/consulta.html`, `public/styles/styles.css`). Validações executadas: `npm run lint` e `npm run test` (13/13).
@@ -118,5 +119,5 @@
 
 ---
 
-_Última atualização: 23/02/2026 • v0.3.27 (Hub v0.6.1)_
+_Última atualização: 24/02/2026 • v0.3.27 (Hub v0.6.1)_
 _Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_
