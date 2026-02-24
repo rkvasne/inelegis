@@ -74,6 +74,7 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 - No card `c.c.`, o botão `Limpar` foi movido para o topo (header do card), alinhando o padrão com o card de refinamento.
 - O botão `Adicionar à combinação` recebeu destaque visual e os campos do fluxo composto são normalizados para maiúsculas para reduzir inconsistências de entrada.
 - A remoção de dispositivos relacionados passou para ação inline com ícone de lixeira junto ao texto do item, melhorando escaneabilidade da lista.
+- Os botões de ação dos cards de refinamento e `c.c.` foram padronizados em estilo visual único (compacto, borda sutil e hover discreto), com o `Adicionar` em variação de destaque moderado para manter hierarquia sem excesso de contraste.
 - Na legenda da consulta, os quatro estados são exibidos em linha única no desktop (com quebra responsiva em telas menores) para comparação visual imediata.
 - O estado técnico `PENDENTE_ANALISE` é apresentado ao usuário como **Revisão necessária**, com orientação de que faltam dados para conclusão automática.
 - O modal final exibe "Consulta informada pelo usuário" com dispositivo principal, dispositivos `c.c.` adicionados e situações específicas marcadas.

@@ -15,6 +15,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ### docs
 
+- **docs(ux-ide-actions):** `guides/development.md` atualizado para refletir a padronização visual dos botões de ação do refinamento e do card `c.c.` no estilo IDE (mesma linguagem visual para `Limpar` e `Adicionar` com destaque mais sutil).
 - **docs(ux-cc-polish):** `guides/development.md` atualizado com o novo padrão visual/funcional do card `c.c.`: botão `Limpar` no topo do card, botão `Adicionar` em destaque, remoção inline por ícone de lixeira, inputs normalizados para maiúsculas e confirmação customizada para rascunho não adicionado.
 - **docs(ux-cc-enter):** Atualizado `guides/development.md` com o comportamento de Enter nos campos do bloco `c.c.` e confirmação de rascunho não adicionado antes da pesquisa.
 - **docs(ux-legenda):** `guides/development.md` atualizado para documentar a legenda em linha única no desktop e a nomenclatura de exibição “Revisão necessária” para o estado técnico `PENDENTE_ANALISE`.
@@ -36,6 +37,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ### fix
 
+- **fix(frontend-ide-action-buttons):** Botões `Limpar` (refinamento e `c.c.`) unificados no mesmo padrão visual e ajuste do botão `Adicionar` para proporção menor com destaque moderado, seguindo linguagem de interface estilo IDE.
 - **fix(frontend-cc-polish):** Polimento final do card `c.c.`: ajuste de contraste do input `Inciso` em dark mode, `Limpar` movido para o topo do card (padrão do refinamento), botão `Adicionar` em destaque, inputs do fluxo composto forçados para maiúsculas e remoção de item relacionado com lixeira inline junto ao texto.
 - **fix(frontend-cc-confirm-modal):** Substituído `window.confirm` por modal interno padronizado ao design do sistema para confirmar pesquisa quando houver rascunho `c.c.` não adicionado.
 - **fix(frontend-cc-enter):** Tecla Enter nos inputs do bloco `c.c.` agora dispara o mesmo fluxo do botão Pesquisar (quando Lei + Artigo estão selecionados), evitando perda de produtividade.
