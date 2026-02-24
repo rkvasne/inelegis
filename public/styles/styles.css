@@ -988,6 +988,29 @@ code {
   flex-wrap: wrap;
 }
 
+.cc-paragrafo-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.cc-caput-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  user-select: none;
+}
+
+.cc-caput-check input {
+  width: 0.82rem;
+  height: 0.82rem;
+  margin: 0;
+  accent-color: var(--primary-500);
+}
+
 .cc-action-btn {
   min-width: 11.25rem;
   height: 2rem;

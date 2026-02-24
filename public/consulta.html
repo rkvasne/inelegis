@@ -195,12 +195,20 @@
                                 <div>
                                     <div class="u-flex-between u-mb-1">
                                         <label class="form-label u-mb-0 u-text-xs">Parágrafo</label>
-                                        <label
-                                            style="display: flex; align-items: center; gap: 0.375rem; cursor: pointer; font-size: 0.625rem; color: var(--text-muted);">
-                                            <input type="checkbox" id="paragrafoUnicoCheck"
-                                                style="width: 0.875rem; height: 0.875rem; accent-color: var(--primary-500);">
-                                            Único
-                                        </label>
+                                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                            <label
+                                                style="display: flex; align-items: center; gap: 0.375rem; cursor: pointer; font-size: 0.625rem; color: var(--text-muted);">
+                                                <input type="checkbox" id="paragrafoCaputCheck"
+                                                    style="width: 0.875rem; height: 0.875rem; accent-color: var(--primary-500);">
+                                                Caput
+                                            </label>
+                                            <label
+                                                style="display: flex; align-items: center; gap: 0.375rem; cursor: pointer; font-size: 0.625rem; color: var(--text-muted);">
+                                                <input type="checkbox" id="paragrafoUnicoCheck"
+                                                    style="width: 0.875rem; height: 0.875rem; accent-color: var(--primary-500);">
+                                                Único
+                                            </label>
+                                        </div>
                                     </div>
                                     <input type="text" id="paragrafoInput" class="form-input" placeholder="Ex: 3"
                                         oninput="this.value = this.value.replace(/[^0-9]/g, '')">
@@ -221,7 +229,7 @@
                                 </div>
                             </div>
                             <p class="u-consulta-caput-hint">
-                                <strong>Caput:</strong> Ao deixar Parágrafo, Inciso e Alínea vazios (ou selecionar apenas Lei + Artigo e pesquisar), você já está consultando o <strong>caput</strong> do artigo.
+                                <strong>Caput:</strong> Na busca principal, deixar Parágrafo vazio consulta o <strong>caput</strong>. Você também pode informar <strong>inciso do caput</strong> (ex.: Inc. IV).
                             </p>
                         </div>
                     </details>
@@ -265,7 +273,13 @@
                                         <input type="text" id="ccArtigoInput" class="form-input form-input-compact" placeholder="Ex: 149-A">
                                     </div>
                                     <div>
-                                        <label class="form-label u-refinement-label">Parágrafo</label>
+                                        <div class="cc-paragrafo-label-row">
+                                            <label class="form-label u-refinement-label">Parágrafo</label>
+                                            <label class="cc-caput-check">
+                                                <input type="checkbox" id="ccCaputCheck">
+                                                <span>Caput</span>
+                                            </label>
+                                        </div>
                                         <input type="text" id="ccParagrafoInput" class="form-input form-input-compact" placeholder="Ex: 1 ou unico">
                                     </div>
                                     <div>

@@ -1,5 +1,6 @@
 import { validatorService, RESULTS } from "../services/validator-service.js";
 import { ResultRenderer } from "./result-renderer.js";
+import { showToast } from "../utils/toast.js";
 
 /**
  * Validator UI Controller
@@ -94,11 +95,18 @@ export class ValidatorUI {
 
   /** @private */
   _setupParagrafoUnicoLogic() {
+    const checkCaput = document.getElementById("paragrafoCaputCheck");
     const checkUnico = document.getElementById("paragrafoUnicoCheck");
     const inputParagrafo = document.getElementById("paragrafoInput");
-    if (checkUnico && inputParagrafo) {
+    if (checkCaput && checkUnico && inputParagrafo) {
+      checkCaput.addEventListener("change", (e) => {
+        if (e.target.checked) checkUnico.checked = false;
+        inputParagrafo.disabled = e.target.checked || checkUnico.checked;
+        if (e.target.checked) inputParagrafo.value = "";
+      });
       checkUnico.addEventListener("change", (e) => {
-        inputParagrafo.disabled = e.target.checked;
+        if (e.target.checked) checkCaput.checked = false;
+        inputParagrafo.disabled = e.target.checked || checkCaput.checked;
         if (e.target.checked) inputParagrafo.value = "";
       });
     }
@@ -174,7 +182,11 @@ export class ValidatorUI {
     });
 
     const checkUnico = document.getElementById("paragrafoUnicoCheck");
+    const checkCaput = document.getElementById("paragrafoCaputCheck");
     if (checkUnico) checkUnico.checked = false;
+    if (checkCaput) checkCaput.checked = false;
+    const inputParagrafo = document.getElementById("paragrafoInput");
+    if (inputParagrafo) inputParagrafo.disabled = false;
 
     this.selectedLaw = null;
     this.selectedLawName = null;
@@ -201,6 +213,10 @@ export class ValidatorUI {
       const el = document.getElementById(id);
       if (el) el.value = "";
     });
+    const ccCaputCheck = document.getElementById("ccCaputCheck");
+    const ccParagrafoInput = document.getElementById("ccParagrafoInput");
+    if (ccCaputCheck) ccCaputCheck.checked = false;
+    if (ccParagrafoInput) ccParagrafoInput.disabled = false;
 
     this._renderContextSummary();
 
@@ -251,11 +267,15 @@ export class ValidatorUI {
   }
 
   async validateSelection(artigoNum) {
+    const isCaput = !!document.getElementById("paragrafoCaputCheck")?.checked;
+    const isUnico = !!document.getElementById("paragrafoUnicoCheck")?.checked;
     const context = {
       artigo: artigoNum,
-      paragrafo: document.getElementById("paragrafoUnicoCheck")?.checked
-        ? "unico"
-        : document.getElementById("paragrafoInput")?.value || null,
+      paragrafo: isCaput
+        ? "caput"
+        : isUnico
+          ? "unico"
+          : document.getElementById("paragrafoInput")?.value || null,
       inciso: document.getElementById("incisoInput")?.value || null,
       alinea: document.getElementById("alineaInput")?.value || null,
       leiNome: this.selectedLawName,
@@ -265,6 +285,7 @@ export class ValidatorUI {
       relacionados: this.relatedDevices,
       contextoRegra: this._collectRuleContext(),
     };
+    if (!this._validateCompositeInput(context)) return;
 
     if (this.resultContainer) {
       this.resultContainer.classList.add("hidden");
@@ -286,6 +307,71 @@ export class ValidatorUI {
     } catch (error) {
       console.error("[ValidatorUI] Validation failed:", error);
     }
+  }
+
+  /** @private */
+  _normalizeLegalDetail(value) {
+    return (value || "")
+      .toString()
+      .trim()
+      .toLowerCase()
+      .replace(/[§º°ª]/g, "");
+  }
+
+  /** @private */
+  _validateCompositeInput(context) {
+    const law = (this.selectedLaw || "").toUpperCase();
+    const article = (context.artigo || "").toUpperCase();
+    const hasCompositeInput =
+      (context.relacionados || []).length > 0 ||
+      Object.keys(context.contextoRegra || {}).length > 0;
+    if (!hasCompositeInput) return true;
+
+    // Guard-rail de UX para o caso mais sensível da tabela CRE:
+    // Art. 149-A, caput I a V, c.c. §1º, II
+    if (law === "CP" && article === "149-A") {
+      const mainParagrafo = this._normalizeLegalDetail(context.paragrafo);
+      const mainInciso = (context.inciso || "").trim().toUpperCase();
+      const hasMainPar1Inc2 = mainParagrafo === "1" && mainInciso === "II";
+
+      const related = context.relacionados || [];
+      const hasRelatedCaputIav = related.some((r) => {
+        const p = this._normalizeLegalDetail(r.paragrafo);
+        const i = (r.inciso || "").trim().toUpperCase();
+        return (
+          (r.artigo || "").toUpperCase() === "149-A" &&
+          (p === "" || p === "caput") &&
+          ["I", "II", "III", "IV", "V"].includes(i)
+        );
+      });
+
+      const hasRelatedPar1Inc2 = related.some((r) => {
+        const p = this._normalizeLegalDetail(r.paragrafo);
+        const i = (r.inciso || "").trim().toUpperCase();
+        return (
+          (r.artigo || "").toUpperCase() === "149-A" && p === "1" && i === "II"
+        );
+      });
+
+      if (!hasMainPar1Inc2 && hasRelatedPar1Inc2) {
+        showToast(
+          "Para o Art. 149-A c.c., preencha no dispositivo principal: § 1 e inciso II. No bloco de combinação, informe o caput (incisos I a V).",
+          "warning",
+          7000,
+        );
+        return false;
+      }
+
+      if (hasMainPar1Inc2 && !hasRelatedCaputIav) {
+        showToast(
+          "Falta informar, no bloco de combinação, um inciso do caput (I a V) do Art. 149-A.",
+          "warning",
+          6000,
+        );
+      }
+    }
+
+    return true;
   }
 
   /** @private */
@@ -344,11 +430,20 @@ export class ValidatorUI {
   _setupCompositeRuleInputs() {
     const addBtn = document.getElementById("btnAddRelacionado");
     const clearBtn = document.getElementById("btnClearRelacionados");
+    const caputCheck = document.getElementById("ccCaputCheck");
+    const paragrafoInput = document.getElementById("ccParagrafoInput");
+    if (caputCheck && paragrafoInput) {
+      caputCheck.addEventListener("change", (e) => {
+        paragrafoInput.disabled = e.target.checked;
+        if (e.target.checked) paragrafoInput.value = "";
+      });
+    }
     if (addBtn) {
       addBtn.addEventListener("click", () => {
         const artigo = document.getElementById("ccArtigoInput")?.value || "";
-        const paragrafo =
-          document.getElementById("ccParagrafoInput")?.value || "";
+        const paragrafo = caputCheck?.checked
+          ? "caput"
+          : document.getElementById("ccParagrafoInput")?.value || "";
         const inciso = document.getElementById("ccIncisoInput")?.value || "";
         const alinea = document.getElementById("ccAlineaInput")?.value || "";
 
@@ -381,6 +476,8 @@ export class ValidatorUI {
           const el = document.getElementById(id);
           if (el) el.value = "";
         });
+        if (caputCheck) caputCheck.checked = false;
+        if (paragrafoInput) paragrafoInput.disabled = false;
 
         this._renderRelatedDevices();
       });
@@ -485,7 +582,10 @@ export class ValidatorUI {
     list.innerHTML = this.relatedDevices
       .map((item, idx) => {
         const parts = [`Art. ${item.artigo}`];
-        if (item.paragrafo) parts.push(`§ ${item.paragrafo}`);
+        if (item.paragrafo) {
+          const p = this._normalizeLegalDetail(item.paragrafo);
+          parts.push(p === "caput" ? "caput" : `§ ${item.paragrafo}`);
+        }
         if (item.inciso) parts.push(`Inc. ${item.inciso}`);
         if (item.alinea) parts.push(`Alínea ${item.alinea}`);
         return `

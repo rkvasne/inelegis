@@ -64,8 +64,10 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 
 - Controla o fluxo "Lei -> Artigo" com selects em cascata.
 - Suporta modo avançado de combinação (`c.c.`) com dispositivos relacionados e "situação do caso" para exceções condicionais (consome `verificar_elegibilidade_v2` quando esses campos são preenchidos).
+- O refinamento básico possui seleção explícita de `Caput` e `Único` (mutuamente exclusivos), removendo ambiguidade no preenchimento de parágrafo.
 - O subbloco de exceções condicionais é expansível (abre sob demanda), possui tooltips de ajuda por cenário e resumo em chips com remoção rápida (`x`) para desmarcar contexto sem retornar aos checkboxes.
-- O bloco de combinação `c.c.` fica em expansível próprio, separado do refinamento básico (parágrafo/inciso/alínea), para reduzir ambiguidades de uso.
+- O bloco de combinação `c.c.` fica em expansível próprio, separado do refinamento básico (parágrafo/inciso/alínea), possui seleção explícita de `Caput` para dispositivo relacionado e reduz ambiguidades de uso.
+- O modal final exibe "Consulta informada pelo usuário" com dispositivo principal, dispositivos `c.c.` adicionados e situações específicas marcadas.
 
 **[ui/analyzer-ui.js](../../src/js/ui/analyzer-ui.js)**
 

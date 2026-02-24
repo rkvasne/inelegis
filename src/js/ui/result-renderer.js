@@ -23,8 +23,16 @@ export class ResultRenderer {
       excecoes_artigo,
       mensagem,
     } = result;
-    const { artigo, paragrafo, inciso, alinea, leiNome, tipoComunicacao } =
-      context;
+    const {
+      artigo,
+      paragrafo,
+      inciso,
+      alinea,
+      leiNome,
+      tipoComunicacao,
+      relacionados,
+      contextoRegra,
+    } = context;
 
     const isInelegivel = resultado === RESULTS.INELIGIBLE;
     const isElegivel = resultado === RESULTS.ELIGIBLE;
@@ -96,6 +104,15 @@ export class ResultRenderer {
           <span class="ase-value">${aseInfo}</span>
         </div>
 
+        ${this._renderSelectionSummary({
+          artigo,
+          paragrafo,
+          inciso,
+          alinea,
+          relacionados,
+          contextoRegra,
+        })}
+
         <!-- Alerta de Exceções -->
         ${this._renderExceptionAlert(excecoes_artigo, isExcecao)}
         
@@ -159,7 +176,13 @@ export class ResultRenderer {
   /** @private */
   static _formatIncidencia(artigo, paragrafo, inciso, alinea) {
     let parts = [`Art. ${artigo}`];
-    if (paragrafo) parts.push(`§ ${paragrafo}`);
+    if (paragrafo) {
+      const p = String(paragrafo)
+        .trim()
+        .toLowerCase()
+        .replace(/[§º°ª]/g, "");
+      parts.push(p === "caput" ? "caput" : `§ ${paragrafo}`);
+    }
     if (inciso) parts.push(`Inc. ${inciso}`);
     if (alinea) parts.push(`Alínea ${alinea}`);
     return parts.join(", ");
@@ -192,6 +215,77 @@ export class ResultRenderer {
       return "Consulte o manual - informe Condenação ou Extinção";
     }
     return "Consulte o manual para este tipo de comunicação";
+  }
+
+  /** @private */
+  static _renderSelectionSummary({
+    artigo,
+    paragrafo,
+    inciso,
+    alinea,
+    relacionados,
+    contextoRegra,
+  }) {
+    const related = Array.isArray(relacionados) ? relacionados : [];
+    const ruleContext =
+      contextoRegra && typeof contextoRegra === "object" ? contextoRegra : {};
+    const selectedRuleKeys = Object.keys(ruleContext).filter(
+      (k) => ruleContext[k] === true,
+    );
+
+    if (related.length === 0 && selectedRuleKeys.length === 0) return "";
+
+    const main = escapeHtml(
+      this._formatIncidencia(artigo, paragrafo, inciso, alinea),
+    );
+    const relatedList = related
+      .map((item) => {
+        const device = this._formatIncidencia(
+          item?.artigo,
+          item?.paragrafo,
+          item?.inciso,
+          item?.alinea,
+        );
+        return `<li>${escapeHtml(device)}</li>`;
+      })
+      .join("");
+
+    const ctxLabels = {
+      figuras_301_302: "CP art. 304 nas figuras dos arts. 301/302",
+      refere_art1_alinea_e:
+        'Lei 2.889/56 arts. 2º/3º com referência ao art. 1º, alínea "e"',
+      cpm_art266_culposo: "CPM arts. 262-265 combinados com art. 266 (culposo)",
+      cp129_cc12: "CP art. 129 §§2º/3º c.c. §12",
+      lei10826_art16_cc2: "Lei 10.826/03 art. 16 c.c. §2º",
+    };
+
+    const contextList = selectedRuleKeys
+      .map((key) => `<li>${escapeHtml(ctxLabels[key] || key)}</li>`)
+      .join("");
+
+    return `
+      <div class="modal-section modal-info">
+        <div class="section-header">
+          <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          Consulta informada pelo usuário
+        </div>
+        <div class="section-content">
+          <p class="section-note"><strong>Dispositivo principal:</strong> ${main}</p>
+          ${
+            related.length > 0
+              ? `<p class="section-note"><strong>Dispositivos relacionados (c.c.):</strong></p><ul class="exception-list">${relatedList}</ul>`
+              : ""
+          }
+          ${
+            selectedRuleKeys.length > 0
+              ? `<p class="section-note"><strong>Situações específicas marcadas:</strong></p><ul class="exception-list">${contextList}</ul>`
+              : ""
+          }
+        </div>
+      </div>
+    `;
   }
 
   /** @private

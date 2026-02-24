@@ -23,6 +23,8 @@ Documentação técnica das APIs do Inelegis: endpoints serverless (Vercel) e fu
 ### Arquitetura de consumo
 
 - **Consulta de elegibilidade:** o frontend chama **diretamente** o Supabase; usa `verificar_elegibilidade` no fluxo padrão e `verificar_elegibilidade_v2` quando há combinação `c.c.` e/ou contexto condicional.
+- **UX de entrada jurídica (consulta estruturada):** o refinamento principal permite marcar `Caput` e `Único` de forma explícita (exclusivos), e o bloco `c.c.` também permite `Caput` explícito para dispositivos relacionados.
+- **Rastreabilidade no resultado:** o modal exibe um resumo da entrada informada (dispositivo principal, relacionados `c.c.` e situações condicionais marcadas).
 - **Histórico e estatísticas do usuário:** o frontend pode usar a API Vercel (`/api/search-history`) ou, em fluxos internos, o Supabase (RPCs `add_to_history`, `get_user_stats`) com contexto `set_app_user_id`.
 - **Dashboard administrativo:** a aplicação admin usa a Vercel API (`/api/dashboard`) com token Bearer.
 

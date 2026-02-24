@@ -15,6 +15,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ### docs
 
+- **docs(ux-caput-explicito):** Atualizados os guias (`development.md`, `api-reference.md`) para refletir o novo fluxo de `Caput` explícito no refinamento principal e no bloco `c.c.`, além do resumo completo de entrada exibido no modal de resultado.
 - **docs(prompt25):** Auditoria de saúde documental (Prompt 25) executada com padronização de nomenclatura no `archive` (`YYYY-MM-DD-<slug>.md`), atualização de referências e criação do guia canônico `docs/guides/documentation-conventions.md` (SSoT, nomenclatura e checklist de publicação).
 - **docs(checkpoint-keepalive):** Prompt 19 executado após ajustes do Prompt 26: documentação alinhada para migração `20260226000100_keepalive_hub_compat.sql`, checklist de apply/deploy reforçado e registro de evidência de recência (ping manual com `KEEPALIVE_AGE_MIN=0` durante auditoria).
 - **docs(governança):** Execução do Prompt 18 com sincronização obrigatória de `AGENTS.md` e `GEMINI.md` ao template do Hub v0.6.1, preservando regras locais de SSoT para `public/assets/js`.
@@ -31,6 +32,8 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ### fix
 
+- **fix(frontend-ux-caput):** Adicionada seleção explícita de `Caput` no refinamento principal (exclusiva com `Único`) e no bloco `c.c.`, com bloqueio/desbloqueio automático de parágrafo para reduzir ambiguidade de preenchimento.
+- **fix(frontend-modal-contexto):** Modal de resultado passou a exibir a consulta informada (dispositivo principal + relacionados `c.c.` + situações marcadas), incluindo formatação correta de `caput` (sem `§ caput`).
 - **fix(frontend-ux-cc-hierarquia):** Reorganizado o card `Combinação de Dispositivos (c.c.)` em blocos visuais claros (introdução, Passo 1, Passo 2 e resumo), com melhoria de contraste/legibilidade, alinhamento de checkboxes e remoção de marcador indevido na lista de relacionados.
 - **fix(keepalive-compliance):** Correções de conformidade parcial do Keepalive: nova migration `20260226000100_keepalive_hub_compat.sql` para adicionar `status_code` e `response_time_ms` em `keepalive_events` (com backfill), atualização da Edge Function `supabase/functions/keepalive/index.ts` para gravar os campos novos e normalização do `KEEPALIVE_ENVIRONMENT` padrão para `prod` no worker.
 - **fix(frontend-ux-cc):** Refinamento da seção de consulta composta na página de busca: linguagem simplificada (remoção de jargão "contexto fático"), instruções por passos, botão `Adicionar à combinação`, lista vazia mais explícita e layout compacto com os quatro campos relacionados na mesma linha (responsivo).

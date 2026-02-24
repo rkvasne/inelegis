@@ -277,6 +277,59 @@ test("Deve formatar incidência corretamente (artigo, parágrafo, inciso, alíne
   assert.includes(html, "Alínea a", "alínea");
 });
 
+test("Deve exibir no modal o resumo completo da consulta composta (principal + c.c. + situações)", () => {
+  const result = {
+    resultado: RESULTS.ELIGIBLE,
+    tipo_crime: null,
+    observacoes: "",
+    item_alinea_e: "",
+    excecoes_artigo: null,
+  };
+  const ctx = {
+    ...baseContext,
+    artigo: "149-A",
+    paragrafo: "1",
+    inciso: "II",
+    alinea: null,
+    relacionados: [
+      { artigo: "149-A", paragrafo: null, inciso: "IV", alinea: null },
+    ],
+    contextoRegra: { cp129_cc12: true },
+  };
+  const { html } = ResultRenderer.render(result, ctx);
+  assert.includes(
+    html,
+    "Consulta informada pelo usuário",
+    "Deve exibir o bloco de resumo de entrada",
+  );
+  assert.includes(html, "Art. 149-A, § 1, Inc. II", "Dispositivo principal");
+  assert.includes(html, "Art. 149-A, Inc. IV", "Dispositivo relacionado");
+  assert.includes(html, "CP art. 129 §§2º", "Situação específica marcada");
+});
+
+test("Deve formatar caput sem símbolo de parágrafo na incidência", () => {
+  const result = {
+    resultado: RESULTS.ELIGIBLE,
+    tipo_crime: null,
+    observacoes: "",
+    item_alinea_e: "",
+    excecoes_artigo: null,
+  };
+  const ctx = {
+    ...baseContext,
+    artigo: "149-A",
+    paragrafo: "caput",
+    inciso: "IV",
+  };
+  const { html } = ResultRenderer.render(result, ctx);
+  assert.includes(
+    html,
+    "Art. 149-A, caput, Inc. IV",
+    "Caput deve ser explícito",
+  );
+  assert.notIncludes(html, "§ caput", "Não deve renderizar § caput");
+});
+
 test("Deve exibir alerta de exceções hierárquicas quando excecoes_artigo presente e dispositivo consultado NÃO é exceção", () => {
   const result = {
     resultado: RESULTS.INELIGIBLE,
