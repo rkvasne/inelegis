@@ -72,6 +72,7 @@
 
 **Log de Governança/Sessão:**
 
+- 24/02/2026: **Prompt 19 (checkpoint sem bump) — alinhamento dos botões `Limpar`:** botão `Limpar` do card de refinamento ajustado para o mesmo padrão de altura/alinhamento do botão `Limpar` no card `c.c.`, eliminando diferença visual entre os cabeçalhos expansíveis.
 - 24/02/2026: **Prompt 19 (checkpoint sem bump) — legibilidade do botão `Adicionar`:** ajustado contraste no dark mode para o estado desabilitado, preservando sinal de inatividade sem apagar o texto. Documentação sincronizada em `CHANGELOG.md` e `docs/guides/development.md`.
 - 24/02/2026: **Prompt 19 (checkpoint sem bump) — fix region persistence:** Atualizada a Edge Function `keepalive` para persistir o campo `region` (vindo do payload do Cloudflare Worker) na tabela singleton de status (`keepalive`), corrigindo a exibição de "global" no dashboard central Keepvasne.
 - 24/02/2026: **Prompt 19 (checkpoint sem bump) — padronização visual estilo IDE:** refinado o visual dos botões de ação nos cards de refinamento e `c.c.` para um padrão único (compacto, borda discreta e hover leve), com `Adicionar` reduzido e com destaque moderado. Documentação sincronizada em `CHANGELOG.md` e `docs/guides/development.md`; validações de checkpoint executadas na sequência.

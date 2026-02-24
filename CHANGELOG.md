@@ -15,6 +15,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ### docs
 
+- **docs(ux-refinement-clear-alignment):** `guides/development.md` atualizado para registrar a padronização de altura/alinhamento entre os botões `Limpar` dos cards de refinamento e `c.c.`.
 - **docs(keepalive-region):** Documentação operacional atualizada para refletir persistência de `region` no status singleton de keepalive (consistência com dashboard e payload do worker).
 - **docs(ux-cc-button-readability):** `guides/development.md` atualizado com o ajuste de contraste do botão `Adicionar` no dark mode, incluindo estado desabilitado legível.
 - **docs(ux-ide-actions):** `guides/development.md` atualizado para refletir a padronização visual dos botões de ação do refinamento e do card `c.c.` no estilo IDE (mesma linguagem visual para `Limpar` e `Adicionar` com destaque mais sutil).
@@ -39,6 +40,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ### fix
 
+- **fix(frontend-refinement-clear-alignment):** Botão `Limpar` do card de refinamento ajustado para usar o mesmo padrão de tamanho/alinhamento vertical do botão `Limpar` no card `c.c.`.
 - **fix(keepalive-region):** Edge Function `keepalive` passou a persistir `region` também na tabela singleton `keepalive`, evitando divergência entre eventos e status atual no monitoramento.
 - **fix(frontend-cc-button-disabled):** Melhorado contraste do botão `Adicionar` no dark mode em estado desabilitado, mantendo aparência de inativo sem perder legibilidade.
 - **fix(frontend-ide-action-buttons):** Botões `Limpar` (refinamento e `c.c.`) unificados no mesmo padrão visual e ajuste do botão `Adicionar` para proporção menor com destaque moderado, seguindo linguagem de interface estilo IDE.
