@@ -145,15 +145,12 @@ export class ValidatorUI {
 
   /** @private - Enter aciona o botão Pesquisar quando focado em input de busca */
   _setupEnterKeySearch() {
-    const triggerSearch = (e) => {
+    const triggerSearch = async (e) => {
       if (e.key === "Enter") {
         e.preventDefault();
         const btn = document.getElementById("btnPesquisar");
-        if (btn && this.selectedLaw && this.artigoSelect?.value) {
-          btn.click();
-        } else if (btn) {
-          this._highlightMissingFields();
-        }
+        if (!btn) return;
+        await this._triggerSearch();
       }
     };
     const ids = [
@@ -162,6 +159,10 @@ export class ValidatorUI {
       "paragrafoInput",
       "incisoInput",
       "alineaInput",
+      "ccArtigoInput",
+      "ccParagrafoInput",
+      "ccIncisoInput",
+      "ccAlineaInput",
     ];
     ids.forEach((id) => {
       const el = document.getElementById(id);
@@ -177,15 +178,24 @@ export class ValidatorUI {
 
     const btnPesquisar = document.getElementById("btnPesquisar");
     if (btnPesquisar) {
-      btnPesquisar.addEventListener("click", () => {
-        const artigoNum = this.artigoSelect?.value;
-        if (this.selectedLaw && artigoNum) {
-          this.validateSelection(artigoNum);
-        } else {
-          this._highlightMissingFields();
-        }
+      btnPesquisar.addEventListener("click", async () => {
+        await this._triggerSearch();
       });
     }
+  }
+
+  /** @private */
+  async _triggerSearch() {
+    const artigoNum = this.artigoSelect?.value;
+    if (!this.selectedLaw || !artigoNum) {
+      this._highlightMissingFields();
+      return;
+    }
+
+    const proceed = await this._confirmPendingCompositeDraft();
+    if (!proceed) return;
+
+    await this.validateSelection(artigoNum);
   }
 
   /** @private */
@@ -323,13 +333,14 @@ export class ValidatorUI {
     }
 
     try {
+      const effectiveQuery = this._buildEffectiveCompositeQuery(context);
       const result = await validatorService.verifyEligibility(
         this.selectedLaw,
         artigoNum,
-        context.paragrafo,
-        context.inciso,
-        context.alinea,
-        context.relacionados,
+        effectiveQuery.paragrafo,
+        effectiveQuery.inciso,
+        effectiveQuery.alinea,
+        effectiveQuery.relacionados,
         context.contextoRegra,
       );
 
@@ -364,6 +375,9 @@ export class ValidatorUI {
       const mainParagrafo = this._normalizeLegalDetail(context.paragrafo);
       const mainInciso = (context.inciso || "").trim().toUpperCase();
       const hasMainPar1Inc2 = mainParagrafo === "1" && mainInciso === "II";
+      const hasMainCaputIav =
+        (mainParagrafo === "" || mainParagrafo === "caput") &&
+        ["I", "II", "III", "IV", "V"].includes(mainInciso);
 
       const related = context.relacionados || [];
       const hasRelatedCaputIav = related.some((r) => {
@@ -384,9 +398,9 @@ export class ValidatorUI {
         );
       });
 
-      if (!hasMainPar1Inc2 && hasRelatedPar1Inc2) {
+      if (!hasMainPar1Inc2 && !hasMainCaputIav && hasRelatedPar1Inc2) {
         showToast(
-          "Para o Art. 149-A c.c., preencha no dispositivo principal: § 1 e inciso II. No bloco de combinação, informe o caput (incisos I a V).",
+          "No Art. 149-A c.c., informe no dispositivo principal §1, II ou um inciso do caput (I a V).",
           "warning",
           7000,
         );
@@ -400,9 +414,87 @@ export class ValidatorUI {
           6000,
         );
       }
+
+      if (hasMainCaputIav && !hasRelatedPar1Inc2) {
+        showToast(
+          "Falta informar, no bloco de combinação, o Art. 149-A §1, inciso II.",
+          "warning",
+          6000,
+        );
+      }
     }
 
     return true;
+  }
+
+  /** @private
+   * Normaliza o cenário CP 149-A c.c. para a forma esperada pela RPC v2.
+   * Aceita entrada invertida do usuário:
+   * - principal: caput I-V
+   * - relacionado: §1 II
+   * e converte para:
+   * - principal: §1 II
+   * - relacionado: caput I-V
+   */
+  _buildEffectiveCompositeQuery(context) {
+    const base = {
+      paragrafo: context.paragrafo,
+      inciso: context.inciso,
+      alinea: context.alinea,
+      relacionados: context.relacionados,
+    };
+
+    const law = (this.selectedLaw || "").toUpperCase();
+    const article = (context.artigo || "").toUpperCase();
+    if (law !== "CP" || article !== "149-A") return base;
+
+    const mainParagrafo = this._normalizeLegalDetail(context.paragrafo);
+    const mainInciso = (context.inciso || "").trim().toUpperCase();
+    const mainIsCaputIav =
+      (mainParagrafo === "" || mainParagrafo === "caput") &&
+      ["I", "II", "III", "IV", "V"].includes(mainInciso);
+
+    const related = Array.isArray(context.relacionados)
+      ? [...context.relacionados]
+      : [];
+    const findRelatedPar1Inc2Idx = related.findIndex((r) => {
+      const p = this._normalizeLegalDetail(r?.paragrafo);
+      const i = (r?.inciso || "").trim().toUpperCase();
+      const a = (r?.artigo || "").toUpperCase();
+      return a === "149-A" && p === "1" && i === "II";
+    });
+
+    // Caso invertido: usuário colocou caput no principal e §1 II em relacionados.
+    if (mainIsCaputIav && findRelatedPar1Inc2Idx >= 0) {
+      const normalizedRelated = related.filter(
+        (_, idx) => idx !== findRelatedPar1Inc2Idx,
+      );
+
+      const alreadyHasMainAsRelated = normalizedRelated.some((r) => {
+        const a = (r?.artigo || "").toUpperCase();
+        const p = this._normalizeLegalDetail(r?.paragrafo);
+        const i = (r?.inciso || "").trim().toUpperCase();
+        return a === "149-A" && (p === "" || p === "caput") && i === mainInciso;
+      });
+
+      if (!alreadyHasMainAsRelated) {
+        normalizedRelated.push({
+          artigo: "149-A",
+          paragrafo: "caput",
+          inciso: mainInciso,
+          alinea: null,
+        });
+      }
+
+      return {
+        paragrafo: "1",
+        inciso: "II",
+        alinea: context.alinea,
+        relacionados: normalizedRelated,
+      };
+    }
+
+    return base;
   }
 
   /** @private */
@@ -488,46 +580,7 @@ export class ValidatorUI {
     }
     if (addBtn) {
       addBtn.addEventListener("click", () => {
-        const artigo = document.getElementById("ccArtigoInput")?.value || "";
-        const paragrafo = caputCheck?.checked
-          ? "caput"
-          : document.getElementById("ccParagrafoInput")?.value || "";
-        const inciso = document.getElementById("ccIncisoInput")?.value || "";
-        const alinea = document.getElementById("ccAlineaInput")?.value || "";
-
-        const artigoNormalizado = artigo.trim().toUpperCase();
-        if (!artigoNormalizado) return;
-
-        const incisos = this._expandIncisoInput(inciso);
-        const novos = incisos.length > 0 ? incisos : [null];
-        novos.forEach((inc) => {
-          const item = {
-            artigo: artigoNormalizado,
-            paragrafo: paragrafo.trim() || null,
-            inciso: inc,
-            alinea: alinea.trim() || null,
-          };
-          const key = `${item.artigo}|${item.paragrafo || ""}|${item.inciso || ""}|${item.alinea || ""}`;
-          const exists = this.relatedDevices.some((d) => {
-            const k = `${d.artigo}|${d.paragrafo || ""}|${d.inciso || ""}|${d.alinea || ""}`;
-            return k === key;
-          });
-          if (!exists) this.relatedDevices.push(item);
-        });
-
-        [
-          "ccArtigoInput",
-          "ccParagrafoInput",
-          "ccIncisoInput",
-          "ccAlineaInput",
-        ].forEach((id) => {
-          const el = document.getElementById(id);
-          if (el) el.value = "";
-        });
-        if (caputCheck) caputCheck.checked = false;
-        if (paragrafoInput) paragrafoInput.disabled = false;
-
-        this._renderRelatedDevices();
+        this._addRelatedDeviceFromInputs();
       });
     }
 
@@ -552,6 +605,110 @@ export class ValidatorUI {
     });
 
     this._renderContextSummary();
+  }
+
+  /** @private */
+  _readRelatedDraftInputs() {
+    const artigo = (
+      document.getElementById("ccArtigoInput")?.value || ""
+    ).trim();
+    const ccCaput = !!document.getElementById("ccCaputCheck")?.checked;
+    const paragrafo = ccCaput
+      ? "caput"
+      : (document.getElementById("ccParagrafoInput")?.value || "").trim();
+    const inciso = (
+      document.getElementById("ccIncisoInput")?.value || ""
+    ).trim();
+    const alinea = (
+      document.getElementById("ccAlineaInput")?.value || ""
+    ).trim();
+
+    return { artigo, paragrafo, inciso, alinea, ccCaput };
+  }
+
+  /** @private */
+  _hasPendingRelatedDraft() {
+    const draft = this._readRelatedDraftInputs();
+    return !!(
+      draft.artigo ||
+      draft.paragrafo ||
+      draft.inciso ||
+      draft.alinea ||
+      draft.ccCaput
+    );
+  }
+
+  /** @private */
+  _clearRelatedDraftInputs() {
+    [
+      "ccArtigoInput",
+      "ccParagrafoInput",
+      "ccIncisoInput",
+      "ccAlineaInput",
+    ].forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) el.value = "";
+    });
+
+    const caputCheck = document.getElementById("ccCaputCheck");
+    const paragrafoInput = document.getElementById("ccParagrafoInput");
+    if (caputCheck) caputCheck.checked = false;
+    if (paragrafoInput) paragrafoInput.disabled = false;
+  }
+
+  /** @private */
+  _addRelatedDeviceFromInputs() {
+    const draft = this._readRelatedDraftInputs();
+    const artigoNormalizado = draft.artigo.toUpperCase();
+    if (!artigoNormalizado) return false;
+
+    const incisos = this._expandIncisoInput(draft.inciso);
+    const novos = incisos.length > 0 ? incisos : [null];
+    novos.forEach((inc) => {
+      const item = {
+        artigo: artigoNormalizado,
+        paragrafo: draft.paragrafo || null,
+        inciso: inc,
+        alinea: draft.alinea || null,
+      };
+      const key = `${item.artigo}|${item.paragrafo || ""}|${item.inciso || ""}|${item.alinea || ""}`;
+      const exists = this.relatedDevices.some((d) => {
+        const k = `${d.artigo}|${d.paragrafo || ""}|${d.inciso || ""}|${d.alinea || ""}`;
+        return k === key;
+      });
+      if (!exists) this.relatedDevices.push(item);
+    });
+
+    this._clearRelatedDraftInputs();
+    this._renderRelatedDevices();
+    return true;
+  }
+
+  /** @private */
+  async _confirmPendingCompositeDraft() {
+    if (!this._hasPendingRelatedDraft()) return true;
+
+    const draft = this._readRelatedDraftInputs();
+    if (!draft.artigo) {
+      return this._confirmWithUser(
+        "Há campos de combinação (c.c.) preenchidos sem 'Artigo relacionado'. Deseja pesquisar sem adicionar esse rascunho?",
+      );
+    }
+
+    const shouldAdd = this._confirmWithUser(
+      "Você preencheu o bloco c.c. e ainda não clicou em 'Adicionar'. Deseja adicionar agora e incluir nesta pesquisa?",
+    );
+    if (shouldAdd) {
+      this._addRelatedDeviceFromInputs();
+    }
+
+    return true;
+  }
+
+  /** @private */
+  _confirmWithUser(message) {
+    // eslint-disable-next-line no-alert
+    return window.confirm(message);
   }
 
   /** @private */

@@ -67,6 +67,9 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 - O refinamento básico possui seleção explícita de `Caput` e `Único` (mutuamente exclusivos), removendo ambiguidade no preenchimento de parágrafo.
 - O subbloco de exceções condicionais é expansível (abre sob demanda), possui tooltips de ajuda por cenário e resumo em chips com remoção rápida (`x`) para desmarcar contexto sem retornar aos checkboxes.
 - O bloco de combinação `c.c.` fica em expansível próprio, separado do refinamento básico (parágrafo/inciso/alínea), possui seleção explícita de `Caput` para dispositivo relacionado e reduz ambiguidades de uso.
+- O título dos campos de parágrafo foi padronizado para `§ Parágrafo` (refinamento principal e `c.c.`), deixando o contexto jurídico explícito na UI.
+- Nos campos do bloco `c.c.`, a tecla Enter aciona o mesmo fluxo do botão Pesquisar (quando Lei + Artigo estiverem prontos).
+- Se o usuário preencher o `c.c.` e esquecer de clicar em “Adicionar”, a busca exibe confirmação para incluir automaticamente o rascunho na consulta.
 - Na legenda da consulta, os quatro estados são exibidos em linha única no desktop (com quebra responsiva em telas menores) para comparação visual imediata.
 - O estado técnico `PENDENTE_ANALISE` é apresentado ao usuário como **Revisão necessária**, com orientação de que faltam dados para conclusão automática.
 - O modal final exibe "Consulta informada pelo usuário" com dispositivo principal, dispositivos `c.c.` adicionados e situações específicas marcadas.

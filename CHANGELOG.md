@@ -15,6 +15,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ### docs
 
+- **docs(ux-cc-enter):** Atualizado `guides/development.md` com o comportamento de Enter nos campos do bloco `c.c.` e confirmação de rascunho não adicionado antes da pesquisa.
 - **docs(ux-legenda):** `guides/development.md` atualizado para documentar a legenda em linha única no desktop e a nomenclatura de exibição “Revisão necessária” para o estado técnico `PENDENTE_ANALISE`.
 - **docs(prompt19-checkpoint):** Revisão global de consistência documental executada (README/CHANGELOG/docs + memória de sessão), com validação automática `npm run doc:check` e coesão de governança confirmada via `check-hub-version` (Hub v0.6.1).
 - **docs(ux-caput-explicito):** Atualizados os guias (`development.md`, `api-reference.md`) para refletir o novo fluxo de `Caput` explícito no refinamento principal e no bloco `c.c.`, além do resumo completo de entrada exibido no modal de resultado.
@@ -34,6 +35,10 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ### fix
 
+- **fix(frontend-cc-enter):** Tecla Enter nos inputs do bloco `c.c.` agora dispara o mesmo fluxo do botão Pesquisar (quando Lei + Artigo estão selecionados), evitando perda de produtividade.
+- **fix(frontend-cc-rascunho):** Antes de pesquisar, o sistema detecta preenchimento pendente no `c.c.` e pergunta se deve adicionar automaticamente o dispositivo relacionado na consulta.
+- **fix(frontend-copy-inputs):** Títulos dos campos de parágrafo ajustados para `§ Parágrafo` no refinamento principal e no bloco `c.c.`.
+- **fix(frontend-149a-cc):** Validação do cenário CP 149-A c.c. corrigida para aceitar entrada invertida (caput no principal + §1, II no `c.c.`), com normalização interna para a RPC v2.
 - **fix(frontend-legenda):** Card “Legenda de Resultados” ajustado para exibir os quatro estados em uma única linha no desktop (com fallback responsivo para 2/1 colunas).
 - **fix(frontend-copy):** Texto do estado “PENDENTE DE ANÁLISE” simplificado na interface para “REVISÃO NECESSÁRIA”, com descrição orientada a ação do usuário.
 - **fix(frontend-caput-consistencia):** Reforçada consistência de `Caput` no refinamento principal e no bloco `c.c.`: ao marcar `Caput`, o campo de parágrafo é limpo/bloqueado; ao digitar parágrafo, `Caput` é desmarcado automaticamente para evitar combinações inválidas.
