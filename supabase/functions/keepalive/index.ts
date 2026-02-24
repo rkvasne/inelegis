@@ -74,6 +74,7 @@ Deno.serve(async (req: Request) => {
       id: 1,
       project_slug: projectSlug,
       environment: environment,
+      region: payload.region || "edge", // Salvar região aqui também
       source: source,
       last_ping_at: now,
       last_success_at: now,

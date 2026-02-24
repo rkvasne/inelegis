@@ -53,6 +53,7 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 **Keepalive (externo)**
 
 - O heartbeat é feito por **Cloudflare Worker** → Supabase Edge Function (não há serviço client-side no `src/js/`).
+- A Edge Function de keepalive persiste `region` tanto em `keepalive_events` (histórico) quanto em `keepalive` (status atual), mantendo consistência no dashboard de monitoramento.
 - Referências: [scripts/keepalive-worker.js](../../scripts/keepalive-worker.js), [keepalive-inelegis.md](./keepalive-inelegis.md).
 
 **[utils/sanitizer.js](../../src/js/utils/sanitizer.js)** e **[utils/escape-html.js](../../src/js/utils/escape-html.js)**
@@ -73,6 +74,7 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 - A confirmação de rascunho `c.c.` pendente usa modal customizado (mesmo padrão visual da aplicação), em vez de `alert/confirm` nativo do navegador.
 - No card `c.c.`, o botão `Limpar` foi movido para o topo (header do card), alinhando o padrão com o card de refinamento.
 - O botão `Adicionar à combinação` recebeu destaque visual e os campos do fluxo composto são normalizados para maiúsculas para reduzir inconsistências de entrada.
+- No dark mode, o estado desabilitado do botão `Adicionar` foi ajustado para manter legibilidade da etiqueta sem transmitir estado ativo.
 - A remoção de dispositivos relacionados passou para ação inline com ícone de lixeira junto ao texto do item, melhorando escaneabilidade da lista.
 - Os botões de ação dos cards de refinamento e `c.c.` foram padronizados em estilo visual único (compacto, borda sutil e hover discreto), com o `Adicionar` em variação de destaque moderado para manter hierarquia sem excesso de contraste.
 - Na legenda da consulta, os quatro estados são exibidos em linha única no desktop (com quebra responsiva em telas menores) para comparação visual imediata.
