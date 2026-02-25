@@ -14,7 +14,7 @@
     "validate:theme": "npm run lint:theme",
     "test": "node scripts/test.js",
     "test:coverage": "node scripts/test.js --coverage",
-    "test:unit": "node tests/formatters.test.js && node tests/exceptions.test.js && node tests/result-renderer.test.js && node tests/input-validator.test.js && node tests/validator-service.test.js && node tests/toast.test.js && node tests/theme-manager.test.js",
+    "test:unit": "node tests/formatters.test.js && node tests/exceptions.test.js && node tests/result-renderer.test.js && node tests/input-validator.test.js && node tests/validator-service.test.js && node tests/migration-crimes-consistency.test.js && node tests/toast.test.js && node tests/theme-manager.test.js",
     "test:theme": "node tests/theme-manager.test.js",
     "test:components": "node tests/components.test.js",
     "test:all": "npm run test:unit && npm run test",

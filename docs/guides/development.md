@@ -65,7 +65,8 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 **[ui/validator-ui.js](../../src/js/ui/validator-ui.js)**
 
 - Controla o fluxo "Lei -> Artigo" com selects em cascata.
-- Suporta modo avançado de combinação (`c.c.`) com dispositivos relacionados e "situação do caso" para exceções condicionais (consome `verificar_elegibilidade_v2` quando esses campos são preenchidos).
+- Suporta modo avançado de combinação (`c.c.`) com dispositivos relacionados e "situação do caso" para exceções condicionais.
+- A busca sempre prioriza `verificar_elegibilidade_v2` (inclusive sem preencher `c.c.`), evitando falso resultado em regras compostas; fallback para `verificar_elegibilidade` ocorre apenas se a função v2 não existir no banco.
 - O refinamento básico possui seleção explícita de `Caput` e `Único` (mutuamente exclusivos), removendo ambiguidade no preenchimento de parágrafo.
 - O subbloco de exceções condicionais é expansível (abre sob demanda), possui tooltips de ajuda por cenário e resumo em chips com remoção rápida (`x`) para desmarcar contexto sem retornar aos checkboxes.
 - O bloco de combinação `c.c.` fica em expansível próprio, separado do refinamento básico (parágrafo/inciso/alínea), possui seleção explícita de `Caput` para dispositivo relacionado e reduz ambiguidades de uso.
@@ -81,6 +82,8 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 - Os botões de ação dos cards de refinamento e `c.c.` foram padronizados em estilo visual único (compacto, borda sutil e hover discreto), com o `Adicionar` em variação de destaque moderado para manter hierarquia sem excesso de contraste.
 - O botão `Limpar` do refinamento principal usa o mesmo padrão de altura/alinhamento do botão `Limpar` do card `c.c.`, evitando desalinhamento visual entre os dois cabeçalhos expansíveis.
 - A RPC base no banco (`verificar_elegibilidade`) também normaliza `p_paragrafo` (caput/único/símbolos/acentos), protegendo chamadas diretas ao Supabase fora do frontend.
+- A RPC base aplica fail-safe estrutural para evitar falso `ELEGIVEL` em artigos com exceção detalhada sem linha impeditiva correspondente (hotfix de confiabilidade de 26/02/2026).
+- A base jurídica mantém regra explícita para padrões enumerados: quando não existe linha-base impeditiva do artigo, os dispositivos impeditivos detalhados são marcados com `artigo_inteiro_impeditivo = FALSE`.
 - Na legenda da consulta, os quatro estados são exibidos em linha única no desktop (com quebra responsiva em telas menores) para comparação visual imediata.
 - O estado técnico `PENDENTE_ANALISE` é apresentado ao usuário como **Revisão necessária**, com orientação de que faltam dados para conclusão automática.
 - O modal final exibe "Consulta informada pelo usuário" com dispositivo principal, dispositivos `c.c.` adicionados e situações específicas marcadas.
@@ -155,5 +158,5 @@ Para garantir a eficiência de leitura por agentes de IA e conformidade com o **
 
 ---
 
-_Última atualização: 25/02/2026 • v0.3.27 (Hub v0.6.1)_
+_Última atualização: 26/02/2026 • v0.3.27 (Hub v0.6.1)_
 _Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_

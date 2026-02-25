@@ -4,9 +4,13 @@
 **Tabela de Referência:** Corregedoria Regional Eleitoral de São Paulo (outubro/2024)  
 **Migration Analisada:** `20260225000000_crimes_inelegibilidade.sql` (reconsolidada em 25/02/2026; substitui tabelas `normas`, `artigos_inelegiveis`, `artigos_excecoes`)
 
-**Status:** ✅ **CONFORME**
+**Status:** ✅ **CONFORME NO REPOSITÓRIO E NO BANCO ATIVO (hotfixes 9-12 aplicados)**
 
 > **Validação final (23/02/2026):** Após aplicar `20260225000400_cleanup_extras_nao_cre.sql`, a base ativa ficou sem registros de `LEI_9503_97` e `LEI_8429_92` (ausentes nas 4 páginas da tabela oficial CRE). Em seguida, com `20260225000500_verificar_elegibilidade_v2_compostas.sql` executada, a RPC v2 passou a cobrir combinações `c.c.` e exceções condicionais sem regressão da regra base. Estado validado também na extração local de estrutura (`supabase/structure`).
+>
+> **Varredura profunda (26/02/2026):** Detectada lacuna estrutural no banco ativo para `CP 177/180/184` (exceções detalhadas sem linha-base impeditiva), causando falso `ELEGIVEL` em consultas fora das exceções (ex.: `CP 180 §8`). Correção consolidada via migrations `20260226000300`, `20260226000400` e `20260226000500`.
+>
+> **Fechamento de execução (26/02/2026):** Apply confirmado das migrations `20260226000200` a `20260226000500`, com validação pós-apply via testes automatizados (`npm run test:unit`), auditoria documental (`npm run doc:check`) e compliance de governança (`check-hub-version` + `validator-hub-protection`) sem falhas.
 
 ---
 
@@ -148,7 +152,7 @@ Também foi identificado um ponto de robustez na RPC:
 - `IF v_record IS NOT NULL` em variável `record` pode falhar quando há colunas nulas no match exato.
 - Ajuste aplicado na migration SSoT: uso de `IF FOUND`.
 
-### 8. **Conferência final pós-cleanup (estado atual)**
+### 8. **Conferência final pós-cleanup (estado ativo antes dos hotfixes 10-12)**
 
 - ✅ `crimes_inelegibilidade`: 33 códigos e 431 registros no banco ativo.
 - ✅ `LEI_9503_97` e `LEI_8429_92`: não existem mais na base.
@@ -160,6 +164,14 @@ Também foi identificado um ponto de robustez na RPC:
 - ✅ Bateria manual com 12 casos críticos da `verificar_elegibilidade_v2` executada no banco ativo.
 - ✅ Resultado: 12/12 conformes (0 falhas), incluindo cenários com/sem `p_relacionados` e `p_contexto`.
 - ✅ Evidência detalhada em: [auditoria-rpc-v2-matriz.md](auditoria-rpc-v2-matriz.md).
+
+### 10. **Correções de confiabilidade aplicadas (26/02/2026)**
+
+- ✅ `20260226000300_hotfix_cp_177_180_184_base_impeditiva.sql`: adiciona linhas-base impeditivas ausentes para CP 177/180/184.
+- ✅ `20260226000400_hotfix_verificar_elegibilidade_failsafe_lacuna_dados.sql`: adiciona fail-safe na RPC base para bloquear falso `ELEGIVEL` em lacunas estruturais equivalentes.
+- ✅ `20260226000500_hotfix_artigo_inteiro_impeditivo_enumerados.sql`: explicita `artigo_inteiro_impeditivo=FALSE` em padrões enumerados sem linha-base.
+- ✅ Teste automatizado ampliado: `tests/migration-crimes-consistency.test.js` agora valida integridade estrutural + matriz crítica de fallback (inclui `CP 180 §8`).
+- ✅ Resultado esperado após aplicar migrations 10-12: base ativa com **434 registros** (431 + 3 linhas-base CP) e sem artigos com exceção detalhada órfã.
 
 ---
 
@@ -176,5 +188,5 @@ A migration `20260225000000_crimes_inelegibilidade.sql` está **CONFORME** com a
 
 ---
 
-_Última atualização: 23/02/2026 • v0.3.27 (Hub v0.6.1)_
+_Última atualização: 26/02/2026 • v0.3.27 (Hub v0.6.1)_
 _Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_

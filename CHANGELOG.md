@@ -15,6 +15,13 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ### docs
 
+- **docs(prompt19-checkpoint-final):** Encerramento de sessão sem bump com atualização de memória (`.agent/memory/project-status.md`), arquivamento de task concluída em `.agent/memory/archive/tasks/` e criação de convenção explícita para tarefas ativas em `.agent/memory/tasks/README.md`.
+- **docs(prompt24-governance-stress):** Auditoria de governança executada com stress de proteção (modo seguro), validação de junction Hub (`E:\\Agents`), integridade de hooks Husky e carimbo final `npm run verify` sem falhas.
+- **docs(prompt25-architecture-ssot):** Consolidação documental com criação de `docs/architecture-and-adr.md` como referência canônica de arquitetura e atualização de referências em `docs/README.md`, `README.md` e `docs/prd-and-scope.md`.
+- **docs(architecture-adr-ssot):** Criado `docs/architecture-and-adr.md` como referência canônica de arquitetura e ADRs consolidados; índice documental (`docs/README.md`) e referências de entrada (`README.md`, `docs/prd-and-scope.md`) atualizados para reduzir dispersão de contexto técnico.
+- **docs(prompt18-compliance-final):** Prompt 18 reexecutado com validação completa de governança no satélite: `check-hub-version`, `validator-hub-protection`, `doc:check` e `build` sem falhas; auditoria atualizada para refletir apply confirmado das migrations 9-12 no banco ativo.
+- **docs(rpc-v2-default):** `api-reference.md` e `guides/development.md` atualizados para refletir o novo fluxo de busca: frontend prioriza `verificar_elegibilidade_v2` em todas as consultas, com fallback para RPC base apenas quando a v2 não existir.
+- **docs(confiabilidade-rpc-base):** Atualizados `docs/references/interpretacao-tabela-oficial.md`, `docs/auditoria-tabela-oficial.md`, `docs/guides/setup-supabase.md`, `docs/guides/migrations-status.md` e `supabase/migrations/README.md` para registrar a varredura profunda de 26/02/2026 e a nova trilha de correção (migrations 10-12) contra falso `ELEGÍVEL` por lacuna estrutural.
 - **docs(rpc-normalizacao-paragrafo):** Atualizados `README.md`, `docs/api-reference.md`, `docs/guides/development.md`, `docs/guides/setup-supabase.md`, `docs/guides/migrations-status.md` e `supabase/migrations/README.md` para refletir o hotfix de normalização de `p_paragrafo` na RPC base (`caput`/`único`) e a nova ordem com 9 migrations.
 - **docs(prompt19-checkpoint):** Checkpoint de sessão executado sem bump, com atualização de memória em `.agent/memory/project-status.md`, validação `doc:check` e health check de coesão com Hub (`check-hub-version`).
 - **docs(ux-uppercase-placeholder):** `guides/development.md` atualizado para explicitar que campos com normalização em maiúsculas mantêm placeholder em formato normal para melhorar legibilidade.
@@ -43,6 +50,11 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ### fix
 
+- **fix(frontend-rpc-v2-default):** `validator-service` passou a priorizar `verificar_elegibilidade_v2` em toda consulta (inclusive simples), corrigindo falso `INELEGÍVEL` em regras compostas quando o usuário não preenchia `c.c.`.
+- **fix(frontend-rpc-v2-fallback-safe):** Fallback para RPC base agora ocorre apenas quando a v2 não existe (`PGRST202`/function not found), evitando mascarar erro operacional com resultado jurídico potencialmente incorreto.
+- **fix(frontend-149a-transform):** No autoajuste de entrada invertida do `CP 149-A c.c.`, a alínea do dispositivo principal é zerada para impedir ruído de parâmetros na regra composta.
+- **fix(rpc-failsafe-lacuna):** Nova migration `20260226000400_hotfix_verificar_elegibilidade_failsafe_lacuna_dados.sql` adiciona proteção na `verificar_elegibilidade` para bloquear falso `ELEGÍVEL` quando existir exceção detalhada sem linha impeditiva correspondente no artigo.
+- **fix(data-estrutural-cre):** Reforço do SSoT e do hotfix incremental com correções de integridade: base impeditiva adicionada para `CP 177/180/184` (`20260226000300`) e normalização de `artigo_inteiro_impeditivo=FALSE` para padrões enumerados sem linha-base (`20260226000500`).
 - **fix(rpc-paragrafo-normalizacao-db):** Nova migration `20260226000200_hotfix_verificar_elegibilidade_normalizacao_paragrafo.sql` para normalizar `p_paragrafo` dentro da `verificar_elegibilidade` (caput/cap -> `NULL`, único/unico -> `unico`, remoção de símbolos/acentos), eliminando risco de falso resultado em chamadas diretas ao banco.
 - **fix(frontend-normalizacao-paragrafo):** `validator-service` passou a normalizar `parágrafo` principal `caput` para `null`, alinhando o payload ao formato do banco e evitando falso `INELEGÍVEL` em artigos com exceção no caput (ex.: CP art. 163).
 - **fix(frontend-input-paragrafo):** `input-validator` e `validator-ui` reforçados para tratar `único/unico` e remover acentuação antes de sanitização em campos uppercased do fluxo `c.c.`.
@@ -79,6 +91,9 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ### test
 
+- **test(reliability-regression-suite):** Rodada final de regressão executada com `npm run test:unit` (incluindo `migration-crimes-consistency.test.js`) após apply das migrations 9-12, mantendo 100% dos testes relevantes verdes.
+- **test(validator-v2-default):** Testes do `validator-service` ampliados para validar uso padrão da RPC v2, fallback seguro (somente função inexistente) e não mascaramento de erro operacional.
+- **test(consistencia-juridica-hardening):** `tests/migration-crimes-consistency.test.js` ampliado com invariantes estruturais e matriz crítica de fallback (incluindo regressão `CP 180 §8`), prevenindo reintrodução de lacunas de dados no CI.
 - **test(regressao-paragrafo):** Novos testes unitários para garantir normalização de `caput` no dispositivo principal (`p_paragrafo = null`) e `único` para `unico`, prevenindo regressão de classificação jurídica.
 - **test(auditoria-profunda):** Auditoria ponta a ponta da tabela oficial (`tabela-oficial.xlsx`), migration e RPC com bateria de casos representativos CRE; identificadas divergências no banco ativo e gerado hotfix idempotente no repositório.
 - **test(prompt11-v2):** Prompt 11 executado com ampliação dos testes do `validator-service` para cenários de RPC v2 (uso de `p_relacionados/p_contexto`, fallback para RPC base e normalização de `caput`), além de correção do runner assíncrono para evitar falso positivo.
@@ -305,5 +320,5 @@ As alterações das versões **v0.2.0 a v0.3.11** e **v0.1.x** foram movidas par
 - 📂 [v0.2.0 a v0.3.11](docs/archive/2026-02-23-release-history-v0-3-early.md)
 - 📂 [v0.1.x](docs/archive/2026-02-23-release-history-v0.md)
 
-_Última atualização: 25/02/2026 • v0.3.27 (Hub v0.6.1)_
+_Última atualização: 26/02/2026 • v0.3.27 (Hub v0.6.1)_
 _Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_

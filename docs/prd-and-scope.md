@@ -71,11 +71,12 @@ Qualquer funcionalidade nova que se encaixe nos itens acima deve ser tratada com
 ## 6. Referências
 
 - [README do projeto](../README.md) — visão geral e funcionalidades
+- [Arquitetura e ADR](architecture-and-adr.md) — visão técnica canônica e decisões consolidadas
 - [Guia de Desenvolvimento](guides/development.md) — arquitetura e módulos
 - [Estado do projeto](../.agent/memory/project-status.md) — objetivos e tarefas atuais
 - [Decisões de design](design/design-decisions.md) — justificativas técnicas
 
 ---
 
-_Última atualização: 23/02/2026 • v0.3.27_
+_Última atualização: 26/02/2026 • v0.3.27_
 _Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_

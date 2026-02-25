@@ -284,6 +284,35 @@ test("verifyEligibility deve fazer fallback para RPC base quando v2 falha", asyn
   }
 });
 
+test("verifyEligibility não deve mascarar erro operacional da v2 com fallback", async () => {
+  const svc = new ValidatorService();
+  svc.initialized = true;
+
+  const supabase = await import("../src/js/services/supabase-client.js");
+  const originalRpc = supabase.supabaseClient.rpc;
+  const calls = [];
+
+  supabase.supabaseClient.rpc = async (fn) => {
+    calls.push(fn);
+    if (fn === "verificar_elegibilidade_v2") {
+      throw new Error("network timeout");
+    }
+    return [{ resultado: "INELEGIVEL" }];
+  };
+
+  try {
+    const result = await svc.verifyEligibility("CP", "121");
+    assert.equal(result.resultado, RESULTS.ERROR);
+    assert.deepEqual(
+      calls,
+      ["verificar_elegibilidade_v2"],
+      "Não deve chamar RPC base para erro operacional da v2",
+    );
+  } finally {
+    supabase.supabaseClient.rpc = originalRpc;
+  }
+});
+
 test("verifyEligibility deve normalizar parágrafo relacionado 'caput' para null", async () => {
   const svc = new ValidatorService();
   svc.initialized = true;
@@ -330,7 +359,7 @@ test("verifyEligibility deve normalizar parágrafo principal 'caput' para null",
 
   try {
     await svc.verifyEligibility("CP", "163", "caput");
-    assert.equal(fnCaptured, "verificar_elegibilidade");
+    assert.equal(fnCaptured, "verificar_elegibilidade_v2");
     assert.equal(payloadCaptured.p_paragrafo, null);
   } finally {
     supabase.supabaseClient.rpc = originalRpc;
@@ -358,7 +387,7 @@ test("verifyEligibility deve normalizar parágrafo principal 'único' para 'unic
   }
 });
 
-test("verifyEligibility deve usar RPC base quando não há input composto", async () => {
+test("verifyEligibility deve priorizar RPC v2 mesmo sem input composto", async () => {
   const svc = new ValidatorService();
   svc.initialized = true;
 
@@ -374,7 +403,7 @@ test("verifyEligibility deve usar RPC base quando não há input composto", asyn
   try {
     const result = await svc.verifyEligibility("CP", "122", "8");
     assert.equal(result.resultado, "ELEGIVEL");
-    assert.deepEqual(calls, ["verificar_elegibilidade"]);
+    assert.deepEqual(calls, ["verificar_elegibilidade_v2"]);
   } finally {
     supabase.supabaseClient.rpc = originalRpc;
   }

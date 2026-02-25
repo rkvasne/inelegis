@@ -14,6 +14,7 @@ Bem-vindo à documentação oficial do projeto **Inelegis**.
 
 - **[📚 README (Índice principal)](README.md)** – este documento
 - **[PRD e Escopo](prd-and-scope.md)** – escopo explícito do produto (evita scope creep)
+- **[Arquitetura e ADR](architecture-and-adr.md)** – visão canônica da arquitetura e decisões técnicas consolidadas
 - **[Plano Inicial](plan-initial.md)** – plano de partida (prompt 03): visão, requisitos, T-shirt sizing, riscos
 - **[Referência de API](api-reference.md)** – endpoints Vercel, RPCs Supabase, Quick Start e FAQ (prompt 17)
 
@@ -63,6 +64,7 @@ Bem-vindo à documentação oficial do projeto **Inelegis**.
 docs/
 ├── README.md                   # Índice principal
 ├── api-reference.md            # Referência de API (Vercel + Supabase RPC)
+├── architecture-and-adr.md     # Arquitetura canônica e ADRs consolidados
 ├── auditoria-tabela-oficial.md # Conformidade tabela CRE vs migration
 ├── auditoria-rpc-v2-matriz.md  # Matriz de validação da RPC v2 (c.c./condicionais)
 ├── prd-and-scope.md            # PRD e escopo do produto
@@ -121,5 +123,5 @@ Para manter consistência entre todos os documentos, siga os padrões deste repo
 
 ---
 
-_Última atualização: 23/02/2026 • v0.3.27 (Hub v0.6.1)_
+_Última atualização: 26/02/2026 • v0.3.27 (Hub v0.6.1)_
 _Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_

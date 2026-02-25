@@ -515,7 +515,8 @@ export class ValidatorUI {
       return {
         paragrafo: "1",
         inciso: "II",
-        alinea: context.alinea,
+        // Regra 149-A c.c. não usa alínea no dispositivo principal.
+        alinea: null,
         relacionados: normalizedRelated,
       };
     }

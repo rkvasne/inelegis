@@ -86,10 +86,13 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, eh_excecao, 
 ('CP', 'Código Penal (DL 2.848/40)', '173', NULL, FALSE, 'Crimes contra o patrimônio', '1', 'Abuso incapazes'),
 ('CP', 'Código Penal (DL 2.848/40)', '174', NULL, FALSE, 'Crimes contra o patrimônio', '1', NULL),
 ('CP', 'Código Penal (DL 2.848/40)', '175', NULL, TRUE, 'Crimes contra o patrimônio', '1', 'Exceção: Caput, I e II'),
+('CP', 'Código Penal (DL 2.848/40)', '177', NULL, FALSE, 'Crimes contra o patrimônio', '1', 'Art. inteiro; exceção §2'),
 ('CP', 'Código Penal (DL 2.848/40)', '177', '2', TRUE, 'Crimes contra o patrimônio', '1', 'Exceção'),
 ('CP', 'Código Penal (DL 2.848/40)', '178', NULL, FALSE, 'Crimes contra o patrimônio', '1', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '180', NULL, FALSE, 'Crimes contra o patrimônio', '1', 'Art. inteiro; exceção §3'),
 ('CP', 'Código Penal (DL 2.848/40)', '180', '3', TRUE, 'Crimes contra o patrimônio', '1', 'Exceção: Receptação culposa'),
 ('CP', 'Código Penal (DL 2.848/40)', '180-A', NULL, FALSE, 'Crimes contra o patrimônio', '1', NULL),
+('CP', 'Código Penal (DL 2.848/40)', '184', NULL, FALSE, 'Crimes contra o patrimônio', '1', 'Art. inteiro; exceção §4'),
 ('CP', 'Código Penal (DL 2.848/40)', '184', '4', TRUE, 'Crimes contra o patrimônio', '1', 'Exceção');
 
 INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, eh_excecao, tipo_crime, item_alinea_e) VALUES
@@ -590,6 +593,23 @@ INSERT INTO crimes_inelegibilidade (codigo, lei, artigo, paragrafo, eh_excecao, 
 ('LEI_10826_03', 'Lei 10.826/03 - Desarmamento', '16', '1', FALSE, FALSE, 'Crime hediondo', '7', 'Caput e §1º c.c. §2º'),
 ('LEI_10826_03', 'Lei 10.826/03 - Desarmamento', '17', NULL, FALSE, TRUE, 'Crime hediondo', '7', NULL),
 ('LEI_10826_03', 'Lei 10.826/03 - Desarmamento', '18', NULL, FALSE, TRUE, 'Crime hediondo', '7', NULL);
+
+-- Regra estrutural: artigos com apenas dispositivos impeditivos detalhados
+-- (sem linha-base do artigo) devem permanecer como "enumerados/específicos".
+UPDATE crimes_inelegibilidade t
+SET artigo_inteiro_impeditivo = FALSE
+WHERE t.eh_excecao = FALSE
+  AND (t.paragrafo IS NOT NULL OR t.inciso IS NOT NULL OR t.alinea IS NOT NULL)
+  AND NOT EXISTS (
+      SELECT 1
+      FROM crimes_inelegibilidade b
+      WHERE b.codigo = t.codigo
+        AND b.artigo = t.artigo
+        AND b.eh_excecao = FALSE
+        AND b.paragrafo IS NULL
+        AND b.inciso IS NULL
+        AND b.alinea IS NULL
+  );
 
 COMMENT ON TABLE crimes_inelegibilidade IS 'SSoT: Tabela Oficial da Corregedoria (v0.3.25)';
 GRANT ALL ON TABLE crimes_inelegibilidade TO postgres, service_role;

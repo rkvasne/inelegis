@@ -38,6 +38,21 @@ export class ValidatorService {
   }
 
   /**
+   * Fallback para RPC base apenas quando a v2 realmente não existe no ambiente.
+   * Evita mascarar erros operacionais com respostas possivelmente incorretas.
+   * @param {unknown} error
+   * @returns {boolean}
+   */
+  shouldFallbackFromV2(error) {
+    const msg = String(error?.message || error || "");
+    return (
+      msg.includes("PGRST202") ||
+      msg.toLowerCase().includes("does not exist") ||
+      msg.toLowerCase().includes("could not find the function")
+    );
+  }
+
+  /**
    * Initializes the service by checking Supabase connection
    * @returns {Promise<boolean>}
    */
@@ -189,40 +204,33 @@ export class ValidatorService {
         : [];
       const normalizedContext =
         ruleContext && typeof ruleContext === "object" ? ruleContext : {};
-      const hasCompositeInput =
-        normalizedRelated.length > 0 ||
-        Object.keys(normalizedContext).length > 0;
+      const payloadBase = {
+        p_codigo_norma: sanitizedLaw,
+        p_artigo: sanitizedArticle,
+        p_paragrafo: normalizedParagraph,
+        p_inciso: normalizedInciso,
+        p_alinea: normalizedAlinea,
+      };
 
       let result;
-      if (hasCompositeInput) {
-        try {
-          result = await supabaseClient.rpc("verificar_elegibilidade_v2", {
-            p_codigo_norma: sanitizedLaw,
-            p_artigo: sanitizedArticle,
-            p_paragrafo: normalizedParagraph,
-            p_inciso: normalizedInciso,
-            p_alinea: normalizedAlinea,
-            p_relacionados: normalizedRelated,
-            p_contexto: normalizedContext,
-          });
-        } catch (v2Error) {
-          // Fallback compatível com ambientes que ainda não aplicaram a migration v2.
-          result = await supabaseClient.rpc("verificar_elegibilidade", {
-            p_codigo_norma: sanitizedLaw,
-            p_artigo: sanitizedArticle,
-            p_paragrafo: normalizedParagraph,
-            p_inciso: normalizedInciso,
-            p_alinea: normalizedAlinea,
-          });
-        }
-      } else {
-        result = await supabaseClient.rpc("verificar_elegibilidade", {
-          p_codigo_norma: sanitizedLaw,
-          p_artigo: sanitizedArticle,
-          p_paragrafo: normalizedParagraph,
-          p_inciso: normalizedInciso,
-          p_alinea: normalizedAlinea,
+      try {
+        // Sempre prioriza v2 para evitar falso resultado em regras compostas
+        // mesmo quando o usuário não preenche explicitamente o bloco c.c.
+        result = await supabaseClient.rpc("verificar_elegibilidade_v2", {
+          ...payloadBase,
+          p_relacionados: normalizedRelated,
+          p_contexto: normalizedContext,
         });
+      } catch (v2Error) {
+        if (!this.shouldFallbackFromV2(v2Error)) {
+          throw v2Error;
+        }
+
+        // Fallback compatível com ambientes sem migration v2 aplicada.
+        result = await supabaseClient.rpc(
+          "verificar_elegibilidade",
+          payloadBase,
+        );
       }
 
       return (result && result[0]) || { resultado: RESULTS.NOT_FOUND };

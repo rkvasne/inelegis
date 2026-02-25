@@ -96,6 +96,10 @@ Toda a documentação oficial vive em `docs/`. Use o índice central:
 
 **[docs/README.md](docs/README.md)**
 
+Arquitetura canônica e decisões técnicas:
+
+- **[docs/architecture-and-adr.md](docs/architecture-and-adr.md)** — visão técnica do sistema e ADRs consolidados
+
 Materiais de modos/assistentes de IDE:
 
 - **[.github/prompts/README.md](.github/prompts/README.md)** — Prompt Files para Copilot/VS Code
@@ -138,5 +142,5 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE.md](LICENSE.md) p
 
 ---
 
-_Última atualização: 25/02/2026 • v0.3.27 (Hub v0.6.1)_
+_Última atualização: 26/02/2026 • v0.3.27 (Hub v0.6.1)_
 _Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_

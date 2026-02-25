@@ -1,6 +1,6 @@
 # 📊 Project Status & Context
 
-> **Last Updated:** 25/02/2026
+> **Last Updated:** 26/02/2026
 > **Current Phase:** Testes com usuários reais / Zeladoria
 > **Project Version:** v0.3.27 (SSoT Synchronized)
 
@@ -72,6 +72,8 @@
 
 **Log de Governança/Sessão:**
 
+- 26/02/2026: **Prompt 19 (checkpoint sem bump) — fechamento final da rodada:** documentação consolidada com novo SSoT de arquitetura (`docs/architecture-and-adr.md`), índice de docs atualizado, validações de doc/format/verify verdes e coesão com Hub confirmada (`check-hub-version` OK). Na memória, task concluída `v0.3.12-dashboard-refinement` foi arquivada em `.agent/memory/archive/tasks/` e `tasks/README.md` criado para separar tarefas ativas de histórico.
+- 26/02/2026: **Higiene de memória (tasks):** task concluída `v0.3.12-dashboard-refinement` movida de `.agent/memory/tasks/` para `.agent/memory/archive/tasks/2026-02-13-v0-3-12-dashboard-refinement.md` para manter `tasks/` focada apenas em trabalho ativo.
 - 25/02/2026: **Prompt 19 (checkpoint sem bump) — hotfix de normalização na camada de banco:** aplicada a migration `20260226000200_hotfix_verificar_elegibilidade_normalizacao_paragrafo.sql` para normalizar `p_paragrafo` dentro da `verificar_elegibilidade` (`caput`/`cap` -> `NULL`; `único/unico` -> `unico`; remoção de símbolos/acentos), reduzindo falsos resultados em chamadas diretas ao Supabase. Frontend alinhado (`validator-service`, `input-validator`, `validator-ui`) com testes de regressão adicionais e suíte `test:unit` verde. Estrutura do banco reextraída via `npm run db:extract` e documentação sincronizada (`README`, `CHANGELOG`, `api-reference`, guias de setup/migrations).
 - 25/02/2026: **Prompt 19 (checkpoint sem bump) — acentuação final de placeholder:** placeholder do `§ Parágrafo` no bloco `c.c.` ajustado para `Ex: 1 ou único`; documentação e memória sincronizadas para encerramento da sessão.
 - 24/02/2026: **Prompt 19 (checkpoint sem bump) — placeholder legível em campos uppercase:** ajustado o comportamento de inputs normalizados em maiúsculas para manter placeholders em formato normal, com conversão aplicada apenas ao texto digitado.

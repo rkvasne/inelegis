@@ -60,6 +60,9 @@ A distinção entre padrões é feita pela coluna `artigo_inteiro_impeditivo` e 
 | 148                | (148, 1, IV) impeditivo; sem linha artigo-inteiro                 | C — combinação específica |
 | 149-A              | (149-A, 1, II) impeditivo; sem linha artigo-inteiro               | C — combinação específica |
 | 163                | (163, NULL) impeditivo; (163, NULL), (163, unico) exceções        | A — artigo inteiro        |
+| 177                | (177, NULL) impeditivo; (177, 2) exceção                          | A — artigo inteiro        |
+| 180                | (180, NULL) impeditivo; (180, 3) exceção                          | A — artigo inteiro        |
+| 184                | (184, NULL) impeditivo; (184, 4) exceção                          | A — artigo inteiro        |
 | 175                | (175, NULL) impeditivo; (175, NULL), (175, I), (175, II) exceções | A — artigo inteiro        |
 | 323/325            | (NULL) impeditivo; (NULL), (§1) exceções                          | A — artigo inteiro        |
 | 351                | (NULL) impeditivo; (NULL), (§4) exceções                          | A — artigo inteiro        |
@@ -104,5 +107,30 @@ Na implementação v2 (`verificar_elegibilidade_v2`), esses casos podem ser info
 
 ---
 
-_Última atualização: 23/02/2026 • v0.3.27_
+## 6. Regra de integridade estrutural (anti-regressão)
+
+Para manter a interpretação confiável em artigos do padrão A:
+
+- Sempre que houver exceção **detalhada** no mesmo artigo (parágrafo/inciso/alínea), deve existir também a linha-base impeditiva do artigo (`eh_excecao = FALSE` e dispositivo nulo).
+- Sem essa linha-base, a RPC pode classificar indevidamente dispositivos fora da exceção como `ELEGIVEL`.
+
+Correções aplicadas em 26/02/2026:
+
+- `CP art. 177` (exceção §2)
+- `CP art. 180` (exceção §3)
+- `CP art. 184` (exceção §4)
+- Padronização explícita de dispositivos enumerados com `artigo_inteiro_impeditivo = FALSE` quando não existe linha-base impeditiva (ex.: `CP 122`, `CP 129`, `LEI_4898_65 art. 6`, `LEI_6091_74 art. 11`, `LEI_9504_97 art. 57-H`)
+- Fail-safe na RPC base para impedir falso `ELEGIVEL` em caso de lacuna estrutural equivalente.
+
+Via:
+
+- Ajuste SSoT em `20260225000000_crimes_inelegibilidade.sql`
+- Hotfix idempotente `20260226000300_hotfix_cp_177_180_184_base_impeditiva.sql`
+- Hotfix RPC `20260226000400_hotfix_verificar_elegibilidade_failsafe_lacuna_dados.sql`
+- Hotfix de flags `20260226000500_hotfix_artigo_inteiro_impeditivo_enumerados.sql`
+- Teste de consistência: `tests/migration-crimes-consistency.test.js`
+
+---
+
+_Última atualização: 26/02/2026 • v0.3.27_
 _Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_
