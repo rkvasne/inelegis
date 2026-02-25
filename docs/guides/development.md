@@ -42,6 +42,7 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 
 - `init()`: Inicializa o cliente Supabase.
 - `verifyEligibility()`: Chama a RPC `verificar_elegibilidade` no banco. Lógica conforme [interpretação da tabela](../references/interpretacao-tabela-oficial.md): match exato; sem match → artigo inexistente NAO_CONSTA; artigo inteiro impeditivo (ex.: Art. 121) e dispositivo fora das exceções → INELEGIVEL; dispositivos enumerados (ex.: Art. 122 §1–7) e fora do rol → ELEGIVEL.
+- `verifyEligibility()`: aplica normalização defensiva de parágrafo no cliente (`caput` -> `null`, `único` -> `unico`) para reduzir mismatches semânticos na chamada RPC.
 - `getLaws()` / `getArticlesByLaw()`: Consome a tabela `crimes_inelegibilidade`.
 
 **[services/search-history.js](../../src/js/services/search-history.js)**
@@ -79,6 +80,7 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 - A remoção de dispositivos relacionados passou para ação inline com ícone de lixeira junto ao texto do item, melhorando escaneabilidade da lista.
 - Os botões de ação dos cards de refinamento e `c.c.` foram padronizados em estilo visual único (compacto, borda sutil e hover discreto), com o `Adicionar` em variação de destaque moderado para manter hierarquia sem excesso de contraste.
 - O botão `Limpar` do refinamento principal usa o mesmo padrão de altura/alinhamento do botão `Limpar` do card `c.c.`, evitando desalinhamento visual entre os dois cabeçalhos expansíveis.
+- A RPC base no banco (`verificar_elegibilidade`) também normaliza `p_paragrafo` (caput/único/símbolos/acentos), protegendo chamadas diretas ao Supabase fora do frontend.
 - Na legenda da consulta, os quatro estados são exibidos em linha única no desktop (com quebra responsiva em telas menores) para comparação visual imediata.
 - O estado técnico `PENDENTE_ANALISE` é apresentado ao usuário como **Revisão necessária**, com orientação de que faltam dados para conclusão automática.
 - O modal final exibe "Consulta informada pelo usuário" com dispositivo principal, dispositivos `c.c.` adicionados e situações específicas marcadas.

@@ -44,16 +44,30 @@ export const InputValidator = {
     if (!text || typeof text !== "string") return null;
     let normalized = text.trim().toLowerCase();
 
+    // Remover acentos para reduzir variações de entrada (ex.: único -> unico)
+    normalized = normalized.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
     // Remover símbolos e ordinais comuns
-    normalized = normalized.replace(/[§º°ª]/g, "").trim();
+    normalized = normalized
+      .replace(/[§º°ª]/g, "")
+      .replace(/[^a-z0-9\s]/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
 
     // Mapeamentos comuns
     if (
-      normalized === "parágrafo único" ||
-      normalized === "p. único" ||
-      normalized === "p.u"
+      normalized === "paragrafo unico" ||
+      normalized === "par unico" ||
+      normalized === "p unico" ||
+      normalized === "p u" ||
+      normalized === "pu" ||
+      normalized === "unico"
     ) {
       return "unico";
+    }
+
+    if (normalized === "cap" || normalized === "caput") {
+      return "caput";
     }
 
     return normalized || null;

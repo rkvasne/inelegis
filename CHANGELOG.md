@@ -15,6 +15,8 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ### docs
 
+- **docs(rpc-normalizacao-paragrafo):** Atualizados `README.md`, `docs/api-reference.md`, `docs/guides/development.md`, `docs/guides/setup-supabase.md`, `docs/guides/migrations-status.md` e `supabase/migrations/README.md` para refletir o hotfix de normalização de `p_paragrafo` na RPC base (`caput`/`único`) e a nova ordem com 9 migrations.
+- **docs(prompt19-checkpoint):** Checkpoint de sessão executado sem bump, com atualização de memória em `.agent/memory/project-status.md`, validação `doc:check` e health check de coesão com Hub (`check-hub-version`).
 - **docs(ux-uppercase-placeholder):** `guides/development.md` atualizado para explicitar que campos com normalização em maiúsculas mantêm placeholder em formato normal para melhorar legibilidade.
 - **docs(ux-refinement-clear-alignment):** `guides/development.md` atualizado para registrar a padronização de altura/alinhamento entre os botões `Limpar` dos cards de refinamento e `c.c.`.
 - **docs(keepalive-region):** Documentação operacional atualizada para refletir persistência de `region` no status singleton de keepalive (consistência com dashboard e payload do worker).
@@ -41,6 +43,9 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ### fix
 
+- **fix(rpc-paragrafo-normalizacao-db):** Nova migration `20260226000200_hotfix_verificar_elegibilidade_normalizacao_paragrafo.sql` para normalizar `p_paragrafo` dentro da `verificar_elegibilidade` (caput/cap -> `NULL`, único/unico -> `unico`, remoção de símbolos/acentos), eliminando risco de falso resultado em chamadas diretas ao banco.
+- **fix(frontend-normalizacao-paragrafo):** `validator-service` passou a normalizar `parágrafo` principal `caput` para `null`, alinhando o payload ao formato do banco e evitando falso `INELEGÍVEL` em artigos com exceção no caput (ex.: CP art. 163).
+- **fix(frontend-input-paragrafo):** `input-validator` e `validator-ui` reforçados para tratar `único/unico` e remover acentuação antes de sanitização em campos uppercased do fluxo `c.c.`.
 - **fix(frontend-placeholder-acentuacao):** Placeholder de `§ Parágrafo` no bloco `c.c.` corrigido para `Ex: 1 ou único`, alinhando ortografia com a terminologia jurídica exibida na interface.
 - **fix(frontend-uppercase-placeholder):** Campos com entrada em maiúsculas (`u-uppercase-input`) passaram a exibir placeholder sem `uppercase`, mantendo conversão apenas no texto digitado pelo usuário.
 - **fix(frontend-refinement-clear-alignment):** Botão `Limpar` do card de refinamento ajustado para usar o mesmo padrão de tamanho/alinhamento vertical do botão `Limpar` no card `c.c.`.
@@ -74,6 +79,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ### test
 
+- **test(regressao-paragrafo):** Novos testes unitários para garantir normalização de `caput` no dispositivo principal (`p_paragrafo = null`) e `único` para `unico`, prevenindo regressão de classificação jurídica.
 - **test(auditoria-profunda):** Auditoria ponta a ponta da tabela oficial (`tabela-oficial.xlsx`), migration e RPC com bateria de casos representativos CRE; identificadas divergências no banco ativo e gerado hotfix idempotente no repositório.
 - **test(prompt11-v2):** Prompt 11 executado com ampliação dos testes do `validator-service` para cenários de RPC v2 (uso de `p_relacionados/p_contexto`, fallback para RPC base e normalização de `caput`), além de correção do runner assíncrono para evitar falso positivo.
 

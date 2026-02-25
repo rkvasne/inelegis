@@ -23,6 +23,7 @@ Documentação técnica das APIs do Inelegis: endpoints serverless (Vercel) e fu
 ### Arquitetura de consumo
 
 - **Consulta de elegibilidade:** o frontend chama **diretamente** o Supabase; usa `verificar_elegibilidade` no fluxo padrão e `verificar_elegibilidade_v2` quando há combinação `c.c.` e/ou contexto condicional.
+- **Normalização jurídica (defensiva):** a RPC base normaliza `p_paragrafo` para absorver variações como `caput`, `§`, `único/unico`, ordinais e acentos.
 - **UX de entrada jurídica (consulta estruturada):** o refinamento principal permite marcar `Caput` e `Único` de forma explícita (exclusivos), e o bloco `c.c.` também permite `Caput` explícito para dispositivos relacionados.
 - **Rastreabilidade no resultado:** o modal exibe um resumo da entrada informada (dispositivo principal, relacionados `c.c.` e situações condicionais marcadas).
 - **Histórico e estatísticas do usuário:** o frontend pode usar a API Vercel (`/api/search-history`) ou, em fluxos internos, o Supabase (RPCs `add_to_history`, `get_user_stats`) com contexto `set_app_user_id`.
@@ -275,6 +276,7 @@ Verifica se um artigo gera inelegibilidade ou exceção conforme a tabela oficia
 - **Sem match e artigo com dispositivo "artigo inteiro impeditivo"** (ex.: Art. 121): dispositivo não consta nas exceções → `INELEGIVEL` (fallback conforme interpretação).
 - **Sem match e artigo com dispositivos apenas enumerados** (ex.: Art. 122 § 1–7): dispositivo fora do rol → `ELEGIVEL`.
 - **Entrada de artigo no frontend:** há normalização (`2º-A` → `2-A`, hífens e ordinais) antes da chamada RPC.
+- **Entrada de parágrafo:** `caput` é tratado como dispositivo-base (`NULL`) e `único/unico` é normalizado para `unico`, inclusive na camada de banco.
 - **Exceções condicionais textuais** (ex.: CP 304 nas figuras dos arts. 301/302) exigem revisão jurídica manual do caso concreto.
 
 **Exemplos:** Art. 121 § 8 → `INELEGIVEL` (artigo inteiro impeditivo; § 3º é a única exceção). Art. 122 § 8 → `ELEGIVEL` (só § 1–7 impeditivos).
@@ -425,5 +427,5 @@ Retorna totais gerais para o painel administrativo (uso com **service_role** ou 
 
 ---
 
-_Última atualização: 23/02/2026 • v0.3.27_
+_Última atualização: 25/02/2026 • v0.3.27_
 _Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_

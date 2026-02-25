@@ -313,6 +313,51 @@ test("verifyEligibility deve normalizar parágrafo relacionado 'caput' para null
   }
 });
 
+test("verifyEligibility deve normalizar parágrafo principal 'caput' para null", async () => {
+  const svc = new ValidatorService();
+  svc.initialized = true;
+
+  const supabase = await import("../src/js/services/supabase-client.js");
+  const originalRpc = supabase.supabaseClient.rpc;
+  let payloadCaptured = null;
+  let fnCaptured = null;
+
+  supabase.supabaseClient.rpc = async (fn, payload) => {
+    fnCaptured = fn;
+    payloadCaptured = payload;
+    return [{ resultado: "ELEGIVEL" }];
+  };
+
+  try {
+    await svc.verifyEligibility("CP", "163", "caput");
+    assert.equal(fnCaptured, "verificar_elegibilidade");
+    assert.equal(payloadCaptured.p_paragrafo, null);
+  } finally {
+    supabase.supabaseClient.rpc = originalRpc;
+  }
+});
+
+test("verifyEligibility deve normalizar parágrafo principal 'único' para 'unico'", async () => {
+  const svc = new ValidatorService();
+  svc.initialized = true;
+
+  const supabase = await import("../src/js/services/supabase-client.js");
+  const originalRpc = supabase.supabaseClient.rpc;
+  let payloadCaptured = null;
+
+  supabase.supabaseClient.rpc = async (_fn, payload) => {
+    payloadCaptured = payload;
+    return [{ resultado: "ELEGIVEL" }];
+  };
+
+  try {
+    await svc.verifyEligibility("CP", "271", "único");
+    assert.equal(payloadCaptured.p_paragrafo, "unico");
+  } finally {
+    supabase.supabaseClient.rpc = originalRpc;
+  }
+});
+
 test("verifyEligibility deve usar RPC base quando não há input composto", async () => {
   const svc = new ValidatorService();
   svc.initialized = true;

@@ -31,7 +31,7 @@ O projeto utiliza **Supabase** como única fonte de verdade (Single Source of Tr
 
 1.  **Backend (Supabase):**
     - **Tabela:** `crimes_inelegibilidade` (SSoT: base jurídica alinhada à tabela oficial CRE out/2024). Histórico em `historico_consultas`.
-    - **Validação:** RPCs (`verificar_elegibilidade`) garantem lógica segura no lado do servidor.
+    - **Validação:** RPCs (`verificar_elegibilidade` / `verificar_elegibilidade_v2`) garantem lógica segura no lado do servidor, com normalização defensiva de entrada jurídica (`caput` e `único`) para evitar falsos resultados por variação de escrita.
     - **Audit Trail:** Sistema de histórico detalhado que registra o veredicto jurídico completo e metadados de consulta.
     - **Keepalive:** Sistema de monitoramento baseado no **Hub Keepalive Pattern** para garantir disponibilidade.
 
@@ -138,5 +138,5 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE.md](LICENSE.md) p
 
 ---
 
-_Última atualização: 23/02/2026 • v0.3.27 (Hub v0.6.1)_
+_Última atualização: 25/02/2026 • v0.3.27 (Hub v0.6.1)_
 _Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_

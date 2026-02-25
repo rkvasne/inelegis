@@ -128,6 +128,16 @@ test("normalizeDetail deve retornar unico para p.u", () => {
   assert.equal(InputValidator.normalizeDetail("p.u"), "unico");
 });
 
+test("normalizeDetail deve retornar unico para único/unico", () => {
+  assert.equal(InputValidator.normalizeDetail("único"), "unico");
+  assert.equal(InputValidator.normalizeDetail("UNICO"), "unico");
+});
+
+test("normalizeDetail deve retornar caput para cap/caput", () => {
+  assert.equal(InputValidator.normalizeDetail("cap"), "caput");
+  assert.equal(InputValidator.normalizeDetail("caput"), "caput");
+});
+
 test("normalizeDetail deve remover §º°ª", () => {
   assert.equal(InputValidator.normalizeDetail("§2º"), "2");
   assert.equal(InputValidator.normalizeDetail("2º"), "2");

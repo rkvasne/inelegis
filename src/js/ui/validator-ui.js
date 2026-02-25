@@ -146,11 +146,17 @@ export class ValidatorUI {
 
   /** @private */
   _setupUppercaseInputs() {
+    const toAsciiUpper = (value = "") =>
+      String(value)
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toUpperCase();
+
     const forceUpper = (id, sanitizer = null) => {
       const el = document.getElementById(id);
       if (!el) return;
       el.addEventListener("input", () => {
-        const next = (el.value || "").toUpperCase();
+        const next = toAsciiUpper(el.value || "");
         el.value = typeof sanitizer === "function" ? sanitizer(next) : next;
       });
     };
