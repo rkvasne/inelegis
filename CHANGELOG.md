@@ -15,7 +15,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ### docs
 
-- **docs(prompt19-checkpoint-final):** Encerramento de sessão sem bump com atualização de memória (`.agent/memory/project-status.md`), arquivamento de task concluída em `.agent/memory/archive/tasks/` e criação de convenção explícita para tarefas ativas em `.agent/memory/tasks/README.md`.
+- **docs(prompt19-checkpoint-final):** Encerramento de sessão sem bump com atualização de memória (`.agent/memory/project-status.md`), padronização de tasks conforme Hub (arquivo em `.agent/memory/tasks/task-dashboard-v0-3-12-refinement.md`) e alinhamento da convenção em `.agent/memory/tasks/README.md`.
 - **docs(prompt24-governance-stress):** Auditoria de governança executada com stress de proteção (modo seguro), validação de junction Hub (`E:\\Agents`), integridade de hooks Husky e carimbo final `npm run verify` sem falhas.
 - **docs(prompt25-architecture-ssot):** Consolidação documental com criação de `docs/architecture-and-adr.md` como referência canônica de arquitetura e atualização de referências em `docs/README.md`, `README.md` e `docs/prd-and-scope.md`.
 - **docs(architecture-adr-ssot):** Criado `docs/architecture-and-adr.md` como referência canônica de arquitetura e ADRs consolidados; índice documental (`docs/README.md`) e referências de entrada (`README.md`, `docs/prd-and-scope.md`) atualizados para reduzir dispersão de contexto técnico.
