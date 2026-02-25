@@ -74,7 +74,7 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 - A confirmação de rascunho `c.c.` pendente usa modal customizado (mesmo padrão visual da aplicação), em vez de `alert/confirm` nativo do navegador.
 - No card `c.c.`, o botão `Limpar` foi movido para o topo (header do card), alinhando o padrão com o card de refinamento.
 - O botão `Adicionar à combinação` recebeu destaque visual e os campos do fluxo composto são normalizados para maiúsculas para reduzir inconsistências de entrada.
-- Nos campos com normalização para maiúsculas, o placeholder permanece em formato normal (sem caixa alta forçada), e apenas o valor digitado é convertido para `uppercase`.
+- Nos campos com normalização para maiúsculas, o placeholder permanece em formato normal (sem caixa alta forçada), e apenas o valor digitado é convertido para `uppercase` (ex.: `único`).
 - No dark mode, o estado desabilitado do botão `Adicionar` foi ajustado para manter legibilidade da etiqueta sem transmitir estado ativo.
 - A remoção de dispositivos relacionados passou para ação inline com ícone de lixeira junto ao texto do item, melhorando escaneabilidade da lista.
 - Os botões de ação dos cards de refinamento e `c.c.` foram padronizados em estilo visual único (compacto, borda sutil e hover discreto), com o `Adicionar` em variação de destaque moderado para manter hierarquia sem excesso de contraste.
@@ -153,5 +153,5 @@ Para garantir a eficiência de leitura por agentes de IA e conformidade com o **
 
 ---
 
-_Última atualização: 24/02/2026 • v0.3.27 (Hub v0.6.1)_
+_Última atualização: 25/02/2026 • v0.3.27 (Hub v0.6.1)_
 _Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_

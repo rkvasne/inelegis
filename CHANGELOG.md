@@ -41,6 +41,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ### fix
 
+- **fix(frontend-placeholder-acentuacao):** Placeholder de `§ Parágrafo` no bloco `c.c.` corrigido para `Ex: 1 ou único`, alinhando ortografia com a terminologia jurídica exibida na interface.
 - **fix(frontend-uppercase-placeholder):** Campos com entrada em maiúsculas (`u-uppercase-input`) passaram a exibir placeholder sem `uppercase`, mantendo conversão apenas no texto digitado pelo usuário.
 - **fix(frontend-refinement-clear-alignment):** Botão `Limpar` do card de refinamento ajustado para usar o mesmo padrão de tamanho/alinhamento vertical do botão `Limpar` no card `c.c.`.
 - **fix(keepalive-region):** Edge Function `keepalive` passou a persistir `region` também na tabela singleton `keepalive`, evitando divergência entre eventos e status atual no monitoramento.
@@ -298,5 +299,5 @@ As alterações das versões **v0.2.0 a v0.3.11** e **v0.1.x** foram movidas par
 - 📂 [v0.2.0 a v0.3.11](docs/archive/2026-02-23-release-history-v0-3-early.md)
 - 📂 [v0.1.x](docs/archive/2026-02-23-release-history-v0.md)
 
-_Última atualização: 24/02/2026 • v0.3.27 (Hub v0.6.1)_
+_Última atualização: 25/02/2026 • v0.3.27 (Hub v0.6.1)_
 _Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_

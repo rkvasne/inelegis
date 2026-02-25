@@ -1,6 +1,6 @@
 # 📊 Project Status & Context
 
-> **Last Updated:** 24/02/2026
+> **Last Updated:** 25/02/2026
 > **Current Phase:** Testes com usuários reais / Zeladoria
 > **Project Version:** v0.3.27 (SSoT Synchronized)
 
@@ -72,6 +72,7 @@
 
 **Log de Governança/Sessão:**
 
+- 25/02/2026: **Prompt 19 (checkpoint sem bump) — acentuação final de placeholder:** placeholder do `§ Parágrafo` no bloco `c.c.` ajustado para `Ex: 1 ou único`; documentação e memória sincronizadas para encerramento da sessão.
 - 24/02/2026: **Prompt 19 (checkpoint sem bump) — placeholder legível em campos uppercase:** ajustado o comportamento de inputs normalizados em maiúsculas para manter placeholders em formato normal, com conversão aplicada apenas ao texto digitado.
 - 24/02/2026: **Prompt 19 (checkpoint sem bump) — alinhamento dos botões `Limpar`:** botão `Limpar` do card de refinamento ajustado para o mesmo padrão de altura/alinhamento do botão `Limpar` no card `c.c.`, eliminando diferença visual entre os cabeçalhos expansíveis.
 - 24/02/2026: **Prompt 19 (checkpoint sem bump) — legibilidade do botão `Adicionar`:** ajustado contraste no dark mode para o estado desabilitado, preservando sinal de inatividade sem apagar o texto. Documentação sincronizada em `CHANGELOG.md` e `docs/guides/development.md`.
@@ -127,5 +128,5 @@
 
 ---
 
-_Última atualização: 24/02/2026 • v0.3.27 (Hub v0.6.1)_
+_Última atualização: 25/02/2026 • v0.3.27 (Hub v0.6.1)_
 _Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_
