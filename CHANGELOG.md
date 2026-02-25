@@ -15,6 +15,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ### docs
 
+- **docs(ux-uppercase-placeholder):** `guides/development.md` atualizado para explicitar que campos com normalização em maiúsculas mantêm placeholder em formato normal para melhorar legibilidade.
 - **docs(ux-refinement-clear-alignment):** `guides/development.md` atualizado para registrar a padronização de altura/alinhamento entre os botões `Limpar` dos cards de refinamento e `c.c.`.
 - **docs(keepalive-region):** Documentação operacional atualizada para refletir persistência de `region` no status singleton de keepalive (consistência com dashboard e payload do worker).
 - **docs(ux-cc-button-readability):** `guides/development.md` atualizado com o ajuste de contraste do botão `Adicionar` no dark mode, incluindo estado desabilitado legível.
@@ -40,6 +41,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ### fix
 
+- **fix(frontend-uppercase-placeholder):** Campos com entrada em maiúsculas (`u-uppercase-input`) passaram a exibir placeholder sem `uppercase`, mantendo conversão apenas no texto digitado pelo usuário.
 - **fix(frontend-refinement-clear-alignment):** Botão `Limpar` do card de refinamento ajustado para usar o mesmo padrão de tamanho/alinhamento vertical do botão `Limpar` no card `c.c.`.
 - **fix(keepalive-region):** Edge Function `keepalive` passou a persistir `region` também na tabela singleton `keepalive`, evitando divergência entre eventos e status atual no monitoramento.
 - **fix(frontend-cc-button-disabled):** Melhorado contraste do botão `Adicionar` no dark mode em estado desabilitado, mantendo aparência de inativo sem perder legibilidade.

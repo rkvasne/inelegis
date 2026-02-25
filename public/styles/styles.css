@@ -1145,6 +1145,10 @@ code {
   text-transform: uppercase;
 }
 
+.u-uppercase-input::placeholder {
+  text-transform: none;
+}
+
 /* Evita fundo claro no autofill em dark mode (ex.: Inciso) */
 .dark-theme .form-input:-webkit-autofill,
 .dark-theme .form-input:-webkit-autofill:hover,
