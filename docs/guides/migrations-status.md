@@ -64,5 +64,5 @@ Execute os 12 arquivos em ordem (1 → 12).
 3. **RLS:** políticas em `historico_consultas`, `analytics_events`, `keepalive`, `keepalive_events`
 4. **Conformidade CRE:** sem códigos fora da tabela oficial (`LEI_9503_97` e `LEI_8429_92` ausentes após cleanup)
 
-_Última atualização: 26/02/2026 • v0.3.27_
+_Última atualização: 26/02/2026 • v0.3.28_
 _Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_

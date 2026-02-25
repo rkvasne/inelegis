@@ -1,8 +1,8 @@
 # 📊 Project Status & Context
 
-> **Last Updated:** 26/02/2026
+> **Last Updated:** 25/02/2026
 > **Current Phase:** Testes com usuários reais / Zeladoria
-> **Project Version:** v0.3.27 (SSoT Synchronized)
+> **Project Version:** v0.3.28 (SSoT Synchronized)
 
 ## 🎯 Objetivos Concluídos (Sessão 15/02/2026 – Histórico Expandido)
 
@@ -72,6 +72,10 @@
 
 **Log de Governança/Sessão:**
 
+- 25/02/2026: **Prompt 19 (checkpoint sem bump) — fechamento para persistência git:** sessão consolidada com validações finais verdes (`npm run verify`, `npm run test:all`, `npm run doc:check`, `npm run format:check`, `npm run check`) e coesão de governança confirmada via `node .agent/hub/system/scripts/check-hub-version.js` (Hub v0.6.1). Alterações preparadas para commit/push atômico.
+- 25/02/2026: **Prompt 19 (checkpoint sem bump) — saneamento documental:** `CHANGELOG.md` reestruturado para consistência de versionamento (`Unreleased`, `0.3.28`, `0.3.27`), remoção de duplicidade de entrada de checkpoint e normalização da seção quebrada em `0.3.26` (`fix/docs complementares`), mantendo rastreabilidade histórica.
+- 25/02/2026: **Prompt 19 (checkpoint com bump) — versão v0.3.28:** bump patch aplicado (`0.3.27` -> `0.3.28`) com `npm version patch --no-git-tag-version` + `npm run sync:version`; documentação e assinaturas sincronizadas em toda a base, com checkpoint de memória consolidado.
+- 25/02/2026: **Prompt 19 (checkpoint sem bump) — persistência de memória da sessão:** memória operacional confirmada e mantida em `.agent/memory/project-status.md` com padrão Hub para `tasks/`; checkpoint executado com validações de documentação e governança para manter rastreabilidade da rodada atual.
 - 26/02/2026: **Prompt 19 (checkpoint sem bump) — memória alinhada ao Hub:** documentação de memória atualizada para padrão Hub (`tasks/` como repositório permanente de planos, sem arquivamento local), task consolidada em `.agent/memory/tasks/task-dashboard-v0-3-12-refinement.md`, `CHANGELOG.md` ajustado para refletir o padrão final. Validações executadas: `npm run doc:check` (46 docs, íntegro) e `check-hub-version` (v0.6.1, OK).
 - 26/02/2026: **Padronização da memória com Hub (tasks):** revertida a política local de arquivamento em `.agent/memory/archive/tasks/`; task histórica retornada para `.agent/memory/tasks/task-dashboard-v0-3-12-refinement.md`; `tasks/README.md` alinhado ao padrão Hub (`task-*` e permanência em `tasks/`).
 - 26/02/2026: **Prompt 19 (checkpoint sem bump) — fechamento final da rodada:** documentação consolidada com novo SSoT de arquitetura (`docs/architecture-and-adr.md`), índice de docs atualizado, validações de doc/format/verify verdes e coesão com Hub confirmada (`check-hub-version` OK). Na memória, task concluída `v0.3.12-dashboard-refinement` foi arquivada em `.agent/memory/archive/tasks/` e `tasks/README.md` criado para separar tarefas ativas de histórico.
@@ -133,5 +137,5 @@
 
 ---
 
-_Última atualização: 26/02/2026 • v0.3.27 (Hub v0.6.1)_
+_Última atualização: 25/02/2026 • v0.3.28 (Hub v0.6.1)_
 _Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_

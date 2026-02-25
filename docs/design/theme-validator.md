@@ -384,5 +384,5 @@ MIT License - Veja LICENSE para detalhes.
 
 ---
 
-_Última atualização: 23/02/2026 • v0.3.27 (Hub v0.6.1)_
+_Última atualização: 23/02/2026 • v0.3.28 (Hub v0.6.1)_
 _Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_

@@ -429,5 +429,5 @@ Retorna totais gerais para o painel administrativo (uso com **service_role** ou 
 
 ---
 
-_Última atualização: 26/02/2026 • v0.3.27_
+_Última atualização: 26/02/2026 • v0.3.28_
 _Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_

@@ -123,5 +123,5 @@ Para manter consistência entre todos os documentos, siga os padrões deste repo
 
 ---
 
-_Última atualização: 26/02/2026 • v0.3.27 (Hub v0.6.1)_
+_Última atualização: 26/02/2026 • v0.3.28 (Hub v0.6.1)_
 _Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_

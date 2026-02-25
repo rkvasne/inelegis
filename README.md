@@ -7,7 +7,7 @@
 **Sistema de Consulta de Inelegibilidade Eleitoral.**  
 _Uma ferramenta moderna, rápida e precisa para análise jurídica eleitoral._
 
-[![Version](https://img.shields.io/badge/version-0.3.27-blue.svg?style=for-the-badge)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-0.3.28-blue.svg?style=for-the-badge)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-orange.svg?style=for-the-badge)](LICENSE.md)
 [![Status](https://img.shields.io/badge/status-active-success.svg?style=for-the-badge)](CHANGELOG.md)
 
@@ -142,5 +142,5 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE.md](LICENSE.md) p
 
 ---
 
-_Última atualização: 26/02/2026 • v0.3.27 (Hub v0.6.1)_
+_Última atualização: 26/02/2026 • v0.3.28 (Hub v0.6.1)_
 _Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_

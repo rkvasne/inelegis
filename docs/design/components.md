@@ -449,5 +449,5 @@ gap: 40px;
 
 ---
 
-_Última atualização: 21/02/2026 • v0.3.27 (Hub v0.6.1)_
+_Última atualização: 21/02/2026 • v0.3.28 (Hub v0.6.1)_
 _Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_

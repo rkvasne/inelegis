@@ -59,5 +59,5 @@ Antes de concluir uma rodada de documentação:
 
 ---
 
-_Última atualização: 23/02/2026 • v0.3.27_
+_Última atualização: 23/02/2026 • v0.3.28_
 _Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_

@@ -15,6 +15,23 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ### docs
 
+- **docs(prompt19-checkpoint-changelog):** Saneamento estrutural do `CHANGELOG.md` após bump para `v0.3.28`: criação de seções versionadas `0.3.27` e `0.3.28`, consolidação de entradas duplicadas e normalização de blocos complementares em `0.3.26`.
+- **docs(prompt19-checkpoint-final):** Checkpoint final de sessão sem bump: validações completas executadas (`verify`, `test:all`, `doc:check`, `format:check`, `check`) e consolidação para persistência em commit único.
+
+## [0.3.28] - 25/02/2026
+
+### chore
+
+- **chore(version):** Bump de versão do projeto `0.3.27` -> `0.3.28` com `sync:version`, propagando versão para documentação, metadados e assinaturas.
+
+### docs
+
+- **docs(prompt19-bump-0.3.28):** Checkpoint de memória pós-bump com atualização de `project-status` para `v0.3.28` e registro do ciclo de sincronização global de versão.
+
+## [0.3.27] - 25/02/2026
+
+### docs
+
 - **docs(prompt19-checkpoint-final):** Encerramento de sessão sem bump com atualização de memória (`.agent/memory/project-status.md`), padronização de tasks conforme Hub (arquivo em `.agent/memory/tasks/task-dashboard-v0-3-12-refinement.md`) e alinhamento da convenção em `.agent/memory/tasks/README.md`.
 - **docs(prompt24-governance-stress):** Auditoria de governança executada com stress de proteção (modo seguro), validação de junction Hub (`E:\\Agents`), integridade de hooks Husky e carimbo final `npm run verify` sem falhas.
 - **docs(prompt25-architecture-ssot):** Consolidação documental com criação de `docs/architecture-and-adr.md` como referência canônica de arquitetura e atualização de referências em `docs/README.md`, `README.md` e `docs/prd-and-scope.md`.
@@ -23,7 +40,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 - **docs(rpc-v2-default):** `api-reference.md` e `guides/development.md` atualizados para refletir o novo fluxo de busca: frontend prioriza `verificar_elegibilidade_v2` em todas as consultas, com fallback para RPC base apenas quando a v2 não existir.
 - **docs(confiabilidade-rpc-base):** Atualizados `docs/references/interpretacao-tabela-oficial.md`, `docs/auditoria-tabela-oficial.md`, `docs/guides/setup-supabase.md`, `docs/guides/migrations-status.md` e `supabase/migrations/README.md` para registrar a varredura profunda de 26/02/2026 e a nova trilha de correção (migrations 10-12) contra falso `ELEGÍVEL` por lacuna estrutural.
 - **docs(rpc-normalizacao-paragrafo):** Atualizados `README.md`, `docs/api-reference.md`, `docs/guides/development.md`, `docs/guides/setup-supabase.md`, `docs/guides/migrations-status.md` e `supabase/migrations/README.md` para refletir o hotfix de normalização de `p_paragrafo` na RPC base (`caput`/`único`) e a nova ordem com 9 migrations.
-- **docs(prompt19-checkpoint):** Checkpoint de sessão executado sem bump, com atualização de memória em `.agent/memory/project-status.md`, validação `doc:check` e health check de coesão com Hub (`check-hub-version`).
+- **docs(prompt19-checkpoint):** Checkpoints de sessão sem bump com atualização de memória, revisão global de consistência documental e validações `doc:check` + `check-hub-version`.
 - **docs(ux-uppercase-placeholder):** `guides/development.md` atualizado para explicitar que campos com normalização em maiúsculas mantêm placeholder em formato normal para melhorar legibilidade.
 - **docs(ux-refinement-clear-alignment):** `guides/development.md` atualizado para registrar a padronização de altura/alinhamento entre os botões `Limpar` dos cards de refinamento e `c.c.`.
 - **docs(keepalive-region):** Documentação operacional atualizada para refletir persistência de `region` no status singleton de keepalive (consistência com dashboard e payload do worker).
@@ -32,7 +49,6 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 - **docs(ux-cc-polish):** `guides/development.md` atualizado com o novo padrão visual/funcional do card `c.c.`: botão `Limpar` no topo do card, botão `Adicionar` em destaque, remoção inline por ícone de lixeira, inputs normalizados para maiúsculas e confirmação customizada para rascunho não adicionado.
 - **docs(ux-cc-enter):** Atualizado `guides/development.md` com o comportamento de Enter nos campos do bloco `c.c.` e confirmação de rascunho não adicionado antes da pesquisa.
 - **docs(ux-legenda):** `guides/development.md` atualizado para documentar a legenda em linha única no desktop e a nomenclatura de exibição “Revisão necessária” para o estado técnico `PENDENTE_ANALISE`.
-- **docs(prompt19-checkpoint):** Revisão global de consistência documental executada (README/CHANGELOG/docs + memória de sessão), com validação automática `npm run doc:check` e coesão de governança confirmada via `check-hub-version` (Hub v0.6.1).
 - **docs(ux-caput-explicito):** Atualizados os guias (`development.md`, `api-reference.md`) para refletir o novo fluxo de `Caput` explícito no refinamento principal e no bloco `c.c.`, além do resumo completo de entrada exibido no modal de resultado.
 - **docs(prompt25):** Auditoria de saúde documental (Prompt 25) executada com padronização de nomenclatura no `archive` (`YYYY-MM-DD-<slug>.md`), atualização de referências e criação do guia canônico `docs/guides/documentation-conventions.md` (SSoT, nomenclatura e checklist de publicação).
 - **docs(checkpoint-keepalive):** Prompt 19 executado após ajustes do Prompt 26: documentação alinhada para migração `20260226000100_keepalive_hub_compat.sql`, checklist de apply/deploy reforçado e registro de evidência de recência (ping manual com `KEEPALIVE_AGE_MIN=0` durante auditoria).
@@ -114,13 +130,18 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 - **test:** suíte unitária e verificações de integridade executadas após os ajustes (`test:unit`, `doc:check`, `verify`).
 
+### fix (complementares)
+
 - **fix(historico):** Frontend `search-history.js` envia para POST `/api/search-history` (API Vercel) em vez de Supabase direto, evitando 401 Unauthorized (API usa service_role).
 - **fix(migration):** Migration `20260225000150_grant_rpc_anon.sql` com GRANT EXECUTE nas RPCs para anon (uso pela API Vercel).
+- **fix(script):** test-supabase.js usa crimes_inelegibilidade em vez de normas.
+
+### docs (complementares)
+
 - **docs:** auditoria-e-monitoramento, development — fluxo via API Vercel.
 - **docs(consolidacao):** Unificação de documentação: devops + devops-manual → devops.md; keepalive-setup + keepalive-config-inelegis → keepalive-inelegis.md.
 - **docs(arquivo):** revisao-tabela, relatorio-doc-janitor, inventario, refatoracao-v0.0.6 movidos para docs/archive/ (padrão YYYY-MM-DD).
 - **docs(fix):** Paths components.js (protection, components), endpoint /api/maintenance, setup-supabase 5 migrations, project-status migration ref, troubleshooting Keepalive.
-- **fix(script):** test-supabase.js usa crimes_inelegibilidade em vez de normas.
 
 ## [0.3.25] - 15/02/2026
 
@@ -320,5 +341,5 @@ As alterações das versões **v0.2.0 a v0.3.11** e **v0.1.x** foram movidas par
 - 📂 [v0.2.0 a v0.3.11](docs/archive/2026-02-23-release-history-v0-3-early.md)
 - 📂 [v0.1.x](docs/archive/2026-02-23-release-history-v0.md)
 
-_Última atualização: 26/02/2026 • v0.3.27 (Hub v0.6.1)_
+_Última atualização: 25/02/2026 • v0.3.28 (Hub v0.6.1)_
 _Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_
