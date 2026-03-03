@@ -2,7 +2,7 @@
  * Cloudflare Worker — Keepalive (padrão Hub)
  * Pinger externo: envia POST para o endpoint do projeto a cada 30 min.
  *
- * Configuração no Dashboard Cloudflare:
+ * Configuração no Dashboard Cloudflare (Padrão Vercel Inteligente, Cloudflare Burro):
  * - Trigger Cron: a cada 30 minutos (ex.: 0,30 * * * * ou equivalente)
  * - Variables: KEEPALIVE_URL, KEEPALIVE_TOKEN (mesmo valor do .env.local / Vercel)
  */
@@ -16,22 +16,13 @@ export default {
   },
 };
 
-function resolveRegion(env, request) {
-  const cfColo = request?.cf?.colo;
-  if (cfColo) return cfColo;
-
-  if (typeof env.KEEPALIVE_REGION === "string" && env.KEEPALIVE_REGION.trim()) {
-    return env.KEEPALIVE_REGION.trim();
-  }
-
-  return "edge";
+function resolveRegion(request) {
+  return request?.cf?.colo || "edge";
 }
 
 async function handleKeepalive(env, request) {
   const KEEPALIVE_URL = env.KEEPALIVE_URL;
   const KEEPALIVE_TOKEN = env.KEEPALIVE_TOKEN;
-  const KEEPALIVE_PROJECT_SLUG = env.KEEPALIVE_PROJECT_SLUG;
-  const KEEPALIVE_ENVIRONMENT = env.KEEPALIVE_ENVIRONMENT;
 
   if (!KEEPALIVE_URL || !KEEPALIVE_TOKEN) {
     // eslint-disable-next-line no-console -- Worker: único canal de log
@@ -46,14 +37,12 @@ async function handleKeepalive(env, request) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${KEEPALIVE_TOKEN}`,
+        Authorization: "Bearer " + KEEPALIVE_TOKEN,
         "User-Agent": "Cloudflare-Worker-Keepalive/1.0",
       },
       body: JSON.stringify({
         source: "cloudflare-worker",
-        project_slug: KEEPALIVE_PROJECT_SLUG || undefined,
-        environment: KEEPALIVE_ENVIRONMENT || "prod",
-        region: resolveRegion(env, request),
+        region: resolveRegion(request),
         timestamp: new Date().toISOString(),
       }),
     });
@@ -72,7 +61,7 @@ async function handleKeepalive(env, request) {
     );
   } catch (error) {
     // eslint-disable-next-line no-console -- Worker: único canal de log
-    console.error(`❌ Ping falhou: ${error.message}`);
+    console.error("❌ Ping falhou: " + error.message);
     return new Response(
       JSON.stringify({ success: false, error: error.message }),
       {

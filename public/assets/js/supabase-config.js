@@ -1,6 +1,6 @@
 /**
  * Supabase Configuration (Auto-generated)
- * Gerado em: 2026-02-25T02:28:42.499Z
+ * Gerado em: 2026-03-03T19:39:11.671Z
  * NÃO EDITE MANUALMENTE - use: npm run build:supabase-config
  */
 

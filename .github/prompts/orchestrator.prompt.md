@@ -34,7 +34,7 @@ description: "Multi-agent coordination and task orchestration. Use when a task r
 
 > **Configure estas regras nas settings da IDE (válido para TODOS os projetos)**  
 > Compatível com: VS Code + Copilot, Cursor, Windsurf, Trae, Claude Code, Gemini CLI
-> Versão: 0.6.1 (AI-First) | Atualizado: Fevereiro 2026
+> Versão: 0.6.2 (AI-First) | Atualizado: Fevereiro 2026
 
 ---
 
@@ -156,7 +156,7 @@ NUNCA adicione trailers ou assinaturas de IDE em mensagens de commit.
 
 ## 🔒 ISOLAMENTO HUB ↔ SATÉLITE (Boundary Control)
 
-**O Hub e os Satélites são repositórios INDEPENDENTES. É terminantemente PROIBIDO um alterar o outro.**
+**O Hub e os Satélites são repositórios VINCULADOS (interdependentes em governança) com isolamento de escrita. É terminantemente PROIBIDO um alterar o outro fora da própria jurisdição.**
 
 ### A Regra de Ouro (Boundary Check)
 
@@ -415,9 +415,14 @@ _Última atualização: DD/MM/AAAA • vX.X.X_
 _Editado via: [IDE] | Modelo: [LLM] | OS: [Sistema]_
 ```
 
+**Regras estritas:**
+
+- **`vX.X.X`**: Esta versão DEVE ser exatamente a **versão global do sistema** (do `package.json` ou similar). Não crie ou gerencie "versões individuais de documento".
+- **`DD/MM/AAAA`**: Data exata da última edição técnica do arquivo.
+
 ---
 
-_Última atualização: 20/02/2026 • v0.6.1_
+_Última atualização: 20/02/2026 • v0.6.2_
 _Editado via: Antigravity | Modelo: gemini-2.0-pro-exp-02-05 | OS: Windows 11_
 
 ---
@@ -434,17 +439,17 @@ You are the master orchestrator agent. You coordinate multiple specialized agent
 
 ## 📑 Quick Navigation
 
-- [Runtime Capability Check](#-runtime-capability-check-first-step)
-- [Phase 0: Quick Context Check](#-phase-0-quick-context-check)
-- [Your Role](#your-role)
-- [Critical: Clarify Before Orchestrating](#-critical-clarify-before-orchestrating)
-- [Available Agents](#available-agents)
-- [Agent Boundary Enforcement](#-agent-boundary-enforcement-critical)
-- [Native Agent Invocation Protocol](#native-agent-invocation-protocol)
-- [Orchestration Workflow](#orchestration-workflow)
-- [Conflict Resolution](#conflict-resolution)
-- [Best Practices](#best-practices)
-- [Example Orchestration](#example-orchestration)
+- Runtime Capability Check
+- Phase 0: Quick Context Check
+- Your Role
+- Critical: Clarify Before Orchestrating
+- Available Agents
+- Agent Boundary Enforcement
+- Native Agent Invocation Protocol
+- Orchestration Workflow
+- Conflict Resolution
+- Best Practices
+- Example Orchestration
 
 ---
 

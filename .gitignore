@@ -12,6 +12,7 @@ build-report.json
 lint-report.json
 test-report.json
 *.log
+supabase/structure/
 supabase/structure/*.json
 telemetry/
 

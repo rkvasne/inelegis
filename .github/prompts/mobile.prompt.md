@@ -34,7 +34,7 @@ description: "Expert in React Native and Flutter mobile development. Use for cro
 
 > **Configure estas regras nas settings da IDE (válido para TODOS os projetos)**  
 > Compatível com: VS Code + Copilot, Cursor, Windsurf, Trae, Claude Code, Gemini CLI
-> Versão: 0.6.1 (AI-First) | Atualizado: Fevereiro 2026
+> Versão: 0.6.2 (AI-First) | Atualizado: Fevereiro 2026
 
 ---
 
@@ -156,7 +156,7 @@ NUNCA adicione trailers ou assinaturas de IDE em mensagens de commit.
 
 ## 🔒 ISOLAMENTO HUB ↔ SATÉLITE (Boundary Control)
 
-**O Hub e os Satélites são repositórios INDEPENDENTES. É terminantemente PROIBIDO um alterar o outro.**
+**O Hub e os Satélites são repositórios VINCULADOS (interdependentes em governança) com isolamento de escrita. É terminantemente PROIBIDO um alterar o outro fora da própria jurisdição.**
 
 ### A Regra de Ouro (Boundary Check)
 
@@ -415,9 +415,14 @@ _Última atualização: DD/MM/AAAA • vX.X.X_
 _Editado via: [IDE] | Modelo: [LLM] | OS: [Sistema]_
 ```
 
+**Regras estritas:**
+
+- **`vX.X.X`**: Esta versão DEVE ser exatamente a **versão global do sistema** (do `package.json` ou similar). Não crie ou gerencie "versões individuais de documento".
+- **`DD/MM/AAAA`**: Data exata da última edição técnica do arquivo.
+
 ---
 
-_Última atualização: 20/02/2026 • v0.6.1_
+_Última atualização: 20/02/2026 • v0.6.2_
 _Editado via: Antigravity | Modelo: gemini-2.0-pro-exp-02-05 | OS: Windows 11_
 
 ---
@@ -457,27 +462,27 @@ When you build mobile apps, you think:
 
 ### Universal (Always Read)
 
-| File                                                                                               | Content                                          | Status                |
-| -------------------------------------------------------------------------------------------------- | ------------------------------------------------ | --------------------- |
-| **[mobile-design-thinking.md](../../capabilities/design/mobile-design/mobile-design-thinking.md)** | **⚠️ ANTI-MEMORIZATION: Think, don't copy**      | **⬜ CRITICAL FIRST** |
-| **[SKILL.md](../../capabilities/design/mobile-design/SKILL.md)**                                   | **Anti-patterns, checkpoint, overview**          | **⬜ CRITICAL**       |
-| **[touch-psychology.md](../../capabilities/design/mobile-design/touch-psychology.md)**             | **Fitts' Law, gestures, haptics**                | **⬜ CRITICAL**       |
-| **[mobile-performance.md](../../capabilities/design/mobile-design/mobile-performance.md)**         | **RN/Flutter optimization, 60fps**               | **⬜ CRITICAL**       |
-| **[mobile-backend.md](../../capabilities/design/mobile-design/mobile-backend.md)**                 | **Push notifications, offline sync, mobile API** | **⬜ CRITICAL**       |
-| **[mobile-testing.md](../../capabilities/design/mobile-design/mobile-testing.md)**                 | **Testing pyramid, E2E, platform tests**         | **⬜ CRITICAL**       |
-| **[mobile-debugging.md](../../capabilities/design/mobile-design/mobile-debugging.md)**             | **Native vs JS debugging, Flipper, Logcat**      | **⬜ CRITICAL**       |
-| [mobile-navigation.md](../../capabilities/design/mobile-design/mobile-navigation.md)               | Tab/Stack/Drawer, deep linking                   | ⬜ Read               |
-| [decision-trees.md](../../capabilities/design/mobile-design/decision-trees.md)                     | Framework, state, storage selection              | ⬜ Read               |
+| File                                                                                                           | Content                                          | Status                |
+| -------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ | --------------------- |
+| **mobile-design-thinking.md (`../../.agent/hub/capabilities/design/mobile-design/mobile-design-thinking.md`)** | **⚠️ ANTI-MEMORIZATION: Think, don't copy**      | **⬜ CRITICAL FIRST** |
+| **SKILL.md (`../../.agent/hub/capabilities/design/mobile-design/SKILL.md`)**                                   | **Anti-patterns, checkpoint, overview**          | **⬜ CRITICAL**       |
+| **touch-psychology.md (`../../.agent/hub/capabilities/design/mobile-design/touch-psychology.md`)**             | **Fitts' Law, gestures, haptics**                | **⬜ CRITICAL**       |
+| **mobile-performance.md (`../../.agent/hub/capabilities/design/mobile-design/mobile-performance.md`)**         | **RN/Flutter optimization, 60fps**               | **⬜ CRITICAL**       |
+| **mobile-backend.md (`../../.agent/hub/capabilities/design/mobile-design/mobile-backend.md`)**                 | **Push notifications, offline sync, mobile API** | **⬜ CRITICAL**       |
+| **mobile-testing.md (`../../.agent/hub/capabilities/design/mobile-design/mobile-testing.md`)**                 | **Testing pyramid, E2E, platform tests**         | **⬜ CRITICAL**       |
+| **mobile-debugging.md (`../../.agent/hub/capabilities/design/mobile-design/mobile-debugging.md`)**             | **Native vs JS debugging, Flipper, Logcat**      | **⬜ CRITICAL**       |
+| mobile-navigation.md (`../../.agent/hub/capabilities/design/mobile-design/mobile-navigation.md`)               | Tab/Stack/Drawer, deep linking                   | ⬜ Read               |
+| decision-trees.md (`../../.agent/hub/capabilities/design/mobile-design/decision-trees.md`)                     | Framework, state, storage selection              | ⬜ Read               |
 
 > 🧠 **mobile-design-thinking.md is PRIORITY!** Prevents memorized patterns, forces thinking.
 
 ### Platform-Specific (Read Based on Target)
 
-| Platform    | File                                                                               | When to Read                          |
-| ----------- | ---------------------------------------------------------------------------------- | ------------------------------------- |
-| **iOS**     | [platform-ios.md](../../capabilities/design/mobile-design/platform-ios.md)         | Building for iPhone/iPad              |
-| **Android** | [platform-android.md](../../capabilities/design/mobile-design/platform-android.md) | Building for Android                  |
-| **Both**    | Both above                                                                         | Cross-platform (React Native/Flutter) |
+| Platform    | File                                                                                           | When to Read                          |
+| ----------- | ---------------------------------------------------------------------------------------------- | ------------------------------------- |
+| **iOS**     | platform-ios.md (`../../.agent/hub/capabilities/design/mobile-design/platform-ios.md`)         | Building for iPhone/iPad              |
+| **Android** | platform-android.md (`../../.agent/hub/capabilities/design/mobile-design/platform-android.md`) | Building for Android                  |
+| **Both**    | Both above                                                                                     | Cross-platform (React Native/Flutter) |
 
 > 🔴 **iOS project? Read platform-ios.md FIRST!**
 > 🔴 **Android project? Read platform-android.md FIRST!**
@@ -609,7 +614,7 @@ Before any coding, answer:
 
 ### Phase 2: Architecture
 
-Apply decision frameworks from [decision-trees.md](../../capabilities/design/mobile-design/decision-trees.md):
+Apply decision frameworks from decision-trees.md (`../../.agent/hub/capabilities/design/mobile-design/decision-trees.md`):
 
 - Framework selection
 - State management

@@ -17,6 +17,8 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 - **docs(prompt19-checkpoint-changelog):** Saneamento estrutural do `CHANGELOG.md` após bump para `v0.3.28`: criação de seções versionadas `0.3.27` e `0.3.28`, consolidação de entradas duplicadas e normalização de blocos complementares em `0.3.26`.
 - **docs(prompt19-checkpoint-final):** Checkpoint final de sessão sem bump: validações completas executadas (`verify`, `test:all`, `doc:check`, `format:check`, `check`) e consolidação para persistência em commit único.
+- **docs(prompt18-compliance-2026-03-03):** Auditoria completa de governança no satélite com correção crítica no `.gitignore` (`supabase/structure/`), validações `validator-hub-protection`, `format:check` e `build` concluídas com sucesso.
+- **docs(prompt19-checkpoint-2026-03-03):** Encerramento de sessão sem bump com atualização de memória operacional (`.agent/memory/project-status.md`), verificação de coesão com o Hub (`v0.6.2`) e preparação para persistência Git.
 
 ## [0.3.28] - 25/02/2026
 
