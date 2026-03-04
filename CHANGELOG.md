@@ -13,6 +13,10 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ## [Unreleased]
 
+### security
+
+- **security(npm-audit-fix):** Correção de 3 vulnerabilidades (1 crítica, 1 alta, 1 moderada) via `npm audit fix`, atualizando pacotes `ajv`, `basic-ftp` e `minimatch`.
+
 ### docs
 
 - **docs(prompt19-checkpoint-encerramento):** Execução do Prompt 19 (sem bump) para fechamento da sessão atual, com sincronização de memória local (`project-status` e `satellite-risk-catalog`) e rastreabilidade explícita de consistência documental.
