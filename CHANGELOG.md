@@ -16,10 +16,11 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 ### security
 
 - **security(npm-audit-fix):** Correção de 3 vulnerabilidades (1 crítica, 1 alta, 1 moderada) via `npm audit fix`, atualizando pacotes `ajv`, `basic-ftp` e `minimatch`.
+- **security(keepalive-rls):** Migration `20260303000100_keepalive_events_rls_service_only.sql` aplicada para endurecer RLS em `keepalive_events`, restringindo acesso total à `service_role` (segurança interna).
 
 ### docs
 
-- **docs(prompt19-checkpoint-encerramento):** Execução do Prompt 19 (sem bump) para fechamento da sessão atual, com sincronização de memória local (`project-status` e `satellite-risk-catalog`) e rastreabilidade explícita de consistência documental.
+- **docs(prompt19-checkpoint-final):** Execução do Prompt 19 (checkpoint de encerramento) com 100% de conformidade (`npm run verify` OK), sincronização de memória local (`project-status.md` e `satellite-risk-catalog.md`) e fechamento de sessão com persistência via Git.
 - **docs(memory-consistency-2026-03-03):** Normalização de inconsistências documentais na memória local: `satellite-risk-catalog.md` passou a registrar avaliação formal da rodada e `task-dashboard-v0-3-12-refinement.md` foi alinhada ao estado `completed` com checklist final concluído.
 - **docs(prompt19-checkpoint-changelog):** Saneamento estrutural do `CHANGELOG.md` após bump para `v0.3.28`: criação de seções versionadas `0.3.27` e `0.3.28`, consolidação de entradas duplicadas e normalização de blocos complementares em `0.3.26`.
 - **docs(prompt19-checkpoint-final):** Checkpoint final de sessão sem bump: validações completas executadas (`verify`, `test:all`, `doc:check`, `format:check`, `check`) e consolidação para persistência em commit único.
