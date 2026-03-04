@@ -72,6 +72,12 @@
 
 **Log de Governança/Sessão:**
 
+- 03/03/2026: **Prompt 19 (checkpoint sem bump) — encerramento da sessão atual:** documentação e memória local sincronizadas após normalização das inconsistências (`satellite-risk-catalog` e task dashboard), com rastreabilidade registrada em `CHANGELOG [Unreleased]` e status preparado para persistência Git.
+
+- 03/03/2026: **Normalização de inconsistências documentais da memória local:** corrigidas duas divergências de estado nesta sessão — (1) `satellite-risk-catalog.md` deixou de estar sem avaliação registrada e passou a conter entrada formal da rodada (status, mitigação, rollback e evidências), e (2) `task-dashboard-v0-3-12-refinement.md` foi alinhada ao `status: completed` com checklist final marcado como concluído.
+
+- 03/03/2026: **Pacote de pendências documentadas (auditoria + correção local):** varredura de pendências documentadas concluída; aplicada correção local de conformidade Keepalive via migration `20260303000100_keepalive_events_rls_service_only.sql` (remove políticas legadas de leitura em `keepalive_events` e restringe acesso a `service_role`). Documentação sincronizada (`migrations-status`, `setup-supabase`, `supabase/migrations/README`) para trilha 1-13; `.env.example` ajustado para refletir receptor ativo em Supabase Edge Function (sem legado `/api/keepalive` na Vercel). Validação local executada com `npm run verify`.
+
 - 03/03/2026: **Prompt 19 (checkpoint sem bump) — fechamento de governança e persistência Git:** consolidadas mudanças não commitadas da rodada (sync de prompts para Hub v0.6.2, ajustes de docs/ambiente e refino do worker keepalive). Auditoria de compliance reexecutada com correção crítica no `.gitignore` (`supabase/structure/`), validações `check-hub-version`, `validator-hub-protection`, `format:check` e `build` concluídas com sucesso, e sessão preparada para commit/push atômico.
 
 - 25/02/2026: **Prompt 19 (checkpoint sem bump) — fechamento para persistência git:** sessão consolidada com validações finais verdes (`npm run verify`, `npm run test:all`, `npm run doc:check`, `npm run format:check`, `npm run check`) e coesão de governança confirmada via `node .agent/hub/system/scripts/check-hub-version.js` (Hub v0.6.1). Alterações preparadas para commit/push atômico.
@@ -140,4 +146,4 @@
 ---
 
 _Última atualização: 03/03/2026 • v0.3.28 (Hub v0.6.2)_
-_Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_
+_Editado via: Copilot (VS Code) | Modelo: GPT-5.3-Codex | OS: Windows 11_

@@ -6,6 +6,8 @@ npm-debug.log*
 dist/
 dist-optimized/
 deploy/
+build/
+coverage/
 
 # Reports and generated files
 build-report.json

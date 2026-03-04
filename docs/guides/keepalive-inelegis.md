@@ -2,7 +2,7 @@
 
 Guia unificado de configuração do monitoramento externo para **reduzir o risco** de o Supabase suspender o banco por inatividade.
 
-> **Importante:** O Hub define o **Cloudflare Worker com Cron Trigger** como o único pinger oficial.
+> **Importante:** O Hub define o **Keepvasne Keepalive Cloudflare Worker (centralizado)** como o único pinger oficial da frota.
 >
 > **Limitação Crítica:** Nenhum pinger consegue acordar um banco **já suspenso**. O objetivo é gerar tráfego regular para evitar a suspensão. Reativação é manual via Dashboard do Supabase.
 
@@ -12,7 +12,7 @@ Guia unificado de configuração do monitoramento externo para **reduzir o risco
 
 O Inelegis usa a variante **Decoupled** do padrão Hub:
 
-1. **Pinger:** Cloudflare Worker (a cada 30 min).
+1. **Pinger:** Keepvasne Keepalive Cloudflare Worker (a cada 30 min).
 2. **Receptor:** Supabase Edge Function (`keepalive`).
 3. **Persistência:** Tabelas `keepalive` e `keepalive_events` no Supabase.
 
@@ -31,16 +31,19 @@ Database:  PostgreSQL (Supabase)
 
 ## ✅ Checklist de Configuração
 
-### 1. Cloudflare Worker
+### 1. Keepvasne Keepalive Worker (Central)
 
-| Variável          | Valor                                                             |
-| ----------------- | ----------------------------------------------------------------- |
-| `KEEPALIVE_URL`   | `https://btdbfspuazgerdbmurza.supabase.co/functions/v1/keepalive` |
-| `KEEPALIVE_TOKEN` | Mesmo segredo configurado no Supabase (ex.: `c8810...`)           |
+| Variável                | Valor/Formato                                                                                               |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `KEEPALIVE_URLS`        | CSV de destinos. Para o Inelegis incluir: `https://btdbfspuazgerdbmurza.supabase.co/functions/v1/keepalive` |
+| `KEEPALIVE_TOKEN`       | Mesmo segredo configurado no Supabase (Edge Function).                                                      |
+| `KEEPALIVE_ADMIN_TOKEN` | Opcional para trigger manual autenticado do worker central.                                                 |
 
 **Cron Trigger:** `*/30 * * * *` (a cada 30 minutos).
 
-**Código:** `scripts/keepalive-worker.js`
+**Operação:** o worker ativo roda de forma centralizada no keepvasne (fora deste repositório).
+
+**Referência de contrato:** `.agent/hub/system/scaffolding/keepalive/cloudflare-worker.js`
 
 ---
 
@@ -75,6 +78,7 @@ Database:  PostgreSQL (Supabase)
 - `KEEPALIVE_TOKEN` — receptor está no Supabase
 - `KEEPALIVE_PROJECT_SLUG`
 - `KEEPALIVE_ENVIRONMENT`
+- `KEEPALIVE_URLS` (variável do worker central no Cloudflare)
 
 ---
 
@@ -102,9 +106,10 @@ ANALYTICS_ADMIN_TOKEN=...
 
 ## ✅ Validação
 
-1. **Ping manual:** `curl -X POST https://btdbfspuazgerdbmurza.supabase.co/functions/v1/keepalive -H "Authorization: Bearer [TOKEN]"`
-2. **Logs:** Verifique a Edge Function no Supabase para confirmar pings do Cloudflare.
-3. **Dashboard:** `/admin/sistema.html` — status de Uptime em tempo real.
+1. **Confirmar inclusão no keepvasne:** endpoint do Inelegis presente no `KEEPALIVE_URLS` central.
+2. **Ping manual no receptor:** `curl -X POST https://btdbfspuazgerdbmurza.supabase.co/functions/v1/keepalive -H "Authorization: Bearer [TOKEN]"`
+3. **Logs:** verificar Edge Function no Supabase para confirmar pings recebidos do Cloudflare.
+4. **Dashboard:** `/admin/sistema.html` — status de Uptime em tempo real.
 
 ### Colunas de Compliance (Hub)
 
@@ -123,12 +128,13 @@ No Inelegis, a migration de compatibilidade é:
 
 ## 🚨 Troubleshooting
 
-| Problema                           | Solução                                                                        |
-| ---------------------------------- | ------------------------------------------------------------------------------ |
-| **Keepalive 401**                  | Tokens diferentes. Cloudflare e Supabase devem ter `KEEPALIVE_TOKEN` idêntico. |
-| **Build: ANON_KEY não encontrada** | Adicione `NEXT_PUBLIC_SUPABASE_ANON_KEY` na Vercel e redeploy.                 |
-| **API Routes 500**                 | Verifique `SUPABASE_SERVICE_ROLE_KEY` na Vercel.                               |
-| **Frontend não carrega**           | Adicione ambas as variáveis `NEXT_PUBLIC_*` na Vercel.                         |
+| Problema                           | Solução                                                                              |
+| ---------------------------------- | ------------------------------------------------------------------------------------ |
+| **Keepalive 401**                  | Tokens diferentes. Cloudflare e Supabase devem ter `KEEPALIVE_TOKEN` idêntico.       |
+| **Sem ping no Inelegis**           | Verifique se a URL do Inelegis foi adicionada ao `KEEPALIVE_URLS` do worker central. |
+| **Build: ANON_KEY não encontrada** | Adicione `NEXT_PUBLIC_SUPABASE_ANON_KEY` na Vercel e redeploy.                       |
+| **API Routes 500**                 | Verifique `SUPABASE_SERVICE_ROLE_KEY` na Vercel.                                     |
+| **Frontend não carrega**           | Adicione ambas as variáveis `NEXT_PUBLIC_*` na Vercel.                               |
 
 Ver também: [troubleshooting-vercel-deploy.md](troubleshooting-vercel-deploy.md)
 
@@ -138,10 +144,11 @@ Ver também: [troubleshooting-vercel-deploy.md](troubleshooting-vercel-deploy.md
 
 - [Vercel Dashboard](https://vercel.com/rkvasne/inelegis-app/settings/environment-variables)
 - [Supabase Dashboard](https://supabase.com/dashboard/project/btdbfspuazgerdbmurza)
+- [.agent/hub/docs/guides/guide-keepalive-keepvasne-runbook.md](../../.agent/hub/docs/guides/guide-keepalive-keepvasne-runbook.md)
 - [variaveis-ambiente.md](variaveis-ambiente.md)
 - [auditoria-e-monitoramento.md](../operations/auditoria-e-monitoramento.md)
 
 ---
 
-_Última atualização: 23/02/2026 • v0.3.28 (Hub v0.6.1)_
-_Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_
+_Última atualização: 03/03/2026 • v0.3.28 (Hub v0.6.2)_
+_Editado via: Copilot (VS Code) | Modelo: GPT-5.3-Codex | OS: Windows 11_

@@ -2,7 +2,10 @@
 task: v0.3.12-dashboard-refinement
 status: completed
 priority: high
-last-edited: 13/02/2026
+last-edited: 03/03/2026
+last-edited-via: Copilot (VS Code)
+last-edited-model: GPT-5.3-Codex
+last-edited-os: Windows 11
 ---
 
 # 📊 Task: Dashboard v0.3.12 - Refinement & Detailed Logs
@@ -39,10 +42,10 @@ Transformar o Dashboard Administrativo em uma ferramenta de auditoria de nível 
 
 ## ✅ Checklist de Sucesso
 
-- [ ] Layout responsivo e esteticamente premium.
-- [ ] Filtros do log de auditoria funcionando sem refresh.
-- [ ] Modal de detalhes exibindo fundamentação completa + metadados.
-- [ ] Gráficos sincronizados com o banco de dados Supabase via RPC ou Views.
+- [x] Layout responsivo e esteticamente premium.
+- [x] Filtros do log de auditoria funcionando sem refresh.
+- [x] Modal de detalhes exibindo fundamentação completa + metadados.
+- [x] Gráficos sincronizados com o banco de dados Supabase via RPC ou Views.
 
 ---
 

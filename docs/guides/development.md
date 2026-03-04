@@ -53,9 +53,9 @@ Este arquivo fornece orientações técnicas para desenvolvedores trabalhando ne
 
 **Keepalive (externo)**
 
-- O heartbeat é feito por **Cloudflare Worker** → Supabase Edge Function (não há serviço client-side no `src/js/`).
+- O heartbeat é feito pelo **Keepvasne Keepalive Cloudflare Worker (central)** → Supabase Edge Function (não há serviço client-side no `src/js/`).
 - A Edge Function de keepalive persiste `region` tanto em `keepalive_events` (histórico) quanto em `keepalive` (status atual), mantendo consistência no dashboard de monitoramento.
-- Referências: [scripts/keepalive-worker.js](../../scripts/keepalive-worker.js), [keepalive-inelegis.md](./keepalive-inelegis.md).
+- Referências: [keepalive-inelegis.md](./keepalive-inelegis.md), [guide-keepalive-keepvasne-runbook.md](../../.agent/hub/docs/guides/guide-keepalive-keepvasne-runbook.md).
 
 **[utils/sanitizer.js](../../src/js/utils/sanitizer.js)** e **[utils/escape-html.js](../../src/js/utils/escape-html.js)**
 
@@ -158,5 +158,5 @@ Para garantir a eficiência de leitura por agentes de IA e conformidade com o **
 
 ---
 
-_Última atualização: 26/02/2026 • v0.3.28 (Hub v0.6.1)_
-_Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_
+_Última atualização: 03/03/2026 • v0.3.28 (Hub v0.6.2)_
+_Editado via: Copilot (VS Code) | Modelo: GPT-5.3-Codex | OS: Windows 11_

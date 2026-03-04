@@ -11,7 +11,7 @@ version: 0.3.11
 
 ## 🎯 Objetivo
 
-Toda a infraestrutura técnica e documental está agora operando no padrão **Solo Dev Hub v0.5.5**, garantindo longevidade e facilidade de manutenção para o ecossistema.
+Toda a infraestrutura técnica e documental está agora operando no padrão **Solo Dev Hub v0.6.2**, garantindo longevidade e facilidade de manutenção para o ecossistema.
 O sistema de Auditoria e Monitoramento do Inelegis garante a rastreabilidade técnica de todas as consultas jurídicas realizadas, permitindo:
 
 - **Rastreabilidade**: Identificar qual fundamentação legal foi apresentada para cada consulta.
@@ -50,7 +50,7 @@ UI (Validator/Analyzer) → SearchHistory.add() → POST /api/search-history (Ve
 
 ```
 Fluxo de Status (Keepalive):
-Cloudflare Worker (External Pinger)
+Keepvasne Keepalive Cloudflare Worker (External Pinger central)
     ↓
     Supabase Edge Function (keepalive)
     ↓
@@ -98,6 +98,7 @@ O monitoramento de disponibilidade é feito via **Hub Keepalive Pattern**, utili
 
 - `KEEPALIVE_TOKEN`: Segredo de autenticação (mesmo valor do Cloudflare Worker).
 - `KEEPALIVE_PROJECT_SLUG`: Identificador do projeto (`inelegis`).
+- `KEEPALIVE_ENVIRONMENT`: Ambiente do receptor (`prod` em produção).
 
 > **Detalhes completos:** Consulte [keepalive-inelegis.md](../guides/keepalive-inelegis.md) para checklist de variáveis e troubleshooting.
 
@@ -127,5 +128,5 @@ _Nota: O antigo `analytics.js` foi decomissionado na v0.3.11 em favor deste sist
 
 ---
 
-_Última atualização: 21/02/2026 • v0.3.28 (Hub v0.6.1)_
-_Editado via: Antigravity | Modelo: claude-3.5-sonnet | OS: Windows 11_
+_Última atualização: 03/03/2026 • v0.3.28 (Hub v0.6.2)_
+_Editado via: Copilot (VS Code) | Modelo: GPT-5.3-Codex | OS: Windows 11_

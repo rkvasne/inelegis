@@ -36,7 +36,7 @@ SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6...
 
 ### 3. Executar Migrations
 
-O sistema usa **12 migrations** separadas por domínio. Detalhes em [migrations-status.md](migrations-status.md).
+O sistema usa **13 migrations** separadas por domínio. Detalhes em [migrations-status.md](migrations-status.md).
 
 #### Via CLI (recomendado)
 
@@ -49,7 +49,7 @@ supabase db push
 
 #### Via SQL Editor (Dashboard)
 
-Execute os 12 arquivos em ordem conforme [migrations-status.md](migrations-status.md): crimes_inelegibilidade → historico_consultas → grant_rpc_anon → analytics → keepalive → cleanup_extras_nao_cre → verificar_elegibilidade_v2_compostas → keepalive_hub_compat → hotfix_verificar_elegibilidade_normalizacao_paragrafo → hotfix_cp_177_180_184_base_impeditiva → hotfix_verificar_elegibilidade_failsafe_lacuna_dados → hotfix_artigo_inteiro_impeditivo_enumerados.
+Execute os 13 arquivos em ordem conforme [migrations-status.md](migrations-status.md): crimes_inelegibilidade → historico_consultas → grant_rpc_anon → analytics → keepalive → cleanup_extras_nao_cre → verificar_elegibilidade_v2_compostas → keepalive_hub_compat → hotfix_verificar_elegibilidade_normalizacao_paragrafo → hotfix_cp_177_180_184_base_impeditiva → hotfix_verificar_elegibilidade_failsafe_lacuna_dados → hotfix_artigo_inteiro_impeditivo_enumerados → keepalive_events_rls_service_only.
 
 ### 4. Testar Conexão
 
@@ -137,7 +137,7 @@ Verifique se o `.env.local` está preenchido corretamente.
 
 ### Erro: "relation does not exist"
 
-Execute as **migrations** (`supabase db push` ou os 12 arquivos SQL no Dashboard — ver [migrations-status.md](migrations-status.md)).
+Execute as **migrations** (`supabase db push` ou os 13 arquivos SQL no Dashboard — ver [migrations-status.md](migrations-status.md)).
 
 ### Erro 401 (Unauthorized)
 
@@ -153,5 +153,5 @@ Verifique se a `anon key` está correta e se RLS das tabelas permite acesso.
 
 ---
 
-_Última atualização: 26/02/2026 • v0.3.28 (Hub v0.6.1)_
-_Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_
+_Última atualização: 03/03/2026 • v0.3.28 (Hub v0.6.2)_
+_Editado via: Copilot (VS Code) | Modelo: GPT-5.3-Codex | OS: Windows 11_

@@ -22,13 +22,13 @@ O Inelegis é uma aplicação web estática com frontend em Vanilla JS e backend
 
 ## 2. Camadas e Responsabilidades
 
-| Camada                   | Responsabilidade                              | Artefatos principais                                                                       |
-| ------------------------ | --------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| Interface                | Coleta de entrada e renderização de resultado | `public/consulta.html`, `src/js/ui/validator-ui.js`, `src/js/ui/result-renderer.js`        |
-| Serviço Frontend         | Orquestra RPCs e normalização de payload      | `src/js/services/validator-service.js`                                                     |
-| Domínio Jurídico (DB)    | Regras de elegibilidade e exceções            | `supabase/migrations/*.sql`, RPCs `verificar_elegibilidade` e `verificar_elegibilidade_v2` |
-| Persistência Operacional | Histórico, analytics e keepalive              | `historico_consultas`, `analytics_events`, `keepalive`, `keepalive_events`                 |
-| Observabilidade          | Uptime e auditoria técnica                    | `scripts/keepalive-worker.js`, `docs/operations/auditoria-e-monitoramento.md`              |
+| Camada                   | Responsabilidade                              | Artefatos principais                                                                                                          |
+| ------------------------ | --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| Interface                | Coleta de entrada e renderização de resultado | `public/consulta.html`, `src/js/ui/validator-ui.js`, `src/js/ui/result-renderer.js`                                           |
+| Serviço Frontend         | Orquestra RPCs e normalização de payload      | `src/js/services/validator-service.js`                                                                                        |
+| Domínio Jurídico (DB)    | Regras de elegibilidade e exceções            | `supabase/migrations/*.sql`, RPCs `verificar_elegibilidade` e `verificar_elegibilidade_v2`                                    |
+| Persistência Operacional | Histórico, analytics e keepalive              | `historico_consultas`, `analytics_events`, `keepalive`, `keepalive_events`                                                    |
+| Observabilidade          | Uptime e auditoria técnica                    | Keepvasne Keepalive Worker (central), `supabase/functions/keepalive/index.ts`, `docs/operations/auditoria-e-monitoramento.md` |
 
 ---
 
@@ -44,7 +44,7 @@ O Inelegis é uma aplicação web estática com frontend em Vanilla JS e backend
 
 ### 3.2 Keepalive
 
-1. Worker externo envia heartbeat.
+1. Keepvasne Keepalive Worker (central) envia heartbeat.
 2. Edge Function `keepalive` persiste evento e status atual.
 3. Dashboard administrativo lê estado e recência.
 
@@ -90,5 +90,5 @@ O Inelegis é uma aplicação web estática com frontend em Vanilla JS e backend
 
 ---
 
-_Última atualização: 26/02/2026 • v0.3.28_
-_Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_
+_Última atualização: 03/03/2026 • v0.3.28_
+_Editado via: Copilot (VS Code) | Modelo: GPT-5.3-Codex | OS: Windows 11_

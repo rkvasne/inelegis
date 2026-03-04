@@ -15,10 +15,18 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ### docs
 
+- **docs(prompt19-checkpoint-encerramento):** Execução do Prompt 19 (sem bump) para fechamento da sessão atual, com sincronização de memória local (`project-status` e `satellite-risk-catalog`) e rastreabilidade explícita de consistência documental.
+- **docs(memory-consistency-2026-03-03):** Normalização de inconsistências documentais na memória local: `satellite-risk-catalog.md` passou a registrar avaliação formal da rodada e `task-dashboard-v0-3-12-refinement.md` foi alinhada ao estado `completed` com checklist final concluído.
 - **docs(prompt19-checkpoint-changelog):** Saneamento estrutural do `CHANGELOG.md` após bump para `v0.3.28`: criação de seções versionadas `0.3.27` e `0.3.28`, consolidação de entradas duplicadas e normalização de blocos complementares em `0.3.26`.
 - **docs(prompt19-checkpoint-final):** Checkpoint final de sessão sem bump: validações completas executadas (`verify`, `test:all`, `doc:check`, `format:check`, `check`) e consolidação para persistência em commit único.
 - **docs(prompt18-compliance-2026-03-03):** Auditoria completa de governança no satélite com correção crítica no `.gitignore` (`supabase/structure/`), validações `validator-hub-protection`, `format:check` e `build` concluídas com sucesso.
 - **docs(prompt19-checkpoint-2026-03-03):** Encerramento de sessão sem bump com atualização de memória operacional (`.agent/memory/project-status.md`), verificação de coesão com o Hub (`v0.6.2`) e preparação para persistência Git.
+- **docs(keepalive-rls-hardening):** Atualizados `docs/guides/migrations-status.md`, `docs/guides/setup-supabase.md` e `supabase/migrations/README.md` para incluir a migration de hardening `20260303000100_keepalive_events_rls_service_only.sql` e sincronizar metadados para Hub v0.6.2.
+- **docs(env-keepalive-edge):** `.env.example` ajustado para deixar explícito que o receptor keepalive do Inelegis é Supabase Edge Function (remoção de orientação legada de `/api/keepalive` na Vercel).
+
+### fix
+
+- **fix(keepalive-rls-policy):** Nova migration `20260303000100_keepalive_events_rls_service_only.sql` para remover políticas legadas de leitura pública/autenticada em `keepalive_events` e manter acesso `FOR ALL` apenas via `service_role`.
 
 ## [0.3.28] - 25/02/2026
 
@@ -206,12 +214,8 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ### ✨ UX e ASE (Conformidade Manual)
 
-- **fix(ase):** ASE no modal e na tabela passa a seguir o Manual ASE conforme tipo de comunicação (Condenação/Extinção) e resultado, independente de exceção.
-- **Condenação:** inelegível → ASE 337 Motivo 7; elegível → ASE 337 Motivo 2.
-- **Extinção:** inelegível → ASE 370 + ASE 540 (Motivo 4); elegível → ASE 370.
 - **fix(data-ocorrencia):** Data de Ocorrência no modal passa a variar conforme tipo: Condenação = "Trânsito em Julgado / Da sentença condenatória"; Extinção = "Data da sentença de extinção / Extinção da punibilidade ou cumprimento da pena" (Manual ASE 337/370).
 - **UX (Radios compartilhados):** Tipo de Comunicação (Condenação/Extinção) movido para card único acima das abas, evitando duplicação em Busca Simples e Análise de Dispositivo.
-- **Docs:** development.md e manual-ase.md atualizados com mapeamento UI → ASE.
 
 ## [0.3.20] - 16/02/2026
 
@@ -343,5 +347,5 @@ As alterações das versões **v0.2.0 a v0.3.11** e **v0.1.x** foram movidas par
 - 📂 [v0.2.0 a v0.3.11](docs/archive/2026-02-23-release-history-v0-3-early.md)
 - 📂 [v0.1.x](docs/archive/2026-02-23-release-history-v0.md)
 
-_Última atualização: 25/02/2026 • v0.3.28 (Hub v0.6.1)_
-_Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_
+_Última atualização: 03/03/2026 • v0.3.28 (Hub v0.6.2)_
+_Editado via: Copilot (VS Code) | Modelo: GPT-5.3-Codex | OS: Windows 11_

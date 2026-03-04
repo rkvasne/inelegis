@@ -33,12 +33,13 @@ Estas variáveis alimentam as **Edge Functions** (Monitoramento). Configure no D
 
 ## ⏰ 3. Despertador Externo (Cloudflare)
 
-Configurações para o **Worker** que atua como disparador do sinal de vida.
+Configurações para o **Keepvasne Keepalive Worker central** que atua como disparador do sinal de vida da frota.
 
-| Variável          | Valor/Formato                                     | Observação               |
-| :---------------- | :------------------------------------------------ | :----------------------- |
-| `KEEPALIVE_URL`   | `https://[id].supabase.co/functions/v1/keepalive` | Ponto final do receptor. |
-| `KEEPALIVE_TOKEN` | O mesmo hash configurado nos Secrets do Supabase. | Sincronia obrigatória.   |
+| Variável                | Valor/Formato                                                     | Observação                                     |
+| :---------------------- | :---------------------------------------------------------------- | :--------------------------------------------- |
+| `KEEPALIVE_URLS`        | CSV com endpoints keepalive da frota (incluindo o Inelegis)       | Contrato oficial do worker central.            |
+| `KEEPALIVE_TOKEN`       | O mesmo hash configurado nos Secrets do Supabase.                 | Sincronia obrigatória entre pinger e receptor. |
+| `KEEPALIVE_ADMIN_TOKEN` | Token opcional para disparo manual autenticado no worker central. | Recomendado para operação segura.              |
 
 ---
 
@@ -93,7 +94,7 @@ npm run supabase:config
 
 1.  **Vercel ≠ Keepalive**: Devido à arquitetura desacoplada do Inelegis, o `KEEPALIVE_TOKEN` **não** é necessário na Vercel (menos vetores de ataque).
 2.  **Segurança de Chaves**: Nunca exponha a `SERVICE_ROLE_KEY` ou o `HUB_ACCESS_TOKEN` em arquivos públicos.
-3.  **Ambientes**: Identifique sempre a variável `KEEPALIVE_ENVIRONMENT` (ex: `prod`, `local`) para não poluir os gráficos de produção durante testes.
+3.  **Contrato do pinger**: use sempre `KEEPALIVE_URLS` no Cloudflare central (não usar `KEEPALIVE_URL` legado).
 
 **Ver também:**
 
@@ -102,5 +103,5 @@ npm run supabase:config
 
 ---
 
-_Última atualização: 23/02/2026 • v0.3.28 (Hub v0.6.1)_
-_Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_
+_Última atualização: 03/03/2026 • v0.3.28 (Hub v0.6.2)_
+_Editado via: Copilot (VS Code) | Modelo: GPT-5.3-Codex | OS: Windows 11_
