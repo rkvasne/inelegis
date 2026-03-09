@@ -90,5 +90,5 @@ O Inelegis é uma aplicação web estática com frontend em Vanilla JS e backend
 
 ---
 
-_Última atualização: 03/03/2026 • v0.3.28_
-_Editado via: Copilot (VS Code) | Modelo: GPT-5.3-Codex | OS: Windows 11_
+_Última atualização: 09/03/2026 • v0.3.29 (Hub v0.6.4)_
+_Editado via: Antigravity | Modelo: gemini-2.0-pro | OS: Windows 11_
