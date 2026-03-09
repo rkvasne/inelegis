@@ -34,7 +34,7 @@ description: "Expert in React Native and Flutter mobile development. Use for cro
 
 > **Configure estas regras nas settings da IDE (válido para TODOS os projetos)**  
 > Compatível com: VS Code + Copilot, Cursor, Windsurf, Trae, Claude Code, Gemini CLI
-> Versão: 0.6.2 (AI-First) | Atualizado: Fevereiro 2026
+> Versão: 0.6.4 (AI-First) | Atualizado: Fevereiro 2026
 
 ---
 
@@ -422,7 +422,7 @@ _Editado via: [IDE] | Modelo: [LLM] | OS: [Sistema]_
 
 ---
 
-_Última atualização: 20/02/2026 • v0.6.2_
+_Última atualização: 20/02/2026 • v0.6.4_
 _Editado via: Antigravity | Modelo: gemini-2.0-pro-exp-02-05 | OS: Windows 11_
 
 ---

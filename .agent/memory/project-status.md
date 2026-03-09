@@ -1,10 +1,20 @@
 # 📊 Project Status & Context
 
-> **Last Updated:** 03/03/2026
+> **Last Updated:** 09/03/2026
 > **Current Phase:** Testes com usuários reais / Zeladoria
-> **Project Version:** v0.3.28 (SSoT Synchronized)
+> **Project Version:** v0.3.29 (SSoT Synchronized)
 
-## 🎯 Objetivos Concluídos (Sessão 15/02/2026 – Histórico Expandido)
+## 📅 Log de Sessão / Últimas Atualizações
+
+### 09.03.2026 - Hub Sync v0.6.4 & DNA Regeneration
+
+- **Satellite Sync (Prompt 23):** Executado o ciclo de sincronização técnica e de governança com o Solo Dev Hub (v0.6.4).
+- **Governança:** `AGENTS.md` e `GEMINI.md` atualizados para o padrão do Hub v0.6.4, incluindo novas assinaturas e travas de proteção.
+- **DNA Regeneration:** Prompts e Cursor Rules regenerados para garantir alinhamento total com as personas especialistas.
+- **Validação:** Ambiente local validado via `npm run verify` (100% CONFORME).
+- **Encerramento Diário (Prompt 19):** Checkpoint final executado com persistência via Git.
+
+### 03.03.2026 - Higiene de Memória & Compliance Keepalive
 
 - [x] **fix(historico):** Migration `20260225000100_historico_consultas.sql` — função `add_to_history` expandida para 12 parâmetros (inciso, alinea, paragrafo, motivo_detalhado, excecoes_citadas, metadata). API `api/search-history.js` passou a usar RPC em vez de INSERT direto; mapeamento completo em getHistory/addToHistory. Frontend `search-history.js` mapeia todos os campos no fetch.
 - [x] **docs:** api-reference, auditoria-e-monitoramento, migrations-status e setup-supabase atualizados.
@@ -145,5 +155,5 @@
 
 ---
 
-_Última atualização: 03/03/2026 • v0.3.28 (Hub v0.6.2)_
-_Editado via: Copilot (VS Code) | Modelo: GPT-5.3-Codex | OS: Windows 11_
+_Última atualização: 09/03/2026 • v0.3.29_
+_Editado via: Antigravity | Modelo: gemini-2.0-pro | OS: Windows 11_

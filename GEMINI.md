@@ -6,7 +6,7 @@ trigger: always_on
 
 > **Hub Link:** `.agent/hub/` (READ-ONLY)
 > **Priority:** P0 (GEMINI.md) > P1 (Persona) > P2 (Skill)
-> **Hub Version:** v0.6.2
+> **Hub Version:** v0.6.4
 > **Isolamento:** Hub ↔ Satélite (Governança Bidirecional)
 
 Este projeto consome inteligência centralizada do Solo Dev Hub através de Junctions.
@@ -131,6 +131,6 @@ Ao finalizar uma tarefa:
 
 ---
 
-_Configurado via Solo Dev Hub (v0.6.2)_
-_Última atualização: 26/02/2026_
-_Editado via: Codex CLI | Modelo: GPT-5 | OS: Windows 11_
+_Configurado via Solo Dev Hub (v0.6.4)_
+_Última atualização: 09/03/2026_
+_Editado via: Antigravity | Modelo: gemini-2.0-pro | OS: Windows 11_

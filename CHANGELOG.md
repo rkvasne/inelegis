@@ -11,27 +11,13 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ---
 
-## [Unreleased]
+## [0.3.29] - 09/03/2026
 
-### security
+### chore
 
-- **security(npm-audit-fix):** Correção de 3 vulnerabilidades (1 crítica, 1 alta, 1 moderada) via `npm audit fix`, atualizando pacotes `ajv`, `basic-ftp` e `minimatch`.
-- **security(keepalive-rls):** Migration `20260303000100_keepalive_events_rls_service_only.sql` aplicada para endurecer RLS em `keepalive_events`, restringindo acesso total à `service_role` (segurança interna).
-
-### docs
-
-- **docs(prompt19-checkpoint-final):** Execução do Prompt 19 (checkpoint de encerramento) com 100% de conformidade (`npm run verify` OK), sincronização de memória local (`project-status.md` e `satellite-risk-catalog.md`) e fechamento de sessão com persistência via Git.
-- **docs(memory-consistency-2026-03-03):** Normalização de inconsistências documentais na memória local: `satellite-risk-catalog.md` passou a registrar avaliação formal da rodada e `task-dashboard-v0-3-12-refinement.md` foi alinhada ao estado `completed` com checklist final concluído.
-- **docs(prompt19-checkpoint-changelog):** Saneamento estrutural do `CHANGELOG.md` após bump para `v0.3.28`: criação de seções versionadas `0.3.27` e `0.3.28`, consolidação de entradas duplicadas e normalização de blocos complementares em `0.3.26`.
-- **docs(prompt19-checkpoint-final):** Checkpoint final de sessão sem bump: validações completas executadas (`verify`, `test:all`, `doc:check`, `format:check`, `check`) e consolidação para persistência em commit único.
-- **docs(prompt18-compliance-2026-03-03):** Auditoria completa de governança no satélite com correção crítica no `.gitignore` (`supabase/structure/`), validações `validator-hub-protection`, `format:check` e `build` concluídas com sucesso.
-- **docs(prompt19-checkpoint-2026-03-03):** Encerramento de sessão sem bump com atualização de memória operacional (`.agent/memory/project-status.md`), verificação de coesão com o Hub (`v0.6.2`) e preparação para persistência Git.
-- **docs(keepalive-rls-hardening):** Atualizados `docs/guides/migrations-status.md`, `docs/guides/setup-supabase.md` e `supabase/migrations/README.md` para incluir a migration de hardening `20260303000100_keepalive_events_rls_service_only.sql` e sincronizar metadados para Hub v0.6.2.
-- **docs(env-keepalive-edge):** `.env.example` ajustado para deixar explícito que o receptor keepalive do Inelegis é Supabase Edge Function (remoção de orientação legada de `/api/keepalive` na Vercel).
-
-### fix
-
-- **fix(keepalive-rls-policy):** Nova migration `20260303000100_keepalive_events_rls_service_only.sql` para remover políticas legadas de leitura pública/autenticada em `keepalive_events` e manter acesso `FOR ALL` apenas via `service_role`.
+- **chore(governança):** Sincronização obrigatória com o Solo Dev Hub v0.6.4 (Prompt #23). Atualização de `AGENTS.md` e `GEMINI.md` com as novas diretrizes de Governança, Proteção de Hub e assinaturas.
+- **chore(dna):** Regeneração completa de prompts e regras IDE para alinhar o projeto com as personas especialistas atualizadas.
+- **chore(verify):** Validação técnica do ambiente local via `npm run verify` (100% CONFORME).
 
 ## [0.3.28] - 25/02/2026
 

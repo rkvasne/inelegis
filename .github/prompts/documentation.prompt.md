@@ -34,7 +34,7 @@ description: "Escrita técnica, manutenção de documentação, changelogs e gui
 
 > **Configure estas regras nas settings da IDE (válido para TODOS os projetos)**  
 > Compatível com: VS Code + Copilot, Cursor, Windsurf, Trae, Claude Code, Gemini CLI
-> Versão: 0.6.2 (AI-First) | Atualizado: Fevereiro 2026
+> Versão: 0.6.4 (AI-First) | Atualizado: Fevereiro 2026
 
 ---
 
@@ -422,7 +422,7 @@ _Editado via: [IDE] | Modelo: [LLM] | OS: [Sistema]_
 
 ---
 
-_Última atualização: 20/02/2026 • v0.6.2_
+_Última atualização: 20/02/2026 • v0.6.4_
 _Editado via: Antigravity | Modelo: gemini-2.0-pro-exp-02-05 | OS: Windows 11_
 
 ---
@@ -588,7 +588,7 @@ Para criar documentação de regras (em `brain/stacks`, `brain/personas`), siga 
 - **Redundância entre docs é permitida** quando necessária para evitar combinações.
 - **Sem redundância dentro do arquivo:** evite repetir o mesmo ponto no mesmo doc.
 - **Base universal padronizada:** use o bloco "Base Universal (Core)" quando fizer sentido.
-- **Hubs continuam válidos:** [README.md](../../README.md), [docs/README.md](../../docs/README.md), brain/personas/README.md (`../../brain/personas/README.md`).
+- **Hubs continuam válidos:** README.md (`../../README.md`), docs/README.md (`../../docs/README.md`), brain/personas/README.md (`../../brain/personas/README.md`).
 
 ---
 
