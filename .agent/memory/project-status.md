@@ -6,6 +6,11 @@
 
 ## 📅 Log de Sessão / Últimas Atualizações
 
+### 08.06.2026 - Junction Hub corrigida
+
+- **Submodule removido:** `.agent/hub` deixou de ser submodule Git (incorreto) e passou a junction local para `D:\Agents`, alinhado ao padrão do ecossistema.
+- **Validação:** `validator-integrity.js` acessível via junction; pasta permanece em `.gitignore`.
+
 ### 09.03.2026 - Hub Sync v0.6.4 & DNA Regeneration
 
 - **Satellite Sync (Prompt 23):** Executado o ciclo de sincronização técnica e de governança com o Solo Dev Hub (v0.6.4).
@@ -155,5 +160,5 @@
 
 ---
 
-_Última atualização: 09/03/2026 • v0.3.29_
-_Editado via: Antigravity | Modelo: gemini-2.0-pro | OS: Windows 11_
+_Última atualização: 08/06/2026 • v0.3.29_
+_Editado via: Cursor | Modelo: Composer | OS: Windows 11_
