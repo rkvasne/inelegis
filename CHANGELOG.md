@@ -1,4 +1,4 @@
-﻿# Changelog
+# Changelog
 
 > Navegação: [README do projeto](README.md) • [Documentação](docs/README.md)
 
@@ -21,6 +21,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ### docs
 
+- **docs(arquitetura):** adiciona documento canônico `ARCHITECTURE.md` na raiz do repositório, alinhado à documentação técnica em `docs/architecture-and-adr.md` e aos padrões do pacote Eleitoral.
 - **docs(env):** `.env.example` — comentário do keepalive restaurado para Supabase Edge Function `/functions/v1/keepalive` e `KEEPALIVE_PROJECT_SLUG=inelegis`.
 - **docs(memória):** log de sessão em formato ISO (`### AAAA-MM-DD — Título`) + entrada do sync v0.12.1; produto permanece em v0.3.29 sem bump.
 - **docs(prompt19-checkpoint):** Checkpoint com documentação, testes, commit e push sem bump após o Prompt 23.
